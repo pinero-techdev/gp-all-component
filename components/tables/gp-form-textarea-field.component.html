@@ -1,0 +1,6 @@
+<textarea name="__field__{{formField.fieldMetadata.fieldName}}"
+          pInputTextarea
+          [(ngModel)]="currentValueText"
+          rows="{{rows}}"
+          (change)="onFieldChange()"
+          [disabled]="controlDisabled()"></textarea>

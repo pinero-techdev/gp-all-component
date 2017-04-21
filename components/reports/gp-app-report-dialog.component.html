@@ -1,0 +1,69 @@
+<div class="ui-grid ui-grid-responsive ui-grid-pad">
+    <div class="ui-grid-row">
+        <h2 class="BigTopic">Listado - {{_reportTitle}}</h2>
+    </div>
+
+    <div *ngIf="reportFields.length > 0">
+        <div class="ContainerIndent">
+            <div class="Card ShadowEffect">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad">
+                    <div class="ui-grid-row">
+                        <br/>
+                    </div>
+                    <div *ngFor="let element of reportFields; let i = index;" class="ui-grid-row">
+                        <div *ngFor="let msg of element.fieldMsgs" class="ui-messages-error">
+                            <i class="fa fa-close"></i>&nbsp;{{msg.detail}}
+                        </div>
+                        <div class="ui-grid-col-2">
+                            <label class="ui-outputlabel">{{element.fieldMetadata.displayInfo.fieldLabel}}</label>
+                        </div>
+                        <div class="ui-grid-col-8">
+                            <gp-form-time-field *ngIf="element.formFieldType == 'gp-form-time-field'"
+                                                [formField]="element"></gp-form-time-field>
+                            <gp-form-text-field *ngIf="element.formFieldType == 'gp-form-text-field'"
+                                                [formField]="element"></gp-form-text-field>
+                            <gp-form-textarea-field *ngIf="element.formFieldType == 'gp-form-textarea-field'"
+                                                    [formField]="element"></gp-form-textarea-field>
+                            <gp-form-dropdown-field *ngIf="element.formFieldType == 'gp-form-dropdown-field'"
+                                                    [formField]="element" (valueChanged)="changeEvent($event)" ></gp-form-dropdown-field>
+                            <gp-form-dropdown-related-field *ngIf="element.formFieldType == 'gp-form-dropdown-related-field'"
+                                                    [formField]="element" [relatedField]="fieldChanged"></gp-form-dropdown-related-field>
+                            <gp-form-switch-field *ngIf="element.formFieldType == 'gp-form-switch-field'"
+                                                  [formField]="element"></gp-form-switch-field>
+                            <gp-form-checkbox-field *ngIf="element.formFieldType == 'gp-form-checkbox-field'"
+                                                    [formField]="element"></gp-form-checkbox-field>
+                            <gp-form-calendar-field *ngIf="element.formFieldType == 'gp-form-calendar-field'"
+                                                    [formField]="element"></gp-form-calendar-field>
+                            <gp-form-wysiwyg-field *ngIf="element.formFieldType == 'gp-form-wysiwyg-field'"
+                                                   [formField]="element"></gp-form-wysiwyg-field>
+                        </div>
+                    </div>
+                    <p-growl [value]="msgsDialog" [sticky]="true"></p-growl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+            <button
+                    type="button"
+                    label="Aceptar"
+                    pButton
+                    (click)="openReport()"
+                    class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+                    icon="ui-icon-done"
+                    aria-disabled="false">
+            </button>
+        </div>
+        <div class="ui-grid-col-3">
+            <button type="button"
+                    label="Cancelar"
+                    pButton
+                    (click)="goHome()"
+                    class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+                    icon="ui-icon-clear"
+                    aria-disabled="false">
+            </button>
+        </div>
+    </div>
+</div>

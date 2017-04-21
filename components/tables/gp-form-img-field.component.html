@@ -1,0 +1,9 @@
+<img [src]="currentValueText" style="width: 50%; max-height: 50%;" *ngIf="currentValueText"/>
+<input name="__field__{{formField.fieldMetadata.fieldName}}"
+       pInputText
+       type="text"
+       [(ngModel)]="currentValueText"
+       [maxlength]="maxLength"
+       [class]="textboxClass"
+       (change)="onFieldChange()"
+       [disabled]="controlDisabled()" />

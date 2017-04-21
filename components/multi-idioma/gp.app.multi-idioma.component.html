@@ -1,0 +1,99 @@
+<div class="center">
+    <button type="button" pButton icon="ui-icon-language" (click)="despliegaTraducciones()">
+    </button>
+</div>
+
+<p-dialog [(visible)]="visualizarTablaTraducciones" header="Mantenimiento traducciones - {{campoDescripcion}}"
+          modal="modal" width="1000" minHeight="600" showEffect="fade" hideEffect="fade">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad">
+        <div class="ui-grid-col-12">
+            <div class="ui-grid-row" *ngFor="let traduccion of elementosTraducciones">
+                <div class="ui-md-1 bandera bandera-{{traduccion.idiomaPais.toLowerCase()}}"
+                     *ngIf="traduccion.idiomaPais != null"
+                     pTooltip="{{traduccion.idiomaPais}}" tooltipPosition="top">
+                </div>
+                <div class="ui-md 1 bandera sin-bandera" *ngIf="traduccion.idiomaPais == null">
+                </div>
+                <div [class.ui-md-10]="habilitarEdicionHTML"
+                     [class.ui-md-11]="!habilitarEdicionHTML">
+                    <span class="md-inputfield" style="width:100%; padding-top:1%;">
+                        <input pInputText style="font-size: large;" type="text"
+                            *ngIf="!habilitarEdicionHTML || !contieneHtml(traduccion.idiomaPaisTraduccion) "
+                            class="ui-inputtext ui-corner-all ui-state-default"
+                            [(ngModel)]="traduccion.idiomaPaisTraduccion">
+                        <input style="font-size: large; text-align: center" type="text"
+                            *ngIf="contieneHtml(traduccion.idiomaPaisTraduccion) && habilitarEdicionHTML"
+                            class="ui-inputtext ui-corner-all ui-state-default"
+                            disabled="true"
+                            value="*****     CONTIENE HTML -  PULSE BOTÓN PARA EDITAR     ****">
+                    </span>
+                </div>
+                <div clas="ui-md-1" *ngIf="habilitarEdicionHTML">
+                    <button pButton label="HTML" type="button" icon="ui-icon-edit"
+                            [class.contiene-html]="contieneHtml(traduccion.idiomaPaisTraduccion)"
+                            (click)="mostrarDialogoEdicionHTML(traduccion)"></button>
+                </div>
+            </div>
+        </div>
+        <gp-app-loading-indicator *ngIf="elementosTraducciones == null"
+                                  style="width:100%;"></gp-app-loading-indicator>
+        <p-footer *ngIf="elementosTraducciones != null && visualizarTablaTraducciones">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-8"></div>
+                <div class="ui-grid-col-2">
+                    <button pButton label="Aceptar" type="button" icon="ui-icon-done"
+                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+                            (click)="guardarCambios()"></button>
+                </div>
+                <div class="ui-grid-col-2">
+                    <button pButton label="Salir" type="button" icon="ui-icon-clear"
+                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+                            (click)="cerrarEdicionTraduccion()"></button>
+                </div>
+            </div>
+        </p-footer>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="visualizarEdicionHTML" header="Traducción - {{traduccionIdiomaHTML}}"
+          modal="modal" width="1000" responsive="true" showEffect="fade" hideEffect="fade">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad">
+        <div class="ui-grid-col-12">
+            <div class="ui-grid-row">
+                <p-editor [(ngModel)]="traduccionTextoHTML" [style]="{'height':'300px', 'width':'970px'}">
+                    <p-header>
+               <span class="ql-format-group">
+                    <span title="Bold" class="ql-format-button ql-bold">
+                        <button class="ql-bold" aria-label="Bold"></button>
+                    </span>
+                    <span class="ql-format-separator"></span>
+                    <span title="Italic" class="ql-format-button ql-italic">
+                        <button class="ql-italic" aria-label="Italic"></button>
+                    </span>
+                    <span class="ql-format-separator"></span>
+                    <span title="Underline" class="ql-format-button ql-underline">
+                        <button class="ql-underline" aria-label="Underline"></button>
+                    </span>
+                    <span class="ql-format-separator"></span>
+                    <span title="Strikethrough" class="ql-format-button ql-strike"></span>
+                </span>
+                    </p-header>
+                </p-editor>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-grid-row" style="padding-top:1%;">
+                <div class="ui-grid-col-7"></div>
+                <div class="ui-grid-col-2">
+                    <button pButton label="Guardar" type="button" icon="ui-icon-done"
+                            (click)="guardarCambiosHTML()"></button>
+                </div>
+                <div class="ui-grid-col-1"></div>
+                <div class="ui-grid-col-2">
+                    <button pButton label="Salir" type="button" icon="ui-icon-clear"
+                            (click)="cerrarEdicionHTML()"></button>
+                </div>
+            </div>
+        </p-footer>
+    </div>
+</p-dialog>

@@ -1,0 +1,26 @@
+<div class="loginbodyblue">
+    <div class="card login-panel ui-fluid">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1>{{globalService.applicationTitle}}</h1>
+            </div>
+            <div class="ui-g-12">
+            <span class="md-inputfield">
+                <input type="text" pInputText autocomplete="off" [(ngModel)]="usuario" (keyup.enter)="login()">
+                <label>Usuario</label>
+            </span>
+            </div>
+            <div class="ui-g-12">
+            <span class="md-inputfield">
+                <input type="password" pInputText autocomplete="off" [(ngModel)]="password" (keyup.enter)="login()">
+                <label>Password</label>
+            </span>
+            </div>
+            <div class="ui-g-12">
+                <button type="button" pButton label="Sign In" icon="ui-icon-person" (click)="login()"></button>
+            </div>
+
+            <p-messages [(value)]="msgs"></p-messages>
+        </div>
+    </div>
+</div>
