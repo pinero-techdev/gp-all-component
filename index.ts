@@ -27,7 +27,6 @@ export * from "./components/tables/gp-form-time-field.component";
 export * from "./components/tables/gp-form-wysiwyg-field.component";
 //Resources (Classes)
 export * from "./resources/data/authGuard";
-export * from "./resources/data/errorInformation";
 export * from "./resources/data/gpSelector";
 export * from "./resources/data/gpUtil";
 export * from "./resources/data/loginRq";
