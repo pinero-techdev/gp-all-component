@@ -60,6 +60,12 @@ a {
     margin-left: -10px;
 }
 
+.ui-button:disabled,
+button[disabled] {
+    cursor: default !important;
+    background-color: #676767;
+}
+
 /** TOPBAR **/
 .layout-container .topbar .topbar-left {
     background-color: #ffffff;
@@ -104,7 +110,7 @@ p-dropdown {
 }
 
 p-dropdown > .ui-dropdown {
-    width : 100%;
+    width: 100%;
 }
 
 .close-btn {
@@ -167,6 +173,7 @@ p-dropdown > .ui-dropdown {
     height: inherit;
     margin: 0 auto;
 }
+
 .ui-dialog.ui-dialog-responsive {
     width: 90% !important;
 }
@@ -197,22 +204,22 @@ p-dropdown > .ui-dropdown {
     z-index: 2000;
 }
 
-.nivel-ficha{
+.nivel-ficha {
     width: 38px;
     height: 38px;
 }
 
-.nivel-consulta{
+.nivel-consulta {
     width: 30px;
     height: 30px;
 }
 
-.nivel-concierge{
+.nivel-concierge {
     width: 12px;
     height: 12px;
 }
 
-.azul{
+.azul {
     background-color: #3F51B5;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
@@ -226,46 +233,46 @@ p-dropdown > .ui-dropdown {
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
-.dorado{
+.dorado {
     background-color: #988642;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
-.negro{
+.negro {
     background-color: black;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
-.circular{
+.circular {
     border-radius: 50%;
 }
 
-.verde{
+.verde {
     background-color: darkgreen;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
-.amarillo{
+.amarillo {
     background-color: yellow;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
-.rojo{
+.rojo {
     background-color: red;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
-.naranja{
+.naranja {
     background-color: orange;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
@@ -281,6 +288,7 @@ p-dropdown > .ui-dropdown {
 .nopad {
     padding: 0px;
 }
+
 .no-pad-top {
     padding-top: 0px;
 }
@@ -332,19 +340,20 @@ body .ui-datatable tbody tr td {
 }
 
 .colorbox-icontext {
-  margin-top: 25px;
-  margin-bottom: 20px;
-  font-size: 24px;
-  display: inline-block;
-  width: 100%;
-  color: #ffffff;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    display: inline-block;
+    width: 100%;
+    color: #ffffff;
 }
 
 /*componente edicion movimientos */
 body .ui-datatable .ui-datatable-header .ui-inputtext {
     color: #212121;
 }
-body .ui-datatable .ui-datatable-header .ui-tabview-panels{
+
+body .ui-datatable .ui-datatable-header .ui-tabview-panels {
     color: #212121;
 }
 
@@ -357,41 +366,43 @@ body .ui-datatable .ui-datatable-header .ui-tabview-panels{
 /*FORMULARIOS*/
 
 .md-dropboxfield {
-  display: block;
-  position: relative;
-}
-
-.md-dropboxfield > label{
-  top: -20px;
-  font-size: 12px;
-  color: #3F51B5;
+    display: block;
+    position: relative;
 }
 
 .md-dropboxfield > label {
-  font-weight: normal;
-  position: absolute;
-  pointer-events: none;
-  left: 5px;
+    top: -20px;
+    font-size: 12px;
+    color: #3F51B5;
 }
 
-.menuPreferencia .ui-panelmenu .ui-panelmenu-header .ui-panelmenu-icon{
+.md-dropboxfield > label {
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+}
+
+.menuPreferencia .ui-panelmenu .ui-panelmenu-header .ui-panelmenu-icon {
     position: initial;
 }
 
-.map{
-  position: relative;
-  visibility: visible;
-  z-index: 1;
+.map {
+    position: relative;
+    visibility: visible;
+    z-index: 1;
 }
 
-.localizador{
-  position: absolute;
-  visibility: visible;
-  z-index: 2;
+.localizador {
+    position: absolute;
+    visibility: visible;
+    z-index: 2;
 }
-.no-label{
-  margin-top: 0.35em;
+
+.no-label {
+    margin-top: 0.35em;
 }
+
 .full-width {
     width: 100% !important;
 }
@@ -403,46 +414,48 @@ body .ui-datatable .ui-datatable-header .ui-tabview-panels{
     width: 48px;
     height: 48px;
 }
-.bandera-ruso{
+
+.bandera-ruso {
     background-image: url('../images/flags/ruso.png');
 }
 
-.bandera-español{
+.bandera-español {
     background-image: url('../images/flags/español.png');
 }
 
-.bandera-frances{
+.bandera-frances {
     background-image: url('../images/flags/frances.png');
 }
 
-.bandera-ingles{
+.bandera-ingles {
     background-image: url('../images/flags/ingles.png');
 }
 
-.bandera-italiano{
+.bandera-italiano {
     background-image: url('../images/flags/italiano.png');
 }
 
-.bandera-portugues{
+.bandera-portugues {
     background-image: url('../images/flags/portugues.png');
 }
 
-.bandera-aleman{
+.bandera-aleman {
     background-image: url('../images/flags/aleman.png');
 }
 
-.sin-bandera{
+.sin-bandera {
     background-image: url('../images/flags/sin-bandera.png');
 }
 
-.contiene-html{
+.contiene-html {
     background-color: green !important;
 }
+
 .ms-dialog > .ui-multiselect .ui-multiselect-panel {
     position: relative !important;
 }
 
-.localizador-mapa{
+.localizador-mapa {
     background-image: url('../images/senalador_negro.png');
     background-size: cover;
     background-position: center;
@@ -451,13 +464,14 @@ body .ui-datatable .ui-datatable-header .ui-tabview-panels{
     width: 30px;
     height: 30px;
 }
+
 .ui-datatable-tfoot > tr > td {
     text-align: left;
     border-color: #cacaca !important;
     background-color: #fff;
 }
 
-p-footer > .ui-grid-row > .ui-grid-col-2{
+p-footer > .ui-grid-row > .ui-grid-col-2 {
     padding: .25em .5em;
 }
 
