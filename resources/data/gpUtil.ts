@@ -189,4 +189,16 @@ export class GPUtil {
         return selector;
     }
 
+    indexOf(list: any[], atributeName: string, value: any): number {
+
+        if (list) {
+            for (let index = 0; index < list.length; index++) {
+                if ( list[index][atributeName] == value ) {
+                    return index;
+                }
+            }
+        }
+        return -1;
+    }
+
 }

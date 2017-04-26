@@ -97,13 +97,16 @@ export class FieldDisplayInfo {
   options : FieldOption[];
   referencedTable : string;
   referencedField : string;
+  fieldToOrderBy: string;
+  filters: Filter[];
   rowsTextArea : number;
   fieldDescriptions : string[];
   textProperties: string[];
   relatedField: string;
   translationInfo: TranslationInfo;
 
-  constructor(fieldLabel: string, order: number, displayType: string, checkedValue: string, uncheckedValue: string, options: FieldOption[], referencedTable: string, referencedField: string, rowsTextArea: number, fieldDescriptions: string[], textProperties: string[],  relatedField: string, translationInfo: TranslationInfo) {
+
+  constructor(fieldLabel:string, order:number, displayType:string, checkedValue:string, uncheckedValue:string, options:FieldOption[], referencedTable:string, referencedField:string, fieldToOrderBy:string, filters:Filter[], rowsTextArea:number, fieldDescriptions:string[], textProperties:string[], relatedField:string, translationInfo:TranslationInfo) {
     this.fieldLabel = fieldLabel;
     this.order = order;
     this.displayType = displayType;
@@ -112,6 +115,8 @@ export class FieldDisplayInfo {
     this.options = options;
     this.referencedTable = referencedTable;
     this.referencedField = referencedField;
+    this.fieldToOrderBy = fieldToOrderBy;
+    this.filters = filters;
     this.rowsTextArea = rowsTextArea;
     this.fieldDescriptions = fieldDescriptions;
     this.textProperties = textProperties;
@@ -133,6 +138,22 @@ export class TranslationInfo {
 export class FieldOption {
   value: string;
   description: string;
+}
+
+export class FilterOperationType {
+  static EQUAL = "EQUAL"; //Operación de comparativa de igualdad respecto a un valor
+  static NOT_EQUAL = "NOT_EQUAL"; //Operación de comparativa de diferencia a un valor
+  static NULL = "NULL";  //Operación de comparativa de nulidad del campo
+  static NOT_NULL = "NOT_NULL"; //Operación de comparativa no nulidad de un campo
+  static GT = "GT";  //Operación de comparativa mayor a un valor
+  static GTE = "GTE"; //Operación de comparativa mayor o igual a un valor
+  static LT = "LT"; //Operación de comparativa menor a un valor
+  static LTE = "LTE";  //Operación de comparativa menor o igual a un valor
+  static BETWEEN = "BETWEEN";  //Operación de comparativa campo entre dos valores
+  static IN = "IN";
+}
+export class Filter {
+  constructor( public op: FilterOperationType, public field: string, public values: string[]){}
 }
 
 @Injectable()
@@ -183,21 +204,25 @@ export class TableService extends CommonService {
   /**
    * Llamada al WS para obtener una lista de registros.
    */
-  list( tableName : string, retrieveMetadata : boolean, ordered?: boolean, fieldsToOrderBy?: string[]) : Observable<ListRs> {
-      let order = true;
-      let fieldsToOrder = null;
+  list( tableName : string, retrieveMetadata : boolean, ordered?: boolean, fieldsToOrderBy?: string[], filters?: Filter[]) : Observable<ListRs> {
+    let order = true;
+    let fieldsToOrder = null;
+    let filtersRq =  null;
 
-      if (ordered != null) {
-          order = ordered;
-      }
-      if (fieldsToOrderBy != null) {
-          fieldsToOrder = fieldsToOrderBy;
-      }
+    if (ordered != null) {
+      order = ordered;
+    }
+    if (fieldsToOrderBy != null) {
+      fieldsToOrder = fieldsToOrderBy;
+    }
+    if (filters) {
+      filtersRq = filters;
+    }
 
       return this.serviceRequest<ListRs>(
           `${GlobalService.BASE_URL}/table_svc/${tableName}/list`,
         { retrieveMetadata: retrieveMetadata,
-          ordered: order, fieldsToOrderBy: fieldsToOrder} );
+          ordered: order, fieldsToOrderBy: fieldsToOrder, filters: filtersRq} );
   }
 
   /**

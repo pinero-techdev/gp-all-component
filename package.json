@@ -1,6 +1,6 @@
 {
   "name": "gp-all-component",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "dependencies": {
     "@angular/common": "^2.3.1",
@@ -19,7 +19,7 @@
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.2",
     "primeui": "^4.1.15",
-    "primeng": "^1.1.2",
+    "primeng": "^2.0.0-rc.2",
     "jquery": "^3.1.1",
     "chart.js": "^2.4.0",
     "fullcalendar": "^3.1.0",

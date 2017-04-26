@@ -41,7 +41,7 @@ export class GPSelector {
         if (separadorAtributosDesc) {
             separador = ' ' + separadorAtributosDesc + ' ';
         }
-        if (descripcionPorDefecto && (datos.length > 1 || !autoSeleccion)) {
+        if (descripcionPorDefecto && (!datos || (datos != null && datos.length != 1) || !autoSeleccion)) {
             this.options.push({label: descripcionPorDefecto, value: null});
         }
         if (datos != null) {
