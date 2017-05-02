@@ -150,7 +150,8 @@ export class FilterOperationType {
   static LT = "LT"; //Operación de comparativa menor a un valor
   static LTE = "LTE";  //Operación de comparativa menor o igual a un valor
   static BETWEEN = "BETWEEN";  //Operación de comparativa campo entre dos valores
-  static IN = "IN";
+  static IN = "IN"; // Operación que devuelve los campos que se encuentren entre los valores proporcionados
+  static NOT_IN = "NOT_IN"; // Operación que devuelve los campos que no se encuentren entre los valores proporcionados
 }
 export class Filter {
   constructor( public op: FilterOperationType, public field: string, public values: string[]){}
