@@ -38,7 +38,7 @@
         <gp-app-loading-indicator *ngIf="elementosTraducciones == null"
                                   style="width:100%;"></gp-app-loading-indicator>
         <p-footer *ngIf="elementosTraducciones != null && visualizarTablaTraducciones">
-            <div class="ui-grid-row">
+            <div class="ui-grid-row" style="padding-top:1%;">
                 <div class="ui-grid-col-8"></div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Aceptar" type="button" icon="ui-icon-done"
@@ -83,12 +83,11 @@
         </div>
         <p-footer>
             <div class="ui-grid-row" style="padding-top:1%;">
-                <div class="ui-grid-col-7"></div>
+                <div class="ui-grid-col-8"></div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Guardar" type="button" icon="ui-icon-done"
                             (click)="guardarCambiosHTML()"></button>
                 </div>
-                <div class="ui-grid-col-1"></div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Salir" type="button" icon="ui-icon-clear"
                             (click)="cerrarEdicionHTML()"></button>

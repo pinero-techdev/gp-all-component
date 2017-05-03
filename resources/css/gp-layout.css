@@ -9,7 +9,7 @@ a {
 }
 
 .center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .error {
@@ -473,5 +473,11 @@ body .ui-datatable .ui-datatable-header .ui-tabview-panels {
 
 p-footer > .ui-grid-row > .ui-grid-col-2 {
     padding: .25em .5em;
+}
+
+/*Corrección para que no salga ovalado el botón dentro de un fileupload*/
+.ui-fluid .ui-fileupload-content .ui-button-icon-only {
+    width: 2em;
+    height: 2em;
 }
 
