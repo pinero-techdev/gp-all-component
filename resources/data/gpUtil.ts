@@ -144,7 +144,15 @@ export class GPUtil {
         throw "Formato de hora invalido '" + "'";
     }
 
-    public static obtenerEtiqueta(selector:SelectItem[], valor:any):string {
+    /*METODOS NO ESTÁTICOS, PORQUE PUEDEN SER LLAMADOS DESDE UN TEMPLATE*/
+
+    /**
+     * Metodo para obtener la etiqueta de un selector a través de su valor
+     * @param selector
+     * @param valor
+     * @return {any}
+     */
+    public obtenerEtiqueta(selector:SelectItem[], valor:any):string {
         let etiqueta = null;
         if (selector != null && valor != null) {
             for (let item of selector) {
@@ -164,7 +172,7 @@ export class GPUtil {
      * @param separadorAtributosDesc - Separador que se utilizará para separar los atributos de la etiqueta del selector. Por defecto es '-'
      * @return {SelectItem[]}
      */
-    public static obtenerSelector(datos:any[], atributoValor:string, atributoDesc:string[], descripcionPorDefecto?:string, separadorAtributosDesc?:string):SelectItem[] {
+    public obtenerSelector(datos:any[], atributoValor:string, atributoDesc:string[], descripcionPorDefecto?:string, separadorAtributosDesc?:string):SelectItem[] {
 
         let selector:SelectItem[] = [];
         let separador = ' - ';
@@ -189,7 +197,7 @@ export class GPUtil {
         return selector;
     }
 
-    public static indexOf(list: any[], atributeName: string, value: any): number {
+    public indexOf(list: any[], atributeName: string, value: any): number {
 
         if (list) {
             for (let index = 0; index < list.length; index++) {
