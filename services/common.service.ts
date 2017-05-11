@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx';
+import {hash} from '../components/util/sha256';
 
 /**
  * Definiciones comunes del acceso a servicios.
@@ -28,12 +29,53 @@ export class FieldErrorInformation {
     message: string;
 }
 
+class CachedResponse {
+    data: any;
+    ttl: number;
+  
+    constructor(data:any, ttl:number) {
+      this.data = data;
+      this.ttl = ttl;
+    }
+}
+
 @Injectable()
 export class CommonService {
 
     constructor(private http: Http) {
     }
-
+  
+    /*
+     * dsteinsland: implementacion basica de cache.
+     *              TODO: añadir posibilidad de insertar/quitar elementos
+     *              manualmente en momentos concretos, para pantallas pesadas.
+     */
+    cachedServiceRequest<T>( url: string, body: any, ttl?: number) : Observable<T> {
+        let uintArray = new Uint8Array(JSON.stringify({url,body}).split('').map(function(char) {return char.charCodeAt(0);}));
+        let key = new Buffer(hash(uintArray)).toString('hex');
+        if (sessionStorage.getItem(key) != null) {
+          console.debug("cache hit: "+url);
+          let cachedResponse = JSON.parse(sessionStorage.getItem(key));
+          if (cachedResponse.ttl != null && Date.now() > cachedResponse.ttl) {
+            console.debug("cache expired: "+url);
+            sessionStorage.removeItem(key);
+          } else {
+            return Observable.create(observer => {
+                observer.next(cachedResponse.data);
+                observer.complete();
+            });
+          }
+        }
+        let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
+        let options = new RequestOptions({ headers: headers });
+        let post = this.http.post(url,body,options);
+        return post.map( (res: Response) => { 
+          let response : T = res.json();
+          sessionStorage.setItem(key,JSON.stringify(new CachedResponse(response,Date.now()+ttl))); 
+          return response; 
+        } );
+    }
+  
     serviceRequest<T>( url: string, body: any ) : Observable<T> {
         let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
         let options = new RequestOptions({ headers: headers });
