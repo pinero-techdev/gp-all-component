@@ -31,6 +31,7 @@ export * from "./resources/data/gpSelector";
 export * from "./resources/data/gpUtil";
 export * from "./resources/data/loginRq";
 export * from "./resources/data/loginRs";
+export * from "./resources/data/mensajes";
 export * from "./resources/data/menu";
 export * from "./resources/data/menuItem";
 export * from "./resources/data/menuRq";
