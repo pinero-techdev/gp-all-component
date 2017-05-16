@@ -209,4 +209,7 @@ export class GPUtil {
         return -1;
     }
 
+    public static letraDni(dni) {
+        return "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dni.substring(0,8) % 23);
+    }
 }
