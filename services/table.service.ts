@@ -38,7 +38,7 @@ export class InsertRowRq {
 }
 
 export class InsertRowRs extends CommonRs {
-  insertedRow: string;
+  insertedRow: any;
 }
 
 export class SelectOneRowRq {
