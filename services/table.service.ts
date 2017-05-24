@@ -226,6 +226,27 @@ export class TableService extends CommonService {
           ordered: order, fieldsToOrderBy: fieldsToOrder, filters: filtersRq} );
   }
 
+  cachelist( tableName : string, retrieveMetadata : boolean, ordered?: boolean, fieldsToOrderBy?: string[], filters?: Filter[]) : Observable<ListRs> {
+    let order = true;
+    let fieldsToOrder = null;
+    let filtersRq =  null;
+
+    if (ordered != null) {
+      order = ordered;
+    }
+    if (fieldsToOrderBy != null) {
+      fieldsToOrder = fieldsToOrderBy;
+    }
+    if (filters) {
+      filtersRq = filters;
+    }
+
+    return this.cachedServiceRequest<ListRs>(
+        `${GlobalService.BASE_URL}/table_svc/${tableName}/list`,
+        { retrieveMetadata: retrieveMetadata,
+          ordered: order, fieldsToOrderBy: fieldsToOrder, filters: filtersRq} );
+  }
+
   /**
    * Llamada al WS para obtener un registro.
    */

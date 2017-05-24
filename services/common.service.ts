@@ -71,7 +71,8 @@ export class CommonService {
         let post = this.http.post(url,body,options);
         return post.map( (res: Response) => { 
           let response : T = res.json();
-          sessionStorage.setItem(key,JSON.stringify(new CachedResponse(response,Date.now()+ttl))); 
+          if (response['ok'] && response['error'] == null && response['errorMessage'] == null)
+              sessionStorage.setItem(key,JSON.stringify(new CachedResponse(response,(ttl != null)?Date.now()+ttl:null)));
           return response; 
         } );
     }
