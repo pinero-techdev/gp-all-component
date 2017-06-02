@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx';
-import {hash} from '../components/util/sha256';
+import {hash} from '../util/sha256';
 
 /**
  * Definiciones comunes del acceso a servicios.
@@ -11,6 +11,7 @@ import {hash} from '../components/util/sha256';
 export class CommonRs {
     ok: boolean;
     error: ErrorInformation;
+    cacheKey:string;
 }
 
 export class CommonRq {
@@ -50,15 +51,20 @@ export class CommonService {
      *              TODO: añadir posibilidad de insertar/quitar elementos
      *              manualmente en momentos concretos, para pantallas pesadas.
      */
+    removeCachedObject(key:string) {
+        console.debug("remove cached object: "+key);
+        sessionStorage.removeItem(key);
+    }
+
     cachedServiceRequest<T>( url: string, body: any, ttl?: number) : Observable<T> {
         let uintArray = new Uint8Array(JSON.stringify({url,body}).split('').map(function(char) {return char.charCodeAt(0);}));
         let key = new Buffer(hash(uintArray)).toString('hex');
         if (sessionStorage.getItem(key) != null) {
-          console.debug("cache hit: "+url);
+          console.debug("cache hit: "+key+":"+url);
           let cachedResponse = JSON.parse(sessionStorage.getItem(key));
           if (cachedResponse.ttl != null && Date.now() > cachedResponse.ttl) {
             console.debug("cache expired: "+url);
-            sessionStorage.removeItem(key);
+            this.removeCachedObject(key);
           } else {
             return Observable.create(observer => {
                 observer.next(cachedResponse.data);
@@ -71,8 +77,10 @@ export class CommonService {
         let post = this.http.post(url,body,options);
         return post.map( (res: Response) => { 
           let response : T = res.json();
-          if (response['ok'] && response['error'] == null && response['errorMessage'] == null)
-              sessionStorage.setItem(key,JSON.stringify(new CachedResponse(response,(ttl != null)?Date.now()+ttl:null)));
+          if (response['ok'] && response['error'] == null && response['errorMessage'] == null) {
+              response['cacheKey'] = key;
+              sessionStorage.setItem(key, JSON.stringify(new CachedResponse(response, (ttl != null) ? Date.now() + ttl : null)));
+          }
           return response; 
         } );
     }
