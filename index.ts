@@ -25,6 +25,7 @@ export * from "./components/tables/gp-form-text-field.component";
 export * from "./components/tables/gp-form-textarea-field.component";
 export * from "./components/tables/gp-form-time-field.component";
 export * from "./components/tables/gp-form-wysiwyg-field.component";
+export * from "./components/dynamic/gp-dynamic.component";
 //Resources (Classes)
 export * from "./resources/data/authGuard";
 export * from "./resources/data/gpSelector";
