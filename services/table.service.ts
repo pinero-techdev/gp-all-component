@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Observable'
 import {GlobalService} from "./global.service";
 
 import {CommonService, CommonRs} from "./common.service";
-import {Http} from "@angular/http/src/http";
+import {Http} from "@angular/http";
 
 export class ListRs extends CommonRs {
   data: any[];

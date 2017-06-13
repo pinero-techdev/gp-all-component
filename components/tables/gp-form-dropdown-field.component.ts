@@ -1,8 +1,7 @@
-import {Component, Input, Output} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {FieldMetadata, TableService} from "../../services/table.service";
 import {SelectItem} from "primeng/components/common/api";
 import {GpFormField, GpFormFieldControl} from "./gp-app-table-crud-shared";
-import {EventEmitter} from "@angular/forms/src/facade/async";
 import {InfoCampoModificado} from "../../resources/data/infoCampoModificado";
 
 @Component({

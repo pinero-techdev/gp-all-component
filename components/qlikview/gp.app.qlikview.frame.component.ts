@@ -1,5 +1,4 @@
-import {ViewEncapsulation, OnInit, Input} from "@angular/core";
-import {Component} from "@angular/core/src/metadata/directives";
+import {ViewEncapsulation, OnInit, Input, Component} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GlobalService} from "../../services/global.service";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";

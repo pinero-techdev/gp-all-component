@@ -1,5 +1,4 @@
-import {ViewEncapsulation, OnInit, Input, ViewChildren, QueryList} from "@angular/core";
-import {Component} from "@angular/core/src/metadata/directives";
+import {ViewEncapsulation, OnInit, Input, ViewChildren, QueryList, Component} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ReportService} from "../../services/report.service";
 import {GlobalService} from "../../services/global.service";
