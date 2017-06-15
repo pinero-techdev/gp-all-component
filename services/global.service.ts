@@ -37,6 +37,7 @@ export class GlobalService {
 
     public static get APP(): string { return GlobalService.app; }
 
+    public kiosk: boolean;
     public logged: boolean;
     public session: UserInfo;
 
