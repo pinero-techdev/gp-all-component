@@ -53,6 +53,9 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor{
     @Input()
     tabindex: number = null;
 
+    @Output()
+    onChange: EventEmitter<any> = new EventEmitter();
+
     //modelo de datos interno necesario para el ngModel
     private innerValue: any = '';
 
@@ -71,6 +74,7 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor{
         if (v !== this.innerValue) {
             this.innerValue = v;
             this.onChangeCallback(v);
+            this.onChange.emit(v);
         }
     }
 
