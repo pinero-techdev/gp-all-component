@@ -2,7 +2,7 @@
   <div class="nano has-scrollbar">
     <div class="nano-content menu-scroll-content" tabindex="0" style="margin-right: -17px;">
       <ul class="ultima-menu clearfix">
-        <li role="menuitem" *ngFor="let item1 of menuItems">
+        <li role="menuitem" *ngFor="let item1 of menuItems | async">
           <a href="#" *ngIf="item1.action!=null && item1.enabled" [routerLink]="[item1.action]">
             <i class="material-icons">{{item1.icon}}</i>
             <span>{{item1.texto}}</span>

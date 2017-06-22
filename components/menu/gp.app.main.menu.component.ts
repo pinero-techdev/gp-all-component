@@ -3,6 +3,7 @@ import {MenuItem} from "../../resources/data/menuItem";
 import {MenuRq} from "../../resources/data/menuRq";
 import { GlobalService } from "../../services/global.service";
 import { AppMenuService } from "../../services/app-menu.service";
+import {Observable} from "rxjs/Rx";
 
 @Component({
     selector: 'gp-app-main-menu',
@@ -13,7 +14,7 @@ import { AppMenuService } from "../../services/app-menu.service";
  */
 export class GpAppMainMenuComponent implements OnInit {
 
-    menuItems: MenuItem[] = [];
+    menuItems: Observable<any>;
 
     constructor(private _appMenuProviderService: AppMenuService, private _globalService: GlobalService, private _applicationRef : ApplicationRef ) {
     }
@@ -29,10 +30,7 @@ export class GpAppMainMenuComponent implements OnInit {
             userId = userInfo.userId;
         }
         let request: MenuRq = new MenuRq(userId, GlobalService.APP);
-        let aux: any =  this._appMenuProviderService.obtenMenu( request );
-        if( aux != undefined ){
-            this.menuItems = aux;
-        }
+        this.menuItems = this._appMenuProviderService.obtenMenu( request );
     }
 
     refresh(){

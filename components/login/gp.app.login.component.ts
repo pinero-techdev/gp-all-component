@@ -27,30 +27,30 @@ export class GpAppLoginComponent {
     let response = new LoginRs();
     let request: LoginRq = new LoginRq(this.usuario, this.password);
     this._loginService.login(request).subscribe(
-      data => {
-        response = data;
-        if (response.ok) {
-          this.globalService.session = response.userInfo;
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          sessionStorage.setItem('userInfo', JSON.stringify(response.userInfo));
-          this._gpAppMainMenu.initMenu();
-          this._gpAppMainMenu.refresh();
-          this.globalService.logged = true;
-          this.router.navigate(['home']);
-        } else {
-          this.router.navigate(['login']);
-          if (response.error != null && response.error.errorMessage != null) {
-            this.showError(response.error.errorMessage.toString());
+        data => {
+          response = data;
+          if (response.ok) {
+            this.globalService.session = response.userInfo;
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            sessionStorage.setItem('userInfo', JSON.stringify(response.userInfo));
+            //this._gpAppMainMenu.initMenu();
+            //this._gpAppMainMenu.refresh();
+            this.globalService.logged = true;
+            this.router.navigate(['home']);
+          } else {
+            this.router.navigate(['login']);
+            if (response.error != null && response.error.errorMessage != null) {
+              this.showError(response.error.errorMessage.toString());
+            }
           }
+        },
+        err => {
+          console.error(err);
+        },
+        () => {
+          console.log('Login finalizado');
+          console.log(response)
         }
-      },
-      err => {
-        console.error(err);
-      },
-      () => {
-        console.log('Login finalizado');
-        console.log(response)
-      }
     );
   }
 
