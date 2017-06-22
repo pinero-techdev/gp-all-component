@@ -1,9 +1,11 @@
-import {Component, OnInit, ApplicationRef} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ApplicationRef, ElementRef} from '@angular/core';
 import {MenuItem} from "../../resources/data/menuItem";
 import {MenuRq} from "../../resources/data/menuRq";
 import { GlobalService } from "../../services/global.service";
 import { AppMenuService } from "../../services/app-menu.service";
 import {Observable} from "rxjs/Rx";
+
+declare var Ultima: any;
 
 @Component({
     selector: 'gp-app-main-menu',
@@ -12,15 +14,19 @@ import {Observable} from "rxjs/Rx";
 /**
  * Clase Menu que agrupa los servicios accesibles por el usuario
  */
-export class GpAppMainMenuComponent implements OnInit {
+export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
 
     menuItems: Observable<any>;
 
-    constructor(private _appMenuProviderService: AppMenuService, private _globalService: GlobalService, private _applicationRef : ApplicationRef ) {
+    constructor(private el: ElementRef, private _appMenuProviderService: AppMenuService, private _globalService: GlobalService, private _applicationRef : ApplicationRef ) {
     }
 
     ngOnInit() {
         this.initMenu();
+    }
+
+    ngAfterViewInit() {
+        Ultima.init(this.el.nativeElement);
     }
 
     initMenu() {
