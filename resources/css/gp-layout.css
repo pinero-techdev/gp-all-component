@@ -504,3 +504,8 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
 .calendar-top .ui-datepicker {
     top: -320px !important;
 }
+
+.dashboard .colorbox.colorbox-dark div:first-child {
+    background-color: #484848; }
+.dashboard .colorbox.colorbox-dark div:last-child {
+    background-color: #676767; }
