@@ -20,7 +20,7 @@ export class GpAppLoginComponent {
   constructor(private router: Router, private _loginService: LoginService, public globalService: GlobalService,
               private _gpAppMainMenu: GpAppMainMenuComponent) {
     this.globalService.logged = false;
-    sessionStorage.removeItem('userInfo');
+    sessionStorage.clear();
   }
 
   login() {
