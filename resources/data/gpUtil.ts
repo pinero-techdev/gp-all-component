@@ -212,4 +212,12 @@ export class GPUtil {
     public static letraDni(dni) {
         return "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dni.substring(0,8) % 23);
     }
+
+    public booleanToString(input: boolean, trueValue: string = "S", falseValue: string = "N") {
+        if(input) {
+            return trueValue;
+        } else{
+            return falseValue;
+        }
+    }
 }
