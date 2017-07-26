@@ -10,7 +10,7 @@ export class AppMenuProviderService {
     obtenOpcionesActivas(rq: MenuRq) : Observable<any> { return null; }
     isOpcionMenuActivo(menu: any[], accion: string): boolean {
         for( let opcMenu of menu) {
-            if (opcMenu.action && opcMenu.action == accion) {
+            if (opcMenu.action && opcMenu.action == accion.substr(1)) {
                 return opcMenu.enabled;
             } else if ( opcMenu.submenus) {
                 let opcion = this.isOpcionMenuActivo( opcMenu.submenus, accion );
