@@ -9,6 +9,7 @@
                          [rows]="10" [paginator]="true" [pageLinks]="4"
                          [rowsPerPageOptions]="[10,20,50]" csvSeparator=";"
                          exportFilename="table_export" #dt
+                         [immutable] = "false"
                          [responsive]="true">
                 <p-header>
                     <div class="ui-helper-clearfix ui-grid-row" style="text-align: left;">
