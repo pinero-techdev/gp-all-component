@@ -210,8 +210,8 @@ p-dropdown > .ui-dropdown {
 }
 
 .nivel-ficha {
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
 }
 
 .nivel-consulta {
@@ -296,6 +296,18 @@ p-dropdown > .ui-dropdown {
 
 .no-pad-top {
     padding-top: 0px;
+}
+
+.no-pad-bottom {
+    padding-bottom: 0px;
+}
+
+.no-pad-left {
+    padding-left: 0px;
+}
+
+.no-pad-right {
+    padding-right: 0px;
 }
 
 .bold {
