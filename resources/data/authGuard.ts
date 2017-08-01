@@ -39,7 +39,9 @@ export class AuthGuard implements CanActivate {
 
                             if ( menu ) {
                                 // Check if option menu is active
-                                return this._menuAppMenuProviderService.isOpcionMenuActivo(menu, url);
+                                return this._menuAppMenuProviderService.isOpcionMenuActivo(menu,
+                                    url.substring(1), // Obtain action from url
+                                    Object.getOwnPropertyNames(route.params).length);
                             }
                         }
                     );
