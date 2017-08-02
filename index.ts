@@ -28,6 +28,7 @@ export * from "./components/tables/gp-form-wysiwyg-field.component";
 export * from "./components/dynamic/gp-dynamic.component";
 //Resources (Classes)
 export * from "./resources/data/authGuard";
+export * from "./resources/data/redirectAuthGuard";
 export * from "./resources/data/gpSelector";
 export * from "./resources/data/gpUtil";
 export * from "./resources/data/loginRq";
