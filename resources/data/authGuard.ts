@@ -57,7 +57,7 @@ export class AuthGuard implements CanActivate {
 
         } else {
 
-            console.error( "El usuario " + userId + " no se encuentra logado" );
+            console.error( "El usuario no se encuentra logado" );
             // not logged in so redirect to login page
             this._router.navigate(['/login']);
             return Observable.of(false);
