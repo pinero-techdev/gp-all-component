@@ -521,3 +521,14 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
     background-color: #484848; }
 .dashboard .colorbox.colorbox-dark div:last-child {
     background-color: #676767; }
+
+/*Ajustes para formularios*/
+
+.margin-top-1 {
+    margin-top: 1%;
+}
+
+/** Visualizador de fechas dentro de input-fields **/
+.ui-calendar > input {
+    width: inherit;
+}
