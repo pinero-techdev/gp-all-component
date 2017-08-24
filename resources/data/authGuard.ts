@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
                 private _menuAppMenuProviderService: AppMenuProviderService) {
     }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
         let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         let userId = null;

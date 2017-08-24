@@ -16,6 +16,8 @@ export class CommonRs {
 
 export class CommonRq {
     orden: string;
+    rows: number;
+    firstRow: number;
 }
 
 export class ErrorInformation {

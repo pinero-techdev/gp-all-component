@@ -30,7 +30,7 @@ export class RedirectAuthGuard implements CanActivate {
      * @param state
      * @return {any}
      */
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
         let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         let userId = null;
