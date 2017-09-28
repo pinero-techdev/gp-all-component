@@ -42,6 +42,7 @@ export * from "./resources/data/opcionMenu";
 export * from "./resources/data/propiedadesOpcionMenu";
 export * from "./resources/data/propiedadOpcionMenu";
 export * from "./resources/data/userInfo";
+export * from "./resources/data/gpSelectItem";
 //Services
 export * from "./services/app-menu-provider.service";
 export * from "./services/app-menu.service";
