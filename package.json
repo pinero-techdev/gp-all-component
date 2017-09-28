@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "name": "gp-all-component",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "dependencies": {
     "@angular/common": "^4.2.0",
     "@angular/compiler": "^4.2.0",
