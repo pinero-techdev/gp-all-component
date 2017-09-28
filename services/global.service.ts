@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {UserInfo} from "../resources/data/userInfo";
+import {RolInfo} from "../resources/data/rolInfo";
 
 @Injectable()
 export class GlobalService {
@@ -40,6 +41,7 @@ export class GlobalService {
     public kiosk: boolean;
     public logged: boolean;
     public session: UserInfo;
+    public roles: RolInfo[];
 
     public applicationTitle: string;
 
