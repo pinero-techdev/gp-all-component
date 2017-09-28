@@ -1,4 +1,5 @@
 import {SelectItem} from "primeng/primeng";
+import {GPSelectItem} from "./gpSelectItem";
 
 export class GPUtil {
     public static readonly odd_reA = new RegExp( "\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5", "g" );
@@ -173,15 +174,15 @@ export class GPUtil {
      * @param adicional  - Identificador atributo posibles datos adicionales
      * @return {SelectItem[]}
      */
-    public obtenerSelector(datos:any[], atributoValor:string, atributoDesc:string[], descripcionPorDefecto?:string, separadorAtributosDesc?:string, adicional?: string): SelectItem[] {
+    public obtenerSelector(datos:any[], atributoValor:string, atributoDesc:string[], descripcionPorDefecto?:string, separadorAtributosDesc?:string, adicional?: string): GPSelectItem[] {
 
-        let selector:SelectItem[] = [];
+        let selector: GPSelectItem[] = [];
         let separador = ' - ';
         if (separadorAtributosDesc) {
             separador = ' ' + separadorAtributosDesc + ' ';
         }
         if (descripcionPorDefecto) {
-            selector.push({label: descripcionPorDefecto, value: null});
+            selector.push({label: descripcionPorDefecto, value: null, additional: null});
         }
         if (datos != null) {
             for (let dato of datos) {
