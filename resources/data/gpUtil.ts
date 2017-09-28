@@ -170,39 +170,6 @@ export class GPUtil {
      * @param atributoDesc - Atributo que contiene los atributos que conforman la etiqueta del selector
      * @param descripcionPorDefecto - Descripción que se pondrá en la primera opción del selector
      * @param separadorAtributosDesc - Separador que se utilizará para separar los atributos de la etiqueta del selector. Por defecto es '-'
-     * @return {SelectItem[]}
-     */
-    public obtenerSelector(datos:any[], atributoValor:string, atributoDesc:string[], descripcionPorDefecto?:string, separadorAtributosDesc?:string):SelectItem[] {
-
-        let selector:SelectItem[] = [];
-        let separador = ' - ';
-        if (separadorAtributosDesc) {
-            separador = ' ' + separadorAtributosDesc + ' ';
-        }
-        if (descripcionPorDefecto) {
-            selector.push({label: descripcionPorDefecto, value: null});
-        }
-        if (datos != null) {
-            for (let dato of datos) {
-                let label = '';
-                for (let descripcion of atributoDesc) {
-                    if (label.length != 0) {
-                        label += separador;
-                    }
-                    label += dato[descripcion];
-                }
-                selector.push({label: label, value: dato[atributoValor]});
-            }
-        }
-        return selector;
-    }
-
-    /**
-     * @param datos - Array que contiene los datos que se utilizaran para montar el selector
-     * @param atributoValor - Atributo que contiene el valor de los campos del selector
-     * @param atributoDesc - Atributo que contiene los atributos que conforman la etiqueta del selector
-     * @param descripcionPorDefecto - Descripción que se pondrá en la primera opción del selector
-     * @param separadorAtributosDesc - Separador que se utilizará para separar los atributos de la etiqueta del selector. Por defecto es '-'
      * @param adicional  - Identificador atributo posibles datos adicionales
      * @return {SelectItem[]}
      */
