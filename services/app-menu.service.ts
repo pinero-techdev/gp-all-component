@@ -16,7 +16,7 @@ export class AppMenuService {
             this.temp = this._appMenuProvider.getEstructuraMenu();
             this._appMenuProvider.obtenOpcionesActivas(rq).subscribe(
                 data => {
-                    if (data) {
+                    if (data.ok) {
                         if (data.menu.opciones != undefined) {
                             this.cargarOpciones(this.temp, data.menu.opciones);
                         }

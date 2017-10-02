@@ -30,6 +30,7 @@ export * from "./components/dynamic/gp-dynamic.component";
 export * from "./resources/data/authGuard";
 export * from "./resources/data/redirectAuthGuard";
 export * from "./resources/data/gpSelector";
+export * from "./resources/data/gpSelectItem";
 export * from "./resources/data/gpUtil";
 export * from "./resources/data/loginRq";
 export * from "./resources/data/loginRs";
