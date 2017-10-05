@@ -64,14 +64,15 @@ export class MultiIdomaService extends CommonService {
 
 
   getTraducciones(request: GetTraduccionesRq): Observable<GetTraduccionesRs> {
+    let urlServicio = `${GlobalService.BASE_URL}/multiidioma-svc/getTranslations`;
     let rq = JSON.stringify(request);
-    //TODO cambiar la cadena de conexion cuando se tenga el WS
-    return this.serviceGetRq<GetTraduccionesRs>(
-      `${GlobalService.BASE_URL}/multiidioma-svc/getTranslations`, rq)
+
+    return this.serviceRequest<GetTraduccionesRs>(
+        urlServicio, rq)
   }
 
   actualizaTraducciones(request: UpdateTraduccionesRq): Observable<UpdateTraduccionesRs> {
-    //TODO cambiar la cadena de conexion cuando se tenga el WS
+
     let url = `${GlobalService.BASE_URL}/multiidioma-svc/updateTranslations`;
     let rq = JSON.stringify(request);
 
