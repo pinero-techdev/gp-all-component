@@ -25,8 +25,15 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
         this.initMenu();
     }
 
+    /**
+     * Esperamos a tener todo el menú para aplicar el init del layout
+     * Si no lo hacemos, los sucesos no se verán asociados a los items del menú
+     */
     ngAfterViewInit() {
-        Ultima.init(this.el.nativeElement);
+        Observable.forkJoin(this.menuItems).subscribe(
+            () =>
+                Ultima.init(this.el.nativeElement)
+        );
     }
 
     initMenu() {
