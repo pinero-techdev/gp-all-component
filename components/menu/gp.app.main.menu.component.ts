@@ -1,11 +1,8 @@
-import {Component, OnInit, AfterViewInit, ApplicationRef, ElementRef} from '@angular/core';
-import {MenuItem} from "../../resources/data/menuItem";
+import {Component, OnInit, AfterViewInit, ApplicationRef, EventEmitter, Output} from '@angular/core';
 import {MenuRq} from "../../resources/data/menuRq";
 import { GlobalService } from "../../services/global.service";
 import { AppMenuService } from "../../services/app-menu.service";
 import {Observable} from "rxjs/Rx";
-
-declare var Ultima: any;
 
 @Component({
     selector: 'gp-app-main-menu',
@@ -18,7 +15,10 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
 
     menuItems: Observable<any>;
 
-    constructor(private el: ElementRef, private _appMenuProviderService: AppMenuService, private _globalService: GlobalService, private _applicationRef : ApplicationRef ) {
+    @Output()
+    menuCharged = new EventEmitter<boolean>();
+
+    constructor( private _appMenuProviderService: AppMenuService, private _applicationRef : ApplicationRef ) {
     }
 
     ngOnInit() {
@@ -26,14 +26,11 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
     }
 
     /**
-     * Esperamos a tener todo el menú para aplicar el init del layout
-     * Si no lo hacemos, los sucesos no se verán asociados a los items del menú
+     * Esperamos a que esté cargado el menú, para indicar al componente padre
+     * que ya puede inicar la carga del layout.js de Ultima
      */
     ngAfterViewInit() {
-        Observable.forkJoin(this.menuItems).subscribe(
-            () =>
-                Ultima.init(this.el.nativeElement)
-        );
+        this.menuCharged.emit(true);
     }
 
     initMenu() {
@@ -50,4 +47,3 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
         this._applicationRef.tick();
     }
 }
-
