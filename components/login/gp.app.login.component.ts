@@ -62,4 +62,8 @@ export class GpAppLoginComponent {
       detail: message
     });
   }
+
+  get APPLICATION_TITLE():string {
+    return GlobalService.APPLICATION_TITLE;
+  }
 }
