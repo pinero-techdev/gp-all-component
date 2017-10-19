@@ -32,7 +32,7 @@ export class GpFormImgFieldComponent extends GpFormFieldControl implements OnIni
 
     inicializa() {
         if( this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo.textProperties != null ) {
-            if( TableService.TEXT_UPPERCASE in this.formField.fieldMetadata.displayInfo.textProperties ) {
+            if( this.formField.fieldMetadata.displayInfo.textProperties.indexOf( TableService.TEXT_UPPERCASE ) != -1 )  {
                 this.textboxClass = "text-uppercase";
             }
         }
@@ -118,7 +118,7 @@ export class GpFormImgFieldComponent extends GpFormFieldControl implements OnIni
         }
 
         if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
-            if (TableService.TEXT_NO_SPACE in this.formField.fieldMetadata.displayInfo.textProperties) {
+            if ( this.formField.fieldMetadata.displayInfo.textProperties.indexOf( TableService.TEXT_NO_SPACE ) != -1 ) {
                 if (/\s/.test( valorCampo ) ) {
                     this.formField.validField = false;
                     this.validateFieldAddMsgs( 'El valor indicado no puede contener espacios. Han sido eliminados. Seleccione guardar otra vez para aceptar los cambios.' );
