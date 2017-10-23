@@ -8,10 +8,10 @@ export class GlobalService {
     private static loginServiceUrl:string;
     private static menuServiceUrl:string;
     private static app:string;
-    private static kiosk:boolean;
+    public kiosk:boolean;
     public logged:boolean;
     public session:UserInfo;
-    private static applicationTitle:string;
+    public applicationTitle:string;
     public roles: RolInfo[];
 
     constuctor() {
@@ -48,22 +48,6 @@ export class GlobalService {
 
     public static get APP():string {
         return GlobalService.app;
-    }
-
-    public static get KIOSK():boolean {
-        return GlobalService.kiosk;
-    }
-
-    public static setKiosk(kiosk:boolean) {
-        this.kiosk = kiosk;
-    }
-
-    public static setApplicationTitle(applicationTitle:string) {
-        this.applicationTitle = applicationTitle;
-    }
-
-    public static get APPLICATION_TITLE():string {
-        return GlobalService.applicationTitle;
     }
 
     public globalStatus():string {

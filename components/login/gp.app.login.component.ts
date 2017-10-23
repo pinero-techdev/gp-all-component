@@ -33,8 +33,6 @@ export class GpAppLoginComponent {
             this.globalService.session = response.userInfo;
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             sessionStorage.setItem('userInfo', JSON.stringify(response.userInfo));
-            //this._gpAppMainMenu.initMenu();
-            //this._gpAppMainMenu.refresh();
             this.globalService.logged = true;
             this.router.navigate(['home']);
           } else {
@@ -61,9 +59,5 @@ export class GpAppLoginComponent {
       summary: 'Se ha producido un error durante el proceso de login',
       detail: message
     });
-  }
-
-  get APPLICATION_TITLE():string {
-    return GlobalService.APPLICATION_TITLE;
   }
 }
