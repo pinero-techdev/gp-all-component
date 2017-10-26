@@ -4,7 +4,8 @@
 </div>
 
 <p-dialog [(visible)]="visualizarTablaTraducciones" header="Mantenimiento traducciones - {{campoDescripcion}}"
-          modal="modal" width="1000" minHeight="600" showEffect="fade" hideEffect="fade">
+          modal="modal" width="1000" minHeight="600" showEffect="fade" hideEffect="fade"
+          appendTo="body">
     <div class="ui-grid ui-grid-responsive ui-grid-pad">
         <div class="ui-grid-col-12">
             <div class="ui-grid-row" *ngFor="let traduccion of elementosTraducciones">
@@ -17,15 +18,15 @@
                 <div [class.ui-md-10]="habilitarEdicionHTML"
                      [class.ui-md-11]="!habilitarEdicionHTML">
                     <span class="md-inputfield" style="width:100%; padding-top:1%;">
-                        <input pInputText style="font-size: large;" type="text"
-                            *ngIf="!habilitarEdicionHTML || !contieneHtml(traduccion.idiomaPaisTraduccion) "
-                            class="ui-inputtext ui-corner-all ui-state-default"
-                            [(ngModel)]="traduccion.idiomaPaisTraduccion">
-                        <input style="font-size: large; text-align: center" type="text"
-                            *ngIf="contieneHtml(traduccion.idiomaPaisTraduccion) && habilitarEdicionHTML"
-                            class="ui-inputtext ui-corner-all ui-state-default"
-                            disabled="true"
-                            value="*****     CONTIENE HTML -  PULSE BOTÓN PARA EDITAR     ****">
+                        <input pInputText style="font-size: large; width: 100%" type="text"
+                               *ngIf="!habilitarEdicionHTML || !contieneHtml(traduccion.idiomaPaisTraduccion) "
+                               class="ui-inputtext ui-corner-all ui-state-default"
+                               [(ngModel)]="traduccion.idiomaPaisTraduccion">
+                        <input style="font-size: large; text-align: center; width: 100%" type="text"
+                               *ngIf="contieneHtml(traduccion.idiomaPaisTraduccion) && habilitarEdicionHTML"
+                               class="ui-inputtext ui-corner-all ui-state-default"
+                               disabled="true"
+                               value="*****     CONTIENE HTML -  PULSE BOTÓN PARA EDITAR     ****">
                     </span>
                 </div>
                 <div clas="ui-md-1" *ngIf="habilitarEdicionHTML">
@@ -42,12 +43,12 @@
                 <div class="ui-grid-col-8"></div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Aceptar" type="button" icon="ui-icon-done"
-                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid100 Fs18 White RaisedButton"
                             (click)="guardarCambios()"></button>
                 </div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Salir" type="button" icon="ui-icon-clear"
-                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid100 Fs18 White RaisedButton"
                             (click)="cerrarEdicionTraduccion()"></button>
                 </div>
             </div>
