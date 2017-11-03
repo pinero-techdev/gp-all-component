@@ -18,7 +18,6 @@ __export(require("./components/redirect/gp.app.redirect.component"));
 __export(require("./components/reports/gp-app-report-dialog.component"));
 __export(require("./components/reports/gp-app-report-frame.component"));
 __export(require("./components/tables/gp-app-table-crud.component"));
-__export(require("./components/tables/gp-app-table-md-crud.component"));
 __export(require("./components/tables/gp-app-table-frame.component"));
 __export(require("./components/tables/gp-form-calendar-field.component"));
 __export(require("./components/tables/gp-form-checkbox-field.component"));
