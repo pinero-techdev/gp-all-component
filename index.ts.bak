@@ -13,7 +13,6 @@ export * from "./components/qlikview/gp.app.qlikview.frame.component";
 export * from "./components/redirect/gp.app.redirect.component";
 export * from "./components/reports/gp-app-report-dialog.component";
 export * from "./components/reports/gp-app-report-frame.component";
-export * from "./components/tables/gp-app-table-md-crud.component";
 export * from "./components/tables/gp-app-table-crud.component";
 export * from "./components/tables/gp-app-table-frame.component";
 export * from "./components/tables/gp-form-calendar-field.component";
