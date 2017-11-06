@@ -244,7 +244,6 @@ export class GPUtil {
             yearSuffix: ""
         };
     }
-
     /**
      * meter en gpUtil
      * Metodo para rellenar el menu item dinámicamente a partir de un array de tipo
@@ -253,7 +252,7 @@ export class GPUtil {
      * @param atributoDesc nombre del atributo que continene la descripción
      * @return {any}
      */
-    public static cargarMenuItem(datos:any[], atributoCod:string, atributoDesc:string, onClickFuncion:string, hasChilds:boolean): any[] {
+    public cargarMenuItem(datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean): any[] {
         var itemsMenu = [];
         var items = [];
         if (!hasChilds){
@@ -264,7 +263,7 @@ export class GPUtil {
                 let newItem = {
                     title: dato[atributoCod],
                     label: dato[atributoDesc],
-                    command: (onClick) => this[onClickFuncion](dato[atributoCod]),
+                    //command: (onClick) => dato[atributoCod],
                     items:items
                 };
                 itemsMenu.push(newItem);
@@ -272,7 +271,6 @@ export class GPUtil {
         }
         return itemsMenu;
     }
-
 
     /**
      * meter en gpUtil
@@ -282,17 +280,18 @@ export class GPUtil {
      * @param atributoDesc nombre del atributo que continene la descripción
      * @return {any}
      */
-    public static cargarMenuItemDesdePadre(codigoItemPadre:string, itemsMenu:MenuItem[], datos:any[], atributoCod:string, atributoDesc:string, onClickFuncion:string, hasChilds:boolean): any[] {
+    public cargarMenuItemDesdePadre(codigoItemPadre:string, itemsMenu:MenuItem[], datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean): any[] {
 
         for (let itemPadre of itemsMenu) {
             //seleccionamos el item sobre el que actualizar su array de items a traves del codigoSeleccionado
             if (itemPadre.title==codigoItemPadre){
                 //actualizamos el array de items
-                itemPadre.items=this.cargarMenuItem(datos,atributoCod,atributoDesc,onClickFuncion,hasChilds);
+                itemPadre.items=this.cargarMenuItem(datos,atributoCod,atributoDesc,hasChilds);
             }
         }
         return itemsMenu;
     }
+
 
 }
 
