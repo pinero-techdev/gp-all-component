@@ -27,7 +27,10 @@ export class GpAppTableCrudComponent implements OnInit {
 
   // Nombre de la tabla a editar.
   @Input() tableName : string;
+  // Nombre de la tabla de detalle
   @Input() tableNameDetail : string;
+  // Identificador de la tabla detalle que tiene en común con la tabla principal
+  @Input() filterField: string ;
 
   // Indicador de trabajando.
   working : boolean = true;
@@ -56,7 +59,9 @@ export class GpAppTableCrudComponent implements OnInit {
   filter: Filter ;
   filters: Filter[] = [];
   codes: string[] = [];
-  filterField: string ;
+
+  //Id de la tabla
+  tableId: string = null;
 
   // Indica si se muestra el control de edicion.
   displayEdicion = false;
@@ -67,7 +72,7 @@ export class GpAppTableCrudComponent implements OnInit {
   // Puede el usuario borrar registros?
   canDelete: boolean = false;
 
-  // Puede el usuario editar registros=
+  // Puede el usuario editar registros?
   canEdit: boolean = false;
 
   // Mensajes de edicion.
@@ -109,7 +114,7 @@ export class GpAppTableCrudComponent implements OnInit {
     this.filterField = filterField;
   }
 
-  cambiaTablaDetail(filterCode:string){
+  cambiaTablaDetail(filterCode:string, filterColumn: string){
     if (this.tableNameDetail != undefined){
       this.working = true;
       this.columnasDetail = [];
@@ -121,14 +126,14 @@ export class GpAppTableCrudComponent implements OnInit {
       this.codes=[];
       this.filters=[];
       this.codes.push(filterCode);
-      this.filter = new Filter(FilterOperationType.EQUAL,"productCode", this.codes); 
+      this.filter = new Filter(FilterOperationType.EQUAL, filterColumn, this.codes);
       this.filters.push(this.filter);
       this.msgsDialog = [];
       this.msgsGlobal = [{severity:'info', detail:'Cargando los datos de la tabla detalle.' }];
       this.dialogErrors = false;
       
       
-      let listRs = this.tableService.list(this.tableNameDetail, true,false,null,this.filters).subscribe(
+      this.tableService.list(this.tableNameDetail, true,false,null,this.filters).subscribe(
         data => {
           //console.log('getMetadata response:' + JSON.stringify( data ) );
           if (data.ok) {
@@ -180,7 +185,7 @@ export class GpAppTableCrudComponent implements OnInit {
     this.msgsDialog = [];
     this.msgsGlobal = [{severity:'info', detail:'Cargando los datos de la tabla.' }];
     this.dialogErrors = false;
-    let listRs = this.tableService.list(this.tableName, true).subscribe(
+    this.tableService.list(this.tableName, true).subscribe(
       data => {
         console.log('getMetadata response:' + JSON.stringify( data ) );
         if (data.ok) {
@@ -231,10 +236,18 @@ export class GpAppTableCrudComponent implements OnInit {
     let tempColumnas : GpFormField[] = [];
     let tempColumnasTabla : GpFormField[] = [];
     let tempMastersDetails : GpFormField[] = [];
+
     //console.log('Table label: ' + tableMetadata.tableLabel );
     this.tableLabel = tableMetadata.tableLabel;
     for (let metadata of tableMetadata.fields ) {
       let formField = new GpFormField( this.formControl, metadata );
+
+      // guardamos el campo que funciona como id, para utilizarlo en el master-detail (si lo hay)
+      if ( metadata.id )
+      {
+        this.tableId = metadata.fieldName ;
+      }
+
       tempColumnas.push( formField );
       if( metadata.displayInfo.displayType == "MASTER_DETAIL" )
       {
@@ -352,7 +365,7 @@ export class GpAppTableCrudComponent implements OnInit {
         this.formControl.lockFields = false;
         this.formControlDetail.lockFields = false;
         console.log("onRowSelect. end select." );
-        this.cambiaTablaDetail(event.data.code);
+        this.cambiaTablaDetail(event.data[this.tableId], this.filterField);
       } );
   }
 
