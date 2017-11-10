@@ -35,6 +35,7 @@ export class LoginService {
         let options = new RequestOptions({ headers: headers });
         let url = `${GlobalService.LOGIN_SERVICE_URL}/login`;
         sessionStorage.setItem("language","ES");
+        console.log(body);
         return this.http.post(url,body,options).map( (res: Response) => res.json());
     }
 
