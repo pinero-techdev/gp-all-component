@@ -13,6 +13,7 @@ export class GlobalService {
     public session:UserInfo;
     public applicationTitle:string;
     public roles: RolInfo[];
+    public language:string;
 
     constuctor() {
         console.log("CREANDO GlobalService.");

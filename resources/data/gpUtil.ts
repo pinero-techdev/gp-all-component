@@ -1,4 +1,4 @@
-import {SelectItem, MenuItem} from "primeng/primeng";
+import {SelectItem,MenuItem} from "primeng/primeng";
 import {GPSelectItem} from "./gpSelectItem";
 
 export class GPUtil {
@@ -292,4 +292,54 @@ export class GPUtil {
         }
         return itemsMenu;
     }
+    /**
+     * meter en gpUtil
+     * Metodo para rellenar el menu item dinámicamente a partir de un array de tipo
+     * @param datos
+     * @param atributoCod nombre del atributo que continene el id/cod
+     * @param atributoDesc nombre del atributo que continene la descripción
+     * @return {any}
+     */
+    public cargarMenuItem(datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean): any[] {
+        var itemsMenu = [];
+        var items = [];
+        if (!hasChilds){
+            items=null;
+        }
+        if (datos != null) {
+            for (let dato of datos) {
+                let newItem = {
+                    title: dato[atributoCod],
+                    label: dato[atributoDesc],
+                    //command: (onClick) => dato[atributoCod],
+                    items:items
+                };
+                itemsMenu.push(newItem);
+            }
+        }
+        return itemsMenu;
+    }
+
+    /**
+     * meter en gpUtil
+     * Metodo para actualizar el menu item dinamicametne conforme se ha seleccionado el padre(codig)
+     * @param datos
+     * @param atributoCod nombre del atributo que continene el id/cod
+     * @param atributoDesc nombre del atributo que continene la descripción
+     * @return {any}
+     */
+    public cargarMenuItemDesdePadre(codigoItemPadre:string, itemsMenu:MenuItem[], datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean): any[] {
+
+        for (let itemPadre of itemsMenu) {
+            //seleccionamos el item sobre el que actualizar su array de items a traves del codigoSeleccionado
+            if (itemPadre.title==codigoItemPadre){
+                //actualizamos el array de items
+                itemPadre.items=this.cargarMenuItem(datos,atributoCod,atributoDesc,hasChilds);
+            }
+        }
+        return itemsMenu;
+    }
+
+
 }
+
