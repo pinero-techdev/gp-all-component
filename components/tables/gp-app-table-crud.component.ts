@@ -3,7 +3,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 
 import {Message} from 'primeng/primeng';
 
-import {TableService, TableMetadata, FieldMetadata} from "../../services/table.service";
+import {TableService, TableMetadata, FieldMetadata, Filter, FilterOperationType} from "../../services/table.service";
 import {GpFormDropdownFieldComponent} from "./gp-form-dropdown-field.component";
 import {GpFormTextFieldComponent} from "./gp-form-text-field.component";
 import {GpFormSwitchFieldComponent} from "./gp-form-switch-field.component";
@@ -17,6 +17,7 @@ import {GpFormImgFieldComponent} from "./gp-form-img-field.component";
 import {GpFormDropdownRelatedfieldComponent} from "./gp-form-dropdown-related-field.component";
 import {InfoCampoModificado} from "../../resources/data/infoCampoModificado";
 
+
 @Component({
   selector: 'gp-app-table-crud',
   templateUrl: './gp-app-table-crud.component.html',
@@ -26,12 +27,20 @@ export class GpAppTableCrudComponent implements OnInit {
 
   // Nombre de la tabla a editar.
   @Input() tableName : string;
+  // Nombre de la tabla de detalle
+  @Input() tableNameDetail : string;
+  // Identificador de la tabla detalle que tiene en común con la tabla principal
+  @Input() filterField: string ;
 
   // Indicador de trabajando.
   working : boolean = true;
 
   // Descripcion de la tabla a editar.
   tableLabel: string;
+
+  // Descripcion de la tabla detalle a editar.
+
+  tableLabelDetail: string;
 
   // Columnas de la tabla.
   columnas : GpFormField[] = [];
@@ -43,9 +52,16 @@ export class GpAppTableCrudComponent implements OnInit {
   // Fila seleccionada.
   selectedRow: any;
 
+  columnasDetail: GpFormField[] = [];
   columnasTablaDetail: GpFormField[] = [];
   elementosDetail: any[] = [];
-  selectedDetailRow: any;
+  selectedRowDetail: any;
+  filter: Filter ;
+  filters: Filter[] = [];
+  codes: string[] = [];
+
+  //Id de la tabla
+  tableId: string = null;
 
   // Indica si se muestra el control de edicion.
   displayEdicion = false;
@@ -56,7 +72,7 @@ export class GpAppTableCrudComponent implements OnInit {
   // Puede el usuario borrar registros?
   canDelete: boolean = false;
 
-  // Puede el usuario editar registros=
+  // Puede el usuario editar registros?
   canEdit: boolean = false;
 
   // Mensajes de edicion.
@@ -67,6 +83,7 @@ export class GpAppTableCrudComponent implements OnInit {
 
   // Form control
   formControl: GpFormControl = new GpFormControl();
+  formControlDetail: GpFormControl = new GpFormControl();
 
   // Campo que ha sido modificado por el usuario
   fieldChanged: InfoCampoModificado = null;
@@ -92,6 +109,62 @@ export class GpAppTableCrudComponent implements OnInit {
   ngOnInit() {
   }
 
+  initDetailTable(tableNameDetail: string,filterField:string){
+    this.tableNameDetail = tableNameDetail;
+    this.filterField = filterField;
+  }
+
+  cambiaTablaDetail(filterCode:string, filterColumn: string){
+    if (this.tableNameDetail != undefined){
+      this.working = true;
+      this.columnasDetail = [];
+      this.columnasTablaDetail = [];
+      this.elementosDetail = [];
+      this.selectedRowDetail = null;
+      this.formControlDetail.originalRow = null;
+
+      this.codes=[];
+      this.filters=[];
+      this.codes.push(filterCode);
+      this.filter = new Filter(FilterOperationType.EQUAL, filterColumn, this.codes);
+      this.filters.push(this.filter);
+      this.msgsDialog = [];
+      this.msgsGlobal = [{severity:'info', detail:'Cargando los datos de la tabla detalle.' }];
+      this.dialogErrors = false;
+      
+      
+      this.tableService.list(this.tableNameDetail, true,false,null,this.filters).subscribe(
+        data => {
+          //console.log('getMetadata response:' + JSON.stringify( data ) );
+          if (data.ok) {
+            this.actualizaDefinicionDetail( data.metadata );
+            this.elementosDetail = data.data;
+          } else {
+            if (data.error != null && data.error.errorMessage != null) {
+              if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido."){
+                this.router.navigate(['login']);
+              }
+              this.showError(data.error.errorMessage.toString());
+            } else {
+              this.showError(data.error.internalErrorMessage);
+            }
+          }
+        },
+        err => {
+          console.error(err);
+          this.showError('');
+        },
+        () => {
+          console.log('getMetadataDetail finalizado');
+          this.working = false;
+        }
+      );
+      
+      this.working = false;
+    }
+    
+
+  }
   // Se llama cuando se selecciona una nueva tabla.
   cambiaTabla(tableName: string) {
     //	TODO Chequear que no estemos en medio de una edicion.
@@ -106,15 +179,15 @@ export class GpAppTableCrudComponent implements OnInit {
     this.tableName = tableName;
     this.elementos = [];
     this.selectedRow = null;
-    this.elementosDetail = [];
-    this.selectedDetailRow = null;
+    //this.elementosDetail = [];
+    //this.selectedDetailRow = null;
     this.formControl.originalRow = null;
     this.msgsDialog = [];
     this.msgsGlobal = [{severity:'info', detail:'Cargando los datos de la tabla.' }];
     this.dialogErrors = false;
-    let listRs = this.tableService.list(this.tableName, true).subscribe(
+    this.tableService.list(this.tableName, true).subscribe(
       data => {
-        // console.log('getMetadata response:' + JSON.stringify( data ) );
+        console.log('getMetadata response:' + JSON.stringify( data ) );
         if (data.ok) {
           this.actualizaDefinicion( data.metadata );
           this.elementos = data.data;
@@ -140,14 +213,41 @@ export class GpAppTableCrudComponent implements OnInit {
     );
   }
 
+  actualizaDefinicionDetail(tableMetadata: TableMetadata){
+    let tempColumnasDetail : GpFormField[] = [];
+    //let tempColumnasTablaDetail : GpFormField[] = [];
+    let tempMastersDetails : GpFormField[] = [];
+
+    this.tableLabelDetail = tableMetadata.tableLabel;
+    for (let metadata of tableMetadata.fields ) {
+      let formField = new GpFormField( this.formControlDetail, metadata );
+      tempColumnasDetail.push( formField );
+      tempMastersDetails.push( formField );
+    }
+    for( var col of tempColumnasDetail )
+    {
+      this.calcFieldType( col );
+    }
+    this.columnasDetail = tempColumnasDetail;
+    this.columnasTablaDetail = tempMastersDetails;
+  }
+
   actualizaDefinicion(tableMetadata: TableMetadata) {
     let tempColumnas : GpFormField[] = [];
     let tempColumnasTabla : GpFormField[] = [];
     let tempMastersDetails : GpFormField[] = [];
-    // console.log('Table label: ' + tableMetadata.tableLabel );
+
+    //console.log('Table label: ' + tableMetadata.tableLabel );
     this.tableLabel = tableMetadata.tableLabel;
     for (let metadata of tableMetadata.fields ) {
       let formField = new GpFormField( this.formControl, metadata );
+
+      // guardamos el campo que funciona como id, para utilizarlo en el master-detail (si lo hay)
+      if ( metadata.id )
+      {
+        this.tableId = metadata.fieldName ;
+      }
+
       tempColumnas.push( formField );
       if( metadata.displayInfo.displayType == "MASTER_DETAIL" )
       {
@@ -167,6 +267,9 @@ export class GpAppTableCrudComponent implements OnInit {
     this.columnas = tempColumnas;
     this.columnasTabla = tempColumnasTabla;
     this.columnasTablaDetail = tempMastersDetails;
+    console.log(this.columnas);
+    console.log(this.columnasTabla);
+    console.log(this.columnasTablaDetail);
   }
 
   calcFieldType( formField : GpFormField ) {
@@ -234,7 +337,6 @@ export class GpAppTableCrudComponent implements OnInit {
   }
 
   onRowSelect(event: any) {
-    console.log("RowSelect: " + JSON.stringify(event));
     this.tableService.selectOneRow( this.tableName, JSON.stringify( this.selectedRow ) ).subscribe(
       data => {
         if( !data.ok ) {
@@ -261,7 +363,9 @@ export class GpAppTableCrudComponent implements OnInit {
       },
       () => {
         this.formControl.lockFields = false;
+        this.formControlDetail.lockFields = false;
         console.log("onRowSelect. end select." );
+        this.cambiaTablaDetail(event.data[this.tableId], this.filterField);
       } );
   }
 
@@ -393,10 +497,22 @@ export class GpAppTableCrudComponent implements OnInit {
     this.formControl.originalRow = null;
     this.formControl.edicionAdd = false;
     this.formControl.edicionEdit = false;
+
+    if (this.columnasTablaDetail.length > 0 ){
+      this.columnasTablaDetail = [];
+    }
+
+    this.formControl.lockFields = false;
+    this.formControlDetail.originalRow = null;
+    this.formControlDetail.edicionAdd = false;
+    this.formControlDetail.edicionEdit = false;
+
     this.msgsDialog = [];
     if( this.dialogErrors )
     {
       this.cambiaTabla( this.tableName );
+      this.columnasDetail = [];
+      this.columnasTablaDetail = [];
     }
   }
 
