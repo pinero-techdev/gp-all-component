@@ -30,7 +30,7 @@
                 <p-column *ngFor="let col of columnasTabla" [field]="col.fieldMetadata.fieldName"
                           [header]="col.fieldMetadata.displayInfo.fieldLabel"
                           [filter]="true" filterMatchMode="contains"
-                          [styleClass]="col.fieldMetadata.lengthInTable <=5 ? 'colmedium' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig': 'colmedium'"
+                          [styleClass]="col.fieldMetadata.lengthInTable <=5 ? 'colsmall' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig': 'colmedium'"
                           [sortable]="true">
                 </p-column>
                 <p-footer>
@@ -158,7 +158,7 @@
                 <p-column *ngFor="let col of columnasTablaDetail" [field]="col.fieldMetadata.fieldName"
                           [header]="col.fieldMetadata.displayInfo.fieldLabel"
                           [filter]="true" filterMatchMode="contains"
-                          [styleClass]="col.fieldMetadata.lengthInTable <=5 ? 'colmedium' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig': 'colmedium'"
+                          [styleClass]="col.fieldMetadata.lengthInTable <=5 ? 'colsmall' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig': 'colmedium'"
                           [sortable]="true">
                 </p-column>
                 <p-footer>
