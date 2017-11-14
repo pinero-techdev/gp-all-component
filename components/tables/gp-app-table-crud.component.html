@@ -30,7 +30,7 @@
                 <p-column *ngFor="let col of columnasTabla" [field]="col.fieldMetadata.fieldName"
                           [header]="col.fieldMetadata.displayInfo.fieldLabel"
                           [filter]="true" filterMatchMode="contains"
-                          [styleClass]="col.fieldMetadata.lengthInTable <=5 ? 'colsmall' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig': 'colmedium'"
+                          [styleClass]="col.fieldMetadata.lengthInTable <=5 ? 'colmedium' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig': 'colmedium'"
                           [sortable]="true">
                 </p-column>
                 <p-footer>
@@ -56,26 +56,16 @@
                             *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span></label>
                 </div>
                 <div class="ui-grid-col-10" *ngIf="!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation">
-                    <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'"
-                                        [formField]="col"></gp-form-time-field>
-                    <gp-form-text-field *ngIf="col.formFieldType == 'gp-form-text-field'"
-                                        [formField]="col"></gp-form-text-field>
-                    <gp-form-textarea-field *ngIf="col.formFieldType == 'gp-form-textarea-field'"
-                                            [formField]="col"></gp-form-textarea-field>
-                    <gp-form-dropdown-field *ngIf="col.formFieldType == 'gp-form-dropdown-field'"
-                                            [formField]="col" (valueChanged)="changeEvent($event)" ></gp-form-dropdown-field>
-                    <gp-form-dropdown-related-field *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
-                                                    [formField]="col" [relatedField]="fieldChanged"></gp-form-dropdown-related-field>
-                    <gp-form-switch-field *ngIf="col.formFieldType == 'gp-form-switch-field'"
-                                          [formField]="col"></gp-form-switch-field>
-                    <gp-form-checkbox-field *ngIf="col.formFieldType == 'gp-form-checkbox-field'"
-                                            [formField]="col"></gp-form-checkbox-field>
-                    <gp-form-calendar-field *ngIf="col.formFieldType == 'gp-form-calendar-field'"
-                                            [formField]="col"></gp-form-calendar-field>
-                    <gp-form-wysiwyg-field *ngIf="col.formFieldType == 'gp-form-wysiwyg-field'"
-                                           [formField]="col"></gp-form-wysiwyg-field>
-                    <gp-form-img-field *ngIf="col.formFieldType == 'gp-form-img-field'"
-                                       [formField]="col"></gp-form-img-field>
+                    <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField]="col"></gp-form-time-field>
+                    <gp-form-text-field *ngIf="col.formFieldType == 'gp-form-text-field'" [formField]="col"></gp-form-text-field>
+                    <gp-form-textarea-field *ngIf="col.formFieldType == 'gp-form-textarea-field'" [formField]="col"></gp-form-textarea-field>
+                    <gp-form-dropdown-field *ngIf="col.formFieldType == 'gp-form-dropdown-field'" [formField]="col" (valueChanged)="changeEvent($event)" ></gp-form-dropdown-field>
+                    <gp-form-dropdown-related-field *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'" [formField]="col" [relatedField]="fieldChanged"></gp-form-dropdown-related-field>
+                    <gp-form-switch-field *ngIf="col.formFieldType == 'gp-form-switch-field'" [formField]="col"></gp-form-switch-field>
+                    <gp-form-checkbox-field *ngIf="col.formFieldType == 'gp-form-checkbox-field'" [formField]="col"></gp-form-checkbox-field>
+                    <gp-form-calendar-field *ngIf="col.formFieldType == 'gp-form-calendar-field'" [formField]="col"></gp-form-calendar-field>
+                    <gp-form-wysiwyg-field *ngIf="col.formFieldType == 'gp-form-wysiwyg-field'" [formField]="col"></gp-form-wysiwyg-field>
+                    <gp-form-img-field *ngIf="col.formFieldType == 'gp-form-img-field'" [formField]="col"></gp-form-img-field>
                 </div>
             </div>
             <div class="ui-grid-row">
@@ -84,14 +74,14 @@
                 </div>
             </div>
 
-            <div class="ui-grid-row" *ngIf="columnasTablaDetail.length > 0">
+            <!--div class="ui-grid-row" *ngIf="columnasTablaDetail.length > 0">
                 <div class="ui-grid-col-12">
                     <p-tabView>
                         <p-tabPanel *ngFor="let cd of columnasTablaDetail; let i = index;"  [header]="cd.fieldMetadata.displayInfo.fieldLabel" [selected]="i == 0">
                         </p-tabPanel>
                     </p-tabView>
                 </div>
-            </div>
+            </div-->
 
             <div class="ui-grid-row">
                 <div class="ui-grid-col-3" *ngIf="canDelete">
@@ -134,6 +124,52 @@
                 <div class="ui-grid-col-3" *ngIf="!(canEdit)">
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="ui-g" *ngIf="!working && columnasTablaDetail.length > 0">
+    <div class="ui-g-6">
+        <div class="card card-w-title">
+            <p-dataTable [value]="elementosDetail" selectionMode="single" [(selection)]="selectedRow"
+                         (onRowSelect)="onRowSelect($event)"
+                         (onRowUnselect)="onRowUnselect($event)"
+                         [rowStyleClass]="thinline"
+                         [rows]="10" [paginator]="true" [pageLinks]="4"
+                         [rowsPerPageOptions]="[10,20,50]" csvSeparator=";"
+                         exportFilename="table_export" #dt
+                         [immutable] = "false"
+                         [responsive]="true">
+                <p-header>
+                    <div class="ui-helper-clearfix ui-grid-row" style="text-align: left;">
+                        <div class="ui-grid-col-10">Mantenimiento de tabla {{tableNameDetail}}</div>
+                        <div class="ui-grid-col-2">
+                            <button type="button"
+                                    label="Añadir"
+                                    pButton
+                                    (click)="onDialogAdd()"
+                                    class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left White Wid30 Fs18 RaisedButton"
+                                    icon="ui-icon-add"
+                                    [(disabled)]="lockFields"
+                                    aria-disabled="false">
+                            </button>
+                        </div>
+                    </div>
+                </p-header>
+                <p-column *ngFor="let col of columnasTablaDetail" [field]="col.fieldMetadata.fieldName"
+                          [header]="col.fieldMetadata.displayInfo.fieldLabel"
+                          [filter]="true" filterMatchMode="contains"
+                          [styleClass]="col.fieldMetadata.lengthInTable <=5 ? 'colmedium' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig': 'colmedium'"
+                          [sortable]="true">
+                </p-column>
+                <p-footer>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-2">
+                            <button type="button" pButton icon="ui-icon-file-download" (click)="dt.exportCSV()"
+                                    label="Exportar a CSV"></button>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-dataTable>
         </div>
     </div>
 </div>
