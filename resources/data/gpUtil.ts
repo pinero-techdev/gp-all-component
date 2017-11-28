@@ -246,6 +246,15 @@ export class GPUtil {
     }
 
     /**
+     * FIXME: VICENTE PRATS 28/11/2017 Eliminar cuando esté solucionado el bug
+     * Debido a un bug en primeng, no se pueden poner rangos relativos en el calendar
+     * @return {string}
+     */
+    public obtainCalendarYearRange(): string {
+        return '1900:' + (new Date).getFullYear();
+    }
+
+    /**
      * meter en gpUtil
      * Metodo para rellenar el menu item dinámicamente a partir de un array de tipo
      * @param datos
