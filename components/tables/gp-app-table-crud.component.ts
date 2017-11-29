@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChildren, QueryList, ViewEncapsulation, NgZone} from '@angular/core';
+import {Component, Input, OnInit, ViewChildren, QueryList, ViewEncapsulation, NgZone,Output, EventEmitter} from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
 
 import {Message} from 'primeng/primeng';
@@ -31,6 +31,15 @@ export class GpAppTableCrudComponent implements OnInit {
   @Input() tableNameDetail : string;
   // Identificador de la tabla detalle que tiene en común con la tabla principal
   @Input() filterField: string ;
+
+  @Output() rowSelected= new EventEmitter<any>();
+
+  // filtro a partir de la tabla principal
+  @Input() rowSelectedFilter: Filter ;
+
+  // Identificador de la tabla detalle que tiene en común con la tabla principal
+  @Input() parentId: string ;
+
 
   // Indicador de trabajando.
   working : boolean = true;
@@ -131,44 +140,48 @@ export class GpAppTableCrudComponent implements OnInit {
       this.msgsDialog = [];
       this.msgsGlobal = [{severity:'info', detail:'Cargando los datos de la tabla detalle.' }];
       this.dialogErrors = false;
-      
-      
+
+
       this.tableService.list(this.tableNameDetail, true,false,null,this.filters).subscribe(
-        data => {
-          //console.log('getMetadata response:' + JSON.stringify( data ) );
-          if (data.ok) {
-            this.actualizaDefinicionDetail( data.metadata );
-            this.elementosDetail = data.data;
-          } else {
-            if (data.error != null && data.error.errorMessage != null) {
-              if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido."){
-                this.router.navigate(['login']);
-              }
-              this.showError(data.error.errorMessage.toString());
+          data => {
+            //console.log('getMetadata response:' + JSON.stringify( data ) );
+            if (data.ok) {
+              this.actualizaDefinicionDetail( data.metadata );
+              this.elementosDetail = data.data;
             } else {
-              this.showError(data.error.internalErrorMessage);
+              if (data.error != null && data.error.errorMessage != null) {
+                if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido."){
+                  this.router.navigate(['login']);
+                }
+                this.showError(data.error.errorMessage.toString());
+              } else {
+                this.showError(data.error.internalErrorMessage);
+              }
             }
+          },
+          err => {
+            console.error(err);
+            this.showError('');
+          },
+          () => {
+            console.log('getMetadataDetail finalizado');
+            this.working = false;
           }
-        },
-        err => {
-          console.error(err);
-          this.showError('');
-        },
-        () => {
-          console.log('getMetadataDetail finalizado');
-          this.working = false;
-        }
       );
-      
+
       this.working = false;
     }
-    
+
 
   }
+  inicializaTabla(tableName: string){
+    this.tableName = tableName;
+  }
+
   // Se llama cuando se selecciona una nueva tabla.
   cambiaTabla(tableName: string) {
     //	TODO Chequear que no estemos en medio de una edicion.
-    if( tableName == this.tableName ) {
+    if( this.tableName!=null && tableName == this.tableName && this.rowSelectedFilter==null) {
       this.working = false;
       return;
     }
@@ -185,32 +198,65 @@ export class GpAppTableCrudComponent implements OnInit {
     this.msgsDialog = [];
     this.msgsGlobal = [{severity:'info', detail:'Cargando los datos de la tabla.' }];
     this.dialogErrors = false;
-    this.tableService.list(this.tableName, true).subscribe(
-      data => {
-        console.log('getMetadata response:' + JSON.stringify( data ) );
-        if (data.ok) {
-          this.actualizaDefinicion( data.metadata );
-          this.elementos = data.data;
-        } else {
-          if (data.error != null && data.error.errorMessage != null) {
-            if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido."){
-              this.router.navigate(['login']);
+
+    if (this.rowSelectedFilter!=null){
+      this.filters= [];
+      this.filters.push(this.rowSelectedFilter);
+
+      this.tableService.list(this.tableName, true,false,null,this.filters).subscribe(
+          data => {
+            console.log('getMetadata response:' + JSON.stringify( data ) );
+            if (data.ok) {
+              this.actualizaDefinicion( data.metadata );
+              this.elementos = data.data;
+            } else {
+              if (data.error != null && data.error.errorMessage != null) {
+                if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido."){
+                  this.router.navigate(['login']);
+                }
+                this.showError(data.error.errorMessage.toString());
+              } else {
+                this.showError('');
+              }
             }
-            this.showError(data.error.errorMessage.toString());
-          } else {
+          },
+          err => {
+            console.error(err);
             this.showError('');
+          },
+          () => {
+            console.log('getMetadata finalizado');
+            this.working = false;
           }
-        }
-      },
-      err => {
-        console.error(err);
-        this.showError('');
-      },
-      () => {
-        console.log('getMetadata finalizado');
-        this.working = false;
-      }
-    );
+      );
+    }else{
+      this.tableService.list(this.tableName, true).subscribe(
+          data => {
+            console.log('getMetadata response:' + JSON.stringify( data ) );
+            if (data.ok) {
+              this.actualizaDefinicion( data.metadata );
+              this.elementos = data.data;
+            } else {
+              if (data.error != null && data.error.errorMessage != null) {
+                if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido."){
+                  this.router.navigate(['login']);
+                }
+                this.showError(data.error.errorMessage.toString());
+              } else {
+                this.showError('');
+              }
+            }
+          },
+          err => {
+            console.error(err);
+            this.showError('');
+          },
+          () => {
+            console.log('getMetadata finalizado');
+            this.working = false;
+          }
+      );
+    }
   }
 
   actualizaDefinicionDetail(tableMetadata: TableMetadata){
@@ -298,8 +344,8 @@ export class GpAppTableCrudComponent implements OnInit {
       selectedDisplay = true;
     }
     if (!selectedDisplay && formField.fieldMetadata.displayInfo.displayType == TableService.HOUR_MINUTE_DISPLAY_TYPE ) {
-        formField.formFieldType = GpFormTimeFieldComponent.FORM_FIELD_TYPE_TIME_FIELD;
-        selectedDisplay = true;
+      formField.formFieldType = GpFormTimeFieldComponent.FORM_FIELD_TYPE_TIME_FIELD;
+      selectedDisplay = true;
     }
     if (!selectedDisplay && formField.fieldMetadata.fieldType == "DATE") {
       formField.formFieldType = GpFormCalendarFieldComponent.FORM_FIELD_TYPE_CALENDAR_FIELD;
@@ -326,7 +372,7 @@ export class GpAppTableCrudComponent implements OnInit {
     }
     // Si no se encuentra una representación mejor, se usa string.
     if (!selectedDisplay) {
-        formField.formFieldType = GpFormTextFieldComponent.FORM_FIELD_TYPE_TEXT_FIELD;
+      formField.formFieldType = GpFormTextFieldComponent.FORM_FIELD_TYPE_TEXT_FIELD;
     }
     //console.log( "GpAppTableCrudComponent.calcFieldType, result -> " + JSON.stringify( formField ) );
   }
@@ -337,40 +383,42 @@ export class GpAppTableCrudComponent implements OnInit {
   }
 
   onRowSelect(event: any) {
+    this.rowSelected.emit(this.selectedRow);
     this.tableService.selectOneRow( this.tableName, JSON.stringify( this.selectedRow ) ).subscribe(
-      data => {
-        if( !data.ok ) {
-          this.showErrorDialogo( "Error recuperando el registro." );
-          console.log("onRowSelect. Error recuperando: " + JSON.stringify( data ) );
-        }
-        else {
-          this.formControl.editedRow = JSON.parse(JSON.stringify( data.data ));
-          this.formControl.originalRow = JSON.parse(JSON.stringify( data.data ));
-          console.log("Edited row: " + JSON.stringify(this.formControl.editedRow));
-          let self = this;
-          this.forEachFieldControl( function( col : GpFormFieldControl ) {
-            console.log( "onRowSelect, cvfertc: " + JSON.stringify( col.getFormField() ) );
-            col.copyValueFromEditedRowToControl( self.formControl.editedRow );
-            col.clearValidations();
-          } );
-          this.formControl.edicionEdit = true;
-          this.displayEdicion = true;
-        }
-      },
-      err => {
-        this.showErrorDialogo( "Error interno recuperando el registro." );
-        console.log("onRowSelect. Error seleccionando: " + JSON.stringify( err ) );
-      },
-      () => {
-        this.formControl.lockFields = false;
-        this.formControlDetail.lockFields = false;
-        console.log("onRowSelect. end select." );
-        this.cambiaTablaDetail(event.data[this.tableId], this.filterField);
-      } );
+        data => {
+          if( !data.ok ) {
+            this.showErrorDialogo( "Error recuperando el registro." );
+            console.log("onRowSelect. Error recuperando: " + JSON.stringify( data ) );
+          }
+          else {
+            this.formControl.editedRow = JSON.parse(JSON.stringify( data.data ));
+            this.formControl.originalRow = JSON.parse(JSON.stringify( data.data ));
+            console.log("Edited row: " + JSON.stringify(this.formControl.editedRow));
+            let self = this;
+            this.forEachFieldControl( function( col : GpFormFieldControl ) {
+              console.log( "onRowSelect, cvfertc: " + JSON.stringify( col.getFormField() ) );
+              col.copyValueFromEditedRowToControl( self.formControl.editedRow );
+              col.clearValidations();
+            } );
+            this.formControl.edicionEdit = true;
+            this.displayEdicion = true;
+          }
+        },
+        err => {
+          this.showErrorDialogo( "Error interno recuperando el registro." );
+          console.log("onRowSelect. Error seleccionando: " + JSON.stringify( err ) );
+        },
+        () => {
+          this.formControl.lockFields = false;
+          this.formControlDetail.lockFields = false;
+          console.log("onRowSelect. end select." );
+          this.cambiaTablaDetail(event.data[this.tableId], this.filterField);
+        } );
   }
 
   onRowUnselect(){
     console.log("RowUnselect: " + JSON.stringify(event));
+    this.rowSelected.emit(null);
     this.closeDialog();
   }
 
@@ -385,31 +433,31 @@ export class GpAppTableCrudComponent implements OnInit {
     let jsonDeleteRow = JSON.stringify( this.formControl.originalRow );
     console.log("onDialogDelete. original: " + jsonDeleteRow);
     this.tableService.deleteRow( this.tableName, jsonDeleteRow ).subscribe(
-      data => {
-        if( data.ok ) {
-          // Borramos el registro.
-          let i = this.elementos.indexOf( this.selectedRow );
-          if( i >= 0 )
-          {
-            console.log("onDialogDelete. before: " + JSON.stringify( this.elementos ) );
-            this.elementos.splice(i,1);
-            console.log("onDialogDelete. after: " + JSON.stringify( this.elementos ) );
+        data => {
+          if( data.ok ) {
+            // Borramos el registro.
+            let i = this.elementos.indexOf( this.selectedRow );
+            if( i >= 0 )
+            {
+              console.log("onDialogDelete. before: " + JSON.stringify( this.elementos ) );
+              this.elementos.splice(i,1);
+              console.log("onDialogDelete. after: " + JSON.stringify( this.elementos ) );
+            }
+            // Y cerramos el dialog.
+            this.closeDialog();
           }
-          // Y cerramos el dialog.
-          this.closeDialog();
-        }
-        else {
-          this.showErrorDialogo( "Error borrando el registro: " + data.error.errorMessage );
-        }
-      },
-      err => {
-        this.showErrorDialogo( "Error interno borrando el registro." );
-        console.log("onDialogDelete. Error borrando: " + JSON.stringify( err ) );
-      },
-      () => {
-        this.formControl.lockFields = false;
-        console.log("onDialogDelete. end delete." );
-      });
+          else {
+            this.showErrorDialogo( "Error borrando el registro: " + data.error.errorMessage );
+          }
+        },
+        err => {
+          this.showErrorDialogo( "Error interno borrando el registro." );
+          console.log("onDialogDelete. Error borrando: " + JSON.stringify( err ) );
+        },
+        () => {
+          this.formControl.lockFields = false;
+          console.log("onDialogDelete. end delete." );
+        });
   }
 
   validateEditRow() {
@@ -444,49 +492,49 @@ export class GpAppTableCrudComponent implements OnInit {
       let jsonOriginalRow = JSON.stringify( this.formControl.originalRow );
       console.log("onDialogSave. original: " + jsonOriginalRow);
       this.tableService.updateRow( this.tableName, jsonOriginalRow, jsonModifiedRow ).subscribe(
-        data => {
-          if( data.ok ) {
-            // Actualizamos el registro.
-            this.forEachField( function( col : GpFormField ) {
-              self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
-            } );
-            // Y cerramos el dialog.
-            this.closeDialog();
-          }
-          else {
-            this.showErrorDialogo( "Error actualizando el registro: " + data.error.errorMessage );
-          }
-        },
-        err => {
-          this.showErrorDialogo( "Error interno actualizando el registro." );
-          console.log("onDialogSave. Error actualizando: " + JSON.stringify( err ) );
-        },
-        () => {
-          this.formControl.lockFields = false;
-          console.log("onDialogSave. end update." );
-        });
+          data => {
+            if( data.ok ) {
+              // Actualizamos el registro.
+              this.forEachField( function( col : GpFormField ) {
+                self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
+              } );
+              // Y cerramos el dialog.
+              this.closeDialog();
+            }
+            else {
+              this.showErrorDialogo( "Error actualizando el registro: " + data.error.errorMessage );
+            }
+          },
+          err => {
+            this.showErrorDialogo( "Error interno actualizando el registro." );
+            console.log("onDialogSave. Error actualizando: " + JSON.stringify( err ) );
+          },
+          () => {
+            this.formControl.lockFields = false;
+            console.log("onDialogSave. end update." );
+          });
     }
     else {
       this.tableService.insertRow( this.tableName, jsonModifiedRow ).subscribe(
-        data => {
-          if( data.ok ) {
-            // Insertamos el registro.
-            this.elementos.push( data.insertedRow );
-            // Y cerramos el dialog.
-            this.closeDialog();
-          }
-          else {
-            this.showErrorDialogo( "Error insertando el registro: " + data.error.errorMessage );
-          }
-        },
-        err => {
-          this.showErrorDialogo( "Error interno insertando el registro." );
-          console.log("onDialogSave. Error insertando: " + JSON.stringify( err ) );
-        },
-        () => {
-          this.formControl.lockFields = false;
-          console.log("onDialogSave. end insert." );
-        });
+          data => {
+            if( data.ok ) {
+              // Insertamos el registro.
+              this.elementos.push( data.insertedRow );
+              // Y cerramos el dialog.
+              this.closeDialog();
+            }
+            else {
+              this.showErrorDialogo( "Error insertando el registro: " + data.error.errorMessage );
+            }
+          },
+          err => {
+            this.showErrorDialogo( "Error interno insertando el registro." );
+            console.log("onDialogSave. Error insertando: " + JSON.stringify( err ) );
+          },
+          () => {
+            this.formControl.lockFields = false;
+            console.log("onDialogSave. end insert." );
+          });
     }
   }
 
@@ -547,7 +595,7 @@ export class GpAppTableCrudComponent implements OnInit {
   forEachField( f : ( col : GpFormField ) => void ) {
     let self = this;
     this.columnas.forEach( col => {
-        f(col);
+      f(col);
     } );
   }
 
