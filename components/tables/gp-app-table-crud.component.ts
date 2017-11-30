@@ -34,6 +34,8 @@ export class GpAppTableCrudComponent implements OnInit {
 
   @Output() rowSelected= new EventEmitter<any>();
 
+  @Output() closedDialog= new EventEmitter<boolean>();
+
   // filtro a partir de la tabla principal
   @Input() rowSelectedFilter: Filter ;
 
@@ -402,6 +404,7 @@ export class GpAppTableCrudComponent implements OnInit {
             } );
             this.formControl.edicionEdit = true;
             this.displayEdicion = true;
+            this.closedDialog.emit(false);
           }
         },
         err => {
@@ -423,6 +426,7 @@ export class GpAppTableCrudComponent implements OnInit {
   }
 
   onDialogClose() {
+    this.closedDialog.emit(true);
     this.closeDialog();
   }
 
@@ -455,6 +459,7 @@ export class GpAppTableCrudComponent implements OnInit {
           console.log("onDialogDelete. Error borrando: " + JSON.stringify( err ) );
         },
         () => {
+          this.closedDialog.emit(true);
           this.formControl.lockFields = false;
           console.log("onDialogDelete. end delete." );
         });
@@ -511,6 +516,7 @@ export class GpAppTableCrudComponent implements OnInit {
           },
           () => {
             this.formControl.lockFields = false;
+            this.closedDialog.emit(true);
             console.log("onDialogSave. end update." );
           });
     }
@@ -532,6 +538,7 @@ export class GpAppTableCrudComponent implements OnInit {
             console.log("onDialogSave. Error insertando: " + JSON.stringify( err ) );
           },
           () => {
+            this.closedDialog.emit(true);
             this.formControl.lockFields = false;
             console.log("onDialogSave. end insert." );
           });
@@ -583,6 +590,7 @@ export class GpAppTableCrudComponent implements OnInit {
     this.formControl.edicionEdit = false;
     this.formControl.edicionAdd = true;
     this.displayEdicion = true;
+    this.closedDialog.emit(false);
   }
 
   showErrorDialogo( msg : string )
