@@ -426,7 +426,6 @@ export class GpAppTableCrudComponent implements OnInit {
   }
 
   onDialogClose() {
-    this.closedDialog.emit(true);
     this.closeDialog();
   }
 
@@ -459,7 +458,6 @@ export class GpAppTableCrudComponent implements OnInit {
           console.log("onDialogDelete. Error borrando: " + JSON.stringify( err ) );
         },
         () => {
-          this.closedDialog.emit(true);
           this.formControl.lockFields = false;
           console.log("onDialogDelete. end delete." );
         });
@@ -516,7 +514,6 @@ export class GpAppTableCrudComponent implements OnInit {
           },
           () => {
             this.formControl.lockFields = false;
-            this.closedDialog.emit(true);
             console.log("onDialogSave. end update." );
           });
     }
@@ -538,7 +535,6 @@ export class GpAppTableCrudComponent implements OnInit {
             console.log("onDialogSave. Error insertando: " + JSON.stringify( err ) );
           },
           () => {
-            this.closedDialog.emit(true);
             this.formControl.lockFields = false;
             console.log("onDialogSave. end insert." );
           });
@@ -546,6 +542,7 @@ export class GpAppTableCrudComponent implements OnInit {
   }
 
   closeDialog() {
+    this.closedDialog.emit(true);
     this.displayEdicion = false;
     this.formControl.lockFields = false;
     this.selectedRow = null;
