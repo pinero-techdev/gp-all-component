@@ -211,6 +211,25 @@ export class GPUtil {
         return -1;
     }
 
+    /**
+     * Devuelve el elemento de la lista cuyo valor del atributo coincide con el indicado
+     * @param list
+     * @param atributeName
+     * @param value
+     * @return {any}
+     */
+    public getElementFromArray(list: any[], atributeName: string, value: any): any {
+
+        if (list) {
+            for (let index = 0; index < list.length; index++) {
+                if ( list[index][atributeName] == value ) {
+                    return list[index];
+                }
+            }
+        }
+        return null;
+    }
+
     public static letraDni(dni) {
         return "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dni.substring(0,8) % 23);
     }
