@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {Headers, RequestOptions, Response, Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx';
 import {hash} from '../util/sha256';
@@ -9,114 +9,116 @@ import {hash} from '../util/sha256';
  */
 
 export class CommonRs {
-    ok: boolean;
-    error: ErrorInformation;
+    ok:boolean;
+    error:ErrorInformation;
     cacheKey:string;
 }
 
 export class CommonRq {
-    orden: string;
-    rows: number;
-    firstRow: number;
+    orden:string;
+    rows:number;
+    firstRow:number;
 }
 
 export class ErrorInformation {
-    errorMessage: string;
-    fields: FieldErrorInformation[];
-    internalErrorMessage: string;
-    notLogged: boolean;
+    errorMessage:string;
+    fields:FieldErrorInformation[];
+    internalErrorMessage:string;
+    notLogged:boolean;
 }
 
 export class FieldErrorInformation {
-    name: string;
-    message: string;
+    name:string;
+    message:string;
 }
 
 class CachedResponse {
-    data: any;
-    ttl: number;
-  
+    data:any;
+    ttl:number;
+
     constructor(data:any, ttl:number) {
-      this.data = data;
-      this.ttl = ttl;
+        this.data = data;
+        this.ttl = ttl;
     }
 }
 
 @Injectable()
 export class CommonService {
 
-    constructor(private http: Http) {
+    constructor(private http:Http) {
     }
-  
+
     /*
      * dsteinsland: implementacion basica de cache.
      *              TODO: añadir posibilidad de insertar/quitar elementos
      *              manualmente en momentos concretos, para pantallas pesadas.
      */
     removeCachedObject(key:string) {
-        console.debug("remove cached object: "+key);
+        console.debug("remove cached object: " + key);
         sessionStorage.removeItem(key);
     }
 
-    cachedServiceRequest<T>( url: string, body: any, ttl?: number) : Observable<T> {
+    cachedServiceRequest<T>(url:string, body:any, ttl?:number):Observable<T> {
         let userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
-        let uintArray = new Uint8Array(JSON.stringify({userId,url,body}).split('').map(function(char) {return char.charCodeAt(0);}));
+        let uintArray = new Uint8Array(JSON.stringify({userId, url, body}).split('').map(function (char) {
+            return char.charCodeAt(0);
+        }));
         let key = new Buffer(hash(uintArray)).toString('hex');
         if (sessionStorage.getItem(key) != null) {
-          console.debug("cache hit: "+key+":"+url);
-          let cachedResponse = JSON.parse(sessionStorage.getItem(key));
-          if (cachedResponse.ttl != null && Date.now() > cachedResponse.ttl) {
-            console.debug("cache expired: "+url);
-            this.removeCachedObject(key);
-          } else {
-            return Observable.create(observer => {
-                observer.next(cachedResponse.data);
-                observer.complete();
-            });
-          }
+            console.debug("cache hit: " + key + ":" + url);
+            let cachedResponse = JSON.parse(sessionStorage.getItem(key));
+            if (cachedResponse.ttl != null && Date.now() > cachedResponse.ttl) {
+                console.debug("cache expired: " + url);
+                this.removeCachedObject(key);
+            } else {
+                return Observable.create(observer => {
+                    observer.next(cachedResponse.data);
+                    observer.complete();
+                });
+            }
         }
-        let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
-        let options = new RequestOptions({ headers: headers });
-        let post = this.http.post(url,body,options);
-        return post.map( (res: Response) => { 
-          let response : T = res.json();
-          if (response['ok'] && response['error'] == null && response['errorMessage'] == null) {
-              response['cacheKey'] = key;
-              sessionStorage.setItem(key, JSON.stringify(new CachedResponse(response, (ttl != null) ? Date.now() + ttl : null)));
-          }
-          return response; 
-        } );
+        let headers = new Headers({'Content-Type': 'application/json; charset=UTF-8'});
+        let options = new RequestOptions({headers: headers});
+        return this.http.post(url, body, options).map(res => {
+            let response:T = res.json();
+            if (response['ok'] && response['error'] == null && response['errorMessage'] == null) {
+                response['cacheKey'] = key;
+                sessionStorage.setItem(key, JSON.stringify(new CachedResponse(response, (ttl != null) ? Date.now() + ttl : null)));
+            }
+            return response;
+        });
     }
-  
-    serviceRequest<T>( url: string, body: any ) : Observable<T> {
-        let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
-        let options = new RequestOptions({ headers: headers });
-        let post = this.http.post(url,body,options);
-        return post.map( (res: Response) => { let response : T = res.json(); return response; } );
+
+    serviceRequest<T>(url:string, body:any):Observable<T> {
+        let headers = new Headers({'Content-Type': 'application/json; charset=UTF-8'});
+        let options = new RequestOptions({headers: headers});
+        return this.http.post(url, body, options).map((res:Response) => {
+            let response:T = res.json();
+            return response;
+        });
     }
 
     /**
      * Adrian Gomez Macias creo una funcion para realizar peticiones GET que necesiten pasar un JSON
      */
-    serviceGetRq<T>(url: string, rq: any) : Observable<T> {
-      let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
-      let options = new RequestOptions({ headers: headers });
-
-      url = url +"?rq="+rq;
-      let get = this.http.get(url,options);
-
-      return get.map(( res: Response) => {let response : T = res.json(); return response;});
+    serviceGetRq<T>(url:string, rq:any):Observable<T> {
+        let headers = new Headers({'Content-Type': 'application/json; charset=UTF-8'});
+        let options = new RequestOptions({headers: headers});
+        url = url + "?rq=" + rq;
+        return this.http.get(url, options).map((res:Response) => {
+            let response:T = res.json();
+            return response;
+        });
     }
-	
+
     /**
      * Creo una funcion para realizar peticiones GET que no necesiten pasar ningun dato
      */
-    serviceGet<T>(url: string) : Observable<T> {
-      let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8' });
-
-      let get = this.http.get(url);
-
-      return get.map(( res: Response) => {let response : T = res.json(); return response;});
+    serviceGet<T>(url:string):Observable<T> {
+        let headers = new Headers({'Content-Type': 'application/json; charset=UTF-8'});
+        return this.http.get(url).map((res:Response) => {
+            let response:T = res.json();
+            return response;
+        });
     }
-
 }
