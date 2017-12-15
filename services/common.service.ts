@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, RequestOptions, Response, Http} from '@angular/http';
+import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx';
 import {hash} from '../util/sha256';
@@ -45,7 +45,7 @@ class CachedResponse {
 @Injectable()
 export class CommonService {
 
-    constructor(private http:Http) {
+    constructor(http:Http) {
     }
 
     /*
@@ -92,7 +92,7 @@ export class CommonService {
     serviceRequest<T>(url:string, body:any):Observable<T> {
         let headers = new Headers({'Content-Type': 'application/json; charset=UTF-8'});
         let options = new RequestOptions({headers: headers});
-        return this.http.post(url, body, options).map((res:Response) => {
+        return this.http.post(url, body, options).map(res => {
             let response:T = res.json();
             return response;
         });
@@ -105,7 +105,7 @@ export class CommonService {
         let headers = new Headers({'Content-Type': 'application/json; charset=UTF-8'});
         let options = new RequestOptions({headers: headers});
         url = url + "?rq=" + rq;
-        return this.http.get(url, options).map((res:Response) => {
+        return this.http.get(url, options).map(res => {
             let response:T = res.json();
             return response;
         });
@@ -115,8 +115,7 @@ export class CommonService {
      * Creo una funcion para realizar peticiones GET que no necesiten pasar ningun dato
      */
     serviceGet<T>(url:string):Observable<T> {
-        let headers = new Headers({'Content-Type': 'application/json; charset=UTF-8'});
-        return this.http.get(url).map((res:Response) => {
+        return this.http.get(url).map(res => {
             let response:T = res.json();
             return response;
         });
