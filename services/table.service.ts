@@ -146,6 +146,7 @@ export class FilterOperationType {
     static BETWEEN = "BETWEEN";  //Operación de comparativa campo entre dos valores
     static IN = "IN"; // Operación que devuelve los campos que se encuentren entre los valores proporcionados
     static NOT_IN = "NOT_IN"; // Operación que devuelve los campos que no se encuentren entre los valores proporcionados
+    static LIKE = "LIKE"; // Operación que devuelve los campos que contengan la cadena proporcionada
 }
 export class Filter {
     constructor(public op:FilterOperationType, public field:string, public values:string[]) {
