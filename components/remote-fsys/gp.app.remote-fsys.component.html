@@ -1,0 +1,48 @@
+<p-dialog #componenteEdicionMovimientos [visible]="displayDialog" [modal]="true" width="1150" minHeight="850"
+          header="Sistema de ficheros remoto"
+          responsive="true" showEffect="fade" hideEffect="fade" positionTop="25"
+          (onHide)="hideDialog()">
+    <p-growl [value]="alerts" [life]="5000"></p-growl>
+    <h3>Navegue y escoja el fichero apropiado.</h3>
+    <div class="ui-g">
+        <div style="overflow-y: scroll; max-height: 75vh;" class="ui-g-6">
+            <p-tree [value]="remoteFsys" selectionMode="single" [(selection)]="selectedNode"
+                    [styleClass]="'full-width'"
+                    *ngIf="remoteFsys != null"
+                    (onNodeSelect)="nodeSelect($event)"
+                    (onNodeUnSelect)="nodeUnSelect($event)"></p-tree>
+        </div>
+        <!--
+        <div class="ui-g-6">
+            <img id="enlace" class="map nopad" [src]="nodeParsed" style="width: 20vw; height: 20vh;" *ngIf="nodeParsed != null">
+        </div>
+        -->
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-2 ">
+            <button label="Atras"
+                    pButton
+                    style="width: 100%;"
+                    icon="ui-icon-arrow-back"
+                    (click)="anterior()"
+                    class="Fright ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"></button>
+        </div>
+        <div class="ui-g-6"></div>
+        <div class="ui-g-2 ">
+            <button label="Seleccionar"
+                    pButton
+                    style="width: 100%;"
+                    icon="ui-icon-check"
+                    (click)="choose()"
+                    class="Fright ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"></button>
+        </div>
+        <div class="ui-g-2 ">
+            <button label="Cancelar"
+                    pButton
+                    style="width: 100%;"
+                    icon="ui-icon-clear"
+                    (click)="hideDialog()"
+                    class="Fright ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"></button>
+        </div>
+    </div>
+</p-dialog>
