@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
+import {Mensajes} from "../../resources/data/mensajes";
 import {
     MultiIdomaService,
     Traduccion,
@@ -13,7 +14,7 @@ export const orderLanguage = ['ES','EN','FR','DE','IT','PT'];
     templateUrl: './gp.app.multi-idioma.component.html',
     providers: [MultiIdomaService]
 })
-export class GpAppMultiIdiomaComponent implements OnInit {
+export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
     @Input() tabla:string;
     @Input() pKey:string;
     @Input() esquema:string;
@@ -31,6 +32,7 @@ export class GpAppMultiIdiomaComponent implements OnInit {
     msgs:any;
 
     constructor(private _multiIdiomaService : MultiIdomaService) {
+        super();
     }
 
     ngOnInit() {
@@ -39,7 +41,11 @@ export class GpAppMultiIdiomaComponent implements OnInit {
     }
 
     despliegaTraducciones() {
-        this.getTraducciones();
+        if ( this.pKey ) {
+            this.getTraducciones();
+        } else {
+            this.showErrorAlert("Debe guardar primero el registro para poder insertar o visualizar las traducciones.")
+        }
     }
 
     getTraducciones() {
