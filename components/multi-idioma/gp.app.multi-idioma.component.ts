@@ -29,8 +29,6 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
     textoHTML:Traduccion;
     elementosTraducciones:Traduccion[];
 
-    msgs:any;
-
     constructor(private _multiIdiomaService : MultiIdomaService) {
         super();
     }
