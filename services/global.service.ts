@@ -8,6 +8,7 @@ export class GlobalService {
     private static loginServiceUrl:string;
     private static menuServiceUrl:string;
     private static app:string;
+    private static ip:string;
     public kiosk:boolean;
     public logged:boolean;
     public session:UserInfo;
@@ -49,6 +50,14 @@ export class GlobalService {
 
     public static get APP():string {
         return GlobalService.app;
+    }
+
+    public static setIp(ip: string) {
+        this.ip = ip;
+    }
+
+    public static get Ip():string {
+        return GlobalService.ip;
     }
 
     public globalStatus():string {
