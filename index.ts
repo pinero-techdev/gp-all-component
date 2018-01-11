@@ -27,6 +27,7 @@ export * from "./components/tables/gp-form-textarea-field.component";
 export * from "./components/tables/gp-form-time-field.component";
 export * from "./components/tables/gp-form-wysiwyg-field.component";
 export * from "./components/dynamic/gp-dynamic.component";
+export * from "./components/remote-fsys/gp.app.remote-fsys.component";
 //Resources (Classes)
 export * from "./resources/data/authGuard";
 export * from "./resources/data/redirectAuthGuard";
@@ -53,3 +54,4 @@ export * from "./services/login.service";
 export * from "./services/report.service";
 export * from "./services/table.service";
 export * from "./services/multi-idioma.service";
+export * from "./services/remote-fsys.service";

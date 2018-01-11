@@ -1,18 +1,17 @@
 import {Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
-import {RemoteFsysService, ObtenListaFicherosRq, ObtenNivelSuperiorRq} from "../../services/remote-fsys.service";
-import {TreeNode} from "../../../primeng/primeng";
+import {RemoteFsysService, ObtenListaFicherosRq} from "../../services/remote-fsys.service";
+import {TreeNode} from "primeng/primeng";
 import {Mensajes} from "../../resources/data/mensajes";
+import {File} from "../../resources/data/file";
+import {Folder} from "../../resources/data/folder";
 
 @Component({
     selector: 'gp-app-remote-fsys',
-    templateUrl: 'gp.app.remote-fsys.component.html',
+    templateUrl: './gp.app.remote-fsys.component.html',
     providers: [RemoteFsysService]
 })
 export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
-    @Input() url:string;
     @Input() popup:boolean;
-    @Input() host_root:string;
-
     @Output() link = new EventEmitter<string>();
 
     displayDialog:boolean = false;
@@ -21,28 +20,52 @@ export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
     remoteFsys:TreeNode[] = null;
     lastDirectory:string;
 
+    url:string;
+
     constructor(private _remoteFsysService:RemoteFsysService) {
         super();
     }
 
     ngOnInit() {
-        this.getFicheros(new ObtenListaFicherosRq(null));
+        this.getFicheros(new ObtenListaFicherosRq());
         this.showDialog();
 
     }
 
-    convertToTreeNode(opciones:string[]):TreeNode[] {
+    convertToTreeNode(opciones:Folder):TreeNode[] {
         let estructura:TreeNode[] = [];
-        for (let o of opciones) {
-            let aux:TreeNode = {
-                label: o,
-                expanded: false,
-                data: {},
-                children: []
-            };
-            estructura.push(aux);
+        if (opciones != null) {
+            this.genFiles(opciones.file, estructura);
+            if (opciones.folder != null) {
+                for (let o of opciones.folder) {
+                    let auxChildren:TreeNode[] = this.convertToTreeNode(o);
+                    let aux:TreeNode = {
+                        label: o.name,
+                        expanded: false,
+                        data: {"type": "folder"},
+                        children: auxChildren
+                    };
+                    estructura.push(aux);
+                }
+            }
         }
         return estructura;
+    }
+
+    genFiles(files: File[], estructura: TreeNode[]){
+        if (files != null) {
+            for (let o of files) {
+                if (o.name != '.DS_Store' && o.name.indexOf('.pdf') == -1 && o.name.indexOf('.db') == -1) {
+                    let aux:TreeNode = {
+                        label: o.name,
+                        expanded: false,
+                        data: {"type": "file", "size": o.bytesSize},
+                        children: []
+                    };
+                    estructura.push(aux);
+                }
+            }
+        }
     }
 
     getFicheros(rq:ObtenListaFicherosRq) {
@@ -51,28 +74,13 @@ export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
             data => {
                 if (data.ok) {
                     this.remoteFsys = this.convertToTreeNode(data.ficheros);
+                    console.log(this.remoteFsys);
                 } else {
                     this.showErrorAlert("Se produjo un error recuperando el sistema de ficheros, intenelo de nuevo.");
                 }
             },
             err => console.error(err),
             () => console.debug("finalizado getFicheros")
-        );
-    }
-
-    getNivelSuperior(rq:ObtenNivelSuperiorRq) {
-        this.remoteFsys = null;
-        this._remoteFsysService.obtenNivelSuperior(rq).subscribe(
-            data => {
-                if (data.ok) {
-                    this.remoteFsys = this.convertToTreeNode(data.ficheros);
-                    this.lastDirectory = data.directorio;
-                } else {
-                    this.showErrorAlert("Se produjo un error recuperando el sistema de ficheros, intenelo de nuevo.");
-                }
-            },
-            err => console.error(err),
-            () => console.debug("finalizado getNivelSuperior")
         );
     }
 
@@ -84,30 +92,33 @@ export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
         this.displayDialog = false;
     }
 
-    nodeSelect(e) {
-        if (this.lastDirectory == null) {
-            this.lastDirectory = this.host_root;
-        }
-        if(this.selectedNode.label.indexOf('.') == -1) {
-            this.lastDirectory = this.lastDirectory + "/" + this.selectedNode.label;
-            this.getFicheros(new ObtenListaFicherosRq(this.lastDirectory + "/"));
-        }
-    }
-
-    nodeUnselect(e) {
-    }
-
-    anterior() {
-        let rq = new ObtenNivelSuperiorRq(this.lastDirectory);
-        this.getNivelSuperior(rq);
-    }
-
     choose() {
         if (this.selectedNode != null) {
-            this.link.emit(this.lastDirectory + "/" + this.selectedNode.label);
+            let url = this.getPath(this.selectedNode);
+            this.link.emit(url);
             this.hideDialog();
         } else {
             this.showErrorAlert("Es necesario escoger un elemento del arbol.");
         }
     }
+
+    getPath(node:TreeNode):string{
+        if(node != null) {
+            if (node.parent != null){
+                return this.getPath(node.parent) + "/" + node.label;
+            } else {
+                return node.label;
+            }
+        }
+    }
+
+    nodeSelect(e){
+        this.url = this.getPath(this.selectedNode);
+        this.url = this.url.replace("bahia-principe/", "http://www.bahia-principe.com/");
+    }
+
+    goPreview() {
+        window.open(this.url);
+    }
+
 }

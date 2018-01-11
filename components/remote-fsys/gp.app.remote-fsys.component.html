@@ -5,36 +5,31 @@
     <p-growl [value]="alerts" [life]="5000"></p-growl>
     <h3>Navegue y escoja el fichero apropiado.</h3>
     <div class="ui-g">
-        <div style="overflow-y: scroll; max-height: 75vh;" class="ui-g-6">
+        <div class="ui-g-6" style="overflow-y: auto; max-height: 75vh;">
             <p-tree [value]="remoteFsys" selectionMode="single" [(selection)]="selectedNode"
-                    [styleClass]="'full-width'"
+                    styleClass="full-width"
                     *ngIf="remoteFsys != null"
-                    (onNodeSelect)="nodeSelect($event)"
-                    (onNodeUnSelect)="nodeUnSelect($event)"></p-tree>
+                    (onNodeSelect)="nodeSelect(e)"></p-tree>
         </div>
-        <!--
-        <div class="ui-g-6">
-            <img id="enlace" class="map nopad" [src]="nodeParsed" style="width: 20vw; height: 20vh;" *ngIf="nodeParsed != null">
+        <div class="ui-g-6" style="overflow-y: auto; max-height: 75vh;">
+            <div class="ui-g">
+                <img [(src)]="url" *ngIf="selectedNode?.data?.type == 'file'" style="width: 100%;height: 100%;max-height: 69vh;"/>
+            </div>
+            <div class="ui-g" style="padding-top: 1%;">
+                <button type="button" pButton icon="ui-icon-open-in-browser" style="padding-top: 1%;" (click)="goPreview()" *ngIf="selectedNode?.data?.type == 'file'"></button>
+            </div>
         </div>
-        -->
     </div>
     <div class="ui-g">
-        <div class="ui-g-2 ">
-            <button label="Atras"
-                    pButton
-                    style="width: 100%;"
-                    icon="ui-icon-arrow-back"
-                    (click)="anterior()"
-                    class="Fright ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"></button>
-        </div>
-        <div class="ui-g-6"></div>
+        <div class="ui-g-8"></div>
         <div class="ui-g-2 ">
             <button label="Seleccionar"
                     pButton
                     style="width: 100%;"
                     icon="ui-icon-check"
                     (click)="choose()"
-                    class="Fright ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"></button>
+                    class="Fright ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
+                    [disabled]="!selectedNode || selectedNode.data.type != 'file'"></button>
         </div>
         <div class="ui-g-2 ">
             <button label="Cancelar"

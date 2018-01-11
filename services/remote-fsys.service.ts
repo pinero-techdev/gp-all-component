@@ -4,17 +4,16 @@ import {TreeNode} from "primeng/primeng";
 import {CommonService, CommonRs} from "gp-all-component/services/common.service";
 import {Observable} from "rxjs/Rx";
 import {HttpClient} from "@angular/common/http";
+import {BaseDir} from "../resources/data/baseDir";
 
 export class ObtenListaFicherosRq {
-    directorio:string;
 
-    constructor(directorio:string) {
-        this.directorio = directorio;
+    constructor() {
     }
 }
 
 export class ObtenListaFicherosRs extends CommonRs{
-    ficheros:string[];
+    ficheros:BaseDir;
 }
 
 export class ObtenNivelSuperiorRq {
