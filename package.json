@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "name": "gp-all-component",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "dependencies": {
     "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
