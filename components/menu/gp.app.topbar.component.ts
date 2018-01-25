@@ -1,6 +1,5 @@
 import {Component, Input, Output, ElementRef, EventEmitter, ViewChild, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-
 import {GlobalService} from "../../services/global.service";
 import {UserInfo} from "../../resources/data/userInfo";
 import {LoginService} from "../../services/login.service";
@@ -16,24 +15,23 @@ export class GpAppTopBarComponent implements OnInit {
     /**
      * Elementos del html necesarios para saber si se ha clickado encima de ellos
      */
-    @ViewChild('menuUser') menuUser: ElementRef;
-    @ViewChild('userMobileButton') userMobileButton: ElementRef;
+    @ViewChild('menuUser') menuUser:ElementRef;
+    @ViewChild('userMobileButton') userMobileButton:ElementRef;
 
-    public itemsUserMenu: MenuItem[];
+    public itemsUserMenu:MenuItem[];
 
-    @Input() homeUrl: String;
-    @Input() logoUrl: String;
-    @Input() title: String;
-    display: boolean = false;
-    showMenu: boolean = false;
-    userMenuVisible: boolean = false;
-    @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
-    classShowMenuButton: String = "Fright ShowOnMobile ripplelink Unselectable ShadowEffect";
+    @Input() homeUrl:String;
+    @Input() logoUrl:String;
+    @Input() title:String;
+    @Output() showServiceMenu:EventEmitter<boolean> = new EventEmitter<boolean>(true);
+    display:boolean = false;
+    showMenu:boolean = false;
+    userMenuVisible:boolean = false;
+    classShowMenuButton:String = "Fright ShowOnMobile ripplelink Unselectable ShadowEffect";
 
-
-    constructor(private _router: Router,
-                public globalService: GlobalService,
-                private _loginService: LoginService) {
+    constructor(private _router:Router,
+                public globalService:GlobalService,
+                private _loginService:LoginService) {
     }
 
     ngOnInit() {
@@ -41,7 +39,11 @@ export class GpAppTopBarComponent implements OnInit {
             label: 'Usuario',
             icon: 'ui-icon-folder',
             items: [
-                {label: 'Logout', icon: 'ui-icon-power-settings-new', command: (click) => {this.toggleUserMenu(), this.redirect('logout')} }
+                {
+                    label: 'Logout', icon: 'ui-icon-power-settings-new', command: (click) => {
+                    this.toggleUserMenu(), this.redirect('logout')
+                }
+                }
             ]
         }];
     }
@@ -50,7 +52,7 @@ export class GpAppTopBarComponent implements OnInit {
      * Metodo para redireccionar según la opción elegida en el desplegable del usuario
      * @param action
      */
-    redirect(action: String) {
+    redirect(action:String) {
         switch (action) {
             case 'logout':
                 let response = new CommonRs();
@@ -78,7 +80,7 @@ export class GpAppTopBarComponent implements OnInit {
         }
     }
 
-    toggleUserMenu(){
+    toggleUserMenu() {
         this.userMenuVisible = !this.userMenuVisible;
     }
 }

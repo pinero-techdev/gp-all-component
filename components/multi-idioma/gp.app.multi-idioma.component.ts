@@ -7,7 +7,7 @@ import {
     UpdateTraduccionesRq
 } from "../../services/multi-idioma.service";
 
-export const orderLanguage = ['ES','EN','FR','DE','IT','PT'];
+export const orderLanguage = ['ES', 'EN', 'FR', 'DE', 'IT', 'PT'];
 
 @Component({
     selector: 'gp-app-multi-idioma',
@@ -21,15 +21,16 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
     @Input() campo:string;
     @Input() campoDescripcion:string;
     @Input() habilitarEdicionHTML:boolean;
-    @Input() orderByLangCod: boolean = true;
+    @Input() orderByLangCod:boolean = true;
     visualizarTablaTraducciones:boolean;
     visualizarEdicionHTML:boolean;
     traduccionTextoHTML:string;
     traduccionIdiomaHTML:string;
     textoHTML:Traduccion;
     elementosTraducciones:Traduccion[];
+    working:boolean = false;
 
-    constructor(private _multiIdiomaService : MultiIdomaService) {
+    constructor(private _multiIdiomaService:MultiIdomaService) {
         super();
     }
 
@@ -39,7 +40,7 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
     }
 
     despliegaTraducciones() {
-        if ( this.pKey ) {
+        if (this.pKey) {
             this.getTraducciones();
         } else {
             this.showErrorAlert("Debe guardar primero el registro para poder insertar o visualizar las traducciones.")
@@ -54,8 +55,8 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
                 if (data.ok) {
 
                     let traducciones = data.traducciones;
-                    if (!this.orderByLangCod){
-                        traducciones = this.ordenarTraducciones(data.traducciones,orderLanguage);
+                    if (!this.orderByLangCod) {
+                        traducciones = this.ordenarTraducciones(data.traducciones, orderLanguage);
                     }
                     this.elementosTraducciones = traducciones;
 
@@ -73,11 +74,11 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
         );
     }
 
-    ordenarTraducciones(traducciones: Traduccion[], ordenIds: string[]): Traduccion[] {
-        let traduccionesOrdenadas: Traduccion[] = [];
-        for ( let codIdioma of ordenIds) {
+    ordenarTraducciones(traducciones:Traduccion[], ordenIds:string[]):Traduccion[] {
+        let traduccionesOrdenadas:Traduccion[] = [];
+        for (let codIdioma of ordenIds) {
             for (let traduccion of traducciones) {
-                if (traduccion.codigoIdioma == codIdioma)  {
+                if (traduccion.codigoIdioma == codIdioma) {
                     traduccionesOrdenadas.push(traduccion);
                     break;
                 }
@@ -87,12 +88,14 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
     }
 
     guardarCambios() {
+        this.working = true;
         for (let traduccionesInsertar of this.elementosTraducciones) {
             let request = new UpdateTraduccionesRq(this.pKey, this.esquema, this.tabla, this.campo,
                 traduccionesInsertar.codigoIdioma,
                 traduccionesInsertar.idiomaPaisTraduccion);
-            console.log(request);
-            this._multiIdiomaService.actualizaTraducciones(request).subscribe(
+            this._multiIdiomaService.actualizaTraducciones(request).finally(() => {
+                this.working = false;
+            }).subscribe(
                 // the first argument is a function which runs on success
                 data => {
                     if (data.ok) {
@@ -109,8 +112,8 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
         this.cerrarEdicionTraduccion();
     }
 
-    contieneHtml(traduccion: string): boolean{
-        return traduccion != null && traduccion.indexOf("</") != -1;
+    contieneHtml(traduccion:string):boolean {
+        return traduccion != null && (traduccion.indexOf("</") != -1 || traduccion.indexOf("/>") != -1 || traduccion.indexOf("&lt;") != -1 || traduccion.indexOf("&gt;") != -1);
     }
 
     cerrarEdicionTraduccion() {

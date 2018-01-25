@@ -17,7 +17,7 @@
             </span>
             </div>
             <div class="ui-g-12">
-                <button type="button" pButton label="Sign In" icon="ui-icon-person" (click)="login()"></button>
+                <button type="button" pButton label="Sign In" icon="ui-icon-person" (click)="login()" [disabled]="working"></button>
             </div>
 
             <p-messages [value]="msgs"></p-messages>

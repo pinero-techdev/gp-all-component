@@ -16,6 +16,7 @@ export class GpAppLoginComponent {
     password:String;
     msgs:Message[] = [];
     btnModificaPwdVisible:boolean = false;
+    working:boolean = false;
 
     passwordErrors:string[] = [
         "Su clave ha caducado, tiene que cambiar la clave de acceso.",
@@ -32,8 +33,11 @@ export class GpAppLoginComponent {
     }
 
     login() {
+        this.working = true;
         let request:LoginRq = new LoginRq(this.usuario, this.password);
-        this._loginService.login(request).subscribe(
+        this._loginService.login(request).finally(() => {
+            this.working = false;
+        }).subscribe(
             data => {
                 if (data.ok) {
                     this.globalService.session = data.userInfo;

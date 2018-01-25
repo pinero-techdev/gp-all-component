@@ -37,19 +37,16 @@
                 </div>
             </div>
         </div>
-        <gp-app-loading-indicator *ngIf="elementosTraducciones == null"
-                                  style="width:100%;"></gp-app-loading-indicator>
+        <gp-app-loading-indicator *ngIf="elementosTraducciones == null" style="width:100%;"></gp-app-loading-indicator>
         <p-footer *ngIf="elementosTraducciones != null && visualizarTablaTraducciones">
             <div class="ui-grid-row" style="padding-top:1%;">
                 <div class="ui-grid-col-8"></div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Aceptar" type="button" icon="ui-icon-done"
-                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid100 Fs18 White RaisedButton"
-                            (click)="guardarCambios()"></button>
+                            (click)="guardarCambios()" [disabled]="working"></button>
                 </div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Salir" type="button" icon="ui-icon-clear"
-                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid100 Fs18 White RaisedButton"
                             (click)="cerrarEdicionTraduccion()"></button>
                 </div>
             </div>
@@ -64,21 +61,21 @@
             <div class="ui-grid-row">
                 <p-editor [(ngModel)]="traduccionTextoHTML" [style]="{'height':'300px', 'width':'970px'}">
                     <p-header>
-               <span class="ql-format-group">
-                    <span title="Bold" class="ql-format-button ql-bold">
-                        <button class="ql-bold" aria-label="Bold"></button>
-                    </span>
-                    <span class="ql-format-separator"></span>
-                    <span title="Italic" class="ql-format-button ql-italic">
-                        <button class="ql-italic" aria-label="Italic"></button>
-                    </span>
-                    <span class="ql-format-separator"></span>
-                    <span title="Underline" class="ql-format-button ql-underline">
-                        <button class="ql-underline" aria-label="Underline"></button>
-                    </span>
-                    <span class="ql-format-separator"></span>
-                    <span title="Strikethrough" class="ql-format-button ql-strike"></span>
-                </span>
+                       <span class="ql-format-group">
+                            <span title="Bold" class="ql-format-button ql-bold">
+                                <button class="ql-bold" aria-label="Bold"></button>
+                            </span>
+                            <span class="ql-format-separator"></span>
+                            <span title="Italic" class="ql-format-button ql-italic">
+                                <button class="ql-italic" aria-label="Italic"></button>
+                            </span>
+                            <span class="ql-format-separator"></span>
+                            <span title="Underline" class="ql-format-button ql-underline">
+                                <button class="ql-underline" aria-label="Underline"></button>
+                            </span>
+                            <span class="ql-format-separator"></span>
+                            <span title="Strikethrough" class="ql-format-button ql-strike"></span>
+                        </span>
                     </p-header>
                 </p-editor>
             </div>
@@ -88,10 +85,12 @@
                 <div class="ui-grid-col-8"></div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Guardar" type="button" icon="ui-icon-done"
-                            (click)="guardarCambiosHTML()"></button>
+                            class="full-width"
+                            (click)="guardarCambiosHTML()" [disabled]="working"></button>
                 </div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Salir" type="button" icon="ui-icon-clear"
+                            class="full-width"
                             (click)="cerrarEdicionHTML()"></button>
                 </div>
             </div>
