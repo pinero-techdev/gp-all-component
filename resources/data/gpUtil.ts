@@ -1,22 +1,22 @@
-import {SelectItem,MenuItem} from "primeng/primeng";
+import {SelectItem, MenuItem} from "primeng/primeng";
 import {GPSelectItem} from "./gpSelectItem";
 
 export class GPUtil {
-    public static readonly odd_reA = new RegExp( "\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5", "g" );
-    public static readonly odd_rea = new RegExp( "\u00E0|\u00E1|\u00E2|\u00E3|\u00E4|\u00E5", "g" );
-    public static readonly odd_reE = new RegExp( "\u00C8|\u00C9|\u00CA|\u00CB", "g" );
-    public static readonly odd_ree = new RegExp( "\u00E8|\u00E9|\u00EA|\u00EB", "g" );
-    public static readonly odd_reI = new RegExp( "\u00CC|\u00CD|\u00CE|\u00CF", "g" );
-    public static readonly odd_rei = new RegExp( "\u00EC|\u00ED|\u00EE|\u00EF", "g" );
-    public static readonly odd_reO = new RegExp( "\u00D2|\u00D3|\u00D4|\u00D5|\u00D6", "g" );
-    public static readonly odd_reo = new RegExp( "\u00F2|\u00F3|\u00F4|\u00F5|\u00F6", "g" );
-    public static readonly odd_reU = new RegExp( "\u00D9|\u00DA|\u00DB|\u00DC", "g" );
-    public static readonly odd_reu = new RegExp( "\u00F9|\u00FA|\u00FB|\u00FC", "g" );
-    public static readonly odd_reN = new RegExp( "\u00D1", "g" );
-    public static readonly odd_ren = new RegExp( "\u00F1", "g" );
-    public static readonly odd_reC = new RegExp( "\u00C7", "g" );
-    public static readonly odd_rec = new RegExp( "\u00E7", "g" );
-    public static readonly odd_reOthers = new RegExp( "[\u0080-\uFFFF]", "g" );
+    public static readonly odd_reA = new RegExp("\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5", "g");
+    public static readonly odd_rea = new RegExp("\u00E0|\u00E1|\u00E2|\u00E3|\u00E4|\u00E5", "g");
+    public static readonly odd_reE = new RegExp("\u00C8|\u00C9|\u00CA|\u00CB", "g");
+    public static readonly odd_ree = new RegExp("\u00E8|\u00E9|\u00EA|\u00EB", "g");
+    public static readonly odd_reI = new RegExp("\u00CC|\u00CD|\u00CE|\u00CF", "g");
+    public static readonly odd_rei = new RegExp("\u00EC|\u00ED|\u00EE|\u00EF", "g");
+    public static readonly odd_reO = new RegExp("\u00D2|\u00D3|\u00D4|\u00D5|\u00D6", "g");
+    public static readonly odd_reo = new RegExp("\u00F2|\u00F3|\u00F4|\u00F5|\u00F6", "g");
+    public static readonly odd_reU = new RegExp("\u00D9|\u00DA|\u00DB|\u00DC", "g");
+    public static readonly odd_reu = new RegExp("\u00F9|\u00FA|\u00FB|\u00FC", "g");
+    public static readonly odd_reN = new RegExp("\u00D1", "g");
+    public static readonly odd_ren = new RegExp("\u00F1", "g");
+    public static readonly odd_reC = new RegExp("\u00C7", "g");
+    public static readonly odd_rec = new RegExp("\u00E7", "g");
+    public static readonly odd_reOthers = new RegExp("[\u0080-\uFFFF]", "g");
 
     public static normaliza(s:string):string {
         s = s.replace(GPUtil.odd_reA, "A");
@@ -174,9 +174,9 @@ export class GPUtil {
      * @param adicional  - Identificador atributo posibles datos adicionales
      * @return {SelectItem[]}
      */
-    public obtenerSelector(datos:any[], atributoValor:string, atributoDesc:string[], descripcionPorDefecto?:string, separadorAtributosDesc?:string, adicional?: string): GPSelectItem[] {
+    public obtenerSelector(datos:any[], atributoValor:string, atributoDesc:string[], descripcionPorDefecto?:string, separadorAtributosDesc?:string, adicional?:string):GPSelectItem[] {
 
-        let selector: GPSelectItem[] = [];
+        let selector:GPSelectItem[] = [];
         let separador = ' - ';
         if (separadorAtributosDesc) {
             separador = ' ' + separadorAtributosDesc + ' ';
@@ -193,17 +193,17 @@ export class GPUtil {
                     }
                     label += dato[descripcion];
                 }
-                selector.push({label: label, value: dato[atributoValor], additional: dato[adicional] });
+                selector.push({label: label, value: dato[atributoValor], additional: dato[adicional]});
             }
         }
         return selector;
     }
 
-    public indexOf(list: any[], atributeName: string, value: any): number {
+    public indexOf(list:any[], atributeName:string, value:any):number {
 
         if (list) {
             for (let index = 0; index < list.length; index++) {
-                if ( list[index][atributeName] == value ) {
+                if (list[index][atributeName] == value) {
                     return index;
                 }
             }
@@ -218,11 +218,11 @@ export class GPUtil {
      * @param value
      * @return {any}
      */
-    public getElementFromArray(list: any[], atributeName: string, value: any): any {
+    public getElementFromArray(list:any[], atributeName:string, value:any):any {
 
         if (list) {
             for (let index = 0; index < list.length; index++) {
-                if ( list[index][atributeName] == value ) {
+                if (list[index][atributeName] == value) {
                     return list[index];
                 }
             }
@@ -231,18 +231,30 @@ export class GPUtil {
     }
 
     public static letraDni(dni) {
-        return "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dni.substring(0,8) % 23);
+        return "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dni.substring(0, 8) % 23);
     }
 
-    public booleanToString(input: boolean, trueValue: string = "S", falseValue: string = "N") {
-        if(input) {
+    public booleanToString(input:boolean, trueValue:string = "S", falseValue:string = "N"):string {
+        if (input) {
             return trueValue;
-        } else{
+        } else {
             return falseValue;
         }
     }
 
-    public static obtainCalendarConfig(): any {
+    public stringToBoolean(input:string, trueValue:string = "S", falseValue:string = "N"):boolean {
+        if(trueValue == input){
+            return true;
+        } else {
+            if(falseValue == input) {
+                return false;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public static obtainCalendarConfig():any {
         return {
             closeText: "Cerrar",
             prevText: "<Ant",
@@ -269,7 +281,7 @@ export class GPUtil {
      * Debido a un bug en primeng, no se pueden poner rangos relativos en el calendar
      * @return {string}
      */
-    public obtainCalendarYearRange(): string {
+    public obtainCalendarYearRange():string {
         return '1900:' + (new Date).getFullYear();
     }
 
@@ -281,11 +293,11 @@ export class GPUtil {
      * @param atributoDesc nombre del atributo que continene la descripción
      * @return {any}
      */
-    public cargarMenuItem(datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean): any[] {
+    public cargarMenuItem(datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean):any[] {
         var itemsMenu = [];
         var items = [];
-        if (!hasChilds){
-            items=null;
+        if (!hasChilds) {
+            items = null;
         }
         if (datos != null) {
             for (let dato of datos) {
@@ -293,7 +305,7 @@ export class GPUtil {
                     title: dato[atributoCod],
                     label: dato[atributoDesc],
                     //command: (onClick) => dato[atributoCod],
-                    items:items
+                    items: items
                 };
                 itemsMenu.push(newItem);
             }
@@ -308,13 +320,13 @@ export class GPUtil {
      * @param atributoDesc nombre del atributo que continene la descripción
      * @return {any}
      */
-    public cargarMenuItemDesdePadre(codigoItemPadre:string, itemsMenu:MenuItem[], datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean): any[] {
+    public cargarMenuItemDesdePadre(codigoItemPadre:string, itemsMenu:MenuItem[], datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean):any[] {
 
         for (let itemPadre of itemsMenu) {
             //seleccionamos el item sobre el que actualizar su array de items a traves del codigoSeleccionado
-            if (itemPadre.title==codigoItemPadre){
+            if (itemPadre.title == codigoItemPadre) {
                 //actualizamos el array de items
-                itemPadre.items=this.cargarMenuItem(datos,atributoCod,atributoDesc,hasChilds);
+                itemPadre.items = this.cargarMenuItem(datos, atributoCod, atributoDesc, hasChilds);
             }
         }
         return itemsMenu;

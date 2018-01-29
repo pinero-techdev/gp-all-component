@@ -1,5 +1,4 @@
-import {Folder} from "./folder";
+import {Directory} from "./directory";
 
-export class BaseDir extends Folder {
-    path:string;
+export class BaseDir extends Directory {
 }

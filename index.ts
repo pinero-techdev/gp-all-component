@@ -12,7 +12,7 @@ export * from "./components/multiselect/gp.app.multi-select.component";
 export * from "./components/password/gp.app.modifica-password.component";
 export * from "./components/qlikview/gp.app.qlikview.frame.component";
 export * from "./components/redirect/gp.app.redirect.component";
-export * from "./components/remote-fsys/gp.app.remote-fsys.component";
+export * from "./components/remote-fsys/gp.app.remote-fsys-picker.component";
 export * from "./components/reports/gp-app-report-dialog.component";
 export * from "./components/reports/gp-app-report-frame.component";
 export * from "./components/tables/gp-app-table-crud.component";
@@ -28,7 +28,6 @@ export * from "./components/tables/gp-form-textarea-field.component";
 export * from "./components/tables/gp-form-time-field.component";
 export * from "./components/tables/gp-form-wysiwyg-field.component";
 export * from "./components/dynamic/gp-dynamic.component";
-export * from "./components/remote-fsys/gp.app.remote-fsys.component";
 //Resources (Classes)
 export * from "./resources/data/authGuard";
 export * from "./resources/data/redirectAuthGuard";

@@ -1,7 +1,7 @@
 import {File} from "./file";
 
-export class Folder {
+export class Directory {
     name:string;
-    folder:Folder[];
+    directory:Directory[];
     file:File[];
 }

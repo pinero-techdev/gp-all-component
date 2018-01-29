@@ -1,16 +1,18 @@
-import {Component, Input, OnInit, Output, EventEmitter} from "@angular/core";
+import {Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation} from "@angular/core";
 import {RemoteFsysService, ObtenListaFicherosRq} from "../../services/remote-fsys.service";
 import {TreeNode} from "primeng/primeng";
 import {Mensajes} from "../../resources/data/mensajes";
 import {File} from "../../resources/data/file";
-import {Folder} from "../../resources/data/folder";
+import {Directory} from "../../resources/data/directory";
 
 @Component({
-    selector: 'gp-app-remote-fsys',
-    templateUrl: './gp.app.remote-fsys.component.html',
+    selector: 'gp-app-remote-fsys-picker',
+    templateUrl: './gp.app.remote-fsys-picker.component.html',
+    styleUrls: ['./gp.app.remote-fsys-picker.component.css'],
+    encapsulation: ViewEncapsulation.None,
     providers: [RemoteFsysService]
 })
-export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
+export class GpAppRemoteFsysPickerComponent extends Mensajes implements OnInit {
     @Input() popup:boolean;
     @Output() link = new EventEmitter<string>();
 
@@ -21,6 +23,7 @@ export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
     lastDirectory:string;
 
     url:string;
+    lastSelected:any;
 
     constructor(private _remoteFsysService:RemoteFsysService) {
         super();
@@ -28,20 +31,20 @@ export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
 
     ngOnInit() {
         this.getFicheros(new ObtenListaFicherosRq());
-        this.showDialog();
-
     }
 
-    convertToTreeNode(opciones:Folder):TreeNode[] {
+    convertToTreeNode(opciones:Directory):TreeNode[] {
         let estructura:TreeNode[] = [];
         if (opciones != null) {
             this.genFiles(opciones.file, estructura);
-            if (opciones.folder != null) {
-                for (let o of opciones.folder) {
+            if (opciones.directory != null) {
+                for (let o of opciones.directory) {
                     let auxChildren:TreeNode[] = this.convertToTreeNode(o);
                     let aux:TreeNode = {
                         label: o.name,
                         expanded: false,
+                        expandedIcon: "ui-icon-folder-open",
+                        collapsedIcon: "ui-icon-folder",
                         data: {"type": "folder"},
                         children: auxChildren
                     };
@@ -52,14 +55,20 @@ export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
         return estructura;
     }
 
-    genFiles(files: File[], estructura: TreeNode[]){
+    genFiles(files:File[], estructura:TreeNode[]) {
         if (files != null) {
             for (let o of files) {
                 if (o.name != '.DS_Store' && o.name.indexOf('.pdf') == -1 && o.name.indexOf('.db') == -1) {
+                    let subType = "image";
+                    if(o.name.indexOf('.mp4') > -1){
+                        subType = "video";
+                    }
+
                     let aux:TreeNode = {
                         label: o.name,
                         expanded: false,
-                        data: {"type": "file", "size": o.bytesSize},
+                        icon: "ui-icon-insert-drive-file",
+                        data: {"type": "file", "size": o.bytesSize, "url": o.name, "subtype": subType},
                         children: []
                     };
                     estructura.push(aux);
@@ -74,7 +83,6 @@ export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
             data => {
                 if (data.ok) {
                     this.remoteFsys = this.convertToTreeNode(data.ficheros);
-                    console.log(this.remoteFsys);
                 } else {
                     this.showErrorAlert("Se produjo un error recuperando el sistema de ficheros, intenelo de nuevo.");
                 }
@@ -84,27 +92,9 @@ export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
         );
     }
 
-    showDialog() {
-        this.displayDialog = true;
-    }
-
-    hideDialog() {
-        this.displayDialog = false;
-    }
-
-    choose() {
-        if (this.selectedNode != null) {
-            let url = this.getPath(this.selectedNode);
-            this.link.emit(url);
-            this.hideDialog();
-        } else {
-            this.showErrorAlert("Es necesario escoger un elemento del arbol.");
-        }
-    }
-
-    getPath(node:TreeNode):string{
-        if(node != null) {
-            if (node.parent != null){
+    getPath(node:TreeNode):string {
+        if (node != undefined && node != null) {
+            if (node.parent != null) {
                 return this.getPath(node.parent) + "/" + node.label;
             } else {
                 return node.label;
@@ -112,13 +102,34 @@ export class GpAppRemoteFsysComponent extends Mensajes implements OnInit {
         }
     }
 
-    nodeSelect(e){
+    getFinalUrl(url:string) {
+        if (url != undefined && url != null) {
+            return this.url.replace("/www/data/bpcom/public/", "http://www.bahia-principe.com/public");
+        } else {
+            return "";
+        }
+    }
+
+    nodeSelect(e) {
         this.url = this.getPath(this.selectedNode);
-        this.url = this.url.replace("bahia-principe/", "http://www.bahia-principe.com/");
+        this.url = this.url.replace("/www/data/bpcom/public/", "http://www.bahia-principe.com/public");
+        if(this.lastSelected != undefined && this.lastSelected != null) {
+            this.lastSelected.classList.remove('selected');
+        }
     }
 
-    goPreview() {
-        window.open(this.url);
+    selectedThis(e) {
+        if (e != undefined && e != null && e.target != undefined && e.target != null) {
+            this.lastSelected = e.target;
+            if(e.target.id == ""){
+                this.lastSelected = e.target.parentElement;
+            }
+            this.lastSelected.classList.add('selected');
+        }
+        this.link.emit(this.url);
     }
 
+    selectElement(e){
+        this.link.emit(this.url + "/" + e.value[0].label);
+    }
 }
