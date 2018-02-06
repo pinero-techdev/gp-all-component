@@ -6,13 +6,13 @@ import {GlobalService} from "./global.service";
 
 @Injectable()
 export class AppMenuService {
-    temp: any[];
+    temp:any[];
 
-    constructor( private _appMenuProvider : AppMenuProviderService, private _globalService: GlobalService ) {
+    constructor(private _appMenuProvider:AppMenuProviderService, private _globalService:GlobalService) {
     }
 
-    obtenMenu(rq: MenuRq): Observable<any> {
-        return Observable.create(observer=>{
+    obtenMenu(rq:MenuRq):Observable<any> {
+        return Observable.create(observer=> {
             this.temp = this._appMenuProvider.getEstructuraMenu();
             this._appMenuProvider.obtenOpcionesActivas(rq).subscribe(
                 data => {
@@ -34,13 +34,19 @@ export class AppMenuService {
         });
     }
 
-    cargarOpciones(elementos: any[], options: any[]):boolean {
+    cargarOpciones(elementos:any[], options:any[]):boolean {
         let tieneOpciones = false;
-        elementos.forEach(e=>{
+        elementos.forEach(e=> {
             if (e.submenus) {
                 e.enabled = this.cargarOpciones(e.submenus, options);
             } else {
-                e.enabled = options[e.id] !== undefined;
+                var aux = options.filter(v=> {
+                    return v.id === e.id;
+                });
+
+                if(aux && aux.length > 0){
+                    e.enabled = true;
+                }
             }
             if (!tieneOpciones && e.enabled)
                 tieneOpciones = true;
