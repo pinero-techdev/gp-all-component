@@ -4,147 +4,146 @@ import {GPUtil} from "../../resources/data/gpUtil";
 import {GpFormField, GpFormFieldControl} from "./gp-app-table-crud-shared";
 
 @Component({
-  selector: 'gp-form-wysiwyg-field',
-  templateUrl: './gp-form-wysiwyg-field.component.html'
+    selector: 'gp-form-wysiwyg-field',
+    templateUrl: './gp-form-wysiwyg-field.component.html'
 })
 export class GpFormWysiwygFieldComponent extends GpFormFieldControl implements OnInit {
 
-  @Input() formField : GpFormField;
+    @Input() formField:GpFormField;
 
-  currentValueText: string;
-  textboxClass: string;
+    currentValueText:string;
+    textboxClass:string;
 
-  minLength: number;
-  maxLength: number;
+    minLength:number;
+    maxLength:number;
 
-  public static FORM_FIELD_TYPE_WYSIWYG_FIELD : string = "gp-form-wysiwyg-field";
+    public static FORM_FIELD_TYPE_WYSIWYG_FIELD:string = "gp-form-wysiwyg-field";
 
-  getFieldMetadata() : FieldMetadata {
-    return this.formField.fieldMetadata;
-  }
-
-  ngOnInit() {
-    this.inicializa();
-  }
-
-  public getFormField() : GpFormField {
-    return this.formField;
-  }
-
-  inicializa() {
-    if( this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo.textProperties != null ) {
-      if( this.formField.fieldMetadata.displayInfo.textProperties.indexOf( TableService.TEXT_UPPERCASE ) != -1 ) {
-        this.textboxClass = "text-uppercase";
-      }
+    getFieldMetadata():FieldMetadata {
+        return this.formField.fieldMetadata;
     }
 
-    // Procesa restricciones.
-    if( this.formField.fieldMetadata.restrictions ) {
-      for( let restriction of this.formField.fieldMetadata.restrictions ) {
-        if( restriction.restrictionType == TableService.RESTRICTION_MIN_LENGTH ) {
-          this.minLength = restriction.minLength;
+    ngOnInit() {
+        this.inicializa();
+    }
+
+    public getFormField():GpFormField {
+        return this.formField;
+    }
+
+    inicializa() {
+        if (this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo.textProperties != null) {
+            if (this.formField.fieldMetadata.displayInfo.textProperties.indexOf(TableService.TEXT_UPPERCASE) != -1) {
+                this.textboxClass = "text-uppercase";
+            }
         }
-        else if( restriction.restrictionType == TableService.RESTRICTION_MAX_LENGTH ) {
-          this.maxLength = restriction.maxLength;
+
+        // Procesa restricciones.
+        if (this.formField.fieldMetadata.restrictions) {
+            for (let restriction of this.formField.fieldMetadata.restrictions) {
+                if (restriction.restrictionType == TableService.RESTRICTION_MIN_LENGTH) {
+                    this.minLength = restriction.minLength;
+                }
+                else if (restriction.restrictionType == TableService.RESTRICTION_MAX_LENGTH) {
+                    this.maxLength = restriction.maxLength;
+                }
+            }
         }
-      }
-    }
-  }
-
-  copyValueFromControlToEditedRow( editedRow : any) {
-    let value = editedRow[this.formField.fieldMetadata.fieldName];
-    let newValue = this.currentValueText;
-    console.log("GpFormTextFieldComponent.changeItemValue currentValue '" + value + "' -> '" + newValue + "'" );
-    if( this.formField.fieldMetadata.displayInfo.textProperties != null ) {
-      console.log("GpFormTextFieldComponent. textProperties: " + JSON.stringify( this.formField.fieldMetadata.displayInfo.textProperties ) );
-      if( this.formField.fieldMetadata.displayInfo.textProperties.indexOf( TableService.TEXT_UPPERCASE ) >= 0  ) {
-        newValue = newValue == null ? null : newValue.toUpperCase();
-        this.currentValueText = newValue;
-        console.log("GpFormTextFieldComponent.convert to upper case '" + newValue + "'" );
-      }
-      if( this.formField.fieldMetadata.displayInfo.textProperties.indexOf( TableService.TEXT_TRIM ) >= 0 ) {
-        newValue = newValue == null ? null : newValue.trim();
-        this.currentValueText = newValue;
-        console.log("GpFormTextFieldComponent.trim '" + newValue + "'" );
-      }
     }
 
-    // console.log("GpFormFieldComponent.changeItemValue newValue '" + newValue + "'" );
-    editedRow[this.formField.fieldMetadata.fieldName] = newValue;
-  }
+    copyValueFromControlToEditedRow(editedRow:any) {
+        let value = editedRow[this.formField.fieldMetadata.fieldName];
+        let newValue = this.currentValueText;
+        console.log("GpFormTextFieldComponent.changeItemValue currentValue '" + value + "' -> '" + newValue + "'");
+        if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
+            console.log("GpFormTextFieldComponent. textProperties: " + JSON.stringify(this.formField.fieldMetadata.displayInfo.textProperties));
+            if (this.formField.fieldMetadata.displayInfo.textProperties.indexOf(TableService.TEXT_UPPERCASE) >= 0) {
+                newValue = newValue == null ? null : newValue.toUpperCase();
+                this.currentValueText = newValue;
+                console.log("GpFormTextFieldComponent.convert to upper case '" + newValue + "'");
+            }
+            if (this.formField.fieldMetadata.displayInfo.textProperties.indexOf(TableService.TEXT_TRIM) >= 0) {
+                newValue = newValue == null ? null : newValue.trim();
+                this.currentValueText = newValue;
+                console.log("GpFormTextFieldComponent.trim '" + newValue + "'");
+            }
+        }
 
-  copyValueFromEditedRowToControl( editedRow: any) {
-    console.log("GpFormTextFieldComponent.changeSelectedRow: " + JSON.stringify(this.formField.fieldMetadata));
-    console.log("        editedRow: " + JSON.stringify(editedRow));
-    let value = editedRow[this.formField.fieldMetadata.fieldName];
-    this.currentValueText = value;
-  }
-
-  validateField( editedRow : any ) {
-    this.formField.validField = true;
-    this.formField.fieldMsgs = null;
-
-    let valorCampo = editedRow[this.formField.fieldMetadata.fieldName];
-    if( (typeof valorCampo == "string") && this.formField.fieldMetadata.displayInfo.displayType == TableService.TEXT_DISPLAY_TYPE ) {
-      valorCampo = valorCampo.trim();
+        editedRow[this.formField.fieldMetadata.fieldName] = newValue;
     }
 
-    console.log( "GpFormWysiwyFieldComponent.validateField, valorCampo = " + JSON.stringify( valorCampo ) );
-
-    // Validacion del campo.
-    // a) Null?
-    if( this.formField.fieldMetadata.notNull && ( valorCampo == "" || valorCampo == null ) ) {
-      this.formField.validField = false;
-      this.validateFieldAddMsgs( 'El valor es obligatorio.' );
-      console.log( "GpFormTextFieldComponent.validateField, no valid, null." );
-      return false;
+    copyValueFromEditedRowToControl(editedRow:any) {
+        console.log("GpFormTextFieldComponent.changeSelectedRow: " + JSON.stringify(this.formField.fieldMetadata));
+        console.log("        editedRow: " + JSON.stringify(editedRow));
+        let value = editedRow[this.formField.fieldMetadata.fieldName];
+        this.currentValueText = value;
     }
 
-    if( this.formField.fieldMetadata.restrictions ) {
-      for( let restriction of this.formField.fieldMetadata.restrictions ) {
-        if( restriction.restrictionType == TableService.RESTRICTION_MIN_LENGTH && typeof valorCampo == "string" ) {
-          if( valorCampo.length < restriction.minLength ) {
+    validateField(editedRow:any) {
+        this.formField.validField = true;
+        this.formField.fieldMsgs = null;
+
+        let valorCampo = editedRow[this.formField.fieldMetadata.fieldName];
+        if ((typeof valorCampo == "string") && this.formField.fieldMetadata.displayInfo.displayType == TableService.TEXT_DISPLAY_TYPE) {
+            valorCampo = valorCampo.trim();
+        }
+
+        console.log("GpFormWysiwyFieldComponent.validateField, valorCampo = " + JSON.stringify(valorCampo));
+
+        // Validacion del campo.
+        // a) Null?
+        if (this.formField.fieldMetadata.notNull && ( valorCampo == "" || valorCampo == null )) {
             this.formField.validField = false;
-            this.validateFieldAddMsgs( 'Valor demasiado corto (longitud mínima ' + restriction.minLength + ')' );
-            console.log( "GpFormTextFieldComponent.validateField, no valid, longitud massa curta." )
-          }
+            this.validateFieldAddMsgs('El valor es obligatorio.');
+            console.log("GpFormTextFieldComponent.validateField, no valid, null.");
+            return false;
         }
-        else if( restriction.restrictionType == TableService.RESTRICTION_MAX_LENGTH && typeof valorCampo == "string" ) {
-          if( valorCampo.length > restriction.maxLength ) {
+
+        if (this.formField.fieldMetadata.restrictions) {
+            for (let restriction of this.formField.fieldMetadata.restrictions) {
+                if (restriction.restrictionType == TableService.RESTRICTION_MIN_LENGTH && typeof valorCampo == "string") {
+                    if (valorCampo.length < restriction.minLength) {
+                        this.formField.validField = false;
+                        this.validateFieldAddMsgs('Valor demasiado corto (longitud mínima ' + restriction.minLength + ')');
+                        console.log("GpFormTextFieldComponent.validateField, no valid, longitud massa curta.")
+                    }
+                }
+                else if (restriction.restrictionType == TableService.RESTRICTION_MAX_LENGTH && typeof valorCampo == "string") {
+                    if (valorCampo.length > restriction.maxLength) {
+                        this.formField.validField = false;
+                        this.validateFieldAddMsgs('Valor demasiado largo (longitud máxima ' + restriction.maxLength + ')');
+                        console.log("GpFormTextFieldComponent.validateField, no valid, longitud massa llarga.")
+                    }
+                }
+            }
+        }
+
+        if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
+            if (this.formField.fieldMetadata.displayInfo.textProperties.indexOf(TableService.TEXT_NO_SPACE) != -1) {
+                if (/\s/.test(valorCampo)) {
+                    this.formField.validField = false;
+                    this.validateFieldAddMsgs('El valor indicado no puede contener espacios. Han sido eliminados. Seleccione guardar otra vez para aceptar los cambios.');
+                    valorCampo = valorCampo.replace(/\s/g, "");
+                    this.currentValueText = valorCampo;
+                }
+            }
+        }
+
+        // Por defecto, solo caracteres ASCII.
+        if (/[\u0000-\u0019]/.test(valorCampo)) {
             this.formField.validField = false;
-            this.validateFieldAddMsgs( 'Valor demasiado largo (longitud máxima ' + restriction.maxLength + ')' );
-            console.log( "GpFormTextFieldComponent.validateField, no valid, longitud massa llarga." )
-          }
+            this.validateFieldAddMsgs('El valor indicado contiene caracteres de control. Han sido sustituidos por espacios. Seleccione guardar otra vez para aceptar los cambios.');
+            valorCampo = valorCampo.replace(/[\u0000-\u0019]/g, " ");
+            this.currentValueText = valorCampo;
         }
-      }
-    }
-
-    if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
-      if ( this.formField.fieldMetadata.displayInfo.textProperties.indexOf( TableService.TEXT_NO_SPACE ) != -1 ) {
-        if (/\s/.test( valorCampo ) ) {
-          this.formField.validField = false;
-          this.validateFieldAddMsgs( 'El valor indicado no puede contener espacios. Han sido eliminados. Seleccione guardar otra vez para aceptar los cambios.' );
-          valorCampo = valorCampo.replace( /\s/g, "" );
-          this.currentValueText = valorCampo;
+        if (/[\u0080-\uFFFF]/.test(valorCampo)) {
+            this.formField.validField = false;
+            this.validateFieldAddMsgs('El valor indicado contiene caracteres no válidos (acentos, eñes, c cedillas, ...). Han sido sustituidos por caracteres equivalentes o descartados. Seleccione guardar otra vez para aceptar los cambios.');
+            valorCampo = GPUtil.normaliza(valorCampo);
+            this.currentValueText = valorCampo;
         }
-      }
-    }
 
-    // Por defecto, solo caracteres ASCII.
-    if( /[\u0000-\u0019]/.test( valorCampo ) ) {
-      this.formField.validField = false;
-      this.validateFieldAddMsgs( 'El valor indicado contiene caracteres de control. Han sido sustituidos por espacios. Seleccione guardar otra vez para aceptar los cambios.' );
-      valorCampo = valorCampo.replace( /[\u0000-\u0019]/g, " " );
-      this.currentValueText = valorCampo;
+        return this.formField.validField;
     }
-    if( /[\u0080-\uFFFF]/.test( valorCampo ) ) {
-      this.formField.validField = false;
-      this.validateFieldAddMsgs( 'El valor indicado contiene caracteres no válidos (acentos, eñes, c cedillas, ...). Han sido sustituidos por caracteres equivalentes o descartados. Seleccione guardar otra vez para aceptar los cambios.' );
-      valorCampo = GPUtil.normaliza( valorCampo );
-      this.currentValueText = valorCampo;
-    }
-
-    return this.formField.validField;
-  }
 
 }

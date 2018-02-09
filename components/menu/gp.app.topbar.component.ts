@@ -68,7 +68,6 @@ export class GpAppTopBarComponent implements OnInit {
                     error => console.error(error),
                     () => {
                         console.log("petición de logout finalizada con resultado: ");
-                        console.log(response);
                         // CommonRs se crea con ok por defecto a falso
                         // Si ha habido algún problema con el logout, el usuario sigue logueado
                         this.globalService.logged = !(response.ok);

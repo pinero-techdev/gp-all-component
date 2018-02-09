@@ -62,7 +62,6 @@ export class GpAppReportDialogComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this._reportName);
         this.cambiaReport(this._reportName);
         let response = this._reportService.getDialogElements(this._reportName);
         this.reportMetadatas = response.metadata;
@@ -111,7 +110,6 @@ export class GpAppReportDialogComponent implements OnInit {
 
                 }
             }
-            console.log(this.extraArgs);
             window.open(this._reportService.getReportCal(this._reportName, this.extraArgs));
         }
 

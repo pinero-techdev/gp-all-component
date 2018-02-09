@@ -49,7 +49,6 @@ export class GpAppLoginComponent {
                     this.router.navigate(['login']);
                     if (data.error != null && data.error.errorMessage != null) {
                         this.showError(data.error.errorMessage.toString());
-                        console.log(data.error.errorMessage.toString());
                         if (this.passwordErrors.indexOf(data.error.errorMessage.toString()) != -1) {
                             this.btnModificaPwdVisible = true;
                         }

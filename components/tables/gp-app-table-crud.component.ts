@@ -99,7 +99,7 @@ export class GpAppTableCrudComponent implements OnInit {
     // Puede el usuario editar registros?
     canAdd:boolean = false;
 
-    addSelectedCodes:any= [];
+    addSelectedCodes:any = [];
 
     // Mensajes de edicion.
     msgsDialog:Message[] = [];
@@ -127,7 +127,7 @@ export class GpAppTableCrudComponent implements OnInit {
     constructor(private activatedRoute:ActivatedRoute, private router:Router, private tableService:TableService, private _gpUtil:GPUtil) {
         this.canEdit = true;
         this.canDelete = true;
-        this.canAdd= true;
+        this.canAdd = true;
         this.msgsGlobal = [];
         this.closeDialog();
     }
@@ -161,7 +161,6 @@ export class GpAppTableCrudComponent implements OnInit {
 
             this.tableService.list(this.tableNameDetail, true, false, null, this.filters).subscribe(
                 data => {
-                    //console.log('getMetadata response:' + JSON.stringify( data ) );
                     if (data.ok) {
                         this.actualizaDefinicionDetail(data.metadata);
                         this.elementosDetail = data.data;
@@ -196,10 +195,10 @@ export class GpAppTableCrudComponent implements OnInit {
     // Se llama cuando se selecciona una nueva tabla.
     cambiaTabla(tableName:string) {
         //	TODO Chequear que no estemos en medio de una edicion.
-      if (this.tableName != null && tableName == this.tableName && this.rowSelectedFilters == null) {
-        this.working = false;
-        return;
-      }
+        if (this.tableName != null && tableName == this.tableName && this.rowSelectedFilters == null) {
+            this.working = false;
+            return;
+        }
 
         this.working = true;
         this.columnas = [];
@@ -212,64 +211,64 @@ export class GpAppTableCrudComponent implements OnInit {
         this.msgsGlobal = [{severity: 'info', detail: 'Cargando los datos de la tabla.'}];
         this.dialogErrors = false;
 
-      if (this.rowSelectedFilters!=null) {
-        this.filters = [];
-        this.filters=this.rowSelectedFilters;
+        if (this.rowSelectedFilters != null) {
+            this.filters = [];
+            this.filters = this.rowSelectedFilters;
 
-        this.tableService.list(this.tableName, true, false, null, this.filters).subscribe(
-            data => {
-              console.log('getMetadata response:' + JSON.stringify(data));
-              if (data.ok) {
-                this.actualizaDefinicion(data.metadata);
-                this.elementos = data.data;
-              } else {
-                if (data.error != null && data.error.errorMessage != null) {
-                  if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido.") {
-                    this.router.navigate(['login']);
-                  }
-                  this.showError(data.error.errorMessage.toString());
-                } else {
-                  this.showError('');
+            this.tableService.list(this.tableName, true, false, null, this.filters).subscribe(
+                data => {
+                    console.log('getMetadata response:' + JSON.stringify(data));
+                    if (data.ok) {
+                        this.actualizaDefinicion(data.metadata);
+                        this.elementos = data.data;
+                    } else {
+                        if (data.error != null && data.error.errorMessage != null) {
+                            if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido.") {
+                                this.router.navigate(['login']);
+                            }
+                            this.showError(data.error.errorMessage.toString());
+                        } else {
+                            this.showError('');
+                        }
+                    }
+                },
+                err => {
+                    console.error(err);
+                    this.showError('');
+                },
+                () => {
+                    console.log('getMetadata finalizado');
+                    this.working = false;
                 }
-              }
-            },
-            err => {
-              console.error(err);
-              this.showError('');
-            },
-            () => {
-              console.log('getMetadata finalizado');
-              this.working = false;
-            }
-        );
-      } else {
-        this.tableService.list(this.tableName, true).subscribe(
-            data => {
-              console.log('getMetadata response:' + JSON.stringify(data));
-              if (data.ok) {
-                this.actualizaDefinicion(data.metadata);
-                this.elementos = data.data;
-              } else {
-                if (data.error != null && data.error.errorMessage != null) {
-                  if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido.") {
-                    this.router.navigate(['login']);
-                  }
-                  this.showError(data.error.errorMessage.toString());
-                } else {
-                  this.showError('');
+            );
+        } else {
+            this.tableService.list(this.tableName, true).subscribe(
+                data => {
+                    console.log('getMetadata response:' + JSON.stringify(data));
+                    if (data.ok) {
+                        this.actualizaDefinicion(data.metadata);
+                        this.elementos = data.data;
+                    } else {
+                        if (data.error != null && data.error.errorMessage != null) {
+                            if (data.error.errorMessage == "No se ha establecido sesion o se ha perdido.") {
+                                this.router.navigate(['login']);
+                            }
+                            this.showError(data.error.errorMessage.toString());
+                        } else {
+                            this.showError('');
+                        }
+                    }
+                },
+                err => {
+                    console.error(err);
+                    this.showError('');
+                },
+                () => {
+                    console.log('getMetadata finalizado');
+                    this.working = false;
                 }
-              }
-            },
-            err => {
-              console.error(err);
-              this.showError('');
-            },
-            () => {
-              console.log('getMetadata finalizado');
-              this.working = false;
-            }
-        );
-      }
+            );
+        }
     }
 
     actualizaDefinicionDetail(tableMetadata:TableMetadata) {
@@ -319,9 +318,6 @@ export class GpAppTableCrudComponent implements OnInit {
         this.columnas = tempColumnas;
         this.columnasTabla = tempColumnasTabla;
         this.columnasTablaDetail = tempMastersDetails;
-        console.log(this.columnas);
-        console.log(this.columnasTabla);
-        console.log(this.columnasTablaDetail);
     }
 
     calcFieldType(formField:GpFormField) {
@@ -397,10 +393,8 @@ export class GpAppTableCrudComponent implements OnInit {
                 else {
                     this.formControl.editedRow = JSON.parse(JSON.stringify(data.data));
                     this.formControl.originalRow = JSON.parse(JSON.stringify(data.data));
-                    console.log("Edited row: " + JSON.stringify(this.formControl.editedRow));
                     let self = this;
                     this.forEachFieldControl(function (col:GpFormFieldControl) {
-                        console.log("onRowSelect, cvfertc: " + JSON.stringify(col.getFormField()));
                         col.copyValueFromEditedRowToControl(self.formControl.editedRow);
                         col.clearValidations();
                     });
@@ -416,15 +410,12 @@ export class GpAppTableCrudComponent implements OnInit {
             () => {
                 this.formControl.lockFields = false;
                 this.formControlDetail.lockFields = false;
-                console.log("onRowSelect. end select.");
                 this.cambiaTablaDetail(event.data[this.tableId], this.filterField);
             });
     }
 
     onDialogDelete() {
         this.formControl.lockFields = true;
-        console.log("onDialogDelete.");
-        console.log("onDialogDelete. original: " + JSON.stringify(this.formControl.originalRow));
         let jsonDeleteRow = JSON.stringify(this.formControl.originalRow);
         console.log("onDialogDelete. original: " + jsonDeleteRow);
         this.tableService.deleteRow(this.tableName, jsonDeleteRow).subscribe(
@@ -433,9 +424,7 @@ export class GpAppTableCrudComponent implements OnInit {
                     // Borramos el registro.
                     let i = this.elementos.indexOf(this.selectedRow);
                     if (i >= 0) {
-                        console.log("onDialogDelete. before: " + JSON.stringify(this.elementos));
                         this.elementos.splice(i, 1);
-                        console.log("onDialogDelete. after: " + JSON.stringify(this.elementos));
                     }
                     // Y cerramos el dialog.
                     this.closeDialog();
@@ -572,19 +561,19 @@ export class GpAppTableCrudComponent implements OnInit {
         this.formControl.editedRow = {};
         let self = this;
         this.forEachFieldControl(function (col:GpFormFieldControl) {
-        if (self.addSelectedCodes.length>0) {
-          for (let i = 0; i < self.addSelectedCodes.length; i++) {
-            if (self.addSelectedCodes[i].key == col.getFormField().fieldMetadata.fieldName){
-              //si el valor existe, introducimos valor
-              self.formControl.editedRow[col.getFormField().fieldMetadata.fieldName] = self.addSelectedCodes[i].value;
+            if (self.addSelectedCodes.length > 0) {
+                for (let i = 0; i < self.addSelectedCodes.length; i++) {
+                    if (self.addSelectedCodes[i].key == col.getFormField().fieldMetadata.fieldName) {
+                        //si el valor existe, introducimos valor
+                        self.formControl.editedRow[col.getFormField().fieldMetadata.fieldName] = self.addSelectedCodes[i].value;
+                    }
+                }
+            } else {
+                self.formControl.editedRow[col.getFormField().fieldMetadata.fieldName] = null;
             }
-          }
-        }else{
-          self.formControl.editedRow[col.getFormField().fieldMetadata.fieldName] = null;
-        }
-        col.copyValueFromEditedRowToControl(self.formControl.editedRow);
-        col.clearValidations();
-      });
+            col.copyValueFromEditedRowToControl(self.formControl.editedRow);
+            col.clearValidations();
+        });
         this.formControl.edicionEdit = false;
         this.formControl.edicionAdd = true;
         this.displayEdicion = true;

@@ -18,7 +18,6 @@ export class GpAppReportFrameComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.sub = this._route.params.subscribe(params => {
-            console.log('Cambia url:' + params['listado']);
             this.reportName = params['listado'];
             this.viewChild.cambiaReport(this.reportName);
         });
