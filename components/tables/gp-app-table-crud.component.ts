@@ -25,7 +25,6 @@ import {GpFormDropdownRelatedfieldComponent} from "./gp-form-dropdown-related-fi
 import {InfoCampoModificado} from "../../resources/data/infoCampoModificado";
 import {GPUtil} from "../../resources/data/gpUtil";
 
-
 @Component({
     selector: 'gp-app-table-crud',
     templateUrl: './gp-app-table-crud.component.html',
