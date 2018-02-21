@@ -287,5 +287,33 @@ export class TableService extends CommonService {
             `${GlobalService.BASE_URL}/table_svc/${tableName}/insertRow`,
             rq);
     }
+	
+	/**
+     * Actualiza los una lista de registros.
+     * 
+     * @param tableName
+     * @param originales 
+     * @param modificados 
+     */
+    updateRows(tableName: string, originales: any, modificados: any): Observable<UpdateRowRs> {
+        let rq = new UpdateRowRq();
+        rq.jsonOriginalRow = JSON.stringify(originales);
+        rq.jsonModifiedRow = JSON.stringify(modificados);
+        return this.serviceRequest<UpdateRowRs>(
+        `${GlobalService.BASE_URL}/table_svc/${tableName}/updateRows`, rq);
+    }
+
+    /**
+     * Borra una lista de registros.
+     * 
+     * @param tableName
+     * @param originales 
+     */
+    deleteRows(tableName: string, originales: any): Observable<DeleteRowRs> {
+        let rq = new DeleteRowRq();
+        rq.jsonOriginalRow = JSON.stringify(originales);
+        return this.serviceRequest<DeleteRowRs>(
+        `${GlobalService.BASE_URL}/table_svc/${tableName}/deleteRows`, rq);
+    }
 
 }
