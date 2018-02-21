@@ -5,7 +5,7 @@
            type="text"
            [(ngModel)]="currentValueText"
            [maxlength]="maxLength"
-           [class]="textboxClass"
+           [ngClass]="{'textboxClass': (formField.fieldMsgs == null || formField.fieldMsgs.length == 0), 'textboxClass ng-dirty ng-invalid': (formField.fieldMsgs != null && formField.fieldMsgs.length > 0) }"
            (change)="onFieldChange()"
            [disabled]="controlDisabled()" />
 </div>

@@ -14,7 +14,7 @@ import {TableService, TableMetadata, Filter, FilterOperationType} from "../../se
 import {GpFormDropdownFieldComponent} from "./gp-form-dropdown-field.component";
 import {GpFormTextFieldComponent} from "./gp-form-text-field.component";
 import {GpFormSwitchFieldComponent} from "./gp-form-switch-field.component";
-import {GpFormControl, GpFormField, GpFormFieldControl} from "./gp-app-table-crud-shared";
+import {GpFormControl, GpFormField, GpFormFieldControl, GpFormFieldDetail} from "./gp-app-table-crud-shared";
 import {GpFormCheckboxFieldComponent} from "./gp-form-checkbox-field.component";
 import {GpFormWysiwygFieldComponent} from "./gp-form-wysiwyg-field.component";
 import {GpFormCalendarFieldComponent} from "./gp-form-calendar-field.component";
@@ -74,8 +74,8 @@ export class GpAppTableCrudComponent implements OnInit {
     // Fila seleccionada.
     selectedRow:any;
 
-    columnasDetail:GpFormField[] = [];
-    columnasTablaDetail:GpFormField[] = [];
+    columnasDetail:GpFormFieldDetail[] = [];
+    columnasTablaDetail:any[] = [];
     elementosDetail:any[] = [];
     selectedRowDetail:any;
     filter:Filter;
@@ -85,9 +85,13 @@ export class GpAppTableCrudComponent implements OnInit {
     //Id de la tabla
     tableId:string = null;
 
+    // Indica si se muestra la tabla maestro-detalle.
+    showTableDetail: boolean = false;
+
     // Indica si se muestra el control de edicion.
     displayEdicion = false;
-
+    displayEdicionDetail = false;    
+    
     // Indica si se han producido errores en el dialog. Si es así, se recarga la tabla.
     dialogErrors = false;
 
@@ -207,8 +211,11 @@ export class GpAppTableCrudComponent implements OnInit {
         this.columnasTabla = [];
         this.tableName = tableName;
         this.elementos = [];
+        this.elementosDetail = [];            
         this.selectedRow = null;
+        this.selectedRowDetail = null;        
         this.formControl.originalRow = null;
+        this.formControlDetail.originalRow = null;            
         this.msgsDialog = [];
         this.msgsGlobal = [{severity: 'info', detail: 'Cargando los datos de la tabla.'}];
         this.dialogErrors = false;
@@ -274,14 +281,17 @@ export class GpAppTableCrudComponent implements OnInit {
     }
 
     actualizaDefinicionDetail(tableMetadata:TableMetadata) {
-        let tempColumnasDetail:GpFormField[] = [];
-        let tempMastersDetails:GpFormField[] = [];
+        let tempColumnasDetail : GpFormFieldDetail[] = [];
+        let tempColumnasTablaDetail : GpFormFieldDetail[] = [];
+        let tempMastersDetails : GpFormFieldDetail[] = [];
 
         this.tableLabelDetail = tableMetadata.tableLabel;
         for (let metadata of tableMetadata.fields) {
-            let formField = new GpFormField(this.formControlDetail, metadata);
-            tempColumnasDetail.push(formField);
-            tempMastersDetails.push(formField);
+            if(metadata.displayInfo.order > 0){              
+                let formField = new GpFormFieldDetail(this.formControlDetail, metadata);
+                tempColumnasDetail.push(formField);
+                tempMastersDetails.push(formField);
+            }
         }
         for (var col of tempColumnasDetail) {
             this.calcFieldType(col);
@@ -297,7 +307,7 @@ export class GpAppTableCrudComponent implements OnInit {
 
         this.tableLabel = tableMetadata.tableLabel;
         for (let metadata of tableMetadata.fields) {
-            let formField = new GpFormField(this.formControl, metadata);
+            let formField = new GpFormField(this.formControl, metadata, this.tableName);
 
             // guardamos el campo que funciona como id, para utilizarlo en el master-detail (si lo hay)
             if (metadata.id) {
@@ -407,6 +417,7 @@ export class GpAppTableCrudComponent implements OnInit {
                     });
                     this.formControl.edicionEdit = true;
                     this.displayEdicion = true;
+                    this.displayEdicionDetail = false;                              
                     this.closedDialog.emit(false);
                 }
             },
@@ -420,6 +431,53 @@ export class GpAppTableCrudComponent implements OnInit {
                 console.log("onRowSelect. end select.");
                 this.cambiaTablaDetail(event.data[this.tableId], this.filterField);
             });
+    }
+
+    onRowSelectDetail(event: any) { 
+        this.tableService.selectOneRow( this.tableNameDetail, JSON.stringify( this.selectedRowDetail ) ).subscribe(
+          data => {
+            if( !data.ok ) {
+              this.showErrorDialogo( "Error recuperando el registro." );
+              console.log("onRowSelect. Error recuperando: " + JSON.stringify( data ) );
+            }
+            else {
+              this.formControlDetail.editedRow = JSON.parse(JSON.stringify( data.data ));
+              this.formControlDetail.originalRow = JSON.parse(JSON.stringify( data.data ));
+              console.log("Edited row: " + JSON.stringify(this.formControlDetail.editedRow));
+              let self = this;
+              this.forEachFieldControl( function( col : GpFormFieldControl ) {
+                console.log( "onRowSelect, cvfertc: " + JSON.stringify( col.getFormField() ) );
+                col.copyValueFromEditedRowToControl( self.formControlDetail.editedRow );
+                col.clearValidations();
+              } );
+              this.displayEdicion = false;
+              this.displayEdicionDetail = true;          
+            }
+          },
+          err => {
+            this.showErrorDialogo( "Error interno recuperando el registro." );
+            console.log("onRowSelect. Error seleccionando: " + JSON.stringify( err ) );
+          },
+          () => {
+            this.formControl.lockFields = false;
+            this.formControlDetail.lockFields = false;
+            console.log("onRowSelect. end select." );
+          } );
+    }
+    
+    onRowUnselect(){
+        console.log("RowUnselect: " + JSON.stringify(event));
+        this.closeDialog();
+    }
+    
+    onDialogClose() {
+        this.showTableDetail = false;
+        this.closeDialog();
+    }
+    
+    onDialogCloseDetail() {
+        this.showTableDetail = true;    
+        this.closeDialog();
     }
 
     onDialogDelete() {
@@ -456,6 +514,40 @@ export class GpAppTableCrudComponent implements OnInit {
             });
     }
 
+    onDialogDeleteDetail() {
+        this.formControl.lockFields = true;
+        console.log("onDialogDeleteDetail.");
+        console.log("onDialogDeleteDetail. original: " + JSON.stringify( this.formControlDetail.originalRow ));
+        let jsonDeleteRow = JSON.stringify( this.formControlDetail.originalRow );
+        console.log("onDialogDeleteDetail. original: " + jsonDeleteRow);
+        this.tableService.deleteRow( this.tableNameDetail, jsonDeleteRow ).subscribe(
+          data => {
+            if( data.ok ) {
+              // Borramos el registro.
+              let i = this.elementosDetail.indexOf( this.selectedRowDetail );
+              if( i >= 0 )
+              {
+                console.log("onDialogDeleteDetail. before: " + JSON.stringify( this.elementosDetail ) );
+                this.elementosDetail.splice(i,1);
+                console.log("onDialogDeleteDetail. after: " + JSON.stringify( this.elementosDetail ) );
+              }
+              // Y cerramos el registro de la tabla detalle.
+              this.displayEdicionDetail = false;                                
+            }
+            else {
+              this.showErrorDialogo( "Error borrando el registro: " + data.error.errorMessage );
+            }
+          },
+          err => {
+            this.showErrorDialogo( "Error interno borrando el registro." );
+            console.log("onDialogDeleteDetail. Error borrando: " + JSON.stringify( err ) );
+          },
+          () => {
+            this.formControl.lockFields = false;
+            console.log("onDialogDeleteDetail. end delete." );
+          });
+    }    
+
     validateEditRow() {
         let valid = true;
         let self = this;
@@ -464,8 +556,10 @@ export class GpAppTableCrudComponent implements OnInit {
             // El orden del and hace que siempre se ejecute el validateField. Si se pone
             // al reves, cuando valid pase a ser falso no se volvera a llamar a
             // col.validateField por la evaluacion en cortocircuito.
-            if (!inAddOperation || !col.getFormField().fieldMetadata.hideInAddOperation) {
-                valid = col.validateField(self.formControl.editedRow) && valid;
+            if(col.getFormField().tableName !== self.tableNameDetail){              
+                if (!inAddOperation || !col.getFormField().fieldMetadata.hideInAddOperation) {
+                    valid = col.validateField(self.formControl.editedRow) && valid;
+                }
             }
         });
         return valid;
@@ -474,13 +568,15 @@ export class GpAppTableCrudComponent implements OnInit {
     onDialogSave() {
         this.formControl.lockFields = true;
         let self = this;
-        this.forEachFieldControl(function (col:GpFormFieldControl) {
-            col.copyValueFromControlToEditedRow(self.formControl.editedRow);
-        });
-        if (!this.validateEditRow()) {
-            this.formControl.lockFields = false;
-            return;
-        }
+        // this.forEachFieldControl(function (col:GpFormFieldControl) {
+        //     if(col.getFormField().tableName !== self.tableNameDetail){               
+        //         col.copyValueFromControlToEditedRow(self.formControl.editedRow);
+        //     }
+        // });
+        // if (!this.validateEditRow()) {
+        //     this.formControl.lockFields = false;
+        //     return;
+        // }
         let jsonModifiedRow = JSON.stringify(this.formControl.editedRow);
         console.log("onDialogSave. modified: " + jsonModifiedRow);
         if (this.selectedRow != null) {
@@ -511,28 +607,87 @@ export class GpAppTableCrudComponent implements OnInit {
                 });
         }
         else {
-            this.tableService.insertRow(this.tableName, jsonModifiedRow).subscribe(
-                data => {
-                    if (data.ok) {
-                        // Insertamos el registro.
-                        this.elementos.push(data.insertedRow);
-                        // Y cerramos el dialog.
-                        this.closeDialog();
-                    }
-                    else {
-                        this.showErrorDialogo("Error insertando el registro: " + data.error.errorMessage);
-                    }
-                },
-                err => {
-                    this.showErrorDialogo("Error interno insertando el registro.");
-                    console.log("onDialogSave. Error insertando: " + JSON.stringify(err));
-                },
-                () => {
-                    this.formControl.lockFields = false;
-                    console.log("onDialogSave. end insert.");
-                });
+            this.insertRow(jsonModifiedRow)      
         }
     }
+
+    onDialogSaveDetail(event: any) {
+        this.msgsDialog = [];
+        let self = this;
+        //this.formControlDetail.lockFields = true;
+        //console.log("onDialogSave.");
+       /* this.forEachFieldControl( function( col : GpFormFieldControl ) {
+          col.copyValueFromControlToEditedRow( self.formControlDetail.editedRow );
+        } );
+        if( !this.validateEditRow() ) {
+          this.formControl.lockFields = false;
+          return;
+        }*/
+        let jsonModifiedRow = JSON.stringify(this.formControlDetail.editedRow);
+        console.log("onDialogSaveDetail. modified: " + jsonModifiedRow);
+        if( this.selectedRowDetail != null ) {
+          this.tableService.selectOneRow( this.tableNameDetail, jsonModifiedRow ).subscribe(
+            data => {
+              if ( data.ok ) {
+                this.showErrorDialogo( "Error al modificar el registro, ya existe un registro con esos datos")
+              }
+              else {
+                this.onDialogDeleteDetail()
+                this.insertRowDetail(jsonModifiedRow)   
+              }
+            }
+          )
+        }
+        else {
+          this.insertRowDetail(jsonModifiedRow)
+        }
+    }
+    
+    insertRow(jsonModifiedRow: any) {
+        this.tableService.insertRow( this.tableName, jsonModifiedRow ).subscribe(
+          data => {
+            if( data.ok ) {
+              // Insertamos el registro.
+              this.elementos.push( data.insertedRow );
+              // Y cerramos el registro de la tabla detalle.
+              this.displayEdicion = false;                                  
+            }
+            else {
+              this.showErrorDialogo( "Error insertando el registro: " + data.error.errorMessage );
+            }
+          },
+          err => {
+            this.showErrorDialogo( "Error interno insertando el registro." );
+            console.log("onDialogSave. Error insertando: " + JSON.stringify( err ) );
+          },
+          () => {
+            this.formControl.lockFields = false;
+            console.log("onDialogSave. end insert." );
+          });
+    }
+    
+    insertRowDetail(jsonModifiedRow: any) {
+        this.tableService.insertRow( this.tableNameDetail, jsonModifiedRow ).subscribe(
+          data => {
+            if( data.ok ) {
+              // Insertamos el registro.
+              this.elementosDetail.push( data.insertedRow );
+              // Y cerramos el registro de la tabla detalle.
+              this.displayEdicionDetail = false;                                  
+            }
+            else {
+              this.showErrorDialogo( "Error insertando el registro: " + data.error.errorMessage );
+            }
+          },
+          err => {
+            this.showErrorDialogo( "Error interno insertando el registro." );
+            console.log("onDialogSave. Error insertando: " + JSON.stringify( err ) );
+          },
+          () => {
+            this.formControl.lockFields = false;
+            console.log("onDialogSave. end insert." );
+          });
+    }    
 
     closeDialog() {
         this.closedDialog.emit(true);
@@ -544,11 +699,14 @@ export class GpAppTableCrudComponent implements OnInit {
         this.formControl.edicionAdd = false;
         this.formControl.edicionEdit = false;
 
-        if (this.columnasTablaDetail.length > 0) {
+        if(!this.showTableDetail && this.columnasTablaDetail.length > 0 ){
             this.columnasTablaDetail = [];
-        }
+            this.selectedRow = null;        
+        }        
 
-        this.formControl.lockFields = false;
+        this.displayEdicionDetail = false;    
+        this.selectedRowDetail = null;
+        this.formControlDetail.lockFields = false;
         this.formControlDetail.originalRow = null;
         this.formControlDetail.edicionAdd = false;
         this.formControlDetail.edicionEdit = false;
@@ -589,7 +747,31 @@ export class GpAppTableCrudComponent implements OnInit {
         this.formControl.edicionEdit = false;
         this.formControl.edicionAdd = true;
         this.displayEdicion = true;
+        this.displayEdicionDetail = false;
+        this.columnasTablaDetail = [];   
         this.closedDialog.emit(false);
+    }
+
+    onDialogAddDetail() {
+        console.log("onDialogAddDetail");
+        this.selectedRowDetail = null;
+        this.formControlDetail.originalRow = null;
+        this.formControlDetail.editedRow = {};
+        let fielNameEditedRow = Object.keys(this.formControlDetail.editedRow)
+        this.formControlDetail.editedRow[this.tableId] = this.formControl.editedRow[this.tableId]
+        let self = this;
+        this.forEachFieldControl( function( col : GpFormFieldControl ) {
+          if(fielNameEditedRow[1]){
+            self.formControlDetail.editedRow[fielNameEditedRow[1]] = null;        
+          }
+          col.copyValueFromEditedRowToControl( self.formControlDetail.editedRow );
+          col.clearValidations();
+        } );
+        
+        this.formControlDetail.edicionEdit = false;
+        this.formControlDetail.edicionAdd = true;
+        this.displayEdicion = false;
+        this.displayEdicionDetail = true;   
     }
 
     showErrorDialogo(msg:string) {

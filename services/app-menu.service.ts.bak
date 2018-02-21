@@ -3,16 +3,12 @@ import {AppMenuProviderService} from "./app-menu-provider.service";
 import {MenuRq} from "../resources/data/menuRq";
 import {Observable} from "rxjs/Rx";
 import {GlobalService} from "./global.service";
-import { DemoOpcionesMenuService } from './../../../src/app/shared/services/demo-opciones-menu.service';
-
 
 @Injectable()
 export class AppMenuService {
     temp: any[];
-    opcionesMenu: any[];
 
-    constructor( private _appMenuProvider : AppMenuProviderService, private _globalService: GlobalService, private _opcionesMenu: DemoOpcionesMenuService ) {
-        this.opcionesMenu = _opcionesMenu.getPermisos();
+    constructor( private _appMenuProvider : AppMenuProviderService, private _globalService: GlobalService ) {
     }
 
     obtenMenu(rq: MenuRq): Observable<any> {
@@ -21,16 +17,7 @@ export class AppMenuService {
             this._appMenuProvider.obtenOpcionesActivas(rq).subscribe(
                 data => {
                     if (data.ok) {
-                        if (data.menu != null && data.menu.opciones != null && data.roles !=null) {
-                            this.cargarOpciones(this.temp, data.menu.opciones);
-                        }else{
-                            data.menu = data.menu != null ? data.menu : {} ;
-                            data.menu.opciones = data.menu.opciones != null ? data.menu.opciones: [];
-                            data.menu.opciones = this.opcionesMenu;
-                            let arrayRoles :any = [];
-                            let rol = {"rolCodigo" : "BPGADMIN","rolDesc" : "ADMINISTRADOR BPG","rolEmpCodigo" : "KIP"};
-                            arrayRoles.push(rol);
-                            data.roles=arrayRoles;
+                        if (data.menu.opciones != undefined) {
                             this.cargarOpciones(this.temp, data.menu.opciones);
                         }
                         this._globalService.roles = data.roles;
