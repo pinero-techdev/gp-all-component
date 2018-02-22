@@ -7,12 +7,12 @@ import {GpAppTableCrudComponent} from "./gp-app-table-crud.component";
     templateUrl: './gp-app-table-frame.component.html'
 })
 export class GpAppTableFrameComponent implements OnInit, OnDestroy {
-    private sub:Subscription;
-    tableName:string;
-    @ViewChild(GpAppTableCrudComponent) viewChild:GpAppTableCrudComponent;
+    private sub: Subscription;
+    tableName: string;
+    @ViewChild(GpAppTableCrudComponent) viewChild: GpAppTableCrudComponent;
 
-    constructor(private _route:ActivatedRoute,
-                private _router:Router) {
+    constructor(private _route: ActivatedRoute,
+                private _router: Router) {
     }
 
     ngOnInit() {

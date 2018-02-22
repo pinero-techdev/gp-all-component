@@ -99,16 +99,13 @@ export class GpFormDropdownFieldComponent extends GpFormFieldControl {
     }
 
     copyValueFromControlToEditedRow(editedRow:any) {
-        let value = editedRow[this.formField.fieldMetadata.fieldName];
-        let newValue = this._currentValueDropDown;
-        editedRow[this.formField.fieldMetadata.fieldName] = newValue;
+        editedRow[this.formField.fieldMetadata.fieldName] = this._currentValueDropDown;
     }
 
     copyValueFromEditedRowToControl(editedRow:any) {
         console.log("GpFormTextFieldComponent.changeSelectedRow: " + JSON.stringify(this.formField.fieldMetadata));
         console.log("        editedRow: " + JSON.stringify(editedRow));
-        let value = editedRow[this.formField.fieldMetadata.fieldName];
-        this._currentValueDropDown = value;
+        this._currentValueDropDown = editedRow[this.formField.fieldMetadata.fieldName];
         console.log("        value dropdown: " + this._currentValueDropDown);
     }
 
@@ -129,7 +126,7 @@ export class GpFormDropdownFieldComponent extends GpFormFieldControl {
         return this.formField.validField;
     }
 
-    onChange(event) {
+    onChange() {
         let infoCampoModificado = new InfoCampoModificado(this.formField.fieldMetadata.fieldName, this._currentValueDropDown);
         this.valueChanged.emit(infoCampoModificado);
     }

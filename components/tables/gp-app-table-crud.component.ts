@@ -87,6 +87,7 @@ export class GpAppTableCrudComponent {
     @ViewChildren(GpFormTimeFieldComponent) timeFormFields:QueryList<GpFormTimeFieldComponent>;
     @ViewChildren(GpFormSwitchFieldComponent) switchFormFields:QueryList<GpFormSwitchFieldComponent>;
     @ViewChildren(GpFormDropdownFieldComponent) dropdownFormFields:QueryList<GpFormDropdownFieldComponent>;
+    @ViewChildren(GpFormDropdownRelatedfieldComponent) dropdownRelatedFormFields:QueryList<GpFormDropdownRelatedfieldComponent>;
     @ViewChildren(GpFormCheckboxFieldComponent) checkboxFormFields:QueryList<GpFormCheckboxFieldComponent>;
     @ViewChildren(GpFormCalendarFieldComponent) calendarFormFields:QueryList<GpFormCalendarFieldComponent>;
     @ViewChildren(GpFormWysiwygFieldComponent) wysiwygFormFields:QueryList<GpFormWysiwygFieldComponent>;
@@ -217,6 +218,7 @@ export class GpAppTableCrudComponent {
             this.calcFieldType(col);
         }
         this.columnas = tempColumnas;
+        console.info(this.columnas);
         this.columnasTabla = tempColumnasTabla;
     }
 
@@ -265,7 +267,7 @@ export class GpAppTableCrudComponent {
         this.msgsGlobal = [{severity: 'error', summary: 'Atención', detail: message}];
     }
 
-    onRowSelect(event:any) {
+    onRowSelect() {
         this.rowSelected.emit(this.selectedRow);
         this.tableService.selectOneRow(this.tableName, JSON.stringify(this.selectedRow)).subscribe(
             data => {
@@ -276,10 +278,9 @@ export class GpAppTableCrudComponent {
                 else {
                     this.formControl.editedRow = JSON.parse(JSON.stringify(data.data));
                     this.formControl.originalRow = JSON.parse(JSON.stringify(data.data));
-                    console.log("Edited row: " + JSON.stringify(this.formControl.editedRow));
                     let self = this;
                     this.forEachFieldControl(function (col:GpFormFieldControl) {
-                        console.log("onRowSelect, cvfertc: " + JSON.stringify(col.getFormField()));
+                        console.log(col);
                         col.copyValueFromEditedRowToControl(self.formControl.editedRow);
                         col.clearValidations();
                     });
@@ -483,6 +484,9 @@ export class GpAppTableCrudComponent {
             f(col);
         });
         this.dropdownFormFields.forEach(col => {
+            f(col);
+        });
+        this.dropdownRelatedFormFields.forEach(col => {
             f(col);
         });
         this.checkboxFormFields.forEach(col => {

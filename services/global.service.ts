@@ -13,8 +13,12 @@ export class GlobalService {
     public logged:boolean;
     public session:UserInfo;
     public applicationTitle:string;
-    public roles:RolInfo[];
+    public roles: RolInfo[];
     public language:string;
+
+    constuctor() {
+        console.log("CREANDO GlobalService.");
+    }
 
     public static setBaseUrl(newUrl:string) {
         this.baseUrl = newUrl;
@@ -48,7 +52,7 @@ export class GlobalService {
         return GlobalService.app;
     }
 
-    public static setIp(ip:string) {
+    public static setIp(ip: string) {
         this.ip = ip;
     }
 

@@ -1,7 +1,7 @@
 /**
  * Servicio de login
  */
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {GlobalService} from "./global.service";
 import {LoginRq} from "../resources/data/loginRq";
@@ -9,7 +9,7 @@ import {LoginRq} from "../resources/data/loginRq";
 @Injectable()
 export class LoginService {
 
-    constructor(private http:Http) {
+    constructor(private http: Http) {
     }
 
     /**
@@ -17,10 +17,10 @@ export class LoginService {
      * @returns Json con la sesión del usuario (si tiene sesión activa
      */
     sessionInfo() {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
         let url = `${GlobalService.LOGIN_SERVICE_URL}/sessionInfo`;
-        return this.http.post(url, {}, options).map((res:Response) => res.json());
+        return  this.http.post(url,{},options).map( (res: Response) => res.json());
     }
 
     /**
@@ -29,14 +29,14 @@ export class LoginService {
      * @param password
      * @returns Json con la sesión del usuario
      */
-    login(request:LoginRq) {
+    login(request : LoginRq) {
         let body = JSON.stringify(request);
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
         let url = `${GlobalService.LOGIN_SERVICE_URL}/login`;
-        sessionStorage.setItem("language", "ES");
+        sessionStorage.setItem("language","ES");
         console.log(body);
-        return this.http.post(url, body, options).map((res:Response) => res.json());
+        return this.http.post(url,body,options).map( (res: Response) => res.json());
     }
 
     /**
@@ -44,9 +44,9 @@ export class LoginService {
      * @returns Json con un CommonRS de respuesta
      */
     logout() {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
         let url = `${GlobalService.LOGIN_SERVICE_URL}/logout`;
-        return this.http.post(url, {}, options).map((res:Response) => res.json());
+        return  this.http.post(url,{},options).map( (res: Response) => res.json());
     }
 }

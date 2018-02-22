@@ -1,5 +1,6 @@
 <div [class.ui-g-12]="formField.fieldMetadata.displayInfo.translationInfo == null"
-     [class.ui-g-10]="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''">
+     [class.ui-g-10]="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''"
+     class="nopad">
     <input name="__field__{{formField.fieldMetadata.fieldName}}"
            pInputText
            type="text"
@@ -7,15 +8,15 @@
            [maxlength]="maxLength"
            [class]="textboxClass"
            (change)="onFieldChange()"
-           [disabled]="controlDisabled()" />
+           [disabled]="controlDisabled()"/>
 </div>
-<div class="ui-g-2" *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''">
+<div class="ui-g-2 nopad" *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''">
     <gp-app-multi-idioma [pKey]="translationKeys"
                          [esquema]="formField.fieldMetadata.displayInfo.translationInfo.scheme"
                          [tabla]="formField.fieldMetadata.displayInfo.translationInfo.table"
                          [campo]="formField.fieldMetadata.displayInfo.translationInfo.field"
                          [campoDescripcion]="formField.fieldMetadata.displayInfo.translationInfo.description"
-                         [habilitarEdicionHTML]= "formField.fieldMetadata.displayInfo.translationInfo.allowEdition"
+                         [habilitarEdicionHTML]="formField.fieldMetadata.displayInfo.translationInfo.allowEdition"
                          [orderByLangCod]="formField.fieldMetadata.displayInfo.translationInfo.orderByLangCod">
     </gp-app-multi-idioma>
 </div>

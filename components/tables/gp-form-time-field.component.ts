@@ -92,8 +92,6 @@ export class GpFormTimeFieldComponent extends GpFormFieldControl implements OnIn
             this.validateFieldAddMsgs('El valor indicado no cumple con un formato válido: "hh:mm". Ejemplo  de hora válida: 01:45');
             this.formField.validField = false;
         }
-
         return this.formField.validField;
     }
-
 }

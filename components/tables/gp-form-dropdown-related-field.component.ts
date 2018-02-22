@@ -16,6 +16,9 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl {
 
   list: any;
 
+  // lo utilizamos para conocer si los datos ya se han cargado
+  private listCharged: boolean = false;
+
   // Drop down.
   currentValueDropDown: string;
   listAllowedValuesOptions: SelectItem[];
@@ -29,7 +32,6 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl {
   @Input()
   set relatedField(info: InfoCampoModificado) {
     if (info != null && info.field == this.formField.fieldMetadata.displayInfo.relatedField) {
-      this.currentValueDropDown = null;
       this._relatedField.value = info.value;
       if (info.value == null) {
         this.listAllowedValuesOptions = [{label: "Seleccione primero el campo del que depende ...", value: null}];
@@ -60,21 +62,27 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl {
       this.listAllowedValuesOptions = [{label: "Cargando los datos del desplegable ...", value: null}];
       console.log(this.formField.fieldMetadata.displayInfo.referencedTable);
       let fieldToOrderBy = this.formField.fieldMetadata.displayInfo.fieldToOrderBy ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy] : null;
-      this._tableService.list( this.formField.fieldMetadata.displayInfo.referencedTable, true, true, fieldToOrderBy , this.formField.fieldMetadata.displayInfo.filters ).subscribe(
-        data => {
-          if( data.ok ) {
+      this._tableService.list( this.formField.fieldMetadata.displayInfo.referencedTable, true, true, fieldToOrderBy , this.formField.fieldMetadata.displayInfo.filters )
+          .finally( () => this.listCharged = true )
+          .subscribe(
+              data => {
+                if( data.ok ) {
 
-            this.listAllowedValuesOptions = [{label: "Seleccione primero el campo del que depende ...", value: null}];
-            this.list = data.data;
+                  this.list = data.data;
+                  if ( !this._relatedField || !this._relatedField.value ){
+                    this.listAllowedValuesOptions = [{label: "Seleccione primero el campo del que depende ...", value: null}];
+                  }
 
-          }
-          else {
-            this.list = null;
-          }
-        },
-        err => {
-          this.list = null;
-        });
+                }
+                else {
+                  this.list = null;
+                  console.error("error al cargar datos");
+                }
+              },
+              err => {
+                this.list = null;
+                console.error("error al cargar datos");
+              });
     } else {
       console.error("No se ha indicado tabla relacionada para obtener los valores del campo " + this.formField.fieldMetadata.fieldName);
     }
@@ -82,36 +90,48 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl {
 
   reinicia(field: string, value: any){
 
-    // TODO Hacer que busque automaticamente el id cuando no venga referencedField.
-    this.listAllowedValuesOptions = [{label: "Seleccione " + this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase() + " ...", value: null}];
-    for( let row of this.list ) {
+    if ( this.listCharged && this.list ) {
+      this.listAllowedValuesOptions = [{label: "Seleccione " + this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase() + " ...", value: null}];
+      for( let row of this.list ) {
 
-      if ( row[field] == value ) {
+        if ( row[field] == value ) {
 
-        let optionLabel = "";
-        let separator = "";
-        for( let fieldDesc of this.formField.fieldMetadata.displayInfo.fieldDescriptions ) {
-          optionLabel += separator + row[fieldDesc];
-          separator = " - ";
+          let optionLabel = "";
+          let separator = "";
+          for( let fieldDesc of this.formField.fieldMetadata.displayInfo.fieldDescriptions ) {
+            optionLabel += separator + row[fieldDesc];
+            separator = " - ";
+          }
+          this.listAllowedValuesOptions.push({label: optionLabel, value: row[this.formField.fieldMetadata.fieldName]});
         }
-        this.listAllowedValuesOptions.push({label: optionLabel, value: row[this.formField.fieldMetadata.displayInfo.relatedField]});
-
       }
+      // Solo tiene cargado la info de selección
+      if ( this.listAllowedValuesOptions.length == 1) {
+        this.listAllowedValuesOptions = [{label: "No existen opciones para el valor seleccionado", value: null}];
+      }
+      // Si el valor no existe dentro de las opciones, se reinicia el valor
+      if ( this.listAllowedValuesOptions.filter( item => {return item.value == this.currentValueDropDown } ).length == 0 )
+      {
+        this.currentValueDropDown = null;
+      }
+    } else if ( !this.listCharged ){
+      // Si los datos se encuentran pendientes de cargarse, esperamos un segundo
+      setTimeout( () => {this.reinicia( field, value )}, 200);
+    } else {
+      this.listAllowedValuesOptions = [{label: "No existen opciones para el valor seleccionado", value: null}];
     }
+
 
   }
 
   copyValueFromControlToEditedRow( editedRow : any) {
-    let value = editedRow[this.formField.fieldMetadata.fieldName];
-    let newValue = this.currentValueDropDown;
-    editedRow[this.formField.fieldMetadata.fieldName] = newValue;
+    editedRow[this.formField.fieldMetadata.fieldName] = this.currentValueDropDown;
   }
 
   copyValueFromEditedRowToControl( editedRow: any) {
     console.log("GpFormTextFieldComponent.changeSelectedRow: " + JSON.stringify(this.formField.fieldMetadata));
     console.log("        editedRow: " + JSON.stringify(editedRow));
-    let value = editedRow[this.formField.fieldMetadata.fieldName];
-    this.currentValueDropDown = value;
+    this.currentValueDropDown = editedRow[this.formField.fieldMetadata.fieldName];
     console.log("        value dropdown: " + this.currentValueDropDown );
   }
 

@@ -1,7 +1,26 @@
 {
-  "license": "MIT",
-  "name": "gp-all-component",
-  "version": "1.0.8",
+  "_from": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
+  "_id": "gp-all-component@1.0.8",
+  "_inBundle": false,
+  "_location": "/gp-all-component",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "gp-all-component@git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
+    "name": "gp-all-component",
+    "escapedName": "gp-all-component",
+    "rawSpec": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
+    "saveSpec": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
+    "fetchSpec": "http://teamdev.cen.intranet/angular-components/gp-all-component.git",
+    "gitCommittish": "versionNuevoMenuBack"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#8ed622ec12e7238952a9b15be0b4af85f09d67fe",
+  "_spec": "gp-all-component@git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
+  "_where": "C:\\Users\\bdomenge\\git\\backoffice-bp-front",
+  "bundleDependencies": false,
   "dependencies": {
     "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
@@ -9,13 +28,13 @@
     "@angular/core": "^5.0.0",
     "@angular/forms": "^5.0.0",
     "@angular/http": "^5.0.0",
+    "@angular/material": "2.0.0-beta.6",
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
     "@angular/upgrade": "^5.0.0",
-    "@angular/material": "2.0.0-beta.6",
-    "core-js": "^2.5.0",
     "chart.js": "^2.4.0",
+    "core-js": "^2.5.0",
     "fullcalendar": "^3.6.1",
     "jquery": "^3.1.1",
     "jvectormap-next": "^3.0.0",
@@ -50,5 +69,8 @@
     "typescript": "^2.5.3",
     "uglify-js": "2.8.29",
     "webpack": "^3.0.0"
-  }
+  },
+  "license": "MIT",
+  "name": "gp-all-component",
+  "version": "1.0.8"
 }

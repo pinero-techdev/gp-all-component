@@ -34,7 +34,7 @@ a {
 
 .texto-lopd {
     white-space: pre-wrap;
-    overflow-x: scroll;
+    overflow-x: hidden;
     height: 80vh;
 }
 
@@ -314,6 +314,14 @@ p-dropdown > .ui-dropdown {
     padding-right: 0px;
 }
 
+.padding-1 {
+    padding: 1% !important;
+}
+
+.padding-2 {
+    padding: 2% !important;
+}
+
 .bold {
     font-weight: bold;
 }
@@ -539,4 +547,20 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
 /** Visualizador de fechas dentro de input-fields **/
 .ui-calendar > input {
     width: inherit;
+}
+
+.grayText {
+    color: #9c9c9c;
+}
+
+.grayBorder {
+    border: 1px solid #bdbdbd !important;
+}
+
+.goldBorder {
+    border: 1px solid #988642 !important;
+}
+
+.uppercase {
+    text-transform: uppercase;
 }
