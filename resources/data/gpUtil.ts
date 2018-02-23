@@ -2,36 +2,21 @@ import {SelectItem, MenuItem} from "primeng/primeng";
 import {GPSelectItem} from "./gpSelectItem";
 
 export class GPUtil {
-    public static readonly
-    odd_reA = new RegExp("\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5", "g");
-    public static readonly
-    odd_rea = new RegExp("\u00E0|\u00E1|\u00E2|\u00E3|\u00E4|\u00E5", "g");
-    public static readonly
-    odd_reE = new RegExp("\u00C8|\u00C9|\u00CA|\u00CB", "g");
-    public static readonly
-    odd_ree = new RegExp("\u00E8|\u00E9|\u00EA|\u00EB", "g");
-    public static readonly
-    odd_reI = new RegExp("\u00CC|\u00CD|\u00CE|\u00CF", "g");
-    public static readonly
-    odd_rei = new RegExp("\u00EC|\u00ED|\u00EE|\u00EF", "g");
-    public static readonly
-    odd_reO = new RegExp("\u00D2|\u00D3|\u00D4|\u00D5|\u00D6", "g");
-    public static readonly
-    odd_reo = new RegExp("\u00F2|\u00F3|\u00F4|\u00F5|\u00F6", "g");
-    public static readonly
-    odd_reU = new RegExp("\u00D9|\u00DA|\u00DB|\u00DC", "g");
-    public static readonly
-    odd_reu = new RegExp("\u00F9|\u00FA|\u00FB|\u00FC", "g");
-    public static readonly
-    odd_reN = new RegExp("\u00D1", "g");
-    public static readonly
-    odd_ren = new RegExp("\u00F1", "g");
-    public static readonly
-    odd_reC = new RegExp("\u00C7", "g");
-    public static readonly
-    odd_rec = new RegExp("\u00E7", "g");
-    public static readonly
-    odd_reOthers = new RegExp("[\u0080-\uFFFF]", "g");
+    public static readonly odd_reA = new RegExp("\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5", "g");
+    public static readonly odd_rea = new RegExp("\u00E0|\u00E1|\u00E2|\u00E3|\u00E4|\u00E5", "g");
+    public static readonly odd_reE = new RegExp("\u00C8|\u00C9|\u00CA|\u00CB", "g");
+    public static readonly odd_ree = new RegExp("\u00E8|\u00E9|\u00EA|\u00EB", "g");
+    public static readonly odd_reI = new RegExp("\u00CC|\u00CD|\u00CE|\u00CF", "g");
+    public static readonly odd_rei = new RegExp("\u00EC|\u00ED|\u00EE|\u00EF", "g");
+    public static readonly odd_reO = new RegExp("\u00D2|\u00D3|\u00D4|\u00D5|\u00D6", "g");
+    public static readonly odd_reo = new RegExp("\u00F2|\u00F3|\u00F4|\u00F5|\u00F6", "g");
+    public static readonly odd_reU = new RegExp("\u00D9|\u00DA|\u00DB|\u00DC", "g");
+    public static readonly odd_reu = new RegExp("\u00F9|\u00FA|\u00FB|\u00FC", "g");
+    public static readonly odd_reN = new RegExp("\u00D1", "g");
+    public static readonly odd_ren = new RegExp("\u00F1", "g");
+    public static readonly odd_reC = new RegExp("\u00C7", "g");
+    public static readonly odd_rec = new RegExp("\u00E7", "g");
+    public static readonly odd_reOthers = new RegExp("[\u0080-\uFFFF]", "g");
 
     public static normaliza(s:string):string {
         s = s.replace(GPUtil.odd_reA, "A");
@@ -258,10 +243,10 @@ export class GPUtil {
     }
 
     public stringToBoolean(input:string, trueValue:string = "S", falseValue:string = "N"):boolean {
-        if (trueValue == input) {
+        if(trueValue == input){
             return true;
         } else {
-            if (falseValue == input) {
+            if(falseValue == input) {
                 return false;
             } else {
                 return false;

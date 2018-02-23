@@ -218,6 +218,7 @@ export class GpAppTableCrudComponent {
             this.calcFieldType(col);
         }
         this.columnas = tempColumnas;
+        console.info(this.columnas);
         this.columnasTabla = tempColumnasTabla;
     }
 
@@ -266,7 +267,7 @@ export class GpAppTableCrudComponent {
         this.msgsGlobal = [{severity: 'error', summary: 'Atención', detail: message}];
     }
 
-    onRowSelect(event:any) {
+    onRowSelect() {
         this.rowSelected.emit(this.selectedRow);
         this.tableService.selectOneRow(this.tableName, JSON.stringify(this.selectedRow)).subscribe(
             data => {
