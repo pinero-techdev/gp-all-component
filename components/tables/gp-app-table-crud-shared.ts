@@ -27,6 +27,7 @@ export class GpFormField {
 
     constructor(public formControl:GpFormControl, public fieldMetadata:FieldMetadata) {
     }
+
 }
 
 export class GpFormFieldControl {
@@ -53,7 +54,7 @@ export class GpFormFieldControl {
         if (this.getFormField().fieldMsgs == null) {
             this.getFormField().fieldMsgs = [];
         }
-        this.getFormField().fieldMsgs.push({severity: 'error', /*summary:'Información',*/ detail: msg});
+        this.getFormField().fieldMsgs.push({severity: 'error', detail: msg});
     }
 
     /* Limpia la lista de mensajes de validación del campo y marca
