@@ -2,6 +2,7 @@
  * GP BARREL
  */
 //Components
+export * from "./components/base/gp.app.base.component";
 export * from "./components/empty/gp.app.empty.component";
 export * from "./components/loading-indicator/gp.app.loading-indicator.component";
 export * from "./components/login/gp.app.login.component";
@@ -27,7 +28,7 @@ export * from "./components/tables/gp-form-text-field.component";
 export * from "./components/tables/gp-form-textarea-field.component";
 export * from "./components/tables/gp-form-time-field.component";
 export * from "./components/tables/gp-form-wysiwyg-field.component";
-export * from "./components/dynamic/gp-dynamic.component";
+export * from "./components/dynamic/gp.dynamic.component";
 //Resources (Classes)
 export * from "./resources/data/authGuard";
 export * from "./resources/data/redirectAuthGuard";
