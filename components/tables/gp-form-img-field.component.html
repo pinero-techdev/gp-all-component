@@ -1,4 +1,4 @@
-<img [src]="currentValueText" style="width: 50%; max-height: 50%;" *ngIf="currentValueText"/>
+<img [src]="currentValueText" style="width: 100%; max-height: 50%;" *ngIf="currentValueText"/>
 <input name="__field__{{formField.fieldMetadata.fieldName}}"
        pInputText
        type="text"
@@ -6,4 +6,5 @@
        [maxlength]="maxLength"
        [class]="textboxClass"
        (change)="onFieldChange()"
-       [disabled]="controlDisabled()" />
+       [disabled]="controlDisabled()"
+       style="width: 100%;"/>

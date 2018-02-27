@@ -149,7 +149,7 @@ export class GpAppTableCrudComponent {
     }
 
     // Se llama cuando se selecciona una nueva tabla.
-    cambiaTabla(tableName:string) {
+    cambiaTabla(tableName:string, fieldsToOrderBy?:string[]) {
         //	TODO Chequear que no estemos en medio de una edicion.
         if (this.tableName != null && tableName == this.tableName && this.rowSelectedFilters == null) {
             this.working = false;
@@ -172,7 +172,7 @@ export class GpAppTableCrudComponent {
 
             this.filters = this.rowSelectedFilters;
         }
-        this.tableService.list(this.tableName, true, false, null, this.filters).finally(() => this.working = false).subscribe(
+        this.tableService.list(this.tableName, true, true, fieldsToOrderBy, this.filters).finally(() => this.working = false).subscribe(
             data => {
                 console.log('getMetadata response:' + JSON.stringify(data));
                 if (data.ok) {
@@ -337,7 +337,6 @@ export class GpAppTableCrudComponent {
         let self = this;
         let inAddOperation = this.formControl.edicionAdd;
         this.forEachFieldControl(function (col:GpFormFieldControl) {
-            console.log(col);
             // El orden del and hace que siempre se ejecute el validateField. Si se pone
             // al reves, cuando valid pase a ser falso no se volvera a llamar a
             // col.validateField por la evaluacion en cortocircuito.

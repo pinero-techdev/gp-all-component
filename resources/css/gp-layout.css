@@ -1,7 +1,7 @@
 ﻿/** GENERAL **/
 /** CLASSES **/
 html {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 a {
@@ -12,7 +12,7 @@ a {
     text-align: center !important;
 }
 
-.error {
+.warn, .error {
     color: red;
 }
 
@@ -67,7 +67,7 @@ button[disabled] {
 }
 
 .ui-inputtext:disabled {
-    border-left: 0px !important;
+    border-left: 0 !important;
     color: #676767;
 }
 
@@ -155,7 +155,7 @@ p-dropdown > .ui-dropdown {
 }
 
 .ui-radiobutton-icon {
-    margin: 0px !important;
+    margin: 0 !important;
 }
 
 .col-left {
@@ -238,7 +238,7 @@ p-dropdown > .ui-dropdown {
 .plata {
     background-color: silver;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
@@ -263,28 +263,28 @@ p-dropdown > .ui-dropdown {
 .verde {
     background-color: darkgreen;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
 .amarillo {
     background-color: yellow;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
 .rojo {
     background-color: red;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
 .naranja {
     background-color: orange;
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
     -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
@@ -295,23 +295,23 @@ p-dropdown > .ui-dropdown {
 }
 
 .nopad {
-    padding: 0px;
+    padding: 0;
 }
 
 .no-pad-top {
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 .no-pad-bottom {
-    padding-bottom: 0px;
+    padding-bottom: 0;
 }
 
 .no-pad-left {
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 .no-pad-right {
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 .padding-1 {
@@ -327,7 +327,7 @@ p-dropdown > .ui-dropdown {
 }
 
 body .ui-datatable .ui-datatable-footer {
-    padding: 0px;
+    padding: 0;
 }
 
 body .ui-datatable tbody tr td {

@@ -17,7 +17,6 @@ export class GpAppTableFrameComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.sub = this._route.params.subscribe(params => {
-            console.log('Cambia url:' + params['tabla']);
             this.tableName = params['tabla'];
             this.viewChild.closeDialog();
             this.viewChild.cambiaTabla(this.tableName);
