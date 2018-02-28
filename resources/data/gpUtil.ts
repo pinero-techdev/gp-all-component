@@ -331,4 +331,13 @@ export class GPUtil {
         }
         return itemsMenu;
     }
+
+    public limpiaSaltosLinea(s:string):string {
+        if(s == null || s == ""){
+            console.log(s);
+            return s;
+        } else{
+            return s.replace(/[\r\n]/g, '');
+        }
+    }
 }
