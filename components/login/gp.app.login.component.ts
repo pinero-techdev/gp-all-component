@@ -34,7 +34,7 @@ export class GpAppLoginComponent {
 
     login() {
         this.working = true;
-        let request:LoginRq = new LoginRq(this.usuario, this.password);
+        let request:LoginRq = new LoginRq(this.usuario, this.password, GlobalService.APP);
         this._loginService.login(request).finally(() => {
             this.working = false;
         }).subscribe(
