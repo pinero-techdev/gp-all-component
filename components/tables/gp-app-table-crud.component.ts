@@ -52,7 +52,9 @@ export class GpAppTableCrudComponent implements OnInit {
 
     // Identificador de la tabla detalle que tiene en común con la tabla principal
     @Input() parentId:string;
-
+	
+	// Cantidad registros por pagina del grid
+    @Input() cantRows: number;
 
     // Indicador de trabajando.
     working:boolean = true;

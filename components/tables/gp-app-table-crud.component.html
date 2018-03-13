@@ -6,7 +6,8 @@
                          (onRowSelect)="onRowSelect($event)"
                          (onRowUnselect)="onRowUnselect($event)"                         
                          [rowStyleClass]="thinline"
-                         [rows]="10" [paginator]="true" [pageLinks]="4"
+                         [rows]="cantRows ? cantRows : 10" 
+						 [paginator]="true" [pageLinks]="4"
                          [rowsPerPageOptions]="[10,20,50]" csvSeparator=";"
                          exportFilename="table_export" #dt
                          [immutable] = "false"
@@ -53,7 +54,7 @@
         <div class="ui-grid ui-grid-responsive ui-grid-pad" [(hidden)]="!displayEdicion">
             <h2 class="BigTopic">Edición - {{tableLabel}}</h2>
 
-            <div *ngFor="let col of columnas">
+<div *ngFor="let col of columnas">
                 
                 <div  class="ui-grid-row">
                     <div class="ui-grid-col-2" *ngIf="!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation">
@@ -142,7 +143,8 @@
                          (onRowSelect)="onRowSelectDetail($event)"
                          (onRowUnselect)="onRowUnselect($event)"                         
                          [rowStyleClass]="thinline"
-                         [rows]="10" [paginator]="true" [pageLinks]="4"
+                         [rows]="cantRows ? cantRows : 10"  
+						 [paginator]="true" [pageLinks]="4"
                          [rowsPerPageOptions]="[10,20,50]" csvSeparator=";"
                          exportFilename="table_export" #dtDetail
                          [immutable] = "false"
