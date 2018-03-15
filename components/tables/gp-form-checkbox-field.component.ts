@@ -33,14 +33,15 @@ export class GpFormCheckboxFieldComponent extends GpFormFieldControl {
   copyValueFromControlToEditedRow( editedRow : any) {
     let value = editedRow[this.formField.fieldMetadata.fieldName];
     let newValue = this.currentValueCheckbox ? this.formField.fieldMetadata.displayInfo.checkedValue : this.formField.fieldMetadata.displayInfo.uncheckedValue;
-    editedRow[this.formField.fieldMetadata.fieldName] = newValue;
+    editedRow[this.formField.fieldMetadata.fieldName] = newValue != null ? newValue : false;
   }
 
   copyValueFromEditedRowToControl( editedRow: any) {
-    console.log("GpFormCheckboxhFieldComponent.changeSelectedRow: " + JSON.stringify(this.formField.fieldMetadata));
+    console.log("GpFormCheckboxhFieldComponent.changeSelectedRow: " + JSON.stringify(this.formField.fieldMetadata));    
+    editedRow[this.formField.fieldMetadata.fieldName] = editedRow[this.formField.fieldMetadata.fieldName] == null ? this.formField.fieldMetadata.displayInfo.uncheckedValue : editedRow[this.formField.fieldMetadata.fieldName]; 
+    let value = this.formField.fieldMetadata.displayInfo.checkedValue == editedRow[this.formField.fieldMetadata.fieldName];   
+    this.currentValueCheckbox = value != null ? value : false;
     console.log("        editedRow: " + JSON.stringify(editedRow));
-    let value = this.formField.fieldMetadata.displayInfo.checkedValue == editedRow[this.formField.fieldMetadata.fieldName];
-    this.currentValueCheckbox = value;
     console.log("        value checkbox: " + this.currentValueCheckbox );
   }
 
