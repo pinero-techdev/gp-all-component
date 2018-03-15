@@ -1,5 +1,5 @@
 <p-editor name="__field__{{formField.fieldMetadata.fieldName}}"
           [(ngModel)]="currentValueText"
           [style]="{'height':'200px'}"
-          (change)="onFieldChange()"
+          (onChange)="onFieldChange()"
           [disabled]="controlDisabled()" ><p-editor>
