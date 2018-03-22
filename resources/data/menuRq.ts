@@ -1,7 +1,7 @@
 export class MenuRq {
     usuario: String;
     aplicacion: String;
-    hotel: String;
+    params: Param[];
 
     /**
      * Constructor de la petición de menu
@@ -9,9 +9,20 @@ export class MenuRq {
      * @param password
      * @param hotel
      */
-    constructor(usuario: String, aplicacion: String, hotel?: String) {
+    constructor(usuario: String, aplicacion: String, params?: Param[]) {
         this.usuario = usuario;
         this.aplicacion = aplicacion;
-        this.hotel = hotel;
+        this.params = params;
+    }
+}
+
+export class Param {
+    key: String;
+    value: String;
+
+
+    constructor(key: String, value: String) {
+        this.key = key;
+        this.value = value;
     }
 }

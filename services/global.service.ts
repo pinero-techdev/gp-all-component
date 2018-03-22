@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {UserInfo} from "../resources/data/userInfo";
 import {RolInfo} from "../resources/data/rolInfo";
+import {Param} from "../resources/data/menuRq";
 
 @Injectable()
 export class GlobalService {
@@ -9,6 +10,7 @@ export class GlobalService {
     private static menuServiceUrl:string;
     private static app:string;
     private static ip:string;
+    private static params: Param[];
     public kiosk:boolean;
     public logged:boolean;
     public session:UserInfo;
@@ -58,6 +60,14 @@ export class GlobalService {
 
     public static get Ip():string {
         return GlobalService.ip;
+    }
+
+    public static setParams(params: Param[]){
+        this.params = params;
+    }
+
+    public static get Params(): Param[]{
+        return GlobalService.params;
     }
 
     public globalStatus():string {
