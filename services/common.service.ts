@@ -1,9 +1,8 @@
+import {HttpClient, HttpHeaders,} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {HttpHeaders,HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx';
 import {hash} from '../util/sha256';
-
 /**
  * Definiciones comunes del acceso a servicios.
  */
@@ -50,7 +49,7 @@ class CachedResponse {
 @Injectable()
 export class CommonService {
 
-    constructor(private http: HttpClient) {
+    constructor(protected http: HttpClient) {
     }
 
     /*
