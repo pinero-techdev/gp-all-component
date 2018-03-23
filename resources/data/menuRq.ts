@@ -18,11 +18,11 @@ export class MenuRq {
 
 export class Param {
     key: String;
-    value: String;
+    val: String;
 
 
-    constructor(key: String, value: String) {
+    constructor(key: String, val: String) {
         this.key = key;
-        this.value = value;
+        this.val = val;
     }
 }
