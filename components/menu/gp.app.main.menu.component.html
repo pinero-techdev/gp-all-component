@@ -1,55 +1,59 @@
-<ul class="ultima-menu ultima-main-menu clearfix">
-    <li role="menuitem" *ngFor="let item1 of menuItems | async">
-        <a href="#" *ngIf="item1.action!=null && item1.enabled" [routerLink]="[item1.action]">
-            <i class="material-icons">{{item1.icon}}</i>
-            <span>{{item1.texto}}</span>
-        </a>
-        <a href="#" class="ripplelink" *ngIf="item1.action==null && item1.enabled">
-            <i class="material-icons">{{item1.icon}}</i>
-            <span>{{item1.texto}}</span>
-            <i class="material-icons">keyboard_arrow_down</i>
-        </a>
-        <ul role="menu" *ngIf="item1.submenus!=null && item1.enabled">
-            <li role="menuitem" *ngFor="let item2 of item1.submenus">
-                <a href="#" class="rippleLink" *ngIf="item2.action==null  && item2.enabled">
-                    <i class="material-icons">{{item2.icon}}</i>
-                    <span>{{item2.texto}}</span>
+<div id="main-menu" class="layout-menu" [ngClass]="{'layout-menu-dark':darkMenu}">
+    <p-scrollPanel #scrollPanel [style]="{height: '100%'}">
+        <ul class="ultima-menu ultima-main-menu clearfix">
+            <li role="menuitem" *ngFor="let item1 of menuItems | async">
+                <a href="#" *ngIf="item1.action!=null && item1.enabled" [routerLink]="[item1.action]">
+                    <i class="material-icons">{{item1.icon}}</i>
+                    <span>{{item1.texto}}</span>
+                </a>
+                <a href="#" class="ripplelink" *ngIf="item1.action==null && item1.enabled">
+                    <i class="material-icons">{{item1.icon}}</i>
+                    <span>{{item1.texto}}</span>
                     <i class="material-icons">keyboard_arrow_down</i>
                 </a>
-                <a href="#" class="rippleLink" *ngIf="item2.action!=null  && item2.enabled"
-                   [routerLink]="[item2.action]">
-                    <i class="material-icons">{{item2.icon}}</i>
-                    <span>{{item2.texto}}</span>
-                </a>
-                <ul role="menu" *ngIf="item2.submenus!=null && item2.enabled">
-                    <li role="menuitem" *ngFor="let item3 of item2.submenus">
-                        <a href="#" class="rippleLink" *ngIf="item3.action==null  && item3.enabled">
-                            <i class="material-icons">{{item3.icon}}</i>
-                            <span>{{item3.texto}}</span>
+                <ul role="menu" *ngIf="item1.submenus!=null && item1.enabled">
+                    <li role="menuitem" *ngFor="let item2 of item1.submenus">
+                        <a href="#" class="rippleLink" *ngIf="item2.action==null  && item2.enabled">
+                            <i class="material-icons">{{item2.icon}}</i>
+                            <span>{{item2.texto}}</span>
                             <i class="material-icons">keyboard_arrow_down</i>
                         </a>
-                        <a href="#" class="rippleLink" *ngIf="item3.action!=null  && item3.enabled"
-                           [routerLink]="[item3.action]">
-                            <i class="material-icons">{{item3.icon}}</i>
-                            <span>{{item3.texto}}</span>
+                        <a href="#" class="rippleLink" *ngIf="item2.action!=null  && item2.enabled"
+                           [routerLink]="[item2.action]">
+                            <i class="material-icons">{{item2.icon}}</i>
+                            <span>{{item2.texto}}</span>
                         </a>
-                        <ul role="menu" *ngIf="item3.submenus!=null && item3.enabled">
-                            <li role="menuitem" *ngFor="let item4 of item3.submenus">
-                                <a href="#" class="rippleLink" *ngIf="item4.action==null && item4.enabled">
-                                    <i class="material-icons">{{item4.icon}}</i>
-                                    <span>{{item4.texto}}</span>
+                        <ul role="menu" *ngIf="item2.submenus!=null && item2.enabled">
+                            <li role="menuitem" *ngFor="let item3 of item2.submenus">
+                                <a href="#" class="rippleLink" *ngIf="item3.action==null  && item3.enabled">
+                                    <i class="material-icons">{{item3.icon}}</i>
+                                    <span>{{item3.texto}}</span>
                                     <i class="material-icons">keyboard_arrow_down</i>
                                 </a>
-                                <a href="#" class="rippleLink" *ngIf="item4.action!=null && item4.enabled"
-                                   [routerLink]="[item4.action]">
-                                    <i class="material-icons">{{item4.icon}}</i>
-                                    <span>{{item4.texto}}</span>
+                                <a href="#" class="rippleLink" *ngIf="item3.action!=null  && item3.enabled"
+                                   [routerLink]="[item3.action]">
+                                    <i class="material-icons">{{item3.icon}}</i>
+                                    <span>{{item3.texto}}</span>
                                 </a>
+                                <ul role="menu" *ngIf="item3.submenus!=null && item3.enabled">
+                                    <li role="menuitem" *ngFor="let item4 of item3.submenus">
+                                        <a href="#" class="rippleLink" *ngIf="item4.action==null && item4.enabled">
+                                            <i class="material-icons">{{item4.icon}}</i>
+                                            <span>{{item4.texto}}</span>
+                                            <i class="material-icons">keyboard_arrow_down</i>
+                                        </a>
+                                        <a href="#" class="rippleLink" *ngIf="item4.action!=null && item4.enabled"
+                                           [routerLink]="[item4.action]">
+                                            <i class="material-icons">{{item4.icon}}</i>
+                                            <span>{{item4.texto}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
                 </ul>
             </li>
         </ul>
-    </li>
-</ul>
+    </p-scrollPanel>
+</div>
