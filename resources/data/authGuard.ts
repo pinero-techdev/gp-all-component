@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
             if (url == '/home' || url == '/') {
                 return Observable.of(true);
             } else {
-                let request: MenuRq = new MenuRq(userId, GlobalService.APP);
+                let request: MenuRq = new MenuRq(userId, GlobalService.APP, GlobalService.Params);
                 return this._menu.obtenMenu(request)
                     .map(
                         menu => {
