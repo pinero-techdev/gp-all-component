@@ -242,6 +242,19 @@ export class GPUtil {
         }
     }
 
+    public triBooleanToString(input:boolean, trueValue:string = "S", falseValue:string = "N"):string {
+        let ret = null;
+        if(input === true)
+        {
+            ret = trueValue;
+        } else {
+            if(input === false ){
+                ret = falseValue;
+            }
+        }
+        return ret;
+    }
+
     public stringToBoolean(input:string, trueValue:string = "S", falseValue:string = "N"):boolean {
         if(trueValue == input){
             return true;
