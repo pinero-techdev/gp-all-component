@@ -281,8 +281,9 @@ export class GPUtil {
      * Debido a un bug en primeng, no se pueden poner rangos relativos en el calendar
      * @return {string}
      */
-    public obtainCalendarYearRange():string {
-        return '1900:' + (new Date).getFullYear();
+    public obtainCalendarYearRange(offset:number = 0):string {
+        let year = (new Date).getFullYear() + offset;
+        return '1900:' + year;
     }
 
     /**
