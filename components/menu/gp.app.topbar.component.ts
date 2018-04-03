@@ -1,14 +1,16 @@
-import {Component, Input, Output, ElementRef, EventEmitter, ViewChild, OnInit} from '@angular/core';
+import {Component, Input, Output, ElementRef, EventEmitter, ViewChild, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from "@angular/router";
 import {GlobalService} from "../../services/global.service";
 import {UserInfo} from "../../resources/data/userInfo";
 import {LoginService} from "../../services/login.service";
-import {MenuItem} from "primeng/components/common/api";
+import {MenuItem} from "primeng/api";
 import {CommonRs} from "../../services/common.service";
 
 @Component({
     selector: 'gp-app-topbar',
-    templateUrl: './gp.app.topbar.component.html'
+    templateUrl: './gp.app.topbar.component.html',
+    styleUrls: ['./gp.app.topbar.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class GpAppTopBarComponent implements OnInit {
 
@@ -35,17 +37,14 @@ export class GpAppTopBarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.itemsUserMenu = [{
-            label: 'Usuario',
-            icon: 'ui-icon-folder',
-            items: [
-                {
-                    label: 'Logout', icon: 'ui-icon-power-settings-new', command: (click) => {
+        this.itemsUserMenu = [
+            {
+                label: 'Logout', icon: 'ui-icon-power-settings-new',
+                command: (click) => {
                     this.toggleUserMenu(), this.redirect('logout')
                 }
-                }
-            ]
-        }];
+            }
+        ];
     }
 
     /**
