@@ -35,7 +35,7 @@ a {
 .texto-lopd {
     white-space: pre-wrap;
     overflow-x: hidden;
-    height: 80vh;
+    height: 40vh;
 }
 
 .texto-multiline {
@@ -63,7 +63,7 @@ a {
 .ui-button:disabled,
 button[disabled] {
     cursor: default !important;
-    background-color: #676767;
+    background-color: #676767 !important;
 }
 
 .ui-inputtext:disabled {
@@ -563,4 +563,10 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
 
 .uppercase {
     text-transform: uppercase;
+}
+
+.roundLabel {
+    background-color: gainsboro;
+    border-radius: 100%;
+    width: auto;
 }

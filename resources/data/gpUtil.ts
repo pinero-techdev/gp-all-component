@@ -354,4 +354,19 @@ export class GPUtil {
             return s.replace(/[\r\n]/g, '');
         }
     }
+
+    public getUserId(): string {
+        let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        if (userInfo != undefined && userInfo != null) {
+            return userInfo.userId;
+        } else {
+            return null;
+        }
+    }
+
+   public calculaEdad(birthday:Date): number {
+        let ageDifMs = Date.now() - birthday.getTime();
+        let ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
 }

@@ -104,11 +104,8 @@ export class GpAppTableCrudComponent {
         this.tableName = tableName;
     }
 
-    cambiaTablaDetail(filterCode:string, filterColumn:string) {
+    cambiaTablaDetail(filters: Filter[]) {
         this.working = true;
-
-        this.filterCode = filterCode;
-        this.filterColumn = filterColumn;
 
         this.columnas = [];
         this.columnasTabla = [];
@@ -119,11 +116,8 @@ export class GpAppTableCrudComponent {
         this.msgsGlobal = [{severity: 'info', detail: 'Cargando los datos de la tabla.'}];
         this.dialogErrors = false;
 
-        let codes = [];
-        let filters = [];
-        codes.push(filterCode);
-        let filter = new Filter(FilterOperationType.EQUAL, filterColumn, codes);
-        filters.push(filter);
+        this.filters = filters;
+
         this.tableService.list(this.tableName, true, false, null, filters).finally(() => this.working = false).subscribe(
             data => {
                 console.log('getMetadata response:' + JSON.stringify(data));
@@ -435,6 +429,8 @@ export class GpAppTableCrudComponent {
         let self = this;
         this.forEachFieldControl(function (col:GpFormFieldControl) {
             console.log(col.getFormField().fieldMetadata.fieldName);
+            let x = this.filters.filter(filter => filter.field === col.getFormField().fieldMetadata.fieldName);
+            console.log(">>>>" + x);
             console.log(self.addSelectedCodes.length);
             if (self.addSelectedCodes.length > 0) {
                 for (let i = 0; i < self.addSelectedCodes.length; i++) {
