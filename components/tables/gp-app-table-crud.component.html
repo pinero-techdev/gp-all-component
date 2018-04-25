@@ -210,7 +210,7 @@
                         <gp-form-wysiwyg-field *ngIf="col.formFieldType == 'gp-form-wysiwyg-field'" [formField]="col"></gp-form-wysiwyg-field>
                         <gp-form-img-field *ngIf="col.formFieldType == 'gp-form-img-field'" [formField]="col"></gp-form-img-field>
                         
-                        <div *ngFor="let msg of col.fieldMsgs" class="ui-message ui-messages-error ui-corner-all">
+                        <div *ngFor="let msg of col.fieldMsgs" class="msgErrorBottom ui-message ui-messages-error ui-corner-all">
                                 {{msg.detail}}
                         </div>
                     </span>

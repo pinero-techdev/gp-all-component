@@ -550,19 +550,15 @@ export class GpAppTableCrudComponent implements OnInit {
           });
     }    
 
-    validateEditRow() {
+    validateEditRow(isDetail?: boolean, form?: GpFormControl) {
         let valid = true;
-        let self = this;
         let inAddOperation = this.formControl.edicionAdd;
         this.forEachFieldControl(function (col:GpFormFieldControl) {
-            // El orden del and hace que siempre se ejecute el validateField. Si se pone
-            // al reves, cuando valid pase a ser falso no se volvera a llamar a
-            // col.validateField por la evaluacion en cortocircuito.
-            if(col.getFormField().tableName !== self.tableNameDetail){              
-                if (!inAddOperation || !col.getFormField().fieldMetadata.hideInAddOperation) {
-                    valid = col.validateField(self.formControl.editedRow) && valid;
-                }
-            }
+            if (col.getFormField().tableName !== undefined && !isDetail) {
+                valid = col.validateField(form.editedRow) && valid;
+              } else if (col.getFormField().tableName == undefined && isDetail) {
+                valid = col.validateField(form.editedRow) && valid;
+              }
         });
         return valid;
     }
@@ -570,15 +566,11 @@ export class GpAppTableCrudComponent implements OnInit {
     onDialogSave() {
         this.formControl.lockFields = true;
         let self = this;
-        // this.forEachFieldControl(function (col:GpFormFieldControl) {
-        //     if(col.getFormField().tableName !== self.tableNameDetail){               
-        //         col.copyValueFromControlToEditedRow(self.formControl.editedRow);
-        //     }
-        // });
-        // if (!this.validateEditRow()) {
-        //     this.formControl.lockFields = false;
-        //     return;
-        // }
+
+        if (!this.validateEditRow(false, this.formControl)) {
+            this.formControl.lockFields = false;
+            return;
+        }
         let jsonModifiedRow = JSON.stringify(this.formControl.editedRow);
         console.log("onDialogSave. modified: " + jsonModifiedRow);
         if (this.selectedRow != null) {
@@ -616,15 +608,11 @@ export class GpAppTableCrudComponent implements OnInit {
     onDialogSaveDetail(event: any) {
         this.msgsDialog = [];
         let self = this;
-        //this.formControlDetail.lockFields = true;
-        //console.log("onDialogSave.");
-       /* this.forEachFieldControl( function( col : GpFormFieldControl ) {
-          col.copyValueFromControlToEditedRow( self.formControlDetail.editedRow );
-        } );
-        if( !this.validateEditRow() ) {
+
+        if( !this.validateEditRow(true, this.formControlDetail)) {
           this.formControl.lockFields = false;
           return;
-        }*/
+        }
         let jsonModifiedRow = JSON.stringify(this.formControlDetail.editedRow);
         console.log("onDialogSaveDetail. modified: " + jsonModifiedRow);
         if( this.selectedRowDetail != null ) {

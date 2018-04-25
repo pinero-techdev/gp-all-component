@@ -68,3 +68,11 @@ body .md-inputfield .ui-message.ui-messages-error{
         width: 50%;
     }
 }
+
+.msgErrorBottom{
+    background-color: transparent;
+    border: 0 none;
+    margin: 0px;
+    color: #e62a10;
+    font-size: 1em !important
+}
