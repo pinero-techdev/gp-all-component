@@ -427,10 +427,6 @@ export class GpAppTableCrudComponent {
         this.formControl.editedRow = {};
         let self = this;
         this.forEachFieldControl(function (col:GpFormFieldControl) {
-            console.log(col.getFormField().fieldMetadata.fieldName);
-            let x = this.filters.filter(filter => filter.field === col.getFormField().fieldMetadata.fieldName);
-            console.log(">>>>" + x);
-            console.log(self.addSelectedCodes.length);
             if (self.addSelectedCodes.length > 0) {
                 for (let i = 0; i < self.addSelectedCodes.length; i++) {
                     if (self.addSelectedCodes[i].key == col.getFormField().fieldMetadata.fieldName) {
