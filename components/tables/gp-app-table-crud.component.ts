@@ -97,7 +97,7 @@ export class GpAppTableCrudComponent {
         this.canEdit = true;
         this.canDelete = true;
         this.msgsGlobal = [];
-        this.closeDialog();
+        //this.closeDialog();
     }
 
     inicializaTabla(tableName:string) {
@@ -280,7 +280,6 @@ export class GpAppTableCrudComponent {
                     });
                     this.formControl.edicionEdit = true;
                     this.displayEdicion = true;
-                    this.closedDialog.emit(false);
                 }
             },
             err => {
@@ -452,7 +451,6 @@ export class GpAppTableCrudComponent {
         this.formControl.edicionEdit = false;
         this.formControl.edicionAdd = true;
         this.displayEdicion = true;
-        this.closedDialog.emit(false);
     }
 
     showErrorDialogo(msg:string) {
