@@ -117,6 +117,7 @@ export class GpAppTableCrudComponent {
         this.dialogErrors = false;
 
         this.filters = filters;
+        console.log(filters);
 
         this.tableService.list(this.tableName, true, false, null, filters).finally(() => this.working = false).subscribe(
             data => {
@@ -435,10 +436,13 @@ export class GpAppTableCrudComponent {
                     }
                 }
             } else {
-                if (col.getFormField().fieldMetadata.fieldName == self.filterColumn) {
-                    self.formControl.editedRow[col.getFormField().fieldMetadata.fieldName] = self.filterCode;
+                let fieldName = col.getFormField().fieldMetadata.fieldName;
+                let filter: Filter = self._gpUtil.getElementFromArray( self.filters, 'field', fieldName );
+
+                if ( filter != null && filter.op == FilterOperationType.EQUAL && filter.values.length == 1 ) {
+                    self.formControl.editedRow[fieldName] = filter.values[0];
                 } else {
-                    self.formControl.editedRow[col.getFormField().fieldMetadata.fieldName] = null;
+                    self.formControl.editedRow[fieldName] = null;
                 }
             }
             col.copyValueFromEditedRowToControl(self.formControl.editedRow);
