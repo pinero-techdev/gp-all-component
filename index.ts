@@ -47,6 +47,9 @@ export * from "./resources/data/opcionMenu";
 export * from "./resources/data/propiedadesOpcionMenu";
 export * from "./resources/data/propiedadOpcionMenu";
 export * from "./resources/data/userInfo";
+export * from "./resources/data/dataTableFilterType";
+export * from "./resources/data/filterDataTable";
+export * from "./resources/data/sortDataTable";
 //Directives
 export * from "./directives/gp-uppercase.directive";
 //Services

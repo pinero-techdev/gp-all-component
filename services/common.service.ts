@@ -3,6 +3,8 @@ import {HttpHeaders,HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx';
 import {hash} from '../util/sha256';
+import {SortDataTable} from '../resources/data/sortDataTable';
+import {FilterDataTable} from '../resources/data/filterDataTable';
 
 /**
  * Definiciones comunes del acceso a servicios.
@@ -17,12 +19,18 @@ export class CommonRs {
     ok:boolean;
     error:ErrorInformation;
     cacheKey:string;
+    totalRows: number;
+    partialRows: number;
 }
 
 export class CommonRq {
     orden:string;
     rows:number;
     firstRow:number;
+    sort: SortDataTable[];
+    filters: FilterDataTable[];
+    obtainTotalRows: boolean;
+    sessionId: string;
 }
 
 export class ErrorInformation {

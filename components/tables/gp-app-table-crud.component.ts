@@ -117,7 +117,6 @@ export class GpAppTableCrudComponent {
         this.dialogErrors = false;
 
         this.filters = filters;
-        console.log(filters);
 
         this.tableService.list(this.tableName, true, false, null, filters).finally(() => this.working = false).subscribe(
             data => {
