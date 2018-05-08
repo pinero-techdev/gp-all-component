@@ -91,7 +91,7 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
         this.translationKeys += editedRow[keyField];
       }
     }
-    console.log(this.translationKeys);
+
   }
 
   validateField( editedRow : any ) {

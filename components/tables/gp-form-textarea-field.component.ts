@@ -19,6 +19,8 @@ export class GpFormTextAreaFieldComponent extends GpFormFieldControl implements 
 
     rows: number;
 
+    translationKeys: string = '';
+
     public static FORM_FIELD_TYPE_TEXT_AREA_FIELD : string = "gp-form-textarea-field";
 
     getFieldMetadata() : FieldMetadata {
@@ -89,6 +91,16 @@ export class GpFormTextAreaFieldComponent extends GpFormFieldControl implements 
         console.log("        editedRow: " + JSON.stringify(editedRow));
         let value = editedRow[this.formField.fieldMetadata.fieldName];
         this.currentValueText = value;
+
+        // Si tiene traducción, recogemos todos los valores de los campos que actuan como identificadores
+        // y los juntamos para crear el identificador de la tabla de traducciones
+        if (this.formField.fieldMetadata.displayInfo.translationInfo != null && this.formField.fieldMetadata.displayInfo.translationInfo.keyFields != null) {
+            this.translationKeys = '';
+            for (let keyField of this.formField.fieldMetadata.displayInfo.translationInfo.keyFields){
+                this.translationKeys += editedRow[keyField];
+            }
+        }
+
     }
 
     validateField( editedRow : any ) {
