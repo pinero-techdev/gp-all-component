@@ -41,5 +41,4 @@ export class Mensajes {
         this.alerts = [];
         this.alerts.push({severity: 'error', summary: 'Error', detail: alert});
     }
-
 }

@@ -1,5 +1,6 @@
 import {SelectItem, MenuItem} from "primeng/primeng";
 import {GPSelectItem} from "./gpSelectItem";
+import moment = require("moment/moment");
 
 export class GPUtil {
     public static readonly odd_reA = new RegExp("\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5", "g");
@@ -37,6 +38,22 @@ export class GPUtil {
         return s;
     }
 
+    public static str2Date(str:string, fmt:string):Date {
+        let fecha = null;
+        if (str) {
+            fecha = moment.utc(str, fmt).toDate();
+        }
+        return fecha;
+    }
+
+    public static str2DateString(str:string, fmt1:string, fmt2:string):string {
+        let fecha = null;
+        if (str) {
+            fecha = moment.utc(str, fmt1).format(fmt2);
+        }
+        return fecha;
+    }
+
     public static dateToYyyymmdd(dt:Date, possibleFormat:string):string {
         if (dt == null) {
             return null;
@@ -58,6 +75,7 @@ export class GPUtil {
         return y.substr(y.length - 4) + "-" + m.substr(m.length - 2) + "-" + d.substr(d.length - 2);
     }
 
+    //deprecated ('use str2Date instead')
     public static yyyymmddToDate(s:string):Date {
         if (s == null || s == "") {
             return null;
@@ -71,6 +89,7 @@ export class GPUtil {
         return dt;
     }
 
+    //deprecated ("use str2DateString instead")
     public static yyyymmddToDateFormat(yyyymmdd:string, format:string):string {
         if (yyyymmdd == null || yyyymmdd == "") {
             return null;
@@ -87,6 +106,7 @@ export class GPUtil {
         throw "Formato de fecha invalido '" + format + "'";
     }
 
+    //deprecated ("use str2DateString instead")
     public static dateFormatToYyyymmdd(dt:string, format:string):string {
         if (dt == null || dt == "") {
             return null;
@@ -105,6 +125,7 @@ export class GPUtil {
         throw "Formato de fecha invalido '" + format + "'";
     }
 
+    //depreacted ("use str2Date instead")
     public static hhmmToDate(time:string, format:string):Date {
 
         let date = new Date();
@@ -112,9 +133,7 @@ export class GPUtil {
             return null;
         }
 
-        console.log("formato: " + format);
         if (format == 'hh:mm') {
-
             let h = parseInt(time.substr(0, 2));
             let m = parseInt(time.substr(3, 2));
 
@@ -146,7 +165,6 @@ export class GPUtil {
     }
 
     /*METODOS NO ESTÁTICOS, PORQUE PUEDEN SER LLAMADOS DESDE UN TEMPLATE*/
-
     /**
      * Metodo para obtener la etiqueta de un selector a través de su valor
      * @param selector
@@ -200,7 +218,6 @@ export class GPUtil {
     }
 
     public indexOf(list:any[], atributeName:string, value:any):number {
-
         if (list) {
             for (let index = 0; index < list.length; index++) {
                 if (list[index][atributeName] == value) {
@@ -219,7 +236,6 @@ export class GPUtil {
      * @return {any}
      */
     public getElementFromArray(list:any[], atributeName:string, value:any):any {
-
         if (list) {
             for (let index = 0; index < list.length; index++) {
                 if (list[index][atributeName] == value) {
@@ -244,11 +260,10 @@ export class GPUtil {
 
     public triBooleanToString(input:boolean, trueValue:string = "S", falseValue:string = "N"):string {
         let ret = null;
-        if(input === true)
-        {
+        if (input === true) {
             ret = trueValue;
         } else {
-            if(input === false ){
+            if (input === false) {
                 ret = falseValue;
             }
         }
@@ -256,10 +271,10 @@ export class GPUtil {
     }
 
     public stringToBoolean(input:string, trueValue:string = "S", falseValue:string = "N"):boolean {
-        if(trueValue == input){
+        if (trueValue == input) {
             return true;
         } else {
-            if(falseValue == input) {
+            if (falseValue == input) {
                 return false;
             } else {
                 return false;
@@ -347,15 +362,15 @@ export class GPUtil {
     }
 
     public limpiaSaltosLinea(s:string):string {
-        if(s == null || s == ""){
+        if (s == null || s == "") {
             console.log(s);
             return s;
-        } else{
+        } else {
             return s.replace(/[\r\n]/g, '');
         }
     }
 
-    public getUserId(): string {
+    public getUserId():string {
         let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         if (userInfo != undefined && userInfo != null) {
             return userInfo.userId;
@@ -364,7 +379,7 @@ export class GPUtil {
         }
     }
 
-   public calculaEdad(birthday:Date): number {
+    public calculaEdad(birthday:Date):number {
         let ageDifMs = Date.now() - birthday.getTime();
         let ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970);
