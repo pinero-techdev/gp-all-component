@@ -1,19 +1,15 @@
-import {Component, HostListener, OnInit} from "@angular/core";
+import {HostListener, OnInit} from "@angular/core";
+import {Translate, TranslatePipe} from "gp-all-component";
 
-@Component({
-    selector: 'gp-app-base',
-    templateUrl: './gp.app.base.component.html'
-})
-export class GpAppBaseComponent implements OnInit {
+//FIXME hacerlo extender de translate para implementar traducciones OK
+export class GpBase /* extends Translate*/ {
     width:number;
     height:number;
     working:boolean = false;
     jobs:number = 0;
 
     constructor() {
-    }
-
-    ngOnInit() {
+        //super();
         this.height = window.innerHeight * 0.95;
         this.width = window.innerWidth * 0.95;
     }

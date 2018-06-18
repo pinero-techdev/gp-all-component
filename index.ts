@@ -2,7 +2,6 @@
  * GP BARREL
  */
 //Components
-export * from "./components/base/gp.app.base.component";
 export * from "./components/empty/gp.app.empty.component";
 export * from "./components/loading-indicator/gp.app.loading-indicator.component";
 export * from "./components/login/gp.app.login.component";
@@ -50,6 +49,7 @@ export * from "./resources/data/userInfo";
 export * from "./resources/data/dataTableFilterType";
 export * from "./resources/data/filterDataTable";
 export * from "./resources/data/sortDataTable";
+export * from "./resources/data/gpBase";
 //Directives
 export * from "./directives/gp-uppercase.directive";
 //Services
