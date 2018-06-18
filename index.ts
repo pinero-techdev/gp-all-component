@@ -30,6 +30,7 @@ export * from "./components/tables/gp-form-time-field.component";
 export * from "./components/tables/gp-form-wysiwyg-field.component";
 export * from "./components/dynamic/gp.dynamic.component";
 //Resources (Classes)
+export * from "./resources/gpBase";
 export * from "./resources/data/authGuard";
 export * from "./resources/data/redirectAuthGuard";
 export * from "./resources/data/gpSelector";
@@ -49,7 +50,12 @@ export * from "./resources/data/userInfo";
 export * from "./resources/data/dataTableFilterType";
 export * from "./resources/data/filterDataTable";
 export * from "./resources/data/sortDataTable";
-export * from "./resources/data/gpBase";
+export * from "./resources/data/translate";
+export * from "./resources/data/translation";
+//Constants
+export * from "./resources/constants/translate.constants";
+//Pipes
+export * from "./resources/pipes/translate.pipe";
 //Directives
 export * from "./directives/gp-uppercase.directive";
 //Services
@@ -63,3 +69,4 @@ export * from "./services/table.service";
 export * from "./services/multi-idioma.service";
 export * from "./services/remote-fsys.service";
 export * from "./services/password.service";
+export * from "./services/translate.service";
