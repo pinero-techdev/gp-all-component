@@ -12,14 +12,13 @@ export class GlobalService {
     private static app:string;
     private static ip:string;
     private static params: Param[] = [];
-	
+    private static sessionId:string;
 	private static aplicacionLogin:string;
 	private static paramsLogin:LoginRqParam[];
 	
     public kiosk:boolean;
     public logged:boolean;
     public session:UserInfo;
-    public sessionId:string;
     public applicationTitle:string;
     public roles: RolInfo[];
     public language:string;
@@ -94,12 +93,12 @@ export class GlobalService {
         return GlobalService.params;
     }
 
-    public getSessionId(): string {
-        if( !this.sessionId )
+    public static get SessionId(): string {
+        if( !GlobalService.sessionId )
         {
             return "";
         }
-        return this.sessionId;
+        return GlobalService.sessionId;
     }
 
     public globalStatus():string {

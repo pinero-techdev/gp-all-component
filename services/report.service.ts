@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {CommonService, CommonRs} from "./common.service";
 import {FieldMetadata, FieldDisplayInfo} from "./table.service";
-enum export class GetDialogElementsRs extends CommonRs {
+export class GetDialogElementsRs extends CommonRs {
 
     metadata: FieldMetadata [] = [];
     data: any;
