@@ -1,10 +1,10 @@
-import {Component, Input, Output, ElementRef, EventEmitter, ViewChild, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from "@angular/router";
-import {GlobalService} from "../../services/global.service";
-import {UserInfo} from "../../resources/data/userInfo";
-import {LoginService} from "../../services/login.service";
 import {MenuItem} from "primeng/api";
+import {UserInfo} from "../../resources/data/userInfo";
 import {CommonRs} from "../../services/common.service";
+import {GlobalService} from "../../services/global.service";
+import {LoginService} from "../../services/login.service";
 
 @Component({
     selector: 'gp-app-topbar',
@@ -59,12 +59,13 @@ export class GpAppTopBarComponent implements OnInit {
                     data => {
                         response = data;
                         if (response.ok) {
-                            this.globalService.session = new UserInfo();
-                            localStorage.removeItem('userInfo');
                             this._router.navigate(['login']);
                         }
                     },
-                    error => console.error(error),
+                    error => {
+                        console.error(error)
+                        this._router.navigate(['login']);
+                    },
                     () => {
                         console.log("petición de logout finalizada con resultado: ");
                         // CommonRs se crea con ok por defecto a falso

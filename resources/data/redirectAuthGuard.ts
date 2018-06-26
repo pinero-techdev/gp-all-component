@@ -48,7 +48,7 @@ export class RedirectAuthGuard implements CanActivate {
         if ((this._globalService.logged || null != sessionStorage.getItem('userInfo'))) {
 
             if (  menuOptions && menuOptions.length > 0 ) {
-                let request: MenuRq = new MenuRq(userId, GlobalService.APP);
+                let request: MenuRq = new MenuRq(this._globalService.sessionId, GlobalService.Params );
                 return this._menu.obtenMenu(request)
                     .map(
                         menu => {

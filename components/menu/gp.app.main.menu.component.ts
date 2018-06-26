@@ -12,12 +12,12 @@ import {Observable} from "rxjs/Rx";
  * Clase Menu que agrupa los servicios accesibles por el usuario
  */
 export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
-    menuItems:Observable<any>;
+    menuItems: Observable<any>;
 
     @Output()
     menuCharged = new EventEmitter<boolean>();
 
-    constructor(private _appMenuProviderService:AppMenuService, private _applicationRef:ApplicationRef) {
+    constructor(private _appMenuProviderService: AppMenuService, private _applicationRef: ApplicationRef) {
     }
 
     ngOnInit() {
@@ -33,12 +33,8 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
     }
 
     initMenu() {
-        let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
-        let userId = null;
-        if (userInfo != undefined && userInfo != null) {
-            userId = userInfo.userId;
-        }
-        let request:MenuRq = new MenuRq(userId, GlobalService.APP);
+        let sessionId = sessionStorage.getItem('sessionId');
+        let request: MenuRq = new MenuRq(sessionId, GlobalService.Params);
         this.menuItems = this._appMenuProviderService.obtenMenu(request);
     }
 

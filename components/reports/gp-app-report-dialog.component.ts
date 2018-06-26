@@ -26,22 +26,20 @@ export class GpAppReportDialogComponent implements OnInit {
     _reportName: string;
     _reportTitle: string;
     reportMetadatas: FieldMetadata[];
-    reportFields:  GpFormField[];
+    reportFields: GpFormField[];
     fieldChanged: InfoCampoModificado = null;
     formControl: GpFormControl = new GpFormControl();
-    extraArgs: string;
-
 
     /**
      * Realizamos un setter, para cambiar los atributos de la clase con los metadatos del nuevo report
      * @param name
      */
     @Input()
-    set reportName( name: string ){
+    set reportName(name: string) {
 
         this.cambiaReport(name);
         let response = this._reportService.getDialogElements(name);
-        this.reportMetadatas =  response.metadata;
+        this.reportMetadatas = response.metadata;
         this.formControl.editedRow = response.data;
         this._reportTitle = response.title;
         this.createFormFields(this.reportMetadatas);
@@ -58,7 +56,7 @@ export class GpAppReportDialogComponent implements OnInit {
     @ViewChildren(GpFormCalendarFieldComponent) calendarFormFields: QueryList<GpFormCalendarFieldComponent>;
     @ViewChildren(GpFormWysiwygFieldComponent) wysiwygFormFields: QueryList<GpFormWysiwygFieldComponent>;
 
-    constructor( private _activatedRoute: ActivatedRoute, private _router: Router, private _reportService: ReportService, private _globalService: GlobalService ) {
+    constructor(private _activatedRoute: ActivatedRoute, private _router: Router, private _reportService: ReportService, private _globalService: GlobalService) {
     }
 
     ngOnInit() {
@@ -84,17 +82,14 @@ export class GpAppReportDialogComponent implements OnInit {
     }
 
 
-    openReport(){
-
+    openReport() {
         let self = this;
-        this.forEachFieldControl( function( col : GpFormFieldControl ) {
-            col.copyValueFromControlToEditedRow( self.formControl.editedRow );
-        } );
+        this.forEachFieldControl(function (col: GpFormFieldControl) {
+            col.copyValueFromControlToEditedRow(self.formControl.editedRow);
+        });
 
-        if( this.validateEditRow() ) {
-
-            this.extraArgs = '';
-
+        if (this.validateEditRow()) {
+            let extraArgs = '';
             for (let metadata of this.reportMetadatas) {
                 let fieldName = metadata.fieldName;
                 let field = this.formControl.editedRow[fieldName];
@@ -102,15 +97,15 @@ export class GpAppReportDialogComponent implements OnInit {
                 if (field != null) {
                     if (metadata.fieldType.toUpperCase() == 'DATE') {
                         // Si es una fecha, la obtenemos en formato yyyy-mm-dd, cuando tendría que ser dd/mm/yyyy
-                        this.extraArgs += '&' + fieldName + '=' + field.substr(8, 2) + '/' + field.substr(5, 2) + '/' + field.substr(0, 4);
+                        extraArgs += '&' + fieldName + '=' + field.substr(8, 2) + '/' + field.substr(5, 2) + '/' + field.substr(0, 4);
 
                     } else {
-                        this.extraArgs += '&' + fieldName + '=' + field;
+                        extraArgs += '&' + fieldName + '=' + field;
                     }
 
                 }
             }
-            window.open(this._reportService.getReportCal(this._reportName, this.extraArgs));
+            window.open(this._reportService.getReport(this._reportName, "HOTCAL/SOF@BP", "http://frm10tic.grupo-pinero.com/reports/rwservlet", "repServicios", extraArgs));
         }
 
     }
@@ -119,61 +114,54 @@ export class GpAppReportDialogComponent implements OnInit {
         this._router.navigate(['home']);
     }
 
-    forEachFieldControl( f : ( col : GpFormFieldControl ) => void ) {
+    forEachFieldControl(f: (col: GpFormFieldControl) => void) {
 
-        this.textFormFields.forEach( col => {
+        this.textFormFields.forEach(col => {
             f(col);
-        } );
-        this.textAreaFormFields.forEach( col => {
+        });
+        this.textAreaFormFields.forEach(col => {
             f(col);
-        } );
-        this.timeFormFields.forEach( col => {
+        });
+        this.timeFormFields.forEach(col => {
             f(col);
-        } );
-        this.switchFormFields.forEach( col =>  {
+        });
+        this.switchFormFields.forEach(col => {
             f(col);
-        } );
-        this.dropdownFormFields.forEach( col =>  {
+        });
+        this.dropdownFormFields.forEach(col => {
             f(col);
-        } );
-        this.dropdownFormRelatedFields.forEach( col => {
+        });
+        this.dropdownFormRelatedFields.forEach(col => {
             f(col);
-        } );
-        this.checkboxFormFields.forEach( col =>  {
+        });
+        this.checkboxFormFields.forEach(col => {
             f(col);
-        } );
-        this.calendarFormFields.forEach( col =>  {
+        });
+        this.calendarFormFields.forEach(col => {
             f(col);
-        } );
-        this.wysiwygFormFields.forEach( col =>  {
+        });
+        this.wysiwygFormFields.forEach(col => {
             f(col);
-        } );
-        this.imgFormFields.forEach( col =>  {
+        });
+        this.imgFormFields.forEach(col => {
             f(col);
-        } );
+        });
     }
 
     private createFormFields(reportMetadatas: FieldMetadata[]) {
-
         this.reportFields = [];
-
         for (let metadata of reportMetadatas) {
-            
-            let formField = new GpFormField( this.formControl, metadata );
-
-            this.calcFieldType( formField );
-
-            this.reportFields.push( formField );
-
+            let formField = new GpFormField(this.formControl, metadata);
+            this.calcFieldType(formField);
+            this.reportFields.push(formField);
         }
-
     }
 
     /**
      * Metodo para obtener el tipo de componente a partir de sus metadatos
      * @param formField
      */
-    calcFieldType( formField : GpFormField ) {
+    calcFieldType(formField: GpFormField) {
         // Calcula el tipo de componente a utilizar para el control.
         // Si no se encuentra una representación mejor, se usa string.
         let selectedDisplay = false;
@@ -197,7 +185,7 @@ export class GpAppReportDialogComponent implements OnInit {
             formField.formFieldType = GpFormSwitchFieldComponent.FORM_FIELD_TYPE_SWITCH_FIELD;
             selectedDisplay = true;
         }
-        if (!selectedDisplay && formField.fieldMetadata.displayInfo.displayType == TableService.HOUR_MINUTE_DISPLAY_TYPE ) {
+        if (!selectedDisplay && formField.fieldMetadata.displayInfo.displayType == TableService.HOUR_MINUTE_DISPLAY_TYPE) {
             formField.formFieldType = GpFormTimeFieldComponent.FORM_FIELD_TYPE_TIME_FIELD;
             selectedDisplay = true;
         }
@@ -205,7 +193,7 @@ export class GpAppReportDialogComponent implements OnInit {
             formField.formFieldType = GpFormCalendarFieldComponent.FORM_FIELD_TYPE_CALENDAR_FIELD;
             selectedDisplay = true;
         }
-        if (!selectedDisplay && formField.fieldMetadata.displayInfo.displayType == TableService.WYSIWYG_DISPLAY_TYPE ) {
+        if (!selectedDisplay && formField.fieldMetadata.displayInfo.displayType == TableService.WYSIWYG_DISPLAY_TYPE) {
             formField.formFieldType = GpFormWysiwygFieldComponent.FORM_FIELD_TYPE_WYSIWYG_FIELD;
             selectedDisplay = true;
         }
@@ -233,17 +221,16 @@ export class GpAppReportDialogComponent implements OnInit {
     validateEditRow() {
         let valid = true;
         let self = this;
-        this.forEachFieldControl( function( col : GpFormFieldControl ) {
+        this.forEachFieldControl(function (col: GpFormFieldControl) {
             // El orden del and hace que siempre se ejecute el validateField. Si se pone
             // al reves, cuando valid pase a ser falso no se volvera a llamar a
             // col.validateField por la evaluacion en cortocircuito.
-            valid = col.validateField( self.formControl.editedRow ) && valid;
-        } );
+            valid = col.validateField(self.formControl.editedRow) && valid;
+        });
         return valid;
     }
 
-    changeEvent(info: InfoCampoModificado)
-    {
+    changeEvent(info: InfoCampoModificado) {
         this.fieldChanged = info;
     }
 

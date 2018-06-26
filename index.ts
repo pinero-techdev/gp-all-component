@@ -10,7 +10,6 @@ export * from "./components/menu/gp.app.topbar.component";
 export * from "./components/multi-idioma/gp.app.multi-idioma.component";
 export * from "./components/multiselect/gp.app.multi-select.component";
 export * from "./components/password/gp.app.modifica-password.component";
-export * from "./components/qlikview/gp.app.qlikview.frame.component";
 export * from "./components/rating/gp.app.rating.component";
 export * from "./components/redirect/gp.app.redirect.component";
 export * from "./components/remote-fsys/gp.app.remote-fsys-picker.component";

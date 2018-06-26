@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
-import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
+import {Observable} from "rxjs/Rx";
+import {AppMenuProviderService} from "../../services/app-menu-provider.service";
+import {AppMenuService} from "../../services/app-menu.service";
 import {GlobalService} from "../../services/global.service";
 import {MenuRq} from "./menuRq";
-import {AppMenuService} from "../../services/app-menu.service";
-import {AppMenuProviderService} from "../../services/app-menu-provider.service";
-import {Observable} from "rxjs/Rx";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
         }
 
         let url: string = state.url;
-        console.log(url);
+        console.log('canActivate: ' + url + ', route: ' + this._router.url );
         console.log(route.pathFromRoot);
         console.log("Guard, canActivate, globalService: " + this._globalService.globalStatus() + " " + sessionStorage.getItem('userInfo'));
         if ((this._globalService.logged || null != sessionStorage.getItem('userInfo'))) {
@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
             if (url == '/home' || url == '/') {
                 return Observable.of(true);
             } else {
-                let request: MenuRq = new MenuRq(userId, GlobalService.APP, GlobalService.Params);
+                let request: MenuRq = new MenuRq(this._globalService.sessionId, GlobalService.Params);
                 return this._menu.obtenMenu(request)
                     .map(
                         menu => {
@@ -58,7 +58,8 @@ export class AuthGuard implements CanActivate {
         } else {
 
             console.error( "El usuario no se encuentra logado" );
-            // not logged in so redirect to login page
+            // not logged in so redirect to login page.
+            this._globalService.preLoginUrl = url;
             this._router.navigate(['/login']);
             return Observable.of(false);
         }

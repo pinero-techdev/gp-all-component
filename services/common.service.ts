@@ -1,10 +1,11 @@
+import {HttpClient,HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {HttpHeaders,HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx';
-import {hash} from '../util/sha256';
-import {SortDataTable} from '../resources/data/sortDataTable';
 import {FilterDataTable} from '../resources/data/filterDataTable';
+import {SortDataTable} from '../resources/data/sortDataTable';
+import {hash} from '../util/sha256';
+import {GlobalService} from './global.service';
 
 /**
  * Definiciones comunes del acceso a servicios.
@@ -58,7 +59,7 @@ class CachedResponse {
 @Injectable()
 export class CommonService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,protected globalService:GlobalService) {
     }
 
     /*
@@ -90,7 +91,7 @@ export class CommonService {
                 });
             }
         }
-        let headers = new HttpHeaders({'Content-Type': 'application/json; charset=UTF-8'});
+        let headers = new HttpHeaders({'Content-Type': 'application/json; charset=UTF-8', 'Authorization': this.globalService.getSessionId()});
         let options = new RequestOptions(headers);
         return this.http.post<T>(url, body, options).map(res => {
             let response:T = res;
@@ -103,7 +104,8 @@ export class CommonService {
     }
 
     serviceRequest<T>(url:string, body:any):Observable<T> {
-        let headers = new HttpHeaders({'Content-Type': 'application/json; charset=UTF-8'});
+        console.log( 'serviceRequest(' + url + ')' );
+        let headers = new HttpHeaders({'Content-Type': 'application/json; charset=UTF-8', 'Authorization': this.globalService.getSessionId() });
         let options = new RequestOptions(headers);
         return this.http.post<T>(url, body, options);
     }
@@ -112,7 +114,8 @@ export class CommonService {
      * Adrian Gomez Macias creo una funcion para realizar peticiones GET que necesiten pasar un JSON
      */
     serviceGetRq<T>(url:string, rq:any):Observable<T> {
-        let headers = new HttpHeaders({'Content-Type': 'application/json; charset=UTF-8'});
+        console.log( 'serviceGetRq(' + url + ')' );
+        let headers = new HttpHeaders({'Content-Type': 'application/json; charset=UTF-8', 'Authorization': this.globalService.getSessionId() });
         let options = new RequestOptions(headers);
         url = url + "?rq=" + rq;
         return this.http.get<T>(url, options);
@@ -122,6 +125,9 @@ export class CommonService {
      * Creo una funcion para realizar peticiones GET que no necesiten pasar ningun dato
      */
     serviceGet<T>(url:string):Observable<T> {
-        return this.http.get<T>(url);
+        console.log( 'serviceGet(' + url + ')' );
+        let headers = new HttpHeaders({"Authorization": this.globalService.getSessionId() });
+        let options = new RequestOptions(headers);
+        return this.http.get<T>(url,options);
     }
 }

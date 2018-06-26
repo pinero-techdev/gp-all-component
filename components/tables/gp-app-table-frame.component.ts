@@ -1,5 +1,5 @@
-﻿import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
-import {Router, ActivatedRoute} from "@angular/router";
+﻿import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {GpAppTableCrudComponent} from "./gp-app-table-crud.component";
 
@@ -24,6 +24,9 @@ export class GpAppTableFrameComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        if( this.sub )
+        {
+            this.sub.unsubscribe();
+        }
     }
 }

@@ -1,9 +1,9 @@
 import {Component} from "@angular/core";
-import {LoginService} from "../../services/login.service";
 import {Router} from "@angular/router";
+import {Message} from "primeng/primeng";
 import {LoginRq} from "../../resources/data/loginRq";
 import {GlobalService} from "../../services/global.service";
-import {Message} from "primeng/primeng";
+import {LoginService} from "../../services/login.service";
 import {GpAppMainMenuComponent} from "../menu/gp.app.main.menu.component";
 
 @Component({
@@ -12,8 +12,8 @@ import {GpAppMainMenuComponent} from "../menu/gp.app.main.menu.component";
     providers: [GpAppMainMenuComponent]
 })
 export class GpAppLoginComponent {
-    usuario:String;
-    password:String;
+    usuario:string;
+    password:string;
     msgs:Message[] = [];
     btnModificaPwdVisible:boolean = false;
     working:boolean = false;
@@ -29,22 +29,26 @@ export class GpAppLoginComponent {
     constructor(private router:Router, private _loginService:LoginService, public globalService:GlobalService,
                 private _gpAppMainMenu:GpAppMainMenuComponent) {
         this.globalService.logged = false;
-        sessionStorage.clear();
     }
 
     login() {
         this.working = true;
-        let request:LoginRq = new LoginRq(this.usuario, this.password);
+        let request:LoginRq = new LoginRq(this.usuario, this.password,GlobalService.getAplicacionLogin(),GlobalService.getParamsLogin() );
         this._loginService.login(request).finally(() => {
             this.working = false;
         }).subscribe(
             data => {
                 if (data.ok) {
-                    this.globalService.session = data.userInfo;
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
-                    this.globalService.logged = true;
-                    this.router.navigate(['home']);
+                    if( this.globalService.preLoginUrl != null && this.globalService.preLoginUrl != "" )
+                    {
+                        let newUrl = this.globalService.preLoginUrl;
+                        this.globalService.preLoginUrl = '';
+                        this.router.navigate([newUrl]);
+                    }
+                    else
+                    {
+                        this.router.navigate(['home']);
+                    }
                 } else {
                     this.router.navigate(['login']);
                     if (data.error != null && data.error.errorMessage != null) {

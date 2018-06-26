@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
-import {UserInfo} from "../resources/data/userInfo";
-import {RolInfo} from "../resources/data/rolInfo";
+import {LoginRqParam} from "../resources/data/loginRq";
 import {Param} from "../resources/data/menuRq";
+import {RolInfo} from "../resources/data/rolInfo";
+import {UserInfo} from "../resources/data/userInfo";
 
 @Injectable()
 export class GlobalService {
@@ -10,13 +11,20 @@ export class GlobalService {
     private static menuServiceUrl:string;
     private static app:string;
     private static ip:string;
-    private static params: Param[];
+    private static params: Param[] = [];
+	
+	private static aplicacionLogin:string;
+	private static paramsLogin:LoginRqParam[];
+	
     public kiosk:boolean;
     public logged:boolean;
     public session:UserInfo;
+    public sessionId:string;
     public applicationTitle:string;
     public roles: RolInfo[];
     public language:string;
+
+    public preLoginUrl:string;
 
     constuctor() {
         console.log("CREANDO GlobalService.");
@@ -33,6 +41,22 @@ export class GlobalService {
     public static setLoginServiceUrl(newUrl:string) {
         this.loginServiceUrl = newUrl;
     }
+
+	public static getAplicacionLogin():string {
+		return this.aplicacionLogin;
+	}
+	
+	public static setAplicacionLogin(aplicacionLogin:string) {
+		this.aplicacionLogin = aplicacionLogin;
+	}
+	
+	public static getParamsLogin(): LoginRqParam[] {
+		return this.paramsLogin;
+	}
+	
+	public static setParamsLogin(paramsLogin:LoginRqParam[]) {
+		this.paramsLogin = paramsLogin;
+	}
 
     public static get LOGIN_SERVICE_URL():string {
         return GlobalService.loginServiceUrl;
@@ -68,6 +92,14 @@ export class GlobalService {
 
     public static get Params(): Param[]{
         return GlobalService.params;
+    }
+
+    public getSessionId(): string {
+        if( !this.sessionId )
+        {
+            return "";
+        }
+        return this.sessionId;
     }
 
     public globalStatus():string {

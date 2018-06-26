@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {GlobalService} from "./global.service";
-import {TreeNode} from "primeng/primeng";
-import {CommonService, CommonRs} from "gp-all-component/services/common.service";
-import {Observable} from "rxjs/Rx";
 import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {CommonRs,CommonService} from "gp-all-component/services/common.service";
+import {TreeNode} from "primeng/primeng";
+import {Observable} from "rxjs/Rx";
 import {BaseDir} from "../resources/data/baseDir";
+import {GlobalService} from "./global.service";
 
 export class ObtenListaFicherosRq {
 
@@ -34,8 +34,8 @@ export class RemoteFsysService extends CommonService{
     remoteFsys:TreeNode[];
     selectedNode:any;
 
-    constructor(private _http:HttpClient) {
-        super(_http);
+    constructor(private _http:HttpClient,protected globalService:GlobalService ) {
+        super(_http,globalService);
     }
 
     obtenListaFicheros(request:ObtenListaFicherosRq): Observable<ObtenListaFicherosRs> {
