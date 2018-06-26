@@ -1,4 +1,4 @@
-import {HttpClient,HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx';
@@ -12,22 +12,22 @@ import {GlobalService} from './global.service';
  */
 
 export class RequestOptions {
-    constructor( public headers: HttpHeaders) {
+    constructor(public headers: HttpHeaders) {
     }
 }
 
 export class CommonRs {
-    ok:boolean;
-    error:ErrorInformation;
-    cacheKey:string;
+    ok: boolean;
+    error: ErrorInformation;
+    cacheKey: string;
     totalRows: number;
     partialRows: number;
 }
 
 export class CommonRq {
-    orden:string;
-    rows:number;
-    firstRow:number;
+    orden: string;
+    rows: number;
+    firstRow: number;
     sort: SortDataTable[];
     filters: FilterDataTable[];
     obtainTotalRows: boolean;
@@ -35,22 +35,22 @@ export class CommonRq {
 }
 
 export class ErrorInformation {
-    errorMessage:string;
-    fields:FieldErrorInformation[];
-    internalErrorMessage:string;
-    notLogged:boolean;
+    errorMessage: string;
+    fields: FieldErrorInformation[];
+    internalErrorMessage: string;
+    notLogged: boolean;
 }
 
 export class FieldErrorInformation {
-    name:string;
-    message:string;
+    name: string;
+    message: string;
 }
 
 class CachedResponse {
-    data:any;
-    ttl:number;
+    data: any;
+    ttl: number;
 
-    constructor(data:any, ttl:number) {
+    constructor(data: any, ttl: number) {
         this.data = data;
         this.ttl = ttl;
     }
@@ -59,7 +59,7 @@ class CachedResponse {
 @Injectable()
 export class CommonService {
 
-    constructor(private http: HttpClient,protected globalService:GlobalService) {
+    constructor(private http: HttpClient) {
     }
 
     /*
@@ -67,12 +67,12 @@ export class CommonService {
      *              TODO: añadir posibilidad de insertar/quitar elementos
      *              manualmente en momentos concretos, para pantallas pesadas.
      */
-    removeCachedObject(key:string) {
+    removeCachedObject(key: string) {
         console.debug("remove cached object: " + key);
         sessionStorage.removeItem(key);
     }
 
-    cachedServiceRequest<T>(url:string, body:any, ttl?:number):Observable<T> {
+    cachedServiceRequest<T>(url: string, body: any, ttl?: number): Observable<T> {
         let userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
         let uintArray = new Uint8Array(JSON.stringify({userId, url, body}).split('').map(function (char) {
             return char.charCodeAt(0);
@@ -91,10 +91,13 @@ export class CommonService {
                 });
             }
         }
-        let headers = new HttpHeaders({'Content-Type': 'application/json; charset=UTF-8', 'Authorization': this.globalService.getSessionId()});
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': GlobalService.SessionId
+        });
         let options = new RequestOptions(headers);
         return this.http.post<T>(url, body, options).map(res => {
-            let response:T = res;
+            let response: T = res;
             if (response['ok'] && response['error'] == null && response['errorMessage'] == null) {
                 response['cacheKey'] = key;
                 sessionStorage.setItem(key, JSON.stringify(new CachedResponse(response, (ttl != null) ? Date.now() + ttl : null)));
@@ -103,9 +106,12 @@ export class CommonService {
         });
     }
 
-    serviceRequest<T>(url:string, body:any):Observable<T> {
-        console.log( 'serviceRequest(' + url + ')' );
-        let headers = new HttpHeaders({'Content-Type': 'application/json; charset=UTF-8', 'Authorization': this.globalService.getSessionId() });
+    serviceRequest<T>(url: string, body: any): Observable<T> {
+        console.log('serviceRequest(' + url + ')');
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': GlobalService.SessionId
+        });
         let options = new RequestOptions(headers);
         return this.http.post<T>(url, body, options);
     }
@@ -113,9 +119,12 @@ export class CommonService {
     /**
      * Adrian Gomez Macias creo una funcion para realizar peticiones GET que necesiten pasar un JSON
      */
-    serviceGetRq<T>(url:string, rq:any):Observable<T> {
-        console.log( 'serviceGetRq(' + url + ')' );
-        let headers = new HttpHeaders({'Content-Type': 'application/json; charset=UTF-8', 'Authorization': this.globalService.getSessionId() });
+    serviceGetRq<T>(url: string, rq: any): Observable<T> {
+        console.log('serviceGetRq(' + url + ')');
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': GlobalService.SessionId
+        });
         let options = new RequestOptions(headers);
         url = url + "?rq=" + rq;
         return this.http.get<T>(url, options);
@@ -124,10 +133,10 @@ export class CommonService {
     /**
      * Creo una funcion para realizar peticiones GET que no necesiten pasar ningun dato
      */
-    serviceGet<T>(url:string):Observable<T> {
-        console.log( 'serviceGet(' + url + ')' );
-        let headers = new HttpHeaders({"Authorization": this.globalService.getSessionId() });
+    serviceGet<T>(url: string): Observable<T> {
+        console.log('serviceGet(' + url + ')');
+        let headers = new HttpHeaders({"Authorization": GlobalService.SessionId});
         let options = new RequestOptions(headers);
-        return this.http.get<T>(url,options);
+        return this.http.get<T>(url, options);
     }
 }
