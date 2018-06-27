@@ -3,24 +3,25 @@ import {AppMenuProviderService} from "./app-menu-provider.service";
 import {MenuRq} from "../resources/data/menuRq";
 import {Observable} from "rxjs/Rx";
 import {GlobalService} from "./global.service";
+import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class AppMenuService {
-    temp:any[];
+    temp: any[];
 
-    constructor(private _appMenuProvider:AppMenuProviderService, private _globalService:GlobalService) {
+    constructor(private _appMenuProvider: AppMenuProviderService) {
     }
 
-    obtenMenu(rq:MenuRq):Observable<any> {
-        return Observable.create(observer=> {
+    obtenMenu(rq: MenuRq): Observable<any> {
+        return Observable.create(observer => {
             this.temp = this._appMenuProvider.getEstructuraMenu();
             this._appMenuProvider.obtenOpcionesActivas(rq).subscribe(
                 data => {
                     if (data.ok) {
-                        if (data.menu.opciones != undefined) {
+                        if (!isNullOrUndefined(data.menu.opciones)) {
                             this.cargarOpciones(this.temp, data.menu.opciones);
                         }
-                        this._globalService.roles = data.roles;
+                        GlobalService.setRoles(data.roles);
                     } else {
                         console.error("No se recuperó un menú");
                     }
@@ -34,17 +35,17 @@ export class AppMenuService {
         });
     }
 
-    cargarOpciones(elementos:any[], options:any[]):boolean {
+    cargarOpciones(elementos: any[], options: any[]): boolean {
         let tieneOpciones = false;
-        elementos.forEach(e=> {
+        elementos.forEach(e => {
             if (e.submenus) {
                 e.enabled = this.cargarOpciones(e.submenus, options);
             } else {
-                var aux = options.filter(v=> {
+                var aux = options.filter(v => {
                     return v.id === e.id;
                 });
 
-                if(aux && aux.length > 0){
+                if (aux && aux.length > 0) {
                     e.enabled = true;
                 }
             }

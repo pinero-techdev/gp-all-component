@@ -2,6 +2,7 @@ import {Component, forwardRef, ViewChild, Input, Output, EventEmitter} from "@an
 import {MultiSelect, SelectItem} from "primeng/primeng";
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from "@angular/forms";
 import {noop} from "rxjs/util/noop";
+import {isNullOrUndefined} from "util";
 
 export const CUSTOM_CONTROL_VALUE_ACCESSOR:any = {
     provide: NG_VALUE_ACCESSOR,
@@ -94,13 +95,15 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor {
     onChangeMultiselect() {
         let label:string;
         let selectionLabel = this.selectionLabel;
-        this.multi.updateLabel = function () {
-            if (this.value != null && this.value.length > 0) {
-                label = this.value.length.toString() + ' ' + selectionLabel;
-                this.valuesAsString = label;
-            } else {
-                label = this.defaultLabel;
-                this.valuesAsString = label;
+        if(!isNullOrUndefined(this.multi)){
+            this.multi.updateLabel = function () {
+                if (this.value != null && this.value.length > 0) {
+                    label = this.value.length.toString() + ' ' + selectionLabel;
+                    this.valuesAsString = label;
+                } else {
+                    label = this.defaultLabel;
+                    this.valuesAsString = label;
+                }
             }
         }
     }

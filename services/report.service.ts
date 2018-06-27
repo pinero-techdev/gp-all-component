@@ -1,12 +1,11 @@
 import {Injectable} from "@angular/core";
 import {CommonService, CommonRs} from "./common.service";
 import {FieldMetadata, FieldDisplayInfo} from "./table.service";
-export class GetDialogElementsRs extends CommonRs {
 
+export class GetDialogElementsRs extends CommonRs {
     metadata: FieldMetadata [] = [];
     data: any;
     title: string;
-
 }
 
 @Injectable()
@@ -22,14 +21,12 @@ export class ReportService extends CommonService {
 
     //TODO REFACTORIZAR Y ELIMINAR
     getDialogElements(report: string): GetDialogElementsRs {
-
         let dialogElements = new GetDialogElementsRs();
         dialogElements.data = null;
         dialogElements.metadata = [];
         dialogElements.ok = true;
 
         switch (report) {
-
             case "CLDRW031":
                 dialogElements.data = {
                     "hotel": "",
@@ -57,6 +54,5 @@ export class ReportService extends CommonService {
                 dialogElements.title = 'Departamento y Solicitudes';
                 return dialogElements;
         }
-
     }
 }

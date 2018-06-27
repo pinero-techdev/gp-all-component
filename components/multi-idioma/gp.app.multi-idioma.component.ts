@@ -2,10 +2,10 @@ import {Component, Input, OnInit} from "@angular/core";
 import {Mensajes} from "../../resources/data/mensajes";
 import {
     MultiIdomaService,
-    Traduccion,
     GetTraduccionesRq,
     UpdateTraduccionesRq
 } from "../../services/multi-idioma.service";
+import {Traduccion} from "../../resources/data/traduccion";
 
 export const orderLanguage = ['ES', 'EN', 'FR', 'DE', 'IT', 'PT'];
 
@@ -15,22 +15,22 @@ export const orderLanguage = ['ES', 'EN', 'FR', 'DE', 'IT', 'PT'];
     providers: [MultiIdomaService]
 })
 export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
-    @Input() tabla:string;
-    @Input() pKey:string;
-    @Input() esquema:string;
-    @Input() campo:string;
-    @Input() campoDescripcion:string;
-    @Input() habilitarEdicionHTML:boolean;
-    @Input() orderByLangCod:boolean = true;
-    visualizarTablaTraducciones:boolean;
-    visualizarEdicionHTML:boolean;
-    traduccionTextoHTML:string;
-    traduccionIdiomaHTML:string;
-    textoHTML:Traduccion;
-    elementosTraducciones:Traduccion[];
-    working:boolean = false;
+    @Input() tabla: string;
+    @Input() pKey: string;
+    @Input() esquema: string;
+    @Input() campo: string;
+    @Input() campoDescripcion: string;
+    @Input() habilitarEdicionHTML: boolean;
+    @Input() orderByLangCod: boolean = true;
+    visualizarTablaTraducciones: boolean;
+    visualizarEdicionHTML: boolean;
+    traduccionTextoHTML: string;
+    traduccionIdiomaHTML: string;
+    textoHTML: Traduccion;
+    elementosTraducciones: Traduccion[];
+    working: boolean = false;
 
-    constructor(private _multiIdiomaService:MultiIdomaService) {
+    constructor(private _multiIdiomaService: MultiIdomaService) {
         super();
     }
 
@@ -74,8 +74,8 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
         );
     }
 
-    ordenarTraducciones(traducciones:Traduccion[], ordenIds:string[]):Traduccion[] {
-        let traduccionesOrdenadas:Traduccion[] = [];
+    ordenarTraducciones(traducciones: Traduccion[], ordenIds: string[]): Traduccion[] {
+        let traduccionesOrdenadas: Traduccion[] = [];
         for (let codIdioma of ordenIds) {
             for (let traduccion of traducciones) {
                 if (traduccion.codigoIdioma == codIdioma) {
@@ -112,7 +112,7 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
         this.cerrarEdicionTraduccion();
     }
 
-    contieneHtml(traduccion:string):boolean {
+    contieneHtml(traduccion: string): boolean {
         return traduccion != null && (traduccion.indexOf("</") != -1 || traduccion.indexOf("/>") != -1 || traduccion.indexOf("&lt;") != -1 || traduccion.indexOf("&gt;") != -1);
     }
 
@@ -123,7 +123,7 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
         this.visualizarTablaTraducciones = false;
     }
 
-    mostrarDialogoEdicionHTML(traduccion:Traduccion) {
+    mostrarDialogoEdicionHTML(traduccion: Traduccion) {
         this.textoHTML = new Traduccion(traduccion.codigoIdioma, traduccion.idiomaPais, traduccion.idiomaPaisTraduccion != null ? traduccion.idiomaPaisTraduccion : '');
         if (this.habilitarEdicionHTML) {
             this.visualizarTablaTraducciones = false;

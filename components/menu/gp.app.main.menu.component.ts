@@ -13,9 +13,7 @@ import {Observable} from "rxjs/Rx";
  */
 export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
     menuItems: Observable<any>;
-
-    @Output()
-    menuCharged = new EventEmitter<boolean>();
+    @Output() menuCharged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     constructor(private _appMenuProviderService: AppMenuService, private _applicationRef: ApplicationRef) {
     }
@@ -34,8 +32,9 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
 
     initMenu() {
         let sessionId = sessionStorage.getItem('sessionId');
-        let request: MenuRq = new MenuRq(sessionId, GlobalService.Params);
+        let request: MenuRq = new MenuRq(sessionId, GlobalService.PARAMS);
         this.menuItems = this._appMenuProviderService.obtenMenu(request);
+        console.log(this.menuItems);
     }
 
     refresh() {

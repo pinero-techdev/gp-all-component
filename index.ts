@@ -29,7 +29,7 @@ export * from "./components/tables/gp-form-time-field.component";
 export * from "./components/tables/gp-form-wysiwyg-field.component";
 export * from "./components/dynamic/gp.dynamic.component";
 //Resources (Classes)
-export * from "./resources/gpBase";
+export * from "./resources/data/gpBase";
 export * from "./resources/data/authGuard";
 export * from "./resources/data/redirectAuthGuard";
 export * from "./resources/data/gpSelector";

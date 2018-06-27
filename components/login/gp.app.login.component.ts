@@ -5,6 +5,7 @@ import {LoginRq} from "../../resources/data/loginRq";
 import {GlobalService} from "../../services/global.service";
 import {LoginService} from "../../services/login.service";
 import {GpAppMainMenuComponent} from "../menu/gp.app.main.menu.component";
+import {isNullOrUndefined} from "util";
 
 @Component({
     selector: 'gp-app-login.component',
@@ -12,13 +13,13 @@ import {GpAppMainMenuComponent} from "../menu/gp.app.main.menu.component";
     providers: [GpAppMainMenuComponent]
 })
 export class GpAppLoginComponent {
-    usuario:string;
-    password:string;
-    msgs:Message[] = [];
-    btnModificaPwdVisible:boolean = false;
-    working:boolean = false;
+    usuario: string;
+    password: string;
+    msgs: Message[] = [];
+    btnModificaPwdVisible: boolean = false;
+    working: boolean = false;
 
-    passwordErrors:string[] = [
+    passwordErrors: string[] = [
         "Su clave ha caducado, tiene que cambiar la clave de acceso.",
         "Es el último día para cambiar su clave ¿Desea cambiarla ahora?",
         "Su clave ha caducado hace 1 día, tiene que cambiar la clave de acceso.",
@@ -26,27 +27,31 @@ export class GpAppLoginComponent {
         "Falta un día para que su clave caduque, ¿Desea cambiarla ahora?",
         "Faltan dos días para que su clave caduque, ¿Desea cambiarla ahora?"];
 
-    constructor(private router:Router, private _loginService:LoginService, public globalService:GlobalService,
-                private _gpAppMainMenu:GpAppMainMenuComponent) {
-        this.globalService.logged = false;
+    constructor(private router: Router, private _loginService: LoginService,
+                private _gpAppMainMenu: GpAppMainMenuComponent) {
+        GlobalService.setLogged(false);
+    }
+
+    get applicationTitle() {
+        return GlobalService.APPLICATION_TITLE;
     }
 
     login() {
         this.working = true;
-        let request:LoginRq = new LoginRq(this.usuario, this.password,GlobalService.getAplicacionLogin(),GlobalService.getParamsLogin() );
+        let request: LoginRq = new LoginRq(this.usuario, this.password, GlobalService.APLICACION_LOGIN, GlobalService.PARAMS_LOGIN);
         this._loginService.login(request).finally(() => {
             this.working = false;
         }).subscribe(
             data => {
                 if (data.ok) {
-                    if( this.globalService.preLoginUrl != null && this.globalService.preLoginUrl != "" )
-                    {
-                        let newUrl = this.globalService.preLoginUrl;
-                        this.globalService.preLoginUrl = '';
-                        this.router.navigate([newUrl]);
+                    GlobalService.setSession(data.userInfo);
+                    GlobalService.setLogged(true);
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+                    if (!isNullOrUndefined(GlobalService.PRE_LOGIN_URL) && GlobalService.PRE_LOGIN_URL != "") {
+                        this.router.navigate([GlobalService.PRE_LOGIN_URL]);
                     }
-                    else
-                    {
+                    else {
                         this.router.navigate(['home']);
                     }
                 } else {
@@ -68,7 +73,7 @@ export class GpAppLoginComponent {
         );
     }
 
-    showError(message:string) {
+    showError(message: string) {
         this.msgs = [];
         this.msgs.push({
             severity: 'error',

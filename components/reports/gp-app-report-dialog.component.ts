@@ -69,7 +69,7 @@ export class GpAppReportDialogComponent implements OnInit {
     }
 
     cambiaReport(reportName: string) {
-        if (!this._globalService.logged) {
+        if (!GlobalService.LOGGED) {
             this._router.navigate(['login']);
             return;
         }

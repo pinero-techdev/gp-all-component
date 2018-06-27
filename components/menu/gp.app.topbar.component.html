@@ -2,22 +2,22 @@
     <div class="topbar-left">
     </div>
     <div class="topbar-right">
-        <a id="menu-button" href="#" [hidden]="!globalService.logged">
+        <a id="menu-button" href="#" [hidden]="!logged">
             <i></i>
         </a>
-        <a id="topbar-menu-button" (click)="toggleUserMenu()" [hidden]="!globalService.logged">
+        <a id="topbar-menu-button" (click)="toggleUserMenu()" [hidden]="!logged">
             <i class="material-icons">account_circle</i>
         </a>
 
-        <ul class="topbar-items fadeInDown animated" [hidden]="!globalService.logged">
+        <ul class="topbar-items fadeInDown animated" [hidden]="!logged">
             <li class="profile-item">
-                <a (click)="toggleUserMenu()" [hidden]="!globalService.logged">
+                <a (click)="toggleUserMenu()" [hidden]="!logged">
                     <i class="topbar-icon material-icons">account_circle</i>
                     <span class="topbar-item-name">Logged User</span>
                 </a>
             </li>
             <li class="application-title">
-                <span *ngIf="globalService.logged">{{globalService.session.fullName}}</span>
+                <span *ngIf="logged" [innerHtml]="fullName"></span>
             </li>
         </ul>
     </div>

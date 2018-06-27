@@ -6,15 +6,7 @@ import {FilterDataTable} from '../resources/data/filterDataTable';
 import {SortDataTable} from '../resources/data/sortDataTable';
 import {hash} from '../util/sha256';
 import {GlobalService} from './global.service';
-
-/**
- * Definiciones comunes del acceso a servicios.
- */
-
-export class RequestOptions {
-    constructor(public headers: HttpHeaders) {
-    }
-}
+import {RequestOptions} from "gp-all-component/resources/data/RequestOptions";
 
 export class CommonRs {
     ok: boolean;
@@ -93,7 +85,7 @@ export class CommonService {
         }
         let headers = new HttpHeaders({
             'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': GlobalService.SessionId
+            'Authorization': GlobalService.SESSION_ID
         });
         let options = new RequestOptions(headers);
         return this.http.post<T>(url, body, options).map(res => {
@@ -110,8 +102,9 @@ export class CommonService {
         console.log('serviceRequest(' + url + ')');
         let headers = new HttpHeaders({
             'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': GlobalService.SessionId
+            'Authorization': GlobalService.SESSION_ID
         });
+        console.log( url );
         let options = new RequestOptions(headers);
         return this.http.post<T>(url, body, options);
     }
@@ -123,7 +116,7 @@ export class CommonService {
         console.log('serviceGetRq(' + url + ')');
         let headers = new HttpHeaders({
             'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': GlobalService.SessionId
+            'Authorization': GlobalService.SESSION_ID
         });
         let options = new RequestOptions(headers);
         url = url + "?rq=" + rq;
@@ -135,7 +128,7 @@ export class CommonService {
      */
     serviceGet<T>(url: string): Observable<T> {
         console.log('serviceGet(' + url + ')');
-        let headers = new HttpHeaders({"Authorization": GlobalService.SessionId});
+        let headers = new HttpHeaders({"Authorization": GlobalService.SESSION_ID});
         let options = new RequestOptions(headers);
         return this.http.get<T>(url, options);
     }
