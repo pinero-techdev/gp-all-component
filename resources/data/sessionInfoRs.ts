@@ -1,4 +1,5 @@
-import {CommonRs, UserInfo} from "gp-all-component";
+import {CommonRs} from "../../services/common.service";
+import {UserInfo} from "./userInfo";
 
 export class SessionInfoRs extends CommonRs {
     userInfo: UserInfo;

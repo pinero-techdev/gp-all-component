@@ -1,5 +1,4 @@
 import {HostListener, OnInit} from "@angular/core";
-import {Translate, TranslatePipe} from "gp-all-component";
 
 //FIXME hacerlo extender de translate para implementar traducciones OK
 export class GpBase /* extends Translate*/ {

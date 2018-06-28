@@ -6,10 +6,10 @@ import {LoginRq} from "../resources/data/loginRq";
 import {UserInfo} from "../resources/data/userInfo";
 import {GlobalService} from "./global.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {SessionInfoRs} from "gp-all-component/resources/data/sessionInfoRs";
-import {RequestOptions} from "gp-all-component/resources/data/RequestOptions";
-import {CommonRs} from "gp-all-component";
 import {Observable} from "rxjs/Observable";
+import {CommonRs} from "./common.service";
+import {SessionInfoRs} from "../resources/data/sessionInfoRs";
+import {RequestOptions} from "../resources/data/RequestOptions";
 
 @Injectable()
 export class LoginService {
@@ -21,7 +21,7 @@ export class LoginService {
      * Comprueba que el usuario tenga una sesión activa
      * @returns Json con la sesión del usuario (si tiene sesión activa
      */
-    sessionInfo() {
+    sessionInfo(): Observable<SessionInfoRs> {
         let sessionInfoRq: any = {};
         if (!GlobalService.SESSION_ID) {
             if (sessionStorage.getItem('userInfo') != null) {
@@ -31,24 +31,30 @@ export class LoginService {
                 GlobalService.setSessionId(sessionStorage.getItem('sessionId'));
             }
         }
-        sessionInfoRq.sessionId = GlobalService.SESSION_ID;
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': GlobalService.SESSION_ID
-        });
-        let options = new RequestOptions(headers);
-        let url = `${GlobalService.LOGIN_SERVICE_URL}/sessionInfo`;
-        return this.http.post<SessionInfoRs>(url, sessionInfoRq, options).map((sessionInfoRs) => {
-                if (sessionInfoRs.ok) {
-                    GlobalService.setSession(sessionInfoRs.userInfo);
-                    GlobalService.setSessionId(sessionInfoRs.sessionId);
-                    GlobalService.setLogged(true);
-                    sessionStorage.setItem('userInfo', JSON.stringify(sessionInfoRs.userInfo));
-                    sessionStorage.setItem('sessionId', sessionInfoRs.sessionId);
+        if (GlobalService.SESSION_ID) {
+            sessionInfoRq.sessionId = GlobalService.SESSION_ID;
+            let headers = new HttpHeaders({
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': GlobalService.SESSION_ID
+            });
+            let options = new RequestOptions(headers);
+            let url = `${GlobalService.LOGIN_SERVICE_URL}/sessionInfo`;
+            return this.http.post<SessionInfoRs>(url, sessionInfoRq, options).map((sessionInfoRs) => {
+                    if (sessionInfoRs.ok) {
+                        GlobalService.setSession(sessionInfoRs.userInfo);
+                        GlobalService.setSessionId(sessionInfoRs.sessionId);
+                        GlobalService.setLogged(true);
+                        sessionStorage.setItem('userInfo', JSON.stringify(sessionInfoRs.userInfo));
+                        sessionStorage.setItem('sessionId', sessionInfoRs.sessionId);
+                    }
+                    return sessionInfoRs;
                 }
-                return sessionInfoRs;
-            }
-        );
+            );
+        } else {
+            let rs = new SessionInfoRs();
+            rs.ok = false;
+            return Observable.of(rs);
+        }
     }
 
     /**
