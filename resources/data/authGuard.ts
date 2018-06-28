@@ -28,14 +28,13 @@ export class AuthGuard implements CanActivate {
         console.log("Guard, canActivate, globalService: " + sessionStorage.getItem('userInfo'));
         if ((GlobalService.LOGGED || null != sessionStorage.getItem('userInfo'))) {
             // 'home' is the default page when user is logged
-            if (url == '/home' || url == '/') {
+            if (url == '/home' || url == '/' || url.indexOf('/terminal') != -1) {
                 return Observable.of(true);
             } else {
                 let request: MenuRq = new MenuRq(GlobalService.SESSION_ID, GlobalService.PARAMS);
                 return this._menu.obtenMenu(request)
                     .map(
                         menu => {
-
                             if (menu) {
                                 // Check if option menu is active
                                 let accesoPermitido = this._menuAppMenuProviderService.isOpcionMenuActivo(menu,
@@ -48,7 +47,6 @@ export class AuthGuard implements CanActivate {
                             } else {
                                 console.error("El usuario " + userId + " no tiene menú asociado en la aplicación " + GlobalService.APP);
                                 return Observable.of(false);
-
                             }
                         }
                     );

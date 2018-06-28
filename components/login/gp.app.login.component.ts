@@ -1,20 +1,24 @@
-import {Component} from "@angular/core";
-import {Router} from "@angular/router";
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Message} from "primeng/primeng";
 import {LoginRq} from "../../resources/data/loginRq";
 import {GlobalService} from "../../services/global.service";
 import {LoginService} from "../../services/login.service";
 import {GpAppMainMenuComponent} from "../menu/gp.app.main.menu.component";
-import {isNullOrUndefined} from "util";
+import {isNull, isNullOrUndefined} from "util";
+import {Subscription} from "../../../rxjs";
+import Global = NodeJS.Global;
 
 @Component({
     selector: 'gp-app-login.component',
     templateUrl: './gp.app.login.component.html',
     providers: [GpAppMainMenuComponent]
 })
-export class GpAppLoginComponent {
+export class GpAppLoginComponent implements OnInit, OnDestroy {
     usuario: string;
     password: string;
+    otherparams: string;
+    url: string;
     msgs: Message[] = [];
     btnModificaPwdVisible: boolean = false;
     working: boolean = false;
@@ -27,9 +31,19 @@ export class GpAppLoginComponent {
         "Falta un día para que su clave caduque, ¿Desea cambiarla ahora?",
         "Faltan dos días para que su clave caduque, ¿Desea cambiarla ahora?"];
 
+    sub: Subscription;
+
     constructor(private router: Router, private _loginService: LoginService,
-                private _gpAppMainMenu: GpAppMainMenuComponent) {
+                private _gpAppMainMenu: GpAppMainMenuComponent, private _route: ActivatedRoute) {
         GlobalService.setLogged(false);
+    }
+
+    ngOnInit() {
+        this.subscribe();
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     get applicationTitle() {
@@ -48,6 +62,9 @@ export class GpAppLoginComponent {
                     GlobalService.setLogged(true);
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+                    if (!isNullOrUndefined(this.url)) {
+                        GlobalService.setPreLoginUrl(this.url);
+                    }
                     if (!isNullOrUndefined(GlobalService.PRE_LOGIN_URL) && GlobalService.PRE_LOGIN_URL != "") {
                         this.router.navigate([GlobalService.PRE_LOGIN_URL]);
                     }
@@ -84,5 +101,19 @@ export class GpAppLoginComponent {
 
     goModificaPwd() {
         this.router.navigate(['modifica-password/' + this.usuario]);
+    }
+
+    subscribe() {
+        this.sub = this._route.queryParams
+            .subscribe(params => {
+                this.usuario = params['usuario'];
+                this.password = params['password'];
+                this.otherparams = params['otherparams'];
+                this.url = params['url'];
+            });
+
+        if (!isNullOrUndefined(this.usuario) && !isNullOrUndefined(this.password) || !isNullOrUndefined(this.otherparams)) {
+            this.login();
+        }
     }
 }
