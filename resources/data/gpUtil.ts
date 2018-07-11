@@ -384,4 +384,15 @@ export class GPUtil {
         let ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
+
+    public static base64ToBlob(string: string): Blob {
+        var byteCharacters = atob(string);
+        var byteNumbers = new Array(byteCharacters.length);
+        for (var i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(byteNumbers);
+        var blob = new Blob([byteArray], {type: 'application/pdf'});
+        return blob;
+    }
 }
