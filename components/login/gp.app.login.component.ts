@@ -8,6 +8,7 @@ import {GpAppMainMenuComponent} from "../menu/gp.app.main.menu.component";
 import {isNull, isNullOrUndefined} from "util";
 import {Subscription} from "../../../rxjs";
 import Global = NodeJS.Global;
+import {isNumeric} from "rxjs/util/isNumeric";
 
 @Component({
     selector: 'gp-app-login.component',
@@ -17,7 +18,6 @@ import Global = NodeJS.Global;
 export class GpAppLoginComponent implements OnInit, OnDestroy {
     usuario: string;
     password: string;
-    otherparams: string;
     url: string;
     msgs: Message[] = [];
     btnModificaPwdVisible: boolean = false;
@@ -50,9 +50,9 @@ export class GpAppLoginComponent implements OnInit, OnDestroy {
         return GlobalService.APPLICATION_TITLE;
     }
 
-    login() {
+    login( urlToRedirect?: string, otherParams?: string ) {
         this.working = true;
-        let request: LoginRq = new LoginRq(this.usuario, this.password, GlobalService.APLICACION_LOGIN, GlobalService.PARAMS_LOGIN);
+        let request: LoginRq = new LoginRq(this.usuario, this.password, GlobalService.APLICACION_LOGIN, GlobalService.PARAMS_LOGIN, otherParams);
         this._loginService.login(request).finally(() => {
             this.working = false;
         }).subscribe(
@@ -65,7 +65,10 @@ export class GpAppLoginComponent implements OnInit, OnDestroy {
                     if (!isNullOrUndefined(this.url)) {
                         GlobalService.setPreLoginUrl(this.url);
                     }
-                    if (!isNullOrUndefined(GlobalService.PRE_LOGIN_URL) && GlobalService.PRE_LOGIN_URL != "") {
+                    if ( urlToRedirect )
+                    {
+                       this.router.navigate( [ urlToRedirect ] )
+                    } else if ( !isNullOrUndefined(GlobalService.PRE_LOGIN_URL) && GlobalService.PRE_LOGIN_URL != "" ) {
                         this.router.navigate([GlobalService.PRE_LOGIN_URL]);
                     }
                     else {
@@ -104,19 +107,19 @@ export class GpAppLoginComponent implements OnInit, OnDestroy {
     }
 
     subscribe() {
+        let otherParams = null;
+        let urlToRedirect = null;
         this.sub = this._route.queryParams
             .subscribe(params => {
                 this.usuario = params['usuario'];
                 this.password = params['password'];
-                this.otherparams = params['otherparams'];
+                otherParams = params['otherparams'];
+                urlToRedirect = params['urlToRedirect'];
                 this.url = params['url'];
             });
 
-        console.log(this.usuario);
-        console.log(this.password);
-
-        if (!isNullOrUndefined(this.usuario) && !isNullOrUndefined(this.password) || !isNullOrUndefined(this.otherparams)) {
-            this.login();
+        if ( (this.usuario && this.password) || otherParams) {
+            this.login( urlToRedirect, otherParams );
         }
     }
 }
