@@ -97,14 +97,13 @@ export class GpAppTableCrudComponent {
         this.canEdit = true;
         this.canDelete = true;
         this.msgsGlobal = [];
-        //this.closeDialog();
     }
 
     inicializaTabla(tableName:string) {
         this.tableName = tableName;
     }
 
-    cambiaTablaDetail(filters: Filter[]) {
+    cambiaTablaDetail(filters: Filter[], fieldsToOrderBy?:string[]) {
         this.working = true;
 
         this.columnas = [];
@@ -118,7 +117,7 @@ export class GpAppTableCrudComponent {
 
         this.filters = filters;
 
-        this.tableService.list(this.tableName, true, false, null, filters).finally(() => this.working = false).subscribe(
+        this.tableService.list(this.tableName, true, true, fieldsToOrderBy, filters).finally(() => this.working = false).subscribe(
             data => {
                 console.log('getMetadata response:' + JSON.stringify(data));
                 if (data.ok) {
