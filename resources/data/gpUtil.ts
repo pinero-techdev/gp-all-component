@@ -19,7 +19,7 @@ export class GPUtil {
     public static readonly odd_rec = new RegExp("\u00E7", "g");
     public static readonly odd_reOthers = new RegExp("[\u0080-\uFFFF]", "g");
 
-    public static normaliza(s:string):string {
+    public static normaliza(s: string): string {
         s = s.replace(GPUtil.odd_reA, "A");
         s = s.replace(GPUtil.odd_rea, "a");
         s = s.replace(GPUtil.odd_reE, "E");
@@ -38,7 +38,7 @@ export class GPUtil {
         return s;
     }
 
-    public static str2Date(str:string, fmt:string):Date {
+    public static str2Date(str: string, fmt: string): Date {
         let fecha = null;
         if (str) {
             fecha = moment.utc(str, fmt).toDate();
@@ -46,7 +46,7 @@ export class GPUtil {
         return fecha;
     }
 
-    public static str2DateString(str:string, fmt1:string, fmt2:string):string {
+    public static str2DateString(str: string, fmt1: string, fmt2: string): string {
         let fecha = null;
         if (str) {
             fecha = moment.utc(str, fmt1).format(fmt2);
@@ -54,7 +54,7 @@ export class GPUtil {
         return fecha;
     }
 
-    public static dateToYyyymmdd(dt:Date, possibleFormat:string):string {
+    public static dateToYyyymmdd(dt: Date, possibleFormat: string): string {
         if (dt == null) {
             return null;
         }
@@ -70,13 +70,13 @@ export class GPUtil {
             throw "Invalid format '" + possibleFormat + "'";
         }
         let y = "000" + dt.getFullYear();
-        let m = "0" + ( dt.getMonth() + 1 );
+        let m = "0" + (dt.getMonth() + 1);
         let d = "0" + dt.getDate();
         return y.substr(y.length - 4) + "-" + m.substr(m.length - 2) + "-" + d.substr(d.length - 2);
     }
 
     //deprecated ('use str2Date instead')
-    public static yyyymmddToDate(s:string):Date {
+    public static yyyymmddToDate(s: string): Date {
         if (s == null || s == "") {
             return null;
         }
@@ -90,7 +90,7 @@ export class GPUtil {
     }
 
     //deprecated ("use str2DateString instead")
-    public static yyyymmddToDateFormat(yyyymmdd:string, format:string):string {
+    public static yyyymmddToDateFormat(yyyymmdd: string, format: string): string {
         if (yyyymmdd == null || yyyymmdd == "") {
             return null;
         }
@@ -107,7 +107,7 @@ export class GPUtil {
     }
 
     //deprecated ("use str2DateString instead")
-    public static dateFormatToYyyymmdd(dt:string, format:string):string {
+    public static dateFormatToYyyymmdd(dt: string, format: string): string {
         if (dt == null || dt == "") {
             return null;
         }
@@ -126,7 +126,7 @@ export class GPUtil {
     }
 
     //depreacted ("use str2Date instead")
-    public static hhmmToDate(time:string, format:string):Date {
+    public static hhmmToDate(time: string, format: string): Date {
 
         let date = new Date();
         if (time == null || time == '') {
@@ -148,7 +148,7 @@ export class GPUtil {
         throw  "Formato de hora invalido '" + "'";
     }
 
-    public static dateTohhmm(date:Date, timeFormat:string) {
+    public static dateTohhmm(date: Date, timeFormat: string) {
         if (date == null) {
             return null;
         }
@@ -171,7 +171,7 @@ export class GPUtil {
      * @param valor
      * @return {any}
      */
-    public obtenerEtiqueta(selector:SelectItem[], valor:any):string {
+    public obtenerEtiqueta(selector: SelectItem[], valor: any): string {
         let etiqueta = null;
         if (selector != null && valor != null) {
             for (let item of selector) {
@@ -192,9 +192,9 @@ export class GPUtil {
      * @param adicional  - Identificador atributo posibles datos adicionales
      * @return {SelectItem[]}
      */
-    public obtenerSelector(datos:any[], atributoValor:string, atributoDesc:string[], descripcionPorDefecto?:string, separadorAtributosDesc?:string, adicional?:string):GPSelectItem[] {
+    public obtenerSelector(datos: any[], atributoValor: string, atributoDesc: string[], descripcionPorDefecto?: string, separadorAtributosDesc?: string, adicional?: string): GPSelectItem[] {
 
-        let selector:GPSelectItem[] = [];
+        let selector: GPSelectItem[] = [];
         let separador = ' - ';
         if (separadorAtributosDesc) {
             separador = ' ' + separadorAtributosDesc + ' ';
@@ -217,7 +217,7 @@ export class GPUtil {
         return selector;
     }
 
-    public indexOf(list:any[], atributeName:string, value:any):number {
+    public indexOf(list: any[], atributeName: string, value: any): number {
         if (list) {
             for (let index = 0; index < list.length; index++) {
                 if (list[index][atributeName] == value) {
@@ -235,7 +235,7 @@ export class GPUtil {
      * @param value
      * @return {any}
      */
-    public getElementFromArray(list:any[], atributeName:string, value:any):any {
+    public getElementFromArray(list: any[], atributeName: string, value: any): any {
         if (list) {
             for (let index = 0; index < list.length; index++) {
                 if (list[index][atributeName] == value) {
@@ -250,7 +250,15 @@ export class GPUtil {
         return "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dni.substring(0, 8) % 23);
     }
 
-    public booleanToString(input:boolean, trueValue:string = "S", falseValue:string = "N"):string {
+    public static calculaDni(value): String {
+        if (value.length >= 8) {
+            let letraDni = this.letraDni(value);
+            value = (value.substring(0, 8) + letraDni);
+        }
+        return value;
+    }
+
+    public booleanToString(input: boolean, trueValue: string = "S", falseValue: string = "N"): string {
         if (input) {
             return trueValue;
         } else {
@@ -258,7 +266,7 @@ export class GPUtil {
         }
     }
 
-    public triBooleanToString(input:boolean, trueValue:string = "S", falseValue:string = "N"):string {
+    public triBooleanToString(input: boolean, trueValue: string = "S", falseValue: string = "N"): string {
         let ret = null;
         if (input === true) {
             ret = trueValue;
@@ -270,7 +278,7 @@ export class GPUtil {
         return ret;
     }
 
-    public stringToBoolean(input:string, trueValue:string = "S", falseValue:string = "N"):boolean {
+    public stringToBoolean(input: string, trueValue: string = "S", falseValue: string = "N"): boolean {
         if (trueValue == input) {
             return true;
         } else {
@@ -282,7 +290,7 @@ export class GPUtil {
         }
     }
 
-    public static obtainCalendarConfig():any {
+    public static obtainCalendarConfig(): any {
         return {
             closeText: "Cerrar",
             prevText: "<Ant",
@@ -309,7 +317,7 @@ export class GPUtil {
      * Debido a un bug en primeng, no se pueden poner rangos relativos en el calendar
      * @return {string}
      */
-    public obtainCalendarYearRange(offset:number = 0):string {
+    public obtainCalendarYearRange(offset: number = 0): string {
         let year = (new Date).getFullYear() + offset;
         return '1900:' + year;
     }
@@ -322,7 +330,7 @@ export class GPUtil {
      * @param atributoDesc nombre del atributo que continene la descripción
      * @return {any}
      */
-    public cargarMenuItem(datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean):any[] {
+    public cargarMenuItem(datos: any[], atributoCod: string, atributoDesc: string, hasChilds: boolean): any[] {
         var itemsMenu = [];
         var items = [];
         if (!hasChilds) {
@@ -349,7 +357,7 @@ export class GPUtil {
      * @param atributoDesc nombre del atributo que continene la descripción
      * @return {any}
      */
-    public cargarMenuItemDesdePadre(codigoItemPadre:string, itemsMenu:MenuItem[], datos:any[], atributoCod:string, atributoDesc:string, hasChilds:boolean):any[] {
+    public cargarMenuItemDesdePadre(codigoItemPadre: string, itemsMenu: MenuItem[], datos: any[], atributoCod: string, atributoDesc: string, hasChilds: boolean): any[] {
 
         for (let itemPadre of itemsMenu) {
             //seleccionamos el item sobre el que actualizar su array de items a traves del codigoSeleccionado
@@ -361,7 +369,7 @@ export class GPUtil {
         return itemsMenu;
     }
 
-    public limpiaSaltosLinea(s:string):string {
+    public limpiaSaltosLinea(s: string): string {
         if (s == null || s == "") {
             console.log(s);
             return s;
@@ -370,7 +378,7 @@ export class GPUtil {
         }
     }
 
-    public getUserId():string {
+    public getUserId(): string {
         let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         if (userInfo != undefined && userInfo != null) {
             return userInfo.userId;
@@ -379,7 +387,7 @@ export class GPUtil {
         }
     }
 
-    public calculaEdad(birthday:Date):number {
+    public calculaEdad(birthday: Date): number {
         let ageDifMs = Date.now() - birthday.getTime();
         let ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970);
