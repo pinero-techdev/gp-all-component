@@ -14,7 +14,7 @@
             </p-tree>
         </div>
         <div class="ui-g-4 center hiddencontrols">
-            <p-orderList [value]="selectedNode?.children"
+            <!-- <p-orderList [value]="selectedNode?.children"
                          [responsive]="true"
                          [listStyle]="{'height':'45vh'}"
                          dragdrop="false"
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </ng-template>
-            </p-orderList>
+            </p-orderList> -->
             <div class="ui-widget-content ui-orderlist-list ui-corner-bottom" *ngIf="selectedNode?.children?.length == 0 && selectedNode?.data?.type == 'file'" style="height: 45vh;">
                 <div id="imgSelectable" (click)="selectedThis($event)" *ngIf="selectedNode?.data?.subtype == 'image'">
                     <img src="{{url}}" style="max-width: 200px;padding: 1.625em 0.875em;">
