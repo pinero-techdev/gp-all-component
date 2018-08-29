@@ -54,6 +54,8 @@ export * from "./resources/constants/translate.constants";
 //Pipes
 export * from "./resources/pipes/translate.pipe";
 //Directives
+export * from "./directives/focus.directive";
+export * from "./directives/gp-lowercase.directive";
 export * from "./directives/gp-uppercase.directive";
 //Services
 export * from "./services/app-menu-provider.service";
