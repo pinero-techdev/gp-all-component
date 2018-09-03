@@ -24,6 +24,7 @@ export class GpAppTopBarComponent implements OnInit {
     @Input() homeUrl: string;
     @Input() logoUrl: string;
     @Input() title: string;
+    @Input() appInfo: string;
     @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
     display: boolean = false;
     showMenu: boolean = false;

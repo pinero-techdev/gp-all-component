@@ -8,7 +8,9 @@
         <a id="topbar-menu-button" (click)="toggleUserMenu()" [hidden]="!logged">
             <i class="material-icons">account_circle</i>
         </a>
-
+        <div class="application-info" [hidden]="!appInfo">
+            <div>{{appInfo}}</div>
+        </div>
         <ul class="topbar-items fadeInDown animated" [hidden]="!logged">
             <li class="profile-item">
                 <a (click)="toggleUserMenu()" [hidden]="!logged">
