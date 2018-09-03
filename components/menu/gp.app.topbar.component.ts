@@ -18,13 +18,12 @@ export class GpAppTopBarComponent implements OnInit {
      */
     @ViewChild('menuUser') menuUser: ElementRef;
     @ViewChild('userMobileButton') userMobileButton: ElementRef;
-
+    GlobalService = GlobalService;
     public itemsUserMenu: MenuItem[];
 
     @Input() homeUrl: string;
     @Input() logoUrl: string;
     @Input() title: string;
-    @Input() appInfo: string;
     @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
     display: boolean = false;
     showMenu: boolean = false;

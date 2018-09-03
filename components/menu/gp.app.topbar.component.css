@@ -8,10 +8,12 @@
     max-width: calc(50% - 150px);
 }
 .application-info div {
-    margin-top: 13px;
+    margin-top: 11px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    line-height: 21px;
+    height: 21px;
 }
 .topbar-items{
     max-width: calc(50% - 135px);
@@ -21,4 +23,7 @@
     overflow: hidden;
     white-space: nowrap;
     width: calc(100% - 52px);
+}
+.layout-container .topbar .topbar-right #menu-button {
+    top: -5px;
 }

@@ -25,6 +25,7 @@ export class GlobalService {
     private static roles: RolInfo[];
     private static language: string;
 
+    private static _appHeaderInfo: string;
 
     public static get BASE_URL(): string {
         return GlobalService.baseUrl;
@@ -158,5 +159,13 @@ export class GlobalService {
 
     public static get LANGUAGE(): string {
         return GlobalService.language;
+    }
+
+    public static getAppHeaderInfo(): string {
+        return this._appHeaderInfo;
+    }
+
+    public static setAppHeaderInfo(value: string) {
+        this._appHeaderInfo = value;
     }
 }
