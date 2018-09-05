@@ -1,14 +1,15 @@
 import {HostListener, OnInit} from "@angular/core";
+import {Mensajes} from "./mensajes";
 
 //FIXME hacerlo extender de translate para implementar traducciones OK
-export class GpBase /* extends Translate*/ {
+export class GpBase extends Mensajes/* extends Translate*/ {
     width:number;
     height:number;
     working:boolean = false;
     jobs:number = 0;
 
     constructor() {
-        //super();
+        super();
         this.height = window.innerHeight * 0.95;
         this.width = window.innerWidth * 0.95;
     }
