@@ -88,6 +88,8 @@ export class GpAppTableCrudComponent implements OnInit {
 
   // Indicador de trabajando.
   working: boolean = true;
+  workingDetail: boolean = false;
+  activeLoagingDetail: boolean = false;
 
   // Descripcion de la tabla a editar.
   tableLabel: string;
@@ -152,11 +154,12 @@ export class GpAppTableCrudComponent implements OnInit {
   initDetailTable(tableNameDetail: string, filterField: string) {
     this.tableNameDetail = tableNameDetail;
     this.filterField = filterField;
+    this.activeLoagingDetail = true;
   }
 
   cambiaTablaDetail(filterCode: string, filterColumn: string) {
     if (this.tableNameDetail != undefined) {
-      this.working = true;
+      this.workingDetail = true;
       this.columnasDetail = [];
       this.columnasTablaDetail = [];
       this.elementosDetail = [];
@@ -171,7 +174,6 @@ export class GpAppTableCrudComponent implements OnInit {
       this.msgsDialog = [];
       this.msgsGlobal = [{ severity: 'info', detail: 'Cargando los datos de la tabla detalle.' }];
       this.dialogErrors = false;
-
       this.tableService.list(this.tableNameDetail, true, false, null, this.filters).subscribe(
         data => {
           //console.log('getMetadata response:' + JSON.stringify( data ) );
@@ -195,10 +197,9 @@ export class GpAppTableCrudComponent implements OnInit {
         },
         () => {
           console.log('getMetadataDetail finalizado');
-          this.working = false;
+          this.workingDetail = false;
         }
       );
-      this.working = false;
     }
   }
 

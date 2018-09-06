@@ -138,7 +138,11 @@
         </div>
     </div>
 </div>
-<div class="ui-g" *ngIf="!working && columnasTablaDetail.length > 0">
+<div *ngIf="workingDetail && activeLoagingDetail">
+    <gp-app-loading-indicator 
+    [msg]="'Recuperando datos del detalle...'"></gp-app-loading-indicator>
+</div>
+<div class="ui-g" *ngIf="!workingDetail && activeLoagingDetail && columnasTablaDetail.length > 0">
     <div class="ui-g-6">
         <div class="card card-w-title">
             <p-dataTable [value]="elementosDetail" selectionMode="single" [(selection)]="selectedRowDetail" (onRowSelect)="onRowSelectDetail($event)"
