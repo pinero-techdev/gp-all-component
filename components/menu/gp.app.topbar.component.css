@@ -5,6 +5,7 @@
     display: inline-block;
     color: #fff;
     font-size: 2em;
+    height: 21px;
     max-width: calc(50% - 150px);
 }
 .application-info div {
