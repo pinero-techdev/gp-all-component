@@ -68,3 +68,5 @@ export * from "./services/multi-idioma.service";
 export * from "./services/remote-fsys.service";
 export * from "./services/password.service";
 export * from "./services/translate.service";
+// Module.
+export * from "./gp-all-module.module";
