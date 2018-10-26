@@ -20,6 +20,7 @@ export * from "./components/tables/gp-app-table-frame.component";
 export * from "./components/tables/gp-form-calendar-field.component";
 export * from "./components/tables/gp-form-checkbox-field.component";
 export * from "./components/tables/gp-form-dropdown-field.component";
+export * from "./components/tables/gp-form-dropdown-dynamic-field.component";
 export * from "./components/tables/gp-form-dropdown-related-field.component";
 export * from "./components/tables/gp-form-img-field.component";
 export * from "./components/tables/gp-form-switch-field.component";

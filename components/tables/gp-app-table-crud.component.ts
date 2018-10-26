@@ -15,6 +15,7 @@ import { GpFormTextFieldComponent } from './gp-form-text-field.component';
 import { GpFormTextAreaFieldComponent } from './gp-form-textarea-field.component';
 import { GpFormTimeFieldComponent } from './gp-form-time-field.component';
 import { GpFormWysiwygFieldComponent } from './gp-form-wysiwyg-field.component';
+import { GpFormDropdownDynamicFieldComponent } from 'gp-all-component/components/tables/gp-form-dropdown-dynamic-field.component';
 
 @Component({
   selector: 'gp-app-table-crud',
@@ -23,6 +24,8 @@ import { GpFormWysiwygFieldComponent } from './gp-form-wysiwyg-field.component';
   providers: [GPUtil]
 })
 export class GpAppTableCrudComponent implements OnInit {
+  @Input()
+  campoDropdownDinamico: string;
   // Nombre de la tabla a editar.
   @Input()
   tableName: string;
@@ -58,6 +61,16 @@ export class GpAppTableCrudComponent implements OnInit {
   @Input()
   cantRows: number;
 
+  // Exclusiones de la tabla y el formulario
+  @Input()
+  exclusionsForm: string[] = [];
+
+  @Input()
+  exclusionsTable: string[] = [];
+
+  @Input()
+  fieldsRq: string[] = [];
+
   @Output()
   rowSelected = new EventEmitter<any>();
 
@@ -79,6 +92,8 @@ export class GpAppTableCrudComponent implements OnInit {
   switchFormFields: QueryList<GpFormSwitchFieldComponent>;
   @ViewChildren(GpFormDropdownFieldComponent)
   dropdownFormFields: QueryList<GpFormDropdownFieldComponent>;
+  @ViewChildren(GpFormDropdownDynamicFieldComponent)
+  dropdownDynamicFormFields: QueryList<GpFormDropdownFieldComponent>;
   @ViewChildren(GpFormCheckboxFieldComponent)
   checkboxFormFields: QueryList<GpFormCheckboxFieldComponent>;
   @ViewChildren(GpFormCalendarFieldComponent)
@@ -176,7 +191,6 @@ export class GpAppTableCrudComponent implements OnInit {
       this.dialogErrors = false;
       this.tableService.list(this.tableNameDetail, true, false, null, this.filters).subscribe(
         data => {
-          //console.log('getMetadata response:' + JSON.stringify( data ) );
           if (data.ok) {
             this.actualizaDefinicionDetail(data.metadata);
             this.elementosDetail = data.data;
@@ -291,7 +305,6 @@ export class GpAppTableCrudComponent implements OnInit {
 
   actualizaDefinicionDetail(tableMetadata: TableMetadata) {
     let tempColumnasDetail: GpFormFieldDetail[] = [];
-    let tempColumnasTablaDetail: GpFormFieldDetail[] = [];
     let tempMastersDetails: GpFormFieldDetail[] = [];
 
     this.tableLabelDetail = tableMetadata.tableLabel;
@@ -347,11 +360,16 @@ export class GpAppTableCrudComponent implements OnInit {
     // Calcula el tipo de componente a utilizar para el control.
     // Si no se encuentra una representación mejor, se usa string.
     let selectedDisplay = false;
+    if (formField.fieldMetadata.fieldName == this.campoDropdownDinamico) {
+      formField.formFieldType = GpFormDropdownDynamicFieldComponent.FORM_FIELD_TYPE_DROPDOWN_DYNAMIC_FIELD;
+      formField.fieldMetadata.displayInfo.referencedTable = this.tableNameDetail;
+      selectedDisplay = true;
+    }
     if (formField.fieldMetadata.displayInfo.displayType == TableService.TEXT_AREA_DISPLAY_TYPE) {
       formField.formFieldType = GpFormTextAreaFieldComponent.FORM_FIELD_TYPE_TEXT_AREA_FIELD;
       selectedDisplay = true;
     }
-    if (formField.fieldMetadata.displayInfo.displayType == TableService.DROPDOWN_DISPLAY_TYPE) {
+    if (!selectedDisplay && formField.fieldMetadata.displayInfo.displayType == TableService.DROPDOWN_DISPLAY_TYPE) {
       formField.formFieldType = GpFormDropdownFieldComponent.FORM_FIELD_TYPE_DROPDOWN_FIELD;
       selectedDisplay = true;
     }
@@ -449,6 +467,7 @@ export class GpAppTableCrudComponent implements OnInit {
         } else {
           this.formControlDetail.editedRow = JSON.parse(JSON.stringify(data.data));
           this.formControlDetail.originalRow = JSON.parse(JSON.stringify(data.data));
+          this.formControlDetail.editedRow = this.formControlDetail.editedRow;
           console.log('Edited row: ' + JSON.stringify(this.formControlDetail.editedRow));
           let self = this;
           this.forEachFieldControl(function(col: GpFormFieldControl) {
@@ -611,7 +630,6 @@ export class GpAppTableCrudComponent implements OnInit {
   onDialogSaveDetail(event: any) {
     this.msgsDialog = [];
     let self = this;
-
     if (!this.validateEditRow(true, this.formControlDetail)) {
       this.formControl.lockFields = false;
       return;
@@ -626,6 +644,17 @@ export class GpAppTableCrudComponent implements OnInit {
             data => {
               if (data.ok) {
                 // Actualizamos el registro.
+                if (this.exclusionsTable.length > 0) {
+                  this.tableService.getValue(this.tableNameDetail, jsonModifiedRow).subscribe(data => {
+                    if (data.ok) {
+                      let jsonOriginalRow = data.data;
+                      self.formControlDetail.editedRow = jsonOriginalRow;
+                      this.forEachDetailField(function(col: GpFormFieldDetail) {
+                        self.selectedRowDetail[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
+                      });
+                    }
+                  });
+                }
                 this.forEachDetailField(function(col: GpFormFieldDetail) {
                   self.selectedRowDetail[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
                 });
@@ -822,6 +851,9 @@ export class GpAppTableCrudComponent implements OnInit {
     this.switchFormFields.forEach(col => {
       f(col);
     });
+    this.dropdownDynamicFormFields.forEach(col => {
+      f(col);
+    });
     this.dropdownFormFields.forEach(col => {
       f(col);
     });
@@ -848,5 +880,29 @@ export class GpAppTableCrudComponent implements OnInit {
     if (i > -1) {
       this.selectedRow = this.elementos[i];
     }
+  }
+
+  checkExcludeFieldsTable(col: any) {
+    let showCol: boolean = true;
+    if (this.exclusionsTable.length > 0) {
+      this.exclusionsTable.forEach(valor => {
+        if (col.fieldMetadata.fieldName == valor) {
+          showCol = false;
+        }
+      });
+    }
+    return showCol;
+  }
+
+  checkExcludeFieldsForm(col: any) {
+    let showCol: boolean = true;
+    if (this.exclusionsForm.length > 0) {
+      this.exclusionsForm.forEach(valor => {
+        if (col.fieldMetadata.fieldName == valor) {
+          showCol = false;
+        }
+      });
+    }
+    return showCol;
   }
 }
