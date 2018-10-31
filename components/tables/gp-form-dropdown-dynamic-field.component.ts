@@ -117,7 +117,6 @@ export class GpFormDropdownDynamicFieldComponent extends GpFormFieldControl {
   }
 
   getCurrentValueDropDown(editedRow: any) {
-    debugger;
     let filtersRq = [];
     if (this.fieldsRq.length > 0) {
       for (let field of this.fieldsRq) {

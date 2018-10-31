@@ -654,10 +654,11 @@ export class GpAppTableCrudComponent implements OnInit {
                       });
                     }
                   });
+                } else {
+                  this.forEachDetailField(function(col: GpFormFieldDetail) {
+                    self.selectedRowDetail[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
+                  });
                 }
-                this.forEachDetailField(function(col: GpFormFieldDetail) {
-                  self.selectedRowDetail[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
-                });
 
                 this.displayEdicionDetail = false;
                 this.changes.emit(true);
