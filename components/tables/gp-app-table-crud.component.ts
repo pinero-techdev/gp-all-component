@@ -657,37 +657,29 @@ export class GpAppTableCrudComponent implements OnInit {
           this.tableService.updateRow(this.tableNameDetail, jsonOriginalRow, jsonModifiedRow).subscribe(
             data => {
               if (data.ok) {
-                // Actualizamos el registro.
-                if (this.exclusionsTable.length > 0) {
+                if (this.exclusionsTable.length > 0 && !this.treeTableDetail) {
                   this.tableService.getValue(this.tableNameDetail, jsonModifiedRow).subscribe(data => {
                     if (data.ok) {
                       let jsonOriginalRow = data.data;
                       self.formControlDetail.editedRow = jsonOriginalRow;
+
                       this.forEachDetailField(function(col: GpFormFieldDetail) {
-                        if (self.treeTableDetail) {
-                          self.selectedTree.data[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
-                        } else {
-                          self.selectedRowDetail[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
-                        }
+                        self.selectedRowDetail[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
                       });
                     }
                   });
-                }
-
-                if (self.treeTableDetail) {
+                } else if (this.treeTableDetail) {
                   this.selectedTree.children = this.eliminarNodo(this.selectedTree.data);
-                }
 
-                this.forEachDetailField(function(col: GpFormFieldDetail) {
-                  if (self.treeTableDetail) {
+                  this.forEachDetailField(function(col: GpFormFieldDetail) {
                     self.selectedTree.data[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
-                  } else {
-                    self.selectedRowDetail[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
-                  }
-                });
+                  });
 
-                if (self.treeTableDetail) {
                   this.insertarNodo(this.selectedTree.data, this.selectedTree.children);
+                } else {
+                  this.forEachDetailField(function(col: GpFormFieldDetail) {
+                    self.selectedRowDetail[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
+                  });
                 }
 
                 this.displayEdicionDetail = false;
