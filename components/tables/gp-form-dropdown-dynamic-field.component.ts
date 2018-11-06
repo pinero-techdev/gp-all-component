@@ -108,12 +108,29 @@ export class GpFormDropdownDynamicFieldComponent extends GpFormFieldControl {
   }
 
   filterDynamicDropdown(event) {
-    if (event.target.value != null && event.target.value.length > 2) {
-      let filtersRq = [];
-      filtersRq.push(new Filter(null, 'textoFiltro', [event.target.value]));
-      this.formField.fieldMetadata.displayInfo.filters = filtersRq;
-      this.inicializa();
+    if (event.target.value != null) {
+      if (event.target.value.length == 0 || event.target.value.length > 2) {
+        let filtersRq: Filter[] = [];
+        filtersRq = this.resetFilter(this.formField.fieldMetadata.displayInfo.filters);
+        if (event.target.value.length > 2) {
+          filtersRq.push(new Filter(null, 'textoFiltro', [event.target.value]));
+        }
+        this.formField.fieldMetadata.displayInfo.filters = filtersRq;
+        this.inicializa();
+      }
     }
+  }
+
+  private resetFilter(filters: Filter[]): Filter[] {
+    let filtersRq: Filter[] = [];
+    if (filters && filters.length > 0) {
+      filters.forEach((filter: Filter) => {
+        if (filter.field != 'textoFiltro') {
+          filtersRq.push(filter);
+        }
+      });
+    }
+    return filtersRq;
   }
 
   getCurrentValueDropDown(editedRow: any) {
