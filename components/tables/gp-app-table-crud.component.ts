@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Message, TreeNode } from 'primeng/primeng';
 import { GPUtil } from '../../resources/data/gpUtil';
+import { TreeTableService } from '../../services/treetable.service';
 import { InfoCampoModificado } from '../../resources/data/infoCampoModificado';
 import { Filter, FilterOperationType, TableMetadata, TableService } from '../../services/table.service';
 import { GpFormControl, GpFormField, GpFormFieldControl, GpFormFieldDetail } from './gp-app-table-crud-shared';
@@ -15,13 +16,15 @@ import { GpFormTextFieldComponent } from './gp-form-text-field.component';
 import { GpFormTextAreaFieldComponent } from './gp-form-textarea-field.component';
 import { GpFormTimeFieldComponent } from './gp-form-time-field.component';
 import { GpFormWysiwygFieldComponent } from './gp-form-wysiwyg-field.component';
-import { GpFormDropdownDynamicFieldComponent } from 'gp-all-component/components/tables/gp-form-dropdown-dynamic-field.component';
+import { GpFormDropdownDynamicFieldComponent } from './gp-form-dropdown-dynamic-field.component';
+import { GPTreeTableComponent } from './gp-treetable.component';
 
 @Component({
   selector: 'gp-app-table-crud',
   templateUrl: './gp-app-table-crud.component.html',
   encapsulation: ViewEncapsulation.None,
-  providers: [GPUtil]
+  providers: [GPUtil],
+  entryComponents: [GPTreeTableComponent]
 })
 export class GpAppTableCrudComponent implements OnInit {
   @Input()
@@ -103,6 +106,8 @@ export class GpAppTableCrudComponent implements OnInit {
   calendarFormFields: QueryList<GpFormCalendarFieldComponent>;
   @ViewChildren(GpFormWysiwygFieldComponent)
   wysiwygFormFields: QueryList<GpFormWysiwygFieldComponent>;
+  @ViewChild('treeTableComponent')
+  treeTableComponent: GPTreeTableComponent;
 
   // Indicador de trabajando.
   working: boolean = true;
@@ -164,7 +169,13 @@ export class GpAppTableCrudComponent implements OnInit {
   // Campo que ha sido modificado por el usuario
   fieldChanged: InfoCampoModificado = null;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private tableService: TableService, private _gpUtil: GPUtil) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private tableService: TableService,
+    private treeTableService: TreeTableService,
+    private _gpUtil: GPUtil
+  ) {
     this.msgsGlobal = [];
     this.closeDialog();
   }
@@ -199,7 +210,7 @@ export class GpAppTableCrudComponent implements OnInit {
           if (data.ok) {
             this.actualizaDefinicionDetail(data.metadata);
             if (this.treeTableDetail) {
-              this.tratarTreeTable(data.data);
+              this.elementosDetail = this.treeTableService.tratarTreeTable(data.data, this.columnasDetail);
             } else {
               this.elementosDetail = data.data;
             }
@@ -469,6 +480,7 @@ export class GpAppTableCrudComponent implements OnInit {
 
   onRowSelectDetail(event: any) {
     if (this.treeTableDetail) {
+      this.selectedTree = event.node;
       this.selectedRowDetail = this.selectedTree.data;
     }
     this.tableService.selectOneRow(this.tableNameDetail, JSON.stringify(this.selectedRowDetail)).subscribe(
@@ -563,7 +575,7 @@ export class GpAppTableCrudComponent implements OnInit {
         if (data.ok) {
           // Borramos el registro.
           if (this.treeTableDetail) {
-            this.eliminarNodo(this.selectedRowDetail);
+            this.treeTableService.eliminarNodo(this.elementosDetail, this.selectedRowDetail, this.columnasDetail);
           } else {
             const i = this.elementosDetail.indexOf(this.selectedRowDetail);
             if (i >= 0) {
@@ -669,13 +681,17 @@ export class GpAppTableCrudComponent implements OnInit {
                     }
                   });
                 } else if (this.treeTableDetail) {
-                  this.selectedTree.children = this.eliminarNodo(this.selectedTree.data);
+                  this.selectedTree.children = this.treeTableService.eliminarNodo(this.elementosDetail, this.selectedTree.data, this.columnasDetail);
 
                   this.forEachDetailField(function(col: GpFormFieldDetail) {
                     self.selectedTree.data[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
                   });
-
-                  this.insertarNodo(this.selectedTree.data, this.selectedTree.children);
+                  this.elementosDetail = this.treeTableService.insertarNodo(
+                    this.elementosDetail,
+                    this.selectedTree.data,
+                    this.columnasDetail,
+                    this.selectedTree.children
+                  );
                 } else {
                   this.forEachDetailField(function(col: GpFormFieldDetail) {
                     self.selectedRowDetail[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
@@ -736,7 +752,7 @@ export class GpAppTableCrudComponent implements OnInit {
         if (data.ok) {
           // Insertamos el registro.
           if (this.treeTableDetail) {
-            this.insertarNodo(data.insertedRow);
+            this.elementosDetail = this.treeTableService.insertarNodo(this.elementosDetail, data.insertedRow, this.columnasDetail);
           } else {
             this.elementosDetail.push(data.insertedRow);
           }
@@ -931,138 +947,5 @@ export class GpAppTableCrudComponent implements OnInit {
       });
     }
     return showCol;
-  }
-
-  private tratarTreeTable(data: any) {
-    // data es un array que contiene los padres.
-    data.forEach(dato => {
-      this.elementosDetail.push(this.tratarNodo(dato));
-    });
-  }
-
-  private tratarNodo(nodo: any): TreeNode {
-    let dataObject: {} = {};
-
-    // para que sea completamente genérico, así los nombres de los campos del objeto coinciden con los fieldNames de metadata.
-    this.columnasDetail.forEach((columnaDetail: GpFormFieldDetail) => {
-      dataObject[columnaDetail.fieldMetadata.fieldName] = nodo[columnaDetail.fieldMetadata.fieldName];
-    });
-
-    let elemento: TreeNode = {
-      data: dataObject
-    };
-
-    if (nodo.listaChildren && nodo.listaChildren.length > 0) {
-      elemento.children = [];
-
-      // recursividad para tratar a los hijos
-      nodo.listaChildren.forEach(child => elemento.children.push(this.tratarNodo(child)));
-    }
-
-    return elemento;
-  }
-
-  private insertarNodo(nodo: any, children?: TreeNode[]): void {
-    // para que sea completamente genérico, así los nombres de los campos del objeto coinciden con los fieldNames de metadata.
-    let insertado: TreeNode = children ? this.transformarDataNodo(nodo, children) : this.transformarDataNodo(nodo);
-    let atributoId: string = this.obtenerAtributoId();
-    let atributoPadreId: string = this.obtenerAtributoPadreId(atributoId);
-
-    if (nodo[atributoPadreId]) {
-      // encontrar el padre al cual insertar el registro
-      let padre = this.encontrarPadreNodo(this.elementosDetail, nodo, atributoId, atributoPadreId);
-
-      if ((padre && !padre.children) || (padre && padre.children && padre.children.length < 1)) {
-        padre.children = [];
-      }
-      padre.children.push(insertado);
-    } else {
-      // si no tiene hay que insertarlo al elementosDetail directamente
-      this.elementosDetail.push(insertado);
-    }
-  }
-
-  private eliminarNodo(nodo: any): TreeNode[] {
-    // tiene padre?
-    // si -> quitarlo de la lista del padre -> eliminarlo
-    // no -> eliminarlo
-    // devolver la lista de hijos que tiene
-
-    let eliminado: TreeNode = this.transformarDataNodo(nodo);
-    let atributoId: string = this.obtenerAtributoId();
-    let atributoPadreId: string = this.obtenerAtributoPadreId(atributoId);
-
-    // encontrar el padre del cual quitar el registro
-    let itself: TreeNode;
-    if (nodo[atributoPadreId]) {
-      let padre = this.encontrarPadreNodo(this.elementosDetail, nodo, atributoId, atributoPadreId);
-
-      if (padre && padre.children && padre.children.length > 0) {
-        itself = padre.children.find((child: TreeNode) => child.data[atributoId] == eliminado.data[atributoId]);
-        const index: number = padre.children.indexOf(itself);
-        if (itself) {
-          padre.children.splice(index, 1);
-        }
-      }
-    } else {
-      itself = this.elementosDetail.find((child: TreeNode) => child.data[atributoId] == eliminado.data[atributoId]);
-      const index = this.elementosDetail.indexOf(itself, 0);
-      if (index > -1) {
-        this.elementosDetail.splice(index, 1);
-      }
-    }
-    return itself.children;
-    // se ha quitado de la lista. Pero y sus hijos!? caen con él...? y al actualizar??
-  }
-
-  private transformarDataNodo(nodo: any, children?: TreeNode[]): TreeNode {
-    let treeNode: TreeNode = { data: {} };
-
-    this.columnasDetail.forEach((columnaDetail: GpFormFieldDetail) => {
-      treeNode.data[columnaDetail.fieldMetadata.fieldName] = nodo[columnaDetail.fieldMetadata.fieldName];
-    });
-
-    if (children) treeNode.children = children;
-
-    return treeNode;
-  }
-
-  private obtenerAtributoId(): string {
-    let atributoId: string;
-
-    this.columnasDetail.forEach((columnaDetail: GpFormFieldDetail) => {
-      if (columnaDetail.fieldMetadata.id) {
-        atributoId = columnaDetail.fieldMetadata.fieldName;
-      }
-    });
-
-    return atributoId;
-  }
-
-  private obtenerAtributoPadreId(atributoId: string): string {
-    let atributoPadreId: string;
-
-    // obtener el atributo que contiene el código del padre
-    this.columnasDetail.forEach((columnaDetail: GpFormFieldDetail) => {
-      if (columnaDetail.fieldMetadata.displayInfo && columnaDetail.fieldMetadata.displayInfo.referencedField == atributoId) {
-        atributoPadreId = columnaDetail.fieldMetadata.fieldName;
-      }
-    });
-
-    return atributoPadreId;
-  }
-
-  private encontrarPadreNodo(nodosNivel: TreeNode[], nodo: any, atributoId: string, atributoPadreId: string): TreeNode {
-    let padre: TreeNode = nodosNivel.find((elemento: TreeNode) => elemento.data[atributoId] == nodo[atributoPadreId]);
-
-    if (!padre) {
-      nodosNivel.forEach((nivel: TreeNode) => {
-        if (!padre && nivel.children && nivel.children.length > 0) {
-          padre = this.encontrarPadreNodo(nivel.children, nodo, atributoId, atributoPadreId);
-        }
-      });
-    }
-
-    return padre;
   }
 }

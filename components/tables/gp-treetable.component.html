@@ -1,0 +1,21 @@
+<!-- @author 3digits -->
+
+<p-treeTable [value]="elementosDetail" selectionMode="single" [(selection)]="selectedTree" (onNodeSelect)="rowSelect($event)">
+    <p-header>
+        <div class="ui-helper-clearfix ui-grid-row" style="text-align: left;">
+            <div class="ui-grid-col-10">Mantenimiento de tabla {{tableLabelDetail}}</div>
+            <div class="ui-grid-col-2 mantenimientos">
+                <button type="button" label="Añadir" pButton (click)="dialogAddDetail()" class="addbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left White Wid30 Fs18 RaisedButton"
+                    icon="ui-icon-add" [(disabled)]="lockFields" aria-disabled="false" pTooltip="Añadir nuevo {{tableLabelDetail}}">
+                </button>
+            </div>
+        </div>
+    </p-header>
+    <div *ngFor="let col of columnasTablaDetail">
+    <p-column *ngIf="checkExcludeFieldsTable(col)"
+        [styleClass]="col.fieldMetadata.lengthInTable <=5 ? 'colsmall' : col.fieldMetadata.lengthInTable > 30 ? 'colbig': 'colmedium'"
+        [field]="col.fieldMetadata.fieldName"
+        [header]="col.fieldMetadata.displayInfo.fieldLabel">
+    </p-column>
+</div>
+</p-treeTable>

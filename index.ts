@@ -29,6 +29,8 @@ export * from "./components/tables/gp-form-textarea-field.component";
 export * from "./components/tables/gp-form-time-field.component";
 export * from "./components/tables/gp-form-wysiwyg-field.component";
 export * from "./components/dynamic/gp-dynamic.component";
+/** @author 3digits */
+export * from './components/tables/gp-treetable.component';
 //Resources (Classes)
 export * from "./resources/data/authGuard";
 export * from "./resources/data/redirectAuthGuard";
@@ -59,3 +61,5 @@ export * from "./services/table.service";
 export * from "./services/multi-idioma.service";
 export * from "./services/remote-fsys.service";
 export * from "./services/password.service";
+/** @author 3digits */
+export * from './services/treetable.service';
