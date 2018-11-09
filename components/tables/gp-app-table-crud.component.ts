@@ -77,6 +77,12 @@ export class GpAppTableCrudComponent implements OnInit {
   @Input()
   treeTableDetail: boolean = false;
 
+  @Input()
+  noShowTreeTable: string;
+
+  @Input()
+  noShowTreeTableValue: string;
+
   @Output()
   rowSelected = new EventEmitter<any>();
 
@@ -190,6 +196,7 @@ export class GpAppTableCrudComponent implements OnInit {
 
   cambiaTablaDetail(filterCode: string, filterColumn: string) {
     if (this.tableNameDetail != undefined) {
+      this.treeTableDetail = this.showTreeTable();
       this.workingDetail = true;
       this.columnasDetail = [];
       this.columnasTablaDetail = [];
@@ -262,7 +269,6 @@ export class GpAppTableCrudComponent implements OnInit {
     this.msgsDialog = [];
     this.msgsGlobal = [{ severity: 'info', detail: 'Cargando los datos de la tabla.' }];
     this.dialogErrors = false;
-
     if (this.rowSelectedFilters != null) {
       this.filters = [];
       this.filters = this.rowSelectedFilters;
@@ -947,5 +953,16 @@ export class GpAppTableCrudComponent implements OnInit {
       });
     }
     return showCol;
+  }
+
+  private showTreeTable(): boolean {
+    if (this.noShowTreeTable && this.noShowTreeTableValue) {
+      if (this.treeTableDetail && this.formControl.editedRow[this.noShowTreeTable] == this.noShowTreeTableValue) {
+        return false;
+      } else if (this.formControl.editedRow[this.noShowTreeTable] != this.noShowTreeTableValue) {
+        return true;
+      }
+    }
+    return false;
   }
 }
