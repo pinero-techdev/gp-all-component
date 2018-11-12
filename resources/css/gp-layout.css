@@ -1,5 +1,7 @@
 ﻿/** GENERAL **/
+
 /** CLASSES **/
+
 html {
     overflow-y: scroll;
 }
@@ -47,11 +49,13 @@ a {
 }
 
 /** IDS **/
+
 #router-outlet {
     height: inherit;
 }
 
 /** PRIMENG OVERWRITES **/
+
 .ui-dropdown-filter-container {
     width: 95%;
 }
@@ -72,9 +76,10 @@ button[disabled] {
 }
 
 /** TOPBAR **/
+
 .layout-container .topbar .topbar-left {
     background-color: #ffffff;
-    background-image: url("../images/logo_gp.png");
+    background-image: url('../images/logo_gp.png');
     background-position: center center;
     background-repeat: no-repeat;
 }
@@ -102,19 +107,22 @@ button[disabled] {
 }
 
 .control-valid {
-    border-left: 5px solid #42A948 !important; /* green */
+    border-left: 5px solid #42a948 !important;
+    /* green */
 }
 
 .control-error {
-    border-left: 5px solid #a94442 !important; /* red */
+    border-left: 5px solid #a94442 !important;
+    /* red */
 }
 
 /*para mostrar bien las validaciones*/
+
 p-dropdown {
     display: flex;
 }
 
-p-dropdown > .ui-dropdown {
+p-dropdown>.ui-dropdown {
     width: 100%;
 }
 
@@ -127,7 +135,7 @@ p-dropdown > .ui-dropdown {
     background-color: darkgrey !important;
 }
 
-.close-btn > span {
+.close-btn>span {
     left: 50% !important;
 }
 
@@ -187,11 +195,11 @@ p-dropdown > .ui-dropdown {
     width: 90% !important;
 }
 
-.grafico > div > canvas {
+.grafico>div>canvas {
     height: 27vh !important;
 }
 
-#graficoSearchContacto > div > canvas {
+#graficoSearchContacto>div>canvas {
     height: 27vh !important;
 }
 
@@ -199,12 +207,11 @@ p-dropdown > .ui-dropdown {
     height: 27vh;
 }
 
-.grafico-mapa > .jvectormap-container > svg {
-
+.grafico-mapa>.jvectormap-container>svg {
     height: 27vh;
 }
 
-.grafico-mapa > .jvectormap-container {
+.grafico-mapa>.jvectormap-container {
     height: 27vh;
     width: 35vw;
 }
@@ -229,31 +236,31 @@ p-dropdown > .ui-dropdown {
 }
 
 .azul {
-    background-color: #3F51B5;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    background-color: #3f51b5;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .plata {
     background-color: silver;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .dorado {
     background-color: #988642;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .negro {
     background-color: black;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .circular {
@@ -262,36 +269,36 @@ p-dropdown > .ui-dropdown {
 
 .verde {
     background-color: darkgreen;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .amarillo {
     background-color: yellow;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .rojo {
     background-color: red;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .naranja {
     background-color: orange;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -weçkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .material-label {
     top: -20px;
     font-size: 12px;
-    color: #3F51B5
+    color: #3f51b5;
 }
 
 .nopad {
@@ -326,7 +333,7 @@ body .ui-datatable tbody tr td {
     border: 1px solid #cacaca !important;
 }
 
-.ui-datatable .ui-datatable-thead > tr > th {
+.ui-datatable .ui-datatable-thead>tr>th {
     font-weight: normal;
     border: 1px solid #cacaca !important;
 }
@@ -344,7 +351,7 @@ body .ui-datatable tbody tr td {
     border-top: none;
 }
 
-#clientsSearch > .ui-tabview-panels {
+#clientsSearch>.ui-tabview-panels {
     min-height: 262px;
 }
 
@@ -370,6 +377,7 @@ body .ui-datatable tbody tr td {
 }
 
 /*componente edicion movimientos */
+
 body .ui-datatable .ui-datatable-header .ui-inputtext {
     color: #212121;
 }
@@ -379,7 +387,9 @@ body .ui-datatable .ui-datatable-header .ui-tabview-panels {
 }
 
 /*  */
+
 /* CALENDAR - LOS AÑOS SE VEÍAN CORTADOS*/
+
 .ui-datepicker select.ui-datepicker-year {
     width: 40%;
 }
@@ -391,13 +401,13 @@ body .ui-datatable .ui-datatable-header .ui-tabview-panels {
     position: relative;
 }
 
-.md-dropboxfield > label {
+.md-dropboxfield>label {
     top: -20px;
     font-size: 12px;
-    color: #3F51B5;
+    color: #3f51b5;
 }
 
-.md-dropboxfield > label {
+.md-dropboxfield>label {
     font-weight: normal;
     position: absolute;
     pointer-events: none;
@@ -429,6 +439,7 @@ body .ui-datatable .ui-datatable-header .ui-tabview-panels {
 }
 
 /* Banderas traducciones */
+
 .bandera {
     background-size: cover;
     background: center no-repeat;
@@ -472,7 +483,7 @@ body .ui-datatable .ui-datatable-header .ui-tabview-panels {
     background-color: green !important;
 }
 
-.ms-dialog > .ui-multiselect .ui-multiselect-panel {
+.ms-dialog>.ui-multiselect .ui-multiselect-panel {
     position: relative !important;
 }
 
@@ -486,23 +497,24 @@ body .ui-datatable .ui-datatable-header .ui-tabview-panels {
     height: 30px;
 }
 
-.ui-datatable-tfoot > tr > td {
+.ui-datatable-tfoot>tr>td {
     text-align: left;
     border-color: #cacaca !important;
     background-color: #fff;
 }
 
-p-footer > .ui-grid-row > .ui-grid-col-2 {
-    padding: .25em .5em;
+p-footer>.ui-grid-row>.ui-grid-col-2 {
+    padding: 0.25em 0.5em;
 }
 
 /*Corrección para que no salga ovalado el botón dentro de un fileupload*/
+
 .ui-fluid .ui-fileupload-content .ui-button-icon-only {
     width: 2em;
     height: 2em;
 }
 
-.dialogResponsive > .ui-dialog {
+.dialogResponsive>.ui-dialog {
     width: 90vw !important;
     height: 90vh !important;
     top: 1%;
@@ -510,7 +522,7 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
     overflow-y: scroll;
 }
 
-.dialogMiniResponsive > .ui-dialog {
+.dialogMiniResponsive>.ui-dialog {
     width: 25vw !important;
 }
 
@@ -537,6 +549,25 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
 }
 
 /** Visualizador de fechas dentro de input-fields **/
-.ui-calendar > input {
+
+.ui-calendar>input {
     width: inherit;
+}
+
+/** @author 3digits **/
+
+body .ui-treetable tbody .ui-treetable-row {
+    background: none;
+}
+
+table.undefined {
+    background-color: var(--table-background-color);
+}
+
+td {
+    border-right: 1px solid var(--table-border-color) !important;
+}
+
+td:last-child {
+    border-right: none !important;
 }
