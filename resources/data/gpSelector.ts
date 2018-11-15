@@ -1,7 +1,6 @@
-import {SelectItem} from "primeng/primeng";
+import {SelectItem} from 'primeng/primeng';
 
 export class GPSelector {
-
     /**
      * Opciones del options
      * @type {Array}
@@ -15,9 +14,9 @@ export class GPSelector {
 
     /**
      * constructor del Selector
-     * @param multiSelect - indica si la selección es de un único valor o de varios
+     * @param isMultiSelect - indica si la selección es de un único valor o de varios
      */
-    constructor(public isMultiSelect?: boolean){
+    constructor(public isMultiSelect?: boolean) {
         if (isMultiSelect) {
             this.selection = [];
         } else {
@@ -33,32 +32,40 @@ export class GPSelector {
      * @param descripcionPorDefecto - Descripción que se pondrá en la primera opción del options
      * @param separadorAtributosDesc - Separador que se utilizará para separar los atributos de la etiqueta del options. Por defecto es '-'
      * @param autoSeleccion - Indica si se tiene que seleccionar por defecto un valor, en caso de que solo haya una opción disponible
+     * @param translate - Pipe dedicado a traduccion
      */
-    public cargarDatos(datos:any[], atributoValor:string, atributoDesc:string[], descripcionPorDefecto?:string, separadorAtributosDesc?:string, autoSeleccion?: boolean) {
-
+    public cargarDatos(datos: any[], atributoValor: string, atributoDesc: string[], descripcionPorDefecto?: string,
+                       separadorAtributosDesc?: string, autoSeleccion?: boolean, translate?: any) {
         this.options = [];
         let separador = ' - ';
         if (separadorAtributosDesc) {
             separador = ' ' + separadorAtributosDesc + ' ';
         }
-        if (descripcionPorDefecto && (!datos || (datos != null && datos.length != 1) || !autoSeleccion)) {
-            this.options.push({label: descripcionPorDefecto, value: null});
+        if (descripcionPorDefecto && (!datos || (datos != null && datos.length !== 1) || !autoSeleccion)) {
+            if (translate) {
+                this.options.push({label: translate.transform(descripcionPorDefecto), value: null});
+            } else {
+                this.options.push({label: descripcionPorDefecto, value: null});
+            }
         }
         if (datos != null) {
-            for (let dato of datos) {
+            for (const dato of datos) {
                 let label = '';
-                for (let descripcion of atributoDesc) {
-                    if (label.length != 0) {
+                for (const descripcion of atributoDesc) {
+                    if (label.length !== 0) {
                         label += separador;
                     }
-                    label += dato[descripcion];
+                    if (translate) {
+                        label += translate.transform(dato[descripcion]);
+                    } else {
+                        label += dato[descripcion];
+                    }
                 }
                 this.options.push({label: label, value: dato[atributoValor]});
             }
-            if (autoSeleccion && datos.length == 1) {
-                this.selection = this.isMultiSelect  ? [this.options[0].value] : this.options[0].value;
+            if (autoSeleccion && datos.length === 1) {
+                this.selection = this.isMultiSelect ? [this.options[0].value] : this.options[0].value;
             }
         }
     }
-
 }

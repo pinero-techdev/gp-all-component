@@ -22,7 +22,7 @@ export class GpAppLoginComponent implements OnInit, OnDestroy {
     password: string;
     url: string;
     msgs: Message[] = [];
-    btnModificaPwdVisible: boolean = false;
+    btnModificaPwdVisible = false;
     working: boolean = false;
 
     passwordErrors: string[] = [

@@ -83,7 +83,6 @@ import {GpAppMainMenuComponent} from './components/menu/gp.app.main.menu.compone
 import {GpAppLoginComponent} from './components/login/gp.app.login.component';
 import {GpAppLoadingIndicatorComponent} from './components/loading-indicator/gp.app.loading-indicator.component';
 import {GPDynamicComponent} from './components/dynamic/gp.dynamic.component';
-import {TranslatePipe} from './resources/pipes/translate.pipe';
 import {GPUppercaseDirective} from './directives/gp-uppercase.directive';
 import {GPLowercaseDirective} from './directives/gp-lowercase.directive';
 import {FocusDirective} from './directives/focus.directive';
@@ -105,9 +104,6 @@ import {FocusDirective} from './directives/focus.directive';
         // Directives.
         FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
 
-        // Pipes.
-        TranslatePipe,
-
         // Components.
         GPDynamicComponent, GpAppEmptyComponent,
         GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
@@ -120,9 +116,6 @@ import {FocusDirective} from './directives/focus.directive';
     declarations: [
         // Directives.
         FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
-
-        // Pipes.
-        TranslatePipe,
 
         // Components.
         GPDynamicComponent, GpAppEmptyComponent,

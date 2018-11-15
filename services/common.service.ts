@@ -1,12 +1,12 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {RequestOptions} from 'gp-all-component/resources/data/RequestOptions';
 import {Observable} from 'rxjs/Observable'
 import 'rxjs/Rx';
 import {FilterDataTable} from '../resources/data/filterDataTable';
 import {SortDataTable} from '../resources/data/sortDataTable';
 import {hash} from '../util/sha256';
 import {GlobalService} from './global.service';
-import {RequestOptions} from "gp-all-component/resources/data/RequestOptions";
 
 export class CommonRs {
     ok: boolean;
@@ -24,6 +24,7 @@ export class CommonRq {
     filters: FilterDataTable[];
     obtainTotalRows: boolean;
     sessionId: string;
+    idioma: string;
 }
 
 export class ErrorInformation {
