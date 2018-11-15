@@ -73,6 +73,18 @@ export class TreeTableService {
     return itself.children;
   }
 
+  obtenerAtributoId(columnasDetail: GpFormFieldDetail[]): string {
+    let atributoId: string;
+
+    columnasDetail.forEach((columnaDetail: GpFormFieldDetail) => {
+      if (columnaDetail.fieldMetadata.id) {
+        atributoId = columnaDetail.fieldMetadata.fieldName;
+      }
+    });
+
+    return atributoId;
+  }
+
   /***********************************************************************************************************************/
   /*********************************************          PRIVATE ZONE           *****************************************/
   /***********************************************************************************************************************/
@@ -122,18 +134,6 @@ export class TreeTableService {
     }
 
     return padre;
-  }
-
-  private obtenerAtributoId(columnasDetail: GpFormFieldDetail[]): string {
-    let atributoId: string;
-
-    columnasDetail.forEach((columnaDetail: GpFormFieldDetail) => {
-      if (columnaDetail.fieldMetadata.id) {
-        atributoId = columnaDetail.fieldMetadata.fieldName;
-      }
-    });
-
-    return atributoId;
   }
 
   private obtenerAtributoPadreId(atributoId: string, columnasDetail: GpFormFieldDetail[]): string {

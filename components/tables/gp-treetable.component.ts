@@ -3,6 +3,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { GpFormFieldDetail } from 'gp-all-component/components/tables/gp-app-table-crud-shared';
+import { TreeTableService } from 'gp-all-component/services/treetable.service';
 
 @Component({
   selector: 'gp-treetable',
@@ -33,13 +34,17 @@ export class GPTreeTableComponent {
   @Input()
   selectedTree: TreeNode;
 
+  // Cantidad registros por pagina del grid
+  @Input()
+  cantRows: number = 10;
+
   @Output()
   onRowSelect: EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
   onDialogAddDetail: EventEmitter<null> = new EventEmitter<null>();
 
-  constructor() {}
+  constructor(private treeTableService: TreeTableService) {}
 
   checkExcludeFieldsTable(col: any): boolean {
     let showCol: boolean = true;
@@ -53,11 +58,7 @@ export class GPTreeTableComponent {
     return showCol;
   }
 
-  rowSelect(event: any): void {
-    this.onRowSelect.emit(event);
-  }
-
-  dialogAddDetail(): void {
-    this.onDialogAddDetail.emit(null);
-  }
+  nodeSelect = (event: any) => this.onRowSelect.emit(event);
+  dialogAddDetail = () => this.onDialogAddDetail.emit();
+  obtenerAtributoId = (): string => this.treeTableService.obtenerAtributoId(this.columnasTablaDetail);
 }
