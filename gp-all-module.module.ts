@@ -86,47 +86,54 @@ import {GPDynamicComponent} from './components/dynamic/gp.dynamic.component';
 import {GPUppercaseDirective} from './directives/gp-uppercase.directive';
 import {GPLowercaseDirective} from './directives/gp-lowercase.directive';
 import {FocusDirective} from './directives/focus.directive';
+import {AuthGuard} from './resources/data/authGuard';
+import {AppMenuService} from './services/app-menu.service';
+import {CommonService} from './services/common.service';
+import {GlobalService} from './services/global.service';
+import {LoginService} from './services/login.service';
+import {MultiIdomaService} from './services/multi-idioma.service';
+import {TableService} from './services/table.service';
 
 @NgModule({
-    imports: [
-        AccordionModule, AutoCompleteModule, BlockUIModule, BrowserAnimationsModule, BrowserModule,
-        CalendarModule, ChartModule, CheckboxModule, ChipsModule, ConfirmDialogModule, CustomFormsModule,
-        DataGridModule, DataListModule, DataTableModule, DialogModule, DropdownModule, EditorModule, FieldsetModule,
-        FileUploadModule, FormsModule, GalleriaModule, GrowlModule, HttpClientModule, HttpModule, InputSwitchModule,
-        InputTextModule, InputTextareaModule, ListboxModule, MenuModule, MenubarModule, MessagesModule,
-        MultiSelectModule, OrderListModule, OverlayPanelModule, PanelMenuModule, PanelModule,
-        PickListModule, ProgressBarModule, ProgressSpinnerModule, RadioButtonModule,
-        RatingModule, ReactiveFormsModule, RouterModule, ScheduleModule, ScrollPanelModule,
-        SharedModule, SlideMenuModule, SliderModule, SpinnerModule,
-        SplitButtonModule, TabViewModule, ToolbarModule, TooltipModule, TreeModule, TriStateCheckboxModule
-    ],
-    exports: [
-        // Directives.
-        FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
+              imports: [
+                  AccordionModule, AutoCompleteModule, BlockUIModule, BrowserAnimationsModule, BrowserModule,
+                  CalendarModule, ChartModule, CheckboxModule, ChipsModule, ConfirmDialogModule, CustomFormsModule,
+                  DataGridModule, DataListModule, DataTableModule, DialogModule, DropdownModule, EditorModule, FieldsetModule,
+                  FileUploadModule, FormsModule, GalleriaModule, GrowlModule, HttpClientModule, HttpModule, InputSwitchModule,
+                  InputTextModule, InputTextareaModule, ListboxModule, MenuModule, MenubarModule, MessagesModule,
+                  MultiSelectModule, OrderListModule, OverlayPanelModule, PanelMenuModule, PanelModule,
+                  PickListModule, ProgressBarModule, ProgressSpinnerModule, RadioButtonModule,
+                  RatingModule, ReactiveFormsModule, RouterModule, ScheduleModule, ScrollPanelModule,
+                  SharedModule, SlideMenuModule, SliderModule, SpinnerModule,
+                  SplitButtonModule, TabViewModule, ToolbarModule, TooltipModule, TreeModule, TriStateCheckboxModule
+              ],
+              exports: [
+                  // Directives.
+                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
 
-        // Components.
-        GPDynamicComponent, GpAppEmptyComponent,
-        GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
-        GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
-        GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
-        GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
-        GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
-        GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
-    ],
-    declarations: [
-        // Directives.
-        FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
+                  // Components.
+                  GPDynamicComponent, GpAppEmptyComponent, GpAppLoadingIndicatorComponent,
+                  GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
+                  GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
+                  GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
+                  GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
+                  GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
+                  GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
+              ],
+              declarations: [
+                  // Directives.
+                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
 
-        // Components.
-        GPDynamicComponent, GpAppEmptyComponent,
-        GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
-        GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
-        GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
-        GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
-        GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
-        GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
-    ],
-    providers: []
-})
+                  // Components.
+                  GPDynamicComponent, GpAppEmptyComponent, GpAppLoadingIndicatorComponent,
+                  GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
+                  GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
+                  GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
+                  GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
+                  GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
+                  GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
+              ],
+              providers: [AppMenuService, AuthGuard, CommonService, GlobalService, LoginService, MultiIdomaService, TableService]
+          })
 export class GpAllModule {
 }
