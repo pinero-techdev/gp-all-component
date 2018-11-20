@@ -1,0 +1,92 @@
+<table class="table-striped table-bordered">
+    <thead>
+    <tr>
+        <th *ngIf="config.selectable == SelectionType.MULTIPLE">
+            <ng-template [ngIf]="selectedData.length > 0">
+                ({{selectedData.length}})
+            </ng-template>
+        </th>
+        <th *ngFor="let column of columns" (click)="changeSort(column)">
+            {{column.title}}
+            <i class="table-sort-icon pull-right fa" aria-hidden="true"
+               *ngIf="column.sortable && config.sortable"
+               [class.fa-sort]="config.sortField !== column.name"
+               [class.fa-sort-asc]="config.sortField == column.name && config.sortDirection == SortDirection.ASC"
+               [class.fa-sort-desc]="config.sortField == column.name && config.sortDirection == SortDirection.DESC"
+            ></i>
+        </th>
+        <th *ngIf="config.actionsColumn">
+            <button (click)="exportToCsv()">Export</button>
+        </th>
+    </tr>
+    <tr *ngIf="config.filterable">
+        <th *ngIf="config.selectable == SelectionType.MULTIPLE">
+            <input type="checkbox" [ngModel]="allSelected()" (click)="toggleSelectAll()">
+        </th>
+        <th *ngFor="let column of columns">
+            <input type="text" [ngModel]="column.filter" (ngModelChange)="changeFilter(column, $event)">
+        </th>
+        <th *ngIf="config.actionsColumn">
+            <button (click)="clearFilters()">Clear filters</button>
+        </th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <td [attr.colspan]="footerColspan">
+            <p-paginator #pg [rows]="config.itemsPerPage"
+                         [totalRecords]="filteredData.length"
+                         [pageLinkSize]="4"
+                         (onPageChange)="changePage($event.first, $event.rows, $event.page, $event.pageCount)"
+                         [rowsPerPageOptions]="config.itemsPerPageOptions"></p-paginator>
+        </td>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr *ngIf="!sortedData || sortedData.length == 0">
+        <td [attr.colspan]="footerColspan">
+            No results
+        </td>
+    </tr>
+    <tr *ngFor="let item of currentPageData; let rowIndex=index" (click)="toggleItemSelection(item, $event)" [class.selected]="itemIsSelected(item)">
+        <td *ngIf="config.selectable == SelectionType.MULTIPLE">
+            <input type="checkbox" [ngModel]="itemIsSelected(item)" (click)="toggleItemSelection(item, $event)" [disabled]="!isSelectable(item)">
+        </td>
+        <!-- Edition -->
+        <ng-template [ngIf]="item._editting" [ngIfElse]="normalRow">
+            <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate; context:{$implicit:item, index: rowIndex, columns: columns }"></ng-content>
+        </ng-template>
+        <!-- Visualization -->
+        <ng-template #normalRow>
+            <ng-content *ngTemplateOutlet="(rowTemplate)?rowTemplate:defaultRowTemplate; context:{$implicit:item, index: rowIndex, columns: columns }"></ng-content>
+            <ng-template #defaultRowTemplate let-item let-columns="columns">
+                <td *ngFor="let column of columns">
+                    {{item[column.name]}}
+                </td>
+            </ng-template>
+        </ng-template>
+        <td *ngIf="config.actionsColumn">
+            <ng-content *ngTemplateOutlet="(actionsTemplate)?actionsTemplate:defaultActionsTemplate; context:{$implicit:item, index: rowIndex }"></ng-content>
+            <ng-template #defaultActionsTemplate let-item let-columns="columns">
+                <button [disabled]="(onEdition || onCreation || !isEditable(item))" [hidden]="item._editting" (click)="editItem(item)">Edit</button>
+                <button [disabled]="(onEdition || onCreation)" [hidden]="item._editting" (click)="deleteItem(item)">Delte</button>
+                <button [disabled]="((onEdition || onCreation) && !item._editting) || (item._editting && !itemValid(item))" [hidden]="!item._editting" (click)="saveItem(item)">Save</button>
+                <button [disabled]="(onEdition || onCreation) && !item._editting" [hidden]="!item._editting" (click)="cancelItem(item)">Cancel</button>
+            </ng-template>
+        </td>
+    </tr>
+    <ng-template [ngIf]="onCreation">
+        <td *ngIf="config.selectable == SelectionType.MULTIPLE"></td>
+        <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate; context:{$implicit:item, index: rowIndex, columns: columns }"></ng-content>
+        <td *ngIf="config.actionsColumn">
+            <button [disabled]="(onEdition || onCreation) && !item._editting && !itemValid(item)" [hidden]="!item._editting" (click)="saveItem(item)">Save</button>
+            <button [disabled]="(onEdition || onCreation) && !item._editting" [hidden]="!item._editting" (click)="cancelItem(item)">Cancel</button>
+        </td>
+    </ng-template>
+    </tbody>
+</table>
+<ng-template #defaultFormTemplate let-item let-columns="columns">
+    <td *ngFor="let column of columns">
+        <input type="text" [(ngModel)]="item[column.name]" [disabled]="!isEditableColumn(item[column.name], item, column)">
+    </td>
+</ng-template>

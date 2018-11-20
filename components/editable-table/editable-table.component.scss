@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid gray;
+}
+thead tr {
+  background-color: #283593;
+  color: white;
+}
+tbody {
+  tr.selected {
+    background-color: #00cceb;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+    &.selected{
+      background-color: #00cceb;
+    }
+  }
+}
+tfoot {
+  padding: 0;
+  tr {
+    padding: 0;
+    td {
+      padding: 0;
+    }
+  }
+}
