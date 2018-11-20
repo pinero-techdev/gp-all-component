@@ -15,7 +15,7 @@ import {SaveEvent} from "../resources/save-event";
     templateUrl: './editable-table.component.html',
     styleUrls: ['./editable-table.component.scss']
 })
-export class EditableTableComponent implements OnInit {
+export class GpAppEditableTableComponent implements OnInit {
     private _selectedData: any[] = [];
     private _columns: TableColumn[] = [];
     SelectionType = SelectionType;

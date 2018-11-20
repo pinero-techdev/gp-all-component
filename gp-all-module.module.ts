@@ -89,6 +89,7 @@ import { TranslatePipe } from './resources/pipes/translate.pipe';
 import { GPUppercaseDirective } from './directives/gp-uppercase.directive';
 import { GPLowercaseDirective } from './directives/gp-lowercase.directive';
 import { FocusDirective } from './directives/focus.directive';
+import {GpAppEditableTableComponent} from "./components/editable-table/editable-table.component";
 
 @NgModule({
     imports: [
@@ -111,7 +112,7 @@ import { FocusDirective } from './directives/focus.directive';
         TranslatePipe,
 
         // Components.
-        GPDynamicComponent, GpAppEmptyComponent,
+        GPDynamicComponent, GpAppEditableTableComponent, GpAppEmptyComponent,
         GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
         GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
         GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
@@ -127,7 +128,7 @@ import { FocusDirective } from './directives/focus.directive';
         TranslatePipe,
 
         // Components.
-        GPDynamicComponent, GpAppEmptyComponent,
+        GPDynamicComponent, GpAppEditableTableComponent, GpAppEmptyComponent,
         GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
         GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
         GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
