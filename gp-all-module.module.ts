@@ -91,6 +91,7 @@ import { GPLowercaseDirective } from './directives/gp-lowercase.directive';
 import { FocusDirective } from './directives/focus.directive';
 import {GpAppEditableTableComponent} from "./components/editable-table/editable-table.component";
 import {GpAppEditableTableCrudComponent} from "./components/editable-table-crud/editable-table-crud.component";
+import {GpAppInputWithMetadataComponent} from "./components/input-with-metadata/input-with-metadata.component";
 import {TableMetadataService} from "./services/table-metadata.service";
 
 @NgModule({
@@ -114,7 +115,7 @@ import {TableMetadataService} from "./services/table-metadata.service";
         TranslatePipe,
 
         // Components.
-        GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent,
+        GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppInputWithMetadataComponent,
         GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
         GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
         GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
@@ -130,7 +131,7 @@ import {TableMetadataService} from "./services/table-metadata.service";
         TranslatePipe,
 
         // Components.
-        GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent,
+        GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppInputWithMetadataComponent,
         GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
         GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
         GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,

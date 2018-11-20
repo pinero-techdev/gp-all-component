@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TableConfig} from "../../resources/data/table-config.model";
 import {Paginator} from "primeng/primeng";
-import {TableColumn} from "../../resources/data/table-column.model";
+import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {SortDirection} from "../../resources/data/sort-direction.enum";
 import {SelectionType} from "../../resources/data/selection-type.enum";
 import {SaveEvent} from "../../resources/data/save-event.model";
@@ -13,11 +13,12 @@ import {SaveEvent} from "../../resources/data/save-event.model";
 @Component({
     selector: 'gp-app-editable-table',
     templateUrl: './editable-table.component.html',
-    styleUrls: ['./editable-table.component.scss']
+    styleUrls: ['./editable-table.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class GpAppEditableTableComponent implements OnInit {
     private _selectedData: any[] = [];
-    private _columns: TableColumn[] = [];
+    private _columns: TableColumnMetadata[] = [];
     SelectionType = SelectionType;
     SortDirection = SortDirection;
     editionOriginal: any;
@@ -40,10 +41,10 @@ export class GpAppEditableTableComponent implements OnInit {
     * */
     @Input() actionsTemplate: TemplateRef<any>;
     @Input()
-    get columns(): TableColumn[] {
+    get columns(): TableColumnMetadata[] {
         return this._columns;
     }
-    set columns(value: TableColumn[]) {
+    set columns(value: TableColumnMetadata[]) {
         this._columns = value.sort( (item1, item2) => {
             return item1.order - item2.order;
         }) || [];
@@ -129,7 +130,7 @@ export class GpAppEditableTableComponent implements OnInit {
 
     }
 
-    changeSort(column: TableColumn) {
+    changeSort(column: TableColumnMetadata) {
         if (!this.config.sortable || !column.sortable) {
             return;
         }
@@ -141,7 +142,7 @@ export class GpAppEditableTableComponent implements OnInit {
         }
     }
 
-    changeFilter(column: TableColumn, filterValue) {
+    changeFilter(column: TableColumnMetadata, filterValue) {
         this.paginator.changePage(0);
         column.filter = filterValue;
     }
@@ -336,4 +337,7 @@ export class GpAppEditableTableComponent implements OnInit {
         return true;
     }
 
+    isEditableColumn(value: any, item: any, column: TableColumnMetadata): boolean {
+        return true;
+    }
 }

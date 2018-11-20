@@ -1,4 +1,4 @@
-export class TableColumn {
+export class TableColumnMetadata {
     name: string;
     label: string;
     sortable: boolean = true;
@@ -8,6 +8,6 @@ export class TableColumn {
     editable: boolean = true;
     required: boolean = false;
     order: number = -1;
-    validateFn: (value:any, item: any, column: TableColumn) => boolean;
-    editabeFn: (value:any, item: any, column: TableColumn) => boolean;
+    validateFn: (value:any, item: any, column: TableColumnMetadata) => boolean;
+    editabeFn: (value:any, item: any, column: TableColumnMetadata) => boolean;
 }

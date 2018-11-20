@@ -1,6 +1,6 @@
 import {SortDirection} from "./sort-direction.enum";
 import {SelectionType} from "./selection-type.enum";
-import {TableColumn} from "./table-column.model";
+import {TableColumnMetadata} from "./table-column-metadata.model";
 
 export class TableConfig {
     title: string = '';
@@ -18,6 +18,6 @@ export class TableConfig {
     sortDirection: SortDirection = SortDirection.ASC;
     exportable: boolean = true;
     exportFilename: string = 'export';
-    validateFn: (item: any, columns: TableColumn[]) => boolean; // custom form validation
-    editableFn: (item: any, columns: TableColumn[]) => boolean;
+    validateFn: (item: any, columns: TableColumnMetadata[]) => boolean; // custom form validation
+    editableFn: (item: any, columns: TableColumnMetadata[]) => boolean;
 }

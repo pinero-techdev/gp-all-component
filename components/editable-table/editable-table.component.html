@@ -24,7 +24,7 @@
             <input type="checkbox" [ngModel]="allSelected()" (click)="toggleSelectAll()">
         </th>
         <th *ngFor="let column of columns">
-            <input type="text" [ngModel]="column.filter" (ngModelChange)="changeFilter(column, $event)">
+            <gp-app-input-with-metadata [ngModel]="column.filter" (ngModelChange)="changeFilter(column, $event)"></gp-app-input-with-metadata>
         </th>
         <th *ngIf="config.actionsColumn">
             <button (click)="clearFilters()">Clear filters</button>
@@ -87,6 +87,6 @@
 </table>
 <ng-template #defaultFormTemplate let-item let-columns="columns">
     <td *ngFor="let column of columns">
-        <input type="text" [(ngModel)]="item[column.name]" [disabled]="!isEditableColumn(item[column.name], item, column)">
+        <gp-app-input-with-metadata [(ngModel)]="item[column.name]" [disabled]="!isEditableColumn(item[column.name], item, column)"></gp-app-input-with-metadata>
     </td>
 </ng-template>

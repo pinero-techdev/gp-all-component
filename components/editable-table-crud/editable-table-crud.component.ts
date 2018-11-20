@@ -3,7 +3,7 @@ import {GPUtil} from "../../resources/data/gpUtil";
 import {Router} from "@angular/router";
 import {TableService} from "../../services/table.service";
 import {Message} from "primeng/api";
-import {TableColumn} from "../../resources/data/table-column.model";
+import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {TableConfig} from "../../resources/data/table-config.model";
 import {TableMetadataService} from "../../services/table-metadata.service";
 
@@ -21,7 +21,7 @@ export class GpAppEditableTableCrudComponent {
     msgsGlobal: Message[] = [];
     data: any[] = [];
     tableConfig = new TableConfig();
-    columns: TableColumn[];
+    columns: TableColumnMetadata[];
     // Nombre de la tabla a editar.
     @Input()
     get tableName(): string {
@@ -40,6 +40,7 @@ export class GpAppEditableTableCrudComponent {
         this.selectedDataChange.emit(this._selectedData);
     };
     @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+    @Output() setTableColumns: EventEmitter<any> = new EventEmitter<any>();
     constructor(private router: Router, private tableService: TableService, private _gpUtil: GPUtil, private _tableMetadataService: TableMetadataService) {
         this.msgsGlobal = [];
     }
@@ -51,6 +52,9 @@ export class GpAppEditableTableCrudComponent {
             data => {
                 this.tableConfig.title = data.metadata.tableLabel;
                 this.columns = this._tableMetadataService.getTableColumnsFromMetadata(data.metadata.fields);
+                this.setTableColumns.emit({columns: this.columns, setColumns: (tableColumns) => {
+                    this.columns = tableColumns;
+                }});
                 this.data = data.data;
             },
             err => {
