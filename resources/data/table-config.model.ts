@@ -3,6 +3,7 @@ import {SelectionType} from "./selection-type.enum";
 import {TableColumn} from "./table-column.model";
 
 export class TableConfig {
+    title: string = '';
     sortable: boolean = true;
     filterable: boolean = true;
     actionsColumn: boolean = true;

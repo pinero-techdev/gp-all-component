@@ -1,0 +1,9 @@
+<div *ngIf="loading">
+    <gp-app-loading-indicator></gp-app-loading-indicator>
+</div>
+<gp-app-editable-table *ngIf="!loading"
+                       [columns]="columns"
+                       [config]="tableConfig"
+                       [data]="data"
+                       [(selectedData)]="selectedData">
+    </gp-app-editable-table>

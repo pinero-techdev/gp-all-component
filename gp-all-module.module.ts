@@ -90,6 +90,8 @@ import { GPUppercaseDirective } from './directives/gp-uppercase.directive';
 import { GPLowercaseDirective } from './directives/gp-lowercase.directive';
 import { FocusDirective } from './directives/focus.directive';
 import {GpAppEditableTableComponent} from "./components/editable-table/editable-table.component";
+import {GpAppEditableTableCrudComponent} from "./components/editable-table-crud/editable-table-crud.component";
+import {TableMetadataService} from "./services/table-metadata.service";
 
 @NgModule({
     imports: [
@@ -112,7 +114,7 @@ import {GpAppEditableTableComponent} from "./components/editable-table/editable-
         TranslatePipe,
 
         // Components.
-        GPDynamicComponent, GpAppEditableTableComponent, GpAppEmptyComponent,
+        GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent,
         GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
         GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
         GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
@@ -128,7 +130,7 @@ import {GpAppEditableTableComponent} from "./components/editable-table/editable-
         TranslatePipe,
 
         // Components.
-        GPDynamicComponent, GpAppEditableTableComponent, GpAppEmptyComponent,
+        GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent,
         GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
         GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
         GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
@@ -137,6 +139,7 @@ import {GpAppEditableTableComponent} from "./components/editable-table/editable-
         GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
     ],
     providers: [
+        TableMetadataService
     ]
 })
 export class GpAllModule {

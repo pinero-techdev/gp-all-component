@@ -14,6 +14,7 @@ export * from "./components/rating/gp.app.rating.component";
 export * from "./components/redirect/gp.app.redirect.component";
 export * from "./components/remote-fsys/gp.app.remote-fsys-picker.component";
 export * from "./components/editable-table/editable-table.component";
+export * from "./components/editable-table-crud/editable-table-crud.component";
 export * from "./components/tables/gp-app-table-crud.component";
 export * from "./components/tables/gp-app-table-frame.component";
 export * from "./components/tables/gp-form-calendar-field.component";
@@ -74,5 +75,6 @@ export * from "./services/multi-idioma.service";
 export * from "./services/remote-fsys.service";
 export * from "./services/password.service";
 export * from "./services/translate.service";
+export * from "./services/table-metadata.service";
 // Module.
 export * from "./gp-all-module.module";

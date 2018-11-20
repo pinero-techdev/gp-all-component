@@ -7,7 +7,7 @@
             </ng-template>
         </th>
         <th *ngFor="let column of columns" (click)="changeSort(column)">
-            {{column.title}}
+            {{column.label}}
             <i class="table-sort-icon pull-right fa" aria-hidden="true"
                *ngIf="column.sortable && config.sortable"
                [class.fa-sort]="config.sortField !== column.name"
