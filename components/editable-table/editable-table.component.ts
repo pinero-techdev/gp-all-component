@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
-import {TableConfig} from "../resources/table-config";
+import {TableConfig} from "../../resources/data/table-config.model";
 import {Paginator} from "primeng/primeng";
-import {TableColumn} from "../resources/table-column";
-import {SortDirection} from "../resources/sort-direction";
-import {SelectionType} from "../resources/selection-type";
-import {SaveEvent} from "../resources/save-event";
+import {TableColumn} from "../../resources/data/table-column.model";
+import {SortDirection} from "../../resources/data/sort-direction.enum";
+import {SelectionType} from "../../resources/data/selection-type.enum";
+import {SaveEvent} from "../../resources/data/save-event.model";
 
 /*
 *  Data order: data -> filteredData -> sortedData -> currentPageData
