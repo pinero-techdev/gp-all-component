@@ -1,6 +1,7 @@
-import {Component, ViewEncapsulation} from "@angular/core";
+import {Component, Input, ViewEncapsulation} from "@angular/core";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {CustomInput} from "../../resources/data/custom-input";
+import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 
 @Component({
     selector: 'gp-app-input-with-metadata',
@@ -11,5 +12,5 @@ import {CustomInput} from "../../resources/data/custom-input";
     ]
 })
 export class GpAppInputWithMetadataComponent extends CustomInput {
-    
+    @Input() column: TableColumnMetadata;
 }
