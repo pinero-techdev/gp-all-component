@@ -97,6 +97,7 @@ export class FieldDisplayInfo {
     fieldDescriptions:string[];
     textProperties:string[];
     relatedField:string;
+    relatedFieldExt:string;
     translationInfo:TranslationInfo;
 
 
