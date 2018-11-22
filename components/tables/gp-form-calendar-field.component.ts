@@ -45,7 +45,7 @@ export class GpFormCalendarFieldComponent extends GpFormFieldControl implements 
   copyValueFromControlToEditedRow( editedRow : any) {
     let value = editedRow[this.formField.fieldMetadata.fieldName];
     console.log("GpFormCalendarFieldComponent.copyValueFromControlToEditedRow currentValueDate " + JSON.stringify( this.currentValueDate ) );
-    let newValue = GPUtil.dateToYyyymmdd( this.currentValueDate, this.dateFormat ); // GPUtil.dateToYyyymmdd( this.currentValueDate, this.dateFormat );
+    let newValue = GPUtil.dateToYyyymmdd( this.currentValueDate, this.dateFormat, value ); // GPUtil.dateToYyyymmdd( this.currentValueDate, this.dateFormat );
     console.log("GpFormCalendarFieldComponent.copyValueFromControlToEditedRow currentValue '" + value + "' -> '" + newValue + "'" );
     // console.log("GpFormFieldComponent.changeItemValue newValue '" + newValue + "'" );
     editedRow[this.formField.fieldMetadata.fieldName] = newValue;

@@ -17,6 +17,7 @@ export class GPUtil {
     public static readonly odd_reC = new RegExp("\u00C7", "g");
     public static readonly odd_rec = new RegExp("\u00E7", "g");
     public static readonly odd_reOthers = new RegExp("[\u0080-\uFFFF]", "g");
+    public static ddmmyyyyRegex = new RegExp ("^[0-9]{2}(-)[0-9]{2}(-)[0-9]{4}");
 
     public static normaliza(s:string):string {
         s = s.replace(GPUtil.odd_reA, "A");
@@ -37,7 +38,7 @@ export class GPUtil {
         return s;
     }
 
-    public static dateToYyyymmdd(dt:Date, possibleFormat:string):string {
+    public static dateToYyyymmdd(dt:Date, possibleFormat:string, value:string):string {
         if (dt == null) {
             return null;
         }
@@ -55,16 +56,32 @@ export class GPUtil {
         let y = "000" + dt.getFullYear();
         let m = "0" + ( dt.getMonth() + 1 );
         let d = "0" + dt.getDate();
-        return y.substr(y.length - 4) + "-" + m.substr(m.length - 2) + "-" + d.substr(d.length - 2);
+        
+        if(GPUtil.ddmmyyyyRegex.test(value)) {
+            return  d.substr(d.length - 2)  + "-" +  m.substr(m.length - 2) +  "-" + y.substr(y.length - 4);
+        } else {
+            return y.substr(y.length - 4) + "-" + m.substr(m.length - 2) + "-" + d.substr(d.length - 2);
+        }
     }
 
     public static yyyymmddToDate(s:string):Date {
+        let y: number;
+        let m: number;
+        let d: number;
+
         if (s == null || s == "") {
             return null;
         }
-        let y = parseInt(s.substr(0, 4));
-        let m = parseInt(s.substr(5, 7));
-        let d = parseInt(s.substr(8, 10));
+
+        if(GPUtil.ddmmyyyyRegex.test(s)) {
+            y = parseInt(s.substr(6, 4));
+            m = parseInt(s.substr(3, 2));
+            d = parseInt(s.substr(0, 2));        
+        } else {
+            y = parseInt(s.substr(0, 4));
+            m = parseInt(s.substr(5, 7));
+            d = parseInt(s.substr(8, 10));
+        }
         let dt = new Date();
         dt.setTime(0);
         dt.setFullYear(y, m - 1, d);
