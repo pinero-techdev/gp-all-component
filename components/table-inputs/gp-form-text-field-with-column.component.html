@@ -1,0 +1,21 @@
+<div [class.ui-g-12]="columnMetadata.translationInfo == null"
+     [class.ui-g-10]="columnMetadata.translationInfo != null && translationKeys != ''"
+     class="nopad">
+    <input [name]="columnMetadata.name"
+           pInputText
+           type="text"
+           [(ngModel)]="value"
+           [maxlength]="columnMetadata.max"
+           [class]="textboxClass" class="full-width"
+           [disabled]="!columnMetadata.editable"/>
+</div>
+<div class="ui-g-2 nopad" *ngIf="columnMetadata.translationInfo != null && translationKeys != ''">
+    <gp-app-multi-idioma [pKey]="translationKeys"
+                         [esquema]="columnMetadata.translationInfo.scheme"
+                         [tabla]="columnMetadata.translationInfo.table"
+                         [campo]="columnMetadata.translationInfo.field"
+                         [campoDescripcion]="columnMetadata.translationInfo.description"
+                         [habilitarEdicionHTML]="columnMetadata.translationInfo.allowEdition"
+                         [orderByLangCod]="columnMetadata.translationInfo.orderByLangCod">
+    </gp-app-multi-idioma>
+</div>
