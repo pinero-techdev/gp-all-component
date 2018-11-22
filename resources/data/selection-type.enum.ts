@@ -3,3 +3,16 @@ export enum SelectionType {
     SINGLE,
     MULTIPLE
 }
+
+export enum InputType {
+    TIME_FIELD,
+    TEXT_FIELD,
+    TEXTAREA_FIELD,
+    DROPDOWN_FIELD,
+    DROPDOWN_RELATED_FIELD,
+    SWITCH_FIELD,
+    CHECKBOX_FIELD,
+    CALENDAR_FIELD,
+    WYSIWYG_FIELD,
+    IMG_FIELD,
+}
