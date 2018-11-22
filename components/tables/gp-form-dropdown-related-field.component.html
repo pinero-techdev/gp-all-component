@@ -1,9 +1,13 @@
-<p-dropdown name="__field__{{formField.fieldMetadata.fieldName}}"
-            [options]="listAllowedValuesOptions"
-            [(ngModel)]="currentValueDropDown"
-            [autoWidth]="false"
-			filter="true"
-            (onChange)="onFieldChange()"
-            [disabled]="controlDisabled()"
-            class="ui-inputfield ui-selectonemenu-label" >
+<p-dropdown
+  name="__field__{{formField.fieldMetadata.fieldName}}"
+  [options]="listAllowedValuesOptions"
+  [(ngModel)]="currentValueDropDown"
+  [autoWidth]="false"
+  filter="true"
+  dropdownIcon="material-icons ui-icon-expand-more"
+  resetFilterOnHide="true"
+  (onChange)="onFieldChange()"
+  [disabled]="controlDisabled()"
+  class="ui-inputfield ui-selectonemenu-label"
+>
 </p-dropdown>

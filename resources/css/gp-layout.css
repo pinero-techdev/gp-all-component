@@ -556,33 +556,45 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
 
 /** @author 3digits **/
 
-body .ui-treetable {
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-body .ui-treetable tbody .ui-treetable-row {
-  background: none;
-}
+/** @author 3digits **/
 
 body .ui-treetable td,
 body .ui-treetable th {
   text-overflow: ellipsis;
-  border-right: 1px solid #cacaca !important;
 }
 
-body .ui-treetable td:last-child {
-  border-right: none !important;
+body .ui-treetable tr:nth-child(even) {
+  background-color: #f4f4f4;
 }
 
-body .ui-treetable tbody [ng-reflect-level='1'] {
+body .ui-treetable tbody .level1 {
   background-color: #f2fdff;
 }
 
-body .ui-treetable tbody [ng-reflect-level='2'] {
+body .ui-treetable tbody .level1:nth-child(odd) {
+  background-color: #e8fbff;
+}
+
+body .ui-treetable tbody .level2 {
   background-color: #f2fff3;
 }
 
-body .ui-treetable tbody [ng-reflect-level='3'] {
+body .ui-treetable tbody .level2:nth-child(odd) {
+  background-color: #eaffec;
+}
+
+body .ui-treetable tbody .level3 {
   background-color: #ffeaea;
+}
+
+body .ui-treetable tbody .level3:nth-child(odd) {
+  background-color: #ffe0e0;
+}
+
+body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight {
+  background-color: #00b2d1;
+}
+
+body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td {
+  border: 1px solid #bdbdbd;
 }

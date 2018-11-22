@@ -1,7 +1,19 @@
 <!-- @author 3digits -->
 
-<p-treeTable [value]="elementosDetail" selectionMode="single" [(selection)]="selectedTree" (onNodeSelect)="rowSelect($event)">
-  <p-header>
+<p-treeTable
+  [value]="elementosDetail"
+  [columns]="columnasTablaDetail"
+  [resizableColumns]="true"
+  selectionMode="single"
+  [(selection)]="selectedTree"
+  [dataKey]="obtenerAtributoId()"
+  [paginator]="true"
+  [rows]="cantRows"
+  [pageLinks]="4"
+  [rowsPerPageOptions]="[10, 20, 50]"
+  (onNodeSelect)="nodeSelect($event)"
+>
+  <ng-template pTemplate="caption">
     <div class="ui-helper-clearfix ui-grid-row" style="text-align: left;">
       <div class="ui-grid-col-10">Mantenimiento de tabla {{ tableLabelDetail }}</div>
       <div class="ui-grid-col-2 mantenimientos">
@@ -11,15 +23,45 @@
           pButton
           (click)="dialogAddDetail()"
           class="addbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left White Wid30 Fs18 RaisedButton"
-          icon="ui-icon-add"
+          icon="material-icons ui-icon-add"
           [(disabled)]="lockFields"
           aria-disabled="false"
           pTooltip="Añadir nuevo {{tableLabelDetail}}"
         ></button>
       </div>
     </div>
-  </p-header>
-  <div *ngFor="let col of columnasTablaDetail">
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <ng-container *ngFor="let col of columns">
+        <th ttResizableColumn [ttSortableColumn]="col.fieldMetadata.fieldName" *ngIf="checkExcludeFieldsTable(col)">
+          {{ col.fieldMetadata.displayInfo.fieldLabel }}
+          <p-treeTableSortIcon [field]="col.fieldMetadata.fieldName"></p-treeTableSortIcon>
+        </th>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+    <tr [ttSelectableRow]="rowNode" [class]="'level' + rowNode.level">
+      <ng-container *ngFor="let col of columns">
+        <td *ngIf="checkExcludeFieldsTable(col)">
+          <p-treeTableToggler [rowNode]="rowNode" *ngIf="col.fieldMetadata.fieldName == obtenerAtributoId()"></p-treeTableToggler>
+          {{ rowData[col.fieldMetadata.fieldName] }}
+        </td>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td [attr.colspan]="columns.length">No se han encontrado resultados</td>
+    </tr>
+  </ng-template>
+</p-treeTable>
+
+<!---->
+
+<!--
+    <div *ngFor="let col of columnasTablaDetail">
     <p-column
       *ngIf="checkExcludeFieldsTable(col)"
       [styleClass]="col.fieldMetadata.lengthInTable <= 5 ? 'colsmall' : col.fieldMetadata.lengthInTable > 30 ? 'colbig' : 'colmedium'"
@@ -28,4 +70,4 @@
     >
     </p-column>
   </div>
-</p-treeTable>
+-->

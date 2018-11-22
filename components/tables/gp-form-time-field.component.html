@@ -1,7 +1,12 @@
-<p-calendar name="__field__{{formField.fieldMetadata.fieldName}}"
-            showTime="showTime" hourFormat="24"
-            [timeOnly]="true"
-            [(ngModel)]="currentValueDate"
-            (onChange)="onFieldChange()"
-            [disabled]="controlDisabled()">
+<p-calendar
+  name="__field__{{formField.fieldMetadata.fieldName}}"
+  showTime="showTime"
+  hourFormat="24"
+  [timeOnly]="true"
+  [(ngModel)]="currentValueDate"
+  (onChange)="onFieldChange()"
+  [disabled]="controlDisabled()"
+  icon="fa fa-fw fa-calendar"
+  [showIcon]="true"
+>
 </p-calendar>

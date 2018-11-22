@@ -62,7 +62,7 @@ export class GpAppTableCrudComponent implements OnInit {
 
   // Cantidad registros por pagina del grid
   @Input()
-  cantRows: number;
+  cantRows: number = 10;
 
   // Exclusiones de la tabla y el formulario
   @Input()
