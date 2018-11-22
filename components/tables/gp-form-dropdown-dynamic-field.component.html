@@ -1,12 +1,18 @@
-<p-dropdown #dd name="__field__{{formField.fieldMetadata.fieldName}}"
-            [options]="listAllowedValuesOptions"
-            [(ngModel)]="_currentValueDropDown"
-            [autoWidth]="false"
-            filter="true"
-            (onClick)="clearFilter(dd)"
-            (onChange)="onFieldChange()"
-            [disabled]="controlDisabled()"
-            (keyup)="filterDynamicDropdown($event)"       
-            [ngClass]="{'ng-dirty ng-invalid': (formField.fieldMsgs != null && formField.fieldMsgs.length > 0) }"
-            class="ui-inputfield ui-selectonemenu-label">
+<p-dropdown
+  #dd
+  name="__field__{{formField.fieldMetadata.fieldName}}"
+  [options]="listAllowedValuesOptions"
+  [(ngModel)]="_currentValueDropDown"
+  [autoWidth]="false"
+  filter="true"
+  dropdownIcon="material-icons ui-icon-expand-more"
+  resetFilterOnHide="true"
+  clean
+  (onClick)="clearFilter(dd)"
+  (onChange)="onFieldChange()"
+  [disabled]="controlDisabled()"
+  (keyup)="filterDynamicDropdown($event)"
+  [ngClass]="{ 'ng-dirty ng-invalid': formField.fieldMsgs != null && formField.fieldMsgs.length > 0 }"
+  class="ui-inputfield ui-selectonemenu-label"
+>
 </p-dropdown>
