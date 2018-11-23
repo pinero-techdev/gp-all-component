@@ -37,10 +37,10 @@ export class GpAppTopBarComponent implements OnInit {
     ngOnInit() {
         this.itemsUserMenu = [{
             label: 'Usuario',
-            icon: 'ui-icon-folder',
+            icon: 'material-icons ui-icon-folder',
             items: [
                 {
-                    label: 'Logout', icon: 'ui-icon-power-settings-new', command: (click) => {
+                    label: 'Logout', icon: 'material-icons ui-icon-power-settings-new', command: (click) => {
                     this.toggleUserMenu(), this.redirect('logout')
                 }
                 }
