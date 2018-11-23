@@ -30,7 +30,7 @@
                 pButton
                 (click)="onDialogAdd()"
                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left White Wid30 Fs18 RaisedButton"
-                icon="ui-icon-add"
+                icon="material-icons ui-icon-add"
                 [(disabled)]="lockFields"
                 aria-disabled="false"
                 *ngIf="canAdd"
@@ -57,7 +57,7 @@
               <button
                 type="button"
                 pButton
-                icon="ui-icon-file-download"
+                icon="material-icons ui-icon-file-download"
                 (click)="dt.exportCSV()"
                 label="Exportar a CSV"
                 *ngIf="canExport"
@@ -119,7 +119,7 @@
             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
             style="width:100%;"
             [(disabled)]="lockFields"
-            icon="ui-icon-delete"
+            icon="material-icons ui-icon-delete"
             aria-disabled="false"
           ></button>
         </div>
@@ -131,7 +131,7 @@
             (click)="onDialogSave()"
             style="width:100%;"
             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
-            icon="ui-icon-done"
+            icon="material-icons ui-icon-done"
             [(disabled)]="lockFields"
             aria-disabled="false"
           ></button>
@@ -144,7 +144,7 @@
             (click)="onDialogClose()"
             style="width:100%;"
             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
-            icon="ui-icon-clear"
+            icon="material-icons ui-icon-clear"
             [(disabled)]="lockFields"
             aria-disabled="false"
           ></button>
@@ -188,7 +188,7 @@
                 pButton
                 (click)="onDialogAddDetail()"
                 class="addbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left White Wid30 Fs18 RaisedButton"
-                icon="ui-icon-add"
+                icon="material-icons ui-icon-add"
                 [(disabled)]="lockFields"
                 aria-disabled="false"
                 pTooltip="Añadir nuevo {{tableLabelDetail}}"
@@ -214,7 +214,7 @@
               <button
                 type="button"
                 pButton
-                icon="ui-icon-file-download"
+                icon="material-icons ui-icon-file-download"
                 (click)="dtDetail.exportCSV()"
                 label="Exportar a CSV"
                 pTooltip="Exportar a CSV el {{tableLabelDetail}}"
@@ -301,7 +301,7 @@
             (click)="onDialogDeleteDetail()"
             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
             [(disabled)]="lockFields"
-            icon="ui-icon-delete"
+            icon="material-icons ui-icon-delete"
             aria-disabled="false"
           ></button>
         </div>
@@ -312,7 +312,7 @@
             pButton
             (click)="onDialogSaveDetail($event)"
             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
-            icon="ui-icon-done"
+            icon="material-icons ui-icon-done"
             [(disabled)]="lockFields"
             aria-disabled="false"
           ></button>
@@ -324,7 +324,7 @@
             pButton
             (click)="onDialogCloseDetail()"
             class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
-            icon="ui-icon-clear"
+            icon="material-icons ui-icon-clear"
             [(disabled)]="lockFields"
             aria-disabled="false"
           ></button>
