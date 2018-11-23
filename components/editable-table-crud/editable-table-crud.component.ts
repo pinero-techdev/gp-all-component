@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, Input, Output, TemplateRef, ViewEncapsulation} from "@angular/core";
 import {GPUtil} from "../../resources/data/gpUtil";
 import {Router} from "@angular/router";
 import {TableService} from "../../services/table.service";
@@ -6,6 +6,7 @@ import {Message} from "primeng/api";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {TableConfig} from "../../resources/data/table-config.model";
 import {TableMetadataService} from "../../services/table-metadata.service";
+import {DataChangeEvent} from "../../resources/data/data-change-event.model";
 
 @Component({
     selector: 'gp-app-editable-table-crud',
@@ -22,6 +23,21 @@ export class GpAppEditableTableCrudComponent {
     data: any[] = [];
     tableConfig = new TableConfig();
     columns: TableColumnMetadata[];
+    /*
+    * Context params
+    * $implicit, index, columns
+    * */
+    @Input() rowTemplate: TemplateRef<any>;
+    /*
+    * Context params
+    * $implicit, index, columns
+    * */
+    @Input() formTemplate: TemplateRef<any>;
+    /*
+    * Context params
+    * $implicit, index
+    * */
+    @Input() actionsTemplate: TemplateRef<any>;
     // Nombre de la tabla a editar.
     @Input()
     get tableName(): string {
@@ -40,7 +56,13 @@ export class GpAppEditableTableCrudComponent {
         this.selectedDataChange.emit(this._selectedData);
     };
     @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
-    @Output() setTableColumns: EventEmitter<any> = new EventEmitter<any>();
+    @Output() setTableConfig: EventEmitter<DataChangeEvent<TableConfig>> = new EventEmitter<DataChangeEvent<TableConfig>>();
+    @Output() setTableColumns: EventEmitter<DataChangeEvent<TableColumnMetadata[]>> = new EventEmitter<DataChangeEvent<TableColumnMetadata[]>>();
+    @Output() startEditingField: EventEmitter<any> = new EventEmitter<any>();
+    @Output() startEdition: EventEmitter<any> = new EventEmitter<any>();
+    @Output() stopEdition: EventEmitter<any> = new EventEmitter<any>();
+    @Output() cancelEdition: EventEmitter<any> = new EventEmitter<any>();
+
     constructor(private router: Router, private tableService: TableService, private _gpUtil: GPUtil, private _tableMetadataService: TableMetadataService) {
         this.msgsGlobal = [];
     }
@@ -50,19 +72,35 @@ export class GpAppEditableTableCrudComponent {
         this.tableService.list(this.tableName, true, true)
             .finally(() => this.loading = false).subscribe(
             data => {
-                this.tableConfig.title = data.metadata.tableLabel;
-                this.columns = this._tableMetadataService.getTableColumnsFromMetadata(data.metadata.fields);
-                this.setTableColumns.emit({columns: this.columns, setColumns: (tableColumns) => {
-                    this.columns = tableColumns;
-                }});
+                if(!this.tableConfig.title){
+                    this.tableConfig.title = data.metadata.tableLabel;
+                    this.setTableConfig.emit({data: this.tableConfig, changeValue: (data) => {
+                            this.tableConfig = data;
+                        }});
+                }
+                if(!this.columns) {
+                    this.columns = this._tableMetadataService.getTableColumnsFromMetadata(data.metadata.fields);
+                    this.setTableColumns.emit({data: this.columns, changeValue: (data) => {
+                            this.columns = data;
+                        }});
+                }
                 this.data = data.data;
             },
             err => {
                 console.error(err);
             },
             () => {
-                console.log('getMetadata finalizado');
             }
         );
+    }
+
+    saveItem(event) {
+        console.log('save',event);
+        event.success(event.modified);
+        // {original: this.editionOriginal, modified: item, success: save}
+    }
+
+    deleteItem() {
+
     }
 }

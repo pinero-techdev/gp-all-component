@@ -12,5 +12,5 @@ import {TableColumnMetadata} from "../../resources/data/table-column-metadata.mo
     ]
 })
 export class GpAppInputWithMetadataComponent extends CustomInput {
-    @Input() column: TableColumnMetadata;
+    @Input() columnMetadata: TableColumnMetadata;
 }

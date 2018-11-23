@@ -22,6 +22,7 @@ export class GpAppEditableTableComponent implements OnInit {
     SelectionType = SelectionType;
     SortDirection = SortDirection;
     editionOriginal: any;
+    creationObject: any;
     onEdition: boolean = false;
     onCreation: boolean = false;
     @ViewChild('pg') paginator: Paginator;
@@ -60,8 +61,13 @@ export class GpAppEditableTableComponent implements OnInit {
         this.selectedDataChange.emit(this._selectedData);
     };
     @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
-    @Output() edit: EventEmitter<any> = new EventEmitter<any>();
-    @Output() beforeSave: EventEmitter<SaveEvent> = new EventEmitter<SaveEvent>();
+    @Output() startEditingField: EventEmitter<any> = new EventEmitter<any>();
+    @Output() startEdition: EventEmitter<any> = new EventEmitter<any>();
+    @Output() stopEdition: EventEmitter<any> = new EventEmitter<any>();
+    @Output() cancelEdition: EventEmitter<any> = new EventEmitter<any>();
+    @Output() save: EventEmitter<any> = new EventEmitter<any>();
+    // @Output() edit: EventEmitter<any> = new EventEmitter<any>();
+    // @Output() beforeSave: EventEmitter<SaveEvent> = new EventEmitter<SaveEvent>();
     // @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
     // @Output() onCancelEdit: EventEmitter<any> = new EventEmitter<any>();
     // @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
@@ -176,7 +182,7 @@ export class GpAppEditableTableComponent implements OnInit {
             }
         }
         if(this.config.selectable == SelectionType.MULTIPLE) {
-            if(this.itemIsSelected(item)){
+            if(this.itemIsSelected(item)) {
                 this.selectedData.splice(this.itemIndex(item), 1);
                 this.selectedDataChange.emit(this.selectedData);
             } else {
@@ -283,44 +289,56 @@ export class GpAppEditableTableComponent implements OnInit {
 
     createItem() {
         // TODO hacer
+        if(this.onCreation || this.onEdition) { return; }
+        this.onCreation = true;
+        this.creationObject = {};
     }
-    
-    deleteItem(item: any) {
+
+    // Arrow function to be used in external template without losing scope
+    deleteItem = (item: any) => {
         // TODO hacer
-    }
+    };
 
     isEditable(): boolean {
         if(!this.config.editable) { return false; }
         return true;
     }
 
-    editItem(item: any) {
+    // Arrow function to be used in external template without losing scope
+    editItem = (item: any) => {
         if(this.onCreation || this.onEdition) { return; }
-        if(!this.config.editable) { this.edit.emit(item); }
+        // if(!this.config.editable) { this.edit.emit(item); }
         this.onEdition = true;
         this.editionOriginal = Object.assign({}, item);
+        this.startEdition.emit(this.editionOriginal);
         item._editting = true;
+    };
+
+    beforeSaveItem(item: any) {
+        let successSaved =  (savedItem: any) => {
+            item = savedItem;
+            delete item._editting;
+            this.editionOriginal = null;
+            this.onEdition = false;
+            this.stopEdition.emit(savedItem);
+        };
+        if(this.config.beforeSaveFn) {
+            let modifiedItem = this.config.beforeSaveFn(this.editionOriginal, item);
+            this.save.emit({
+                original: this.editionOriginal,
+                modified: modifiedItem,
+                success:successSaved
+            });
+        } else {
+            this.save.emit({original: this.editionOriginal, modified: item, success: successSaved});
+        }
     }
-    
-    saveItem(item: any) {
-        this.beforeSave.emit({
-            original: this.editionOriginal,
-            modified: item,
-            save: () => {
-                delete item._editting;
-                this.onEdition = false;
-            },
-            cancel: () => {
-                this.cancelItem(item);
-            }
-        });
-    }
-    
+
     cancelItem(item: any) {
         Object.assign(item, this.editionOriginal );
         delete item._editting;
         this.onEdition = false;
-
+        this.cancelEdition.emit(this.editionOriginal);
     }
 
     itemValid(item: any): boolean {
@@ -334,10 +352,11 @@ export class GpAppEditableTableComponent implements OnInit {
                 }
             }
         }
+        // TODO Validate form inputs
         return true;
     }
 
-    isEditableColumn(value: any, item: any, column: TableColumnMetadata): boolean {
-        return true;
-    }
+    // isEditableColumn(value: any, item: any, column: TableColumnMetadata): boolean {
+    //     return true;
+    // }
 }

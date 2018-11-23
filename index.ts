@@ -33,6 +33,7 @@ export * from "./components/dynamic/gp.dynamic.component";
 export * from "./resources/data/gpBase";
 export * from "./resources/data/authGuard";
 export * from "./resources/data/custom-input";
+export * from "./resources/data/data-change-event.model";
 export * from "./resources/data/redirectAuthGuard";
 export * from "./resources/data/gpSelector";
 export * from "./resources/data/gpSelectItem";

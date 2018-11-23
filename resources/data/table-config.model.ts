@@ -7,6 +7,8 @@ export class TableConfig {
     sortable: boolean = true;
     filterable: boolean = true;
     actionsColumn: boolean = true;
+    editBtn: boolean = true;
+    deleteBtn: boolean = true;
     editable: boolean = true;
     selectable: SelectionType = SelectionType.SINGLE;
     selectableFn: (item: any, index?: number, array?: any[]) => boolean; // check if row can be selected
@@ -19,5 +21,6 @@ export class TableConfig {
     exportable: boolean = true;
     exportFilename: string = 'export';
     validateFn: (item: any, columns: TableColumnMetadata[]) => boolean; // custom form validation
+    beforeSaveFn: (original: any, modified: any) => any; // custom form validation
     editableFn: (item: any, columns: TableColumnMetadata[]) => boolean;
 }

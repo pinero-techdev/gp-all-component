@@ -5,5 +5,12 @@
                        [columns]="columns"
                        [config]="tableConfig"
                        [data]="data"
-                       [(selectedData)]="selectedData">
-    </gp-app-editable-table>
+                       [(selectedData)]="selectedData"
+                       [rowTemplate]="rowTemplate"
+                       [actionsTemplate]="actionsTemplate"
+                       [formTemplate]="formTemplate"
+                       (save)="saveItem($event)"
+                       (startEdition)="startEdition.emit($event)"
+                       (stopEdition)="stopEdition.emit($event)"
+                       (cancelEdition)="cancelEdition.emit($event)"
+></gp-app-editable-table>
