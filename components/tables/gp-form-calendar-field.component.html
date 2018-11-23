@@ -2,7 +2,7 @@
   name="__field__{{formField.fieldMetadata.fieldName}}"
   [defaultDate]="currentValueDate"
   [(ngModel)]="currentValueDate"
-  (onChange)="onFieldChange()"
+  (onSelect)="onFieldChange()"
   [disabled]="controlDisabled()"
   [dateFormat]="dateFormat"
   [locale]="es"
