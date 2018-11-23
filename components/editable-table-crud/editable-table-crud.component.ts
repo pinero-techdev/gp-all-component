@@ -6,7 +6,7 @@ import {Message} from "primeng/api";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {TableConfig} from "../../resources/data/table-config.model";
 import {TableMetadataService} from "../../services/table-metadata.service";
-import {DataChangeEvent} from "../../resources/data/data-change-event.model";
+import {DataChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
 
 @Component({
     selector: 'gp-app-editable-table-crud',
@@ -58,10 +58,11 @@ export class GpAppEditableTableCrudComponent {
     @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
     @Output() setTableConfig: EventEmitter<DataChangeEvent<TableConfig>> = new EventEmitter<DataChangeEvent<TableConfig>>();
     @Output() setTableColumns: EventEmitter<DataChangeEvent<TableColumnMetadata[]>> = new EventEmitter<DataChangeEvent<TableColumnMetadata[]>>();
-    @Output() startEditingField: EventEmitter<any> = new EventEmitter<any>();
-    @Output() startEdition: EventEmitter<any> = new EventEmitter<any>();
-    @Output() stopEdition: EventEmitter<any> = new EventEmitter<any>();
-    @Output() cancelEdition: EventEmitter<any> = new EventEmitter<any>();
+    @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+    @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+    @Output() startEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
+    @Output() stopEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
+    @Output() cancelEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
 
     constructor(private router: Router, private tableService: TableService, private _gpUtil: GPUtil, private _tableMetadataService: TableMetadataService) {
         this.msgsGlobal = [];

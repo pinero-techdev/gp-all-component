@@ -4,7 +4,7 @@ import {Paginator} from "primeng/primeng";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {SortDirection} from "../../resources/data/sort-direction.enum";
 import {SelectionType} from "../../resources/data/selection-type.enum";
-import {SaveEvent} from "../../resources/data/save-event.model";
+import {ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
 
 /*
 *  Data order: data -> filteredData -> sortedData -> currentPageData
@@ -61,15 +61,15 @@ export class GpAppEditableTableComponent implements OnInit {
         this.selectedDataChange.emit(this._selectedData);
     };
     @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
-    @Output() startEditingField: EventEmitter<any> = new EventEmitter<any>();
-    @Output() startEdition: EventEmitter<any> = new EventEmitter<any>();
-    @Output() stopEdition: EventEmitter<any> = new EventEmitter<any>();
-    @Output() cancelEdition: EventEmitter<any> = new EventEmitter<any>();
-    @Output() save: EventEmitter<any> = new EventEmitter<any>();
-    // @Output() edit: EventEmitter<any> = new EventEmitter<any>();
+    @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+    @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+    @Output() startEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
+    @Output() stopEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
+    @Output() cancelEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
+    @Output() save: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
+    @Output() create: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
+    @Output() delete: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     // @Output() beforeSave: EventEmitter<SaveEvent> = new EventEmitter<SaveEvent>();
-    // @Output() onSave: EventEmitter<any> = new EventEmitter<any>();
-    // @Output() onCancelEdit: EventEmitter<any> = new EventEmitter<any>();
     // @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
 
     get filteredData() {

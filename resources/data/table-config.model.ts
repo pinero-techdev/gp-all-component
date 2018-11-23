@@ -11,8 +11,6 @@ export class TableConfig {
     deleteBtn: boolean = true;
     editable: boolean = true;
     selectable: SelectionType = SelectionType.SINGLE;
-    selectableFn: (item: any, index?: number, array?: any[]) => boolean; // check if row can be selected
-    compareFn: (item1, item2) => boolean; // compare selected rows
     itemsPerPage: number = 10;
     itemsPerPageOptions: number[] = [10, 20, 50];
     currentPage: number = 0;
@@ -20,7 +18,9 @@ export class TableConfig {
     sortDirection: SortDirection = SortDirection.ASC;
     exportable: boolean = true;
     exportFilename: string = 'export';
+    selectableFn: (item: any, index?: number, array?: any[]) => boolean; // check if row can be selected
+    compareFn: (item1, item2) => boolean; // To compare selected rows
     validateFn: (item: any, columns: TableColumnMetadata[]) => boolean; // custom form validation
-    beforeSaveFn: (original: any, modified: any) => any; // custom form validation
-    editableFn: (item: any, columns: TableColumnMetadata[]) => boolean;
+    beforeSaveFn: (original: any, modified: any) => any; // To modify item before save it
+    editableFn: (item: any, columns: TableColumnMetadata[]) => boolean; // Enable or disable row edition
 }
