@@ -111,19 +111,21 @@ export class TableMetadataService{
     }
 
     getTextProperties(metadata: FieldMetadata, column: TableColumnMetadata) {
-        for (let property of metadata.displayInfo.textProperties) {
-            switch (property) {
-                case TableService.TEXT_UPPERCASE:{
-                    column.uppercase = true;
-                    break;
-                }
-                case TableService.TEXT_TRIM:{
-                    column.trim = true;
-                    break;
-                }
-                case TableService.TEXT_NO_SPACE:{
-                    column.noSpace = false;
-                    break;
+        if (metadata.displayInfo.textProperties) {
+            for (let property of metadata.displayInfo.textProperties) {
+                switch (property) {
+                    case TableService.TEXT_UPPERCASE: {
+                        column.uppercase = true;
+                        break;
+                    }
+                    case TableService.TEXT_TRIM: {
+                        column.trim = true;
+                        break;
+                    }
+                    case TableService.TEXT_NO_SPACE: {
+                        column.noSpace = false;
+                        break;
+                    }
                 }
             }
         }
@@ -156,6 +158,49 @@ export class TableMetadataService{
             }
         }
         return column;
+    }
+
+    validateField(row: any, column: TableColumnMetadata) {
+        let valid: boolean = true;
+
+        //Comprueba si el campo está vacío
+        if (column.required && (row[column.name] == "" || row[column.name] == null)) {
+            valid = false;
+        }
+
+        //Si tiene noSpace como una restricción y el texto contiene espacios no es válido
+        else if(column.noSpace && /\s/.test(row[column.name])) {
+            valid = false;
+        }
+
+        //Comprueba el texto en busca de caracteres no válidos
+        else if( /[\u0000-\u0019]/.test(row[column.name])) {
+            valid = false;
+        }
+        else if( /[\u0080-\uFFFF]/.test(row[column.name])) {
+            valid = false;
+        }
+
+        else if (row[column.name].length > column.max) {
+            valid = false;
+        }
+        else if (row[column.name].length < column.min) {
+            valid = false;
+        }
+        else if (row[column.name] > column.maxValue) {
+            valid = false;
+        }
+        else if (row[column.name] < column.minValie) {
+            valid = false;
+        }
+        else if (column.uppercase && row[column.name] !== row[column.name].toUpperCase()) {
+            valid = false;
+        }
+        else if (column.trim && row[column.name] !== row[column.name].trim()) {
+            valid = false;
+        }
+
+        return valid;
     }
 
 }
