@@ -64,12 +64,18 @@ export class GpAppTableCrudComponent implements OnInit {
   @Input()
   cantRows: number = 10;
 
-  // Exclusiones de la tabla y el formulario
+  // Exclusiones de las tablas y los formularios
   @Input()
-  exclusionsForm: string[] = [];
+  exclusionsFormMaster: string[] = [];
 
   @Input()
-  exclusionsTable: string[] = [];
+  exclusionsTableMaster: string[] = [];
+
+  @Input()
+  exclusionsFormDetail: string[] = [];
+
+  @Input()
+  exclusionsTableDetail: string[] = [];
 
   @Input()
   fieldsRq: string[] = [];
@@ -675,7 +681,7 @@ export class GpAppTableCrudComponent implements OnInit {
           this.tableService.updateRow(this.tableNameDetail, jsonOriginalRow, jsonModifiedRow).subscribe(
             data => {
               if (data.ok) {
-                if (this.exclusionsTable.length > 0 && !this.treeTableDetail) {
+                if (this.exclusionsTableDetail.length > 0 && !this.treeTableDetail) {
                   this.tableService.getValue(this.tableNameDetail, jsonModifiedRow).subscribe(data => {
                     if (data.ok) {
                       let jsonOriginalRow = data.data;
@@ -931,26 +937,46 @@ export class GpAppTableCrudComponent implements OnInit {
     }
   }
 
-  checkExcludeFieldsTable(col: any): boolean {
+  checkExcludeFieldsTable(col: any, table: string): boolean {
     let showCol: boolean = true;
-    if (this.exclusionsTable.length > 0) {
-      this.exclusionsTable.forEach(valor => {
-        if (col.fieldMetadata.fieldName == valor) {
-          showCol = false;
-        }
-      });
+    if ( table == 'MASTER') {
+      if (this.exclusionsTableMaster.length > 0) {
+        this.exclusionsTableMaster.forEach(valor => {
+          if (col.fieldMetadata.fieldName == valor) {
+            showCol = false;
+          }
+        });
+      }
+    } else {
+      if (this.exclusionsTableDetail.length > 0) {
+        this.exclusionsTableDetail.forEach(valor => {
+          if (col.fieldMetadata.fieldName == valor) {
+            showCol = false;
+          }
+        });
+      }
     }
     return showCol;
   }
 
-  checkExcludeFieldsForm(col: any): boolean {
+  checkExcludeFieldsForm(col: any, table: string): boolean {
     let showCol: boolean = true;
-    if (this.exclusionsForm.length > 0) {
-      this.exclusionsForm.forEach(valor => {
-        if (col.fieldMetadata.fieldName == valor) {
-          showCol = false;
-        }
-      });
+    if ( table == 'MASTER') {
+      if (this.exclusionsFormMaster.length > 0) {
+        this.exclusionsFormMaster.forEach(valor => {
+          if (col.fieldMetadata.fieldName == valor) {
+            showCol = false;
+          }
+        });
+      }
+    } else {
+      if (this.exclusionsFormDetail.length > 0) {
+        this.exclusionsFormDetail.forEach(valor => {
+          if (col.fieldMetadata.fieldName == valor) {
+            showCol = false;
+          }
+        });
+      }
     }
     return showCol;
   }

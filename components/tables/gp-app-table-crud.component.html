@@ -40,17 +40,19 @@
           </div>
         </p-header>
         <!-- *ngIf="!col.fieldMetadata.hideInAddOperation" -->
-        <p-column
-          *ngFor="let col of columnasTabla"
-          [field]="col.fieldMetadata.fieldName"
-          [header]="col.fieldMetadata.displayInfo.fieldLabel"
-          [filter]="true"
-          filterMatchMode="contains"
-          [hidden]="col.fieldMetadata.hideInAddOperation"
-          [styleClass]="col.fieldMetadata.lengthInTable <= 5 ? 'colsmall' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig' : 'colmedium'"
-          [sortable]="true"
-        >
-        </p-column>
+        <div *ngFor="let col of columnasTabla">
+           <p-column       
+            *ngIf="checkExcludeFieldsTable(col, 'MASTER')"
+            [field]="col.fieldMetadata.fieldName"
+            [header]="col.fieldMetadata.displayInfo.fieldLabel"
+            [filter]="true"
+            filterMatchMode="contains"
+            [hidden]="col.fieldMetadata.hideInAddOperation"
+            [styleClass]="col.fieldMetadata.lengthInTable <= 5 ? 'colsmall' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig' : 'colmedium'"
+            [sortable]="true">
+           </p-column>
+        </div>
+
         <p-footer>
           <div class="ui-g">
             <div class="ui-g-12 ui-md-2 mantenimientos">
@@ -75,12 +77,12 @@
 
       <div *ngFor="let col of columnas">
         <div class="ui-grid-row">
-          <div class="ui-grid-col-2" *ngIf="!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation">
+          <div class="ui-grid-col-2" *ngIf="checkExcludeFieldsForm(col, 'MASTER') && (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation)">
             <label class="ui-outputlabel"
               >{{ col.fieldMetadata.displayInfo.fieldLabel }} <span *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span>
             </label>
           </div>
-          <div class="ui-grid-col-10" *ngIf="!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation">
+          <div class="ui-grid-col-10" *ngIf="checkExcludeFieldsForm(col, 'MASTER') && (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation)">
             <span [ngClass]="{ 'md-inputfield': col.formFieldType == 'gp-form-text-field' }">
               <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField]="col"></gp-form-time-field>
               <gp-form-text-field *ngIf="col.formFieldType == 'gp-form-text-field'" [formField]="col"></gp-form-text-field>
@@ -198,7 +200,7 @@
         </p-header>
         <div *ngFor="let col of columnasTablaDetail">
           <p-column
-            *ngIf="checkExcludeFieldsTable(col)"
+            *ngIf="checkExcludeFieldsTable(col, 'MASTER_DETAIL')"
             [field]="col.fieldMetadata.fieldName"
             [header]="col.fieldMetadata.displayInfo.fieldLabel"
             [filter]="true"
@@ -231,7 +233,7 @@
       <div class="card card-w-title">
         <gp-treetable
           #treeTableComponent
-          [exclusionsTable]="exclusionsTable"
+          [exclusionsTable]="exclusionsTableDetail"
           [fieldsRq]="fieldsRq"
           [elementosDetail]="elementosDetail"
           [columnasDetail]="columnasDetail"
@@ -253,12 +255,12 @@
       <h2 class="BigTopic">Edición - {{ tableLabelDetail }}</h2>
 
       <div *ngFor="let col of columnasTablaDetail" class="ui-grid-row">
-        <div class="ui-grid-col-2" *ngIf="checkExcludeFieldsForm(col) && (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation)">
+        <div class="ui-grid-col-2" *ngIf="checkExcludeFieldsForm(col, 'MASTER_DETAIL') && (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation)">
           <label class="ui-outputlabel"
             >{{ col.fieldMetadata.displayInfo.fieldLabel }} <span *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span>
           </label>
         </div>
-        <div class="ui-grid-col-10" *ngIf="checkExcludeFieldsForm(col) && (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation)">
+        <div class="ui-grid-col-10" *ngIf="checkExcludeFieldsForm(col, 'MASTER_DETAIL') && (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation)">
           <span [ngClass]="{ 'md-inputfield': col.formFieldType == 'gp-form-text-field' }">
             <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField]="col"></gp-form-time-field>
             <gp-form-text-field *ngIf="col.formFieldType == 'gp-form-text-field'" [formField]="col"></gp-form-text-field>
