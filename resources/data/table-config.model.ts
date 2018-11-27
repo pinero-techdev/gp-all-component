@@ -7,9 +7,9 @@ export class TableConfig {
     sortable: boolean = true;
     filterable: boolean = true;
     actionsColumn: boolean = true;
-    editBtn: boolean = true;
-    deleteBtn: boolean = true;
-    editable: boolean = true;
+    canAdd: boolean = true;
+    canEdit: boolean = true;
+    canDelete: boolean = true;
     selectable: SelectionType = SelectionType.SINGLE;
     itemsPerPage: number = 10;
     itemsPerPageOptions: number[] = [10, 20, 50];
@@ -22,5 +22,7 @@ export class TableConfig {
     compareFn: (item1, item2) => boolean; // To compare selected rows
     validateFn: (item: any, columns: TableColumnMetadata[]) => boolean; // custom form validation
     beforeSaveFn: (original: any, modified: any) => any; // To modify item before save it
+    beforeCreateFn: (item: any) => any; // To modify item before save it
     editableFn: (item: any, columns: TableColumnMetadata[]) => boolean; // Enable or disable row edition
+    deletableFn: (item: any, columns: TableColumnMetadata[]) => boolean; // Enable or disable row deletion
 }

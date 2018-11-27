@@ -10,7 +10,7 @@ export class TableColumnMetadata {
     filterable: boolean = true;
     filter: any;
     visible: boolean = true;
-    editable: boolean = true;
+    editable: boolean = true; // TODO es necesario?
     required: boolean = false;
     order: number = -1;
     translationInfo: TranslationInfo;

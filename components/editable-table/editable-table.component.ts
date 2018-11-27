@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TableConfig} from "../../resources/data/table-config.model";
-import {Paginator} from "primeng/primeng";
+import {ConfirmationService, Paginator} from "primeng/primeng";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {SortDirection} from "../../resources/data/sort-direction.enum";
 import {SelectionType} from "../../resources/data/selection-type.enum";
@@ -15,13 +15,14 @@ import {ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/d
     templateUrl: './editable-table.component.html',
     styleUrls: ['./editable-table.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    providers: [ConfirmationService]
 })
 export class GpAppEditableTableComponent implements OnInit {
     private _selectedData: any[] = [];
     private _columns: TableColumnMetadata[] = [];
     SelectionType = SelectionType;
     SortDirection = SortDirection;
-    editionOriginal: any;
+    editionObject: any;
     creationObject: any;
     onEdition: boolean = false;
     onCreation: boolean = false;
@@ -61,6 +62,8 @@ export class GpAppEditableTableComponent implements OnInit {
         this.selectedDataChange.emit(this._selectedData);
     };
     @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+    @Output() deletedItem: EventEmitter<any> = new EventEmitter<any>();
+    @Output() createdItem: EventEmitter<any> = new EventEmitter<any>();
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() startEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
@@ -69,8 +72,6 @@ export class GpAppEditableTableComponent implements OnInit {
     @Output() save: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() create: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() delete: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
-    // @Output() beforeSave: EventEmitter<SaveEvent> = new EventEmitter<SaveEvent>();
-    // @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
 
     get filteredData() {
         if(this.config.filterable) {
@@ -127,13 +128,9 @@ export class GpAppEditableTableComponent implements OnInit {
         return columnNumber;
     }
 
-    constructor() { }
+    constructor(private _confirmationService: ConfirmationService) { }
 
     ngOnInit() {
-    }
-
-    hasActionsColumn() {
-
     }
 
     changeSort(column: TableColumnMetadata) {
@@ -290,55 +287,111 @@ export class GpAppEditableTableComponent implements OnInit {
     createItem() {
         // TODO hacer
         if(this.onCreation || this.onEdition) { return; }
-        this.onCreation = true;
         this.creationObject = {};
+        this.onCreation = true;
     }
 
     // Arrow function to be used in external template without losing scope
-    deleteItem = (item: any) => {
-        // TODO hacer
+    beforeDeleteItem = (item: any) => {
+        this._confirmationService.confirm({
+            message: 'Desea eliminar el registro?',
+            accept: () => {
+                this.deleteItem(item);
+            }
+        });
     };
 
-    isEditable(): boolean {
-        if(!this.config.editable) { return false; }
+    deleteItem = (item: any) => {
+        this.delete.emit({
+            original: item,
+            modified: null,
+            success: () => {
+                this.deletedItem.emit(item);
+            }
+        });
+    };
+
+    isEditable(item: any): boolean {
+        if(this.config.editableFn) {
+            return this.config.editableFn(item, this.columns);
+        }
+        return true;
+    }
+
+    isDeletable(item: any): boolean {
+        if(this.config.deletableFn) {
+            return this.config.deletableFn(item, this.columns);
+        }
         return true;
     }
 
     // Arrow function to be used in external template without losing scope
     editItem = (item: any) => {
         if(this.onCreation || this.onEdition) { return; }
-        // if(!this.config.editable) { this.edit.emit(item); }
+        this.editionObject = Object.assign({}, item);
         this.onEdition = true;
-        this.editionOriginal = Object.assign({}, item);
-        this.startEdition.emit(this.editionOriginal);
         item._editting = true;
+        this.startEdition.emit(this.editionObject);
     };
 
-    beforeSaveItem(item: any) {
+    beforeSaveItem(original: any, modified: any) {
         let successSaved =  (savedItem: any) => {
-            item = savedItem;
-            delete item._editting;
-            this.editionOriginal = null;
+            original = savedItem;
+            delete original._editting;
             this.onEdition = false;
+            this.editionObject = null;
             this.stopEdition.emit(savedItem);
         };
         if(this.config.beforeSaveFn) {
-            let modifiedItem = this.config.beforeSaveFn(this.editionOriginal, item);
+            let modifiedItem = this.config.beforeSaveFn(original, modified);
             this.save.emit({
-                original: this.editionOriginal,
+                original: original,
                 modified: modifiedItem,
-                success:successSaved
+                success: successSaved
             });
         } else {
-            this.save.emit({original: this.editionOriginal, modified: item, success: successSaved});
+            this.save.emit({original: original, modified: modified, success: successSaved});
         }
     }
 
-    cancelItem(item: any) {
-        Object.assign(item, this.editionOriginal );
+    beforeCreateItem(item: any) {
+        let successCreated =  (savedItem: any) => {
+            this.cancelCreate();
+            this.createdItem.emit(savedItem);
+        };
+        if(this.config.beforeCreateFn) {
+            let modifiedItem = this.config.beforeCreateFn(item);
+            this.create.emit({
+                original: null,
+                modified:  modifiedItem,
+                success: successCreated
+            });
+        } else {
+            this.create.emit({original: null, modified: item, success: successCreated});
+        }
+    }
+
+    cancel() {
+        if(this.onEdition) {
+            let items = this.data.filter((item) => item._editting);
+            for(let item of items) {
+                this.cancelEdit(item);
+            }
+        } else {
+            this.cancelCreate();
+        }
+    }
+
+    cancelCreate() {
+        this.creationObject = null;
+        this.onCreation = false;
+    }
+
+    cancelEdit(item: any) {
         delete item._editting;
         this.onEdition = false;
-        this.cancelEdition.emit(this.editionOriginal);
+        this.editionObject = null;
+        this.cancelEdition.emit(item);
     }
 
     itemValid(item: any): boolean {

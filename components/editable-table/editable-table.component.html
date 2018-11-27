@@ -1,8 +1,13 @@
+<p-confirmDialog></p-confirmDialog>
 <table class="table-striped table-bordered">
     <thead>
     <tr>
         <th [attr.colspan]="footerColspan">
            {{config.title}}
+            <div>
+                <button (click)="createItem()" [disabled]="onEdition || onCreation" [hidden]="!config.canAdd">Add</button>
+                <button (click)="cancel()" [hidden]="!onEdition && !onCreation">Cancel</button>
+            </div>
         </th>
     </tr>
     <tr>
@@ -45,7 +50,7 @@
                          [rowsPerPageOptions]="config.itemsPerPageOptions"></p-paginator>
         </td>
     </tr>
-    <tr>
+    <tr *ngIf="config.exportable">
         <td [attr.colspan]="footerColspan">
             <button (click)="exportToCsv()">Export</button>
         </td>
@@ -63,7 +68,7 @@
         </td>
         <!-- Edition -->
         <ng-template [ngIf]="item._editting" [ngIfElse]="normalRow">
-            <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate; context:{$implicit:item, index: rowIndex, columns: columns }"></ng-content>
+            <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate; context:{$implicit:editionObject, original:item , index: rowIndex, columns: columns }"></ng-content>
         </ng-template>
         <!-- Visualization -->
         <ng-template #normalRow>
@@ -76,22 +81,22 @@
         </ng-template>
         <td *ngIf="config.actionsColumn">
             <ng-template [ngIf]="!item._editting">
-                <ng-content *ngTemplateOutlet="(actionsTemplate)?actionsTemplate:defaultActionsTemplate; context:{$implicit:item, index: rowIndex, editItem: editItem, deleteItem: deleteItem }"></ng-content>
+                <ng-content *ngTemplateOutlet="(actionsTemplate)?actionsTemplate:defaultActionsTemplate; context:{$implicit:item, index: rowIndex, editItem: editItem, deleteItem: beforeDeleteItem }"></ng-content>
                 <ng-template #defaultActionsTemplate let-item let-columns="columns">
-                    <button [disabled]="(onEdition || onCreation || !isEditable(item))" [hidden]="!config.editBtn" (click)="editItem(item)">Edit</button>
-                    <button [disabled]="(onEdition || onCreation)" [hidden]="!config.deleteBtn" (click)="deleteItem(item)">Delete</button>
+                    <button [disabled]="(onEdition || onCreation || !isEditable(item))" [hidden]="!config.canEdit" (click)="editItem(item)">Edit</button>
+                    <button [disabled]="(onEdition || onCreation || !isDeletable(item))" [hidden]="!config.canDelete" (click)="beforeDeleteItem(item)">Delete</button>
                 </ng-template>
             </ng-template>
-            <button [disabled]="((onEdition || onCreation) && !item._editting) || (item._editting && !itemValid(item))" [hidden]="!item._editting" (click)="beforeSaveItem(item)">Save1</button>
-            <button [disabled]="(onEdition || onCreation) && !item._editting" [hidden]="!item._editting" (click)="cancelItem(item)">Cancel</button>
+            <button [disabled]="((onEdition || onCreation) && !item._editting) || (item._editting && !itemValid(item))" [hidden]="!item._editting" (click)="beforeSaveItem(item, editionObject)">Save</button>
+            <button [disabled]="(onEdition || onCreation) && !item._editting" [hidden]="!item._editting" (click)="cancelEdit(item)">Cancel</button>
         </td>
     </tr>
     <ng-template [ngIf]="onCreation"><!-- TODO create-->
         <td *ngIf="config.selectable == SelectionType.MULTIPLE"></td>
-        <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate; context:{$implicit:item, index: rowIndex, columns: columns }"></ng-content>
+        <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate; context:{$implicit:creationObject, index: rowIndex, columns: columns }"></ng-content>
         <td *ngIf="config.actionsColumn">
-            <button [disabled]="(onEdition || onCreation) && !item._editting && !itemValid(item)" [hidden]="!item._editting" (click)="saveItem(item)">Save2</button>
-            <button [disabled]="(onEdition || onCreation) && !item._editting" [hidden]="!item._editting" (click)="cancelItem(item)">Cancel</button>
+            <button [disabled]="!itemValid(item)" (click)="beforeCreateItem(creationObject)">Create</button>
+            <button (click)="cancel()">Cancel</button>
         </td>
     </ng-template>
     </tbody>
