@@ -1,0 +1,9 @@
+<p-dropdown [name]="columnMetadata.name"
+            [options]="options"
+            [(ngModel)]="value"
+            [autoWidth]="false"
+			[filter]="true"
+            (onChange)="onEdit()"
+			[disabled]="!columnMetadata.editable"
+            class="ui-inputfield ui-selectonemenu-label">
+</p-dropdown>
