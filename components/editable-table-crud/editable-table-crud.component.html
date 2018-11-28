@@ -10,9 +10,13 @@
                        [actionsTemplate]="actionsTemplate"
                        [formTemplate]="formTemplate"
                        (save)="saveItem($event)"
+                       (create)="createItem($event)"
+                       (delete)="deleteItem($event)"
                        (startEditingField)="startEditingField.emit($event)"
                        (stopEditingField)="stopEditingField.emit($event)"
                        (startEdition)="startEdition.emit($event)"
                        (stopEdition)="stopEdition.emit($event)"
                        (cancelEdition)="cancelEdition.emit($event)"
+                       (deletedItem)="loadTable(); deletedItem.emit($event)"
+                       (createdItem)="loadTable(); createdItem.emit($event)"
 ></gp-app-editable-table>

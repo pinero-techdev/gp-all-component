@@ -6,7 +6,8 @@ import {Message} from "primeng/api";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {TableConfig} from "../../resources/data/table-config.model";
 import {TableMetadataService} from "../../services/table-metadata.service";
-import {DataChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
+import {DataChangeEvent, ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
+import {GpFormField} from "../tables/gp-app-table-crud-shared";
 
 @Component({
     selector: 'gp-app-editable-table-crud',
@@ -56,6 +57,8 @@ export class GpAppEditableTableCrudComponent {
         this.selectedDataChange.emit(this._selectedData);
     };
     @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+    @Output() deletedItem: EventEmitter<any> = new EventEmitter<any>();
+    @Output() createdItem: EventEmitter<any> = new EventEmitter<any>();
     @Output() setTableConfig: EventEmitter<DataChangeEvent<TableConfig>> = new EventEmitter<DataChangeEvent<TableConfig>>();
     @Output() setTableColumns: EventEmitter<DataChangeEvent<TableColumnMetadata[]>> = new EventEmitter<DataChangeEvent<TableColumnMetadata[]>>();
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
@@ -95,13 +98,54 @@ export class GpAppEditableTableCrudComponent {
         );
     }
 
-    saveItem(event) {
-        console.log('save',event);
-        event.success(event.modified);
-        // {original: this.editionOriginal, modified: item, success: save}
+    saveItem(event: ItemChangeEvent) {
+        let jsonOriginalRow = JSON.stringify(event.original);
+        let jsonModifiedRow = JSON.stringify(event.modified);
+        this.tableService.updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow).subscribe(
+            data => {
+                if (data.ok) {
+                    event.success(event.modified);
+                } else {
+                    this.showErrorDialogo("Error actualizando el registro: " + data.error.errorMessage);
+                }
+            },
+            err => {
+                this.showErrorDialogo("Error interno actualizando el registro.");
+            });
     }
 
-    deleteItem() {
+    createItem(event: ItemChangeEvent) {
+        let jsonModifiedRow = JSON.stringify(event.modified);
+        this.tableService.insertRow(this.tableName, jsonModifiedRow).subscribe(
+            data => {
+                if (data.ok) {
+                    event.success(event.modified);
+                }
+                else {
+                    this.showErrorDialogo("Error insertando el registro: " + data.error.errorMessage);
+                }
+            },
+            err => {
+                this.showErrorDialogo("Error interno insertando el registro.");
+            });
+    }
 
+    deleteItem(event: ItemChangeEvent) {
+        let jsonDeleteRow = JSON.stringify(event.original);
+        this.tableService.deleteRow(this.tableName, jsonDeleteRow).subscribe(
+            data => {
+                if (data.ok) {
+                    event.success(event.modified);
+                } else {
+                    this.showErrorDialogo("Error borrando el registro: " + data.error.errorMessage);
+                }
+            },
+            err => {
+                this.showErrorDialogo("Error interno borrando el registro.");
+            });
+    }
+
+    showErrorDialogo(msg: string) {
+        this.msgsGlobal.push({severity: 'error', summary: 'Error', detail: msg});
     }
 }
