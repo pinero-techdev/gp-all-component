@@ -18,6 +18,7 @@ export class TableMetadataService{
         column.name = metadata.fieldName;
         this.getRequired(metadata,column);
         column.editable = !metadata.readOnly;
+        column.isId = metadata.id;
         this.getType(metadata, column);
         if(metadata.displayInfo) {
             column.label = metadata.displayInfo.fieldLabel;

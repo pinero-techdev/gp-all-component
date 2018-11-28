@@ -14,6 +14,7 @@ export class TableColumnMetadata {
     required: boolean = false;
     order: number = -1;
     translationInfo: TranslationInfo;
+    isId: boolean;
     max: number;
     min: number;
     maxValue: number;
