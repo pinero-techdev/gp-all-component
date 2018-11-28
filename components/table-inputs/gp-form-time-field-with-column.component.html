@@ -1,0 +1,12 @@
+<p-calendar [name]="columnMetadata.name"
+            showTime="showTime" hourFormat="24"
+            [timeOnly]="true"
+            [(ngModel)]="value"
+            (onFocus)="onFocus($event)"
+            (onClose)="onStop($event)"
+            [disabled]="!columnMetadata.editable">
+</p-calendar>
+
+
+
+

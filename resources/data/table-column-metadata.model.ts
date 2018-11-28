@@ -22,6 +22,7 @@ export class TableColumnMetadata {
     trim: boolean;
     noSpace: boolean;
     rows: number;
+    relatedField: string;
     validateFn: (value:any, item: any, column: TableColumnMetadata) => boolean; // custom form validation
     editabeFn: (value:any, item: any, column: TableColumnMetadata) => boolean; // Enable or disable input edition
     setOptionsFn: (options: any[], item: any, column: TableColumnMetadata) => any[] | Observable<any[]>; // Change

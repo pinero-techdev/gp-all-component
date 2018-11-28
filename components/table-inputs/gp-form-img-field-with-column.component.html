@@ -1,0 +1,15 @@
+<p-dialog [(visible)]="visible"
+          [modal]="true"
+          (onHide)="onStop()">
+    <img [src]="value" style="width: 100%; max-height: 50%;" *ngIf="value"/>
+    <input [name]="columnMetadata.name"
+           pInputText
+           type="text"
+           [(ngModel)]="value"
+           [maxlength]="columnMetadata.max"
+           [class]="textboxClass"
+           [disabled]="!columnMetadata.editable"
+           class="full-width"/>
+</p-dialog>
+
+<button (click)="onStart()"></button>

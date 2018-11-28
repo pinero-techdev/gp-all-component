@@ -7,6 +7,9 @@
            [(ngModel)]="value"
            [maxlength]="columnMetadata.max"
            [class]="textboxClass" class="full-width"
+           [required]="columnMetadata.required"
+           (focus)="onFocus($event)"
+           (change)="onStop($event)"
            [disabled]="!columnMetadata.editable"/>
 </div>
 <div class="ui-g-2 nopad" *ngIf="columnMetadata.translationInfo != null && translationKeys != ''">
