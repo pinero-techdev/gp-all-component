@@ -1,14 +1,16 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Message} from "primeng/primeng";
-import {LoginRq} from "../../resources/data/loginRq";
-import {GlobalService} from "../../services/global.service";
-import {LoginService} from "../../services/login.service";
-import {GpAppMainMenuComponent} from "../menu/gp.app.main.menu.component";
-import {isNull, isNullOrUndefined} from "util";
-import {Subscription} from "../../../rxjs";
-import Global = NodeJS.Global;
-import {isNumeric} from "rxjs/util/isNumeric";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+
+import {Message} from 'primeng/primeng';
+
+import {Subscription} from 'rxjs';
+
+import {isNullOrUndefined} from 'util';
+
+import {LoginRq} from '../../resources/data/loginRq';
+import {GlobalService} from '../../services/global.service';
+import {LoginService} from '../../services/login.service';
+import {GpAppMainMenuComponent} from '../menu/gp.app.main.menu.component';
 
 @Component({
     selector: 'gp-app-login.component',
@@ -20,16 +22,16 @@ export class GpAppLoginComponent implements OnInit, OnDestroy {
     password: string;
     url: string;
     msgs: Message[] = [];
-    btnModificaPwdVisible: boolean = false;
+    btnModificaPwdVisible = false;
     working: boolean = false;
 
     passwordErrors: string[] = [
-        "Su clave ha caducado, tiene que cambiar la clave de acceso.",
-        "Es el último día para cambiar su clave ¿Desea cambiarla ahora?",
-        "Su clave ha caducado hace 1 día, tiene que cambiar la clave de acceso.",
-        "Su clave caduca hoy, ¿Desea cambiarla ahora?",
-        "Falta un día para que su clave caduque, ¿Desea cambiarla ahora?",
-        "Faltan dos días para que su clave caduque, ¿Desea cambiarla ahora?"];
+        'Su clave ha caducado, tiene que cambiar la clave de acceso.',
+        'Es el último día para cambiar su clave ¿Desea cambiarla ahora?',
+        'Su clave ha caducado hace 1 día, tiene que cambiar la clave de acceso.',
+        'Su clave caduca hoy, ¿Desea cambiarla ahora?',
+        'Falta un día para que su clave caduque, ¿Desea cambiarla ahora?',
+        'Faltan dos días para que su clave caduque, ¿Desea cambiarla ahora?'];
 
     sub: Subscription;
 
@@ -50,7 +52,7 @@ export class GpAppLoginComponent implements OnInit, OnDestroy {
         return GlobalService.APPLICATION_TITLE;
     }
 
-    login( urlToRedirect?: string, otherParams?: string ) {
+    login(urlToRedirect?: string, otherParams?: string) {
         this.working = true;
         let request: LoginRq = new LoginRq(this.usuario, this.password, GlobalService.APLICACION_LOGIN, GlobalService.PARAMS_LOGIN, otherParams);
         this._loginService.login(request).finally(() => {
@@ -65,10 +67,9 @@ export class GpAppLoginComponent implements OnInit, OnDestroy {
                     if (!isNullOrUndefined(this.url)) {
                         GlobalService.setPreLoginUrl(this.url);
                     }
-                    if ( urlToRedirect )
-                    {
-                       this.router.navigate( [ urlToRedirect ] )
-                    } else if ( !isNullOrUndefined(GlobalService.PRE_LOGIN_URL) && GlobalService.PRE_LOGIN_URL != "" ) {
+                    if (urlToRedirect) {
+                        this.router.navigate([urlToRedirect])
+                    } else if (!isNullOrUndefined(GlobalService.PRE_LOGIN_URL) && GlobalService.PRE_LOGIN_URL != '') {
                         this.router.navigate([GlobalService.PRE_LOGIN_URL]);
                     }
                     else {
@@ -118,8 +119,8 @@ export class GpAppLoginComponent implements OnInit, OnDestroy {
                 this.url = params['url'];
             });
 
-        if ( (this.usuario && this.password) || otherParams) {
-            this.login( urlToRedirect, otherParams );
+        if ((this.usuario && this.password) || otherParams) {
+            this.login(urlToRedirect, otherParams);
         }
     }
 }
