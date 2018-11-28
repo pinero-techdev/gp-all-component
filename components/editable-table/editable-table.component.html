@@ -33,7 +33,7 @@
             <input type="checkbox" [ngModel]="allSelected()" (click)="toggleSelectAll()">
         </th>
         <th *ngFor="let column of columns">
-            <gp-app-input-with-metadata [ngModel]="column.filter" (ngModelChange)="changeFilter(column, $event)"></gp-app-input-with-metadata>
+            <gp-app-input-with-metadata [ngModel]="column.filter" (ngModelChange)="changeFilter(column, $event)" [columnMetadata]="column" [isFilter]="true"></gp-app-input-with-metadata>
         </th>
         <th *ngIf="config.actionsColumn">
             <button (click)="clearFilters()">Clear filters</button>
@@ -87,7 +87,7 @@
                     <button [disabled]="(onEdition || onCreation || !isDeletable(item))" [hidden]="!config.canDelete" (click)="beforeDeleteItem(item)">Delete</button>
                 </ng-template>
             </ng-template>
-            <button [disabled]="((onEdition || onCreation) && !item._editting) || (item._editting && !itemValid(item))" [hidden]="!item._editting" (click)="beforeSaveItem(item, editionObject)">Save</button>
+            <button [disabled]="((onEdition || onCreation) && !item._editting) || (item._editting && !itemValid(editionObject))" [hidden]="!item._editting" (click)="beforeSaveItem(item, editionObject)">Save</button>
             <button [disabled]="(onEdition || onCreation) && !item._editting" [hidden]="!item._editting" (click)="cancelEdit(item)">Cancel</button>
         </td>
     </tr>
@@ -95,7 +95,7 @@
         <td *ngIf="config.selectable == SelectionType.MULTIPLE"></td>
         <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate; context:{$implicit:creationObject, index: rowIndex, columns: columns }"></ng-content>
         <td *ngIf="config.actionsColumn">
-            <button [disabled]="!itemValid(item)" (click)="beforeCreateItem(creationObject)">Create</button>
+            <button [disabled]="!itemValid(creationObject)" (click)="beforeCreateItem(creationObject)">Create</button>
             <button (click)="cancel()">Cancel</button>
         </td>
     </ng-template>
@@ -103,6 +103,6 @@
 </table>
 <ng-template #defaultFormTemplate let-item let-columns="columns">
     <td *ngFor="let column of columns">
-        <gp-app-input-with-metadata [(ngModel)]="item[column.name]" [columnMetadata]="column" (startEditing)="startEditingField.emit($event)" (stopEditing)="stopEditingField.emit($event)"></gp-app-input-with-metadata>
+        <gp-app-input-with-metadata [(ngModel)]="item[column.name]" [columnMetadata]="column" (startEditing)="startEditingField.emit($event)" (stopEditing)="stopEditingField.emit($event)" [item]="item"></gp-app-input-with-metadata>
     </td>
 </ng-template>

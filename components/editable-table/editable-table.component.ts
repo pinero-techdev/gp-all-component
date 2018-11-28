@@ -204,7 +204,12 @@ export class GpAppEditableTableComponent implements OnInit {
     }
 
     allSelected(): boolean {
-        let selectableData = this.filteredData.filter(this.config.selectableFn);
+        let selectableData = this.filteredData.filter((item, index, arr) => {
+            if(this.config.selectableFn) {
+                return this.config.selectableFn(item, index, arr);
+            }
+            return true;
+        });
         if(selectableData.length != this.selectedData.length) {
             return false;
         }
@@ -233,6 +238,9 @@ export class GpAppEditableTableComponent implements OnInit {
     exportToCsv() {
         let csvSeparator = ";";
         let data = this.filteredData;
+        if(this.selectedData && this.selectedData.length > 0) {
+            data = this.selectedData;
+        }
         let csv = '\ufeff';
         //headers
         for (let i = 0; i < this.columns.length; i++) {
@@ -400,9 +408,7 @@ export class GpAppEditableTableComponent implements OnInit {
         }
         for(let column of this.columns) {
             if(column.validateFn) {
-                if(!column.validateFn(item[column.name], item, column)) {
-                    return false;
-                }
+                return column.validateFn(item[column.name], item, column);
             }
         }
         // TODO Validate form inputs

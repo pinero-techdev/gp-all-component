@@ -17,6 +17,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
 
     //item es la row entera
     @Input() item: any;
+    @Input() isFilter: boolean;
     @Output() startEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
