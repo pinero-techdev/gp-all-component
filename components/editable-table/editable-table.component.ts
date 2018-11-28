@@ -336,11 +336,11 @@ export class GpAppEditableTableComponent implements OnInit {
 
     beforeSaveItem(original: any, modified: any) {
         let successSaved =  (savedItem: any) => {
-            original = savedItem;
             delete original._editting;
             this.onEdition = false;
+            Object.assign(original, savedItem);
             this.editionObject = null;
-            this.stopEdition.emit(savedItem);
+            this.stopEdition.emit({item: savedItem, columns: this.columns});
         };
         if(this.config.beforeSaveFn) {
             let modifiedItem = this.config.beforeSaveFn(original, modified);
