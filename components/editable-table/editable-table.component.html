@@ -103,6 +103,6 @@
 </table>
 <ng-template #defaultFormTemplate let-item let-columns="columns">
     <td *ngFor="let column of columns">
-        <gp-app-input-with-metadata [(ngModel)]="item[column.name]" [columnMetadata]="column"></gp-app-input-with-metadata>
+        <gp-app-input-with-metadata [(ngModel)]="item[column.name]" [columnMetadata]="column" (startEditing)="startEditingField.emit($event)" (stopEditing)="stopEditingField.emit($event)"></gp-app-input-with-metadata>
     </td>
 </ng-template>

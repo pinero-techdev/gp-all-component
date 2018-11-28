@@ -1,1 +1,8 @@
-<input type="text" [(ngModel)]="value">
+<input type="text"
+       *ngIf="column"
+       [ngModel]="value"
+       (focus)="onStartEditing()"
+       (blur)="onStopEditing()"
+       (change)="onModelChange(input.value)"
+       #input
+>
