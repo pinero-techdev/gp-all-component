@@ -1,40 +1,41 @@
-import {SelectItem, MenuItem} from "primeng/primeng";
-import {GPSelectItem} from "./gpSelectItem";
-import moment = require("moment/moment");
+import {SelectItem, MenuItem} from 'primeng/primeng';
+import {isNullOrUndefined} from 'util';
+import {GPSelectItem} from './gpSelectItem';
+import moment = require('moment/moment');
 
 export class GPUtil {
-    public static readonly odd_reA = new RegExp("\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5", "g");
-    public static readonly odd_rea = new RegExp("\u00E0|\u00E1|\u00E2|\u00E3|\u00E4|\u00E5", "g");
-    public static readonly odd_reE = new RegExp("\u00C8|\u00C9|\u00CA|\u00CB", "g");
-    public static readonly odd_ree = new RegExp("\u00E8|\u00E9|\u00EA|\u00EB", "g");
-    public static readonly odd_reI = new RegExp("\u00CC|\u00CD|\u00CE|\u00CF", "g");
-    public static readonly odd_rei = new RegExp("\u00EC|\u00ED|\u00EE|\u00EF", "g");
-    public static readonly odd_reO = new RegExp("\u00D2|\u00D3|\u00D4|\u00D5|\u00D6", "g");
-    public static readonly odd_reo = new RegExp("\u00F2|\u00F3|\u00F4|\u00F5|\u00F6", "g");
-    public static readonly odd_reU = new RegExp("\u00D9|\u00DA|\u00DB|\u00DC", "g");
-    public static readonly odd_reu = new RegExp("\u00F9|\u00FA|\u00FB|\u00FC", "g");
-    public static readonly odd_reN = new RegExp("\u00D1", "g");
-    public static readonly odd_ren = new RegExp("\u00F1", "g");
-    public static readonly odd_reC = new RegExp("\u00C7", "g");
-    public static readonly odd_rec = new RegExp("\u00E7", "g");
-    public static readonly odd_reOthers = new RegExp("[\u0080-\uFFFF]", "g");
+    public static readonly odd_reA = new RegExp('\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5', 'g');
+    public static readonly odd_rea = new RegExp('\u00E0|\u00E1|\u00E2|\u00E3|\u00E4|\u00E5', 'g');
+    public static readonly odd_reE = new RegExp('\u00C8|\u00C9|\u00CA|\u00CB', 'g');
+    public static readonly odd_ree = new RegExp('\u00E8|\u00E9|\u00EA|\u00EB', 'g');
+    public static readonly odd_reI = new RegExp('\u00CC|\u00CD|\u00CE|\u00CF', 'g');
+    public static readonly odd_rei = new RegExp('\u00EC|\u00ED|\u00EE|\u00EF', 'g');
+    public static readonly odd_reO = new RegExp('\u00D2|\u00D3|\u00D4|\u00D5|\u00D6', 'g');
+    public static readonly odd_reo = new RegExp('\u00F2|\u00F3|\u00F4|\u00F5|\u00F6', 'g');
+    public static readonly odd_reU = new RegExp('\u00D9|\u00DA|\u00DB|\u00DC', 'g');
+    public static readonly odd_reu = new RegExp('\u00F9|\u00FA|\u00FB|\u00FC', 'g');
+    public static readonly odd_reN = new RegExp('\u00D1', 'g');
+    public static readonly odd_ren = new RegExp('\u00F1', 'g');
+    public static readonly odd_reC = new RegExp('\u00C7', 'g');
+    public static readonly odd_rec = new RegExp('\u00E7', 'g');
+    public static readonly odd_reOthers = new RegExp('[\u0080-\uFFFF]', 'g');
 
     public static normaliza(s: string): string {
-        s = s.replace(GPUtil.odd_reA, "A");
-        s = s.replace(GPUtil.odd_rea, "a");
-        s = s.replace(GPUtil.odd_reE, "E");
-        s = s.replace(GPUtil.odd_ree, "e");
-        s = s.replace(GPUtil.odd_reI, "I");
-        s = s.replace(GPUtil.odd_rei, "i");
-        s = s.replace(GPUtil.odd_reO, "O");
-        s = s.replace(GPUtil.odd_reo, "o");
-        s = s.replace(GPUtil.odd_reU, "U");
-        s = s.replace(GPUtil.odd_reu, "u");
-        s = s.replace(GPUtil.odd_reN, "N");
-        s = s.replace(GPUtil.odd_ren, "n");
-        s = s.replace(GPUtil.odd_reC, "C");
-        s = s.replace(GPUtil.odd_rec, "c");
-        s = s.replace(GPUtil.odd_reOthers, "");
+        s = s.replace(GPUtil.odd_reA, 'A');
+        s = s.replace(GPUtil.odd_rea, 'a');
+        s = s.replace(GPUtil.odd_reE, 'E');
+        s = s.replace(GPUtil.odd_ree, 'e');
+        s = s.replace(GPUtil.odd_reI, 'I');
+        s = s.replace(GPUtil.odd_rei, 'i');
+        s = s.replace(GPUtil.odd_reO, 'O');
+        s = s.replace(GPUtil.odd_reo, 'o');
+        s = s.replace(GPUtil.odd_reU, 'U');
+        s = s.replace(GPUtil.odd_reu, 'u');
+        s = s.replace(GPUtil.odd_reN, 'N');
+        s = s.replace(GPUtil.odd_ren, 'n');
+        s = s.replace(GPUtil.odd_reC, 'C');
+        s = s.replace(GPUtil.odd_rec, 'c');
+        s = s.replace(GPUtil.odd_reOthers, '');
         return s;
     }
 
@@ -58,26 +59,26 @@ export class GPUtil {
         if (dt == null) {
             return null;
         }
-        if ("string" == typeof dt) {
+        if ('string' == typeof dt) {
             // TODO Error en p-calendar. Viene segun el formato del control.
-            let s = "" + dt; // Convierte en string, aunque no hace falta.
+            let s = '' + dt; // Convierte en string, aunque no hace falta.
             if (s == '') {
                 return null;
             }
-            if (possibleFormat == "dd/mm/yyyy" || possibleFormat == "dd/mm/yy") {
-                return s.substr(6, 4) + "-" + s.substr(3, 2) + "-" + s.substr(0, 2);
+            if (possibleFormat == 'dd/mm/yyyy' || possibleFormat == 'dd/mm/yy') {
+                return s.substr(6, 4) + '-' + s.substr(3, 2) + '-' + s.substr(0, 2);
             }
-            throw "Invalid format '" + possibleFormat + "'";
+            throw 'Invalid format \'' + possibleFormat + '\'';
         }
-        let y = "000" + dt.getFullYear();
-        let m = "0" + (dt.getMonth() + 1);
-        let d = "0" + dt.getDate();
-        return y.substr(y.length - 4) + "-" + m.substr(m.length - 2) + "-" + d.substr(d.length - 2);
+        let y = '000' + dt.getFullYear();
+        let m = '0' + (dt.getMonth() + 1);
+        let d = '0' + dt.getDate();
+        return y.substr(y.length - 4) + '-' + m.substr(m.length - 2) + '-' + d.substr(d.length - 2);
     }
 
     //deprecated ('use str2Date instead')
     public static yyyymmddToDate(s: string): Date {
-        if (s == null || s == "") {
+        if (s == null || s == '') {
             return null;
         }
         let y = parseInt(s.substr(0, 4));
@@ -91,7 +92,7 @@ export class GPUtil {
 
     //deprecated ("use str2DateString instead")
     public static yyyymmddToDateFormat(yyyymmdd: string, format: string): string {
-        if (yyyymmdd == null || yyyymmdd == "") {
+        if (yyyymmdd == null || yyyymmdd == '') {
             return null;
         }
 
@@ -100,15 +101,15 @@ export class GPUtil {
         let d = yyyymmdd.substr(8, 2);
 
         if (format == 'dd/mm/yy' || format == 'dd/mm/yyyy') {
-            return d + "/" + m + "/" + y;
+            return d + '/' + m + '/' + y;
         }
 
-        throw "Formato de fecha invalido '" + format + "'";
+        throw 'Formato de fecha invalido \'' + format + '\'';
     }
 
     //deprecated ("use str2DateString instead")
     public static dateFormatToYyyymmdd(dt: string, format: string): string {
-        if (dt == null || dt == "") {
+        if (dt == null || dt == '') {
             return null;
         }
 
@@ -117,12 +118,12 @@ export class GPUtil {
             let m = dt.substr(3, 2);
             let y = dt.substr(6);
             if (y.length == 2) {
-                y = ("" + (new Date()).getFullYear()).substr(0, 2);
+                y = ('' + (new Date()).getFullYear()).substr(0, 2);
             }
-            return y + "-" + m + "-" + d;
+            return y + '-' + m + '-' + d;
         }
 
-        throw "Formato de fecha invalido '" + format + "'";
+        throw 'Formato de fecha invalido \'' + format + '\'';
     }
 
     //depreacted ("use str2Date instead")
@@ -138,21 +139,21 @@ export class GPUtil {
             let m = parseInt(time.substr(3, 2));
 
             if (h > 23 && m > 59) {
-                throw "Formato de tiempo no válido. Se utiliza el formato de 24h: '" + "'";
+                throw 'Formato de tiempo no válido. Se utiliza el formato de 24h: \'' + '\'';
             } else {
                 date.setHours(h, m);
                 return date;
             }
         }
 
-        throw  "Formato de hora invalido '" + "'";
+        throw  'Formato de hora invalido \'' + '\'';
     }
 
     public static dateTohhmm(date: Date, timeFormat: string) {
         if (date == null) {
             return null;
         }
-        console.log("timeFormat: " + timeFormat);
+        console.log('timeFormat: ' + timeFormat);
         if (timeFormat == 'hh:mm') {
             let h = '0' + date.getHours();
             let m = '0' + date.getMinutes();
@@ -161,7 +162,7 @@ export class GPUtil {
 
         }
 
-        throw "Formato de hora invalido '" + "'";
+        throw 'Formato de hora invalido \'' + '\'';
     }
 
     /*METODOS NO ESTÁTICOS, PORQUE PUEDEN SER LLAMADOS DESDE UN TEMPLATE*/
@@ -247,7 +248,7 @@ export class GPUtil {
     }
 
     public static letraDni(dni) {
-        return "TRWAGMYFPDXBNJZSQVHLCKE".charAt(dni.substring(0, 8) % 23);
+        return 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(dni.substring(0, 8) % 23);
     }
 
     public static calculaDni(value): String {
@@ -258,27 +259,43 @@ export class GPUtil {
         return value;
     }
 
-    public booleanToString(input: boolean, trueValue: string = "S", falseValue: string = "N"): string {
+    public static booleanToString(input: boolean, trueValue?: string, falseValue?: string): string {
         if (input) {
-            return trueValue;
+            if (!isNullOrUndefined(trueValue)) {
+                return trueValue;
+            } else {
+                return 'S';
+            }
         } else {
-            return falseValue;
-        }
-    }
-
-    public triBooleanToString(input: boolean, trueValue: string = "S", falseValue: string = "N"): string {
-        let ret = null;
-        if (input === true) {
-            ret = trueValue;
-        } else {
-            if (input === false) {
-                ret = falseValue;
+            if (!isNullOrUndefined(falseValue)) {
+                return falseValue;
+            } else {
+                return 'N';
             }
         }
-        return ret;
     }
 
-    public stringToBoolean(input: string, trueValue: string = "S", falseValue: string = "N"): boolean {
+    public triBooleanToString(input: boolean, trueValue?: string, falseValue?: string): string {
+        if (input === true) {
+            if (!isNullOrUndefined(trueValue)) {
+                return trueValue;
+            } else {
+                return 'S';
+            }
+        } else {
+            if (input === false) {
+                if (!isNullOrUndefined(falseValue)) {
+                    return falseValue;
+                } else {
+                    return 'N';
+                }
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public stringToBoolean(input: string, trueValue: string = 'S', falseValue: string = 'N'): boolean {
         if (trueValue == input) {
             return true;
         } else {
@@ -292,23 +309,23 @@ export class GPUtil {
 
     public static obtainCalendarConfig(): any {
         return {
-            closeText: "Cerrar",
-            prevText: "<Ant",
-            nextText: "Sig>",
-            currentText: "Hoy",
-            monthNames: ["enero", "febrero", "marzo", "abril", "mayo", "junio",
-                "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
-            monthNamesShort: ["ene", "feb", "mar", "abr", "may", "jun",
-                "jul", "ago", "sep", "oct", "nov", "dic"],
-            dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
-            dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
-            dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
-            weekHeader: "Sm",
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+                'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+            monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun',
+                'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+            dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+            dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+            dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+            weekHeader: 'Sm',
             defaultDate: new Date(),
             firstDayOfWeek: 1,
             isRTL: false,
             showMonthAfterYear: false,
-            yearSuffix: ""
+            yearSuffix: ''
         };
     }
 
@@ -370,7 +387,7 @@ export class GPUtil {
     }
 
     public limpiaSaltosLinea(s: string): string {
-        if (s == null || s == "") {
+        if (s == null || s == '') {
             console.log(s);
             return s;
         } else {
