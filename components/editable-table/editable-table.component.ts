@@ -211,6 +211,7 @@ export class GpAppEditableTableComponent implements OnInit {
     }
 
     allSelected(): boolean {
+        if(this.selectedData.length == 0) { return false; }
         let selectableData = this.filteredData.filter((item, index, arr) => {
             if(this.config.selectableFn) {
                 return this.config.selectableFn(item, index, arr);
