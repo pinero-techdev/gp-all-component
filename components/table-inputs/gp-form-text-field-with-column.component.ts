@@ -32,25 +32,19 @@ export class GpFormTextFieldWithColumnComponent extends CustomInput implements O
     }
 
     onFocus(event: any) {
-        let tableFieldEvent: TableFieldEvent = new class implements TableFieldEvent {
-            column: TableColumnMetadata;
-            value: any;
+        let tableFieldEvent: TableFieldEvent = {
+            column: this.columnMetadata,
+            value: event.target.value
         };
-
-        tableFieldEvent.column = this.columnMetadata;
-        tableFieldEvent.value = event.target.value;
 
         this.startEditingField.emit(tableFieldEvent);
     }
 
     onStop(event: any) {
-        let tableFieldEvent: TableFieldEvent = new class implements TableFieldEvent {
-            column: TableColumnMetadata;
-            value: any;
+        let tableFieldEvent: TableFieldEvent = {
+            column: this.columnMetadata,
+            value: event.target.value
         };
-
-        tableFieldEvent.column = this.columnMetadata;
-        tableFieldEvent.value = event.target.value;
 
         this.stopEditingField.emit(tableFieldEvent);
     }

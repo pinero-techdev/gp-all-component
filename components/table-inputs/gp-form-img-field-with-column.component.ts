@@ -34,25 +34,19 @@ export class GpFormImgFieldWithColumnComponent extends CustomInput implements On
 
     onStart() {
         this.visible = true;
-        let tableFieldEvent: TableFieldEvent = new class implements TableFieldEvent {
-            column: TableColumnMetadata;
-            value: any;
-        };
-
-        tableFieldEvent.column = this.columnMetadata;
-        tableFieldEvent.value = this.value;
+        let tableFieldEvent: TableFieldEvent = {
+            column: this.columnMetadata,
+            value: this.value
+        };s
 
         this.startEditingField.emit(tableFieldEvent);
     }
 
     onStop() {
-        let tableFieldEvent: TableFieldEvent = new class implements TableFieldEvent {
-            column: TableColumnMetadata;
-            value: any;
+        let tableFieldEvent: TableFieldEvent = {
+            column: this.columnMetadata,
+            value: this.value
         };
-
-        tableFieldEvent.column = this.columnMetadata;
-        tableFieldEvent.value = this.value;
 
         this.stopEditingField.emit(tableFieldEvent);
     }

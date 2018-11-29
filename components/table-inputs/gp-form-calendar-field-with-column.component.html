@@ -1,7 +1,7 @@
 <p-calendar [name]="columnMetadata.name"
             styleClass="full-width"
             [defaultDate]="value"
-            [(ngModel)]="value"
+            [ngModel]="value"
             [disabled]="!columnMetadata.editable"
             [dateFormat]="dateFormat"
             (onFocus)="onFocus($event)"

@@ -3,6 +3,7 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {CustomInput} from "../../resources/data/custom-input";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {TableFieldEvent} from "../../resources/data/table.events";
+import {InputType} from "../../resources/data/selection-type.enum";
 
 @Component({
     selector: 'gp-app-input-with-metadata',
@@ -21,6 +22,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
     @Output() startEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
+    inputType = InputType;
 
     onModelChange(v: any ) {
         console.log('change',v);
