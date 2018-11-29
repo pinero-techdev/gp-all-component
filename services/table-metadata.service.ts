@@ -167,7 +167,7 @@ export class TableMetadataService{
         return column;
     }
 
-    validateField(row: any, column: TableColumnMetadata) {
+    validateField(row: any, column: TableColumnMetadata): boolean {
         let valid: boolean = true;
 
         //Comprueba si el campo está vacío
