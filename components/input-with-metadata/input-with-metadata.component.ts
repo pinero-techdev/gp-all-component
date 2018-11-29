@@ -25,6 +25,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
     private _inputType = InputType;
     private _column: TableColumnMetadata = new TableColumnMetadata();
     private _options = [];
+    // usar optionsList para las opciones de los dropdown
     public optionsList = [];
 
     public valid: boolean;
@@ -119,9 +120,9 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
         for (let row of this._options) {
             let optionLabel = "";
             let separator = "";
-            row._label = "";
+            // row._label = "";
             for (let fieldDesc of this.column.optionsLabels) {
-                row._label += separator + row[fieldDesc];
+                optionLabel += separator + row[fieldDesc];
                 separator = " - ";
             }
             _options.push({
