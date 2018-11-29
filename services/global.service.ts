@@ -25,9 +25,10 @@ export class GlobalService {
     private static roles: RolInfo[];
     private static language: string;
 
+    private static _appHeaderInfo: string;
 
     public static get BASE_URL(): string {
-        return GlobalService.baseUrl;
+        return this.baseUrl;
     }
 
     public static setBaseUrl(newUrl: string) {
@@ -35,7 +36,7 @@ export class GlobalService {
     }
 
     public static get LOGIN_SERVICE_URL(): string {
-        return GlobalService.loginServiceUrl;
+        return this.loginServiceUrl;
     }
 
     public static setLoginServiceUrl(newUrl: string) {
@@ -43,7 +44,7 @@ export class GlobalService {
     }
 
     public static get MENU_SERVICE_URL(): string {
-        return GlobalService.menuServiceUrl;
+        return this.menuServiceUrl;
     }
 
     public static setMenuServiceUrl(newUrl: string) {
@@ -51,7 +52,7 @@ export class GlobalService {
     }
 
     public static get PRE_LOGIN_URL(): string {
-        return GlobalService.preLoginUrl;
+        return this.preLoginUrl;
     }
 
     public static setPreLoginUrl(preLoginUrl: string) {
@@ -79,7 +80,7 @@ export class GlobalService {
     }
 
     public static get APP(): string {
-        return GlobalService.app;
+        return this.app;
     }
 
     public static setIp(ip: string) {
@@ -87,7 +88,7 @@ export class GlobalService {
     }
 
     public static get IP(): string {
-        return GlobalService.ip;
+        return this.ip;
     }
 
     public static setParams(params: Param[]) {
@@ -95,68 +96,76 @@ export class GlobalService {
     }
 
     public static get PARAMS(): Param[] {
-        return GlobalService.params;
+        return this.params;
     }
 
     public static setSession(session: UserInfo) {
-        GlobalService.session = session;
+        this.session = session;
     }
 
     public static get SESSION(): UserInfo {
-        if (!GlobalService.session) {
+        if (!this.session) {
             return null;
         }
-        return GlobalService.session;
+        return this.session;
     }
 
     public static setSessionId(sessionId: string) {
-        GlobalService.sessionId = sessionId;
+        this.sessionId = sessionId;
     }
 
     public static get SESSION_ID(): string {
-        if (!GlobalService.sessionId) {
+        if (!this.sessionId) {
             return "";
         }
-        return GlobalService.sessionId;
+        return this.sessionId;
     }
 
     public static setKiosk(kiosk: boolean) {
-        GlobalService.kiosk = kiosk;
+        this.kiosk = kiosk;
     }
 
     public static get KIOSK(): boolean {
-        return GlobalService.kiosk;
+        return this.kiosk;
     }
 
     public static setLogged(logged: boolean) {
-        GlobalService.logged = logged;
+        this.logged = logged;
     }
 
     public static get LOGGED(): boolean {
-        return GlobalService.logged;
+        return this.logged;
     }
 
     public static setApplicationTitle(applicationTitle: string) {
-        GlobalService.applicationTitle = applicationTitle;
+        this.applicationTitle = applicationTitle;
     }
 
     public static get APPLICATION_TITLE(): string {
-        return GlobalService.applicationTitle;
+        return this.applicationTitle;
     }
 
     public static setRoles(roles: RolInfo[]) {
-        GlobalService.roles = roles;
+        this.roles = roles;
     }
 
     public static get ROLES(): RolInfo[] {
-        return GlobalService.roles;
+        return this.roles;
     }
 
     public static setLanguage(language: string) {
-        GlobalService.language = language;
+        this.language = language;
     }
 
     public static get LANGUAGE(): string {
-        return GlobalService.language;
+        return this.language;
+    }
+
+    public static getAppHeaderInfo(): string {
+        return this._appHeaderInfo;
+    }
+
+    public static setAppHeaderInfo(value: string) {
+        this._appHeaderInfo = value;
     }
 }

@@ -18,7 +18,7 @@ export class GpAppTopBarComponent implements OnInit {
      */
     @ViewChild('menuUser') menuUser: ElementRef;
     @ViewChild('userMobileButton') userMobileButton: ElementRef;
-
+    GlobalService = GlobalService;
     public itemsUserMenu: MenuItem[];
 
     @Input() homeUrl: string;

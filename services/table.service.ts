@@ -97,6 +97,7 @@ export class FieldDisplayInfo {
     fieldDescriptions:string[];
     textProperties:string[];
     relatedField:string;
+    relatedFieldExt:string;
     translationInfo:TranslationInfo;
 
 
@@ -195,7 +196,8 @@ export class TableService extends CommonService {
     /**
      * Llamada al WS para obtener una lista de registros.
      */
-    list(tableName:string, retrieveMetadata:boolean, ordered?:boolean, fieldsToOrderBy?:string[], filters?:Filter[]):Observable<ListRs> {
+    list(tableName: string, retrieveMetadata: boolean, ordered?: boolean, fieldsToOrderBy?: string[], filters?: Filter[],
+         translate?: boolean, translationLanguage?: string): Observable<ListRs> {
         let order = true;
         let fieldsToOrder = null;
         let filtersRq = null;
@@ -214,7 +216,8 @@ export class TableService extends CommonService {
             `${GlobalService.BASE_URL}/table_svc/${tableName}/list`,
             {
                 retrieveMetadata: retrieveMetadata,
-                ordered: order, fieldsToOrderBy: fieldsToOrder, filters: filtersRq
+                ordered: order, fieldsToOrderBy: fieldsToOrder, filters: filtersRq,
+                translate: translate, translationLanguage: translationLanguage
             });
     }
 

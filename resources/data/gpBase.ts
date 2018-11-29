@@ -1,12 +1,12 @@
-import {HostListener, OnInit} from "@angular/core";
-import {Mensajes} from "./mensajes";
+import {HostListener, OnInit} from '@angular/core';
+import {Mensajes} from './mensajes';
 
 //FIXME hacerlo extender de translate para implementar traducciones OK
 export class GpBase extends Mensajes/* extends Translate*/ {
-    width:number;
-    height:number;
-    working:boolean = false;
-    jobs:number = 0;
+    width: number;
+    height: number;
+    working = false;
+    jobs = 0;
 
     constructor() {
         super();
@@ -20,13 +20,13 @@ export class GpBase extends Mensajes/* extends Translate*/ {
         this.width = event.target.innerWidth * 0.95;
     }
 
-    pushQueue(jobs:number) {
+    pushQueue(jobs: number) {
         this.jobs = this.jobs + jobs;
         this.working = true;
     }
 
     popQueue() {
-        if (this.working = true && this.jobs > 0) {
+        if (this.working == true && this.jobs > 0) {
             this.jobs = this.jobs - 1;
             this.working = this.jobs != 0;
         }

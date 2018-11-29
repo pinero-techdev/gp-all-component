@@ -1,3 +1,30 @@
 .ui-menu {
     min-height: 48px;
 }
+.application-info{
+    display: inline-block;
+    color: #fff;
+    font-size: 2em;
+    height: 21px;
+    max-width: calc(50% - 150px);
+}
+.application-info div {
+    margin-top: 11px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 21px;
+    height: 21px;
+}
+.topbar-items{
+    max-width: calc(50% - 135px);
+}
+.topbar-items > .application-title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: calc(100% - 52px);
+}
+.layout-container .topbar .topbar-right #menu-button {
+    top: -5px;
+}

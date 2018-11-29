@@ -1,6 +1,6 @@
 {
   "_from": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
-  "_id": "gp-all-component@1.0.8",
+  "_id": "gp-all-component@1.0.9",
   "_inBundle": false,
   "_location": "/gp-all-component",
   "_phantomChildren": {},
@@ -76,5 +76,5 @@
   },
   "license": "MIT",
   "name": "gp-all-component",
-  "version": "1.0.8"
+  "version": "1.0.9"
 }

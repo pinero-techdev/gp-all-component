@@ -1,8 +1,8 @@
 import {Component, OnInit, AfterViewInit, ApplicationRef, EventEmitter, Output} from '@angular/core';
-import {MenuRq} from "../../resources/data/menuRq";
-import {GlobalService} from "../../services/global.service";
-import {AppMenuService} from "../../services/app-menu.service";
-import {Observable} from "rxjs/Rx";
+import {MenuRq} from '../../resources/data/menuRq';
+import {GlobalService} from '../../services/global.service';
+import {AppMenuService} from '../../services/app-menu.service';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'gp-app-main-menu',
