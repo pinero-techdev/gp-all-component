@@ -37,7 +37,7 @@ export class GpFormImgFieldWithColumnComponent extends CustomInput implements On
         let tableFieldEvent: TableFieldEvent = {
             column: this.columnMetadata,
             value: this.value
-        };s
+        };
 
         this.startEditingField.emit(tableFieldEvent);
     }
