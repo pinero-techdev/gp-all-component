@@ -15,6 +15,12 @@ export class TableColumnMetadata {
     order: number = -1;
     translationInfo: TranslationInfo;
     isId: boolean;
+    optionsLabels: string[];
+    optionsValue: string;
+    referencedTable: string; // informa del endpoint
+    fieldToOrderBy: string[]; // campo que se envía como parámetro para ordenar el listado de opciones
+    retrieveMetadata: boolean;
+    optionsOrdered : boolean;
     max: number;
     min: number;
     maxValue: number;

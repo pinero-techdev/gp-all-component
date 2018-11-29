@@ -19,24 +19,18 @@ export class GpFormTimeFieldWithColumnComponent extends CustomInput {
 
     onFocus(event: any) {
         //event no controlado
-        let tableFieldEvent: TableFieldEvent = new class implements TableFieldEvent {
-            column: TableColumnMetadata;
-            value: any;
+        let tableFieldEvent: TableFieldEvent = {
+            column: this.columnMetadata,
+            value: event
         };
-
-        tableFieldEvent.column = this.columnMetadata;
-        tableFieldEvent.value = event;
 
         this.startEditingField.emit(tableFieldEvent);
     }
     onStop(event: Date) {
-        let tableFieldEvent: TableFieldEvent = new class implements TableFieldEvent {
-            column: TableColumnMetadata;
-            value: any;
+        let tableFieldEvent: TableFieldEvent = {
+            column: this.columnMetadata,
+            value: event
         };
-
-        tableFieldEvent.column = this.columnMetadata;
-        tableFieldEvent.value = event;
 
         this.stopEditingField.emit(tableFieldEvent);
     }

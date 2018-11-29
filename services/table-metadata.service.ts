@@ -25,6 +25,11 @@ export class TableMetadataService{
             column.order = metadata.displayInfo.order;
             column.translationInfo = metadata.displayInfo.translationInfo;
             column.rows = metadata.displayInfo.rowsTextArea > 0 ? metadata.displayInfo.rowsTextArea : 3;
+            column.referencedTable = metadata.displayInfo.referencedTable;
+            column.fieldToOrderBy = [metadata.displayInfo.fieldToOrderBy];
+            column.optionsValue = metadata.displayInfo.referencedField;
+            // column.optionsLabels = metadata.displayInfo;
+
             column.relatedField = metadata.displayInfo.relatedField;
         }
         this.getTextProperties(metadata, column);
