@@ -1,0 +1,10 @@
+<p-calendar [name]="columnMetadata.name"
+            styleClass="full-width"
+            [defaultDate]="value"
+            [(ngModel)]="value"
+            [disabled]="!columnMetadata.editable"
+            [dateFormat]="dateFormat"
+            (onFocus)="onFocus($event)"
+            (ngModelChange)="onStop($event)"
+            [locale]="es">
+</p-calendar>

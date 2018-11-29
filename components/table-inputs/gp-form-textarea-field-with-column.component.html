@@ -1,0 +1,29 @@
+<p-dialog [(visible)]="visible"
+          [modal]="true"
+          (onHide)="onStop()">
+    <div [class.ui-g-12]="columnMetadata.translationInfo == null"
+         [class.ui-g-10]="columnMetadata.translationInfo != null && translationKeys != ''"
+         class="nopad">
+        <textarea [name]="columnMetadata.name"
+                  pInputTextarea
+                  [(ngModel)]="value"
+                  [rows]="columnMetadata.rows"
+                  class="full-width"
+                  [maxlength]="columnMetadata.max"
+                  [minlength]="columnMetadata.min"
+                  [disabled]="!columnMetadata.editable">
+        </textarea>
+    </div>
+    <div class="ui-g-2 nopad" *ngIf="columnMetadata.translationInfo != null && translationKeys != ''">
+        <gp-app-multi-idioma [pKey]="translationKeys"
+                             [esquema]="columnMetadata.translationInfo.scheme"
+                             [tabla]="columnMetadata.translationInfo.table"
+                             [campo]="columnMetadata.translationInfo.field"
+                             [campoDescripcion]="columnMetadata.translationInfo.description"
+                             [habilitarEdicionHTML]="columnMetadata.translationInfo.allowEdition"
+                             [orderByLangCod]="columnMetadata.translationInfo.orderByLangCod">
+        </gp-app-multi-idioma>
+    </div>
+</p-dialog>
+
+<button (click)="onStart()"></button>

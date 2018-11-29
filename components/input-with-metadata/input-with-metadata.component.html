@@ -1,8 +1,9 @@
 <input type="text"
        *ngIf="column"
        [ngModel]="value"
+       (ngModelChange)="(isFilter)? value = $event : null"
        (focus)="onStartEditing()"
        (blur)="onStopEditing()"
-       (change)="onModelChange(input.value)"
+       (change)="(!isFilter)? onModelChange(input.value) : null"
        #input
 >

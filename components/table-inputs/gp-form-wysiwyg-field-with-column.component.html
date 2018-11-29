@@ -1,0 +1,10 @@
+<p-dialog [(visible)]="visible"
+          (onHide)="stopEditing($event)"
+          [modal]="true">
+    <p-editor [name]="columnMetadata.name"
+              [(ngModel)]="value"
+              [style]="{'height':'200px'}"
+              [disabled]="!columnMetadata.editable">
+    </p-editor>
+</p-dialog>
+<button (click)="setVisible()"></button>

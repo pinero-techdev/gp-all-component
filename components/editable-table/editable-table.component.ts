@@ -198,13 +198,25 @@ export class GpAppEditableTableComponent implements OnInit {
             if(this.config.compareFn){
                 return this.config.compareFn(data, item);
             } else {
-                return item == data;
+                for(let column of this.columns) {
+                    if(column.isId) {
+                        if(data[column.name] != item[column.name]) {
+                            return false
+                        }
+                    }
+                }
+                return true;
             }
         })
     }
 
     allSelected(): boolean {
-        let selectableData = this.filteredData.filter(this.config.selectableFn);
+        let selectableData = this.filteredData.filter((item, index, arr) => {
+            if(this.config.selectableFn) {
+                return this.config.selectableFn(item, index, arr);
+            }
+            return true;
+        });
         if(selectableData.length != this.selectedData.length) {
             return false;
         }
@@ -233,6 +245,9 @@ export class GpAppEditableTableComponent implements OnInit {
     exportToCsv() {
         let csvSeparator = ";";
         let data = this.filteredData;
+        if(this.selectedData && this.selectedData.length > 0) {
+            data = this.selectedData;
+        }
         let csv = '\ufeff';
         //headers
         for (let i = 0; i < this.columns.length; i++) {
@@ -336,11 +351,11 @@ export class GpAppEditableTableComponent implements OnInit {
 
     beforeSaveItem(original: any, modified: any) {
         let successSaved =  (savedItem: any) => {
-            original = savedItem;
             delete original._editting;
             this.onEdition = false;
+            Object.assign(original, savedItem);
             this.editionObject = null;
-            this.stopEdition.emit(savedItem);
+            this.stopEdition.emit({item: savedItem, columns: this.columns});
         };
         if(this.config.beforeSaveFn) {
             let modifiedItem = this.config.beforeSaveFn(original, modified);
@@ -400,9 +415,7 @@ export class GpAppEditableTableComponent implements OnInit {
         }
         for(let column of this.columns) {
             if(column.validateFn) {
-                if(!column.validateFn(item[column.name], item, column)) {
-                    return false;
-                }
+                return column.validateFn(item[column.name], item, column);
             }
         }
         // TODO Validate form inputs
