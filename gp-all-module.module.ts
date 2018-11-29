@@ -4,7 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import {NgModule} from '@angular/core';
-import {MatButtonModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import 'rxjs/Rx';
 
@@ -61,70 +60,73 @@ import {
     TriStateCheckboxModule
 } from 'primeng/primeng';
 
-import { GpAppEmptyComponent } from "./components/empty/gp.app.empty.component";
-import { GpAppTopBarComponent } from './components/menu/gp.app.topbar.component';
-import { GpAppRedirectComponent } from './components/redirect/gp.app.redirect.component';
-import { GpAppTableFrameComponent } from './components/tables/gp-app-table-frame.component';
-import { GpAppTableCrudComponent } from './components/tables/gp-app-table-crud.component';
-import { GpAppRemoteFsysPickerComponent } from './components/remote-fsys/gp.app.remote-fsys-picker.component';
-import { GpFormCalendarFieldComponent } from './components/tables/gp-form-calendar-field.component';
-import { GpFormCheckboxFieldComponent } from './components/tables/gp-form-checkbox-field.component';
-import { GpFormDropdownFieldComponent } from './components/tables/gp-form-dropdown-field.component';
-import { GpFormTextAreaFieldComponent } from './components/tables/gp-form-textarea-field.component';
-import { GpFormSwitchFieldComponent } from './components/tables/gp-form-switch-field.component';
-import { GpFormImgFieldComponent } from './components/tables/gp-form-img-field.component';
-import { GpFormDropdownRelatedfieldComponent } from './components/tables/gp-form-dropdown-related-field.component';
-import { GpFormTextFieldComponent } from './components/tables/gp-form-text-field.component';
-import { GpFormTimeFieldComponent } from './components/tables/gp-form-time-field.component';
-import { GpFormWysiwygFieldComponent } from './components/tables/gp-form-wysiwyg-field.component';
-import { GpAppRatingComponent } from './components/rating/gp.app.rating.component';
-import { GpAppMultiSelectComponent } from './components/multiselect/gp.app.multi-select.component';
-import { GpAppMultiIdiomaComponent } from './components/multi-idioma/gp.app.multi-idioma.component';
-import { GpAppModificaPasswordComponent } from './components/password/gp.app.modifica-password.component';
-import { GpAppMainMenuComponent } from './components/menu/gp.app.main.menu.component';
-import { GpAppLoginComponent } from './components/login/gp.app.login.component';
-import { GpAppLoadingIndicatorComponent } from './components/loading-indicator/gp.app.loading-indicator.component';
-import { GPDynamicComponent } from './components/dynamic/gp.dynamic.component';
-import { TranslatePipe } from './resources/pipes/translate.pipe';
-import { GPUppercaseDirective } from './directives/gp-uppercase.directive';
-import { GPLowercaseDirective } from './directives/gp-lowercase.directive';
-import { FocusDirective } from './directives/focus.directive';
-import {GpAppEditableTableComponent} from "./components/editable-table/editable-table.component";
-import {GpAppEditableTableCrudComponent} from "./components/editable-table-crud/editable-table-crud.component";
-import {GpAppInputWithMetadataComponent} from "./components/input-with-metadata/input-with-metadata.component";
-import {TableMetadataService} from "./services/table-metadata.service";
-import {GpFormWysiwygFieldWithColumnComponent} from "./components/table-inputs/gp-form-wysiwyg-field-with-column.component";
-import {GpFormTimeFieldWithColumnComponent} from "./components/table-inputs/gp-form-time-field-with-column.component";
-import {GpFormTextareaFieldWithColumnComponent} from "./components/table-inputs/gp-form-textarea-field-with-column.component";
-import {GpFormSwitchFieldWithColumnComponent} from "./components/table-inputs/gp-form-switch-field-with-column.component";
-import {GpFormImgFieldWithColumnComponent} from "./components/table-inputs/gp-form-img-field-with-column.component";
-import {GpFormCheckboxFieldWithColumnComponent} from "./components/table-inputs/gp-form-checkbox-field-with-column.component";
-import {GpFormCalendarFieldWithColumnComponent} from "./components/table-inputs/gp-form-calendar-field-with-column.component";
-import {GpFormDropdownFieldWithColumnComponent} from "./components/table-inputs/gp-form-dropdown-field-with-column.component";
-import {GpFormTextFieldWithColumnComponent} from "./components/table-inputs/gp-form-text-field-with-column.component";
+import {GpAppEmptyComponent} from './components/empty/gp.app.empty.component';
+import {GpAppTopBarComponent} from './components/menu/gp.app.topbar.component';
+import {GpAppRedirectComponent} from './components/redirect/gp.app.redirect.component';
+import {GpAppTableFrameComponent} from './components/tables/gp-app-table-frame.component';
+import {GpAppTableCrudComponent} from './components/tables/gp-app-table-crud.component';
+import {GpAppRemoteFsysPickerComponent} from './components/remote-fsys/gp.app.remote-fsys-picker.component';
+import {GpFormCalendarFieldComponent} from './components/tables/gp-form-calendar-field.component';
+import {GpFormCheckboxFieldComponent} from './components/tables/gp-form-checkbox-field.component';
+import {GpFormDropdownFieldComponent} from './components/tables/gp-form-dropdown-field.component';
+import {GpFormTextAreaFieldComponent} from './components/tables/gp-form-textarea-field.component';
+import {GpFormSwitchFieldComponent} from './components/tables/gp-form-switch-field.component';
+import {GpFormImgFieldComponent} from './components/tables/gp-form-img-field.component';
+import {GpFormDropdownRelatedfieldComponent} from './components/tables/gp-form-dropdown-related-field.component';
+import {GpFormTextFieldComponent} from './components/tables/gp-form-text-field.component';
+import {GpFormTimeFieldComponent} from './components/tables/gp-form-time-field.component';
+import {GpFormWysiwygFieldComponent} from './components/tables/gp-form-wysiwyg-field.component';
+import {GpAppRatingComponent} from './components/rating/gp.app.rating.component';
+import {GpAppMultiSelectComponent} from './components/multiselect/gp.app.multi-select.component';
+import {GpAppMultiIdiomaComponent} from './components/multi-idioma/gp.app.multi-idioma.component';
+import {GpAppModificaPasswordComponent} from './components/password/gp.app.modifica-password.component';
+import {GpAppMainMenuComponent} from './components/menu/gp.app.main.menu.component';
+import {GpAppLoginComponent} from './components/login/gp.app.login.component';
+import {GpAppLoadingIndicatorComponent} from './components/loading-indicator/gp.app.loading-indicator.component';
+import {GPDynamicComponent} from './components/dynamic/gp.dynamic.component';
+import {GPUppercaseDirective} from './directives/gp-uppercase.directive';
+import {GPLowercaseDirective} from './directives/gp-lowercase.directive';
+import {FocusDirective} from './directives/focus.directive';
+import {AuthGuard} from './resources/data/authGuard';
+import {AppMenuService} from './services/app-menu.service';
+import {CommonService} from './services/common.service';
+import {GlobalService} from './services/global.service';
+import {LoginService} from './services/login.service';
+import {MultiIdomaService} from './services/multi-idioma.service';
+import {TableService} from './services/table.service';
+import {GpAppEditableTableComponent} from './components/editable-table/editable-table.component';
+import {GpAppEditableTableCrudComponent} from './components/editable-table-crud/editable-table-crud.component';
+import {GpAppInputWithMetadataComponent} from './components/input-with-metadata/input-with-metadata.component';
+import {TableMetadataService} from './services/table-metadata.service';
+import {GpFormWysiwygFieldWithColumnComponent} from './components/table-inputs/gp-form-wysiwyg-field-with-column.component';
+import {GpFormTimeFieldWithColumnComponent} from './components/table-inputs/gp-form-time-field-with-column.component';
+import {GpFormTextareaFieldWithColumnComponent} from './components/table-inputs/gp-form-textarea-field-with-column.component';
+import {GpFormSwitchFieldWithColumnComponent} from './components/table-inputs/gp-form-switch-field-with-column.component';
+import {GpFormImgFieldWithColumnComponent} from './components/table-inputs/gp-form-img-field-with-column.component';
+import {GpFormCheckboxFieldWithColumnComponent} from './components/table-inputs/gp-form-checkbox-field-with-column.component';
+import {GpFormCalendarFieldWithColumnComponent} from './components/table-inputs/gp-form-calendar-field-with-column.component';
+import {GpFormDropdownFieldWithColumnComponent} from './components/table-inputs/gp-form-dropdown-field-with-column.component';
+import {GpFormTextFieldWithColumnComponent} from './components/table-inputs/gp-form-text-field-with-column.component';
 
 @NgModule({
-    imports: [
-        AccordionModule, AutoCompleteModule, BlockUIModule, BrowserAnimationsModule, BrowserModule,
-        CalendarModule, ChartModule, CheckboxModule, ChipsModule, ConfirmDialogModule, CustomFormsModule,
-        DataGridModule, DataListModule, DataTableModule, DialogModule, DropdownModule, EditorModule, FieldsetModule,
-        FileUploadModule, FormsModule, GalleriaModule, GrowlModule, HttpClientModule, HttpModule, InputSwitchModule,
-        InputTextModule, InputTextareaModule, ListboxModule, MatButtonModule, MenuModule, MenubarModule, MessagesModule,
-        MultiSelectModule, OrderListModule, OverlayPanelModule, PaginatorModule, PanelMenuModule, PanelModule,
-        PickListModule, ProgressBarModule, ProgressSpinnerModule, RadioButtonModule,
-        RatingModule, ReactiveFormsModule, RouterModule, ScheduleModule, ScrollPanelModule,
-        SharedModule, SlideMenuModule, SliderModule, SpinnerModule, 
-        SplitButtonModule, TabViewModule, ToolbarModule, TooltipModule, TreeModule, TriStateCheckboxModule
-    ],
-    exports: [
-        // Directives.
-        FocusDirective, GPLowercaseDirective, GPUppercaseDirective, 
+              imports: [
+                  AccordionModule, AutoCompleteModule, BlockUIModule, BrowserAnimationsModule, BrowserModule,
+                  CalendarModule, ChartModule, CheckboxModule, ChipsModule, ConfirmDialogModule, CustomFormsModule,
+                  DataGridModule, DataListModule, DataTableModule, DialogModule, DropdownModule, EditorModule, FieldsetModule,
+                  FileUploadModule, FormsModule, GalleriaModule, GrowlModule, HttpClientModule, HttpModule, InputSwitchModule,
+                  InputTextModule, InputTextareaModule, ListboxModule, MenuModule, MenubarModule, MessagesModule,
+                  MultiSelectModule, OrderListModule, OverlayPanelModule, PaginatorModule, PanelMenuModule, PanelModule,
+                  PickListModule, ProgressBarModule, ProgressSpinnerModule, RadioButtonModule,
+                  RatingModule, ReactiveFormsModule, RouterModule, ScheduleModule, ScrollPanelModule,
+                  SharedModule, SlideMenuModule, SliderModule, SpinnerModule,
+                  SplitButtonModule, TabViewModule, ToolbarModule, TooltipModule, TreeModule, TriStateCheckboxModule
+              ],
+              exports: [
+                  // Directives.
+                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
 
-        // Pipes.
-        TranslatePipe,
-
-        // Components.
-        GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppInputWithMetadataComponent,
+                  // Components.
+                  GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppInputWithMetadataComponent,
         GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
         GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
         GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
@@ -133,28 +135,23 @@ import {GpFormTextFieldWithColumnComponent} from "./components/table-inputs/gp-f
         GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent, GpFormTextFieldWithColumnComponent, GpFormDropdownFieldWithColumnComponent,
         GpFormCalendarFieldWithColumnComponent, GpFormCheckboxFieldWithColumnComponent, GpFormImgFieldWithColumnComponent, GpFormSwitchFieldWithColumnComponent,
         GpFormTextareaFieldWithColumnComponent, GpFormTimeFieldWithColumnComponent, GpFormWysiwygFieldWithColumnComponent
-    ],
-    declarations: [
-        // Directives.
-        FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
+              ],
+              declarations: [
+                  // Directives.
+                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
 
-        // Pipes.
-        TranslatePipe,
-
-        // Components.
-        GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppInputWithMetadataComponent,
-        GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
-        GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
-        GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
-        GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
-        GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
-        GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent, GpFormTextFieldWithColumnComponent, GpFormDropdownFieldWithColumnComponent,
-        GpFormCalendarFieldWithColumnComponent, GpFormCheckboxFieldWithColumnComponent, GpFormImgFieldWithColumnComponent, GpFormSwitchFieldWithColumnComponent,
-        GpFormTextareaFieldWithColumnComponent, GpFormTimeFieldWithColumnComponent, GpFormWysiwygFieldWithColumnComponent
-    ],
-    providers: [
-        TableMetadataService
-    ]
-})
+                  // Components.
+                  GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppLoadingIndicatorComponent, GpAppInputWithMetadataComponent,
+                  GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
+                  GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
+                  GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
+                  GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
+                  GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
+                  GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent, GpFormTextFieldWithColumnComponent, GpFormDropdownFieldWithColumnComponent,
+                  GpFormCalendarFieldWithColumnComponent, GpFormCheckboxFieldWithColumnComponent, GpFormImgFieldWithColumnComponent, GpFormSwitchFieldWithColumnComponent,
+                  GpFormTextareaFieldWithColumnComponent, GpFormTimeFieldWithColumnComponent, GpFormWysiwygFieldWithColumnComponent
+              ],
+              providers: [AppMenuService, AuthGuard, CommonService, GlobalService, LoginService, MultiIdomaService, TableService, TableMetadataService]
+          })
 export class GpAllModule {
 }

@@ -24,25 +24,19 @@ export class GpFormTextareaFieldWithColumnComponent extends CustomInput {
 
     onStart() {
         this.visible = true;
-        let tableFieldEvent: TableFieldEvent = new class implements TableFieldEvent {
-            column: TableColumnMetadata;
-            value: any;
+        let tableFieldEvent: TableFieldEvent = {
+            column: this.columnMetadata,
+            value: this.value
         };
-
-        tableFieldEvent.column = this.columnMetadata;
-        tableFieldEvent.value = this.value;
 
         this.startEditingField.emit(tableFieldEvent);
     }
 
     onStop() {
-        let tableFieldEvent: TableFieldEvent = new class implements TableFieldEvent {
-            column: TableColumnMetadata;
-            value: any;
+        let tableFieldEvent: TableFieldEvent = {
+            column: this.columnMetadata,
+            value: this.value
         };
-
-        tableFieldEvent.column = this.columnMetadata;
-        tableFieldEvent.value = this.value;
 
         this.stopEditingField.emit(tableFieldEvent);
     }

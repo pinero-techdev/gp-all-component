@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs/Rx";
-import {GlobalService} from "./global.service";
-import {CommonService, CommonRs} from "./common.service";
-import {Traduccion} from "gp-all-component/resources/data/traduccion";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
+import {Traduccion} from '../resources/data/traduccion.model';
+import {GlobalService} from './global.service';
+import {CommonService, CommonRs} from './common.service';
 
 export class GetTraduccionesRq {
     pKey: string;

@@ -48,6 +48,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
     @Output() startEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
+    inputType = InputType;
 
     onModelChange(v: any) {
         if (this.column.beforeChangeFn) {

@@ -1,5 +1,4 @@
-import {Component, Input} from "@angular/core";
-
+import {Component, Input} from '@angular/core';
 
 //TODO: Vicente Prats 13/04/2018 En cuanto haya tiempo hacer que la clase implemente ControlValueAccesor, para poder seleccionar valoraciones mediante click
 
@@ -10,18 +9,18 @@ import {Component, Input} from "@angular/core";
 export class GpAppRatingComponent {
 
     @Input()
-    set stars ( numStars: number ){
+    set stars(numStars: number) {
         let array = [];
-        for ( let i = 0; i < numStars; i++ ) {
+        for (let i = 0; i < numStars; i++) {
             array.push(i);
         }
         this.starsArray = array;
     }
 
-    public starsArray: number[] = [1,2,3,4,5];
+    public starsArray: number[] = [1, 2, 3, 4, 5];
 
     @Input()
-    public value : number = 0;
+    public value: number = 0;
     @Input()
     public iconOn: string = 'grade';
     @Input()
