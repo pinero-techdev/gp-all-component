@@ -198,7 +198,14 @@ export class GpAppEditableTableComponent implements OnInit {
             if(this.config.compareFn){
                 return this.config.compareFn(data, item);
             } else {
-                return item == data;
+                for(let column of this.columns) {
+                    if(column.isId) {
+                        if(data[column.name] != item[column.name]) {
+                            return false
+                        }
+                    }
+                }
+                return true;
             }
         })
     }
