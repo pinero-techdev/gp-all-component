@@ -4,6 +4,6 @@
             [autoWidth]="false"
 			[filter]="true"
             (onChange)="onEdit()"
-			[disabled]="!columnMetadata.editable"
+			[disabled]="!isEditable()"
             class="ui-inputfield ui-selectonemenu-label">
 </p-dropdown>

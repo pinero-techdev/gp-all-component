@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {TableColumnMetadata} from "../resources/data/table-column-metadata.model";
 import {FieldMetadata, TableService} from "./table.service";
-import {InputType} from "../resources/data/selection-type.enum";
+import {InputType} from "../resources/data/field-type.enum";
 
 @Injectable()
 export class TableMetadataService{
@@ -48,6 +48,16 @@ export class TableMetadataService{
                 }
             }
         }
+    }
+
+    isEditable(value:any, item: any, column: TableColumnMetadata) {
+        if(!column.editable){
+            return false;
+        }
+        if(column.editableFn){
+            return column.editableFn(value,item,column);
+        }
+        return true;
     }
 
     getType(metadata: FieldMetadata, column: TableColumnMetadata) {
@@ -99,6 +109,10 @@ export class TableMetadataService{
             switch (metadata.fieldType) {
                 case 'DATE':{
                     column.type = InputType.CALENDAR_FIELD;
+                    break;
+                }
+                case 'NUMBER':{
+                    column.type = InputType.NUMBER_FIELD;
                     break;
                 }
                 case 'BOOLEAN':{

@@ -4,6 +4,7 @@ import {TableColumnMetadata} from "../../resources/data/table-column-metadata.mo
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import { EventEmitter } from '@angular/core';
 import {TableFieldEvent} from "../../resources/data/table.events";
+import {TableMetadataService} from "../../services/table-metadata.service";
 
 @Component({
   selector: 'gp-form-wysiwyg-field-with-column',
@@ -18,6 +19,15 @@ export class GpFormWysiwygFieldWithColumnComponent extends CustomInput {
   @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
   visible: boolean = false;
+
+    @Input() item: any;
+    constructor(private tableService: TableMetadataService) {
+        super();
+    }
+
+    isEditable() {
+        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
+    }
 
   setVisible() {
     //StartEditing

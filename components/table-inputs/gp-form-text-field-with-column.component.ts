@@ -4,6 +4,7 @@ import {CustomInput} from "../../resources/data/custom-input";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import { EventEmitter } from '@angular/core';
 import {TableFieldEvent} from "../../resources/data/table.events";
+import {TableMetadataService} from "../../services/table-metadata.service";
 
 
 @Component({
@@ -14,12 +15,21 @@ import {TableFieldEvent} from "../../resources/data/table.events";
 })
 export class GpFormTextFieldWithColumnComponent extends CustomInput implements OnInit {
     @Input() columnMetadata: TableColumnMetadata;
+
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
     textboxClass: string = 'full-width';
 
     translationKeys: string = '';
+    @Input() item: any;
+    constructor(private tableService: TableMetadataService) {
+        super();
+    }
+
+    isEditable() {
+        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
+    }
 
     ngOnInit() {
         this.inicializa();

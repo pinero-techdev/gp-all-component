@@ -6,6 +6,7 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import { EventEmitter } from '@angular/core';
 import {TableFieldEvent} from "../../resources/data/table.events";
+import {TableMetadataService} from "../../services/table-metadata.service";
 
 
 @Component({
@@ -21,6 +22,15 @@ export class GpFormTextareaFieldWithColumnComponent extends CustomInput {
     visible: boolean = false;
 
     translationKeys: string = '';
+
+    @Input() item: any;
+    constructor(private tableService: TableMetadataService) {
+        super();
+    }
+
+    isEditable() {
+        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
+    }
 
     onStart() {
         this.visible = true;

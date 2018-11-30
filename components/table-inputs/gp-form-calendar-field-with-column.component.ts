@@ -4,6 +4,7 @@ import {CustomInput} from "../../resources/data/custom-input";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {TableFieldEvent} from "../../resources/data/table.events";
+import {TableMetadataService} from "../../services/table-metadata.service";
 
 @Component({
     selector: 'gp-form-calendar-field-with-column',
@@ -19,6 +20,15 @@ export class GpFormCalendarFieldWithColumnComponent extends CustomInput implemen
     dateFormat: string = "yy-mm-dd";
 
     es: any;
+
+    @Input() item: any;
+    constructor(private tableService: TableMetadataService) {
+        super();
+    }
+
+    isEditable() {
+        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
+    }
 
     ngOnInit() {
         this.es = {

@@ -8,7 +8,7 @@
            [(ngModel)]="value"
            [maxlength]="columnMetadata.max"
            [class]="textboxClass"
-           [disabled]="!columnMetadata.editable"
+           [disabled]="!isEditable()"
            class="full-width"/>
 </p-dialog>
 

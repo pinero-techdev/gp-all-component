@@ -6,11 +6,12 @@
            type="text"
            [(ngModel)]="value"
            [maxlength]="columnMetadata.max"
+           [minlength]="columnMetadata.min"
            [class]="textboxClass" class="full-width"
            [required]="columnMetadata.required"
            (focus)="onFocus($event)"
            (change)="onStop($event)"
-           [disabled]="!columnMetadata.editable"/>
+           [disabled]="!isEditable()"/>
 </div>
 <div class="ui-g-2 nopad" *ngIf="columnMetadata.translationInfo != null && translationKeys != ''">
     <gp-app-multi-idioma [pKey]="translationKeys"

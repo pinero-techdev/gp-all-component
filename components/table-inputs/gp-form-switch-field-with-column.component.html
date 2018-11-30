@@ -1,5 +1,5 @@
 <p-inputSwitch [name]="columnMetadata.name"
                [(ngModel)]="value"
                (onChange)="onEdit($event)"
-               [disabled]="!columnMetadata.editable">
+               [disabled]="!isEditable()">
 </p-inputSwitch>

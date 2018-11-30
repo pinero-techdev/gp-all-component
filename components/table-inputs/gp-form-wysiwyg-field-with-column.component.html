@@ -4,7 +4,7 @@
     <p-editor [name]="columnMetadata.name"
               [(ngModel)]="value"
               [style]="{'height':'200px'}"
-              [disabled]="!columnMetadata.editable">
+              [disabled]="!isEditable()">
     </p-editor>
 </p-dialog>
 <button (click)="setVisible()"></button>

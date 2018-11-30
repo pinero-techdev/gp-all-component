@@ -5,6 +5,7 @@ import {TableColumnMetadata} from "../../resources/data/table-column-metadata.mo
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import { EventEmitter } from '@angular/core';
 import {TableFieldEvent} from "../../resources/data/table.events";
+import {TableMetadataService} from "../../services/table-metadata.service";
 
 @Component({
   selector: 'gp-form-switch-field-with-column',
@@ -17,6 +18,15 @@ export class GpFormSwitchFieldWithColumnComponent extends CustomInput {
   @Input() columnMetadata: TableColumnMetadata;
   @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
   @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+
+    @Input() item: any;
+    constructor(private tableService: TableMetadataService) {
+        super();
+    }
+
+    isEditable() {
+        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
+    }
 
   onEdit(event: any) {
       let tableFieldEvent: TableFieldEvent = {

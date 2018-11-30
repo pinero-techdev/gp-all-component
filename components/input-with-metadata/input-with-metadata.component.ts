@@ -3,9 +3,10 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {CustomInput} from "../../resources/data/custom-input";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {TableFieldEvent} from "../../resources/data/table.events";
-import {InputType} from "../../resources/data/selection-type.enum";
+import {InputType} from "../../resources/data/field-type.enum";
 import {Observable} from "rxjs";
 import {TableService} from "../../services/table.service";
+import {TableMetadataService} from "../../services/table-metadata.service";
 
 @Component({
     selector: 'gp-app-input-with-metadata',
@@ -16,8 +17,12 @@ import {TableService} from "../../services/table.service";
     ]
 })
 export class GpAppInputWithMetadataComponent extends CustomInput {
-    constructor(private _service: TableService) {
+    constructor(private _service: TableService, private _tableMetadataService: TableMetadataService) {
         super()
+    }
+
+    isEditable() {
+        return this._tableMetadataService.isEditable(this.value, this.item, this.column);
     }
 
     private _inputType = InputType;

@@ -5,6 +5,7 @@ import {TableColumnMetadata} from "../../resources/data/table-column-metadata.mo
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import { EventEmitter } from '@angular/core';
 import {TableFieldEvent} from "../../resources/data/table.events";
+import {TableMetadataService} from "../../services/table-metadata.service";
 
 @Component({
     selector: 'gp-form-img-field-with-column',
@@ -22,6 +23,14 @@ export class GpFormImgFieldWithColumnComponent extends CustomInput implements On
 
     visible: boolean = false;
 
+    @Input() item: any;
+    constructor(private tableService: TableMetadataService) {
+        super();
+    }
+
+    isEditable() {
+        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
+    }
     ngOnInit() {
         this.inicializa();
     }

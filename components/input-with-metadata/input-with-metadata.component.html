@@ -14,48 +14,82 @@
                                     (startEditingField)="onStartEditing()"
                                     (stopEditingField)="onStopEditing()"
                                     [columnMetadata]="column"
-                                    [(ngModel)]="value[column.name]">
+                                    [item]="item"
+                                    [(ngModel)]="value">
     </gp-form-text-field-with-column>
     <gp-form-textarea-field-with-column *ngSwitchCase="inputType.TEXTAREA_FIELD"
                                         (startEditingField)="onStartEditing()"
                                         (stopEditingField)="onStopEditing()"
                                         [columnMetadata]="column"
-                                        [(ngModel)]="value[column.name]">
+                                        [item]="item"
+                                        [(ngModel)]="value">
     </gp-form-textarea-field-with-column>
+    <input *ngSwitchCase="inputType.NUMBER_FIELD"
+           type="number"
+           [(ngModel)]="value"
+           [minlength]="column.min"
+           [maxlength]="column.max"
+           [max]="column.maxValue"
+           [min]="column.minValie"
+           (focus)="onStartEditing()"
+           (change)="onStopEditing()"
+           [disabled]="!isEditable()">
     <gp-form-checkbox-field-with-column *ngSwitchCase="inputType.CHECKBOX_FIELD"
                                         (startEditingField)="onStartEditing()"
                                         (stopEditingField)="onStopEditing()"
                                         [columnMetadata]="column"
-                                        [(ngModel)]="value[column.name]">
+                                        [item]="item"
+                                        [(ngModel)]="value">
     </gp-form-checkbox-field-with-column>
     <gp-form-switch-field-with-column *ngSwitchCase="inputType.SWITCH_FIELD"
                                       (startEditingField)="onStartEditing()"
                                       (stopEditingField)="onStopEditing()"
+                                      [item]="item"
                                       [columnMetadata]="column"
-                                      [(ngModel)]="value[column.name]">
+                                      [(ngModel)]="value">
     </gp-form-switch-field-with-column>
     <gp-form-img-field-with-column *ngSwitchCase="inputType.IMG_FIELD"
                                    (startEditingField)="onStartEditing()"
                                    (stopEditingField)="onStopEditing()"
+                                   [item]="item"
                                    [columnMetadata]="column"
-                                   [(ngModel)]="value[column.name]">
+                                   [(ngModel)]="value">
     </gp-form-img-field-with-column>
     <gp-form-wysiwyg-field-with-column *ngSwitchCase="inputType.WYSIWYG_FIELD"
                                        (startEditingField)="onStartEditing()"
                                        (stopEditingField)="onStopEditing()"
+                                       [item]="item"
                                        [columnMetadata]="column"
-                                       [(ngModel)]="value[column.name]">
+                                       [(ngModel)]="value">
     </gp-form-wysiwyg-field-with-column>
     <gp-form-time-field-with-column *ngSwitchCase="inputType.TIME_FIELD"
                                     (startEditingField)="onStartEditing()"
                                     (stopEditingField)="onStopEditing()"
+                                    [item]="item"
                                     [columnMetadata]="column"
-                                    [(ngModel)]="value[column.name]">
+                                    [(ngModel)]="value">
     </gp-form-time-field-with-column>
     <gp-form-calendar-field-with-column *ngSwitchCase="inputType.CALENDAR_FIELD"
                                         (startEditingField)="onStartEditing()"
                                         (stopEditingField)="onStopEditing()"
+                                        [item]="item"
                                         [columnMetadata]="column"
-                                        [(ngModel)]="value[column.name]">
+                                        [(ngModel)]="value">
     </gp-form-calendar-field-with-column>
+    <gp-form-dropdown-field-with-column *ngSwitchCase="inputType.DROPDOWN_FIELD"
+                                        [(ngModel)]="value"
+                                        [columnMetadata]="column"
+                                        (startEditingField)="onStartEditing()"
+                                        [item]="item"
+                                        (stopEditingField)="onStopEditing()"
+                                        [options]="optionsList">
+    </gp-form-dropdown-field-with-column>
+    <gp-form-dropdown-field-with-column *ngSwitchCase="inputType.DROPDOWN_RELATED_FIELD"
+                                        [(ngModel)]="value"
+                                        [columnMetadata]="column"
+                                        (startEditingField)="onStartEditing()"
+                                        [item]="item"
+                                        (stopEditingField)="onStopEditing()"
+                                        [options]="optionsList">
+    </gp-form-dropdown-field-with-column>
 </div>

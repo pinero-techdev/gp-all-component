@@ -2,5 +2,5 @@
             binary="true"
             [(ngModel)]="value"
             (onChange)="onEdit($event)"
-            [disabled]="!columnMetadata.editable">
+            [disabled]="!isEditable()">
 </p-checkbox>
