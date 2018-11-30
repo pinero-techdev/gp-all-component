@@ -31,6 +31,9 @@ export class TableMetadataService{
             // column.optionsLabels = metadata.displayInfo;
 
             column.relatedField = metadata.displayInfo.relatedField;
+            if (metadata.displayInfo.fieldDescriptions && metadata.displayInfo.fieldDescriptions.length > 0) {
+                column.optionsLabels = metadata.displayInfo.fieldDescriptions;
+            }
         }
         this.getTextProperties(metadata, column);
         this.getRestrictions(metadata, column);

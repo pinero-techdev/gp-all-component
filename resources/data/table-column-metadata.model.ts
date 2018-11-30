@@ -15,7 +15,7 @@ export class TableColumnMetadata {
     order: number = -1;
     translationInfo: TranslationInfo;
     isId: boolean;
-    optionsLabels: string[];
+    optionsLabels: string[] = ['descripcion'];
     optionsValue: string;
     referencedTable: string; // informa del endpoint
     fieldToOrderBy: string[]; // campo que se envía como parámetro para ordenar el listado de opciones

@@ -79,7 +79,8 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
     }
 
 
-    getOptions() {
+    getOptions(related?: any): any[] {
+        // TODO get filter
         this._service.list(this.column.referencedTable, this.column.retrieveMetadata, this.column.optionsOrdered, this.column.fieldToOrderBy, this.column.filter).subscribe(data => {
                 if (data.ok) {
                     if (this.column.setOptionsFn) {
@@ -110,6 +111,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
             err => {
                 this.optionsList = [{label: "Error recuperando datos.", value: null}];
             });
+        return this.optionsList;
     }
 
     setOptions() {
