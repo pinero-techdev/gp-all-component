@@ -17,19 +17,22 @@ import {TableMetadataService} from "../../services/table-metadata.service";
     ]
 })
 export class GpAppInputWithMetadataComponent extends CustomInput {
-    constructor(private _service: TableService, private _tableMetadataService: TableMetadataService) {
+    constructor(private _service: TableService,
+                private _metadataService: TableMetadataService) {
         super()
     }
 
     isEditable() {
-        return this._tableMetadataService.isEditable(this.value, this.item, this.column);
+        return this._metadataService.isEditable(this.value, this.item, this.column);
     }
 
     private _inputType = InputType;
     private _column: TableColumnMetadata = new TableColumnMetadata();
     private _options = [];
+    // usar optionsList para las opciones de los dropdown
     public optionsList = [];
 
+    public valid: boolean;
 
     @Input('columnMetadata')
     get column(): TableColumnMetadata {
@@ -60,8 +63,15 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
         } else {
             this.value = v;
         }
+        // this.validate();
+    }
 
-
+    validate() {
+        if (this.column.validateFn) {
+            this.valid = this.column.validateFn(this.item, this.value, this.column);
+        } else {
+            this.valid = this._metadataService.validateField(this.item, this.column);
+        }
     }
 
     onStartEditing() {
@@ -73,38 +83,39 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
     }
 
 
-    getOptions() {
-        this._service.list(this.column.referencedTable, this.column.retrieveMetadata, this.column.optionsOrdered, this.column.fieldToOrderBy, this.column.filter)
-            .subscribe(data => {
-                    if (data.ok) {
-                        if (this.column.setOptionsFn) {
-                            // caso setOptionsFn es Observable
-                            let opts = this.column.setOptionsFn(data.data, this.item, this.column);
-                            if (opts instanceof Observable) {
-                                opts.subscribe(data => {
-                                    this._options = data;
-                                    this.setOptions()
-                                }, e => {
-                                    this.optionsList = [{label: "Error recuperando datos.", value: null}];
-                                }, () => {
-                                })
-                            } else {
-                                // caso setOptionsFn es any[]
-                                this._options = opts;
+    getOptions(related?: any): any[] {
+        // TODO get filter
+        this._service.list(this.column.referencedTable, this.column.retrieveMetadata, this.column.optionsOrdered, this.column.fieldToOrderBy, this.column.filter).subscribe(data => {
+                if (data.ok) {
+                    if (this.column.setOptionsFn) {
+                        // caso setOptionsFn es Observable
+                        let opts = this.column.setOptionsFn(data.data, this.item, this.column);
+                        if (opts instanceof Observable) {
+                            opts.subscribe(data => {
+                                this._options = data;
                                 this.setOptions()
-                            }
+                            }, e => {
+                                this.optionsList = [{label: "Error recuperando datos.", value: null}];
+                            }, () => {
+                            })
                         } else {
-                            // caso no tenemos una setOptionsFn
-                            this._options = data.data;
+                            // caso setOptionsFn es any[]
+                            this._options = opts;
                             this.setOptions()
                         }
                     } else {
-                        this.optionsList = [{label: "Error recuperando datos.", value: null}];
+                        // caso no tenemos una setOptionsFn
+                        this._options = data.data;
+                        this.setOptions()
                     }
-                },
-                err => {
+                } else {
                     this.optionsList = [{label: "Error recuperando datos.", value: null}];
-                });
+                }
+            },
+            err => {
+                this.optionsList = [{label: "Error recuperando datos.", value: null}];
+            });
+        return this.optionsList;
     }
 
     setOptions() {
@@ -115,9 +126,9 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
         for (let row of this._options) {
             let optionLabel = "";
             let separator = "";
-            row._label = "";
+            // row._label = "";
             for (let fieldDesc of this.column.optionsLabels) {
-                row._label += separator + row[fieldDesc];
+                optionLabel += separator + row[fieldDesc];
                 separator = " - ";
             }
             _options.push({

@@ -31,6 +31,9 @@ export class TableMetadataService{
             // column.optionsLabels = metadata.displayInfo;
 
             column.relatedField = metadata.displayInfo.relatedField;
+            if (metadata.displayInfo.fieldDescriptions && metadata.displayInfo.fieldDescriptions.length > 0) {
+                column.optionsLabels = metadata.displayInfo.fieldDescriptions;
+            }
         }
         this.getTextProperties(metadata, column);
         this.getRestrictions(metadata, column);
@@ -181,7 +184,7 @@ export class TableMetadataService{
         return column;
     }
 
-    validateField(row: any, column: TableColumnMetadata) {
+    validateField(row: any, column: TableColumnMetadata): boolean {
         let valid: boolean = true;
 
         //Comprueba si el campo está vacío
