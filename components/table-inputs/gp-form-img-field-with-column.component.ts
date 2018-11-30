@@ -13,7 +13,7 @@ import {TableMetadataService} from "../../services/table-metadata.service";
     providers: [{provide: NG_VALUE_ACCESSOR, useExisting: GpFormImgFieldWithColumnComponent, multi: true}]
 
 })
-export class GpFormImgFieldWithColumnComponent extends CustomInput implements OnInit {
+export class GpFormImgFieldWithColumnComponent extends CustomInput {
 
     @Input() columnMetadata: TableColumnMetadata;
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
@@ -31,14 +31,9 @@ export class GpFormImgFieldWithColumnComponent extends CustomInput implements On
     isEditable() {
         return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
     }
-    ngOnInit() {
-        this.inicializa();
-    }
 
-    inicializa() {
-        if (this.columnMetadata.uppercase) {
-            this.textboxClass = "full-width text-uppercase";
-        }
+    textToUppercase(text) {
+        this.value = this.columnMetadata.uppercase ? text.toUpperCase() : text;
     }
 
     onStart() {

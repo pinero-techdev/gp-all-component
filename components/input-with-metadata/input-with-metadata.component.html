@@ -97,6 +97,6 @@
                                         (startEditingField)="onStartEditing()"
                                         [item]="item"
                                         (stopEditingField)="onStopEditing()"
-                                        [options]="optionsList">
+                                        [options]="getOptions(item[column.relatedField])">
     </gp-form-dropdown-field-with-column>
 </div>

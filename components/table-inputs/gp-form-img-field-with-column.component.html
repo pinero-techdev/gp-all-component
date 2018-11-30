@@ -5,8 +5,10 @@
     <input [name]="columnMetadata.name"
            pInputText
            type="text"
-           [(ngModel)]="value"
+           [ngModel]="value"
+           (ngModelChange)="textToUppercase($event)"
            [maxlength]="columnMetadata.max"
+           [minlength]="columnMetadata.min"
            [class]="textboxClass"
            [disabled]="!isEditable()"
            class="full-width"/>
