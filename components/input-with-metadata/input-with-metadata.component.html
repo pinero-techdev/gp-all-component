@@ -48,13 +48,6 @@
                                       [columnMetadata]="column"
                                       [(ngModel)]="value">
     </gp-form-switch-field-with-column>
-<!--    <dropdownn *ngSwitchCase="inputType.SWITCH_FIELD"
-                                      (startEditingField)="onStartEditing()"
-                                      (stopEditingField)="onStopEditing()"
-                                      [columnMetadata]="column"
-                                      [options]="getOptions(item[column.relatedField])"
-                                      [(ngModel)]="value">
-    </dropdownb>-->
     <gp-form-img-field-with-column *ngSwitchCase="inputType.IMG_FIELD"
                                    (startEditingField)="onStartEditing()"
                                    (stopEditingField)="onStopEditing()"
