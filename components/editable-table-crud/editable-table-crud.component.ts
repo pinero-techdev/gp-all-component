@@ -8,12 +8,13 @@ import {TableConfig} from "../../resources/data/table-config.model";
 import {TableMetadataService} from "../../services/table-metadata.service";
 import {DataChangeEvent, ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
 import {GpFormField} from "../tables/gp-app-table-crud-shared";
+import {MessageService} from "primeng/components/common/messageservice";
 
 @Component({
     selector: 'gp-app-editable-table-crud',
     templateUrl: './editable-table-crud.component.html',
     encapsulation: ViewEncapsulation.None,
-    providers: [GPUtil]
+    providers: [GPUtil,MessageService]
 })
 export class GpAppEditableTableCrudComponent {
     private _tableName: string;
@@ -67,7 +68,8 @@ export class GpAppEditableTableCrudComponent {
     @Output() stopEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
     @Output() cancelEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
 
-    constructor(private router: Router, private tableService: TableService, private _gpUtil: GPUtil, private _tableMetadataService: TableMetadataService) {
+    constructor(private router: Router, private tableService: TableService, private _gpUtil: GPUtil,
+                private messageService: MessageService, private _tableMetadataService: TableMetadataService) {
         this.msgsGlobal = [];
     }
 
@@ -91,7 +93,7 @@ export class GpAppEditableTableCrudComponent {
                 this.data = data.data;
             },
             err => {
-                console.error(err);
+                this.messageService.add({severity:'error',summary:'error',detail:'Error interno cargando el registro.'})
             },
             () => {
             }
@@ -105,12 +107,13 @@ export class GpAppEditableTableCrudComponent {
             data => {
                 if (data.ok) {
                     event.success(event.modified);
+                    this.messageService.add({severity:'success', summary: 'Success Message', detail:'Order submitted'});
                 } else {
-                    this.showErrorDialogo("Error actualizando el registro: " + data.error.errorMessage);
+                    this.messageService.add({severity:'error',summary:'error',detail:'Error actualizando el registro: ' + data.error.errorMessage})
                 }
             },
             err => {
-                this.showErrorDialogo("Error interno actualizando el registro.");
+                this.messageService.add({severity:'error',summary:'error',detail:'Error interno actualizando el registro.'})
             });
     }
 
@@ -120,13 +123,16 @@ export class GpAppEditableTableCrudComponent {
             data => {
                 if (data.ok) {
                     event.success(event.modified);
+                    this.messageService.add({severity:'success', summary: 'Success Message', detail:'Order submitted'});
                 }
                 else {
-                    this.showErrorDialogo("Error insertando el registro: " + data.error.errorMessage);
+                    this.messageService.add({severity:'error',summary:'error',detail:'Error insertando el registro: ' + data.error.errorMessage})
+
                 }
             },
             err => {
-                this.showErrorDialogo("Error interno insertando el registro.");
+                this.messageService.add({severity:'error',summary:'error',detail:'Error interno insertando el registro.'})
+
             });
     }
 
@@ -136,12 +142,14 @@ export class GpAppEditableTableCrudComponent {
             data => {
                 if (data.ok) {
                     event.success(event.modified);
+                    this.messageService.add({severity:'success',summary:'Borrado',detail:'El registro se ha borrado correctamente'});
                 } else {
-                    this.showErrorDialogo("Error borrando el registro: " + data.error.errorMessage);
+                    this.messageService.add({severity:'error',summary:'error',detail:'Error borrando el registro: ' + data.error.errorMessage});
                 }
             },
             err => {
-                this.showErrorDialogo("Error interno borrando el registro.");
+                this.messageService.add({severity:'error',summary:'error',detail:'Error interno borrando el registro.'})
+
             });
     }
 
