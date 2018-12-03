@@ -66,9 +66,9 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
 
     isEditable() {
         if (this.column.validateFn) {
-            this.editable = this.column.editableFn(this.value, this.item, this.column);
+            return this.column.editableFn(this.value, this.item, this.column);
         } else {
-            this.editable = this._metadataService.isEditable(this.value, this.item, this.column);
+            return this._metadataService.isEditable(this.value, this.item, this.column);
         }
     }
 
