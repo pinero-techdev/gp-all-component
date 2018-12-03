@@ -75,7 +75,11 @@ export class TableMetadataService{
                     break;
                 }
                 case TableService.TEXT_DISPLAY_TYPE:{
-                    column.type = InputType.TEXT_FIELD;
+                    if (metadata.fieldType == 'NUMBER') {
+                        column.type = InputType.NUMBER_FIELD;
+                    } else {
+                        column.type = InputType.TEXT_FIELD;
+                    }
                     break;
                 }
                 case TableService.TEXT_AREA_DISPLAY_TYPE: {
