@@ -7,17 +7,18 @@ import {InputType} from "../../resources/data/field-type.enum";
 import {Observable} from "rxjs";
 import {TableService} from "../../services/table.service";
 import {TableMetadataService} from "../../services/table-metadata.service";
+import {MessageService} from "primeng/components/common/messageservice";
 
 @Component({
     selector: 'gp-app-input-with-metadata',
     templateUrl: './input-with-metadata.component.html',
     encapsulation: ViewEncapsulation.None,
     providers: [
-        {provide: NG_VALUE_ACCESSOR, useExisting: GpAppInputWithMetadataComponent, multi: true},
+        {provide: NG_VALUE_ACCESSOR, useExisting: GpAppInputWithMetadataComponent, multi: true},MessageService
     ]
 })
 export class GpAppInputWithMetadataComponent extends CustomInput {
-    constructor(private _service: TableService,
+    constructor(private _service: TableService,private messageService: MessageService,
                 private _metadataService: TableMetadataService) {
         super()
     }
@@ -116,10 +117,12 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
                     }
                 } else {
                     this.optionsList = [{label: "Error recuperando datos.", value: null}];
+                    this.messageService.add({severity:'error',summary:'error',detail:'Error interno cargando el registro.'})
                 }
             },
             err => {
                 this.optionsList = [{label: "Error recuperando datos.", value: null}];
+                this.messageService.add({severity:'error',summary:'error',detail:'Error interno cargando el registro.'})
             });
         return this.optionsList;
     }
