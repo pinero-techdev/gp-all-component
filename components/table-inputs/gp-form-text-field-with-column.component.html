@@ -12,7 +12,7 @@
            [required]="columnMetadata.required"
            (focus)="onFocus($event)"
            (change)="onStop($event)"
-           [disabled]="!isEditable()"/>
+           [disabled]="!isEditable"/>
 </div>
 <div class="ui-g-2 nopad" *ngIf="columnMetadata.translationInfo != null && translationKeys != ''">
     <gp-app-multi-idioma [pKey]="translationKeys"

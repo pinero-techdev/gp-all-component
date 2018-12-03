@@ -15,17 +15,9 @@ import {TableMetadataService} from "../../services/table-metadata.service";
 export class GpFormTimeFieldWithColumnComponent extends CustomInput {
 
     @Input() columnMetadata: TableColumnMetadata;
+    @Input() isEditable: boolean;
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-
-    @Input() item: any;
-    constructor(private tableService: TableMetadataService) {
-        super();
-    }
-
-    isEditable() {
-        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
-    }
 
     onFocus(event: any) {
         //event no controlado

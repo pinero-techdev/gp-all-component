@@ -13,17 +13,11 @@ import {TableMetadataService} from "../../services/table-metadata.service";
 export class GpFormDropdownFieldWithColumnComponent extends CustomInput {
 
     @Input() options: any[];
+    @Input() isEditable: boolean;
     @Input() columnMetadata: TableColumnMetadata;
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-    @Input() item: any;
-    constructor(private tableService: TableMetadataService) {
-        super();
-    }
 
-    isEditable() {
-        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
-    }
     onEdit() {
         this.startEditingField.emit();
         this.stopEditingField.emit();

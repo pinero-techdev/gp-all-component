@@ -16,21 +16,13 @@ import {TableMetadataService} from "../../services/table-metadata.service";
 export class GpFormImgFieldWithColumnComponent extends CustomInput {
 
     @Input() columnMetadata: TableColumnMetadata;
+    @Input() isEditable: boolean;
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
     textboxClass: string = 'full-width';
 
     visible: boolean = false;
-
-    @Input() item: any;
-    constructor(private tableService: TableMetadataService) {
-        super();
-    }
-
-    isEditable() {
-        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
-    }
 
     textToUppercase(text) {
         this.value = this.columnMetadata.uppercase ? text.toUpperCase() : text;

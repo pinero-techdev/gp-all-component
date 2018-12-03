@@ -22,9 +22,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
         super()
     }
 
-    isEditable() {
-        return this._metadataService.isEditable(this.value, this.item, this.column);
-    }
+    public editable: boolean;
 
     private _inputType = InputType;
     private _column: TableColumnMetadata = new TableColumnMetadata();
@@ -64,6 +62,14 @@ export class GpAppInputWithMetadataComponent extends CustomInput {
             this.value = v;
         }
         // this.validate();
+    }
+
+    isEditable() {
+        if (this.column.validateFn) {
+            this.editable = this.column.validateFn(this.value, this.item, this.column);
+        } else {
+            this.editable = this._metadataService.isEditable(this.value, this.item, this.column);
+        }
     }
 
     validate() {

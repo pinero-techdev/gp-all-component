@@ -14,21 +14,13 @@ import {TableMetadataService} from "../../services/table-metadata.service";
 })
 export class GpFormCalendarFieldWithColumnComponent extends CustomInput implements OnInit {
     @Input() columnMetadata: TableColumnMetadata;
+    @Input() isEditable: boolean;
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
     dateFormat: string = "yy-mm-dd";
 
     es: any;
-
-    @Input() item: any;
-    constructor(private tableService: TableMetadataService) {
-        super();
-    }
-
-    isEditable() {
-        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
-    }
 
     ngOnInit() {
         this.es = {

@@ -15,19 +15,11 @@ import {TableMetadataService} from "../../services/table-metadata.service";
 export class GpFormWysiwygFieldWithColumnComponent extends CustomInput {
 
   @Input() columnMetadata: TableColumnMetadata;
-  @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+    @Input() isEditable: boolean;
+    @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
   @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
   visible: boolean = false;
-
-    @Input() item: any;
-    constructor(private tableService: TableMetadataService) {
-        super();
-    }
-
-    isEditable() {
-        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
-    }
 
   setVisible() {
     //StartEditing

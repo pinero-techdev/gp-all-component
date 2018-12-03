@@ -14,14 +14,14 @@
                                     (startEditingField)="onStartEditing()"
                                     (stopEditingField)="onStopEditing()"
                                     [columnMetadata]="column"
-                                    [item]="item"
+                                    [isEditable]="editable"
                                     [(ngModel)]="value">
     </gp-form-text-field-with-column>
     <gp-form-textarea-field-with-column *ngSwitchCase="inputType.TEXTAREA_FIELD"
                                         (startEditingField)="onStartEditing()"
                                         (stopEditingField)="onStopEditing()"
                                         [columnMetadata]="column"
-                                        [item]="item"
+                                        [isEditable]="editable"
                                         [(ngModel)]="value">
     </gp-form-textarea-field-with-column>
     <input *ngSwitchCase="inputType.NUMBER_FIELD"
@@ -33,18 +33,18 @@
            [min]="column.minValie"
            (focus)="onStartEditing()"
            (change)="onStopEditing()"
-           [disabled]="!isEditable()">
+           [disabled]="!editable">
     <gp-form-checkbox-field-with-column *ngSwitchCase="inputType.CHECKBOX_FIELD"
                                         (startEditingField)="onStartEditing()"
                                         (stopEditingField)="onStopEditing()"
                                         [columnMetadata]="column"
-                                        [item]="item"
+                                        [isEditable]="editable"
                                         [(ngModel)]="value">
     </gp-form-checkbox-field-with-column>
     <gp-form-switch-field-with-column *ngSwitchCase="inputType.SWITCH_FIELD"
                                       (startEditingField)="onStartEditing()"
                                       (stopEditingField)="onStopEditing()"
-                                      [item]="item"
+                                      [isEditable]="editable"
                                       [columnMetadata]="column"
                                       [(ngModel)]="value">
     </gp-form-switch-field-with-column>
@@ -58,28 +58,28 @@
     <gp-form-img-field-with-column *ngSwitchCase="inputType.IMG_FIELD"
                                    (startEditingField)="onStartEditing()"
                                    (stopEditingField)="onStopEditing()"
-                                   [item]="item"
+                                   [isEditable]="editable"
                                    [columnMetadata]="column"
                                    [(ngModel)]="value">
     </gp-form-img-field-with-column>
     <gp-form-wysiwyg-field-with-column *ngSwitchCase="inputType.WYSIWYG_FIELD"
                                        (startEditingField)="onStartEditing()"
                                        (stopEditingField)="onStopEditing()"
-                                       [item]="item"
+                                       [isEditable]="editable"
                                        [columnMetadata]="column"
                                        [(ngModel)]="value">
     </gp-form-wysiwyg-field-with-column>
     <gp-form-time-field-with-column *ngSwitchCase="inputType.TIME_FIELD"
                                     (startEditingField)="onStartEditing()"
                                     (stopEditingField)="onStopEditing()"
-                                    [item]="item"
+                                    [isEditable]="editable"
                                     [columnMetadata]="column"
                                     [(ngModel)]="value">
     </gp-form-time-field-with-column>
     <gp-form-calendar-field-with-column *ngSwitchCase="inputType.CALENDAR_FIELD"
                                         (startEditingField)="onStartEditing()"
                                         (stopEditingField)="onStopEditing()"
-                                        [item]="item"
+                                        [isEditable]="editable"
                                         [columnMetadata]="column"
                                         [(ngModel)]="value">
     </gp-form-calendar-field-with-column>
@@ -87,7 +87,7 @@
                                         [(ngModel)]="value"
                                         [columnMetadata]="column"
                                         (startEditingField)="onStartEditing()"
-                                        [item]="item"
+                                        [isEditable]="editable"
                                         (stopEditingField)="onStopEditing()"
                                         [options]="optionsList">
     </gp-form-dropdown-field-with-column>
@@ -95,7 +95,7 @@
                                         [(ngModel)]="value"
                                         [columnMetadata]="column"
                                         (startEditingField)="onStartEditing()"
-                                        [item]="item"
+                                        [isEditable]="editable"
                                         (stopEditingField)="onStopEditing()"
                                         [options]="getOptions(item[column.relatedField])">
     </gp-form-dropdown-field-with-column>

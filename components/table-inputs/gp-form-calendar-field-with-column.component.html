@@ -2,7 +2,7 @@
             styleClass="full-width"
             [defaultDate]="value"
             [ngModel]="value"
-            [disabled]="!isEditable()"
+            [disabled]="!isEditable"
             [dateFormat]="dateFormat"
             (onFocus)="onFocus($event)"
             (ngModelChange)="onStop($event)"

@@ -16,21 +16,13 @@ import {TableMetadataService} from "../../services/table-metadata.service";
 })
 export class GpFormTextareaFieldWithColumnComponent extends CustomInput {
     @Input() columnMetadata : TableColumnMetadata;
+    @Input() isEditable: boolean;
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
     visible: boolean = false;
 
     translationKeys: string = '';
-
-    @Input() item: any;
-    constructor(private tableService: TableMetadataService) {
-        super();
-    }
-
-    isEditable() {
-        return this.tableService.isEditable(this.value,this.item,this.columnMetadata);
-    }
 
     onStart() {
         this.visible = true;
