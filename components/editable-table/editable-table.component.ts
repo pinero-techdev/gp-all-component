@@ -5,6 +5,8 @@ import {TableColumnMetadata} from "../../resources/data/table-column-metadata.mo
 import {SortDirection} from "../../resources/data/sort-direction.enum";
 import {SelectionType} from "../../resources/data/selection-type.enum";
 import {ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
+import {GpAppInputWithMetadataComponent} from "../input-with-metadata/input-with-metadata.component";
+import {InputType} from "../../resources/data/field-type.enum";
 
 /*
 *  Data order: data -> filteredData -> sortedData -> currentPageData
@@ -72,6 +74,7 @@ export class GpAppEditableTableComponent implements OnInit {
     @Output() save: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() create: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() delete: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
+    @ViewChildren(GpAppInputWithMetadataComponent) inputs !: QueryList<GpAppInputWithMetadataComponent>;
 
     get filteredData() {
         if(this.config.filterable) {
@@ -145,9 +148,23 @@ export class GpAppEditableTableComponent implements OnInit {
         }
     }
 
+    itemValueChanged(event: TableFieldEvent) {
+        this.inputs.forEach((input: GpAppInputWithMetadataComponent, index: number, inputs: GpAppInputWithMetadataComponent[]) => {
+            if(!input.isFilter && input.column.type == InputType.DROPDOWN_RELATED_FIELD && input.column.relatedField == event.column.name) {
+                input.getOptions()
+            }
+        });
+        this.stopEditingField.emit(event);
+    }
+
     changeFilter(column: TableColumnMetadata, filterValue) {
         this.paginator.changePage(0);
         column.filter = filterValue;
+        this.inputs.forEach((input: GpAppInputWithMetadataComponent, index: number, inputs: GpAppInputWithMetadataComponent[]) => {
+            if(input.isFilter && input.column.type == InputType.DROPDOWN_RELATED_FIELD && input.column.relatedField == column.name) {
+                input.getOptions()
+            }
+        });
     }
 
     changePage(first: number, rows: number, page: number, pageCount: number) {

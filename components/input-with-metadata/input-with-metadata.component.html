@@ -1,12 +1,12 @@
 <input type="text"
        *ngIf="column && isFilter"
        [ngModel]="value"
-       (ngModelChange)="(isFilter)? value = $event : null"
+       (ngModelChange)="(isFilter)? onModelChange($event) : null"
        (focus)="onStartEditing()"
        (blur)="onStopEditing()"
        (change)="(!isFilter)? onModelChange(input.value) : null"
        #input
->
+><!-- TODO remove this item, search uses input with metadata too-->
 <div class="nopad"
      *ngIf="column && !isFilter"
      [ngSwitch]="column.type">
@@ -77,20 +77,24 @@
                                         [(ngModel)]="value">
     </gp-form-calendar-field-with-column>
     <gp-form-dropdown-field-with-column *ngSwitchCase="inputType.DROPDOWN_FIELD"
-                                        [(ngModel)]="value"
+                                        #dropdown
+                                        [ngModel]="value"
                                         [columnMetadata]="column"
                                         (startEditingField)="onStartEditing()"
                                         [isEditable]="isEditable()"
-                                        (stopEditingField)="onStopEditing()"
+                                        (ngModelChange)="(isFilter)? onModelChange($event) : null"
+                                        (stopEditingField)="(!isFilter)? onModelChange(dropdown.value): null"
                                         [options]="optionsList">
     </gp-form-dropdown-field-with-column>
     <gp-form-dropdown-field-with-column *ngSwitchCase="inputType.DROPDOWN_RELATED_FIELD"
-                                        [(ngModel)]="value"
+                                        #dropdownRelated
+                                        [ngModel]="value"
                                         [columnMetadata]="column"
                                         (startEditingField)="onStartEditing()"
                                         [isEditable]="isEditable()"
-                                        (stopEditingField)="onStopEditing()"
-                                        [options]="getOptions(item[column.relatedField])">
+                                        (ngModelChange)="(isFilter)? onModelChange($event) : null"
+                                        (stopEditingField)="(!isFilter)? onModelChange(dropdownRelated.value): null"
+                                        [options]="optionsList">
     </gp-form-dropdown-field-with-column>
 </div>
 <p-growl></p-growl>
