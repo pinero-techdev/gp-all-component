@@ -11,7 +11,7 @@
            [class]="textboxClass"
            [required]="columnMetadata.required"
            (focus)="onFocus($event)"
-           (change)="onStop($event)"
+           (change)="onStop($event.target.value)"
            [disabled]="!isEditable"/>
 </div>
 <div class="ui-g-2 nopad" *ngIf="columnMetadata.translationInfo != null && translationKeys != ''">

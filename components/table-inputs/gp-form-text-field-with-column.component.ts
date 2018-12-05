@@ -34,10 +34,10 @@ export class GpFormTextFieldWithColumnComponent extends CustomInput {
         });
     }
 
-    onStop(event: any) {
-           this.stopEditingField.emit({
+    onStop(event: string) {
+        this.stopEditingField.emit({
             column: this.columnMetadata,
-            value: event.target.value
+            value: event
         });
     }
 }

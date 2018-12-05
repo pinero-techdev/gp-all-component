@@ -1,5 +1,15 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation, ViewChildren,
-    QueryList} from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewChildren,
+    ViewEncapsulation
+} from '@angular/core';
 import {TableConfig} from "../../resources/data/table-config.model";
 import {ConfirmationService, Paginator} from "primeng/primeng";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
@@ -82,10 +92,20 @@ export class GpAppEditableTableComponent implements OnInit {
             return this.data.filter((data) => {
                 let valid = true;
                 for(let column of this.columns){
-                    // TODO add column types
-                    if(column.filter && data[column.name] && data[column.name].toUpperCase().indexOf(column.filter.toUpperCase()) == -1) {
-                        valid = false;
-                        break;
+                    let dataAux = data[column.name];
+                    let filter = column.filter;
+                    if(column.type == InputType.TEXT_FIELD){
+                        dataAux = dataAux.toUpperCase();
+                        filter = filter.toUpperCase();
+                        if(filter && dataAux && dataAux.indexOf(filter) == -1) {
+                            valid = false;
+                            break;
+                        }
+                    } else {
+                        if(filter && dataAux && dataAux != filter){
+                            valid = false;
+                            break;
+                        }
                     }
                 }
                 return valid ;
