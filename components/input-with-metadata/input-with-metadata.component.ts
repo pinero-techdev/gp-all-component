@@ -62,7 +62,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
     }
 
     isEditable() {
-        if (this.column.validateFn) {
+        if (this.column.editableFn) {
             return this.column.editableFn(this.value, this.item, this.column);
         } else {
             return this._metadataService.isEditable(this.value, this.item, this.column);
