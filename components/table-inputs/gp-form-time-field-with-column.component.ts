@@ -28,9 +28,10 @@ export class GpFormTimeFieldWithColumnComponent extends CustomInput {
         this.startEditingField.emit(tableFieldEvent);
     }
     onStop(event: Date) {
+        this.value = [('0' + (event.getUTCHours() + 1)).slice(-2), ('0' + (event.getMinutes())).slice(-2)].join(':');
         let tableFieldEvent: TableFieldEvent = {
             column: this.columnMetadata,
-            value: event
+            value: this.value
         };
 
         this.stopEditingField.emit(tableFieldEvent);

@@ -92,7 +92,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
         let filter: Filter;
         if (!this.isFilter && this.column && this.column.relatedField) {
             let arr = [];
-            arr.push(this.item[this.column.relatedField])
+            arr.push(this.item[this.column.relatedField]);
             arr = arr.slice();
             filter = new Filter('EQUAL', this.column.referencedRelatedField, arr);
         }

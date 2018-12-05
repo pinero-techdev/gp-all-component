@@ -11,7 +11,7 @@
     </gp-form-text-field-with-column>
     <gp-form-textarea-field-with-column *ngSwitchCase="inputType.TEXTAREA_FIELD"
                                         (startEditingField)="onStartEditing()"
-                                        (stopEditingField)="onModelChange($event.value); changeValue($event.value)"
+                                        (stopEditingField)="changeValue($event.value);onModelChange($event.value)"
                                         [columnMetadata]="column"
                                         [isEditable]="isEditable()"
                                         [ngModel]="value">
@@ -44,14 +44,14 @@
     </gp-form-switch-field-with-column>
     <gp-form-img-field-with-column *ngSwitchCase="inputType.IMG_FIELD"
                                    (startEditingField)="onStartEditing()"
-                                   (stopEditingField)="onModelChange($event.value); changeValue($event.value)"
+                                   (stopEditingField)="changeValue($event.value);onModelChange($event.value)"
                                    [isEditable]="isEditable()"
                                    [columnMetadata]="column"
                                    [ngModel]="value">
     </gp-form-img-field-with-column>
     <gp-form-wysiwyg-field-with-column *ngSwitchCase="inputType.WYSIWYG_FIELD"
                                        (startEditingField)="onStartEditing()"
-                                       (stopEditingField)="onModelChange($event.value); changeValue($event.value)"
+                                       (stopEditingField)="changeValue($event.value);onModelChange($event.value)"
                                        [isEditable]="isEditable()"
                                        [columnMetadata]="column"
                                        [ngModel]="value">

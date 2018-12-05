@@ -1,9 +1,9 @@
 <p-calendar [name]="columnMetadata.name"
             showTime="showTime" hourFormat="24"
             [timeOnly]="true"
-            [(ngModel)]="value"
-            (onFocus)="onFocus($event)"
-            (onClose)="onStop($event)"
+            [ngModel]="value"
+            (onFocus)="onFocus($event.target.value)"
+            (ngModelChange)="onStop($event)"
             [disabled]="!isEditable">
 </p-calendar>
 
