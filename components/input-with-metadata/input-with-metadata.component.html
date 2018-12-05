@@ -1,89 +1,82 @@
-<input type="text"
-       *ngIf="column && isFilter"
-       [ngModel]="value"
-       (ngModelChange)="(isFilter)? onModelChange($event) : null"
-       (focus)="onStartEditing()"
-       (blur)="onStopEditing()"
-       (change)="(!isFilter)? onModelChange(input.value) : null"
-       #input
-><!-- TODO remove this item, search uses input with metadata too-->
 <div class="nopad"
-     *ngIf="column && !isFilter"
+     *ngIf="column"
      [ngSwitch]="column.type">
     <gp-form-text-field-with-column *ngSwitchCase="inputType.TEXT_FIELD"
                                     (startEditingField)="onStartEditing()"
-                                    (stopEditingField)="onStopEditing()"
+                                    (stopEditingField)="(!filter)? onModelChange($event.value):null"
                                     [columnMetadata]="column"
                                     [isEditable]="isEditable()"
-                                    [(ngModel)]="value">
+                                    (ngModelChange)="(isFilter)? onModelChange($event) : null"
+                                    [ngModel]="value">
     </gp-form-text-field-with-column>
     <gp-form-textarea-field-with-column *ngSwitchCase="inputType.TEXTAREA_FIELD"
                                         (startEditingField)="onStartEditing()"
-                                        (stopEditingField)="onStopEditing()"
+                                        (stopEditingField)="onModelChange($event.value); changeValue($event.value)"
                                         [columnMetadata]="column"
                                         [isEditable]="isEditable()"
-                                        [(ngModel)]="value">
+                                        [ngModel]="value">
     </gp-form-textarea-field-with-column>
     <input *ngSwitchCase="inputType.NUMBER_FIELD"
            type="number"
-           [(ngModel)]="value"
+           #input
+           [ngModel]="value"
+           (ngModelChange)="(isFilter)? onModelChange($event) : null"
            [minlength]="column.min"
            [maxlength]="column.max"
            [max]="column.maxValue"
            [min]="column.minValie"
            (focus)="onStartEditing()"
-           (change)="onStopEditing()"
+           (change)="(!isFilter)? onModelChange(input.value) : null"
            [disabled]="!isEditable()">
     <gp-form-checkbox-field-with-column *ngSwitchCase="inputType.CHECKBOX_FIELD"
                                         (startEditingField)="onStartEditing()"
-                                        (stopEditingField)="onStopEditing()"
                                         [columnMetadata]="column"
                                         [isEditable]="isEditable()"
-                                        [(ngModel)]="value">
+                                        (ngModelChange)="onModelChange($event)"
+                                        [ngModel]="value">
     </gp-form-checkbox-field-with-column>
     <gp-form-switch-field-with-column *ngSwitchCase="inputType.SWITCH_FIELD"
                                       (startEditingField)="onStartEditing()"
-                                      (stopEditingField)="onStopEditing()"
                                       [isEditable]="isEditable()"
                                       [columnMetadata]="column"
-                                      [(ngModel)]="value">
+                                      (ngModelChange)="onModelChange($event)"
+                                      [ngModel]="value">
     </gp-form-switch-field-with-column>
     <gp-form-img-field-with-column *ngSwitchCase="inputType.IMG_FIELD"
                                    (startEditingField)="onStartEditing()"
-                                   (stopEditingField)="onStopEditing()"
+                                   (stopEditingField)="onModelChange($event.value); changeValue($event.value)"
                                    [isEditable]="isEditable()"
                                    [columnMetadata]="column"
-                                   [(ngModel)]="value">
+                                   [ngModel]="value">
     </gp-form-img-field-with-column>
     <gp-form-wysiwyg-field-with-column *ngSwitchCase="inputType.WYSIWYG_FIELD"
                                        (startEditingField)="onStartEditing()"
-                                       (stopEditingField)="onStopEditing()"
+                                       (stopEditingField)="onModelChange($event.value); changeValue($event.value)"
                                        [isEditable]="isEditable()"
                                        [columnMetadata]="column"
-                                       [(ngModel)]="value">
+                                       [ngModel]="value">
     </gp-form-wysiwyg-field-with-column>
     <gp-form-time-field-with-column *ngSwitchCase="inputType.TIME_FIELD"
                                     (startEditingField)="onStartEditing()"
-                                    (stopEditingField)="onStopEditing()"
+                                    (stopEditingField)="(!isFilter)? onModelChange($event.value) : null"
                                     [isEditable]="isEditable()"
                                     [columnMetadata]="column"
-                                    [(ngModel)]="value">
+                                    (ngModelChange)="(isFilter)? onModelChange($event) : null"
+                                    [ngModel]="value">
     </gp-form-time-field-with-column>
     <gp-form-calendar-field-with-column *ngSwitchCase="inputType.CALENDAR_FIELD"
-                                        (startEditingField)="onStartEditing()"
-                                        (stopEditingField)="onStopEditing()"
+                                        (stopEditingField)="(!isFilter)? onModelChange($event.value) : null"
                                         [isEditable]="isEditable()"
                                         [columnMetadata]="column"
-                                        [(ngModel)]="value">
+                                        (ngModelChange)="(isFilter)? onModelChange($event) : null"
+                                        [ngModel]="value">
     </gp-form-calendar-field-with-column>
     <gp-form-dropdown-field-with-column *ngSwitchCase="inputType.DROPDOWN_FIELD"
-                                        #dropdown
                                         [ngModel]="value"
                                         [columnMetadata]="column"
                                         (startEditingField)="onStartEditing()"
                                         [isEditable]="isEditable()"
-                                        (ngModelChange)="(isFilter)? onModelChange($event) : null"
-                                        (stopEditingField)="(!isFilter)? onModelChange(dropdown.value): null"
+                                        (ngModelChange)="onModelChange($event)"
                                         [options]="optionsList">
     </gp-form-dropdown-field-with-column>
     <gp-form-dropdown-field-with-column *ngSwitchCase="inputType.DROPDOWN_RELATED_FIELD"
@@ -92,8 +85,7 @@
                                         [columnMetadata]="column"
                                         (startEditingField)="onStartEditing()"
                                         [isEditable]="isEditable()"
-                                        (ngModelChange)="(isFilter)? onModelChange($event) : null"
-                                        (stopEditingField)="(!isFilter)? onModelChange(dropdownRelated.value): null"
+                                        (ngModelChange)="onModelChange($event)"
                                         [options]="optionsList">
     </gp-form-dropdown-field-with-column>
 </div>

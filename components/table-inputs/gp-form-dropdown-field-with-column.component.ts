@@ -16,11 +16,10 @@ export class GpFormDropdownFieldWithColumnComponent extends CustomInput {
     @Input() isEditable: boolean;
     @Input() columnMetadata: TableColumnMetadata;
     @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-    @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
-    onEdit() {
-        this.startEditingField.emit();
-        this.stopEditingField.emit();
+    onEdit(value: any) {
+        this.startEditingField.emit({value: value, column: this.columnMetadata});
+        this.value = this.value;
     }
 
 }

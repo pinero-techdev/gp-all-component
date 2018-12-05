@@ -5,7 +5,7 @@
            pInputText
            type="text"
            [ngModel]="value"
-           (ngModelChange)="textToUppercase($event)"
+           (ngModelChange)="textToUppercase($event); onStop($event)"
            [maxlength]="columnMetadata.max"
            [minlength]="columnMetadata.min"
            [class]="textboxClass"

@@ -31,6 +31,7 @@ export class TableMetadataService{
             // column.optionsLabels = metadata.displayInfo;
 
             column.relatedField = metadata.displayInfo.relatedField;
+            column.referencedRelatedField = metadata.displayInfo.relatedFieldExt ? metadata.displayInfo.relatedFieldExt : metadata.displayInfo.relatedField;
             if (metadata.displayInfo.fieldDescriptions && metadata.displayInfo.fieldDescriptions.length > 0) {
                 column.optionsLabels = metadata.displayInfo.fieldDescriptions;
             }
@@ -75,11 +76,7 @@ export class TableMetadataService{
                     break;
                 }
                 case TableService.TEXT_DISPLAY_TYPE:{
-                    if (metadata.fieldType == 'NUMBER') {
-                        column.type = InputType.NUMBER_FIELD;
-                    } else {
-                        column.type = InputType.TEXT_FIELD;
-                    }
+                    column.type = InputType.TEXT_FIELD;
                     break;
                 }
                 case TableService.TEXT_AREA_DISPLAY_TYPE: {

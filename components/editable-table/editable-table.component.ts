@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation, ViewChildren,
+    QueryList} from '@angular/core';
 import {TableConfig} from "../../resources/data/table-config.model";
 import {ConfirmationService, Paginator} from "primeng/primeng";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
@@ -74,7 +75,7 @@ export class GpAppEditableTableComponent implements OnInit {
     @Output() save: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() create: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() delete: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
-    @ViewChildren(GpAppInputWithMetadataComponent) inputs !: QueryList<GpAppInputWithMetadataComponent>;
+    @ViewChildren(GpAppInputWithMetadataComponent) inputs : QueryList<GpAppInputWithMetadataComponent>;
 
     get filteredData() {
         if(this.config.filterable) {
@@ -149,11 +150,12 @@ export class GpAppEditableTableComponent implements OnInit {
     }
 
     itemValueChanged(event: TableFieldEvent) {
-        this.inputs.forEach((input: GpAppInputWithMetadataComponent, index: number, inputs: GpAppInputWithMetadataComponent[]) => {
-            if(!input.isFilter && input.column.type == InputType.DROPDOWN_RELATED_FIELD && input.column.relatedField == event.column.name) {
-                input.getOptions()
-            }
-        });
+        if(event && event.column)
+            this.inputs.forEach((input: GpAppInputWithMetadataComponent, index: number, inputs: GpAppInputWithMetadataComponent[]) => {
+                if(!input.isFilter && input.column.type == InputType.DROPDOWN_RELATED_FIELD && input.column.relatedField == event.column.name) {
+                    input.getOptions()
+                }
+            });
         this.stopEditingField.emit(event);
     }
 

@@ -22,13 +22,18 @@ export class GpFormWysiwygFieldWithColumnComponent extends CustomInput {
   visible: boolean = false;
 
   setVisible() {
-    //StartEditing
     this.visible = true;
-    this.startEditingField.emit();
+    this.startEditingField.emit({
+        column: this.columnMetadata,
+        value: this.value
+    });
   }
 
   stopEditing() {
-    this.stopEditingField.emit();
+    this.stopEditingField.emit({
+        column: this.columnMetadata,
+        value: this.value
+    });
   }
 
 }

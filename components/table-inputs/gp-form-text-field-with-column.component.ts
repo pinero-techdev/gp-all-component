@@ -28,20 +28,16 @@ export class GpFormTextFieldWithColumnComponent extends CustomInput {
     }
 
     onFocus(event: any) {
-        let tableFieldEvent: TableFieldEvent = {
+        this.startEditingField.emit({
             column: this.columnMetadata,
             value: event.target.value
-        };
-
-        this.startEditingField.emit(tableFieldEvent);
+        });
     }
 
     onStop(event: any) {
-        let tableFieldEvent: TableFieldEvent = {
+           this.stopEditingField.emit({
             column: this.columnMetadata,
             value: event.target.value
-        };
-
-        this.stopEditingField.emit(tableFieldEvent);
+        });
     }
 }

@@ -20,7 +20,6 @@ export class GpFormTimeFieldWithColumnComponent extends CustomInput {
     @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
     onFocus(event: any) {
-        //event no controlado
         let tableFieldEvent: TableFieldEvent = {
             column: this.columnMetadata,
             value: event

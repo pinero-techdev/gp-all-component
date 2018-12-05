@@ -21,13 +21,14 @@ export class GpFormSwitchFieldWithColumnComponent extends CustomInput {
   @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
   onEdit(event: any) {
-      let tableFieldEvent: TableFieldEvent = {
-          column: this.columnMetadata,
-          value: event.checked
-      };
-
-    this.startEditingField.emit(tableFieldEvent);
-    this.stopEditingField.emit(tableFieldEvent);
+    this.startEditingField.emit({
+        column: this.columnMetadata,
+        value: event.checked
+    });
+    this.stopEditingField.emit({
+        column: this.columnMetadata,
+        value: event.checked
+    });
   }
 
 

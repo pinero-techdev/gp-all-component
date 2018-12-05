@@ -30,6 +30,7 @@ export class TableColumnMetadata {
     noSpace: boolean;
     rows: number;
     relatedField: string;
+    referencedRelatedField: string;
     validateFn: (value:any, item: any, column: TableColumnMetadata) => boolean; // custom form validation
     editableFn: (value:any, item: any, column: TableColumnMetadata) => boolean; // Enable or disable input edition
     setOptionsFn: (options: any[], item: any, column: TableColumnMetadata) => any[] | Observable<any[]>; // Change

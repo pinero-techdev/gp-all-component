@@ -20,13 +20,14 @@ export class GpFormCheckboxFieldWithColumnComponent extends CustomInput {
   @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
   onEdit(event: boolean) {
-    let tableFieldEvent: TableFieldEvent =  {
+    this.startEditingField.emit({
         column: this.columnMetadata,
         value: event
-    };
-
-    this.startEditingField.emit(tableFieldEvent);
-    this.stopEditingField.emit(tableFieldEvent);
+    });
+    this.stopEditingField.emit({
+        column: this.columnMetadata,
+        value: event
+    });
   }
 
 }

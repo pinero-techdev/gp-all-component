@@ -4,10 +4,11 @@ import {CustomInput} from "../../resources/data/custom-input";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {TableFieldEvent} from "../../resources/data/table.events";
 import {InputType} from "../../resources/data/field-type.enum";
-import {Observable} from "rxjs";
-import {TableService} from "../../services/table.service";
+import {Observable, Subject} from "rxjs";
+import {Filter, TableService} from "../../services/table.service";
 import {TableMetadataService} from "../../services/table-metadata.service";
 import {MessageService} from "primeng/components/common/messageservice";
+import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 
 @Component({
     selector: 'gp-app-input-with-metadata',
@@ -40,7 +41,8 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
     inputType = InputType;
 
     ngOnInit() {
-        this.getOptions();
+        if (this.column.type == InputType.DROPDOWN_FIELD || this.column.type == InputType.DROPDOWN_RELATED_FIELD)
+            this.getOptions();
     }
 
     onModelChange(v: any) {
@@ -48,11 +50,15 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
             // TODO check type of for Observable
             let newValue = this.column.beforeChangeFn(this.item, v, this.column);
             this.value = newValue;
-            this.stopEditing.emit(this.value);
+            this.stopEditing.emit({value:this.value, column: this.column});
         } else {
             this.value = v;
-            this.stopEditing.emit(this.value);
+            this.stopEditing.emit({value:this.value, column: this.column});
         }
+    }
+
+    changeValue(value:any) {
+        this.value = value;
     }
 
     isEditable() {
@@ -79,38 +85,48 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
         this.stopEditing.emit({value: this.value, column: this.column});
     }
 
+    subject = new Subject<Observable<any>>();
 
     getOptions(): any[] {
-        // TODO get filter
-        this._service.list(this.column.referencedTable, this.column.retrieveMetadata, this.column.optionsOrdered, this.column.fieldToOrderBy, this.column.filter).subscribe(data => {
-                if (data.ok) {
-                    if (this.column.setOptionsFn) {
-                        // caso setOptionsFn es Observable
-                        let opts = this.column.setOptionsFn(data.data, this.item, this.column);
-                        if (opts instanceof Observable) {
-                            opts.subscribe(data => {
-                                this.setOptions(data)
-                            }, e => {
-                                this.optionsList = [{label: "Error recuperando datos.", value: null}];
-                            }, () => {
-                            })
+        let filter: Filter;
+        if (!this.isFilter && this.column && this.column.relatedField) {
+            filter = new Filter('EQUAL', this.column.referencedRelatedField, [this.item[this.column.relatedField]]);
+        }
+        if (this.subject.observers.length === 0) {
+            this.subject
+                .do(_ => {
+                    this.optionsList = [];
+                })
+                .switchMap(() => this._service.list(this.column.referencedTable, this.column.retrieveMetadata, false, this.column.fieldToOrderBy?this.column.fieldToOrderBy:null, (filter)?[filter]:[]))
+                .subscribe((data) => {
+                    if (data.ok) {
+                        if (this.column.setOptionsFn) {
+                            // caso setOptionsFn es Observable
+                            let opts = this.column.setOptionsFn(data.data, this.item, this.column);
+                            if (opts instanceof Observable) {
+                                opts.subscribe(data => {
+                                    this.setOptions(data)
+                                }, e => {
+                                    this.optionsList = [{label: "Error recuperando datos.", value: null}];
+                                }, () => {
+                                })
+                            } else {
+                                // caso setOptionsFn es any[]
+                                this.setOptions(opts)
+                            }
                         } else {
-                            // caso setOptionsFn es any[]
-                            this.setOptions(opts)
+                            // caso no tenemos una setOptionsFn
+                            this.setOptions(data.data)
                         }
                     } else {
-                        // caso no tenemos una setOptionsFn
-                        this.setOptions(data.data)
+                        this.optionsList = [{label: "Error recuperando datos.", value: null}];
+                        this.messageService.add({severity:'error',summary:'error',detail:'Error interno cargando el registro.'})
                     }
-                } else {
-                    this.optionsList = [{label: "Error recuperando datos.", value: null}];
-                    this.messageService.add({severity:'error',summary:'error',detail:'Error interno cargando el registro.'})
-                }
-            },
-            err => {
-                this.optionsList = [{label: "Error recuperando datos.", value: null}];
-                this.messageService.add({severity:'error',summary:'error',detail:'Error interno cargando el registro.'})
-            });
+                }, (err: ErrorObservable) => {
+                    this.messageService.add({severity:'error', summary:'error', detail: 'Error interno cargando el registro.'})
+                })
+        }
+        this.subject.next();
         return this.optionsList;
     }
 
