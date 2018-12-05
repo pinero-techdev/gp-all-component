@@ -46,6 +46,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
     }
 
     onModelChange(v: any) {
+        console.log('end', v)
         if (this.column.beforeChangeFn) {
             // TODO check type of for Observable
             let newValue = this.column.beforeChangeFn(this.item, v, this.column);
@@ -62,7 +63,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
     }
 
     isEditable() {
-        if (this.column.editableFn) {
+        if (this.column.validateFn) {
             return this.column.editableFn(this.value, this.item, this.column);
         } else {
             return this._metadataService.isEditable(this.value, this.item, this.column);
@@ -85,19 +86,24 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
         this.stopEditing.emit({value: this.value, column: this.column});
     }
 
-    subject = new Subject<Observable<any>>();
+    subject = new Subject();
 
-    getOptions(): any[] {
+    getOptions(): any {
         let filter: Filter;
         if (!this.isFilter && this.column && this.column.relatedField) {
-            filter = new Filter('EQUAL', this.column.referencedRelatedField, [this.item[this.column.relatedField]]);
+            let arr = [];
+            arr.push(this.item[this.column.relatedField])
+            arr = arr.slice();
+            filter = new Filter('EQUAL', this.column.referencedRelatedField, arr);
         }
         if (this.subject.observers.length === 0) {
             this.subject
-                .do(_ => {
-                    this.optionsList = [];
-                })
-                .switchMap(() => this._service.list(this.column.referencedTable, this.column.retrieveMetadata, false, this.column.fieldToOrderBy?this.column.fieldToOrderBy:null, (filter)?[filter]:[]))
+                .switchMap(() => { return this._service.list(
+                    this.column.referencedTable,
+                    this.column.retrieveMetadata,
+                    false,
+                    this.column.fieldToOrderBy ? this.column.fieldToOrderBy : null,
+                    (filter) ? [filter] : [])})
                 .subscribe((data) => {
                     if (data.ok) {
                         if (this.column.setOptionsFn) {
@@ -120,10 +126,15 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
                         }
                     } else {
                         this.optionsList = [{label: "Error recuperando datos.", value: null}];
-                        this.messageService.add({severity:'error',summary:'error',detail:'Error interno cargando el registro.'})
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'error',
+                            detail: 'Error interno cargando el registro.'
+                        });
                     }
-                }, (err: ErrorObservable) => {
-                    this.messageService.add({severity:'error', summary:'error', detail: 'Error interno cargando el registro.'})
+                }, (err) => {
+                    this.optionsList = [{label: "Error recuperando datos.", value: null}];
+                    this.messageService.add({severity: 'error', summary: 'error', detail: 'Error interno cargando el registro.'})
                 })
         }
         this.subject.next();
