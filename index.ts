@@ -62,4 +62,5 @@ export * from './services/multi-idioma.service';
 export * from './services/remote-fsys.service';
 export * from './services/password.service';
 //Module
+export * from './modules/permission-settings';
 export * from './gp-all-module.module';

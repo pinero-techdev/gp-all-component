@@ -5,12 +5,14 @@ import {AppMenuProviderService} from "../../services/app-menu-provider.service";
 import {AppMenuService} from "../../services/app-menu.service";
 import {GlobalService} from "../../services/global.service";
 import {MenuRq} from "./menuRq";
+import {PermissionSettingsService} from "../../modules/permission-settings";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
     constructor(private _router: Router,
                 private _menu: AppMenuService,
+                private _settingsService: PermissionSettingsService,
                 private _menuAppMenuProviderService: AppMenuProviderService) {
     }
 
@@ -28,11 +30,18 @@ export class AuthGuard implements CanActivate {
         console.log("Guard, canActivate, globalService: " + sessionStorage.getItem('userInfo'));
         if ((GlobalService.LOGGED || null != sessionStorage.getItem('userInfo'))) {
             // 'home' is the default page when user is logged
+            let permissionsCall = this._settingsService.load(GlobalService.SESSION_ID).map( (data) => {
+                return PermissionSettingsService.settings = data;
+            });
             if (url == '/home' || url == '/' || url.indexOf('/terminal') != -1) {
-                return Observable.of(true);
+                if(PermissionSettingsService.active) {
+                    return permissionsCall.mergeMap( ()=> Observable.of(true));
+                } else {
+                    return Observable.of(true);
+                }
             } else {
                 let request: MenuRq = new MenuRq(GlobalService.SESSION_ID, GlobalService.PARAMS);
-                return this._menu.obtenMenu(request)
+                let menuCall = this._menu.obtenMenu(request)
                     .map(
                         menu => {
                             if (menu) {
@@ -50,6 +59,11 @@ export class AuthGuard implements CanActivate {
                             }
                         }
                     );
+                if(PermissionSettingsService.active) {
+                    return permissionsCall.mergeMap(() => menuCall);
+                } else {
+                    return menuCall;
+                }
             }
 
         } else {

@@ -93,6 +93,7 @@ import {GlobalService} from './services/global.service';
 import {LoginService} from './services/login.service';
 import {MultiIdomaService} from './services/multi-idioma.service';
 import {TableService} from './services/table.service';
+import {PermissionSettingsModule} from "./modules/permission-settings";
 
 @NgModule({
               imports: [
@@ -105,7 +106,8 @@ import {TableService} from './services/table.service';
                   PickListModule, ProgressBarModule, ProgressSpinnerModule, RadioButtonModule,
                   RatingModule, ReactiveFormsModule, RouterModule, ScheduleModule, ScrollPanelModule,
                   SharedModule, SlideMenuModule, SliderModule, SpinnerModule,
-                  SplitButtonModule, TabViewModule, ToolbarModule, TooltipModule, TreeModule, TriStateCheckboxModule
+                  SplitButtonModule, TabViewModule, ToolbarModule, TooltipModule, TreeModule, TriStateCheckboxModule,
+                  PermissionSettingsModule
               ],
               exports: [
                   // Directives.
@@ -118,7 +120,7 @@ import {TableService} from './services/table.service';
                   GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
                   GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
                   GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
-                  GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
+                  GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent, PermissionSettingsModule
               ],
               declarations: [
                   // Directives.
