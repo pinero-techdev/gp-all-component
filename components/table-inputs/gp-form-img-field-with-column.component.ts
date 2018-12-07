@@ -28,22 +28,33 @@ export class GpFormImgFieldWithColumnComponent extends CustomInput {
         this.value = this.columnMetadata.uppercase ? text.toUpperCase() : text;
     }
 
-    onStart() {
-        this.visible = true;
-        let tableFieldEvent: TableFieldEvent = {
-            column: this.columnMetadata,
-            value: this.value
-        };
+  originalContent: any;
 
-        this.startEditingField.emit(tableFieldEvent);
-    }
+  onStart() {
+    this.originalContent = this.value;
+    this.visible = true;
+    let tableFieldEvent: TableFieldEvent = {
+      column: this.columnMetadata,
+      value: this.value
+    };
 
-    onStop() {
-        let tableFieldEvent: TableFieldEvent = {
-            column: this.columnMetadata,
-            value: this.value
-        };
+    this.startEditingField.emit(tableFieldEvent);
+  }
 
-        this.stopEditingField.emit(tableFieldEvent);
-    }
+  onStop() {
+    this.visible = false;
+    this.stopEditingField.emit({
+      column: this.columnMetadata,
+      value: this.value
+    });
+  }
+
+  onStopCancel() {
+    this.visible = false;
+    this.value = this.originalContent;
+    this.stopEditingField.emit({
+      column: this.columnMetadata,
+      value: this.value
+    });
+  }
 }

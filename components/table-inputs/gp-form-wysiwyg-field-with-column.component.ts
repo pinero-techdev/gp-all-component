@@ -20,8 +20,9 @@ export class GpFormWysiwygFieldWithColumnComponent extends CustomInput {
   @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
   visible: boolean = false;
-
+  originalContent: any;
   setVisible() {
+    this.originalContent = this.value;
     this.visible = true;
     this.startEditingField.emit({
         column: this.columnMetadata,
@@ -29,7 +30,17 @@ export class GpFormWysiwygFieldWithColumnComponent extends CustomInput {
     });
   }
 
+  stopEditingCancel(){
+      this.visible = false;
+      this.value = this.originalContent;
+      this.stopEditingField.emit({
+        column: this.columnMetadata,
+        value: this.value
+      });
+  }
+
   stopEditing() {
+    this.visible = false;
     this.stopEditingField.emit({
         column: this.columnMetadata,
         value: this.value

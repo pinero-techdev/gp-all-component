@@ -1,6 +1,6 @@
 <p-dialog [(visible)]="visible"
           [modal]="true"
-          (onHide)="onStop()">
+          (onHide)="onStopCancel()">
     <img [src]="value" style="width: 100%; max-height: 50%;" *ngIf="value"/>
     <input [name]="columnMetadata.name"
            pInputText
@@ -12,6 +12,8 @@
            [class]="textboxClass"
            [disabled]="!isEditable"
            class="full-width"/>
+  <button label="Aceptar" (click)="onStop()">Aceptar</button>
+  <button label="Cancelar" (click)="onStopCancel()">Cancelar</button>
 </p-dialog>
 
 <button (click)="onStart()">Abrir</button>
