@@ -7,8 +7,8 @@
            type="text"
            [ngModel]="value"
            (ngModelChange)="textToUppercase($event)"
-           [maxlength]="columnMetadata.max"
-           [minlength]="columnMetadata.min"
+           [maxlength]="columnMetadata.maxLength"
+           [minlength]="columnMetadata.minLength"
            [class]="textboxClass"
            [disabled]="!isEditable"
            class="full-width"/>

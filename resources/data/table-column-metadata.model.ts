@@ -10,7 +10,7 @@ export class TableColumnMetadata {
     filterable: boolean = true;
     filter: any;
     visible: boolean = true;
-    editable: boolean = true; // TODO es necesario?
+    editable: boolean = true;
     required: boolean = false;
     order: number = -1;
     translationInfo: TranslationInfo;
@@ -21,8 +21,8 @@ export class TableColumnMetadata {
     fieldToOrderBy: string[]; // campo que se envía como parámetro para ordenar el listado de opciones
     retrieveMetadata: boolean;
     optionsOrdered : boolean;
-    max: number;
-    min: number;
+    maxLength: number;
+    minLength: number;
     maxValue: number;
     minValie: number;
     uppercase: boolean;

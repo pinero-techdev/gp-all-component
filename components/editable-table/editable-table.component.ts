@@ -18,6 +18,7 @@ import {SelectionType} from "../../resources/data/selection-type.enum";
 import {ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
 import {GpAppInputWithMetadataComponent} from "../input-with-metadata/input-with-metadata.component";
 import {InputType} from "../../resources/data/field-type.enum";
+import {TableMetadataService} from "../../services/table-metadata.service";
 
 /*
 *  Data order: data -> filteredData -> sortedData -> currentPageData
@@ -60,9 +61,13 @@ export class GpAppEditableTableComponent implements OnInit {
         return this._columns;
     }
     set columns(value: TableColumnMetadata[]) {
-        this._columns = value.sort( (item1, item2) => {
-            return item1.order - item2.order;
-        }) || [];
+        if( !value ) {
+            this._columns = [];
+        } else {
+            this._columns = value.sort( (item1, item2) => {
+                return item1.order - item2.order;
+            });
+        }
     };
     @Input() config: TableConfig = new TableConfig();
     @Input() data: any[];
@@ -92,20 +97,12 @@ export class GpAppEditableTableComponent implements OnInit {
             return this.data.filter((data) => {
                 let valid = true;
                 for(let column of this.columns){
-                    let dataAux = data[column.name];
-                    let filter = column.filter;
-                    if(column.type == InputType.TEXT_FIELD){
-                        dataAux = dataAux.toUpperCase();
-                        filter = filter.toUpperCase();
-                        if(filter && dataAux && dataAux.indexOf(filter) == -1) {
-                            valid = false;
-                            break;
-                        }
-                    } else {
-                        if(filter && dataAux && dataAux != filter){
-                            valid = false;
-                            break;
-                        }
+                    if(!column.filter || !data[column.name]) { continue; }
+                    let value = String(data[column.name]).toUpperCase();
+                    let filter = String(column.filter).toUpperCase();
+                    if(value.indexOf(filter) == -1) {
+                        valid = false;
+                        break;
                     }
                 }
                 return valid ;
@@ -152,7 +149,7 @@ export class GpAppEditableTableComponent implements OnInit {
         return columnNumber;
     }
 
-    constructor(private _confirmationService: ConfirmationService) { }
+    constructor(private _confirmationService: ConfirmationService, private _metadataService: TableMetadataService) { }
 
     ngOnInit() {
     }
@@ -340,7 +337,6 @@ export class GpAppEditableTableComponent implements OnInit {
     }
 
     createItem() {
-        // TODO hacer
         if(this.onCreation || this.onEdition) { return; }
         this.creationObject = {};
         this.onCreation = true;
@@ -455,10 +451,15 @@ export class GpAppEditableTableComponent implements OnInit {
         }
         for(let column of this.columns) {
             if(column.validateFn) {
-                return column.validateFn(item[column.name], item, column);
+                if( !column.validateFn(item[column.name], item, column) ) {
+                    return false
+                }
+            } else {
+                if ( !this._metadataService.validateField(item[column.name], column) ) {
+                    return false
+                }
             }
         }
-        // TODO Validate form inputs
         return true;
     }
 

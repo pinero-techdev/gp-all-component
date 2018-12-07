@@ -21,8 +21,8 @@
            #input
            [ngModel]="value"
            (ngModelChange)="(isFilter)? onModelChange($event) : null"
-           [minlength]="column.min"
-           [maxlength]="column.max"
+           [minlength]="column.minLength"
+           [maxlength]="column.maxLength"
            [max]="column.maxValue"
            [min]="column.minValie"
            (focus)="onStartEditing()"

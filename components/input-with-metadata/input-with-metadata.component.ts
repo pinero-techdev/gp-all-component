@@ -46,7 +46,6 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
     }
 
     onModelChange(v: any) {
-        console.log('end', v)
         if (this.column.beforeChangeFn) {
             // TODO check type of for Observable
             let newValue = this.column.beforeChangeFn(this.item, v, this.column);

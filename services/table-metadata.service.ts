@@ -158,18 +158,18 @@ export class TableMetadataService{
 
     getRestrictions(metadata: FieldMetadata, column: TableColumnMetadata): TableColumnMetadata {
         if (metadata.fieldMaxLength > 0) {
-            column.max = metadata.fieldMaxLength;
+            column.maxLength = metadata.fieldMaxLength;
         }
         for (let restriction of metadata.restrictions) {
             switch (restriction.restrictionType) {
                 case TableService.RESTRICTION_MAX_LENGTH:{
-                    if (!column.max) {
-                        column.max = restriction.maxLength;
+                    if (!column.maxLength) {
+                        column.maxLength = restriction.maxLength;
                     }
                     break;
                 }
                 case TableService.RESTRICTION_MIN_LENGTH:{
-                    column.min = restriction.minLength;
+                    column.minLength = restriction.minLength;
                     break;
                 }
                 case TableService.RESTRICTION_MAX_VALUE:{
@@ -185,47 +185,45 @@ export class TableMetadataService{
         return column;
     }
 
-    validateField(row: any, column: TableColumnMetadata): boolean {
-        let valid: boolean = true;
-
+    validateField(value: any, column: TableColumnMetadata): boolean {
         //Comprueba si el campo está vacío
-        if (column.required && (row[column.name] == "" || row[column.name] == null)) {
-            valid = false;
+        if (column.required && (value === undefined || value === null || value === "") ) { // 0 or false are valid values
+            return false;
         }
-
-        //Si tiene noSpace como una restricción y el texto contiene espacios no es válido
-        else if(column.noSpace && /\s/.test(row[column.name])) {
-            valid = false;
+        if(value !== undefined && value !== null) {
+            if(column.noSpace && /\s/.test(value)) { //Si tiene noSpace como una restricción y el texto contiene espacios no es válido
+                return false;
+            } else if( /[\u0000-\u0019]/.test(value) || /[\u0080-\uFFFF]/.test(value)) { //Comprueba el texto en busca de caracteres no válidos
+                return false;
+            } else if (column.uppercase && value && value !== String(value).toUpperCase()) {
+                return false;
+            } else if (column.trim && value && value !== String(value).trim()) {
+                return false;
+            }
+            if ((column.maxLength || column.maxLength === 0)) {
+                if(column.maxLength === 0 && (value === undefined || value === null)) {
+                    return false;
+                }
+                if(String(value).length > column.maxLength) {
+                    return false;
+                }
+            }
+            if ((column.minLength || column.minLength === 0)) {
+                if(column.minLength > 0 && (value === undefined || value === null)) {
+                    return false;
+                }
+                if(String(value).length > column.minLength) {
+                    return false;
+                }
+            }
+            if ((column.maxValue || column.maxValue === 0) && value > column.maxValue) {
+                return false;
+            }
+            if ((column.minValie || column.minValie === 0) && value < column.minValie) {
+                return false;
+            }
         }
-
-        //Comprueba el texto en busca de caracteres no válidos
-        else if( /[\u0000-\u0019]/.test(row[column.name])) {
-            valid = false;
-        }
-        else if( /[\u0080-\uFFFF]/.test(row[column.name])) {
-            valid = false;
-        }
-
-        else if (row[column.name].length > column.max) {
-            valid = false;
-        }
-        else if (row[column.name].length < column.min) {
-            valid = false;
-        }
-        else if (row[column.name] > column.maxValue) {
-            valid = false;
-        }
-        else if (row[column.name] < column.minValie) {
-            valid = false;
-        }
-        else if (column.uppercase && row[column.name] !== row[column.name].toUpperCase()) {
-            valid = false;
-        }
-        else if (column.trim && row[column.name] !== row[column.name].trim()) {
-            valid = false;
-        }
-
-        return valid;
+        return true;
     }
 
 }

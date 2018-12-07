@@ -91,7 +91,7 @@
             <button [disabled]="(onEdition || onCreation) && !item._editting" [hidden]="!item._editting" (click)="cancelEdit(item)">Cancel</button>
         </td>
     </tr>
-    <ng-template [ngIf]="onCreation"><!-- TODO create-->
+    <ng-template [ngIf]="onCreation">
         <td *ngIf="config.selectable == SelectionType.MULTIPLE"></td>
         <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate; context:{$implicit:creationObject, index: rowIndex, columns: columns }"></ng-content>
         <td *ngIf="config.actionsColumn">
