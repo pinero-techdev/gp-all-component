@@ -131,7 +131,7 @@
             </ng-template>
             <button pButton label="Guardar"
                     [disabled]="( (onEdition || onCreation) && !item._editting) ||
-                        (item._editting && !isItemValid(editionObject)
+                        (item._editting && !itemValid
                     )"
                     *ngIf="item._editting" (click)="beforeSaveItem(item, editionObject)"
                     class="ui-button-success"></button>
@@ -152,7 +152,7 @@
             }"></ng-content>
             <td *ngIf="config.actionsColumn" class="actions-colum">
                 <button pButton label="Crear"
-                        [disabled]="!isItemValid(creationObject)"
+                        [disabled]="!itemValid"
                         (click)="beforeCreateItem(creationObject)"
                         class="ui-button-success"></button>
                 <button pButton label="Cancelar"
@@ -169,7 +169,7 @@
         <gp-app-input-with-metadata [(ngModel)]="item[column.name]"
                                     [columnMetadata]="column"
                                     (startEditing)="startEditingField.emit($event)"
-                                    (stopEditing)="itemValueChanged($event)"
+                                    (stopEditing)="itemValueChanged($event, item)"
                                     [item]="item"></gp-app-input-with-metadata>
     </td>
 </ng-template>

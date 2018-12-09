@@ -22,7 +22,6 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
     InputType = InputType;
     editable: boolean;
     optionsList = [];
-    valid: boolean; // For future uses with validate method call
     imgModalVisible: boolean = false;
     textareaModalVisible: boolean = false;
     wysiwygModalVisible: boolean = false;
@@ -49,7 +48,6 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
     }
 
     ngOnInit() {
-        this.validate(); // for future uses
         if (this.column.type == InputType.DROPDOWN_FIELD || this.column.type == InputType.DROPDOWN_RELATED_FIELD){
             this.getOptions();
         }
@@ -92,14 +90,6 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
             return this.column.editableFn(this.value, this.item, this.column);
         } else {
             return this._metadataService.isEditable(this.value, this.item, this.column);
-        }
-    }
-
-    validate() {
-        if (this.column.validateFn) {
-            this.valid = this.column.validateFn(this.item, this.value, this.column);
-        } else {
-            this.valid = this._metadataService.isValid(this.item, this.column);
         }
     }
 

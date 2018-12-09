@@ -40,6 +40,7 @@ export class GpAppEditableTableComponent implements OnInit {
     creationObject: any;
     onEdition: boolean = false;
     onCreation: boolean = false;
+    itemValid: boolean = true;
     @ViewChild('pg') paginator: Paginator;
     /*
     * Context params
@@ -167,13 +168,15 @@ export class GpAppEditableTableComponent implements OnInit {
         }
     }
 
-    itemValueChanged(event: TableFieldEvent) {
-        if(event && event.column)
+    itemValueChanged(event: TableFieldEvent, item: any) {
+        if(event && event.column) {
             this.inputs.forEach((input: GpAppInputWithMetadataComponent, index: number, inputs: GpAppInputWithMetadataComponent[]) => {
                 if(!input.isFilter && input.column.type == InputType.DROPDOWN_RELATED_FIELD && input.column.relatedField == event.column.name) {
                     input.getOptions()
                 }
             });
+        }
+        this.itemValid = this.isItemValid(item);
         this.stopEditingField.emit(event);
     }
 
@@ -340,6 +343,7 @@ export class GpAppEditableTableComponent implements OnInit {
     createItem() {
         if(this.onCreation || this.onEdition) { return; }
         this.creationObject = {};
+        this.itemValid = this.isItemValid(this.creationObject);
         this.onCreation = true;
     }
 
@@ -382,6 +386,7 @@ export class GpAppEditableTableComponent implements OnInit {
         if(this.onCreation || this.onEdition) { return; }
         let editFn = (editItem: any) => {
                 this.editionObject = Object.assign({}, editItem);
+                this.itemValid = this.isItemValid(this.editionObject);
                 this.onEdition = true;
                 item._editting = true;
                 this.startEdition.emit(this.editionObject);
