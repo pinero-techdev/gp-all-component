@@ -15,16 +15,18 @@ import {TableMetadataService} from "../../services/table-metadata.service";
     providers: [{provide: NG_VALUE_ACCESSOR, useExisting: GpFormTextareaFieldWithColumnComponent, multi: true}]
 })
 export class GpFormTextareaFieldWithColumnComponent extends CustomInput {
-    @Input() columnMetadata : TableColumnMetadata;
-    @Input() isEditable: boolean;
-    @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-    @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-
+  @Input() columnMetadata : TableColumnMetadata;
+  @Input() isEditable: boolean;
+  @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+  @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     visible: boolean = false;
 
     translationKeys: string = '';
 
+  originalContent: any;
+
     onStart() {
+      this.originalContent = this.value;
         this.visible = true;
         let tableFieldEvent: TableFieldEvent = {
             column: this.columnMetadata,
@@ -35,11 +37,19 @@ export class GpFormTextareaFieldWithColumnComponent extends CustomInput {
     }
 
     onStop() {
-        let tableFieldEvent: TableFieldEvent = {
-            column: this.columnMetadata,
-            value: this.value
-        };
+      this.visible = false;
+      this.stopEditingField.emit({
+        column: this.columnMetadata,
+        value: this.value
+      });
+    }
 
-        this.stopEditingField.emit(tableFieldEvent);
+    onStopCancel() {
+      this.visible = false;
+      this.value = this.originalContent;
+      this.stopEditingField.emit({
+        column: this.columnMetadata,
+        value: this.value
+      });
     }
 }

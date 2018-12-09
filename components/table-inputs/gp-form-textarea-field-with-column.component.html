@@ -1,6 +1,6 @@
 <p-dialog [(visible)]="visible"
           [modal]="true"
-          (onHide)="onStop()">
+          (onHide)="onStopCancel()">
     <div [class.ui-g-12]="columnMetadata.translationInfo == null"
          [class.ui-g-10]="columnMetadata.translationInfo != null && translationKeys != ''"
          class="nopad">
@@ -24,6 +24,8 @@
                              [orderByLangCod]="columnMetadata.translationInfo.orderByLangCod">
         </gp-app-multi-idioma>
     </div>
+  <button label="Aceptar" (click)="onStop()">Aceptar</button>
+  <button label="Cancelar" (click)="onStopCancel()">Cancelar</button>
 </p-dialog>
 
 <button (click)="onStart()">Abrir</button>
