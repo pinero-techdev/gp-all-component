@@ -83,6 +83,7 @@
             <input pInputText
                    class="full-width" type="text"
                    #textInput
+                   [gp-uppercase]="column.uppercase"
                    [ngModel]="value"
                    (ngModelChange)="(isFilter)? onModelChange($event) : null"
                    (change)="(!isFilter)? onModelChange(textInput.value) : null"

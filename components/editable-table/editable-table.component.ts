@@ -466,17 +466,18 @@ export class GpAppEditableTableComponent implements OnInit {
         if(this.config.validateFn) {
             return this.config.validateFn(item, this.columns);
         }
+        let valid = true; // Use temp var instead direct return to check each column
         for(let column of this.columns) {
             if(column.validateFn) {
                 if( !column.validateFn(item[column.name], item, column) ) {
-                    return false
+                    valid = false;
                 }
             } else {
                 if ( !this._metadataService.isValid(item[column.name], column) ) {
-                    return false
+                    valid = false;
                 }
             }
         }
-        return true;
+        return valid;
     }
 }
