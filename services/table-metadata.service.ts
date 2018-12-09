@@ -19,12 +19,15 @@ export class TableMetadataService{
         this.getRequired(metadata,column);
         column.editable = !metadata.readOnly;
         column.isId = metadata.id;
+        column.allowAscii = metadata.allowAscii;
         this.getType(metadata, column);
         if(metadata.displayInfo) {
             column.label = metadata.displayInfo.fieldLabel;
             column.order = metadata.displayInfo.order;
             column.translationInfo = metadata.displayInfo.translationInfo;
-            column.rows = metadata.displayInfo.rowsTextArea > 0 ? metadata.displayInfo.rowsTextArea : 3;
+            if(metadata.displayInfo.rowsTextArea){
+                column.rows = metadata.displayInfo.rowsTextArea;
+            }
             column.referencedTable = metadata.displayInfo.referencedTable;
             column.fieldToOrderBy = [metadata.displayInfo.fieldToOrderBy];
             column.optionsValue = metadata.displayInfo.referencedField;
@@ -185,7 +188,7 @@ export class TableMetadataService{
         return column;
     }
 
-    validateField(value: any, column: TableColumnMetadata): boolean {
+    isValid(value: any, column: TableColumnMetadata): boolean {
         //Comprueba si el campo está vacío
         if (column.required && (value === undefined || value === null || value === "") ) { // 0 or false are valid values
             return false;
@@ -193,7 +196,7 @@ export class TableMetadataService{
         if(value !== undefined && value !== null) {
             if(column.noSpace && /\s/.test(value)) { //Si tiene noSpace como una restricción y el texto contiene espacios no es válido
                 return false;
-            } else if( /[\u0000-\u0019]/.test(value) || /[\u0080-\uFFFF]/.test(value)) { //Comprueba el texto en busca de caracteres no válidos
+            } else if( column.allowAscii && (/[\u0000-\u0019]/.test(value) || /[\u0080-\uFFFF]/.test(value)) ) { //Comprueba el texto en busca de caracteres no válidos
                 return false;
             } else if (column.uppercase && value && value !== String(value).toUpperCase()) {
                 return false;

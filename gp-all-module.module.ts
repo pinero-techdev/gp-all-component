@@ -98,15 +98,6 @@ import {GpAppEditableTableComponent} from './components/editable-table/editable-
 import {GpAppEditableTableCrudComponent} from './components/editable-table-crud/editable-table-crud.component';
 import {GpAppInputWithMetadataComponent} from './components/input-with-metadata/input-with-metadata.component';
 import {TableMetadataService} from './services/table-metadata.service';
-import {GpFormWysiwygFieldWithColumnComponent} from './components/table-inputs/gp-form-wysiwyg-field-with-column.component';
-import {GpFormTimeFieldWithColumnComponent} from './components/table-inputs/gp-form-time-field-with-column.component';
-import {GpFormTextareaFieldWithColumnComponent} from './components/table-inputs/gp-form-textarea-field-with-column.component';
-import {GpFormSwitchFieldWithColumnComponent} from './components/table-inputs/gp-form-switch-field-with-column.component';
-import {GpFormImgFieldWithColumnComponent} from './components/table-inputs/gp-form-img-field-with-column.component';
-import {GpFormCheckboxFieldWithColumnComponent} from './components/table-inputs/gp-form-checkbox-field-with-column.component';
-import {GpFormCalendarFieldWithColumnComponent} from './components/table-inputs/gp-form-calendar-field-with-column.component';
-import {GpFormDropdownFieldWithColumnComponent} from './components/table-inputs/gp-form-dropdown-field-with-column.component';
-import {GpFormTextFieldWithColumnComponent} from './components/table-inputs/gp-form-text-field-with-column.component';
 
 @NgModule({
               imports: [
@@ -132,9 +123,7 @@ import {GpFormTextFieldWithColumnComponent} from './components/table-inputs/gp-f
         GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
         GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
         GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
-        GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent, GpFormTextFieldWithColumnComponent, GpFormDropdownFieldWithColumnComponent,
-        GpFormCalendarFieldWithColumnComponent, GpFormCheckboxFieldWithColumnComponent, GpFormImgFieldWithColumnComponent, GpFormSwitchFieldWithColumnComponent,
-        GpFormTextareaFieldWithColumnComponent, GpFormTimeFieldWithColumnComponent, GpFormWysiwygFieldWithColumnComponent
+        GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
               ],
               declarations: [
                   // Directives.
@@ -147,9 +136,7 @@ import {GpFormTextFieldWithColumnComponent} from './components/table-inputs/gp-f
                   GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
                   GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
                   GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
-                  GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent, GpFormTextFieldWithColumnComponent, GpFormDropdownFieldWithColumnComponent,
-                  GpFormCalendarFieldWithColumnComponent, GpFormCheckboxFieldWithColumnComponent, GpFormImgFieldWithColumnComponent, GpFormSwitchFieldWithColumnComponent,
-                  GpFormTextareaFieldWithColumnComponent, GpFormTimeFieldWithColumnComponent, GpFormWysiwygFieldWithColumnComponent
+                  GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
               ],
               providers: [AppMenuService, AuthGuard, CommonService, GlobalService, LoginService, MultiIdomaService, TableService, TableMetadataService]
           })

@@ -15,6 +15,7 @@ export class TableColumnMetadata {
     order: number = -1;
     translationInfo: TranslationInfo;
     isId: boolean;
+    allowAscii: boolean = true;
     optionsLabels: string[] = ['descripcion'];
     optionsValue: string;
     referencedTable: string; // informa del endpoint
@@ -25,15 +26,15 @@ export class TableColumnMetadata {
     minLength: number;
     maxValue: number;
     minValie: number;
-    uppercase: boolean;
-    trim: boolean;
-    noSpace: boolean;
-    rows: number;
+    uppercase: boolean = false;
+    trim: boolean = false;
+    noSpace: boolean = false;
+    rows: number = 5;
     relatedField: string;
     referencedRelatedField: string;
-    validateFn: (value:any, item: any, column: TableColumnMetadata) => boolean; // custom form validation
+    validateFn: (value:any, item: any, column: TableColumnMetadata) => boolean; // custom input validation
     editableFn: (value:any, item: any, column: TableColumnMetadata) => boolean; // Enable or disable input edition
-    setOptionsFn: (options: any[], item: any, column: TableColumnMetadata) => any[] | Observable<any[]>; // Change
+    setOptionsFn: (options: any[], item: any, column: TableColumnMetadata) => any[] | Observable<any[]>; // Change dropdown options
     beforeChangeFn: (original: any, modified: any, column: TableColumnMetadata) => any; // To modify value before change it
 
 }

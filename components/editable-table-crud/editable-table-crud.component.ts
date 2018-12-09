@@ -105,7 +105,6 @@ export class GpAppEditableTableCrudComponent {
         this.tableService.selectOneRow(this.tableName, jsonRow).subscribe(
             data => {
                 if (data.ok) {
-                    console.log('EditItem',data);
                     event.success(data.data);
                 } else {
                     this.messageService.add({severity:'error',summary:'error',detail:'Error obteniendo el registro: ' + data.error.errorMessage})

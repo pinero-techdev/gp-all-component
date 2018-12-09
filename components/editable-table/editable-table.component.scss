@@ -1,33 +1,26 @@
 gp-app-editable-table{
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  .pull-right{
+    float: right;
   }
-
-  table, th, td {
-    border: 1px solid gray;
+  .pull-left{
+    float: left;
   }
-  thead tr {
-    background-color: #283593;
+  .table-header {
+    background-color: #3F51B5 !important;
     color: white;
   }
-  tbody {
-    tr.selected {
-      background-color: #00cceb;
-    }
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-      &.selected{
-        background-color: #00cceb;
-      }
-    }
+  .actions-colum {
+    text-align: center;
   }
   tfoot {
     padding: 0;
+    border: 0;
     tr {
       padding: 0;
+      border: 0;
       td {
         padding: 0;
+        border: 0;
       }
     }
   }

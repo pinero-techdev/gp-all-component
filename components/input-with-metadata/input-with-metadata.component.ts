@@ -19,46 +19,72 @@ import {ErrorObservable} from "rxjs/observable/ErrorObservable";
     ]
 })
 export class GpAppInputWithMetadataComponent extends CustomInput implements OnInit {
+    InputType = InputType;
+    editable: boolean;
+    optionsList = [];
+    valid: boolean; // For future uses with validate method call
+    imgModalVisible: boolean = false;
+    textareaModalVisible: boolean = false;
+    wysiwygModalVisible: boolean = false;
+    calendarLocale = {
+        firstDayOfWeek: 1,
+        dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+        dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+        dayNamesMin: [ "D","L","M","X","J","V","S" ],
+        monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+        monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ]
+    };
+    dateFormat: string = "yy-mm-dd";
+    translationKeys: string = "";
+    temporalValue: any = "";
+    @Input('columnMetadata') column: TableColumnMetadata = new TableColumnMetadata();
+    @Input() item: any; // item es el objeto row, con todos los campos
+    @Input() isFilter: boolean;
+    @Output() startEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+    @Output() stopEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+
     constructor(private _service: TableService,private messageService: MessageService,
                 private _metadataService: TableMetadataService) {
         super()
     }
 
-    public editable: boolean;
-
-    public optionsList = [];
-
-    public valid: boolean;
-
-    @Input('columnMetadata') column: TableColumnMetadata = new TableColumnMetadata();
-
-    // item es el objeto row, con todos los campos
-    @Input() item: any;
-    @Input() isFilter: boolean;
-    @Output() startEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-    @Output() stopEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-
-    inputType = InputType;
-
     ngOnInit() {
-        if (this.column.type == InputType.DROPDOWN_FIELD || this.column.type == InputType.DROPDOWN_RELATED_FIELD)
+        this.validate(); // for future uses
+        if (this.column.type == InputType.DROPDOWN_FIELD || this.column.type == InputType.DROPDOWN_RELATED_FIELD){
             this.getOptions();
+        }
+        if(this.column.translationInfo && this.column.translationInfo.keyFields) {
+            this.translationKeys = '';
+            for (let keyField of this.column.translationInfo.keyFields) {
+                this.translationKeys += this.item[keyField];
+            }
+        }
     }
 
-    onModelChange(v: any) {
+    onModelChange(value: any) {
         if (this.column.beforeChangeFn) {
-            // TODO check type of for Observable
-            let newValue = this.column.beforeChangeFn(this.item, v, this.column);
+            let newValue = this.column.beforeChangeFn(this.item, value, this.column);
             this.value = newValue;
             this.stopEditing.emit({value:this.value, column: this.column});
         } else {
-            this.value = v;
+            this.value = value;
             this.stopEditing.emit({value:this.value, column: this.column});
         }
     }
 
-    changeValue(value:any) {
-        this.value = value;
+    startStop(value: any) {
+        this.onStartEditing();
+        this.onModelChange(value);
+    }
+
+    setDateValue(date: Date) {
+        let value = date.toISOString().substr(0,10);
+        this.startStop(value);
+    }
+
+    setTimeValue(date: Date) {
+        let value = date.toLocaleTimeString().substr(0,5);
+        this.startStop(value);
     }
 
     isEditable() {
@@ -73,7 +99,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
         if (this.column.validateFn) {
             this.valid = this.column.validateFn(this.item, this.value, this.column);
         } else {
-            this.valid = this._metadataService.validateField(this.item, this.column);
+            this.valid = this._metadataService.isValid(this.item, this.column);
         }
     }
 
@@ -81,8 +107,31 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
         this.startEditing.emit({value: this.value, column: this.column});
     }
 
-    onStopEditing() {
-        this.stopEditing.emit({value: this.value, column: this.column});
+    openImgModal() {
+        if(this.value){
+            this.temporalValue = this.value.slice();
+        } else {
+            this.temporalValue = "";
+        }
+        this.imgModalVisible = true;
+    }
+
+    openTextareaModal() {
+        if(this.value){
+            this.temporalValue = this.value.slice();
+        } else {
+            this.temporalValue = "";
+        }
+        this.textareaModalVisible = true;
+    }
+
+    openWYSIWYGModal() {
+        if(this.value){
+            this.temporalValue = this.value.slice();
+        } else {
+            this.temporalValue = "";
+        }
+        this.wysiwygModalVisible = true;
     }
 
     subject = new Subject();
