@@ -457,7 +457,7 @@ export class GpAppEditableTableComponent implements OnInit {
         this.cancelEdition.emit(item);
     }
 
-    itemValid(item: any): boolean {
+    isItemValid(item: any): boolean {
         if(this.config.validateFn) {
             return this.config.validateFn(item, this.columns);
         }
@@ -474,8 +474,4 @@ export class GpAppEditableTableComponent implements OnInit {
         }
         return true;
     }
-
-    // isEditableColumn(value: any, item: any, column: TableColumnMetadata): boolean {
-    //     return true;
-    // }
 }

@@ -131,7 +131,7 @@
             </ng-template>
             <button pButton label="Guardar"
                     [disabled]="( (onEdition || onCreation) && !item._editting) ||
-                        (item._editting && !itemValid(editionObject)
+                        (item._editting && !isItemValid(editionObject)
                     )"
                     *ngIf="item._editting" (click)="beforeSaveItem(item, editionObject)"
                     class="ui-button-success"></button>
@@ -152,7 +152,7 @@
             }"></ng-content>
             <td *ngIf="config.actionsColumn" class="actions-colum">
                 <button pButton label="Crear"
-                        [disabled]="!itemValid(creationObject)"
+                        [disabled]="!isItemValid(creationObject)"
                         (click)="beforeCreateItem(creationObject)"
                         class="ui-button-success"></button>
                 <button pButton label="Cancelar"

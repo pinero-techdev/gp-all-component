@@ -14,6 +14,7 @@ export class TableColumnMetadata {
     required: boolean = false;
     order: number = -1;
     translationInfo: TranslationInfo;
+    messages: string[] = [];
     isId: boolean;
     allowAscii: boolean = true;
     optionsLabels: string[] = ['descripcion'];
@@ -25,7 +26,7 @@ export class TableColumnMetadata {
     maxLength: number;
     minLength: number;
     maxValue: number;
-    minValie: number;
+    minValue: number;
     uppercase: boolean = false;
     trim: boolean = false;
     noSpace: boolean = false;

@@ -1,6 +1,9 @@
-<div class="nopad"
+<div class="ui-inputgroup nopad"
      *ngIf="column"
      [ngSwitch]="column.type">
+    <i class="material-icons" style="color: #ffba01;"
+       *ngIf="!isFilter && column.messages && column.messages.length > 0"
+       [pTooltip]="column.messages" tooltipPosition="top">warning</i>
     <button *ngSwitchCase="InputType.TEXTAREA_FIELD"
             pButton
             label="Abrir"
@@ -14,19 +17,17 @@
            [minlength]="column.minLength"
            [maxlength]="column.maxLength"
            [max]="column.maxValue"
-           [min]="column.minValie"
+           [min]="column.minValue"
            (focus)="onStartEditing()"
            (change)="(!isFilter)? onModelChange(numberInput.value) : null"
            [disabled]="!isEditable()">
     <p-checkbox *ngSwitchCase="InputType.CHECKBOX_FIELD"
-                [name]="column.name"
                 binary="true"
                 [ngModel]="value"
                 (ngModelChange)="startStop($event)"
                 [disabled]="!isEditable()">
     </p-checkbox>
     <p-inputSwitch *ngSwitchCase="InputType.SWITCH_FIELD"
-                   [name]="column.name"
                    [ngModel]="value"
                    (ngModelChange)="startStop($event)"
                    [disabled]="!isEditable()">
@@ -42,7 +43,6 @@
             (click)="openWYSIWYGModal()"
             [disabled]="!isEditable()"></button>
     <p-calendar *ngSwitchCase="InputType.TIME_FIELD"
-                [name]="columnMetadata.name"
                 showTime="showTime" hourFormat="24" styleClass="full-width"
                 [timeOnly]="true"
                 [ngModel]="value"
@@ -50,7 +50,6 @@
                 [disabled]="!isEditable()">
     </p-calendar>
     <p-calendar *ngSwitchCase="InputType.CALENDAR_FIELD"
-                [name]="column.name"
                 styleClass="full-width"
                 [defaultDate]="value"
                 [ngModel]="value"
@@ -60,7 +59,6 @@
                 [locale]="calendarLocale ">
     </p-calendar>
     <p-dropdown  *ngSwitchCase="InputType.DROPDOWN_FIELD"
-                 [name]="column.name"
                  [options]="optionsList"
                  [ngModel]="value"
                  [autoWidth]="false"
@@ -70,7 +68,6 @@
                  class="ui-inputfield ui-selectonemenu-label">
     </p-dropdown>
     <p-dropdown  *ngSwitchCase="InputType.DROPDOWN_RELATED_FIELD"
-                 [name]="column.name"
                  [options]="optionsList"
                  [ngModel]="value"
                  [autoWidth]="false"
@@ -79,17 +76,16 @@
                  [disabled]="!isEditable()"
                  class="ui-inputfield ui-selectonemenu-label">
     </p-dropdown>
-    <div class="no-pad" *ngSwitchDefault>
+    <ng-template ngSwitchDefault>
         <div [class.ui-g-12]="column.translationInfo == null || (column.translationInfo != null && translationKeys == '')"
              [class.ui-g-10]="column.translationInfo != null && translationKeys != ''"
              class="nopad">
-            <input [name]="column.name"
-                   pInputText
-                   class="full-width"
-                   type="text"
+            <input pInputText
+                   class="full-width" type="text"
+                   #textInput
                    [ngModel]="value"
                    (ngModelChange)="(isFilter)? onModelChange($event) : null"
-                   (change)="(!isFilter)? onModelChange(numberInput.value) : null"
+                   (change)="(!isFilter)? onModelChange(textInput.value) : null"
                    [maxlength]="column.maxLength"
                    [minlength]="column.minLength"
                    (focus)="onStartEditing()"
@@ -105,7 +101,7 @@
                                  [orderByLangCod]="column.translationInfo.orderByLangCod">
             </gp-app-multi-idioma>
         </div>
-    </div>
+    </ng-template>
 </div>
 <p-growl></p-growl>
 
@@ -115,8 +111,7 @@
           header="Editor imagen (URL)"
           [modal]="true">
     <img [src]="temporalValue" style="width: 100%; max-height: 50%;" *ngIf="temporalValue"/>
-    <input [name]="column.name"
-           pInputText
+    <input pInputText
            type="text"
            [gp-uppercase]="column.uppercase"
            [(ngModel)]="temporalValue"
@@ -142,8 +137,7 @@
     <div [class.ui-g-12]="column.translationInfo == null || (column.translationInfo != null && translationKeys == '')"
          [class.ui-g-10]="column.translationInfo != null && translationKeys != ''"
          class="nopad">
-        <textarea [name]="column.name"
-                  pInputTextarea
+        <textarea pInputTextarea
                   [(ngModel)]="temporalValue"
                   [rows]="column.rows"
                   class="full-width"
@@ -177,8 +171,7 @@
           *ngIf="column.type == InputType.WYSIWYG_FIELD"
           header="Editor WYSIWYG"
           [modal]="true">
-    <p-editor [name]="column.name"
-              [(ngModel)]="temporalValue"
+    <p-editor [(ngModel)]="temporalValue"
               [style]="{'height':'200px'}"
               [disabled]="!isEditable()">
     </p-editor>

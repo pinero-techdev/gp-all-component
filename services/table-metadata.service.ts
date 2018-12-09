@@ -189,40 +189,52 @@ export class TableMetadataService{
     }
 
     isValid(value: any, column: TableColumnMetadata): boolean {
+        column.messages = [];
         //Comprueba si el campo está vacío
         if (column.required && (value === undefined || value === null || value === "") ) { // 0 or false are valid values
+            column.messages.push('El valor es obligatorio.');
             return false;
         }
         if(value !== undefined && value !== null) {
             if(column.noSpace && /\s/.test(value)) { //Si tiene noSpace como una restricción y el texto contiene espacios no es válido
+                column.messages.push('El valor indicado no puede contener espacios.');
                 return false;
             } else if( column.allowAscii && (/[\u0000-\u0019]/.test(value) || /[\u0080-\uFFFF]/.test(value)) ) { //Comprueba el texto en busca de caracteres no válidos
+                column.messages.push('El valor indicado contiene caracteres no válidos (acentos, eñes, c cedillas, ...)');
                 return false;
             } else if (column.uppercase && value && value !== String(value).toUpperCase()) {
+                column.messages.push('El valor indicado ha de estar en mayusculas.');
                 return false;
             } else if (column.trim && value && value !== String(value).trim()) {
+                column.messages.push('El valor indicado no puede contener espacios.');
                 return false;
             }
             if ((column.maxLength || column.maxLength === 0)) {
                 if(column.maxLength === 0) {
+                    column.messages.push(`Valor demasiado largo (longitud máxima ${column.maxLength})`);
                     return false;
                 }
                 if(String(value).length > column.maxLength) {
+                    column.messages.push(`Valor demasiado largo (longitud máxima ${column.maxLength})`);
                     return false;
                 }
             }
             if ((column.minLength || column.minLength === 0)) {
                 if(column.minLength > 0) {
+                    column.messages.push(`Valor demasiado corto (longitud mínima ${column.minLength})`);
                     return false;
                 }
                 if(String(value).length > column.minLength) {
+                    column.messages.push(`Valor demasiado largo (longitud mínima ${column.minLength})`);
                     return false;
                 }
             }
             if ((column.maxValue || column.maxValue === 0) && value > column.maxValue) {
+                column.messages.push(`Valor demasiado alto (valor máximo ${column.maxValue})`);
                 return false;
             }
-            if ((column.minValie || column.minValie === 0) && value < column.minValie) {
+            if ((column.minValue || column.minValue === 0) && value < column.minValue) {
+                column.messages.push(`Valor demasiado bajo (valor mínimo ${column.minValue})`);
                 return false;
             }
         }
