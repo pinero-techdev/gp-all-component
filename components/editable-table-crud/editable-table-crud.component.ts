@@ -7,7 +7,6 @@ import {TableColumnMetadata} from "../../resources/data/table-column-metadata.mo
 import {TableConfig} from "../../resources/data/table-config.model";
 import {TableMetadataService} from "../../services/table-metadata.service";
 import {DataChangeEvent, ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
-import {GpFormField} from "../tables/gp-app-table-crud-shared";
 import {MessageService} from "primeng/components/common/messageservice";
 
 @Component({
@@ -78,6 +77,7 @@ export class GpAppEditableTableCrudComponent {
         this.tableService.list(this.tableName, true, true)
             .finally(() => this.loading = false).subscribe(
             data => {
+                this.data = data.data;
                 if(!this.tableConfig.title){
                     this.tableConfig.title = data.metadata.tableLabel;
                     this.setTableConfig.emit({data: this.tableConfig, changeValue: (data) => {
@@ -90,7 +90,6 @@ export class GpAppEditableTableCrudComponent {
                             this.columns = data;
                         }});
                 }
-                this.data = data.data;
             },
             err => {
                 this.messageService.add({severity:'error',summary:'error',detail:'Error interno cargando el registro.'})

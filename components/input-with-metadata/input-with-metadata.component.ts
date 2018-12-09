@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, Input, AfterViewInit, Output, ViewEncapsulation} from "@angular/core";
 import {NG_VALUE_ACCESSOR} from "@angular/forms";
 import {CustomInput} from "../../resources/data/custom-input";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
@@ -8,7 +8,6 @@ import {Observable, Subject} from "rxjs";
 import {Filter, TableService} from "../../services/table.service";
 import {TableMetadataService} from "../../services/table-metadata.service";
 import {MessageService} from "primeng/components/common/messageservice";
-import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 
 @Component({
     selector: 'gp-app-input-with-metadata',
@@ -18,7 +17,7 @@ import {ErrorObservable} from "rxjs/observable/ErrorObservable";
         {provide: NG_VALUE_ACCESSOR, useExisting: GpAppInputWithMetadataComponent, multi: true},MessageService
     ]
 })
-export class GpAppInputWithMetadataComponent extends CustomInput implements OnInit {
+export class GpAppInputWithMetadataComponent extends CustomInput implements AfterViewInit {
     InputType = InputType;
     editable: boolean;
     optionsList = [];
@@ -47,11 +46,11 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
         super()
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         if (this.column.type == InputType.DROPDOWN_FIELD || this.column.type == InputType.DROPDOWN_RELATED_FIELD){
             this.getOptions();
         }
-        if(this.column.translationInfo && this.column.translationInfo.keyFields) {
+        if(this.column.translationInfo && this.column.translationInfo.keyFields && this.item) {
             this.translationKeys = '';
             for (let keyField of this.column.translationInfo.keyFields) {
                 this.translationKeys += this.item[keyField];
@@ -127,21 +126,19 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements OnIn
     subject = new Subject();
 
     getOptions(): any {
-        let filter: Filter;
-        if (!this.isFilter && this.column && this.column.relatedField) {
-            let arr = [];
-            arr.push(this.item[this.column.relatedField]);
-            arr = arr.slice();
-            filter = new Filter('EQUAL', this.column.referencedRelatedField, arr);
-        }
         if (this.subject.observers.length === 0) {
             this.subject
-                .switchMap(() => { return this._service.list(
-                    this.column.referencedTable,
-                    this.column.retrieveMetadata,
-                    false,
-                    this.column.fieldToOrderBy ? this.column.fieldToOrderBy : null,
-                    (filter) ? [filter] : [])})
+                .switchMap(() => {
+                    let filters: Filter[] = [];
+                    if (!this.isFilter && this.column && this.column.relatedField && this.item[this.column.relatedField]) {
+                        filters.push(new Filter('EQUAL', this.column.referencedRelatedField, [this.item[this.column.relatedField]]));
+                    }
+                    return this._service.list(
+                        this.column.referencedTable,
+                        this.column.retrieveMetadata,
+                        false,
+                        this.column.fieldToOrderBy || null,
+                        filters)})
                 .subscribe((data) => {
                     if (data.ok) {
                         if (this.column.setOptionsFn) {

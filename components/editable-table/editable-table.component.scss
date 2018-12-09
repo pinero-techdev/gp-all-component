@@ -12,6 +12,9 @@ gp-app-editable-table{
   .actions-colum {
     text-align: center;
   }
+  td, th {
+    overflow: auto !important;
+  }
   tfoot {
     padding: 0;
     border: 0;

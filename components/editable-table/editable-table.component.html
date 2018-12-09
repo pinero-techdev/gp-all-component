@@ -167,9 +167,10 @@
 <ng-template #defaultFormTemplate let-item let-columns="columns">
     <td *ngFor="let column of columns">
         <gp-app-input-with-metadata [(ngModel)]="item[column.name]"
+                                    [item]="item"
                                     [columnMetadata]="column"
                                     (startEditing)="startEditingField.emit($event)"
                                     (stopEditing)="itemValueChanged($event, item)"
-                                    [item]="item"></gp-app-input-with-metadata>
+                                    ></gp-app-input-with-metadata>
     </td>
 </ng-template>
