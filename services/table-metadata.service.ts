@@ -201,7 +201,7 @@ export class TableMetadataService{
                 return false;
             }
             if ((column.maxLength || column.maxLength === 0)) {
-                if(column.maxLength === 0 && (value === undefined || value === null)) {
+                if(column.maxLength === 0) {
                     return false;
                 }
                 if(String(value).length > column.maxLength) {
@@ -209,7 +209,7 @@ export class TableMetadataService{
                 }
             }
             if ((column.minLength || column.minLength === 0)) {
-                if(column.minLength > 0 && (value === undefined || value === null)) {
+                if(column.minLength > 0) {
                     return false;
                 }
                 if(String(value).length > column.minLength) {

@@ -87,6 +87,7 @@ export class GpAppEditableTableComponent implements OnInit {
     @Output() startEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
     @Output() stopEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
     @Output() cancelEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
+    @Output() edit: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() save: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() create: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() delete: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
@@ -379,10 +380,21 @@ export class GpAppEditableTableComponent implements OnInit {
     // Arrow function to be used in external template without losing scope
     editItem = (item: any) => {
         if(this.onCreation || this.onEdition) { return; }
-        this.editionObject = Object.assign({}, item);
-        this.onEdition = true;
-        item._editting = true;
-        this.startEdition.emit(this.editionObject);
+        let editFn = (editItem: any) => {
+                this.editionObject = Object.assign({}, editItem);
+                this.onEdition = true;
+                item._editting = true;
+                this.startEdition.emit(this.editionObject);
+        };
+        if(this.config.requestItemOnEdit) {
+            this.edit.emit({
+                original: item,
+                modified: null,
+                success: editFn
+            });
+        } else {
+            editFn(item);
+        }
     };
 
     beforeSaveItem(original: any, modified: any) {

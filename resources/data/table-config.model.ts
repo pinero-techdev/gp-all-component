@@ -10,6 +10,7 @@ export class TableConfig {
     canAdd: boolean = true;
     canEdit: boolean = true;
     canDelete: boolean = true;
+    requestItemOnEdit: boolean = true;
     selectable: SelectionType = SelectionType.SINGLE;
     itemsPerPage: number = 10;
     itemsPerPageOptions: number[] = [10, 20, 50];

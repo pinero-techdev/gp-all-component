@@ -100,6 +100,22 @@ export class GpAppEditableTableCrudComponent {
         );
     }
 
+    getOne(event: ItemChangeEvent) {
+        let jsonRow = JSON.stringify(event.original);
+        this.tableService.selectOneRow(this.tableName, jsonRow).subscribe(
+            data => {
+                if (data.ok) {
+                    console.log('EditItem',data);
+                    event.success(data.data);
+                } else {
+                    this.messageService.add({severity:'error',summary:'error',detail:'Error obteniendo el registro: ' + data.error.errorMessage})
+                }
+            },
+            err => {
+                this.messageService.add({severity:'error',summary:'error',detail:'Error interno obteniendo el registro.'})
+            });
+    }
+
     saveItem(event: ItemChangeEvent) {
         let jsonOriginalRow = JSON.stringify(event.original);
         let jsonModifiedRow = JSON.stringify(event.modified);

@@ -10,6 +10,7 @@
                        [actionsTemplate]="actionsTemplate"
                        [formTemplate]="formTemplate"
                        (save)="saveItem($event)"
+                       (edit)="getOne($event)"
                        (create)="createItem($event)"
                        (delete)="deleteItem($event)"
                        (startEditingField)="startEditingField.emit($event)"
