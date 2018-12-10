@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 @Injectable()
 export class PermissionSettingsService {
   static settings: any;
+  static active: boolean = false;
   constructor(private _http: HttpClient) {
 
   }
