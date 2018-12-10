@@ -59,6 +59,7 @@
                 [locale]="calendarLocale ">
     </p-calendar>
     <p-dropdown  *ngSwitchCase="InputType.DROPDOWN_FIELD"
+                 [showClear]="true"
                  [options]="optionsList"
                  [ngModel]="value"
                  [autoWidth]="false"
@@ -68,6 +69,7 @@
                  class="ui-inputfield ui-selectonemenu-label">
     </p-dropdown>
     <p-dropdown  *ngSwitchCase="InputType.DROPDOWN_RELATED_FIELD"
+                 [showClear]="true"
                  [options]="optionsList"
                  [ngModel]="value"
                  [autoWidth]="false"
