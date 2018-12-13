@@ -141,6 +141,11 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
             valorCampo = valorCampo.replace( /\s/g, "" );
             this.currentValueText = valorCampo;
           }
+          /* 
+             @author 3digits 
+             Al pasar por la validación el nuevo valor se guarda en el editedRow 
+          */
+          editedRow[this.formField.fieldMetadata.fieldName] = valorCampo;
         }
       }
 
