@@ -98,6 +98,7 @@ import {PermissionSettingsModule} from "./modules/permission-settings";
 import {GpAppEditableTableCrudComponent} from './components/editable-table-crud/editable-table-crud.component';
 import {GpAppInputWithMetadataComponent} from './components/input-with-metadata/input-with-metadata.component';
 import {TableMetadataService} from './services/table-metadata.service';
+import {GpAppEditableTableComponent} from "./components/editable-table/editable-table.component";
 
 @NgModule({
               imports: [
