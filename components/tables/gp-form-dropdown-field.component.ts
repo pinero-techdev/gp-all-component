@@ -29,6 +29,7 @@ export class GpFormDropdownFieldComponent extends GpFormFieldControl {
         this.currentValueDropDown = value;
         let infoCampoModificado = new InfoCampoModificado(this.formField.fieldMetadata.fieldName, this.currentValueDropDown);
         this.valueChanged.emit(infoCampoModificado);
+        console.log( infoCampoModificado );
     }
 
     get _currentValueDropDown():string {

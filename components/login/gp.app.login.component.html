@@ -2,17 +2,17 @@
     <div class="card login-panel ui-fluid">
         <div class="ui-g">
             <div class="ui-g-12">
-                <h1>{{globalService.applicationTitle}}</h1>
+                <h1 [innerHtml]="applicationTitle"></h1>
             </div>
             <div class="ui-g-12">
             <span class="md-inputfield">
-                <input type="text" pInputText autocomplete="off" [(ngModel)]="usuario" (keyup.enter)="login()" gp-uppercase>
+                <input type="text" pInputText="" autocomplete="off" [(ngModel)]="usuario" (keyup.enter)="login()" gp-uppercase>
                 <label>Usuario</label>
             </span>
             </div>
             <div class="ui-g-12">
             <span class="md-inputfield">
-                <input type="password" pInputText autocomplete="off" [(ngModel)]="password" (keyup.enter)="login()">
+                <input type="password" pInputText="" autocomplete="off" [(ngModel)]="password" (keyup.enter)="login()">
                 <label>Password</label>
             </span>
             </div>

@@ -1,6 +1,7 @@
-export class MenuRq {
-    usuario: String;
-    aplicacion: String;
+import {CommonRq} from "../../services/common.service";
+
+export class MenuRq extends CommonRq {
+    sessionId: string;
     params: Param[];
 
     /**
@@ -9,9 +10,9 @@ export class MenuRq {
      * @param password
      * @param hotel
      */
-    constructor(usuario: String, aplicacion: String, params?: Param[]) {
-        this.usuario = usuario;
-        this.aplicacion = aplicacion;
+    constructor(sessionId: string, params?: Param[]) {
+        super();
+        this.sessionId = sessionId;
         this.params = params;
     }
 }

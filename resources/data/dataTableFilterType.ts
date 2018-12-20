@@ -1,8 +1,8 @@
 export class DataTableFilterType {
-    private static STARTS_WITH : string = 'startsWith';
-    private static CONTAINS : string = 'contains';
-    private static ENDS_WITH : string = 'endsWidth';
-    private static EQUALS : string = 'equals';
-    private static NOT_EQUALS : string = 'notEquals';
-    private static IN : string = 'in';
+    static STARTS_WITH : string = 'startsWith';
+    static CONTAINS : string = 'contains';
+    static ENDS_WITH : string = 'endsWidth';
+    static EQUALS : string = 'equals';
+    static NOT_EQUALS : string = 'notEquals';
+    static IN : string = 'in';
 }

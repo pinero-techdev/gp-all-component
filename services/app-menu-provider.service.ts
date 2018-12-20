@@ -6,15 +6,15 @@ import {CommonService} from "./common.service";
 @Injectable()
 export class AppMenuProviderService extends CommonService {
 
-    getEstructuraMenu():any[] {
+    getEstructuraMenu(): any[] {
         return null;
     }
 
-    obtenOpcionesActivas(rq:MenuRq):Observable<any> {
+    obtenOpcionesActivas(rq: MenuRq): Observable<any> {
         return null;
     }
 
-    isOpcionMenuActivo(menu:any[], accion:string, nroParams:number):boolean {
+    isOpcionMenuActivo(menu: any[], accion: string, nroParams: number): boolean {
         for (let opcMenu of menu) {
 
             if (opcMenu.submenus) {
@@ -26,8 +26,8 @@ export class AppMenuProviderService extends CommonService {
 
             } else {
 
-                let opcMenuParams:string[] = opcMenu.action.split('/');
-                let accionParams:string[] = accion.split('/');
+                let opcMenuParams: string[] = opcMenu.action.split('/');
+                let accionParams: string[] = accion.split('/');
                 if (opcMenuParams.length == accionParams.length || opcMenuParams.length + nroParams == accionParams.length) {
                     let index = 0;
                     let exit = false;
@@ -47,7 +47,7 @@ export class AppMenuProviderService extends CommonService {
         return false;
     }
 
-    tieneOpcionesMenuActivas(menu:any[], idsOpcionesMenu:string[]):boolean {
+    tieneOpcionesMenuActivas(menu: any[], idsOpcionesMenu: string[]): boolean {
 
         for (let idOpcMenu of idsOpcionesMenu) {
             for (let opcMenu of menu) {

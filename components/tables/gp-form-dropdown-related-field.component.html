@@ -2,7 +2,8 @@
             [options]="listAllowedValuesOptions"
             [(ngModel)]="currentValueDropDown"
             [autoWidth]="false"
-            (change)="onFieldChange()"
+			filter="true"
+            (onChange)="onFieldChange()"
             [disabled]="controlDisabled()"
-            class="ui-inputfield ui-selectonemenu-label" >
+            class="ui-inputfield ui-selectonemenu-label full-width" >
 </p-dropdown>

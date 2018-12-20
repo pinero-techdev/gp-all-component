@@ -2,7 +2,9 @@
             [options]="listAllowedValuesOptions"
             [(ngModel)]="_currentValueDropDown"
             [autoWidth]="false"
-            (change)="onFieldChange()"
-            [disabled]="controlDisabled()"
+			filter="true"
+            (onChange)="onFieldChange()"
+            [disabled]="controlDisabled()"            
+            [ngClass]="{'ng-dirty ng-invalid': (formField.fieldMsgs != null && formField.fieldMsgs.length > 0) }"
             class="ui-inputfield ui-selectonemenu-label">
 </p-dropdown>

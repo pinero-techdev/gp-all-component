@@ -6,7 +6,7 @@
            type="text"
            [(ngModel)]="currentValueText"
            [maxlength]="maxLength"
-           [class]="textboxClass"
+           [class]="textboxClass" class="full-width"
            (change)="onFieldChange()"
            [disabled]="controlDisabled()"/>
 </div>
@@ -16,7 +16,7 @@
                          [tabla]="formField.fieldMetadata.displayInfo.translationInfo.table"
                          [campo]="formField.fieldMetadata.displayInfo.translationInfo.field"
                          [campoDescripcion]="formField.fieldMetadata.displayInfo.translationInfo.description"
-                         [habilitarEdicionHTML]="formField.fieldMetadata.displayInfo.translationInfo.allowEdition"
+                         [habilitarEdicionHTML]="formField.fieldMetadata.displayInfo.translationInfo.allowHtmlEdition"
                          [orderByLangCod]="formField.fieldMetadata.displayInfo.translationInfo.orderByLangCod">
     </gp-app-multi-idioma>
 </div>

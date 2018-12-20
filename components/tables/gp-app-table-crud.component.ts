@@ -24,87 +24,84 @@ import {GPUtil} from "../../resources/data/gpUtil";
 })
 export class GpAppTableCrudComponent {
     // Nombre de la tabla a editar.
-    @Input() tableName:string;
+    @Input() tableName: string;
     // Filtros
-    @Input() filterField:string;
+    @Input() filterField: string;
     // Filtros a partir de la tabla principal
-    @Input() rowSelectedFilters:Filter[];
+    @Input() rowSelectedFilters: Filter[];
 
+    // Vars control Insercion, edicion, borrado
+    @Input() canAdd: boolean = true;
+    @Input() canEdit: boolean = true;
+    @Input() canDelete: boolean = true;
+    
     @Output() rowSelected = new EventEmitter<any>();
     @Output() closedDialog = new EventEmitter<boolean>();
     @Output() changes = new EventEmitter<boolean>();
 
-    // Vars control Insercion, edicion, borrado
-    canAdd:boolean = false;
-    canEdit:boolean = false;
-    canDelete:boolean = false;
     // Indicador de trabajando.
-    working:boolean = true;
+    working: boolean = true;
 
     //Id de la tabla
-    tableId:string = null;
+    tableId: string = null;
     // Descripcion de la tabla a editar.
-    tableLabel:string;
+    tableLabel: string;
 
     // Columnas de la tabla.
-    columnas:GpFormField[] = [];
-    columnasTabla:GpFormField[] = [];
+    columnas: GpFormField[] = [];
+    columnasTabla: GpFormField[] = [];
 
     // Elementos de la tabla.
-    elementos:any[] = [];
+    elementos: any[] = [];
 
     // Fila seleccionada.
-    selectedRow:any;
+    selectedRow: any;
 
     //Filtros
-    filter:Filter;
-    filters:Filter[] = [];
-    codes:string[] = [];
-    filterCode:string;
-    filterColumn:string;
+    filter: Filter;
+    filters: Filter[] = [];
+    codes: string[] = [];
+    filterCode: string;
+    filterColumn: string;
 
 
     // Indica si se muestra el control de edicion.
     displayEdicion = false;
     // Indica si se han producido errores en el dialog. Si es así, se recarga la tabla.
     dialogErrors = false;
-    addSelectedCodes:any = [];
+    addSelectedCodes: any = [];
 
     // Mensajes de edicion.
-    msgsDialog:Message[] = [];
+    msgsDialog: Message[] = [];
     // Mensaje global.
-    msgsGlobal:Message[] = [];
+    msgsGlobal: Message[] = [];
 
     // Form control
-    formControl:GpFormControl = new GpFormControl();
+    formControl: GpFormControl = new GpFormControl();
 
     // Campo que ha sido modificado por el usuario
-    fieldChanged:InfoCampoModificado = null;
+    fieldChanged: InfoCampoModificado = null;
 
-    @ViewChildren(GpFormTextFieldComponent) textFormFields:QueryList<GpFormTextFieldComponent>;
-    @ViewChildren(GpFormImgFieldComponent) imgFormFields:QueryList<GpFormImgFieldComponent>;
-    @ViewChildren(GpFormTextAreaFieldComponent) textAreaFormFields:QueryList<GpFormTextAreaFieldComponent>;
-    @ViewChildren(GpFormTimeFieldComponent) timeFormFields:QueryList<GpFormTimeFieldComponent>;
-    @ViewChildren(GpFormSwitchFieldComponent) switchFormFields:QueryList<GpFormSwitchFieldComponent>;
-    @ViewChildren(GpFormDropdownFieldComponent) dropdownFormFields:QueryList<GpFormDropdownFieldComponent>;
-    @ViewChildren(GpFormDropdownRelatedfieldComponent) dropdownRelatedFormFields:QueryList<GpFormDropdownRelatedfieldComponent>;
-    @ViewChildren(GpFormCheckboxFieldComponent) checkboxFormFields:QueryList<GpFormCheckboxFieldComponent>;
-    @ViewChildren(GpFormCalendarFieldComponent) calendarFormFields:QueryList<GpFormCalendarFieldComponent>;
-    @ViewChildren(GpFormWysiwygFieldComponent) wysiwygFormFields:QueryList<GpFormWysiwygFieldComponent>;
+    @ViewChildren(GpFormTextFieldComponent) textFormFields: QueryList<GpFormTextFieldComponent>;
+    @ViewChildren(GpFormImgFieldComponent) imgFormFields: QueryList<GpFormImgFieldComponent>;
+    @ViewChildren(GpFormTextAreaFieldComponent) textAreaFormFields: QueryList<GpFormTextAreaFieldComponent>;
+    @ViewChildren(GpFormTimeFieldComponent) timeFormFields: QueryList<GpFormTimeFieldComponent>;
+    @ViewChildren(GpFormSwitchFieldComponent) switchFormFields: QueryList<GpFormSwitchFieldComponent>;
+    @ViewChildren(GpFormDropdownFieldComponent) dropdownFormFields: QueryList<GpFormDropdownFieldComponent>;
+    @ViewChildren(GpFormDropdownRelatedfieldComponent) dropdownRelatedFormFields: QueryList<GpFormDropdownRelatedfieldComponent>;
+    @ViewChildren(GpFormCheckboxFieldComponent) checkboxFormFields: QueryList<GpFormCheckboxFieldComponent>;
+    @ViewChildren(GpFormCalendarFieldComponent) calendarFormFields: QueryList<GpFormCalendarFieldComponent>;
+    @ViewChildren(GpFormWysiwygFieldComponent) wysiwygFormFields: QueryList<GpFormWysiwygFieldComponent>;
 
-    constructor(private router:Router, private tableService:TableService, private _gpUtil:GPUtil) {
-        this.canAdd = true;
-        this.canEdit = true;
-        this.canDelete = true;
+    constructor(private router: Router, private tableService: TableService, private _gpUtil: GPUtil) {
         this.msgsGlobal = [];
-        //this.closeDialog();
     }
 
-    inicializaTabla(tableName:string) {
+    inicializaTabla(tableName: string) {
         this.tableName = tableName;
     }
 
-    cambiaTablaDetail(filters: Filter[]) {
+    cambiaTablaDetail(filters: Filter[], fieldsToOrderBy?: string[]) {
         this.working = true;
 
         this.columnas = [];
@@ -118,7 +115,7 @@ export class GpAppTableCrudComponent {
 
         this.filters = filters;
 
-        this.tableService.list(this.tableName, true, false, null, filters).finally(() => this.working = false).subscribe(
+        this.tableService.list(this.tableName, true, true, fieldsToOrderBy, filters).finally(() => this.working = false).subscribe(
             data => {
                 console.log('getMetadata response:' + JSON.stringify(data));
                 if (data.ok) {
@@ -143,7 +140,7 @@ export class GpAppTableCrudComponent {
     }
 
     // Se llama cuando se selecciona una nueva tabla.
-    cambiaTabla(tableName:string, fieldsToOrderBy?:string[]) {
+    cambiaTabla(tableName: string, fieldsToOrderBy?: string[]) {
         //	TODO Chequear que no estemos en medio de una edicion.
         if (this.tableName != null && tableName == this.tableName && this.rowSelectedFilters == null) {
             this.working = false;
@@ -190,9 +187,9 @@ export class GpAppTableCrudComponent {
         );
     }
 
-    actualizaDefinicion(tableMetadata:TableMetadata) {
-        let tempColumnas:GpFormField[] = [];
-        let tempColumnasTabla:GpFormField[] = [];
+    actualizaDefinicion(tableMetadata: TableMetadata) {
+        let tempColumnas: GpFormField[] = [];
+        let tempColumnasTabla: GpFormField[] = [];
 
         this.tableLabel = tableMetadata.tableLabel;
         for (let metadata of tableMetadata.fields) {
@@ -216,8 +213,8 @@ export class GpAppTableCrudComponent {
         this.columnasTabla = tempColumnasTabla;
     }
 
-    matchFieldType(formField:GpFormField):string {
-        let displayTypes:Map<string, string> = new Map([
+    matchFieldType(formField: GpFormField): string {
+        let displayTypes: Map<string, string> = new Map([
             [TableService.TEXT_AREA_DISPLAY_TYPE, GpFormTextAreaFieldComponent.FORM_FIELD_TYPE_TEXT_AREA_FIELD],
             [TableService.DROPDOWN_DISPLAY_TYPE, GpFormDropdownFieldComponent.FORM_FIELD_TYPE_DROPDOWN_FIELD],
             [TableService.DROPDOWN_RELATED_DISPLAY_TYPE, GpFormDropdownRelatedfieldComponent.FORM_FIELD_TYPE_DROPDOWN_RELATED_FIELD],
@@ -231,7 +228,7 @@ export class GpAppTableCrudComponent {
     }
 
     // Calcula el tipo de componente a utilizar para el control.
-    calcFieldType(formField:GpFormField) {
+    calcFieldType(formField: GpFormField) {
         let fieldType = this.matchFieldType(formField);
         if (fieldType != null) {
             formField.formFieldType = fieldType;
@@ -256,7 +253,7 @@ export class GpAppTableCrudComponent {
         formField.formFieldType = GpFormTextFieldComponent.FORM_FIELD_TYPE_TEXT_FIELD;
     }
 
-    showError(message:string) {
+    showError(message: string) {
         message = message || "Se ha producido un error realizando la operación solicitada.";
         this.msgsGlobal = [{severity: 'error', summary: 'Atención', detail: message}];
     }
@@ -273,7 +270,7 @@ export class GpAppTableCrudComponent {
                     this.formControl.editedRow = JSON.parse(JSON.stringify(data.data));
                     this.formControl.originalRow = JSON.parse(JSON.stringify(data.data));
                     let self = this;
-                    this.forEachFieldControl(function (col:GpFormFieldControl) {
+                    this.forEachFieldControl(function (col: GpFormFieldControl) {
                         console.log(col);
                         col.copyValueFromEditedRowToControl(self.formControl.editedRow);
                         col.clearValidations();
@@ -329,7 +326,7 @@ export class GpAppTableCrudComponent {
         let valid = true;
         let self = this;
         let inAddOperation = this.formControl.edicionAdd;
-        this.forEachFieldControl(function (col:GpFormFieldControl) {
+        this.forEachFieldControl(function (col: GpFormFieldControl) {
             // El orden del and hace que siempre se ejecute el validateField. Si se pone
             // al reves, cuando valid pase a ser falso no se volvera a llamar a
             // col.validateField por la evaluacion en cortocircuito.
@@ -343,7 +340,7 @@ export class GpAppTableCrudComponent {
     onDialogSave() {
         this.formControl.lockFields = true;
         let self = this;
-        this.forEachFieldControl(function (col:GpFormFieldControl) {
+        this.forEachFieldControl(function (col: GpFormFieldControl) {
             col.copyValueFromControlToEditedRow(self.formControl.editedRow);
         });
         if (!this.validateEditRow()) {
@@ -359,7 +356,7 @@ export class GpAppTableCrudComponent {
                 data => {
                     if (data.ok) {
                         // Actualizamos el registro.
-                        this.forEachField(function (col:GpFormField) {
+                        this.forEachField(function (col: GpFormField) {
                             self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
                         });
                         // Y cerramos el dialog.
@@ -415,7 +412,7 @@ export class GpAppTableCrudComponent {
         }
     }
 
-    onDialogChangeField(change:any) {
+    onDialogChangeField(change: any) {
         console.log("onDialogChangeField: " + JSON.stringify(change.name));
         change.formField.copyValueFromControlToEditedRow(this.formControl.editedRow);
     }
@@ -426,7 +423,7 @@ export class GpAppTableCrudComponent {
         this.formControl.originalRow = null;
         this.formControl.editedRow = {};
         let self = this;
-        this.forEachFieldControl(function (col:GpFormFieldControl) {
+        this.forEachFieldControl(function (col: GpFormFieldControl) {
             if (self.addSelectedCodes.length > 0) {
                 for (let i = 0; i < self.addSelectedCodes.length; i++) {
                     if (self.addSelectedCodes[i].key == col.getFormField().fieldMetadata.fieldName) {
@@ -436,9 +433,9 @@ export class GpAppTableCrudComponent {
                 }
             } else {
                 let fieldName = col.getFormField().fieldMetadata.fieldName;
-                let filter: Filter = self._gpUtil.getElementFromArray( self.filters, 'field', fieldName );
+                let filter: Filter = self._gpUtil.getElementFromArray(self.filters, 'field', fieldName);
 
-                if ( filter != null && filter.op == FilterOperationType.EQUAL && filter.values.length == 1 ) {
+                if (filter != null && filter.op == FilterOperationType.EQUAL && filter.values.length == 1) {
                     self.formControl.editedRow[fieldName] = filter.values[0];
                 } else {
                     self.formControl.editedRow[fieldName] = null;
@@ -452,18 +449,18 @@ export class GpAppTableCrudComponent {
         this.displayEdicion = true;
     }
 
-    showErrorDialogo(msg:string) {
+    showErrorDialogo(msg: string) {
         this.dialogErrors = true;
         this.msgsDialog.push({severity: 'error', summary: 'Error', detail: msg});
     }
 
-    forEachField(f:(col:GpFormField) => void) {
+    forEachField(f: (col: GpFormField) => void) {
         this.columnas.forEach(col => {
             f(col);
         });
     }
 
-    forEachFieldControl(f:(col:GpFormFieldControl) => void) {
+    forEachFieldControl(f: (col: GpFormFieldControl) => void) {
         this.textFormFields.forEach(col => {
             f(col);
         });
@@ -496,12 +493,12 @@ export class GpAppTableCrudComponent {
         });
     }
 
-    changeEvent(info:InfoCampoModificado) {
+    changeEvent(info: InfoCampoModificado) {
         this.fieldChanged = info;
     }
 
-    selectRowByIndex(atributeName:string, value:any) {
-        let i:number = this._gpUtil.indexOf(this.elementos, atributeName, value);
+    selectRowByIndex(atributeName: string, value: any) {
+        let i: number = this._gpUtil.indexOf(this.elementos, atributeName, value);
         if (i > -1) {
             this.selectedRow = this.elementos[i];
         }

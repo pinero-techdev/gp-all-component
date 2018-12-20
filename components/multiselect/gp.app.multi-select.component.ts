@@ -1,8 +1,8 @@
-import {Component, forwardRef, ViewChild, Input, Output, EventEmitter} from "@angular/core";
-import {MultiSelect, SelectItem} from "primeng/primeng";
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from "@angular/forms";
-import {noop} from "rxjs/util/noop";
-import any = jasmine.any;
+import {Component, forwardRef, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+import {MultiSelect, SelectItem} from 'primeng/primeng';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {noop} from 'rxjs/util/noop';
+import {isNullOrUndefined} from 'util';
 
 export const CUSTOM_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -10,30 +10,29 @@ export const CUSTOM_CONTROL_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-
 @Component({
     selector: 'gp-app-multiselect',
     templateUrl: './gp.app.multi-select.component.html',
     providers: [CUSTOM_CONTROL_VALUE_ACCESSOR]
 })
-export class GpAppMultiSelectComponent implements ControlValueAccessor{
+export class GpAppMultiSelectComponent implements ControlValueAccessor {
 
     /**
      * Texto que se mostrará junto con el número de elementos seleccionados
      * @type {string}
      */
     @Input()
-    selectionLabel: string = "Opciones seleccionadas";
+    selectionLabel = 'Opciones seleccionadas';
 
     /* PROPIEDADES DE MULTISELECT */
     @Input()
     options: SelectItem[] = null;
 
     @Input()
-    disabled: boolean = false;
+    disabled = false;
 
     @Input()
-    defaultLabel: string = 'Elige una opción';
+    defaultLabel = 'Elige una opción';
 
     @Input()
     appendTo: any;
@@ -45,10 +44,10 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor{
     styleClass: string = null;
 
     @Input()
-    scrollHeight: string = '200px';
+    scrollHeight = '200px';
 
     @Input()
-    overlayVisible: boolean = false;
+    overlayVisible = false;
 
     @Input()
     tabindex: number = null;
@@ -95,13 +94,15 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor{
     onChangeMultiselect() {
         let label: string;
         let selectionLabel = this.selectionLabel;
-        this.multi.updateLabel = function () {
-            if (this.value != null && this.value.length > 0) {
-                label = this.value.length.toString() + ' ' + selectionLabel;
-                this.valuesAsString = label;
-            } else {
-                label = this.defaultLabel;
-                this.valuesAsString = label;
+        if (!isNullOrUndefined(this.multi)) {
+            this.multi.updateLabel = function () {
+                if (this.value != null && this.value.length > 0) {
+                    label = this.value.length.toString() + ' ' + selectionLabel;
+                    this.valuesAsString = label;
+                } else {
+                    label = this.defaultLabel;
+                    this.valuesAsString = label;
+                }
             }
         }
     }
@@ -116,6 +117,4 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor{
     registerOnTouched(fn: any) {
         this.onTouchedCallback = fn;
     }
-
-
 }

@@ -12,7 +12,7 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
   @Input() formField : GpFormField;
 
   currentValueText: string;
-  textboxClass: string;
+  textboxClass: string = 'full-width';
 
   minLength: number;
   maxLength: number;
@@ -36,7 +36,7 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
   inicializa() {
     if( this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo.textProperties != null ) {
       if( this.formField.fieldMetadata.displayInfo.textProperties.indexOf( TableService.TEXT_UPPERCASE ) != -1 ) {
-        this.textboxClass = "text-uppercase";
+        this.textboxClass = "full-width text-uppercase";
       }
     }
 
