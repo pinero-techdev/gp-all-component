@@ -27,6 +27,11 @@ export class Mensajes {
         this.msgs.push({severity: 'error', summary: 'Error', detail: alert});
     }
 
+    showSuccessMessage(alert: string) {
+        this.msgs = [];
+        this.msgs.push({severity: 'success', summary: 'Success', detail: alert});
+    }
+
     showInfoAlert(alert:string) {
         this.alerts = [];
         this.alerts.push({severity: 'info', summary: 'Info', detail: alert});
@@ -40,5 +45,10 @@ export class Mensajes {
     showErrorAlert(alert:string) {
         this.alerts = [];
         this.alerts.push({severity: 'error', summary: 'Error', detail: alert});
+    }
+
+    showSuccessAlert(alert:string) {
+        this.alerts = [];
+        this.alerts.push({severity: 'success', summary: 'Success', detail: alert});
     }
 }

@@ -36,7 +36,8 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl {
       if (info.value == null) {
         this.listAllowedValuesOptions = [{label: "Seleccione primero el campo del que depende ...", value: null}];
       } else {
-        this.reinicia(info.field, info.value);
+        const relatedFieldExt = this.formField.fieldMetadata.displayInfo.relatedFieldExt || this.formField.fieldMetadata.displayInfo.relatedField;
+        this.reinicia(relatedFieldExt, info.value);
       }
     }
   }
@@ -102,7 +103,7 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl {
             optionLabel += separator + row[fieldDesc];
             separator = " - ";
           }
-          this.listAllowedValuesOptions.push({label: optionLabel, value: row[this.formField.fieldMetadata.fieldName]});
+          this.listAllowedValuesOptions.push({label: optionLabel, value: row[this.formField.fieldMetadata.displayInfo.referencedField]});
         }
       }
       // Solo tiene cargado la info de selección
