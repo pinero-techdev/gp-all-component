@@ -94,11 +94,11 @@ import {GlobalService} from './services/global.service';
 import {LoginService} from './services/login.service';
 import {MultiIdomaService} from './services/multi-idioma.service';
 import {TableService} from './services/table.service';
-import {PermissionSettingsDirective, PermissionSettingsModule} from "./modules/permission-settings";
+import {GpAppEditableTableComponent} from './components/editable-table/editable-table.component';
 import {GpAppEditableTableCrudComponent} from './components/editable-table-crud/editable-table-crud.component';
 import {GpAppInputWithMetadataComponent} from './components/input-with-metadata/input-with-metadata.component';
 import {TableMetadataService} from './services/table-metadata.service';
-import {GpAppEditableTableComponent} from "./components/editable-table/editable-table.component";
+import {PermissionSettingsModule} from "./modules/permission-settings";
 
 @NgModule({
               imports: [
@@ -116,7 +116,7 @@ import {GpAppEditableTableComponent} from "./components/editable-table/editable-
               ],
               exports: [
                   // Directives.
-                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective, PermissionSettingsDirective,
+                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
 
                   // Components.
                   GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppInputWithMetadataComponent,
@@ -125,11 +125,11 @@ import {GpAppEditableTableComponent} from "./components/editable-table/editable-
         GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
         GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
         GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
-        GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
+        GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent, PermissionSettingsModule
               ],
               declarations: [
                   // Directives.
-                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective, PermissionSettingsDirective,
+                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
 
                   // Components.
                   GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppLoadingIndicatorComponent, GpAppInputWithMetadataComponent,
