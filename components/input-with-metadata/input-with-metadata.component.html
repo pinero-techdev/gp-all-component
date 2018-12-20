@@ -1,0 +1,189 @@
+<div class="ui-inputgroup nopad"
+     *ngIf="column"
+     [ngSwitch]="column.type">
+    <i class="material-icons" style="color: #ffba01;"
+       *ngIf="!isFilter && column.messages && column.messages.length > 0"
+       [pTooltip]="column.messages" tooltipPosition="top">warning</i>
+    <button *ngSwitchCase="InputType.TEXTAREA_FIELD"
+            pButton
+            label="Abrir"
+            (click)="openTextareaModal()"
+            [disabled]="!isEditable()"></button>
+    <input *ngSwitchCase="InputType.NUMBER_FIELD"
+           type="number"
+           #numberInput
+           [ngModel]="value"
+           (ngModelChange)="(isFilter)? onModelChange($event) : null"
+           [minlength]="column.minLength"
+           [maxlength]="column.maxLength"
+           [max]="column.maxValue"
+           [min]="column.minValue"
+           (focus)="onStartEditing()"
+           (change)="(!isFilter)? onModelChange(numberInput.value) : null"
+           [disabled]="!isEditable()">
+    <p-checkbox *ngSwitchCase="InputType.CHECKBOX_FIELD"
+                binary="true"
+                [ngModel]="value"
+                (ngModelChange)="startStop($event)"
+                [disabled]="!isEditable()">
+    </p-checkbox>
+    <p-inputSwitch *ngSwitchCase="InputType.SWITCH_FIELD"
+                   [ngModel]="value"
+                   (ngModelChange)="startStop($event)"
+                   [disabled]="!isEditable()">
+    </p-inputSwitch>
+    <button *ngSwitchCase="InputType.IMG_FIELD"
+            pButton
+            label="Abrir"
+            (click)="openImgModal()"
+            [disabled]="!isEditable()"></button>
+    <button *ngSwitchCase="InputType.WYSIWYG_FIELD"
+            pButton
+            label="Abrir"
+            (click)="openWYSIWYGModal()"
+            [disabled]="!isEditable()"></button>
+    <p-calendar *ngSwitchCase="InputType.TIME_FIELD"
+                showTime="showTime" hourFormat="24" styleClass="full-width"
+                [timeOnly]="true"
+                [ngModel]="value"
+                (ngModelChange)="setTimeValue($event)"
+                [disabled]="!isEditable()">
+    </p-calendar>
+    <p-calendar *ngSwitchCase="InputType.CALENDAR_FIELD"
+                styleClass="full-width"
+                [defaultDate]="value"
+                [ngModel]="value"
+                [disabled]="!isEditable()"
+                [dateFormat]="dateFormat"
+                (ngModelChange)="setDateValue($event)"
+                [locale]="calendarLocale ">
+    </p-calendar>
+    <p-dropdown  *ngSwitchCase="InputType.DROPDOWN_FIELD"
+                 [showClear]="true"
+                 [options]="optionsList"
+                 [ngModel]="value"
+                 [autoWidth]="false"
+                 [filter]="true"
+                 (ngModelChange)="startStop($event);"
+                 [disabled]="!isEditable()"
+                 class="ui-inputfield ui-selectonemenu-label">
+    </p-dropdown>
+    <p-dropdown  *ngSwitchCase="InputType.DROPDOWN_RELATED_FIELD"
+                 [showClear]="true"
+                 [options]="optionsList"
+                 [ngModel]="value"
+                 [autoWidth]="false"
+                 [filter]="true"
+                 (ngModelChange)="startStop($event);"
+                 [disabled]="!isEditable()"
+                 class="ui-inputfield ui-selectonemenu-label">
+    </p-dropdown>
+    <ng-template ngSwitchDefault>
+        <div [class.ui-g-12]="column.translationInfo == null || (column.translationInfo != null && translationKeys == '')"
+             [class.ui-g-10]="column.translationInfo != null && translationKeys != ''"
+             class="nopad">
+            <input pInputText
+                   class="full-width" type="text"
+                   #textInput
+                   [gp-uppercase]="column.uppercase"
+                   [ngModel]="value"
+                   (ngModelChange)="(isFilter)? onModelChange($event) : null"
+                   (change)="(!isFilter)? onModelChange(textInput.value) : null"
+                   [maxlength]="column.maxLength"
+                   [minlength]="column.minLength"
+                   (focus)="onStartEditing()"
+                   [disabled]="!isEditable()"/>
+        </div>
+        <div class="ui-g-2 nopad" *ngIf="column.translationInfo != null && translationKeys != ''">
+            <gp-app-multi-idioma [pKey]="translationKeys"
+                                 [esquema]="column.translationInfo.scheme"
+                                 [tabla]="column.translationInfo.table"
+                                 [campo]="column.translationInfo.field"
+                                 [campoDescripcion]="column.translationInfo.description"
+                                 [habilitarEdicionHTML]="column.translationInfo.allowEdition"
+                                 [orderByLangCod]="column.translationInfo.orderByLangCod">
+            </gp-app-multi-idioma>
+        </div>
+    </ng-template>
+</div>
+<p-growl></p-growl>
+
+<!--Image input modal-->
+<p-dialog [(visible)]="imgModalVisible"
+          *ngIf="column.type == InputType.IMG_FIELD"
+          header="Editor imagen (URL)"
+          [modal]="true">
+    <img [src]="temporalValue" style="width: 100%; max-height: 50%;" *ngIf="temporalValue"/>
+    <input pInputText
+           type="text"
+           [gp-uppercase]="column.uppercase"
+           [(ngModel)]="temporalValue"
+           [maxlength]="column.maxLength"
+           [minlength]="column.minLength"
+           [disabled]="!isEditable()"
+           class="full-width"/>
+    <p-footer>
+        <button pButton label="Aceptar"
+                class="ui-button-success"
+                (click)="startStop(temporalValue); imgModalVisible = false;"></button>
+        <button pButton label="Cancelar"
+                class="ui-button-danger"
+                (click)="imgModalVisible = false"></button>
+    </p-footer>
+</p-dialog>
+
+<!--Textarea input modal-->
+<p-dialog [(visible)]="textareaModalVisible"
+          *ngIf="column.type == InputType.TEXTAREA_FIELD"
+          header="Editor textarea"
+          [modal]="true">
+    <div [class.ui-g-12]="column.translationInfo == null || (column.translationInfo != null && translationKeys == '')"
+         [class.ui-g-10]="column.translationInfo != null && translationKeys != ''"
+         class="nopad">
+        <textarea pInputTextarea
+                  [(ngModel)]="temporalValue"
+                  [rows]="column.rows"
+                  class="full-width"
+                  [maxlength]="column.maxLength"
+                  [minlength]="column.minLength"
+                  [disabled]="!isEditable()">
+        </textarea>
+    </div>
+    <div class="ui-g-2 nopad" *ngIf="column.translationInfo != null && translationKeys != ''">
+        <gp-app-multi-idioma [pKey]="translationKeys"
+                             [esquema]="column.translationInfo.scheme"
+                             [tabla]="column.translationInfo.table"
+                             [campo]="column.translationInfo.field"
+                             [campoDescripcion]="column.translationInfo.description"
+                             [habilitarEdicionHTML]="column.translationInfo.allowEdition"
+                             [orderByLangCod]="column.translationInfo.orderByLangCod">
+        </gp-app-multi-idioma>
+    </div>
+    <p-footer>
+        <button pButton label="Aceptar"
+                class="ui-button-success"
+                (click)="startStop(temporalValue); textareaModalVisible = false;"></button>
+        <button pButton label="Cancelar"
+                class="ui-button-danger"
+                (click)="textareaModalVisible = false;"></button>
+    </p-footer>
+</p-dialog>
+
+<!--WYSIWYG input modal-->
+<p-dialog [(visible)]="wysiwygModalVisible"
+          *ngIf="column.type == InputType.WYSIWYG_FIELD"
+          header="Editor WYSIWYG"
+          [modal]="true">
+    <p-editor [(ngModel)]="temporalValue"
+              [style]="{'height':'200px'}"
+              [disabled]="!isEditable()">
+    </p-editor>
+    <p-footer>
+        <button pButton label="Aceptar"
+                class="ui-button-success"
+                (click)="startStop(temporalValue); wysiwygModalVisible = false"></button>
+        <button pButton label="Cancelar"
+                class="ui-button-danger"
+                (click)="wysiwygModalVisible = false"></button>
+    </p-footer>
+</p-dialog>

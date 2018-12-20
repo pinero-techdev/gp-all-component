@@ -38,6 +38,7 @@ import {
     MultiSelectModule,
     OrderListModule,
     OverlayPanelModule,
+    PaginatorModule,
     PanelMenuModule,
     PanelModule,
     PickListModule,
@@ -94,6 +95,9 @@ import {LoginService} from './services/login.service';
 import {MultiIdomaService} from './services/multi-idioma.service';
 import {TableService} from './services/table.service';
 import {PermissionSettingsModule} from "./modules/permission-settings";
+import {GpAppEditableTableCrudComponent} from './components/editable-table-crud/editable-table-crud.component';
+import {GpAppInputWithMetadataComponent} from './components/input-with-metadata/input-with-metadata.component';
+import {TableMetadataService} from './services/table-metadata.service';
 
 @NgModule({
               imports: [
@@ -102,7 +106,7 @@ import {PermissionSettingsModule} from "./modules/permission-settings";
                   DataGridModule, DataListModule, DataTableModule, DialogModule, DropdownModule, EditorModule, FieldsetModule,
                   FileUploadModule, FormsModule, GalleriaModule, GrowlModule, HttpClientModule, HttpModule, InputSwitchModule,
                   InputTextModule, InputTextareaModule, ListboxModule, MenuModule, MenubarModule, MessagesModule,
-                  MultiSelectModule, OrderListModule, OverlayPanelModule, PanelMenuModule, PanelModule,
+                  MultiSelectModule, OrderListModule, OverlayPanelModule, PaginatorModule, PanelMenuModule, PanelModule,
                   PickListModule, ProgressBarModule, ProgressSpinnerModule, RadioButtonModule,
                   RatingModule, ReactiveFormsModule, RouterModule, ScheduleModule, ScrollPanelModule,
                   SharedModule, SlideMenuModule, SliderModule, SpinnerModule,
@@ -114,20 +118,20 @@ import {PermissionSettingsModule} from "./modules/permission-settings";
                   FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
 
                   // Components.
-                  GPDynamicComponent, GpAppEmptyComponent, GpAppLoadingIndicatorComponent,
-                  GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
-                  GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
-                  GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
-                  GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
-                  GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
-                  GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent, PermissionSettingsModule
+                  GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppInputWithMetadataComponent,
+        GpAppLoadingIndicatorComponent, GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
+        GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
+        GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
+        GpFormCalendarFieldComponent, GpFormCheckboxFieldComponent, GpFormDropdownFieldComponent,
+        GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
+        GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
               ],
               declarations: [
                   // Directives.
                   FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
 
                   // Components.
-                  GPDynamicComponent, GpAppEmptyComponent, GpAppLoadingIndicatorComponent,
+                  GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppLoadingIndicatorComponent, GpAppInputWithMetadataComponent,
                   GpAppLoginComponent, GpAppMainMenuComponent, GpAppModificaPasswordComponent,
                   GpAppMultiIdiomaComponent, GpAppMultiSelectComponent, GpAppRatingComponent, GpAppRedirectComponent,
                   GpAppRemoteFsysPickerComponent, GpAppTableCrudComponent, GpAppTableFrameComponent, GpAppTopBarComponent,
@@ -135,7 +139,7 @@ import {PermissionSettingsModule} from "./modules/permission-settings";
                   GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
                   GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
               ],
-              providers: [AppMenuService, AuthGuard, CommonService, GlobalService, LoginService, MultiIdomaService, TableService]
+              providers: [AppMenuService, AuthGuard, CommonService, GlobalService, LoginService, MultiIdomaService, TableService, TableMetadataService]
           })
 export class GpAllModule {
 }
