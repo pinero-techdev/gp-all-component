@@ -13,6 +13,9 @@ export * from './components/password/gp.app.modifica-password.component';
 export * from './components/rating/gp.app.rating.component';
 export * from './components/redirect/gp.app.redirect.component';
 export * from './components/remote-fsys/gp.app.remote-fsys-picker.component';
+export * from './components/editable-table/editable-table.component';
+export * from './components/editable-table-crud/editable-table-crud.component';
+export * from './components/input-with-metadata/input-with-metadata.component';
 export * from './components/tables/gp-app-table-crud.component';
 export * from './components/tables/gp-app-table-frame.component';
 export * from './components/tables/gp-form-calendar-field.component';
@@ -29,6 +32,7 @@ export * from './components/dynamic/gp.dynamic.component';
 //Resources (Classes)
 export * from './resources/data/gpBase';
 export * from './resources/data/authGuard';
+export * from './resources/data/custom-input';
 export * from './resources/data/redirectAuthGuard';
 export * from './resources/data/gpSelector';
 export * from './resources/data/gpSelectItem';
@@ -46,7 +50,12 @@ export * from './resources/data/propiedadOpcionMenu';
 export * from './resources/data/userInfo';
 export * from './resources/data/dataTableFilterType';
 export * from './resources/data/filterDataTable';
+export * from './resources/data/selection-type.enum';
 export * from './resources/data/sortDataTable';
+export * from './resources/data/sort-direction.enum';
+export * from './resources/data/table.events';
+export * from './resources/data/table-column-metadata.model';
+export * from './resources/data/table-config.model';
 //Directives
 export * from './directives/focus.directive';
 export * from './directives/gp-lowercase.directive';
@@ -61,6 +70,7 @@ export * from './services/table.service';
 export * from './services/multi-idioma.service';
 export * from './services/remote-fsys.service';
 export * from './services/password.service';
+export * from './resources/data/table-config.model';
 //Module
 export * from './modules/permission-settings';
 export * from './gp-all-module.module';
