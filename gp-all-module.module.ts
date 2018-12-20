@@ -94,7 +94,7 @@ import {GlobalService} from './services/global.service';
 import {LoginService} from './services/login.service';
 import {MultiIdomaService} from './services/multi-idioma.service';
 import {TableService} from './services/table.service';
-import {PermissionSettingsModule} from "./modules/permission-settings";
+import {PermissionSettingsDirective, PermissionSettingsModule} from "./modules/permission-settings";
 import {GpAppEditableTableCrudComponent} from './components/editable-table-crud/editable-table-crud.component';
 import {GpAppInputWithMetadataComponent} from './components/input-with-metadata/input-with-metadata.component';
 import {TableMetadataService} from './services/table-metadata.service';
@@ -116,7 +116,7 @@ import {GpAppEditableTableComponent} from "./components/editable-table/editable-
               ],
               exports: [
                   // Directives.
-                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
+                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective, PermissionSettingsDirective,
 
                   // Components.
                   GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppInputWithMetadataComponent,
@@ -129,7 +129,7 @@ import {GpAppEditableTableComponent} from "./components/editable-table/editable-
               ],
               declarations: [
                   // Directives.
-                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective,
+                  FocusDirective, GPLowercaseDirective, GPUppercaseDirective, PermissionSettingsDirective,
 
                   // Components.
                   GPDynamicComponent, GpAppEditableTableComponent, GpAppEditableTableCrudComponent, GpAppEmptyComponent, GpAppLoadingIndicatorComponent, GpAppInputWithMetadataComponent,
