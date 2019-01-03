@@ -78,7 +78,7 @@ export class TreeTableService {
 
     columnasDetail.forEach((columnaDetail: GpFormFieldDetail) => {
       if (columnaDetail.fieldMetadata.id) {
-        atributoId = columnaDetail.fieldMetadata.fieldName;
+        atributoId = 'codigoValorPreformulario';
       }
     });
 
