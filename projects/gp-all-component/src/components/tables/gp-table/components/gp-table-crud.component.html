@@ -1,0 +1,146 @@
+<p-growl [value]="msgsDialog" [sticky]="true"></p-growl>
+<div class="ui-g" *ngIf="!working && columnas.length > 0">
+    <div class="ui-g-6">
+        <div class="card card-w-title">
+            <p-dataTable [value]="elementos" selectionMode="single" [(selection)]="selectedRow"
+                         (onRowSelect)="onRowSelect()"
+                         (onRowUnselect)="closeDialog()"
+                         [rowStyleClass]="'thinline'"
+                         [rows]="10" [paginator]="true" [pageLinks]="4"
+                         [rowsPerPageOptions]="[10,20,50]" csvSeparator=";"
+                         exportFilename="table_export" #dt
+                         [immutable]="false"
+                         [responsive]="true">
+                <p-header>
+                    <div class="ui-g" style="text-align: left;">
+                        <div class="ui-g-10">Mantenimiento de tabla {{tableLabel}}</div>
+                        <div class="ui-g-2">
+                            <button type="button"
+                                    label="Añadir"
+                                    pButton
+                                    (click)="onDialogAdd()"
+                                    class="full-width cyan-btn"
+                                    icon="ui-icon-add"
+                                    [(disabled)]="formControl.lockFields"
+                                    *ngIf="canAdd"
+                                    aria-disabled="false">
+                            </button>
+                        </div>
+                    </div>
+                </p-header>
+                <p-column *ngFor="let col of columnasTabla" [field]="col.fieldMetadata.fieldName"
+                          [header]="col.fieldMetadata.displayInfo.fieldLabel"
+                          [filter]="true" filterMatchMode="contains"
+                          [styleClass]="col.fieldMetadata.lengthInTable <=5 ? 'colsmall' : col.fieldMetadata.lengthInTable >= 20 ? 'colbig': 'colmedium'"
+                          [sortable]="true">
+                </p-column>
+                <p-footer>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-2">
+                            <button type="button" pButton icon="ui-icon-file-download" (click)="dt.exportCSV()"
+                                    label="Exportar a CSV"></button>
+                        </div>
+                    </div>
+                </p-footer>
+            </p-dataTable>
+        </div>
+    </div>
+    <div class="ui-g-6">
+        <div class="ui-g-12" [hidden]="!displayEdicion">
+            <div class="ui-g-12 nopad">
+                <h2 class="BigTopic">Edición - {{tableLabel}}</h2>
+            </div>
+            <div *ngFor="let col of columnas" class="ui-g-12 nopad">
+                <div *ngFor="let msg of col.fieldMsgs" class="ui-messages-error">
+                    <i class="fa fa-close"></i>&nbsp;{{msg.detail}}
+                </div>
+                <div class="ui-g-2" *ngIf="!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation">
+                    <label class="material-label">{{col.fieldMetadata.displayInfo.fieldLabel}} <span
+                            *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span></label>
+                </div>
+                <div class="ui-g-10" *ngIf="!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation">
+                    <gp-form-time-field
+                            *ngIf="col.formFieldType == 'gp-form-time-field'"
+                            [formField]="col"></gp-form-time-field>
+                    <gp-form-text-field
+                            *ngIf="col.formFieldType == 'gp-form-text-field'"
+                            [formField]="col"></gp-form-text-field>
+                    <gp-form-textarea-field
+                            *ngIf="col.formFieldType == 'gp-form-textarea-field'"
+                            [formField]="col"></gp-form-textarea-field>
+                    <gp-form-dropdown-field
+                            *ngIf="col.formFieldType == 'gp-form-dropdown-field'"
+                            [formField]="col" (valueChanged)="changeEvent($event)"></gp-form-dropdown-field>
+                    <gp-form-dropdown-related-field
+                            *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
+                            [formField]="col"
+                            [relatedField]="fieldChanged"></gp-form-dropdown-related-field>
+                    <gp-form-switch-field
+                            *ngIf="col.formFieldType == 'gp-form-switch-field'"
+                            [formField]="col"></gp-form-switch-field>
+                    <gp-form-checkbox-field
+                            *ngIf="col.formFieldType == 'gp-form-checkbox-field'"
+                            [formField]="col"></gp-form-checkbox-field>
+                    <gp-form-calendar-field
+                            *ngIf="col.formFieldType == 'gp-form-calendar-field'"
+                            [formField]="col"></gp-form-calendar-field>
+                    <gp-form-wysiwyg-field
+                            *ngIf="col.formFieldType == 'gp-form-wysiwyg-field'"
+                            [formField]="col"></gp-form-wysiwyg-field>
+                    <gp-form-img-field
+                            *ngIf="col.formFieldType == 'gp-form-img-field'"
+                            [formField]="col"></gp-form-img-field>
+                </div>
+            </div>
+            <div class="ui-g-12 nopad">
+                <div class="ui-g-12">
+                    * Campos obligatorios.
+                </div>
+            </div>
+
+            <div class="ui-g-12 nopad">
+                <div class="ui-g-3" *ngIf="canDelete && selectedRow">
+                    <button
+                            type="button"
+                            label="Borrar"
+                            pButton
+                            (click)="onDialogDelete()"
+                            class="ui-button ui-button-danger ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+                            style="width:100%;"
+                            [(disabled)]="formControl.lockFields"
+                            icon="ui-icon-delete"
+                            aria-disabled="false">
+                    </button>
+                </div>
+                <div class="ui-g-3" *ngIf="canEdit || (canAdd && !selectedRow)">
+                    <button
+                            type="button"
+                            label="Guardar"
+                            pButton
+                            (click)="onDialogSave()"
+                            style="width:100%;"
+                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+                            icon="ui-icon-done"
+                            [(disabled)]="formControl.lockFields"
+                            aria-disabled="false">
+                    </button>
+                </div>
+                <div class="ui-g-3">
+                    <button type="button"
+                            label="Cerrar"
+                            pButton
+                            (click)="closeDialog()"
+                            style="width:100%;"
+                            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+                            icon="ui-icon-clear"
+                            [(disabled)]="formControl.lockFields"
+                            aria-disabled="false">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="working">
+    <gp-loading-indicator></gp-loading-indicator>
+</div>

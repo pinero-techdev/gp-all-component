@@ -1,0 +1,23 @@
+<div [class.ui-g-12]="formField.fieldMetadata.displayInfo.translationInfo == null"
+     [class.ui-g-10]="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''"
+     class="nopad">
+
+    <textarea name="__field__{{formField.fieldMetadata.fieldName}}"
+              pInputTextarea
+              [(ngModel)]="currentValue"
+              rows="{{rows}}"
+              (change)="onFieldChange()"
+              class="full-width"
+              [disabled]="controlDisabled()"></textarea>
+</div>
+
+<div class="ui-g-2 nopad" *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''">
+    <gp-multi-idioma [pKey]="translationKeys"
+                     [esquema]="formField.fieldMetadata.displayInfo.translationInfo.scheme"
+                     [tabla]="formField.fieldMetadata.displayInfo.translationInfo.table"
+                     [campo]="formField.fieldMetadata.displayInfo.translationInfo.field"
+                     [campoDescripcion]="formField.fieldMetadata.displayInfo.translationInfo.description"
+                     [habilitarEdicionHTML]="formField.fieldMetadata.displayInfo.translationInfo.allowEdition"
+                     [orderByLangCod]="formField.fieldMetadata.displayInfo.translationInfo.orderByLangCod">
+    </gp-multi-idioma>
+</div>
