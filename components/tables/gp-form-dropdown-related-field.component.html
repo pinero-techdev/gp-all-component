@@ -1,5 +1,5 @@
 <p-dropdown
-  name="__field__{{formField.fieldMetadata.fieldName}}"
+  name="__field__{{ formField.fieldMetadata.fieldName }}"
   [options]="listAllowedValuesOptions"
   [(ngModel)]="currentValueDropDown"
   [autoWidth]="false"
@@ -8,6 +8,6 @@
   resetFilterOnHide="true"
   (onChange)="onFieldChange()"
   [disabled]="controlDisabled()"
-  class="ui-inputfield ui-selectonemenu-label"
+  class="ui-inputfield ui-selectonemenu-label full-width"
 >
 </p-dropdown>

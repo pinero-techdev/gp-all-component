@@ -14,7 +14,6 @@ import {Observable} from "rxjs/Rx";
 export class RedirectAuthGuard implements CanActivate {
 
     constructor(private _router: Router,
-                private _globalService: GlobalService,
                 private _menu: AppMenuService,
                 private _menuAppMenuProviderService: AppMenuProviderService) {
     }
@@ -34,7 +33,7 @@ export class RedirectAuthGuard implements CanActivate {
 
         let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         let userId = null;
-        if ( userInfo != undefined && userInfo != null ){
+        if (userInfo != undefined && userInfo != null) {
             userId = userInfo.userId;
         }
 
@@ -43,22 +42,22 @@ export class RedirectAuthGuard implements CanActivate {
         let menuOptions = route.data['menuOptionIds'];
         console.log(url);
         console.log(route.pathFromRoot);
-        console.log("RedirectGuard, canActivate, globalService: " + this._globalService.globalStatus() + " " + sessionStorage.getItem('userInfo'));
+        console.log("RedirectGuard, canActivate, globalService: " + sessionStorage.getItem('userInfo'));
 
-        if ((this._globalService.logged || null != sessionStorage.getItem('userInfo'))) {
+        if ((GlobalService.LOGGED || null != sessionStorage.getItem('userInfo'))) {
 
-            if (  menuOptions && menuOptions.length > 0 ) {
-                let request: MenuRq = new MenuRq(userId, GlobalService.APP);
+            if (menuOptions && menuOptions.length > 0) {
+                let request: MenuRq = new MenuRq(GlobalService.SESSION_ID, GlobalService.PARAMS);
                 return this._menu.obtenMenu(request)
                     .map(
                         menu => {
 
-                            if ( menu ) {
+                            if (menu) {
                                 // Check if one of the menu options that can be used to redirect is active
                                 let accesoPermitido = this._menuAppMenuProviderService.tieneOpcionesMenuActivas(menu, menuOptions);
 
-                                if ( !accesoPermitido ) {
-                                    console.error( "El usuario " + userId + " no tiene los permisos necesarios para acceder a " + url );
+                                if (!accesoPermitido) {
+                                    console.error("El usuario " + userId + " no tiene los permisos necesarios para acceder a " + url);
                                 }
                                 return accesoPermitido;
 
@@ -76,7 +75,7 @@ export class RedirectAuthGuard implements CanActivate {
 
         } else {
 
-            console.error( "El usuario  no se encuentra logado" );
+            console.error("El usuario  no se encuentra logado");
             // not logged in so redirect to login page
             this._router.navigate(['/login']);
             return Observable.of(false);

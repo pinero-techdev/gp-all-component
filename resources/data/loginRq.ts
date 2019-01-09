@@ -1,9 +1,10 @@
 export class LoginRq {
-    usuario: String;
-    password: String;
-    aplicacion: String;
-    bd: String;
-
+    usuario: string;
+    password: string;
+	aplicacion: string;
+	params: LoginRqParam[];
+	otherparams: string;
+	
     /**
      * Constructor de la petición de login
      * 
@@ -12,10 +13,25 @@ export class LoginRq {
      * @param aplicacion 
      * @param bd 
      */
-    constructor(usuario: String, password: String, aplicacion?: String, bd?: String) {
+    constructor(usuario: string, password: string, aplicacion?: string, params?: LoginRqParam[], otherparams?: string ) {
         this.usuario = usuario;
         this.password = password;
-        this.aplicacion = aplicacion;
-        this.bd = bd;
+		if( aplicacion )
+		{
+			this.aplicacion = aplicacion;
+		}
+		if( params )
+		{
+			this.params = params;
+		}
+		if ( otherparams )
+		{
+			this.otherparams = otherparams;
+		}
     }
+}
+
+export class LoginRqParam {
+	key: string;
+	val: string;
 }

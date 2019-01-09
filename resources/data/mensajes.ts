@@ -6,40 +6,49 @@ import {Message} from "primeng/primeng";
  */
 export class Mensajes {
 
-    msgs: Message[] = [];
-    alerts: Message[] = [];
+    msgs:Message[] = [];
+    alerts:Message[] = [];
 
-    constructor(){
+    constructor() {
     }
 
-    showInfoMessage(alert: string) {
+    showInfoMessage(alert:string) {
         this.msgs = [];
         this.msgs.push({severity: 'info', summary: 'Info', detail: alert});
     }
 
-    showWarnMessage(alert: string) {
+    showWarnMessage(alert:string) {
         this.msgs = [];
         this.msgs.push({severity: 'warn', summary: 'Atención', detail: alert});
     }
 
-    showErrorMessage(alert: string) {
+    showErrorMessage(alert:string) {
         this.msgs = [];
         this.msgs.push({severity: 'error', summary: 'Error', detail: alert});
     }
 
-    showInfoAlert(alert: string) {
+    showSuccessMessage(alert: string) {
+        this.msgs = [];
+        this.msgs.push({severity: 'success', summary: 'Success', detail: alert});
+    }
+
+    showInfoAlert(alert:string) {
         this.alerts = [];
         this.alerts.push({severity: 'info', summary: 'Info', detail: alert});
     }
 
-    showWarnAlert(alert: string) {
+    showWarnAlert(alert:string) {
         this.alerts = [];
         this.alerts.push({severity: 'warn', summary: 'Atención', detail: alert});
     }
 
-    showErrorAlert(alert: string) {
+    showErrorAlert(alert:string) {
         this.alerts = [];
         this.alerts.push({severity: 'error', summary: 'Error', detail: alert});
     }
 
+    showSuccessAlert(alert:string) {
+        this.alerts = [];
+        this.alerts.push({severity: 'success', summary: 'Success', detail: alert});
+    }
 }

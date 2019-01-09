@@ -1,5 +1,5 @@
-import {FieldMetadata} from "../../services/table.service";
-import {Message} from "primeng/components/common/api";
+import { FieldMetadata } from '../../services/table.service';
+import { Message } from 'primeng/components/common/api';
 
 export class GpFormControl {
   // Fila editada.
@@ -18,7 +18,19 @@ export class GpFormControl {
 }
 
 export class GpFormField {
+  tableName: string = null;
+  /* Tipo de control usado.*/
+  formFieldType: string = null;
+  /* Indica si el campo es valido o no. */
+  validField: boolean = true;
+  /* Mensajes de error asociados del campo. */
+  fieldMsgs: Message[] = null;
+  constructor(public formControl: GpFormControl, public fieldMetadata: FieldMetadata, public table?: string) {
+    this.tableName = table;
+  }
+}
 
+export class GpFormFieldDetail {
   tableName: string = null;
   /* Tipo de control usado.*/
   formFieldType: string = null;
@@ -27,51 +39,34 @@ export class GpFormField {
   /* Mensajes de error asociados del campo. */
   fieldMsgs: Message[] = null;
 
-  constructor( public formControl: GpFormControl, public fieldMetadata : FieldMetadata, public table?: string ){
-    this.tableName = table
+  constructor(public formControl: GpFormControl, public fieldMetadata: FieldMetadata, public table?: string) {
+    this.tableName = table;
   }
-
-}
-
-
-export class GpFormFieldDetail {
-  
-    tableName: string = null;
-    /* Tipo de control usado.*/
-    formFieldType: string = null;
-    /* Indica si el campo es valido o no. */
-    validField: boolean = true;
-    /* Mensajes de error asociados del campo. */
-    fieldMsgs: Message[] = null;
-  
-    constructor( public formControl: GpFormControl, public fieldMetadata : FieldMetadata, public table?: string ){
-      this.tableName = table
-    }
 }
 
 export class GpFormFieldControl {
-  public getFormField() : GpFormField {
+  public getFormField(): GpFormField {
     return null;
   }
 
   /* Coge el valor del campo y lo pasa al registro indicado. */
-  copyValueFromControlToEditedRow( editedRow : any) {}
+  copyValueFromControlToEditedRow(editedRow: any) {}
 
   /* Coge el valor de la fila y lo pasa al control. */
-  copyValueFromEditedRowToControl( editedRow: any) {}
+  copyValueFromEditedRowToControl(editedRow: any) {}
 
   /* Valida el campo. */
-  validateField( editedRow : any ) : boolean {
+  validateField(editedRow: any): boolean {
     return false;
   }
 
   /* Añade un mensaje a la lista de mensajes del campo. */
-  validateFieldAddMsgs( msg : string ) {
+  validateFieldAddMsgs(msg: string) {
     this.getFormField().validField = false;
-    if( this.getFormField().fieldMsgs == null ) {
+    if (this.getFormField().fieldMsgs == null) {
       this.getFormField().fieldMsgs = [];
     }
-    this.getFormField().fieldMsgs.push({severity:'error', /*summary:'Información',*/ detail: msg});
+    this.getFormField().fieldMsgs.push({ severity: 'error', detail: msg });
   }
 
   /* Limpia la lista de mensajes de validación del campo y marca
@@ -81,15 +76,18 @@ export class GpFormFieldControl {
     this.getFormField().validField = true;
   }
 
-  controlDisabled() : boolean {
-    return ( this.getFormField().formControl.lockFields || this.getFormField().fieldMetadata.readOnly || (this.getFormField().fieldMetadata.id && this.getFormField().formControl.edicionEdit) );
+  controlDisabled(): boolean {
+    return (
+      this.getFormField().formControl.lockFields ||
+      this.getFormField().fieldMetadata.readOnly ||
+      (this.getFormField().fieldMetadata.id && this.getFormField().formControl.edicionEdit)
+    );
   }
 
   onFieldChange() {
-    if( !this.getFormField().formControl ) {
+    if (!this.getFormField().formControl) {
       return;
     }
-    this.copyValueFromControlToEditedRow( this.getFormField().formControl.editedRow );
+    this.copyValueFromControlToEditedRow(this.getFormField().formControl.editedRow);
   }
-
 }

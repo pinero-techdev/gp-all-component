@@ -12,7 +12,7 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
   @Input() formField : GpFormField;
 
   currentValueText: string;
-  textboxClass: string;
+  textboxClass: string = 'full-width';
 
   minLength: number;
   maxLength: number;
@@ -36,7 +36,7 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
   inicializa() {
     if( this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo.textProperties != null ) {
       if( this.formField.fieldMetadata.displayInfo.textProperties.indexOf( TableService.TEXT_UPPERCASE ) != -1 ) {
-        this.textboxClass = "text-uppercase";
+        this.textboxClass = "full-width text-uppercase";
       }
     }
 
@@ -57,6 +57,7 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
     let value = editedRow[this.formField.fieldMetadata.fieldName];
     let newValue = this.currentValueText;
     console.log("GpFormTextFieldComponent.changeItemValue currentValue '" + value + "' -> '" + newValue + "'" );
+    console.log(this.formField.fieldMetadata.displayInfo);
     if( this.formField.fieldMetadata.displayInfo.textProperties != null ) {
       console.log("GpFormTextFieldComponent. textProperties: " + JSON.stringify( this.formField.fieldMetadata.displayInfo.textProperties ) );
       if( this.formField.fieldMetadata.displayInfo.textProperties.indexOf( TableService.TEXT_UPPERCASE ) >= 0  ) {
@@ -90,7 +91,7 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
         this.translationKeys += editedRow[keyField];
       }
     }
-    console.log(this.translationKeys);
+
   }
 
   validateField( editedRow : any ) {
