@@ -30,7 +30,7 @@ export class GpAppTopBarComponent implements OnInit {
   userMenuVisible: boolean = false;
   classShowMenuButton: String = 'Fright ShowOnMobile ripplelink Unselectable ShadowEffect';
 
-  constructor(private _router: Router, public globalService: GlobalService, private _loginService: LoginService) {}
+  constructor(private _router: Router, private _loginService: LoginService) {}
 
   ngOnInit() {
     this.itemsUserMenu = [

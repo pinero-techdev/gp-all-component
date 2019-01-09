@@ -56,12 +56,7 @@ export class GpAppReportDialogComponent implements OnInit {
   @ViewChildren(GpFormCalendarFieldComponent) calendarFormFields: QueryList<GpFormCalendarFieldComponent>;
   @ViewChildren(GpFormWysiwygFieldComponent) wysiwygFormFields: QueryList<GpFormWysiwygFieldComponent>;
 
-  constructor(
-    private _activatedRoute: ActivatedRoute,
-    private _router: Router,
-    private _reportService: ReportService,
-    private _globalService: GlobalService
-  ) {}
+  constructor(private _activatedRoute: ActivatedRoute, private _router: Router, private _reportService: ReportService) {}
 
   ngOnInit() {
     console.log(this._reportName);
@@ -74,7 +69,7 @@ export class GpAppReportDialogComponent implements OnInit {
   }
 
   cambiaReport(reportName: string) {
-    if (!this._globalService.logged) {
+    if (!GlobalService.LOGGED) {
       this._router.navigate(['login']);
       return;
     }
