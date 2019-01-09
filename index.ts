@@ -16,6 +16,7 @@ export * from './components/remote-fsys/gp.app.remote-fsys-picker.component';
 export * from './components/reports/gp-app-report-dialog.component';
 export * from './components/reports/gp-app-report-frame.component';
 export * from './components/tables/gp-app-table-crud.component';
+export * from './components/tables/gp-app-table-crud-yield.component';
 export * from './components/tables/gp-app-table-frame.component';
 export * from './components/tables/gp-form-calendar-field.component';
 export * from './components/tables/gp-form-checkbox-field.component';
