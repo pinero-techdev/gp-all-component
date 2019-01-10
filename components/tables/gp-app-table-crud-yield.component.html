@@ -32,8 +32,8 @@
                 class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left White Wid30 Fs18 RaisedButton cyan-btn"
                 icon="material-icons ui-icon-add"
                 pTooltip="Añadir nuevo {{ tableLabel }}"
+                aria-disabled="false"
                 [(disabled)]="lockFields"
-                [aria-disabled]="false"
                 (click)="onDialogAdd()"
               ></button>
             </div>
@@ -196,7 +196,7 @@
                 label="Añadir"
                 pButton
                 (click)="onDialogAddDetail()"
-                class="addbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left White Wid30 Fs18 RaisedButton"
+                class="addbutton ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left White Wid30 Fs18 RaisedButton cyan-btn"
                 icon="material-icons ui-icon-add"
                 [(disabled)]="lockFields"
                 aria-disabled="false"
@@ -266,7 +266,7 @@
           class="ui-grid-col-2"
           *ngIf="checkExcludeFieldsForm(col, 'MASTER_DETAIL') && (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation)"
         >
-          <label class="ui-outputlabel"
+          <label class="material-label"
             >{{ col.fieldMetadata.displayInfo.fieldLabel }} <span *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span>
           </label>
         </div>
@@ -314,7 +314,7 @@
             label="Borrar"
             pButton
             (click)="onDialogDeleteDetail()"
-            class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
+            class="ui-button ui-button-danger ui-widget ui-state-default ui-corner-all ui-button-text-icon-left Wid30 Fs18 White RaisedButton"
             [(disabled)]="lockFields"
             icon="material-icons ui-icon-delete"
             aria-disabled="false"
