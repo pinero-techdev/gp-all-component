@@ -1,4 +1,3 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
@@ -109,7 +108,6 @@ import { TableService } from './services/table.service';
     AccordionModule,
     AutoCompleteModule,
     BlockUIModule,
-    BrowserAnimationsModule,
     CalendarModule,
     ChartModule,
     CheckboxModule,
