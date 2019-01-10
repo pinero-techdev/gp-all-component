@@ -36,7 +36,7 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
     if (userInfo != undefined && userInfo != null) {
       userId = userInfo.userId;
     }
-    let request: MenuRq = new MenuRq(userId, GlobalService.APP);
+    let request: MenuRq = new MenuRq(userId, GlobalService.APP); // 3digits
     //let request: MenuRq = new MenuRq(sessionId, GlobalService.PARAMS); // master
     this.menuItems = this._appMenuProviderService.obtenMenu(request);
   }

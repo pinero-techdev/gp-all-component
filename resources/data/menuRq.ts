@@ -17,7 +17,7 @@ export class MenuRq extends CommonRq {
         this.params = params;
     }
 }
-
+*/
 export class Param {
     key: String;
     val: String;
@@ -28,7 +28,7 @@ export class Param {
         this.val = val;
     }
 }
-*/
+
 export class MenuRq {
   usuario: String;
   aplicacion: String;
