@@ -14,3 +14,10 @@ export class GpAppLoadingIndicatorComponent {
   @Input()
   h: string = '40px';
 }
+
+@NgModule({
+  imports: [ReactiveFormsModule, ProgressSpinnerModule],
+  exports: [GpAppLoadingIndicatorComponent],
+  declarations: [GpAppLoadingIndicatorComponent]
+})
+export class GpAppLoadingIndicatorModule {}
