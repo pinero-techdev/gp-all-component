@@ -53,7 +53,7 @@ export class GpAppLoginComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  get applicationTitle() {
+  applicationTitle() {
     return GlobalService.APPLICATION_TITLE;
   }
 
