@@ -1,7 +1,8 @@
-.hiddencontrols .ui-orderlist-controls{
+.hiddencontrols .ui-orderlist-controls {
     display: none !important;
 }
-.selected{
+
+.selected {
     background-color: #00b2d1;
     color: #ffffff;
 }

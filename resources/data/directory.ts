@@ -1,7 +1,7 @@
-import {File} from "./file";
+import { File } from './file';
 
 export class Directory {
-    name:string;
-    directory:Directory[];
-    file:File[];
+  name: string;
+  directory: Directory[];
+  file: File[];
 }

@@ -1,20 +1,23 @@
 <div class="g">
-    <div style="min-width: 100%;">
-        <div class="ui-g-12">
-            <p><b>Puede escoger su archivo mediante el desplegable.</b></p>
-        </div>
+  <div style="min-width: 100%;">
+    <div class="ui-g-12">
+      <p><b>Puede escoger su archivo mediante el desplegable.</b></p>
     </div>
-    <div style="min-width: 100%;">
-        <div class="ui-g-8">
-            <p-tree [value]="remoteFsys" selectionMode="single"
-                    [(selection)]="selectedNode"
-                    [style]="{'height':'45vh', 'width':'100%;'}"
-                    *ngIf="remoteFsys != null"
-                    (onNodeSelect)="nodeSelect(e)">
-            </p-tree>
-        </div>
-        <div class="ui-g-4 center hiddencontrols">
-            <!-- <p-orderList [value]="selectedNode?.children"
+  </div>
+  <div style="min-width: 100%;">
+    <div class="ui-g-8">
+      <p-tree
+        [value]="remoteFsys"
+        selectionMode="single"
+        [(selection)]="selectedNode"
+        [style]="{ height: '45vh', width: '100%;' }"
+        *ngIf="remoteFsys != null"
+        (onNodeSelect)="nodeSelect(e)"
+      >
+      </p-tree>
+    </div>
+    <div class="ui-g-4 center hiddencontrols">
+      <!-- <p-orderList [value]="selectedNode?.children"
                          [responsive]="true"
                          [listStyle]="{'height':'45vh'}"
                          dragdrop="false"
@@ -33,14 +36,18 @@
                     </div>
                 </ng-template>
             </p-orderList> -->
-            <div class="ui-widget-content ui-orderlist-list ui-corner-bottom" *ngIf="selectedNode?.children?.length == 0 && selectedNode?.data?.type == 'file'" style="height: 45vh;">
-                <div id="imgSelectable" (click)="selectedThis($event)" *ngIf="selectedNode?.data?.subtype == 'image'">
-                    <img src="{{url}}" style="max-width: 200px;padding: 1.625em 0.875em;">
-                </div>
-                <div id="videoSelectable" style="padding: 1.625em 0.875em;" (click)="selectedThis($event)" *ngIf="selectedNode?.data?.subtype == 'video'">
-                    <div class="img-video marketing-img center"></div>
-                </div>
-            </div>
+      <div
+        class="ui-widget-content ui-orderlist-list ui-corner-bottom"
+        *ngIf="selectedNode?.children?.length == 0 && selectedNode?.data?.type == 'file'"
+        style="height: 45vh;"
+      >
+        <div id="imgSelectable" (click)="selectedThis($event)" *ngIf="selectedNode?.data?.subtype == 'image'">
+          <img src="{{ url }}" style="max-width: 200px;padding: 1.625em 0.875em;" />
         </div>
+        <div id="videoSelectable" style="padding: 1.625em 0.875em;" (click)="selectedThis($event)" *ngIf="selectedNode?.data?.subtype == 'video'">
+          <div class="img-video marketing-img center"></div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

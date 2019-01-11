@@ -1,9 +1,9 @@
 export class InfoCampoModificado {
-    field: string;
-    value: any;
+  field: string;
+  value: any;
 
-    constructor(field?: string, value?:any){
-        this.field = field;
-        this.value = value;
-    }
+  constructor(field?: string, value?: any) {
+    this.field = field;
+    this.value = value;
+  }
 }

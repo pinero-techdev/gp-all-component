@@ -1,4 +1,3 @@
-import {Directory} from "./directory";
+import { Directory } from './directory';
 
-export class BaseDir extends Directory {
-}
+export class BaseDir extends Directory {}

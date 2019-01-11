@@ -1,8 +1,9 @@
 <p-calendar
-  name="__field__{{formField.fieldMetadata.fieldName}}"
+  name="__field__{{ formField.fieldMetadata.fieldName }}"
+  styleClass="full-width"
   [defaultDate]="currentValueDate"
   [(ngModel)]="currentValueDate"
-  (onSelect)="onFieldChange()"
+  (onChange)="onFieldChange()"
   [disabled]="controlDisabled()"
   [dateFormat]="dateFormat"
   [locale]="es"

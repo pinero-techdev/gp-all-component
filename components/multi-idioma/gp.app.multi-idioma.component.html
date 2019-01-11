@@ -3,7 +3,7 @@
 
 <p-dialog
   [(visible)]="visualizarTablaTraducciones"
-  header="Mantenimiento traducciones - {{campoDescripcion}}"
+  header="Mantenimiento traducciones - {{ campoDescripcion }}"
   modal="modal"
   width="1000"
   minHeight="600"
@@ -15,9 +15,9 @@
     <div class="ui-grid-col-12">
       <div class="ui-grid-row" *ngFor="let traduccion of elementosTraducciones">
         <div
-          class="ui-md-1 bandera bandera-{{traduccion.idiomaPais.toLowerCase()}}"
+          class="ui-md-1 bandera bandera-{{ traduccion.idiomaPais.toLowerCase() }}"
           *ngIf="traduccion.idiomaPais != null"
-          pTooltip="{{traduccion.idiomaPais}}"
+          pTooltip="{{ traduccion.idiomaPais }}"
           tooltipPosition="top"
         ></div>
         <div class="ui-md 1 bandera sin-bandera" *ngIf="traduccion.idiomaPais == null"></div>
@@ -70,7 +70,7 @@
 
 <p-dialog
   [(visible)]="visualizarEdicionHTML"
-  header="Traducción - {{traduccionIdiomaHTML}}"
+  header="Traducción - {{ traduccionIdiomaHTML }}"
   modal="modal"
   width="1000"
   responsive="true"

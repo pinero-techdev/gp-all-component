@@ -1,4 +1,4 @@
 export class File {
-    name:string;
-    bytesSize:string;
+  name: string;
+  bytesSize: string;
 }

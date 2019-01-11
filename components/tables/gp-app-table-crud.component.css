@@ -34,7 +34,6 @@ body .md-inputfield .ui-message.ui-messages-error {
     margin-left: 25px;
     width: 50%;
   }
-
   .mantenimientos .ui-button[label='Exportar a CSV'] {
     text-indent: 100%;
     white-space: nowrap;
@@ -44,7 +43,7 @@ body .md-inputfield .ui-message.ui-messages-error {
   }
 }
 
-@element ' .ui-fluid ' and  ( min-width: 1001px ) and (max-width: 1300px) {
+@element ' .ui-fluid ' and ( min-width: 1001px) and (max-width: 1300px) {
   .mantenimientos .ui-button[label='Añadir'] {
     text-indent: 100%;
     white-space: nowrap;
@@ -53,7 +52,6 @@ body .md-inputfield .ui-message.ui-messages-error {
     margin-left: 40px;
     width: 50%;
   }
-
   .mantenimientos .ui-button[label='Exportar a CSV'] {
     text-indent: 100%;
     white-space: nowrap;

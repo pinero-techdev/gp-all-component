@@ -1,3 +1,3 @@
-export class PropiedadOpcionMenu{
-    propiedad: string;
+export class PropiedadOpcionMenu {
+  propiedad: string;
 }

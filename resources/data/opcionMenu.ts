@@ -1,5 +1,5 @@
-import {PropiedadesOpcionMenu} from "./propiedadesOpcionMenu";
-export class OpcionMenu{
-    id: string;
-    propiedades: PropiedadesOpcionMenu;
+import { PropiedadesOpcionMenu } from './propiedadesOpcionMenu';
+export class OpcionMenu {
+  id: string;
+  propiedades: PropiedadesOpcionMenu;
 }

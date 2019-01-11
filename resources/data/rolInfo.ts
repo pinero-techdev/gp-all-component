@@ -1,5 +1,5 @@
 export class RolInfo {
-    rolEmpCodigo: string;
-    rolCodigo: string;
-    rolDesc: string;
+  rolEmpCodigo: string;
+  rolCodigo: string;
+  rolDesc: string;
 }
