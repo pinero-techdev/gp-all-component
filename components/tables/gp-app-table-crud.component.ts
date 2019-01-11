@@ -15,6 +15,7 @@ import { GpFormImgFieldComponent } from './gp-form-img-field.component';
 import { GpFormDropdownRelatedfieldComponent } from './gp-form-dropdown-related-field.component';
 import { InfoCampoModificado } from '../../resources/data/infoCampoModificado';
 import { GPUtil } from '../../resources/data/gpUtil';
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'gp-app-table-crud',

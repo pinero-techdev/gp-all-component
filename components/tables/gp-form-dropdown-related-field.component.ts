@@ -3,6 +3,7 @@ import { FieldMetadata, TableService } from '../../services/table.service';
 import { SelectItem } from 'primeng/components/common/api';
 import { GpFormField, GpFormFieldControl } from './gp-app-table-crud-shared';
 import { InfoCampoModificado } from '../../resources/data/infoCampoModificado';
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'gp-form-dropdown-related-field',

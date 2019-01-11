@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Mensajes } from '../../resources/data/mensajes';
 import { Traduccion } from '../../resources/data/traduccion.model';
 import { MultiIdomaService, GetTraduccionesRq, UpdateTraduccionesRq } from '../../services/multi-idioma.service';
+import 'rxjs/add/operator/finally';
 
 export const orderLanguage = ['ES', 'EN', 'FR', 'DE', 'IT', 'PT'];
 

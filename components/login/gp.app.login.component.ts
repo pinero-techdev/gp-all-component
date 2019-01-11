@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Message } from 'primeng/primeng';
 
 import { Subscription } from 'rxjs';
+import 'rxjs/add/operator/finally';
 
 import { isNullOrUndefined } from 'util';
 
