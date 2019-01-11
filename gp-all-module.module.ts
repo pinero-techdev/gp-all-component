@@ -1,3 +1,4 @@
+/*
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
@@ -238,3 +239,4 @@ import { TableService } from './services/table.service';
   providers: [AppMenuService, AuthGuard, CommonService, GlobalService, LoginService, MultiIdomaService, TableService]
 })
 export class GpAllModule {}
+*/

@@ -71,6 +71,6 @@ export * from './services/multi-idioma.service';
 export * from './services/remote-fsys.service';
 export * from './services/password.service';
 //Module
-export * from './gp-all-module.module';
+// export * from './gp-all-module.module';
 /** @author 3digits */
 export * from './services/treetable.service';
