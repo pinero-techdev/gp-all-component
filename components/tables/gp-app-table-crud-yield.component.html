@@ -193,6 +193,7 @@
             <div class="ui-grid-col-10">Mantenimiento de tabla {{ tableLabelDetail }}</div>
             <div class="ui-grid-col-2 mantenimientos">
               <button
+                *ngIf="canAdd"
                 type="button"
                 label="Añadir"
                 pButton
@@ -227,6 +228,7 @@
                 icon="material-icons ui-icon-file-download"
                 (click)="dtDetail.exportCSV()"
                 label="Exportar a CSV"
+                *ngIf="canExport"
                 pTooltip="Exportar a CSV el {{ tableLabelDetail }}"
               ></button>
             </div>
@@ -321,7 +323,7 @@
             aria-disabled="false"
           ></button>
         </div>
-        <div class="ui-grid-col-3" *ngIf="canEdit">
+        <div class="ui-grid-col-3" *ngIf="canEdit || (canAdd && !selectedRow)">
           <button
             type="button"
             label="Guardar"

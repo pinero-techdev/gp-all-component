@@ -38,6 +38,19 @@ export class GPTreeTableComponent {
   @Input()
   cantRows: number = 10;
 
+  // Vars control Insercion, edicion, borrado, exportado
+  @Input()
+  canAdd: boolean = true;
+
+  @Input()
+  canEdit: boolean = true;
+
+  @Input()
+  canDelete: boolean = true;
+
+  @Input()
+  canExport: boolean = true;
+
   @Output()
   onRowSelect: EventEmitter<any> = new EventEmitter<any>();
 
