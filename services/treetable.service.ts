@@ -7,13 +7,13 @@ import { TreeNode } from 'primeng/api';
 
 @Injectable()
 export class TreeTableService {
-  tratarTreeTable(data: any, columnasDetail: GpFormFieldDetail[]): TreeNode[] {
+  tratarTreeTable(data: any, columnasDetail: GpFormFieldDetail[], listExpandedNode?: number[]): TreeNode[] {
     // data es un array que contiene los padres.
 
     let elementosDetail: TreeNode[] = [];
 
     data.forEach(dato => {
-      elementosDetail.push(this.tratarNodo(dato, columnasDetail));
+      elementosDetail.push(this.tratarNodo(dato, columnasDetail, listExpandedNode));
     });
 
     return elementosDetail;
@@ -100,7 +100,7 @@ export class TreeTableService {
 
     return treeNode;
   }
-  private tratarNodo(nodo: any, columnasDetail: GpFormFieldDetail[]): TreeNode {
+  private tratarNodo(nodo: any, columnasDetail: GpFormFieldDetail[], listExpandedNode?: number[]): TreeNode {
     let dataObject: {} = {};
 
     // para que sea completamente genérico, así los nombres de los campos del objeto coinciden con los fieldNames de metadata.
@@ -112,11 +112,19 @@ export class TreeTableService {
       data: dataObject
     };
 
+    if(listExpandedNode != undefined && listExpandedNode.length > 0) {
+      for (let expandedNodeId of listExpandedNode) {
+        if (nodo.id == expandedNodeId) {
+          elemento.expanded = true;
+        }
+      }      
+    }
+
     if (nodo.listaChildren && nodo.listaChildren.length > 0) {
       elemento.children = [];
 
       // recursividad para tratar a los hijos
-      nodo.listaChildren.forEach(child => elemento.children.push(this.tratarNodo(child, columnasDetail)));
+      nodo.listaChildren.forEach(child => elemento.children.push(this.tratarNodo(child, columnasDetail, listExpandedNode)));
     }
 
     return elemento;

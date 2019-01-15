@@ -8,7 +8,7 @@
     pInputTextarea
     [(ngModel)]="currentValueText"
     rows="{{ rows }}"
-    (onChange)="onFieldChange()"
+    (change)="onFieldChange()"
     class="full-width"
     [disabled]="controlDisabled()"
   ></textarea>
