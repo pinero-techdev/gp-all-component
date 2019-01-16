@@ -64,7 +64,7 @@ export class TreeTableService {
         }
       }
     } else {
-      itself = elementosDetail.find((child: TreeNode) => child.data[atributoId] == eliminado.data[atributoId]);
+      itself = this.encontrarChildNodo(elementosDetail, atributoId, eliminado)
       const index = elementosDetail.indexOf(itself, 0);
       if (index > -1) {
         elementosDetail.splice(index, 1);
@@ -128,6 +128,20 @@ export class TreeTableService {
     }
 
     return elemento;
+  }
+
+  private encontrarChildNodo(nodosNivel: TreeNode[], atributoId: string, eliminado: TreeNode): TreeNode {
+    let child: TreeNode = nodosNivel.find((child: TreeNode) => child.data[atributoId] == eliminado.data[atributoId]);
+
+    if (!child) {
+      nodosNivel.forEach((nivel: TreeNode) => {
+        if (!child && nivel.children && nivel.children.length > 0) {
+          child = this.encontrarChildNodo(nivel.children, atributoId, eliminado);
+        }
+      });
+    }
+
+    return child;
   }
 
   private encontrarPadreNodo(nodosNivel: TreeNode[], nodo: any, atributoId: string, atributoPadreId: string): TreeNode {
