@@ -6,7 +6,8 @@ import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'gp-app-main-menu',
-  templateUrl: './gp.app.main.menu.component.html'
+  templateUrl: './gp.app.main.menu.component.html',
+  styleUrls: ['./gp.app.main.menu.component.css']
 })
 /**
  * Clase Menu que agrupa los servicios accesibles por el usuario

@@ -11,6 +11,9 @@ export class AuthGuard implements CanActivate {
   constructor(private _router: Router, private _menu: AppMenuService, private _menuAppMenuProviderService: AppMenuProviderService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    if(document.getElementById('bienvenida') != null) {
+      document.getElementById('bienvenida').style.display = "none";
+    } 
     let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     let userId = null;
     if (userInfo != undefined && userInfo != null) {
