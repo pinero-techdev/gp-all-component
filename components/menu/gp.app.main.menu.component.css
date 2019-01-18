@@ -30,14 +30,14 @@ body {
 }
 .splash_logo {
   position: absolute;
-  margin: -15px 0 0 -90px;
-  top: 50vh;
+  margin: -15px 0 0 -80px;
+  top: 47vh;
   z-index: 5;
   left: 50vw;
   width: 100px;
   text-align: center;
   height: 40px;
-  font-size: 70px;
+  font-size: 55px;
   color: #ffffff;
   opacity: 1;
   will-change: opacity;
@@ -343,5 +343,14 @@ body {
 @media only screen and (max-width: 1300px) {
   .logo-gp {
     width: 80%; 
+  }
+
+  .splash_logo {
+    margin: -15px 0 0 -50px;
+    font-size: 37px;
+  }
+
+  .splash_logo .management {
+    right: 78px !important; 
   }
 }
