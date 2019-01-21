@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, AfterViewInit, Output, ViewEncapsulation} from "@angular/core";
-import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
 import {CustomInput} from "../../resources/data/custom-input";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {TableFieldEvent} from "../../resources/data/table.events";
@@ -18,12 +18,14 @@ import {MessageService} from "primeng/components/common/messageservice";
     ]
 })
 export class GpAppInputWithMetadataComponent extends CustomInput implements AfterViewInit {
+    form: FormGroup;
     InputType = InputType;
     editable: boolean;
     optionsList = [];
     imgModalVisible: boolean = false;
     textareaModalVisible: boolean = false;
     wysiwygModalVisible: boolean = false;
+    fileModalVisible: boolean = false;
     calendarLocale = {
         firstDayOfWeek: 1,
         dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
@@ -42,8 +44,16 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
     @Output() stopEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
     constructor(private _service: TableService,private messageService: MessageService,
-                private _metadataService: TableMetadataService) {
-        super()
+                private _metadataService: TableMetadataService, private fb: FormBuilder) {
+        super();
+        this.createForm();
+    }
+
+    createForm() {
+        this.form = this.fb.group({
+            name: ['', Validators.required],
+            avatar: null
+        });
     }
 
     ngAfterViewInit() {
@@ -123,6 +133,15 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         this.wysiwygModalVisible = true;
     }
 
+    openFileModal() {
+        if(this.value){
+            this.temporalValue = this.value.slice();
+        } else {
+            this.temporalValue = "";
+        }
+        this.fileModalVisible = true;
+    }
+
     subject = new Subject();
 
     getOptions(): any {
@@ -196,5 +215,24 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         }
         this.optionsList = _options;
 
+    }
+
+    readFile(event: any) {
+        let reader = new FileReader();
+
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+
+            reader.onload = () => {
+                this.form.patchValue({
+                    file: reader.result
+                });
+                this.temporalValue = btoa(reader.result);
+
+                // need to run CD since file load runs outside of zone
+                // this.cd.markForCheck();
+            };
+        }
     }
 }

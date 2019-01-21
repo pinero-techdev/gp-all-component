@@ -42,6 +42,11 @@
             label="Abrir"
             (click)="openWYSIWYGModal()"
             [disabled]="!isEditable()"></button>
+    <button *ngSwitchCase="InputType.FILE_FIELD"
+            pButton
+            label="Abrir"
+            (click)="openFileModal()"
+            [disabled]="!isEditable()"></button>
     <p-calendar *ngSwitchCase="InputType.TIME_FIELD"
                 showTime="showTime" hourFormat="24" styleClass="full-width"
                 [timeOnly]="true"
@@ -185,5 +190,23 @@
         <button pButton label="Cancelar"
                 class="ui-button-danger"
                 (click)="wysiwygModalVisible = false"></button>
+    </p-footer>
+</p-dialog>
+
+<!--File input modal-->
+<p-dialog [(visible)]="fileModalVisible"
+          *ngIf="column.type == InputType.FILE_FIELD"
+          header="File Input"
+          [modal]="true">
+    <input type="file"
+           (change)="readFile($event)"
+           [disabled]="!isEditable()">
+    <p-footer>
+        <button pButton label="Aceptar"
+                class="ui-button-success"
+                (click)="startStop(temporalValue); fileModalVisible = false"></button>
+        <button pButton label="Cancelar"
+                class="ui-button-danger"
+                (click)="fileModalVisible = false"></button>
     </p-footer>
 </p-dialog>

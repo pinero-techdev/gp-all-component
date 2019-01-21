@@ -4,7 +4,7 @@ import {FieldMetadata, TableService} from "./table.service";
 import {InputType} from "../resources/data/field-type.enum";
 
 @Injectable()
-export class TableMetadataService{
+export class TableMetadataService {
     getTableColumnsFromMetadata(metadata: FieldMetadata[]): TableColumnMetadata[] {
         let columns: TableColumnMetadata[] = [];
         for (let field of metadata) {
@@ -108,6 +108,10 @@ export class TableMetadataService{
                 }
                 case TableService.WYSIWYG_DISPLAY_TYPE: {
                     column.type = InputType.WYSIWYG_FIELD;
+                    break;
+                }
+                case TableService.FILE_DISPLAY_TYPE: {
+                    column.type = InputType.FILE_FIELD;
                     break;
                 }
 

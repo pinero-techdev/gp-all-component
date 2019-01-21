@@ -10,4 +10,5 @@ export enum InputType {
     CALENDAR_FIELD,
     WYSIWYG_FIELD,
     IMG_FIELD,
+    FILE_FIELD,
 }
