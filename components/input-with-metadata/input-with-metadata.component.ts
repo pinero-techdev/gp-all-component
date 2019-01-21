@@ -135,9 +135,9 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
 
     openFileModal() {
         if(this.value){
-            this.temporalValue = this.value.slice();
+            this.temporalValue = (<any>Object).assign({}, this.value);
         } else {
-            this.temporalValue = "";
+            this.temporalValue = {};
         }
         this.fileModalVisible = true;
     }
@@ -195,6 +195,27 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         return this.optionsList;
     }
 
+    readFile(event: any) {
+        let reader = new FileReader();
+
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+
+            reader.onload = () => {
+                this.form.patchValue({
+                    file: reader.result
+                });
+                this.temporalValue.name = file.name;
+                this.temporalValue.mimetype = file.type;
+                this.temporalValue.file = reader.result;
+                var FileSaver = require('file-saver');
+                var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+                FileSaver.saveAs(blob, "hello world.txt");
+            };
+        }
+    }
+
     setOptions(options: any[]) {
         let _options = [{
             label: "Seleccione " + this.column.name.toLowerCase() + " ...",
@@ -217,22 +238,29 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
 
     }
 
-    readFile(event: any) {
-        let reader = new FileReader();
+    deleteFile() {
+        this.temporalValue = {id: this.temporalValue.id,name: '', mimetype: '', file: '', action: 'DELETE'};
+    }
 
-        if (event.target.files && event.target.files.length) {
-            const [file] = event.target.files;
-            reader.readAsDataURL(file);
+    downloadFile() {
+        let byteCharacters = atob(this.temporalValue.file.split(',')[1]);
+        var byteArrays = [];
 
-            reader.onload = () => {
-                this.form.patchValue({
-                    file: reader.result
-                });
-                this.temporalValue = btoa(reader.result);
+        for (var offset = 0; offset < byteCharacters.length; offset += 512) {
+            var slice = byteCharacters.slice(offset, offset + 512);
 
-                // need to run CD since file load runs outside of zone
-                // this.cd.markForCheck();
-            };
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+
+            byteArrays.push(byteArray);
         }
+
+        var blob = new Blob(byteArrays, {type: this.temporalValue.mimetype});
+        var FileSaver = require('file-saver');
+        FileSaver.saveAs(blob, this.temporalValue.name);
     }
 }

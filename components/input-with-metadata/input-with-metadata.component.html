@@ -201,6 +201,8 @@
     <input type="file"
            (change)="readFile($event)"
            [disabled]="!isEditable()">
+    <button (click)="deleteFile()">Delete</button>
+    <button (click)="downloadFile()">Download</button>
     <p-footer>
         <button pButton label="Aceptar"
                 class="ui-button-success"
