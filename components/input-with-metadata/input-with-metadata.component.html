@@ -1,6 +1,6 @@
 <div class="ui-inputgroup nopad"
      *ngIf="column"
-     [ngSwitch]="column.type">
+     [ngSwitch]="column.type" xmlns="http://www.w3.org/1999/html">
     <i class="material-icons" style="color: #ffba01;"
        *ngIf="!isFilter && column.messages && column.messages.length > 0"
        [pTooltip]="column.messages" tooltipPosition="top">warning</i>
@@ -32,36 +32,34 @@
                    (ngModelChange)="startStop($event)"
                    [disabled]="!isEditable()">
     </p-inputSwitch>
-    <button *ngSwitchCase="InputType.IMG_FIELD"
-            *ngIf="!isFilter"
-            pButton
-            label="Abrir"
-            (click)="openImgModal()"
-            [disabled]="!isEditable()"></button>
-    <button *ngSwitchCase="InputType.WYSIWYG_FIELD"
-            *ngIf="!isFilter"
-            pButton
-            label="Abrir"
-            (click)="openWYSIWYGModal()"
-            [disabled]="!isEditable()"></button>
-    <div *ngSwitchCase="InputType.FILE_FIELD">
-        <button *ngIf="!isFilter"
-            pButton
-            label="Abrir"
-            (click)="openFileModal()"
-            [disabled]="!isEditable()"></button>
-        <button *ngIf="!isFilter"
+    <ng-template [ngIf]="!isFilter">
+        <button *ngSwitchCase="InputType.IMG_FIELD"
                 pButton
-                label="Borrar"
-                (click)="deleteFile()"
+                label="Abrir"
+                (click)="openImgModal()"
                 [disabled]="!isEditable()"></button>
-        <button *ngIf="!isFilter"
+        <button *ngSwitchCase="InputType.WYSIWYG_FIELD"
                 pButton
-                label="Descargar"
-                (click)="downloadFile()"
+                label="Abrir"
+                (click)="openWYSIWYGModal()"
                 [disabled]="!isEditable()"></button>
-
-    </div>
+        <div *ngSwitchCase="InputType.FILE_FIELD">
+            <button pButton
+                    label="Abrir"
+                    (click)="openFileModal()"
+                    [disabled]="!isEditable()"></button>
+            <button pButton
+                    *ngIf="value.id && value.action !== 'DELETE'"
+                    label="Borrar"
+                    (click)="deleteFile()"
+                    [disabled]="!isEditable()"></button>
+            <button pButton
+                    *ngIf="value.id && value.action !== 'DELETE'"
+                    label="Descargar"
+                    (click)="downloadFile()"
+                    [disabled]="!isEditable()"></button>
+        </div>
+    </ng-template>
     <p-calendar *ngSwitchCase="InputType.TIME_FIELD"
                 showTime="showTime" hourFormat="24" styleClass="full-width"
                 [timeOnly]="true"
@@ -216,8 +214,6 @@
     <input type="file"
            (change)="readFile($event)"
            [disabled]="!isEditable()">
-    <button (click)="deleteFile()">Delete</button>
-    <button (click)="downloadFile()">Download</button>
     <p-footer>
         <button pButton label="Aceptar"
                 class="ui-button-success"

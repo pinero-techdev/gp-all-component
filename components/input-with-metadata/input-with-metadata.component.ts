@@ -207,12 +207,10 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
                 this.form.patchValue({
                     file: reader.result
                 });
+                this.temporalValue.action = 'MODIFY/CREATE'
                 this.temporalValue.name = file.name;
                 this.temporalValue.mimetype = file.type;
                 this.temporalValue.file = reader.result;
-                var FileSaver = require('file-saver');
-                var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-                FileSaver.saveAs(blob, "hello world.txt");
             };
         }
     }
@@ -240,10 +238,12 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
     }
 
     deleteFile() {
-        this.temporalValue = {id: this.temporalValue.id,name: '', mimetype: '', file: '', action: 'DELETE'};
+        this.value = {id: this.value.id,name: '', mimetype: '', file: '', action: 'DELETE'};
     }
 
     downloadFile() {
-        this._fileService.downloadFile(this.value)
+        if (this.value.action !== 'DELETE') {
+            this._fileService.downloadFile(this.value)
+        }
     }
 }
