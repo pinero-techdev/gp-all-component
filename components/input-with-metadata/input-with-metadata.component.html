@@ -33,16 +33,19 @@
                    [disabled]="!isEditable()">
     </p-inputSwitch>
     <button *ngSwitchCase="InputType.IMG_FIELD"
+            *ngIf="!isFilter"
             pButton
             label="Abrir"
             (click)="openImgModal()"
             [disabled]="!isEditable()"></button>
     <button *ngSwitchCase="InputType.WYSIWYG_FIELD"
+            *ngIf="!isFilter"
             pButton
             label="Abrir"
             (click)="openWYSIWYGModal()"
             [disabled]="!isEditable()"></button>
     <button *ngSwitchCase="InputType.FILE_FIELD"
+            *ngIf="!isFilter"
             pButton
             label="Abrir"
             (click)="openFileModal()"

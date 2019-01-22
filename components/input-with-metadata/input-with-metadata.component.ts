@@ -8,6 +8,7 @@ import {Observable, Subject} from "rxjs";
 import {Filter, TableService} from "../../services/table.service";
 import {TableMetadataService} from "../../services/table-metadata.service";
 import {MessageService} from "primeng/components/common/messageservice";
+import {FileService} from "../../services/file.service";
 
 @Component({
     selector: 'gp-app-input-with-metadata',
@@ -44,7 +45,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
     @Output() stopEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
     constructor(private _service: TableService,private messageService: MessageService,
-                private _metadataService: TableMetadataService, private fb: FormBuilder) {
+                private _metadataService: TableMetadataService, private fb: FormBuilder, private _fileService: FileService) {
         super();
         this.createForm();
     }
@@ -243,24 +244,6 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
     }
 
     downloadFile() {
-        let byteCharacters = atob(this.temporalValue.file.split(',')[1]);
-        var byteArrays = [];
-
-        for (var offset = 0; offset < byteCharacters.length; offset += 512) {
-            var slice = byteCharacters.slice(offset, offset + 512);
-
-            var byteNumbers = new Array(slice.length);
-            for (var i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            var byteArray = new Uint8Array(byteNumbers);
-
-            byteArrays.push(byteArray);
-        }
-
-        var blob = new Blob(byteArrays, {type: this.temporalValue.mimetype});
-        var FileSaver = require('file-saver');
-        FileSaver.saveAs(blob, this.temporalValue.name);
+        this._fileService.downloadFile(this.value)
     }
 }
