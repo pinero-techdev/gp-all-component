@@ -44,12 +44,24 @@
             label="Abrir"
             (click)="openWYSIWYGModal()"
             [disabled]="!isEditable()"></button>
-    <button *ngSwitchCase="InputType.FILE_FIELD"
-            *ngIf="!isFilter"
+    <div *ngSwitchCase="InputType.FILE_FIELD">
+        <button *ngIf="!isFilter"
             pButton
             label="Abrir"
             (click)="openFileModal()"
             [disabled]="!isEditable()"></button>
+        <button *ngIf="!isFilter"
+                pButton
+                label="Borrar"
+                (click)="deleteFile()"
+                [disabled]="!isEditable()"></button>
+        <button *ngIf="!isFilter"
+                pButton
+                label="Descargar"
+                (click)="downloadFile()"
+                [disabled]="!isEditable()"></button>
+
+    </div>
     <p-calendar *ngSwitchCase="InputType.TIME_FIELD"
                 showTime="showTime" hourFormat="24" styleClass="full-width"
                 [timeOnly]="true"
