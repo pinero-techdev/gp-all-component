@@ -194,6 +194,8 @@ export class TableMetadataService {
 
     isValid(value: any, column: TableColumnMetadata): boolean {
         column.messages = [];
+        if (column.type === InputType.FILE_FIELD)
+            return true;
         //Comprueba si el campo está vacío
         if (column.required && (value === undefined || value === null || value === "") ) { // 0 or false are valid values
             column.messages.push('El valor es obligatorio.');
