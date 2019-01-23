@@ -19,6 +19,7 @@ import {ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/d
 import {GpAppInputWithMetadataComponent} from "../input-with-metadata/input-with-metadata.component";
 import {InputType} from "../../resources/data/field-type.enum";
 import {TableMetadataService} from "../../services/table-metadata.service";
+import {FileService} from "gp-all-component/services/file.service";
 
 /*
 *  Data order: data -> filteredData -> sortedData -> currentPageData
@@ -32,6 +33,7 @@ import {TableMetadataService} from "../../services/table-metadata.service";
     providers: [ConfirmationService]
 })
 export class GpAppEditableTableComponent implements OnInit {
+    InputType = InputType;
     private _selectedData: any[] = [];
     private _columns: TableColumnMetadata[] = [];
     SelectionType = SelectionType;
@@ -41,6 +43,8 @@ export class GpAppEditableTableComponent implements OnInit {
     onEdition: boolean = false;
     onCreation: boolean = false;
     itemValid: boolean = true;
+    imgModalVisible: any = {visible: false};
+    textModalVisible: any = {visible: false};
     @ViewChild('pg') paginator: Paginator;
     /*
     * Context params
@@ -151,7 +155,7 @@ export class GpAppEditableTableComponent implements OnInit {
         return columnNumber;
     }
 
-    constructor(private _confirmationService: ConfirmationService, private _metadataService: TableMetadataService) { }
+    constructor(private _confirmationService: ConfirmationService, private _metadataService: TableMetadataService, private _fileService: FileService) { }
 
     ngOnInit() {
     }
@@ -385,11 +389,11 @@ export class GpAppEditableTableComponent implements OnInit {
     editItem = (item: any) => {
         if(this.onCreation || this.onEdition) { return; }
         let editFn = (editItem: any) => {
-                this.editionObject = Object.assign({}, editItem);
-                this.itemValid = this.isItemValid(this.editionObject);
-                this.onEdition = true;
-                item._editting = true;
-                this.startEdition.emit(this.editionObject);
+            this.editionObject = Object.assign({}, editItem);
+            this.itemValid = this.isItemValid(this.editionObject);
+            this.onEdition = true;
+            item._editting = true;
+            this.startEdition.emit(this.editionObject);
         };
         if(this.config.requestItemOnEdit) {
             this.edit.emit({
@@ -479,5 +483,9 @@ export class GpAppEditableTableComponent implements OnInit {
             }
         }
         return valid;
+    }
+
+    downloadFile(item, column) {
+        this._fileService.downloadFile(item[column.name]);
     }
 }
