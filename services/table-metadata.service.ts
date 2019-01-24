@@ -99,7 +99,7 @@ export class TableMetadataService {
                     break;
                 }
                 case TableService.CALENDAR_DISPLAY_TYPE:{
-                    column.type = InputType.CALENDAR_FIELD
+                    column.type = InputType.CALENDAR_FIELD;
                     break;
                 }
                 case TableService.HOUR_MINUTE_DISPLAY_TYPE:{
