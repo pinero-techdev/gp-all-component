@@ -1,11 +1,11 @@
-import {SelectItem} from 'primeng/primeng';
+import {GPSelectItem} from './gpSelectItem';
 
 export class GPSelector {
     /**
      * Opciones del options
      * @type {Array}
      */
-    options: SelectItem[] = [];
+    options: GPSelectItem[] = [];
 
     /**
      * Datos seleccionados, puede ser un valor o un array de valore
@@ -35,7 +35,7 @@ export class GPSelector {
      * @param translate - Pipe dedicado a traduccion
      */
     public cargarDatos(datos: any[], atributoValor: string, atributoDesc: string[], descripcionPorDefecto?: string,
-                       separadorAtributosDesc?: string, autoSeleccion?: boolean, translate?: any) {
+                       separadorAtributosDesc?: string, autoSeleccion?: boolean, translate?: any, atributoAdicional?: string) {
         this.options = [];
         let separador = ' - ';
         if (separadorAtributosDesc) {
@@ -61,7 +61,8 @@ export class GPSelector {
                         label += dato[descripcion];
                     }
                 }
-                this.options.push({label: label, value: dato[atributoValor]});
+                const additionalValue = atributoAdicional ? dato[atributoAdicional] : null;
+                this.options.push({label: label, value: dato[atributoValor], additional: additionalValue});
             }
             if (autoSeleccion && datos.length === 1) {
                 this.selection = this.isMultiSelect ? [this.options[0].value] : this.options[0].value;

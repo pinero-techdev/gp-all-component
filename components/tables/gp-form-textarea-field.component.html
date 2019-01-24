@@ -1,4 +1,6 @@
-<div class="nopad">
+<div [class.ui-g-12]="formField.fieldMetadata.displayInfo.translationInfo == null"
+     [class.ui-g-10]="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''"
+     class="nopad">
     <textarea name="__field__{{formField.fieldMetadata.fieldName}}"
               pInputTextarea
               [(ngModel)]="currentValueText"
@@ -7,7 +9,8 @@
               class="full-width"
               [disabled]="controlDisabled()"></textarea>
 </div>
-<div class="nopad" *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''">
+
+<div class="ui-g-2 nopad" *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''">
     <gp-app-multi-idioma [pKey]="translationKeys"
                          [esquema]="formField.fieldMetadata.displayInfo.translationInfo.scheme"
                          [tabla]="formField.fieldMetadata.displayInfo.translationInfo.table"
