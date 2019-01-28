@@ -207,7 +207,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
                 this.form.patchValue({
                     file: reader.result
                 });
-                this.temporalValue.action = 'MODIFY/CREATE'
+                this.temporalValue.operation = 'MODIFY'
                 this.temporalValue.name = file.name;
                 this.temporalValue.mimetype = file.type;
                 this.temporalValue.file = reader.result;
@@ -238,11 +238,11 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
     }
 
     deleteFile() {
-        this.value = {id: this.value.id,name: '', mimetype: '', file: '', action: 'DELETE'};
+        this.value = {id: this.value.id,name: '', mimetype: '', file: '', operation: 'DELETE'};
     }
 
     downloadFile() {
-        if (this.value.action !== 'DELETE') {
+        if (this.value.operation !== 'DELETE') {
             this._fileService.downloadFile(this.value)
         }
     }

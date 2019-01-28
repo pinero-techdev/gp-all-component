@@ -15,6 +15,7 @@ export class MetadataRs extends CommonRs {
 export class UpdateRowRq {
     jsonModifiedRow:string;
     jsonOriginalRow:string;
+    attachments:any[];
 }
 
 export class UpdateRowRs extends CommonRs {
@@ -261,10 +262,11 @@ export class TableService extends CommonService {
     /**
      * Llamada para actualizar un registro.
      */
-    updateRow(tableName:string, original:any, modificado:any):Observable<UpdateRowRs> {
+    updateRow(tableName:string, original:any, modificado:any, attachmets?: any):Observable<UpdateRowRs> {
         let rq = new UpdateRowRq();
         rq.jsonOriginalRow = JSON.stringify(original);
         rq.jsonModifiedRow = JSON.stringify(modificado);
+        rq.attachments = attachmets;
         return this.serviceRequest<UpdateRowRs>(
             `${GlobalService.BASE_URL}/table_svc/${tableName}/updateRow`,
             rq);

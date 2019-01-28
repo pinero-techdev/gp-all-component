@@ -486,6 +486,7 @@ export class GpAppEditableTableComponent implements OnInit {
     }
 
     downloadFile(item, column) {
-        this._fileService.downloadFile(item[column.name]);
+        if (item[column.name])
+            this._fileService.downloadFile(item[column.name]);
     }
 }

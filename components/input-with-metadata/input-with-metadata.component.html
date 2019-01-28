@@ -49,12 +49,12 @@
                     (click)="openFileModal()"
                     [disabled]="!isEditable()"></button>
             <button pButton
-                    *ngIf="value && value.id && value.action !== 'DELETE'"
+                    *ngIf="value && value.operation !== 'DELETE'"
                     label="Borrar"
                     (click)="deleteFile()"
                     [disabled]="!isEditable()"></button>
             <button pButton
-                    *ngIf="value && value.id && value.action !== 'DELETE'"
+                    *ngIf="value && value.operation !== 'DELETE'"
                     label="Descargar"
                     (click)="downloadFile()"
                     [disabled]="!isEditable()"></button>

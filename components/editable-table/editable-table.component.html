@@ -118,7 +118,7 @@
                                     (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]">Ver</button>
                             <button *ngSwitchCase="InputType.TEXTAREA_FIELD"
                                     pButton
-                                    (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]">{{item[column.name]}}</button>
+                                    (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]">Ver</button>
                             <p *ngSwitchDefault>{{item[column.name]}}</p>
                         </ng-container>
                         <p-dialog *ngIf="item[column.name] === imgModalVisible.img"

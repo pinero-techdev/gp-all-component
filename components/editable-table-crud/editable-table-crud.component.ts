@@ -8,6 +8,7 @@ import {TableConfig} from "../../resources/data/table-config.model";
 import {TableMetadataService} from "../../services/table-metadata.service";
 import {DataChangeEvent, ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
 import {MessageService} from "primeng/components/common/messageservice";
+import {InputType} from "gp-all-component/resources/data/field-type.enum";
 
 @Component({
     selector: 'gp-app-editable-table-crud',
@@ -100,6 +101,7 @@ export class GpAppEditableTableCrudComponent {
     }
 
     getOne(event: ItemChangeEvent) {
+
         let jsonRow = JSON.stringify(event.original);
         this.tableService.selectOneRow(this.tableName, jsonRow).subscribe(
             data => {
@@ -114,10 +116,22 @@ export class GpAppEditableTableCrudComponent {
             });
     }
 
+    getAttachments(item: any) {
+        let atts: any = [];
+        for (let column of this.columns) {
+            if (column.type === InputType.FILE_FIELD && item[column.name].operation === 'MODIFY') {
+                atts.push({fieldName: column.name, operation: item[column.name].operation, content: item[column.name].file});
+            }
+        }
+        return atts;
+    }
+
     saveItem(event: ItemChangeEvent) {
+        let atts: any = this.getAttachments(event.modified);
+        console.log(atts)
         let jsonOriginalRow = JSON.stringify(event.original);
         let jsonModifiedRow = JSON.stringify(event.modified);
-        this.tableService.updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow).subscribe(
+        this.tableService.updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow, atts).subscribe(
             data => {
                 if (data.ok) {
                     event.success(event.modified);
