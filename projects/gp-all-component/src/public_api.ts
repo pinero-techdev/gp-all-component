@@ -56,6 +56,7 @@ export * from './resources/data/menu/menu.model';
 export * from './resources/data/menu/menu-opcion.model';
 export * from './resources/data/menu/menu-opcion-propiedades.model';
 export * from './resources/data/menu/menu-opcion-propiedades-propiedad.model';
+export * from './resources/data/filter
 
 // Services
 export * from './services/auth-guard.service';
