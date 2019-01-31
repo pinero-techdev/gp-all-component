@@ -1,14 +1,14 @@
 import {HostListener} from '@angular/core';
-import {Mensajes} from './mensajes';
+import {MensajesComponent} from './mensajes.component';
 
-export class GpBase extends Mensajes {
+export abstract class GpBaseComponent extends MensajesComponent {
   width: number;
   height: number;
   working = false;
   jobs = 0;
   private offset = 0.95;
 
-  constructor() {
+  protected constructor() {
     super();
 
     this.height = window.innerHeight * this.offset;

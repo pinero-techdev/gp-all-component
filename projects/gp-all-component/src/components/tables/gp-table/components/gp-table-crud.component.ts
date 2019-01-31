@@ -78,7 +78,7 @@ export class GpTableCrudComponent {
   dialogErrors = false;
   addSelectedCodes: any = [];
 
-  // Mensajes de edicion.
+  // MensajesComponent de edicion.
   msgsDialog: Message[] = [];
   // Mensaje global.
   msgsGlobal: Message[] = [];

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Mensajes} from '../../resources/data/mensajes';
+import {MensajesComponent} from '../../resources/data/mensajes.component';
 import {Message} from 'primeng/primeng';
 import {ModificaPasswordRq, PasswordService} from '../../services/password.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './gp-modifica-password.component.html',
   providers: [PasswordService]
 })
-export class GpModificaPasswordComponent extends Mensajes implements OnInit {
+export class GpModificaPasswordComponent extends MensajesComponent implements OnInit {
   usuario: string;
   passwordOld: string;
   passwordNew: string;

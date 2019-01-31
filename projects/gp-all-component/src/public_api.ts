@@ -26,19 +26,17 @@ export * from './components/tables/gp-form/components/gp-form-wysiwyg-field.comp
 export * from './components/tables/gp-table/components/gp-table-crud.component';
 export * from './components/tables/gp-table/components/gp-table-frame.component';
 export * from './components/topbar/gp-topbar-component';
-
+export * from './resources/data/gp-base.component';
+export * from './resources/data/mensajes.component';
 // Directives
 export * from './directives/focus.directive';
 export * from './directives/lowercase.directive';
 export * from './directives/uppercase.directive';
-
 // Resources (Classes)
 export * from './resources/data/cached-element.model';
-export * from './resources/data/gp-base';
 export * from './resources/data/gp-select-item.model';
-export * from './resources/data/gp-selector';
+export * from './resources/data/gp-selector.model';
 export * from './resources/data/info-campo-modificado.model';
-export * from './resources/data/mensajes';
 export * from './resources/data/param.model';
 export * from './resources/data/request-options.model';
 export * from './resources/data/rol-info.model';
@@ -56,8 +54,6 @@ export * from './resources/data/menu/menu.model';
 export * from './resources/data/menu/menu-opcion.model';
 export * from './resources/data/menu/menu-opcion-propiedades.model';
 export * from './resources/data/menu/menu-opcion-propiedades-propiedad.model';
-export * from './resources/data/filter
-
 // Services
 export * from './services/auth-guard.service';
 export * from './services/auth-guard-redirect.service';

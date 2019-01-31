@@ -8,7 +8,7 @@ export class GpFormField {
   formFieldType: string = null;
   /* Indica si el campo es valido o no. */
   validField = true;
-  /* Mensajes de error asociados del campo. */
+  /* MensajesComponent de error asociados del campo. */
   fieldMsgs: Message[] = null;
 
   constructor(public formControl: GpFormControl, public fieldMetadata: DataTableMetaDataField) {

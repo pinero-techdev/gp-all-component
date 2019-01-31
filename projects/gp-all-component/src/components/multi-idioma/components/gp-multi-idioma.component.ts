@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {finalize} from 'rxjs/operators';
-import {Mensajes} from '../../../resources/data/mensajes';
+import {MensajesComponent} from '../../../resources/data/mensajes.component';
 import {Traduccion} from '../../../resources/data/traduccion.model';
 import {GetTraduccionesRq, MultiIdomaService, UpdateTraduccionesRq} from '../../../services/multi-idioma.service';
 import {LANGUAGE_ORDER} from '../constants/language-order.constant';
@@ -10,7 +10,7 @@ import {LANGUAGE_ORDER} from '../constants/language-order.constant';
   templateUrl: './gp-multi-idioma.component.html',
   providers: [MultiIdomaService]
 })
-export class GpMultiIdiomaComponent extends Mensajes implements OnInit {
+export class GpMultiIdiomaComponent extends MensajesComponent implements OnInit {
   @Input() tabla: string;
   @Input() pKey: string;
   @Input() esquema: string;
