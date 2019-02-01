@@ -41,7 +41,7 @@ export class CommonService {
 
   fromCache<T>(url: string, body: any, ttl?: number): Observable<T> {
     const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
-    const uintArray = new Uint8Array(JSON.stringify({userId, url, body}).split('').map(function (char) {
+    const uintArray = new Uint8Array(JSON.stringify({userId, url, body}).toString().split('').map(function (char) {
       return char.charCodeAt(0);
     }));
     const key = new Buffer(hash(uintArray)).toString('hex');
