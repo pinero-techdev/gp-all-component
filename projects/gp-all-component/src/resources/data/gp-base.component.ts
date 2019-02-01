@@ -8,7 +8,7 @@ export abstract class GpBaseComponent extends MensajesComponent {
   jobs = 0;
   private offset = 0.95;
 
-  protected constructor() {
+  constructor() {
     super();
 
     this.height = window.innerHeight * this.offset;
