@@ -86,6 +86,7 @@ export class GpMultiSelectComponent implements ControlValueAccessor {
 
   onChangeMultiselect() {
     let label: string;
+    const self = this;
     const selectionLabel = this.selectionLabel;
     if (!(this.multi === null || this.multi === undefined)) {
       this.multi.updateLabel = function () {
@@ -93,7 +94,7 @@ export class GpMultiSelectComponent implements ControlValueAccessor {
           label = this.value.length.toString() + ' ' + selectionLabel;
           this.valuesAsString = label;
         } else {
-          label = this.defaultLabel;
+          label = self.defaultLabel;
           this.valuesAsString = label;
         }
       };

@@ -1,5 +1,5 @@
 import {DataTableMetaDataFieldDisplayInfo} from './data-table-meta-data-field-display-info.model';
-import {DataTableMetaDataFieldRestriction} from './data-table-meta-data-field-restriction';
+import {DataTableMetaDataFieldRestriction} from './data-table-meta-data-field-restriction.model';
 
 export class DataTableMetaDataField {
   fieldMaxLength: number;

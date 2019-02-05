@@ -1,4 +1,4 @@
-import {ErrorInformationField} from './error-information-field';
+import {ErrorInformationField} from './error-information-field.model';
 
 export class ErrorInformation {
     errorMessage: string;
