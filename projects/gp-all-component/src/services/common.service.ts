@@ -14,6 +14,8 @@ import {hash} from '../util/sha256';
 
 import {GlobalService} from './global.service';
 
+import {Buffer} from 'buffer';
+
 export class CommonRs {
   ok: boolean;
   error: ErrorInformation;
