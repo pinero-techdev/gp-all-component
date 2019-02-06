@@ -1,10 +1,9 @@
 <p-dropdown name="__field__{{formField.fieldMetadata.fieldName}}"
             [options]="listAllowedValuesOptions"
-            [(ngModel)]="_currentValueDropDown"
+            [(ngModel)]="currentValueDropDown"
             [autoWidth]="false"
 			filter="true"
             (onChange)="onFieldChange()"
             [disabled]="controlDisabled()"
-            [ngClass]="{'ng-dirty ng-invalid': (formField.fieldMsgs != null && formField.fieldMsgs.length > 0) }"
             class="ui-inputfield ui-selectonemenu-label full-width" >
 </p-dropdown>

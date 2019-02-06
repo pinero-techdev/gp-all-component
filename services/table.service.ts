@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable'
-import {RelatedField} from '../resources/data/related-field.model';
 import {GlobalService} from "./global.service";
 import {CommonService, CommonRs} from "./common.service";
 
@@ -97,11 +96,12 @@ export class FieldDisplayInfo {
     rowsTextArea:number;
     fieldDescriptions:string[];
     textProperties:string[];
-    relatedFields: RelatedField[];
+    relatedField:string;
+    relatedFieldExt:string;
     translationInfo:TranslationInfo;
 
 
-    constructor(fieldLabel:string, order:number, displayType:string, checkedValue:string, uncheckedValue:string, options:FieldOption[], referencedTable:string, referencedField:string, fieldToOrderBy:string, filters:Filter[], rowsTextArea:number, fieldDescriptions:string[], textProperties:string[], relatedFields: RelatedField[], translationInfo:TranslationInfo) {
+    constructor(fieldLabel:string, order:number, displayType:string, checkedValue:string, uncheckedValue:string, options:FieldOption[], referencedTable:string, referencedField:string, fieldToOrderBy:string, filters:Filter[], rowsTextArea:number, fieldDescriptions:string[], textProperties:string[], relatedField:string, translationInfo:TranslationInfo) {
         this.fieldLabel = fieldLabel;
         this.order = order;
         this.displayType = displayType;
@@ -115,7 +115,7 @@ export class FieldDisplayInfo {
         this.rowsTextArea = rowsTextArea;
         this.fieldDescriptions = fieldDescriptions;
         this.textProperties = textProperties;
-        this.relatedFields = relatedFields;
+        this.relatedField = relatedField;
         this.translationInfo = translationInfo;
     }
 }

@@ -74,8 +74,7 @@
                     <gp-form-dropdown-related-field
                             *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
                             [formField]="col"
-                            (valueChanged)="changeEvent($event)"
-                            [relatedField]="fieldsChanged"></gp-form-dropdown-related-field>
+                            [relatedField]="fieldChanged"></gp-form-dropdown-related-field>
                     <gp-form-switch-field
                             *ngIf="col.formFieldType == 'gp-form-switch-field'"
                             [formField]="col"></gp-form-switch-field>

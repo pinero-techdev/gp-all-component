@@ -80,7 +80,7 @@ export class GpAppTableCrudComponent {
     formControl: GpFormControl = new GpFormControl();
 
     // Campo que ha sido modificado por el usuario
-    fieldsChanged: any = {};
+    fieldChanged: InfoCampoModificado = null;
 
     @ViewChildren(GpFormTextFieldComponent) textFormFields: QueryList<GpFormTextFieldComponent>;
     @ViewChildren(GpFormImgFieldComponent) imgFormFields: QueryList<GpFormImgFieldComponent>;
@@ -271,6 +271,7 @@ export class GpAppTableCrudComponent {
                     this.formControl.originalRow = JSON.parse(JSON.stringify(data.data));
                     let self = this;
                     this.forEachFieldControl(function (col: GpFormFieldControl) {
+                        console.log(col);
                         col.copyValueFromEditedRowToControl(self.formControl.editedRow);
                         col.clearValidations();
                     });
@@ -493,8 +494,7 @@ export class GpAppTableCrudComponent {
     }
 
     changeEvent(info: InfoCampoModificado) {
-        this.fieldsChanged[ info.field ] = info.value;
-        this.fieldsChanged = Object.assign( {}, this.fieldsChanged );
+        this.fieldChanged = info;
     }
 
     selectRowByIndex(atributeName: string, value: any) {
