@@ -281,7 +281,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
 
       this.tableService.list(this.tableName, true, false, null, this.filters).subscribe(
         data => {
-          console.log('getMetadata response:' + JSON.stringify(data));
+          //console.log('getMetadata response:' + JSON.stringify(data));
           if (data.ok) {
             this.actualizaDefinicion(data.metadata);
             this.elementos = data.data;
@@ -308,7 +308,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
     } else {
       this.tableService.list(this.tableName, true).subscribe(
         data => {
-          console.log('getMetadata response:' + JSON.stringify(data));
+          //console.log('getMetadata response:' + JSON.stringify(data));
           if (data.ok) {
             this.actualizaDefinicion(data.metadata);
             this.elementos = data.data;

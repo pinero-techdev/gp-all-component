@@ -120,7 +120,7 @@ export class GpAppTableCrudComponent {
       .finally(() => (this.working = false))
       .subscribe(
         data => {
-          console.log('getMetadata response:' + JSON.stringify(data));
+          //console.log('getMetadata response:' + JSON.stringify(data));
           if (data.ok) {
             this.actualizaDefinicion(data.metadata);
             this.elementos = data.data;
@@ -170,7 +170,7 @@ export class GpAppTableCrudComponent {
       .finally(() => (this.working = false))
       .subscribe(
         data => {
-          console.log('getMetadata response:' + JSON.stringify(data));
+          //console.log('getMetadata response:' + JSON.stringify(data));
           if (data.ok) {
             this.actualizaDefinicion(data.metadata);
             this.elementos = data.data;
