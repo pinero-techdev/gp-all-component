@@ -1,6 +1,7 @@
 import {Filter} from '../../filter/filter.model';
 import {TranslationInfo} from '../../translation-info.model';
 import {DataTableMetaDataFieldDisplayInfoOption} from './data-table-meta-data-field-display-info-option.model';
+import {DataTableMetaDataFieldDisplayInfoRelatedField} from './data-table-meta-data-field-display-info-related-field.model';
 
 export class DataTableMetaDataFieldDisplayInfo {
   fieldLabel: string;
@@ -16,14 +17,14 @@ export class DataTableMetaDataFieldDisplayInfo {
   rowsTextArea: number;
   fieldDescriptions: string[];
   textProperties: string[];
-  relatedField: string;
-  relatedFieldExt: string;
+  relatedFields: DataTableMetaDataFieldDisplayInfoRelatedField[];
   translationInfo: TranslationInfo;
 
   constructor(fieldLabel: string, order: number, displayType: string, checkedValue: string, uncheckedValue: string,
               options: DataTableMetaDataFieldDisplayInfoOption[], referencedTable: string, referencedField: string,
               fieldToOrderBy: string, filters: Filter[], rowsTextArea: number, fieldDescriptions: string[],
-              textProperties: string[], relatedField: string, translationInfo: TranslationInfo) {
+              textProperties: string[], relatedFields: DataTableMetaDataFieldDisplayInfoRelatedField[],
+              translationInfo: TranslationInfo) {
     this.fieldLabel = fieldLabel;
     this.order = order;
     this.displayType = displayType;
@@ -37,7 +38,7 @@ export class DataTableMetaDataFieldDisplayInfo {
     this.rowsTextArea = rowsTextArea;
     this.fieldDescriptions = fieldDescriptions;
     this.textProperties = textProperties;
-    this.relatedField = relatedField;
+    this.relatedFields = relatedFields;
     this.translationInfo = translationInfo;
   }
 }

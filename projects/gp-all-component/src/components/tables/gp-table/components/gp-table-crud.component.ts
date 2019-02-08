@@ -87,7 +87,7 @@ export class GpTableCrudComponent {
   formControl: GpFormControl = new GpFormControl();
 
   // Campo que ha sido modificado por el usuario
-  fieldChanged: InfoCampoModificado = null;
+  fieldsChanged: any = {};
 
   @ViewChildren(GpFormTextFieldComponent) textFormFields: QueryList<GpFormTextFieldComponent>;
   @ViewChildren(GpFormImgFieldComponent) imgFormFields: QueryList<GpFormImgFieldComponent>;
@@ -471,7 +471,8 @@ export class GpTableCrudComponent {
   }
 
   changeEvent(info: InfoCampoModificado) {
-    this.fieldChanged = info;
+    this.fieldsChanged[ info.field ] = info.value;
+    this.fieldsChanged = Object.assign( {}, this.fieldsChanged );
   }
 
   selectRowByIndex(atributeName: string, value: any) {

@@ -1,6 +1,6 @@
 <p-dropdown name="__field__{{formField.fieldMetadata.fieldName}}"
             [options]="listAllowedValuesOptions"
-            [(ngModel)]="currentValue"
+            [(ngModel)]="_currentValue"
             [autoWidth]="false"
 			filter="true"
             (onChange)="onFieldChange()"
