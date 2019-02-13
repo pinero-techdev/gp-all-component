@@ -4,7 +4,7 @@ import {FieldMetadata, TableService} from "./table.service";
 import {InputType} from "../resources/data/field-type.enum";
 
 @Injectable()
-export class TableMetadataService{
+export class TableMetadataService {
     getTableColumnsFromMetadata(metadata: FieldMetadata[]): TableColumnMetadata[] {
         let columns: TableColumnMetadata[] = [];
         for (let field of metadata) {
@@ -99,7 +99,7 @@ export class TableMetadataService{
                     break;
                 }
                 case TableService.CALENDAR_DISPLAY_TYPE:{
-                    column.type = InputType.CALENDAR_FIELD
+                    column.type = InputType.CALENDAR_FIELD;
                     break;
                 }
                 case TableService.HOUR_MINUTE_DISPLAY_TYPE:{
@@ -108,6 +108,10 @@ export class TableMetadataService{
                 }
                 case TableService.WYSIWYG_DISPLAY_TYPE: {
                     column.type = InputType.WYSIWYG_FIELD;
+                    break;
+                }
+                case TableService.FILE_DISPLAY_TYPE: {
+                    column.type = InputType.FILE_FIELD;
                     break;
                 }
 
@@ -190,6 +194,8 @@ export class TableMetadataService{
 
     isValid(value: any, column: TableColumnMetadata): boolean {
         column.messages = [];
+        if (column.type === InputType.FILE_FIELD)
+            return true;
         //Comprueba si el campo está vacío
         if (column.required && (value === undefined || value === null || value === "") ) { // 0 or false are valid values
             column.messages.push('El valor es obligatorio.');

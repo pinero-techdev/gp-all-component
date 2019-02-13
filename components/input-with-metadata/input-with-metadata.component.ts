@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, AfterViewInit, Output, ViewEncapsulation} from "@angular/core";
-import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
 import {CustomInput} from "../../resources/data/custom-input";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
 import {TableFieldEvent} from "../../resources/data/table.events";
@@ -8,6 +8,7 @@ import {Observable, Subject} from "rxjs";
 import {Filter, TableService} from "../../services/table.service";
 import {TableMetadataService} from "../../services/table-metadata.service";
 import {MessageService} from "primeng/components/common/messageservice";
+import {FileService} from "../../services/file.service";
 
 @Component({
     selector: 'gp-app-input-with-metadata',
@@ -18,12 +19,14 @@ import {MessageService} from "primeng/components/common/messageservice";
     ]
 })
 export class GpAppInputWithMetadataComponent extends CustomInput implements AfterViewInit {
+    form: FormGroup;
     InputType = InputType;
     editable: boolean;
     optionsList = [];
     imgModalVisible: boolean = false;
     textareaModalVisible: boolean = false;
     wysiwygModalVisible: boolean = false;
+    fileModalVisible: boolean = false;
     calendarLocale = {
         firstDayOfWeek: 1,
         dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
@@ -42,8 +45,16 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
     @Output() stopEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
     constructor(private _service: TableService,private messageService: MessageService,
-                private _metadataService: TableMetadataService) {
-        super()
+                private _metadataService: TableMetadataService, private fb: FormBuilder, private _fileService: FileService) {
+        super();
+        this.createForm();
+    }
+
+    createForm() {
+        this.form = this.fb.group({
+            name: ['', Validators.required],
+            avatar: null
+        });
     }
 
     ngAfterViewInit() {
@@ -123,6 +134,15 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         this.wysiwygModalVisible = true;
     }
 
+    openFileModal() {
+        if(this.value){
+            this.temporalValue = (<any>Object).assign({}, this.value);
+        } else {
+            this.temporalValue = {};
+        }
+        this.fileModalVisible = true;
+    }
+
     subject = new Subject();
 
     getOptions(): any {
@@ -176,6 +196,25 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         return this.optionsList;
     }
 
+    readFile(event: any) {
+        let reader = new FileReader();
+
+        if (event.target.files && event.target.files.length) {
+            const [file] = event.target.files;
+            reader.readAsDataURL(file);
+
+            reader.onload = () => {
+                this.form.patchValue({
+                    file: reader.result
+                });
+                this.temporalValue.operation = 'MODIFY'
+                this.temporalValue.name = file.name;
+                this.temporalValue.mimetype = file.type;
+                this.temporalValue.file = reader.result;
+            };
+        }
+    }
+
     setOptions(options: any[]) {
         let _options = [{
             label: "Seleccione " + this.column.name.toLowerCase() + " ...",
@@ -196,5 +235,15 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         }
         this.optionsList = _options;
 
+    }
+
+    deleteFile() {
+        this.value = {id: this.value.id,name: '', mimetype: '', file: '', operation: 'DELETE'};
+    }
+
+    downloadFile() {
+        if (this.value.operation !== 'DELETE') {
+            this._fileService.downloadFile(this.value)
+        }
     }
 }
