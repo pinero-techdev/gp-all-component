@@ -1,6 +1,8 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
+import {Buffer} from 'buffer';
+
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -13,8 +15,6 @@ import {RequestOptions} from '../resources/data/request-options.model';
 import {hash} from '../util/sha256';
 
 import {GlobalService} from './global.service';
-
-import {Buffer} from 'buffer';
 
 export class CommonRs {
   ok: boolean;
@@ -58,13 +58,15 @@ export class CommonService {
         });
       }
     }
-    this.post(url, body).pipe(map(response => {
+    const res = this.post<T>(url, body);
+    res.pipe(map(response => {
       if (response['ok'] && response['error'] == null && response['errorMessage'] == null) {
         response['cacheKey'] = key;
         sessionStorage.setItem(key, JSON.stringify(new CachedElement(response, (ttl != null) ? Date.now() + ttl : null)));
       }
       return response;
     }));
+    return res;
   }
 
   post<T>(url: string, body: any): Observable<T> {
