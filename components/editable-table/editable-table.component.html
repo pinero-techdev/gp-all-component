@@ -119,30 +119,15 @@
                             <button *ngSwitchCase="InputType.TEXTAREA_FIELD"
                                     pButton
                                     (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]">Ver</button>
-                            <p *ngSwitchDefault>{{item[column.name]}}</p>
+                            <ng-template ngSwitchDefault>
+                                <ng-template [ngIf]="column.referenceDescription" [ngIfElse]="defaultColumnField">
+                                    {{item[column.referenceDescription]}}
+                                </ng-template>
+                                <ng-template #defaultColumnField>
+                                    {{item[column.name]}}
+                                </ng-template>
+                            </ng-template>
                         </ng-container>
-                        <p-dialog *ngIf="item[column.name] === imgModalVisible.img"
-                                  [(visible)]="imgModalVisible.visible"
-                                  [header]="column.label"
-                                  [modal]="true">
-                            <img [src]="imgModalVisible.img" style="width: 100%; max-height: 50%;">
-                            <p-footer>
-                                <button pButton label="Cerrar"
-                                        class="ui-button-success"
-                                        (click)="imgModalVisible.visible = false"></button>
-                            </p-footer>
-                        </p-dialog>
-                        <p-dialog *ngIf="item[column.name] === textModalVisible.text"
-                                  [(visible)]="textModalVisible.visible"
-                                  [header]="column.label"
-                                  [modal]="true">
-                            <p>{{textModalVisible.text}}</p>
-                            <p-footer>
-                                <button pButton label="Cerrar"
-                                        class="ui-button-success"
-                                        (click)="textModalVisible.visible = false"></button>
-                            </p-footer>
-                        </p-dialog>
                     </td>
                 </ng-template>
             </ng-template>
@@ -201,6 +186,24 @@
         </tbody>
     </table>
 </div>
+<p-dialog [(visible)]="imgModalVisible.visible"
+          [modal]="true">
+    <img [src]="imgModalVisible.img" style="width: 100%; max-height: 50%;" *ngIf="imgModalVisible.visible">
+    <p-footer>
+        <button pButton label="Cerrar"
+                class="ui-button-success"
+                (click)="imgModalVisible.visible = false"></button>
+    </p-footer>
+</p-dialog>
+<p-dialog [(visible)]="textModalVisible.visible"
+          [modal]="true">
+    <p>{{textModalVisible.text}}</p>
+    <p-footer>
+        <button pButton label="Cerrar"
+                class="ui-button-success"
+                (click)="textModalVisible.visible = false"></button>
+    </p-footer>
+</p-dialog>
 <ng-template #defaultFormTemplate let-item let-columns="columns">
     <td *ngFor="let column of columns">
         <gp-app-input-with-metadata [(ngModel)]="item[column.name]"

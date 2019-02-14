@@ -175,7 +175,11 @@ export class GpAppEditableTableComponent implements OnInit {
     itemValueChanged(event: TableFieldEvent, item: any) {
         if(event && event.column) {
             this.inputs.forEach((input: GpAppInputWithMetadataComponent, index: number, inputs: GpAppInputWithMetadataComponent[]) => {
-                if(!input.isFilter && input.column.type == InputType.DROPDOWN_RELATED_FIELD && input.column.relatedField == event.column.name) {
+                if(!input.isFilter &&
+                    input.column.type === InputType.DROPDOWN_RELATED_FIELD &&
+                    input.column.relatedFields.find( item => {
+                        return item.field === event.column.name
+                })) {
                     input.getOptions()
                 }
             });
@@ -188,8 +192,17 @@ export class GpAppEditableTableComponent implements OnInit {
         this.paginator.changePage(0);
         column.filter = filterValue;
         this.inputs.forEach((input: GpAppInputWithMetadataComponent, index: number, inputs: GpAppInputWithMetadataComponent[]) => {
-            if(input.isFilter && input.column.type == InputType.DROPDOWN_RELATED_FIELD && input.column.relatedField == column.name) {
-                input.getOptions()
+            if(input.isFilter &&
+                input.column.type == InputType.DROPDOWN_RELATED_FIELD &&
+                input.column.relatedFields
+                ) {
+                    let related = input.column.relatedFields.find( item => {
+                        return item.field === column.name
+                    });
+                    if(related) {
+                        related.value = filterValue;
+                        input.getOptions();
+                    }
             }
         });
     }

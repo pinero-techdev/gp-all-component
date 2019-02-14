@@ -150,8 +150,13 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
             this.subject
                 .switchMap(() => {
                     let filters: Filter[] = [];
-                    if (!this.isFilter && this.column && this.column.relatedField && this.item[this.column.relatedField]) {
-                        filters.push(new Filter('EQUAL', this.column.referencedRelatedField, [this.item[this.column.relatedField]]));
+                    if (this.column && this.column.relatedFields) {
+                        for (let related of this.column.relatedFields) {
+                            // Validation disabled to prevent get All elements when related fields are not selected
+                            // if (this.item[related.field] !== null && this.item[related.field] !== undefined) {
+                            filters.push(new Filter('EQUAL', (related.fieldExternal)? related.fieldExternal : related.field, [related.value]));
+                            // }
+                        }
                     }
                     return this._service.list(
                         this.column.referencedTable,

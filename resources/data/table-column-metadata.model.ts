@@ -1,6 +1,7 @@
 import {TranslationInfo} from "../../services/table.service";
 import {InputType} from "./field-type.enum";
 import {Observable} from "rxjs";
+import {RelatedField} from "./related-field.model";
 
 export class TableColumnMetadata {
     name: string;
@@ -31,8 +32,10 @@ export class TableColumnMetadata {
     trim: boolean = false;
     noSpace: boolean = false;
     rows: number = 5;
-    relatedField: string;
-    referencedRelatedField: string;
+    relatedFields: RelatedField[] = [];
+    referenceDescription: string;
+    // relatedField: string;
+    // referencedRelatedField: string;
     validateFn: (value:any, item: any, column: TableColumnMetadata) => boolean; // custom input validation
     editableFn: (value:any, item: any, column: TableColumnMetadata) => boolean; // Enable or disable input edition
     setOptionsFn: (options: any[], item: any, column: TableColumnMetadata) => any[] | Observable<any[]>; // Change dropdown options

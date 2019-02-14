@@ -20,6 +20,7 @@ export class TableMetadataService {
         column.editable = !metadata.readOnly;
         column.isId = metadata.id;
         column.allowAscii = metadata.allowAscii;
+        column.referenceDescription = metadata.referenceDescription;
         this.getType(metadata, column);
         if(metadata.displayInfo) {
             column.label = metadata.displayInfo.fieldLabel;
@@ -33,8 +34,9 @@ export class TableMetadataService {
             column.optionsValue = metadata.displayInfo.referencedField;
             // column.optionsLabels = metadata.displayInfo;
 
-            column.relatedField = metadata.displayInfo.relatedField;
-            column.referencedRelatedField = metadata.displayInfo.relatedFieldExt ? metadata.displayInfo.relatedFieldExt : metadata.displayInfo.relatedField;
+            column.relatedFields = metadata.displayInfo.relatedFields;
+            // column.relatedField = metadata.displayInfo.relatedField;
+            // column.referencedRelatedField = metadata.displayInfo.relatedFieldExt ? metadata.displayInfo.relatedFieldExt : metadata.displayInfo.relatedField;
             if (metadata.displayInfo.fieldDescriptions && metadata.displayInfo.fieldDescriptions.length > 0) {
                 column.optionsLabels = metadata.displayInfo.fieldDescriptions;
             }

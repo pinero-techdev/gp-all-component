@@ -63,8 +63,9 @@ export class FieldMetadata {
     lengthInTable:number;
     restrictions:FieldRestriction[];
     displayInfo:FieldDisplayInfo;
+    referenceDescription: string;
 
-    constructor(fieldMaxLength:number, fieldName:string, fieldType:string, id:boolean, notNull:boolean, readOnly:boolean, allowAscii:boolean, lengthInTable:number, restrictions:FieldRestriction[], displayInfo:FieldDisplayInfo) {
+    constructor(fieldMaxLength:number, fieldName:string, fieldType:string, id:boolean, notNull:boolean, readOnly:boolean, allowAscii:boolean, lengthInTable:number, restrictions:FieldRestriction[], displayInfo:FieldDisplayInfo, referenceDescription: string) {
         this.fieldMaxLength = fieldMaxLength;
         this.fieldName = fieldName;
         this.fieldType = fieldType;
@@ -75,6 +76,7 @@ export class FieldMetadata {
         this.lengthInTable = lengthInTable;
         this.restrictions = restrictions;
         this.displayInfo = displayInfo;
+        this.referenceDescription = referenceDescription;
     }
 }
 
