@@ -35,7 +35,7 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns" >
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr [pSelectableRow]="rowData">
             <td *ngFor="let col of columns">
               {{rowData[col.fieldMetadata.fieldName]}}
@@ -75,7 +75,7 @@
             *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
             [formField]="col"
             (valueChanged)="changeEvent($event)"
-            [relatedField]="fieldsChanged""></gp-form-dropdown-related-field>
+            [relatedField]="fieldsChanged"></gp-form-dropdown-related-field>
           <gp-form-switch-field
             *ngIf="col.formFieldType == 'gp-form-switch-field'"
             [formField]="col"></gp-form-switch-field>

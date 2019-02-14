@@ -13,25 +13,25 @@ import {GpFormField} from '../resources/gp-form-field.model';
   selector: 'gp-form-dropdown-related-field',
   templateUrl: './gp-form-dropdown-related-field.component.html'
 })
-export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl implements OnInit{
-  constructor(private _tableService: TableService, , private _gpUtil: GPUtil) {
+export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl implements OnInit {
+  constructor(private _tableService: TableService, private _gpUtil: GPUtil) {
     super();
   }
 
   @Input()
-  set relatedField( fieldsChanged ) {
-    if ( fieldsChanged ) {
-      for ( let fieldName in fieldsChanged ) {
-        const relatedField = this._gpUtil.getElementFromArray(this._relatedFields, 'field', fieldName );
+  set relatedField(fieldsChanged) {
+    if (fieldsChanged) {
+      for (const fieldName of fieldsChanged) {
+        const relatedField = this._gpUtil.getElementFromArray(this._relatedFields, 'field', fieldName);
         if (relatedField) {
           relatedField.value = fieldsChanged[fieldName];
         }
       }
-      if ( !this.relatedFieldsSelected() ) {
+      if (!this.relatedFieldsSelected()) {
         const label = this.getLabel();
         this.listAllowedValuesOptions = [{label: label, value: null}];
         // Si se ha modificado el valor, actualizamos
-        if ( this._currentValue != null ) {
+        if (this._currentValue != null) {
           this._currentValue = null;
         }
       } else {
@@ -42,13 +42,13 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl impl
   }
 
   // Capturamos los eventos onchange del valor
-  set _currentValue(value:string) {
+  set _currentValue(value: string) {
     this.currentValue = value;
-    let infoCampoModificado = new InfoCampoModificado(this.formField.fieldMetadata.fieldName, this.currentValue);
+    const infoCampoModificado = new InfoCampoModificado(this.formField.fieldMetadata.fieldName, this.currentValue);
     this.valueChanged.emit(infoCampoModificado);
   }
 
-  get _currentValue():string {
+  get _currentValue(): string {
     return this.currentValue;
   }
 
@@ -56,7 +56,6 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl impl
 
   @Output()
   valueChanged = new EventEmitter<InfoCampoModificado>();
-
 
   list: any;
 
@@ -79,14 +78,14 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl impl
   inicializa() {
     this.listAllowedValuesOptions = [];
     this._relatedFields = this.formField.fieldMetadata.displayInfo.relatedFields;
-    if (this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo.referencedTable != null && this.formField.fieldMetadata.displayInfo.referencedTable != '') {
+    if (this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo.referencedTable != null && this.formField.fieldMetadata.displayInfo.referencedTable !== '') {
       // Cargamos los datos de una tabla?
       console.log('GpFormDropdownFieldComponent.ngOnInit: loading from table ' + this.formField.fieldMetadata.displayInfo.referencedTable);
       this.listAllowedValuesOptions = [{label: 'Cargando los datos del desplegable ...', value: null}];
       console.log(this.formField.fieldMetadata.displayInfo.referencedTable);
-      let fieldToOrderBy = this.formField.fieldMetadata.displayInfo.fieldToOrderBy ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy] : null;
+      const fieldToOrderBy = this.formField.fieldMetadata.displayInfo.fieldToOrderBy ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy] : null;
       this._tableService.list(this.formField.fieldMetadata.displayInfo.referencedTable, true, true, fieldToOrderBy, this.formField.fieldMetadata.displayInfo.filters)
-        .finally(() => this.listCharged = true)
+        .pipe(finalize(() => this.listCharged = true))
         .subscribe(
           data => {
             if (data.ok) {
@@ -114,7 +113,7 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl impl
       this.processData();
 
       // Solo tiene cargado la info de selección
-      if (this.listAllowedValuesOptions.length == 1) {
+      if (this.listAllowedValuesOptions.length === 1) {
         this.listAllowedValuesOptions = [{
           label: 'No existen opciones para el valor seleccionado',
           value: null
@@ -122,8 +121,8 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl impl
       }
       // Si el valor no existe dentro de las opciones, se reinicia el valor
       if (this.listAllowedValuesOptions.filter(item => {
-        return item.value == this._currentValue;
-      }).length == 0) {
+        return item.value === this._currentValue;
+      }).length === 0) {
         this._currentValue = null;
       }
     } else if (!this.listCharged) {
@@ -161,20 +160,19 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl impl
    * Función que devuelve la descripción de la opción con los campos relacionados que faltan por seleccionar.
    */
   getLabel(): string {
-    let fields = this._relatedFields.filter(field => field.value == null )
+    const fields = this._relatedFields.filter(field => field.value == null)
       .map(
         item =>
           item.fieldDescription.toLowerCase()
       );
 
-
     let label = 'Primero debe seleccionar ';
-    if ( fields.length === 1 ) {
-      label +=  fields.toString();
+    if (fields.length === 1) {
+      label += fields.toString();
     } else {
       const fieldsString = fields.join(',');
       const indexLastComa = fieldsString.lastIndexOf(',');
-      label += fieldsString.substring(0, indexLastComa) + ' y ' + fieldsString.substring(indexLastComa + 1)
+      label += fieldsString.substring(0, indexLastComa) + ' y ' + fieldsString.substring(indexLastComa + 1);
     }
 
     return label;
@@ -202,27 +200,27 @@ export class GpFormDropdownRelatedfieldComponent extends GpFormFieldControl impl
       this.listAllowedValuesOptions = [{label: label, value: null}];
     } else {
       this.listAllowedValuesOptions = [{
-        label: "Seleccione " + this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase() + " ...",
+        label: 'Seleccione ' + this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase() + ' ...',
         value: null
       }];
       const optionsAllowed = this.list.filter(item => {
         let valid = true;
-        for (let relatedField  of this._relatedFields) {
-          var fieldExt = relatedField.fieldExternal || relatedField.field;
-          valid = valid && relatedField.value == item[ fieldExt ];
+        for (const relatedField  of this._relatedFields) {
+          const fieldExt = relatedField.fieldExternal || relatedField.field;
+          valid = valid && relatedField.value === item[fieldExt];
         }
         return valid;
       })
         .map((item) => {
           let optionLabel = '';
           let separator = '';
-          for (let fieldDesc of this.formField.fieldMetadata.displayInfo.fieldDescriptions) {
+          for (const fieldDesc of this.formField.fieldMetadata.displayInfo.fieldDescriptions) {
             optionLabel += separator + item[fieldDesc];
             separator = ' - ';
           }
           return {label: optionLabel, value: item[this.formField.fieldMetadata.displayInfo.referencedField]};
-        } );
-      this.listAllowedValuesOptions = this.listAllowedValuesOptions.concat( optionsAllowed );
+        });
+      this.listAllowedValuesOptions = this.listAllowedValuesOptions.concat(optionsAllowed);
     }
   }
 }
