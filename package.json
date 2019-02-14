@@ -17,7 +17,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "npm_pack": "cd dist/gp-all-component && npm pack",
-    "package": "npm run build && npm run npm_pack"
+    "package": "npm run build && npm run npm_pack",
+    "deploy-component": "node deploy-gp-all-component.js"
   },
   "dependencies": {
     "@angular/animations": "~7.2.0",
@@ -83,6 +84,8 @@
     "tslib": "^1.9.0",
     "tslint": "~5.12.0",
     "typescript": "~3.2.2",
-    "webpack": "^4.6.0"
+    "webpack": "^4.6.0",
+    "scp2": "0.5.0",
+    "prompt-password": "1.2.0"
   }
 }
