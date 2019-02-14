@@ -156,7 +156,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
                             // if (this.item[related.field] !== null && this.item[related.field] !== undefined) {
                             filters.push(new Filter('EQUAL',
                                 (related.fieldExternal)? related.fieldExternal : related.field,
-                                [(this.isFilter ? related.value : this.item[this.column.name])]));
+                                [(this.isFilter ? related.value : this.item[related.field])]));
                             // }
                         }
                     }
