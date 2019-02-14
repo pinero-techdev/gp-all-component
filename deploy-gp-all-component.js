@@ -1,7 +1,7 @@
 // Sube el componente de gp-all-components al servidor apache.
 // La dependencia posterior del componente es:
 //
-//        "gp-all-component": "http://software.wapt.cen.intranet/angular/gp-all-components/gp-all-component-1.1.0.tgz",
+//        "gp-all-component": "http://software.wapt.cen.intranet/angular/gp-all-component/gp-all-component-1.1.0.tgz",
 //
 // Modificar las variables package y component con la version correspondiente del componente.
 //
