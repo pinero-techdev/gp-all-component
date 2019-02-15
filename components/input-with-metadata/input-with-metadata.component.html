@@ -1,6 +1,6 @@
 <div class="ui-inputgroup nopad"
      *ngIf="column"
-     [ngSwitch]="column.type" xmlns="http://www.w3.org/1999/html">
+     [ngSwitch]="column.type">
     <i class="material-icons" style="color: #ffba01;"
        *ngIf="!isFilter && column.messages && column.messages.length > 0"
        [pTooltip]="column.messages" tooltipPosition="top">warning</i>
@@ -62,6 +62,7 @@
     </ng-template>
     <p-calendar *ngSwitchCase="InputType.TIME_FIELD"
                 showTime="showTime" hourFormat="24" styleClass="full-width"
+                appendTo="body"
                 [timeOnly]="true"
                 [ngModel]="value"
                 (ngModelChange)="setTimeValue($event)"
@@ -69,6 +70,7 @@
     </p-calendar>
     <p-calendar *ngSwitchCase="InputType.CALENDAR_FIELD"
                 styleClass="full-width"
+                appendTo="body"
                 [defaultDate]="value"
                 [ngModel]="value"
                 [disabled]="!isEditable()"
@@ -78,6 +80,7 @@
     </p-calendar>
     <p-dropdown  *ngSwitchCase="InputType.DROPDOWN_FIELD"
                  [showClear]="true"
+                 appendTo="body"
                  [options]="optionsList"
                  [ngModel]="value"
                  [autoWidth]="false"
@@ -88,6 +91,7 @@
     </p-dropdown>
     <p-dropdown  *ngSwitchCase="InputType.DROPDOWN_RELATED_FIELD"
                  [showClear]="true"
+                 appendTo="body"
                  [options]="optionsList"
                  [ngModel]="value"
                  [autoWidth]="false"
