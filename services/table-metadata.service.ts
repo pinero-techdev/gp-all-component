@@ -213,7 +213,7 @@ export class TableMetadataService {
             } else if (column.uppercase && value && value !== String(value).toUpperCase()) {
                 column.messages.push('El valor indicado ha de estar en mayusculas.');
                 return false;
-            } else if (column.trim && value && value !== String(value).trim()) {
+            } else if (column.trim && value && String(value) !== String(value).trim()) {
                 column.messages.push('El valor indicado no puede contener espacios.');
                 return false;
             }

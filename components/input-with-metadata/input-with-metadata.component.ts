@@ -170,38 +170,54 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
                 .subscribe((data) => {
                     if (data.ok) {
                         if (this.column.setOptionsFn) {
-                            // caso setOptionsFn es Observable
-                            let opts = this.column.setOptionsFn(data.data, this.item, this.column);
-                            if (opts instanceof Observable) {
-                                opts.subscribe(data => {
-                                    this.setOptions(data)
-                                }, e => {
-                                    this.optionsList = [{label: "Error recuperando datos.", value: null}];
-                                }, () => {
-                                })
-                            } else {
-                                // caso setOptionsFn es any[]
-                                this.setOptions(opts)
-                            }
+                            this.setCustomOptions(data.data);
                         } else {
                             // caso no tenemos una setOptionsFn
                             this.setOptions(data.data)
                         }
+                    } else {
+                        if (this.column.setOptionsFn) {
+                            this.setCustomOptions([]);
+                        } else {
+                            this.optionsList = [{label: "Error recuperando datos.", value: null}];
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'error',
+                                detail: 'Error interno cargando el registro.'
+                            });
+                        }
+                    }
+                }, (err) => {
+                    if (this.column.setOptionsFn) {
+                        this.setCustomOptions([]);
                     } else {
                         this.optionsList = [{label: "Error recuperando datos.", value: null}];
                         this.messageService.add({
                             severity: 'error',
                             summary: 'error',
                             detail: 'Error interno cargando el registro.'
-                        });
+                        })
                     }
-                }, (err) => {
-                    this.optionsList = [{label: "Error recuperando datos.", value: null}];
-                    this.messageService.add({severity: 'error', summary: 'error', detail: 'Error interno cargando el registro.'})
                 })
         }
         this.subject.next();
         return this.optionsList;
+    }
+
+    setCustomOptions(customData: any[]) {
+        // caso setOptionsFn es Observable
+        let opts = this.column.setOptionsFn(customData, this.item, this.column);
+        if (opts instanceof Observable) {
+            opts.subscribe(data => {
+                this.setOptions(data)
+            }, e => {
+                this.optionsList = [{label: "Error recuperando datos.", value: null}];
+            }, () => {
+            })
+        } else {
+            // caso setOptionsFn es any[]
+            this.setOptions(opts)
+        }
     }
 
     readFile(event: any) {
