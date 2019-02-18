@@ -43,6 +43,8 @@ export * from './resources/data/translation-info.model';
 export * from './resources/data/user-info.model';
 export * from './resources/data/data-table/filter/data-table-filter-type.enum';
 export * from './resources/data/data-table/filter/data-table-filter.model';
+export * from './resources/data/data-table/meta-data/data-table-meta-data.model';
+export * from './resources/data/data-table/meta-data/data-table-meta-data-field.model';
 export * from './resources/data/data-table/sort/data-table-sort.model';
 export * from './resources/data/error-information/error-information.model';
 export * from './resources/data/error-information/error-information-field.model';
