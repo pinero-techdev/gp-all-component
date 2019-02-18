@@ -218,7 +218,7 @@ export class GpTableCrudComponent {
     const displayTypes: Map<string, string> = new Map([
       [GpTableDisplayTypes.TEXT_AREA, GpFormFieldType.TEXT_AREA],
       [GpTableDisplayTypes.DROPDOWN, GpFormFieldType.DROPDOWN],
-      [GpTableDisplayTypes.DROPDOWN, GpFormFieldType.DROPDOWN_RELATED],
+      [GpTableDisplayTypes.DROPDOWN_RELATED, GpFormFieldType.DROPDOWN_RELATED],
       [GpTableDisplayTypes.CHECKBOX, GpFormFieldType.CHECKBOX],
       [GpTableDisplayTypes.SWITCH, GpFormFieldType.SWITCH],
       [GpTableDisplayTypes.HOUR_MINUTE, GpFormFieldType.TIME],
