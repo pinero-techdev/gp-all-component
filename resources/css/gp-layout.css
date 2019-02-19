@@ -53,7 +53,7 @@ a {
 
 /** PRIMENG OVERWRITES **/
 .ui-dropdown-filter-container {
-    width: 95%;
+    width: auto !important;
 }
 
 .ui-button-icon-only .fa {
