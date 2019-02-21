@@ -221,6 +221,7 @@ export class GpTableCrudComponent {
       [GpTableDisplayTypes.DROPDOWN_RELATED, GpFormFieldType.DROPDOWN_RELATED],
       [GpTableDisplayTypes.CHECKBOX, GpFormFieldType.CHECKBOX],
       [GpTableDisplayTypes.SWITCH, GpFormFieldType.SWITCH],
+      [GpTableDisplayTypes.CALENDAR, GpFormFieldType.CALENDAR],
       [GpTableDisplayTypes.HOUR_MINUTE, GpFormFieldType.TIME],
       [GpTableDisplayTypes.WYSIWYG, GpFormFieldType.WYSIWYG],
       [GpTableDisplayTypes.IMG, GpFormFieldType.IMG]

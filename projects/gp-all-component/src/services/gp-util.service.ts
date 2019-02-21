@@ -43,7 +43,11 @@ export class GPUtil {
     public static str2Date(str: string, fmt: string): Date {
         let fecha = null;
         if (str) {
-            fecha = moment.utc(str, fmt).toDate();
+            if( !fmt )
+            {
+                fmt = 'YYYY-MM-DD';
+            }
+            fecha = moment.parseZone(str, fmt).toDate();
         }
         return fecha;
     }
@@ -51,16 +55,13 @@ export class GPUtil {
     public static str2DateString(str: string, fmt1: string, fmt2: string): string {
         let fecha = null;
         if (str) {
-            fecha = moment.utc(str, fmt1).format(fmt2);
+            fecha = moment.parseZone(str, fmt1).format(fmt2);
         }
         return fecha;
     }
 
     // FIXME 17/12/2018 convertir con moment
     public static dateToYyyymmdd(dt: Date): string {
-        if (dt == null) {
-            return null;
-        }
         const y = '000' + dt.getFullYear();
         const m = '0' + (dt.getMonth() + 1);
         const d = '0' + dt.getDate();

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, OnInit } from '@angular/core';
 import {SelectItem} from 'primeng/components/common/api';
 import {DataTableMetaDataField} from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import {InfoCampoModificado} from '../../../../resources/data/info-campo-modificado.model';
@@ -10,7 +10,7 @@ import {GpFormField} from '../resources/gp-form-field.model';
   selector: 'gp-form-dropdown-field',
   templateUrl: './gp-form-dropdown-field.component.html'
 })
-export class GpFormDropdownFieldComponent extends GpFormFieldControl {
+export class GpFormDropdownFieldComponent extends GpFormFieldControl implements OnInit {
   @Output() valueChanged = new EventEmitter<InfoCampoModificado>();
   listAllowedValuesOptions: SelectItem[];
 
@@ -30,6 +30,10 @@ export class GpFormDropdownFieldComponent extends GpFormFieldControl {
 
   public getFormField(): GpFormField {
     return this.formField;
+  }
+
+  ngOnInit() {
+    this.inicializa();
   }
 
   getFieldMetadata(): DataTableMetaDataField {

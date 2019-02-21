@@ -10,21 +10,35 @@ import {GpFormField} from '../resources/gp-form-field.model';
 })
 export class GpFormCalendarFieldComponent extends GpFormFieldControl implements OnInit {
   dateFormat = 'dd/mm/yy';
-  es: any;
+
+  es = {
+        closeText: 'Cerrar',
+        prevText: '<Ant',
+        nextText: 'Sig>',
+        currentText: 'Hoy',
+        monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+            'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+        monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun',
+            'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+        dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
+        dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        weekHeader: 'Sm',
+        // defaultDate: new Date(),
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        firstDayOfWeek: 1,
+        today: 'Today',
+        clear: 'Clear',
+    };
 
   getFieldMetadata(): DataTableMetaDataField {
     return this.formField.fieldMetadata;
   }
 
   ngOnInit() {
-    this.es = {
-      firstDayOfWeek: 1,
-      dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
-      dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-      dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
-      monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
-      monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
-    };
   }
 
   public getFormField(): GpFormField {
@@ -32,12 +46,18 @@ export class GpFormCalendarFieldComponent extends GpFormFieldControl implements 
   }
 
   copyValueFromControlToEditedRow(editedRow: any) {
+    // console.log( 'copyValueFromControlToEditedRow, editedRow: ' + JSON.stringify( editedRow ) );
+    // console.log( 'copyValueFromControlToEditedRow, currentValue: ' + JSON.stringify( this.currentValue ) );
     editedRow[this.formField.fieldMetadata.fieldName] = GPUtil.dateToYyyymmdd(this.currentValue);
+    // console.log( 'copyValueFromControlToEditedRow, editedRow field: ' + JSON.stringify( editedRow[this.formField.fieldMetadata.fieldName] ) );
   }
 
   copyValueFromEditedRowToControl(editedRow: any) {
     const value = editedRow[this.formField.fieldMetadata.fieldName];
-    this.currentValue = GPUtil.str2Date(value, 'yyyymmdd');
+    // console.log( 'copyValueFromEditedRowToControl, editedRow: ' + JSON.stringify( editedRow ) );
+    // console.log( 'copyValueFromEditedRowToControl, value: ' + JSON.stringify( value ) );
+    this.currentValue = GPUtil.str2Date(value, 'YYYY-MM-DD');
+    // console.log( 'copyValueFromEditedRowToControl, currentValue: ' + JSON.stringify( this.currentValue ) );
   }
 
   validateField(editedRow: any) {
