@@ -362,7 +362,7 @@ export class GpAppEditableTableComponent implements OnInit {
         this.creationObject = {};
         this.itemValid = this.isItemValid(this.creationObject);
         this.onCreation = true;
-        this.startEdition.emit(this.creationObject);
+        this.startEdition.emit({item: this.creationObject, columns: this.columns});
     }
 
     // Arrow function to be used in external template without losing scope
@@ -407,7 +407,7 @@ export class GpAppEditableTableComponent implements OnInit {
             this.itemValid = this.isItemValid(this.editionObject);
             this.onEdition = true;
             item._editting = true;
-            this.startEdition.emit(this.editionObject);
+            this.startEdition.emit({item: this.editionObject, columns: this.columns});
         };
         if(this.config.requestItemOnEdit) {
             this.edit.emit({
