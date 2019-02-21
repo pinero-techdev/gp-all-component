@@ -21,6 +21,7 @@ import {AttachmentOperationEnum} from "../../resources/data/attachment-operation
     ]
 })
 export class GpAppInputWithMetadataComponent extends CustomInput implements AfterViewInit {
+    AttachmentOperationEnum = AttachmentOperationEnum;
     form: FormGroup;
     InputType = InputType;
     editable: boolean;
@@ -228,11 +229,14 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         const [file] = event.target.files || event.srcElement.files;
         reader.readAsDataURL(file);
         reader.onload = () => {
-            this.temoralFile.operation = AttachmentOperationEnum.MODIFY;
-            this.temoralFile.fieldName = this.column.name;
-            this.temoralFile.fileName = file.name;
-            this.temoralFile.mimeType = file.type;
-            this.temoralFile.content = reader.result;
+            let base64 = reader.result.split(',');
+            if(base64 && base64.length > 1) {
+                this.temoralFile.operation = AttachmentOperationEnum.MODIFY;
+                this.temoralFile.fieldName = this.column.name;
+                this.temoralFile.fileName = file.name;
+                this.temoralFile.mimeType = file.type;
+                this.temoralFile.content = base64[1];
+            }
         };
     }
 
@@ -259,18 +263,20 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
     }
 
     hasFile(): boolean {
-        return this.item[`${this.column.name}Empty`] === false;
+        return (this.item[`${this.column.name}Empty`] === false && !this.value) ||
+            (this.value && this.value.operation === AttachmentOperationEnum.MODIFY);
     }
 
     deleteFile() {
-        if (this.hasFile()) {
+        if (!this.value) {
             const deleteAttachment = new Attachment();
             deleteAttachment.fieldName = this.column.name;
             deleteAttachment.operation = AttachmentOperationEnum.DELETE;
             this.startStop(deleteAttachment)
-
         } else {
-            this.startStop(null);
+            this.value = null;
+            this.item[`${this.column.name}Empty`] = true;
+            this.startStop(this.value);
         }
     }
 
