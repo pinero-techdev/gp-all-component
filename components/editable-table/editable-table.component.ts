@@ -362,6 +362,7 @@ export class GpAppEditableTableComponent implements OnInit {
         this.creationObject = {};
         this.itemValid = this.isItemValid(this.creationObject);
         this.onCreation = true;
+        this.startEdition.emit(this.creationObject);
     }
 
     // Arrow function to be used in external template without losing scope
