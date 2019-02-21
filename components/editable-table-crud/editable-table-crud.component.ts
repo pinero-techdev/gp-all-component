@@ -8,7 +8,11 @@ import {TableConfig} from "../../resources/data/table-config.model";
 import {TableMetadataService} from "../../services/table-metadata.service";
 import {DataChangeEvent, ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/data/table.events";
 import {MessageService} from "primeng/components/common/messageservice";
-import {InputType} from "gp-all-component/resources/data/field-type.enum";
+import {InputType} from "../../resources/data/field-type.enum";
+import {saveAs} from "file-saver";
+import {Attachment} from "../../resources/data/attachment";
+import {AttachmentOperationEnum} from "../../resources/data/attachment-operation.enum";
+
 
 @Component({
     selector: 'gp-app-editable-table-crud',
@@ -116,22 +120,25 @@ export class GpAppEditableTableCrudComponent {
             });
     }
 
-    getAttachments(item: any) {
-        let atts: any = [];
+    getAttachments(item: any): Attachment[] {
+        let attachments: Attachment[] = [];
         for (let column of this.columns) {
-            if (column.type === InputType.FILE_FIELD && item[column.name].operation === 'MODIFY') {
-                atts.push({fieldName: column.name, operation: item[column.name].operation, content: item[column.name].file});
+            if (column.type === InputType.FILE_FIELD && (
+                item[column.name].operation === AttachmentOperationEnum.MODIFY ||
+                item[column.name].operation === AttachmentOperationEnum.DELETE)
+            ) {
+                attachments.push(item[column.name]);
+                delete item[column.name];
             }
         }
-        return atts;
+        return attachments;
     }
 
     saveItem(event: ItemChangeEvent) {
-        let atts: any = this.getAttachments(event.modified);
-        console.log(atts)
-        let jsonOriginalRow = JSON.stringify(event.original);
-        let jsonModifiedRow = JSON.stringify(event.modified);
-        this.tableService.updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow, atts).subscribe(
+        const attachments: Attachment[] = this.getAttachments(event.modified);
+        const jsonOriginalRow = JSON.stringify(event.original);
+        const jsonModifiedRow = JSON.stringify(event.modified);
+        this.tableService.updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow, attachments).subscribe(
             data => {
                 if (data.ok) {
                     event.success(event.modified);
@@ -146,8 +153,9 @@ export class GpAppEditableTableCrudComponent {
     }
 
     createItem(event: ItemChangeEvent) {
+        const attachments: Attachment[] = this.getAttachments(event.modified);
         let jsonModifiedRow = JSON.stringify(event.modified);
-        this.tableService.insertRow(this.tableName, jsonModifiedRow).subscribe(
+        this.tableService.insertRow(this.tableName, jsonModifiedRow, attachments).subscribe(
             data => {
                 if (data.ok) {
                     event.success(event.modified);
@@ -179,6 +187,12 @@ export class GpAppEditableTableCrudComponent {
                 this.messageService.add({severity:'error',summary:'error',detail:'Error interno borrando el registro.'})
 
             });
+    }
+
+    downloadFile(event: TableFieldEvent) {
+        this.tableService.downloadFile(this.tableName, event.value, event.column.name).subscribe((file) => {
+            saveAs(file, `${event.column.name}.${file.type.split('/').pop()}`);
+        });
     }
 
     showErrorDialogo(msg: string) {

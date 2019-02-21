@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, AfterViewInit, Output, ViewEncapsulation} from "@angular/core";
+import {AfterViewInit, Component, EventEmitter, Input, Output, ViewEncapsulation} from "@angular/core";
 import {FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
 import {CustomInput} from "../../resources/data/custom-input";
 import {TableColumnMetadata} from "../../resources/data/table-column-metadata.model";
@@ -9,7 +9,8 @@ import {Subject} from "rxjs";
 import {Filter, TableService} from "../../services/table.service";
 import {TableMetadataService} from "../../services/table-metadata.service";
 import {MessageService} from "primeng/components/common/messageservice";
-import {FileService} from "../../services/file.service";
+import {Attachment} from "../../resources/data/attachment";
+import {AttachmentOperationEnum} from "../../resources/data/attachment-operation.enum";
 
 @Component({
     selector: 'gp-app-input-with-metadata',
@@ -38,15 +39,17 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
     };
     dateFormat: string = "yy-mm-dd";
     translationKeys: string = "";
-    temporalValue: any = "";
+    temporalValue: string = "";
+    temoralFile: Attachment = new Attachment();
     @Input('columnMetadata') column: TableColumnMetadata = new TableColumnMetadata();
     @Input() item: any; // item es el objeto row, con todos los campos
     @Input() isFilter: boolean;
     @Output() startEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @Output() stopEditing: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
+    @Output() downloadFile: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
 
     constructor(private _service: TableService,private messageService: MessageService,
-                private _metadataService: TableMetadataService, private fb: FormBuilder, private _fileService: FileService) {
+                private _metadataService: TableMetadataService, private fb: FormBuilder) {
         super();
         this.createForm();
     }
@@ -137,9 +140,9 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
 
     openFileModal() {
         if(this.value){
-            this.temporalValue = (<any>Object).assign({}, this.value);
+            this.temoralFile = Object.assign(new Attachment(), this.value);
         } else {
-            this.temporalValue = {};
+            this.temoralFile = new Attachment();
         }
         this.fileModalVisible = true;
     }
@@ -222,21 +225,15 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
 
     readFile(event: any) {
         let reader = new FileReader();
-
-        if (event.target.files && event.target.files.length) {
-            const [file] = event.target.files;
-            reader.readAsDataURL(file);
-
-            reader.onload = () => {
-                this.form.patchValue({
-                    file: reader.result
-                });
-                this.temporalValue.operation = 'MODIFY'
-                this.temporalValue.name = file.name;
-                this.temporalValue.mimetype = file.type;
-                this.temporalValue.file = reader.result;
-            };
-        }
+        const [file] = event.target.files || event.srcElement.files;
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.temoralFile.operation = AttachmentOperationEnum.MODIFY;
+            this.temoralFile.fieldName = this.column.name;
+            this.temoralFile.fileName = file.name;
+            this.temoralFile.mimeType = file.type;
+            this.temoralFile.content = reader.result;
+        };
     }
 
     setOptions(options: any[]) {
@@ -261,13 +258,20 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
 
     }
 
-    deleteFile() {
-        this.value = {id: this.value.id,name: '', mimetype: '', file: '', operation: 'DELETE'};
+    hasFile(): boolean {
+        return this.item[`${this.column.name}Empty`] === false;
     }
 
-    downloadFile() {
-        if (this.value.operation !== 'DELETE') {
-            this._fileService.downloadFile(this.value)
+    deleteFile() {
+        if (this.hasFile()) {
+            const deleteAttachment = new Attachment();
+            deleteAttachment.fieldName = this.column.name;
+            deleteAttachment.operation = AttachmentOperationEnum.DELETE;
+            this.startStop(deleteAttachment)
+
+        } else {
+            this.startStop(null);
         }
     }
+
 }

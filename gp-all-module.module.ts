@@ -99,7 +99,6 @@ import {GpAppEditableTableCrudComponent} from './components/editable-table-crud/
 import {GpAppInputWithMetadataComponent} from './components/input-with-metadata/input-with-metadata.component';
 import {TableMetadataService} from './services/table-metadata.service';
 import {PermissionSettingsModule} from "./modules/permission-settings";
-import {FileService} from "./services/file.service";
 
 @NgModule({
               imports: [
@@ -141,7 +140,7 @@ import {FileService} from "./services/file.service";
                   GpFormDropdownRelatedfieldComponent, GpFormImgFieldComponent, GpFormSwitchFieldComponent, GpFormTextAreaFieldComponent,
                   GpFormTextFieldComponent, GpFormTimeFieldComponent, GpFormWysiwygFieldComponent
               ],
-              providers: [AppMenuService, AuthGuard, CommonService, GlobalService, LoginService, MultiIdomaService, TableService, TableMetadataService, FileService]
+              providers: [AppMenuService, AuthGuard, CommonService, GlobalService, LoginService, MultiIdomaService, TableService, TableMetadataService]
           })
 export class GpAllModule {
 }

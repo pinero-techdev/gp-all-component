@@ -107,18 +107,24 @@
                 <ng-template #defaultRowTemplate let-item let-columns="columns">
                     <td *ngFor="let column of columns">
                         <ng-container [ngSwitch]="column.type">
-                            <button *ngSwitchCase="InputType.FILE_FIELD"
-                                    pButton
-                                    (click)="downloadFile(item, column)">Descargar</button>
+                            <ng-template [ngSwitchCase]="InputType.FILE_FIELD">
+                                <button pButton
+                                        icon="ui-icon-file-download"
+                                        *ngIf="hasFile(item, column)"
+                                        (click)="download(item, column)"></button>
+                            </ng-template>
                             <button *ngSwitchCase="InputType.IMG_FIELD"
                                     pButton
-                                    (click)="imgModalVisible.visible = true; imgModalVisible.img = item[column.name]">Ver</button>
+                                    icon="ui-icon-remove-red-eye"
+                                    (click)="imgModalVisible.visible = true; imgModalVisible.img = item[column.name]"></button>
                             <button *ngSwitchCase="InputType.WYSIWYG_FIELD"
+                                    icon="ui-icon-remove-red-eye"
                                     pButton
-                                    (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]">Ver</button>
+                                    (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]"></button>
                             <button *ngSwitchCase="InputType.TEXTAREA_FIELD"
+                                    icon="ui-icon-remove-red-eye"
                                     pButton
-                                    (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]">Ver</button>
+                                    (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]"></button>
                             <ng-template ngSwitchDefault>
                                 <ng-template [ngIf]="column.referenceDescription" [ngIfElse]="defaultColumnField">
                                     {{item[column.referenceDescription]}}
@@ -211,6 +217,7 @@
                                     [columnMetadata]="column"
                                     (startEditing)="startEditingField.emit($event)"
                                     (stopEditing)="itemValueChanged($event, item)"
+                                    (downloadFile)="download(item, column)"
         ></gp-app-input-with-metadata>
     </td>
 </ng-template>

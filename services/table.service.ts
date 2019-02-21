@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Observable'
 import {RelatedField} from '../resources/data/related-field.model';
 import {GlobalService} from "./global.service";
 import {CommonService, CommonRs} from "./common.service";
+import {Attachment} from "../resources/data/attachment";
 
 export class ListRs extends CommonRs {
     data:any[];
@@ -31,6 +32,7 @@ export class DeleteRowRs extends CommonRs {
 
 export class InsertRowRq {
     jsonNewRow:string;
+    attachments:any[];
 }
 
 export class InsertRowRs extends CommonRs {
@@ -44,6 +46,10 @@ export class SelectOneRowRq {
 export class SelectOneRowRs extends CommonRs {
     data:any;
     metadata:TableMetadata;
+}
+
+export class GetAttachmentRq extends SelectOneRowRq {
+    fieldName: string;
 }
 
 export class TableMetadata {
@@ -174,7 +180,7 @@ export class TableService extends CommonService {
     public static HOUR_MINUTE_DISPLAY_TYPE = "HOUR_MINUTE";
     public static TEXT_AREA_DISPLAY_TYPE = "TEXT_AREA";
     public static WYSIWYG_DISPLAY_TYPE = "WYSIWYG";
-    public static FILE_DISPLAY_TYPE = "FILE_CLOB";
+    public static FILE_DISPLAY_TYPE = "FILE";
 
     public static RESTRICTION_NOT_NULL = "NOT_NULL";
     public static RESTRICTION_MAX_LENGTH = "MAX_LENGTH";
@@ -264,7 +270,7 @@ export class TableService extends CommonService {
     /**
      * Llamada para actualizar un registro.
      */
-    updateRow(tableName:string, original:any, modificado:any, attachmets?: any):Observable<UpdateRowRs> {
+    updateRow(tableName:string, original:any, modificado:any, attachmets?: Attachment[]):Observable<UpdateRowRs> {
         let rq = new UpdateRowRq();
         rq.jsonOriginalRow = JSON.stringify(original);
         rq.jsonModifiedRow = JSON.stringify(modificado);
@@ -288,12 +294,21 @@ export class TableService extends CommonService {
     /**
      * Llamada para insertar un registro.
      */
-    insertRow(tableName:string, original:any):Observable<InsertRowRs> {
+    insertRow(tableName:string, original:any, attachmets?: Attachment[]):Observable<InsertRowRs> {
         let rq = new InsertRowRq();
         rq.jsonNewRow = JSON.stringify(original);
+        rq.attachments = attachmets;
         return this.serviceRequest<InsertRowRs>(
             `${GlobalService.BASE_URL}/table_svc/${tableName}/insertRow`,
             rq);
     }
 
+    downloadFile(tableName: string, item: any, field: string): Observable<Blob> {
+        let rq = new GetAttachmentRq();
+        rq.jsonRowToSelect = JSON.stringify(item);
+        rq.fieldName = field;
+        return this.fileRequest(
+            `${GlobalService.BASE_URL}/table_svc/${tableName}/getAttachment`,
+            rq);
+    }
 }

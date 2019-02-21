@@ -133,4 +133,13 @@ export class CommonService {
         let options = new RequestOptions(headers);
         return this.http.get<T>(url, options);
     }
+
+    fileRequest(url: string, body: any): Observable<Blob> {
+        console.log('serviceRequest(' + url + ')');
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': GlobalService.SESSION_ID
+        });
+        return this.http.post(url, body, {headers: headers, responseType: 'blob'});
+    }
 }

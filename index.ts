@@ -56,6 +56,8 @@ export * from './resources/data/sort-direction.enum';
 export * from './resources/data/table.events';
 export * from './resources/data/table-column-metadata.model';
 export * from './resources/data/table-config.model';
+export * from './resources/data/attachment';
+export * from './resources/data/attachment-operation.enum';
 //Directives
 export * from './directives/focus.directive';
 export * from './directives/gp-lowercase.directive';

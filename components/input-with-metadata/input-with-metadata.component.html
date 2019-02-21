@@ -43,22 +43,17 @@
                 label="Abrir"
                 (click)="openWYSIWYGModal()"
                 [disabled]="!isEditable()"></button>
-        <div *ngSwitchCase="InputType.FILE_FIELD">
+        <ng-template [ngSwitchCase]="InputType.FILE_FIELD">
             <button pButton
-                    label="Abrir"
+                    icon="ui-icon-file-upload"
                     (click)="openFileModal()"
                     [disabled]="!isEditable()"></button>
             <button pButton
-                    *ngIf="value && value.operation !== 'DELETE'"
-                    label="Borrar"
+                    *ngIf="hasFile() || (value && value['content'])"
+                    icon="ui-icon-delete"
                     (click)="deleteFile()"
                     [disabled]="!isEditable()"></button>
-            <button pButton
-                    *ngIf="value && value.operation !== 'DELETE'"
-                    label="Descargar"
-                    (click)="downloadFile()"
-                    [disabled]="!isEditable()"></button>
-        </div>
+        </ng-template>
     </ng-template>
     <p-calendar *ngSwitchCase="InputType.TIME_FIELD"
                 showTime="showTime" hourFormat="24" styleClass="full-width"
@@ -213,17 +208,20 @@
 <!--File input modal-->
 <p-dialog [(visible)]="fileModalVisible"
           *ngIf="column.type == InputType.FILE_FIELD"
-          header="File Input"
+          header="Seleccionar archivo"
           [modal]="true">
     <input type="file"
+           name="file"
            (change)="readFile($event)"
            [disabled]="!isEditable()">
     <p-footer>
         <button pButton label="Aceptar"
+                type="button"
                 class="ui-button-success"
-                (click)="startStop(temporalValue); fileModalVisible = false"></button>
+                (click)="startStop(temoralFile); fileModalVisible = false"></button>
         <button pButton label="Cancelar"
                 class="ui-button-danger"
+                type="button"
                 (click)="fileModalVisible = false"></button>
     </p-footer>
 </p-dialog>

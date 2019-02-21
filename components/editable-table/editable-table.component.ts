@@ -19,7 +19,6 @@ import {ItemChangeEvent, TableFieldEvent, TableRowEvent} from "../../resources/d
 import {GpAppInputWithMetadataComponent} from "../input-with-metadata/input-with-metadata.component";
 import {InputType} from "../../resources/data/field-type.enum";
 import {TableMetadataService} from "../../services/table-metadata.service";
-import {FileService} from "gp-all-component/services/file.service";
 
 /*
 *  Data order: data -> filteredData -> sortedData -> currentPageData
@@ -96,6 +95,7 @@ export class GpAppEditableTableComponent implements OnInit {
     @Output() save: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() create: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() delete: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
+    @Output() downloadFile: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @ViewChildren(GpAppInputWithMetadataComponent) inputs : QueryList<GpAppInputWithMetadataComponent>;
 
     get filteredData() {
@@ -155,7 +155,7 @@ export class GpAppEditableTableComponent implements OnInit {
         return columnNumber;
     }
 
-    constructor(private _confirmationService: ConfirmationService, private _metadataService: TableMetadataService, private _fileService: FileService) { }
+    constructor(private _confirmationService: ConfirmationService, private _metadataService: TableMetadataService) { }
 
     ngOnInit() {
     }
@@ -498,8 +498,11 @@ export class GpAppEditableTableComponent implements OnInit {
         return valid;
     }
 
-    downloadFile(item, column) {
-        if (item[column.name])
-            this._fileService.downloadFile(item[column.name]);
+    hasFile(item: any, column: TableColumnMetadata): boolean {
+        return item[`${column.name}Empty`] === false;
+    }
+
+    download(item: any, column: TableColumnMetadata) {
+        this.downloadFile.emit( { value: item, column: column} );
     }
 }

@@ -5,6 +5,6 @@ import {HttpHeaders} from "@angular/common/http";
  */
 
 export class RequestOptions {
-    constructor(public headers: HttpHeaders) {
+    constructor(public headers: HttpHeaders, responseType?: string) {
     }
 }
