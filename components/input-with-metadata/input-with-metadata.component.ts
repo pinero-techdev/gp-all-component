@@ -90,11 +90,6 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         this.onModelChange(value);
     }
 
-    setDateValue(date: Date) {
-        let value = date.toISOString().substr(0,10);
-        this.startStop(value);
-    }
-
     setTimeValue(date: Date) {
         let value = date.toLocaleTimeString().substr(0,5);
         this.startStop(value);
