@@ -5,7 +5,7 @@
 </div>
 
 <p-dialog [(visible)]="visualizarTablaTraducciones" header="Mantenimiento traducciones - {{campoDescripcion}}"
-          modal="modal" width="1000" minHeight="600" appendTo="body">
+          modal="modal" [style]="{width:'1000px', minHeight:'600px'}" appendTo="body">
   <div class="ui-grid ui-grid-responsive ui-grid-pad">
     <div class="ui-grid-col-12">
       <div class="ui-grid-row" *ngFor="let traduccion of elementosTraducciones">
@@ -66,7 +66,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="visualizarEdicionHTML" header="Traducción - {{traduccionIdiomaHTML}}"
-          modal="modal" width="1000" responsive="true">
+          modal="modal" [style]= "{width: '1000px'}" responsive="true">
   <div class="ui-grid ui-grid-responsive ui-grid-pad">
     <div class="ui-grid-col-12">
       <div class="ui-grid-row">
