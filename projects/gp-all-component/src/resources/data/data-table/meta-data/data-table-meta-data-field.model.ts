@@ -10,6 +10,7 @@ export class DataTableMetaDataField {
   readOnly: boolean;
   allowAscii: boolean;
   hideInAddOperation: boolean;
+  hideInEditOperation: boolean;
   lengthInTable: number;
   restrictions: DataTableMetaDataFieldRestriction[];
   displayInfo: DataTableMetaDataFieldDisplayInfo;

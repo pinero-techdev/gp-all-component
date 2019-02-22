@@ -66,11 +66,13 @@
         <div *ngFor="let msg of col.fieldMsgs" class="ui-messages-error">
           <i class="fa fa-close"></i>&nbsp;{{msg.detail}}
         </div>
-        <div class="ui-g-2" *ngIf="!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation">
+        <div class="ui-g-2" *ngIf="(!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation)
+                                  && (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)">
           <label class="material-label">{{col.fieldMetadata.displayInfo.fieldLabel}} <span
             *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span></label>
         </div>
-        <div class="ui-g-10" *ngIf="!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation">
+        <div class="ui-g-10" *ngIf="(!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation)
+                                  && (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)">
           <gp-form-time-field
             *ngIf="col.formFieldType == 'gp-form-time-field'"
             [formField]="col"></gp-form-time-field>
