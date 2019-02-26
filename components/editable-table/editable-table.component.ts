@@ -226,7 +226,7 @@ export class GpAppEditableTableComponent implements OnInit {
 
     toggleItemSelection(item: any, event?) {
         if(event) {event.stopPropagation();}
-        if( (!event.target.tagName.startsWith('TR')) && (!event.target.tagName.startsWith('TD')) ) return;
+        if( event && (!event.target.tagName.startsWith('TR')) && (!event.target.tagName.startsWith('TD')) ) return;
         if(!this.isSelectable(item)) {return;}
         if(this.config.selectable == SelectionType.SINGLE) {
             if(this.itemIsSelected(item)){
