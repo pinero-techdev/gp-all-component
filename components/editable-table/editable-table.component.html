@@ -20,6 +20,7 @@
         </tr>
         <tr>
             <th *ngIf="config.selectable == SelectionType.MULTIPLE">
+                <input *ngIf="!config.filterable" type="checkbox" [ngModel]="allSelected()" (click)="toggleSelectAll()">
                 <ng-template [ngIf]="selectedData.length > 0">
                     ({{selectedData.length}})
                 </ng-template>
@@ -82,7 +83,7 @@
             [class.ui-state-highlight]="itemIsSelected(item)">
             <td *ngIf="config.selectable == SelectionType.MULTIPLE">
                 <input type="checkbox" [ngModel]="itemIsSelected(item)"
-                       (click)="toggleItemSelection(item, $event)"
+                       (ngModelChange)="toggleItemSelection(item)"
                        [disabled]="!isSelectable(item)">
             </td>
             <!-- Edition -->

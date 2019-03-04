@@ -67,10 +67,11 @@
                 styleClass="full-width"
                 appendTo="body"
                 [defaultDate]="value"
+                dataType="string"
                 [ngModel]="value"
                 [disabled]="!isEditable()"
                 [dateFormat]="dateFormat"
-                (ngModelChange)="setDateValue($event)"
+                (ngModelChange)="startStop($event);"
                 [locale]="calendarLocale ">
     </p-calendar>
     <p-dropdown  *ngSwitchCase="InputType.DROPDOWN_FIELD"
