@@ -191,7 +191,7 @@ export class GpAppEditableTableCrudComponent {
 
     downloadFile(event: TableFieldEvent) {
         this.tableService.downloadFile(this.tableName, event.value, event.column.name).subscribe((file) => {
-            saveAs(file, `${event.column.name}.${file.type.split('/').pop()}`);
+            saveAs(file.blob, file.fileName);
         });
     }
 

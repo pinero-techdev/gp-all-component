@@ -4,6 +4,7 @@ import {RelatedField} from '../resources/data/related-field.model';
 import {GlobalService} from "./global.service";
 import {CommonService, CommonRs} from "./common.service";
 import {Attachment} from "../resources/data/attachment";
+import {map} from "rxjs/operators";
 
 export class ListRs extends CommonRs {
     data:any[];
@@ -39,6 +40,11 @@ export class InsertRowRs extends CommonRs {
     insertedRow:any;
 }
 
+export class FileRs {
+    blob: Blob;
+    fileName: string;
+}
+
 export class SelectOneRowRq {
     jsonRowToSelect:string;
 }
@@ -50,6 +56,7 @@ export class SelectOneRowRs extends CommonRs {
 
 export class GetAttachmentRq extends SelectOneRowRq {
     fieldName: string;
+    asAttachment: boolean = true;
 }
 
 export class TableMetadata {
@@ -303,12 +310,24 @@ export class TableService extends CommonService {
             rq);
     }
 
-    downloadFile(tableName: string, item: any, field: string): Observable<Blob> {
+    downloadFile(tableName: string, item: any, field: string): Observable<FileRs> {
         let rq = new GetAttachmentRq();
         rq.jsonRowToSelect = JSON.stringify(item);
         rq.fieldName = field;
         return this.fileRequest(
             `${GlobalService.BASE_URL}/table_svc/${tableName}/getAttachment`,
-            rq);
+            rq).pipe(
+            map( response => {
+                const fileRs = new FileRs();
+                fileRs.blob = response.body;
+                let contentDisposition = response.headers.get('Content-Disposition');
+                if (contentDisposition && contentDisposition !== '') {
+                    fileRs.fileName = contentDisposition.split('"').length >= 2 ?
+                        contentDisposition.split('"')[1] :
+                        'documento.' + fileRs.blob.type.split('/').pop();
+                }
+                return fileRs;
+            })
+        );
     }
 }
