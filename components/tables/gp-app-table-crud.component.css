@@ -25,43 +25,6 @@ body .md-inputfield .ui-message.ui-messages-error {
   font-size: 1em !important;
 }
 
-@element ' .ui-fluid ' and (max-width: 1000px) {
-  .mantenimientos .ui-button[label='Añadir'] {
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    padding-left: 2em !important;
-    margin-left: 25px;
-    width: 50%;
-  }
-  .mantenimientos .ui-button[label='Exportar a CSV'] {
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    padding-left: 2em !important;
-    width: 50%;
-  }
-}
-
-@element ' .ui-fluid ' and ( min-width: 1001px) and (max-width: 1300px) {
-  .mantenimientos .ui-button[label='Añadir'] {
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    padding-left: 2.1em !important;
-    margin-left: 40px;
-    width: 50%;
-  }
-  .mantenimientos .ui-button[label='Exportar a CSV'] {
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    padding-left: 2em !important;
-    margin-left: -18px;
-    width: 50%;
-  }
-}
-
 .msgErrorBottom {
   background-color: transparent;
   border: 0 none;
