@@ -3,6 +3,7 @@ import {MenuItem, SelectItem} from 'primeng/primeng';
 import * as moment from 'moment';
 
 import {GPSelectItem} from '../resources/data/gp-select-item.model';
+import {CalendarConstants} from '../resources/constants/calendar.constants';
 
 export class GPUtil {
     public static readonly odd_reA = new RegExp('\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5', 'g');
@@ -106,26 +107,24 @@ export class GPUtil {
         }
     }
 
-    public static obtainCalendarConfig(): any {
-        return {
-            closeText: 'Cerrar',
-            prevText: '<Ant',
-            nextText: 'Sig>',
-            currentText: 'Hoy',
-            monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-                'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
-            monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun',
-                'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-            dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
-            dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-            dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
-            weekHeader: 'Sm',
-            defaultDate: new Date(),
-            firstDayOfWeek: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-        };
+    public static obtainCalendarConfig(idioma: string = null): any {
+      if (idioma) {
+        let calendar: any = null;
+        switch (idioma) {
+          case 'es':
+            calendar = CalendarConstants.calendar_es;
+            break;
+          case 'en':
+            calendar = CalendarConstants.calendar_en;
+            break;
+          default:
+            calendar = CalendarConstants.calendar_es;
+            break;
+        }
+        return calendar;
+      } else {
+        return CalendarConstants.calendar_es;
+      }
     }
 
     public static base64ToBlob(string: string): Blob {
