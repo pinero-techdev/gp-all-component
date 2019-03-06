@@ -10,7 +10,7 @@ import {GpFormCheckboxFieldComponent} from "./gp-form-checkbox-field.component";
 import {GpFormWysiwygFieldComponent} from "./gp-form-wysiwyg-field.component";
 import {GpFormCalendarFieldComponent} from "./gp-form-calendar-field.component";
 import {GpFormTextAreaFieldComponent} from "./gp-form-textarea-field.component";
-import {GpFormTimeFieldComponent} from "./gtap-form-time-field.component";
+import {GpFormTimeFieldComponent} from "./gp-form-time-field.component";
 import {GpFormImgFieldComponent} from "./gp-form-img-field.component";
 import {GpFormDropdownRelatedfieldComponent} from "./gp-form-dropdown-related-field.component";
 import {InfoCampoModificado} from "../../resources/data/infoCampoModificado";
@@ -34,7 +34,7 @@ export class GpAppTableCrudComponent {
     @Input() canAdd: boolean = true;
     @Input() canEdit: boolean = true;
     @Input() canDelete: boolean = true;
-
+    
     @Output() rowSelected = new EventEmitter<any>();
     @Output() closedDialog = new EventEmitter<boolean>();
     @Output() changes = new EventEmitter<boolean>();
