@@ -9,7 +9,8 @@ import {
 
 @Component({
     selector: 'gp-dynamic-component',
-    templateUrl: './gp-dynamic.component.html'
+    templateUrl: './gp-dynamic.component.html',
+    styleUrls: ['./gp-dynamic.component.scss']
 })
 export class GpDynamicComponent {
     currentComponent = null;

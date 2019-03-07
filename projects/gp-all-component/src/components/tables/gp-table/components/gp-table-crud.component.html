@@ -1,6 +1,6 @@
 <p-growl [value]="msgsDialog" [sticky]="true"></p-growl>
 <div class="ui-g" *ngIf="!working && columnas.length > 0">
-  <div class="ui-g-6">
+  <div class="ui-g-6"  [ngClass]="displayEdicion ? 'custom--half-width' : 'custom--full-width'">
     <div class="card card-w-title">
       <p-table #dt
                [columns]="columnasTabla" [value]="elementos"
@@ -10,32 +10,22 @@
                (onRowUnselect)="closeDialog()"
                [rows]="10" [paginator]="true" [pageLinks]="4"
                [rowsPerPageOptions]="[10,20,50]" csvSeparator=";"
-               [exportFilename]="'table_export'"
+               exportFilename="table_export"
                [responsive]="true">
         <ng-template pTemplate="caption">
           <div class="ui-g" style="text-align: left;">
             <div class="ui-g-10">Mantenimiento de tabla {{tableLabel}}</div>
             <div class="ui-g-2">
-              <!--
+
               <button
-                label="Añadir"
+                *ngIf="canAdd"
                 (click)="onDialogAdd()"
-                class="ui-button-raised full-width cyan-btn"
-                icon="pi pi-plus"
                 [disabled]="formControl.lockFields"
-                *ngIf="canAdd">
-              </button>
-              -->
-              <button 
-                *ngIf="canAdd" 
-                (click)="onDialogAdd()" 
-                [disabled]="formControl.lockFields" 
                 class="full-width ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" icon="fa-plus" label="Añadir" pbutton type="button">
                 <span class="ui-button-icon-left ui-clickable fa fa-fw fa-plus"></span>
                 <span class="ui-button-text ui-clickable">Añadir</span>
                 <span class="ink animate" style="height: 299px; width: 299px; top: -134.5px; left: -68.4688px; pointer-events: none;"></span>
               </button>
-
 
             </div>
           </div>
@@ -53,6 +43,14 @@
               {{rowData[col.fieldMetadata.fieldName]}}
             </td>
           </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-2">
+              <button class="export-to-csv" type="button" pButton icon="ui-icon-file-download" (click)="dt.exportCSV()"
+                      label="Exportar a CSV"></button>
+            </div>
+          </div>
         </ng-template>
       </p-table>
     </div>
@@ -115,52 +113,31 @@
 
       <div class="ui-g-12 nopad">
         <div class="ui-g-3" *ngIf="canDelete && selectedRow">
-          <!--button
-            label="Borrar"
-            (click)="onDialogDelete()"
-            class="ui-button-raised full-width ui-button-danger"
-            icon="pi pi-trash"
-            [disabled]="formControl.lockFields">
-          </button-->
-          <button 
+          <button
             (click)="onDialogDelete()"
             [disabled]="formControl.lockFields"
-            class="full-width ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" label="Borrar" pbutton type="button">
-            <span class="ui-button-icon-left ui-clickable fa fa-fw ui-icon-delete"></span>
+            class="full-width ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-button-danger" label="Borrar" pbutton type="button">
+            <span class="ui-button-icon-left ui-clickable fa fa-fw fa-trash"></span>
             <span class="ui-button-text ui-clickable">Borrar</span>
             <span class="ink animate" style="height: 299px; width: 299px; top: -129.344px; left: -128.5px; pointer-events: none;"></span>
           </button>
         </div>
         <div class="ui-g-3" *ngIf="canEdit || (canAdd && !selectedRow)">
-          <!--button
-            label="Guardar"
-            (click)="onDialogSave()"
-            class="ui-button-raised full-width"
-            icon="pi pi-check"
-            [disabled]="formControl.lockFields">
-          </button-->
-          <button 
+          <button
             (click)="onDialogSave()"
             [disabled]="formControl.lockFields"
             class="full-width ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" label="Guardar" pbutton type="button">
-            <span class="ui-button-icon-left ui-clickable fa fa-fw ui-icon-save"></span>
+            <span class="ui-button-icon-left ui-clickable fa fa-fw fa-save"></span>
             <span class="ui-button-text ui-clickable">Guardar</span>
             <span class="ink animate" style="height: 299px; width: 299px; top: -129.344px; left: -128.5px; pointer-events: none;"></span>
           </button>
         </div>
         <div class="ui-g-3">
-          <!--button
-            label="Cerrar"
-            (click)="closeDialog()"
-            class="ui-button-raised full-width"
-            icon="pi pi-times"
-            [disabled]="formControl.lockFields">
-          </button-->
-          <button 
+          <button
             (click)="closeDialog()"
             [disabled]="formControl.lockFields"
             class="full-width ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" label="Cerrar" pbutton type="button">
-            <span class="ui-button-icon-left ui-clickable fa fa-fw ui-icon-close"></span>
+            <span class="ui-button-icon-left ui-clickable fa fa-fw fa-times"></span>
             <span class="ui-button-text ui-clickable">Cerrar</span>
             <span class="ink animate" style="height: 299px; width: 299px; top: -129.344px; left: -128.5px; pointer-events: none;"></span>
           </button>
