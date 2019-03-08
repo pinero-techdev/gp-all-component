@@ -20,6 +20,9 @@ export class TableColumnMetadata {
     allowAscii: boolean = true;
     optionsLabels: string[] = ['descripcion'];
     optionsValue: string;
+    options: any[] = [];
+    checkedValue: string;
+    uncheckedValue: string;
     referencedTable: string; // informa del endpoint
     fieldToOrderBy: string[]; // campo que se envía como parámetro para ordenar el listado de opciones
     retrieveMetadata: boolean;

@@ -123,8 +123,8 @@ export class GpAppEditableTableComponent implements OnInit {
             return this.filteredData;
         }
         return this.filteredData.sort( (a, b) => {
-            let valueA = a[this.config.sortField].toUpperCase();
-            let valueB = b[this.config.sortField].toUpperCase();
+            let valueA = a[this.config.sortField];
+            let valueB = b[this.config.sortField];
             if((valueA < valueB && this.config.sortDirection == SortDirection.ASC) ||
                 (valueA > valueB && this.config.sortDirection == SortDirection.DESC)
             ) {

@@ -66,6 +66,13 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         if (this.column.type == InputType.DROPDOWN_FIELD || this.column.type == InputType.DROPDOWN_RELATED_FIELD){
             this.getOptions();
         }
+        if (this.column.type == InputType.CHECKBOX_FIELD || this.column.type == InputType.SWITCH_FIELD){
+            if(this.value) {
+                this.value = this.column.checkedValue || true;
+            } else {
+                this.value = this.column.uncheckedValue || false;
+            }
+        }
         if(this.column.translationInfo && this.column.translationInfo.keyFields && this.item) {
             this.translationKeys = '';
             for (let keyField of this.column.translationInfo.keyFields) {
@@ -82,6 +89,22 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         } else {
             this.value = value;
             this.stopEditing.emit({value:this.value, column: this.column});
+        }
+    }
+
+    isCheckboxChecked(): boolean {
+        if (this.column.checkedValue) {
+            return this.column.checkedValue === this.value;
+        } else {
+            return this.value;
+        }
+    }
+
+    onCheckboxChange(value: any) {
+        if(value) {
+            this.startStop(this.column.checkedValue || value)
+        } else {
+            this.startStop(this.column.uncheckedValue || value)
         }
     }
 

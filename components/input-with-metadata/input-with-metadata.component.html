@@ -23,13 +23,13 @@
            [disabled]="!isEditable()">
     <p-checkbox *ngSwitchCase="InputType.CHECKBOX_FIELD"
                 binary="true"
-                [ngModel]="value"
-                (ngModelChange)="startStop($event)"
+                [ngModel]="isCheckboxChecked()"
+                (ngModelChange)="onCheckboxChange($event)"
                 [disabled]="!isEditable()">
     </p-checkbox>
     <p-inputSwitch *ngSwitchCase="InputType.SWITCH_FIELD"
-                   [ngModel]="value"
-                   (ngModelChange)="startStop($event)"
+                   [ngModel]="isCheckboxChecked()"
+                   (ngModelChange)="onCheckboxChange($event)"
                    [disabled]="!isEditable()">
     </p-inputSwitch>
     <ng-template [ngIf]="!isFilter">
@@ -97,7 +97,7 @@
                  class="ui-inputfield ui-selectonemenu-label">
     </p-dropdown>
     <ng-template ngSwitchDefault>
-        <div *ngIf="!isFilter" [class.ui-g-12]="column.translationInfo == null || (column.translationInfo != null && translationKeys == '')"
+        <div [class.ui-g-12]="column.translationInfo == null || translationKeys == ''"
              [class.ui-g-10]="column.translationInfo != null && translationKeys != ''"
              class="nopad">
             <input pInputText
@@ -112,7 +112,7 @@
                    (focus)="onStartEditing()"
                    [disabled]="!isEditable()"/>
         </div>
-        <div class="ui-g-2 nopad" *ngIf="!isFilter && column.translationInfo != null && translationKeys != ''">
+        <div class="ui-g-2 nopad" *ngIf="column.translationInfo != null && translationKeys != ''">
             <gp-app-multi-idioma [pKey]="translationKeys"
                                  [esquema]="column.translationInfo.scheme"
                                  [tabla]="column.translationInfo.table"
@@ -124,7 +124,6 @@
         </div>
     </ng-template>
 </div>
-<p-growl></p-growl>
 
 <!--Image input modal-->
 <p-dialog [(visible)]="imgModalVisible"

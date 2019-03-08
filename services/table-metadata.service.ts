@@ -33,7 +33,9 @@ export class TableMetadataService {
             column.fieldToOrderBy = [metadata.displayInfo.fieldToOrderBy];
             column.optionsValue = metadata.displayInfo.referencedField;
             // column.optionsLabels = metadata.displayInfo;
-
+            column.options = metadata.displayInfo.options;
+            column.checkedValue = metadata.displayInfo.checkedValue;
+            column.uncheckedValue = metadata.displayInfo.uncheckedValue;
             column.relatedFields = metadata.displayInfo.relatedFields;
             // column.relatedField = metadata.displayInfo.relatedField;
             // column.referencedRelatedField = metadata.displayInfo.relatedFieldExt ? metadata.displayInfo.relatedFieldExt : metadata.displayInfo.relatedField;
