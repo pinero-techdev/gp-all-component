@@ -66,11 +66,9 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         if (this.column.type == InputType.DROPDOWN_FIELD || this.column.type == InputType.DROPDOWN_RELATED_FIELD){
             this.getOptions();
         }
-        if (this.column.type == InputType.CHECKBOX_FIELD || this.column.type == InputType.SWITCH_FIELD){
-            if(this.value) {
-                this.value = this.column.checkedValue || true;
-            } else {
-                this.value = this.column.uncheckedValue || false;
+        if (!this.isFilter && (this.column.type == InputType.CHECKBOX_FIELD || this.column.type == InputType.SWITCH_FIELD)) {
+            if(!this.value && this.column.uncheckedValue) {
+                this.startStop(this.column.uncheckedValue);
             }
         }
         if(this.column.translationInfo && this.column.translationInfo.keyFields && this.item) {
