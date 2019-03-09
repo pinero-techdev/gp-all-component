@@ -26,16 +26,18 @@
                     ({{selectedData.length}})
                 </ng-template>
             </th>
-            <th *ngFor="let column of columns" (click)="changeSort(column)"
-                [class.ui-state-highlight]="config.sortField == column.name">
-                {{column.label}}
-                <i class="table-sort-icon pull-right fa" aria-hidden="true"
-                   *ngIf="column.sortable && config.sortable"
-                   [class.fa-sort]="config.sortField !== column.name"
-                   [class.fa-sort-asc]="config.sortField == column.name && config.sortDirection == SortDirection.ASC"
-                   [class.fa-sort-desc]="config.sortField == column.name && config.sortDirection == SortDirection.DESC"
-                ></i>
-            </th>
+            <ng-template ngFor [ngForOf]="columns" let-column>
+                <th *ngIf="column.visible" (click)="changeSort(column)"
+                    [class.ui-state-highlight]="config.sortField == column.name">
+                    {{column.label}}
+                    <i class="table-sort-icon pull-right fa" aria-hidden="true"
+                       *ngIf="column.sortable && config.sortable"
+                       [class.fa-sort]="config.sortField !== column.name"
+                       [class.fa-sort-asc]="config.sortField == column.name && config.sortDirection == SortDirection.ASC"
+                       [class.fa-sort-desc]="config.sortField == column.name && config.sortDirection == SortDirection.DESC"
+                    ></i>
+                </th>
+            </ng-template>
             <th *ngIf="config.actionsColumn">
             </th>
         </tr>
@@ -43,12 +45,14 @@
             <th *ngIf="config.selectable == SelectionType.MULTIPLE">
                 <input type="checkbox" [ngModel]="allSelected()" (click)="toggleSelectAll()">
             </th>
-            <th *ngFor="let column of columns">
-                <gp-app-input-with-metadata [ngModel]="column.filter"
-                                            (ngModelChange)="changeFilter(column, $event)"
-                                            [columnMetadata]="column" [isFilter]="true"
-                                            *ngIf="column.filterable"></gp-app-input-with-metadata>
-            </th>
+            <ng-template ngFor [ngForOf]="columns" let-column>
+                <th *ngIf="column.visible">
+                    <gp-app-input-with-metadata [ngModel]="column.filter"
+                                                (ngModelChange)="changeFilter(column, $event)"
+                                                [columnMetadata]="column" [isFilter]="true"
+                                                *ngIf="column.filterable"></gp-app-input-with-metadata>
+                </th>
+            </ng-template>
             <th *ngIf="config.actionsColumn">
                 <button pButton label="Clear filters" (click)="clearFilters()"></button>
             </th>
@@ -107,36 +111,38 @@
                 columns: columns
             }"></ng-content>
                 <ng-template #defaultRowTemplate let-item let-columns="columns">
-                    <td *ngFor="let column of columns">
-                        <ng-container [ngSwitch]="column.type">
-                            <ng-template [ngSwitchCase]="InputType.FILE_FIELD">
-                                <button pButton
-                                        icon="ui-icon-file-download"
-                                        *ngIf="hasFile(item, column)"
-                                        (click)="download(item, column)"></button>
-                            </ng-template>
-                            <button *ngSwitchCase="InputType.IMG_FIELD"
-                                    pButton
-                                    icon="ui-icon-remove-red-eye"
-                                    (click)="imgModalVisible.visible = true; imgModalVisible.img = item[column.name]"></button>
-                            <button *ngSwitchCase="InputType.WYSIWYG_FIELD"
-                                    icon="ui-icon-remove-red-eye"
-                                    pButton
-                                    (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]"></button>
-                            <button *ngSwitchCase="InputType.TEXTAREA_FIELD"
-                                    icon="ui-icon-remove-red-eye"
-                                    pButton
-                                    (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]"></button>
-                            <ng-template ngSwitchDefault>
-                                <ng-template [ngIf]="column.referenceDescription" [ngIfElse]="defaultColumnField">
-                                    {{item[column.referenceDescription]}}
+                    <ng-template ngFor [ngForOf]="columns" let-column>
+                        <td *ngIf="column.visible">
+                            <ng-container [ngSwitch]="column.type">
+                                <ng-template [ngSwitchCase]="InputType.FILE_FIELD">
+                                    <button pButton
+                                            icon="ui-icon-file-download"
+                                            *ngIf="hasFile(item, column)"
+                                            (click)="download(item, column)"></button>
                                 </ng-template>
-                                <ng-template #defaultColumnField>
-                                    {{item[column.name]}}
+                                <button *ngSwitchCase="InputType.IMG_FIELD"
+                                        pButton
+                                        icon="ui-icon-remove-red-eye"
+                                        (click)="imgModalVisible.visible = true; imgModalVisible.img = item[column.name]"></button>
+                                <button *ngSwitchCase="InputType.WYSIWYG_FIELD"
+                                        icon="ui-icon-remove-red-eye"
+                                        pButton
+                                        (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]"></button>
+                                <button *ngSwitchCase="InputType.TEXTAREA_FIELD"
+                                        icon="ui-icon-remove-red-eye"
+                                        pButton
+                                        (click)="textModalVisible.visible = true; textModalVisible.text = item[column.name]"></button>
+                                <ng-template ngSwitchDefault>
+                                    <ng-template [ngIf]="column.referenceDescription" [ngIfElse]="defaultColumnField">
+                                        {{item[column.referenceDescription]}}
+                                    </ng-template>
+                                    <ng-template #defaultColumnField>
+                                        {{item[column.name]}}
+                                    </ng-template>
                                 </ng-template>
-                            </ng-template>
-                        </ng-container>
-                    </td>
+                            </ng-container>
+                        </td>
+                    </ng-template>
                 </ng-template>
             </ng-template>
             <td *ngIf="config.actionsColumn" class="actions-colum">
@@ -213,13 +219,16 @@
     </p-footer>
 </p-dialog>
 <ng-template #defaultFormTemplate let-item let-columns="columns">
-    <td *ngFor="let column of columns">
-        <gp-app-input-with-metadata [(ngModel)]="item[column.name]"
-                                    [item]="item"
-                                    [columnMetadata]="column"
-                                    (startEditing)="startEditingField.emit($event)"
-                                    (stopEditing)="itemValueChanged($event, item)"
-                                    (downloadFile)="download(item, column)"
-        ></gp-app-input-with-metadata>
-    </td>
+    <ng-template ngFor [ngForOf]="columns" let-column>
+        <td *ngIf="column.visible">
+            <gp-app-input-with-metadata [(ngModel)]="item[column.name]"
+                                        [item]="item"
+                                        #formInput
+                                        [columnMetadata]="column"
+                                        (startEditing)="startEditingField.emit($event)"
+                                        (stopEditing)="itemValueChanged($event, item)"
+                                        (downloadFile)="download(item, column)"
+            ></gp-app-input-with-metadata>
+        </td>
+    </ng-template>
 </ng-template>

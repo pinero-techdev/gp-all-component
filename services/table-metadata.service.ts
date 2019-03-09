@@ -21,6 +21,9 @@ export class TableMetadataService {
         column.isId = metadata.id;
         column.allowAscii = metadata.allowAscii;
         column.referenceDescription = metadata.referenceDescription;
+        column.visible = metadata.lengthInTable === 0;
+        column.hideInAddOperation = metadata.hideInAddOperation;
+        column.lengthInTable = metadata.lengthInTable;
         this.getType(metadata, column);
         if(metadata.displayInfo) {
             column.label = metadata.displayInfo.fieldLabel;

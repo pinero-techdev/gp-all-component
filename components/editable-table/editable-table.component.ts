@@ -1,5 +1,5 @@
 import {
-    Component,
+    Component, ElementRef,
     EventEmitter,
     Input,
     OnInit,
@@ -97,6 +97,7 @@ export class GpAppEditableTableComponent implements OnInit {
     @Output() delete: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
     @Output() downloadFile: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
     @ViewChildren(GpAppInputWithMetadataComponent) inputs : QueryList<GpAppInputWithMetadataComponent>;
+    @ViewChildren('formInput', {read: ElementRef}) formInputs: QueryList<ElementRef>;
 
     get filteredData() {
         if(this.config.filterable) {
@@ -145,7 +146,7 @@ export class GpAppEditableTableComponent implements OnInit {
     }
 
     get footerColspan() {
-        let columnNumber = this.columns.length;
+        let columnNumber = this.columns.filter(column => column.visible).length;
         if(this.config && this.config.actionsColumn) {
             columnNumber += 1;
         }
@@ -362,7 +363,17 @@ export class GpAppEditableTableComponent implements OnInit {
         this.creationObject = {};
         this.itemValid = this.isItemValid(this.creationObject);
         this.onCreation = true;
+        this.columns.forEach( column => {
+            if (column.type == InputType.CHECKBOX_FIELD || column.type == InputType.SWITCH_FIELD) {
+                if(!this.creationObject[column.name] && column.uncheckedValue) {
+                    this.creationObject[column.name] = column.uncheckedValue;
+                    this.startEditingField.emit({value:this.creationObject[column.name], column: column});
+                    this.stopEditingField.emit({value:this.creationObject[column.name], column: column});
+                }
+            }
+        });
         this.startEdition.emit({item: this.creationObject, columns: this.columns});
+        this.startFocus();
     }
 
     // Arrow function to be used in external template without losing scope
@@ -408,6 +419,7 @@ export class GpAppEditableTableComponent implements OnInit {
             this.onEdition = true;
             item._editting = true;
             this.startEdition.emit({item: this.editionObject, columns: this.columns});
+            this.startFocus();
         };
         if(this.config.requestItemOnEdit) {
             this.edit.emit({
@@ -419,6 +431,19 @@ export class GpAppEditableTableComponent implements OnInit {
             editFn(item);
         }
     };
+
+    startFocus() {
+        setTimeout(_=> {
+            const firstInput = this.formInputs.first;
+            if(firstInput) {
+                let input = firstInput.nativeElement.querySelector('input');
+                if (input) {
+                    input.focus()
+                }
+
+            }
+        },300)
+    }
 
     beforeSaveItem(original: any, modified: any) {
         let successSaved =  (savedItem: any) => {

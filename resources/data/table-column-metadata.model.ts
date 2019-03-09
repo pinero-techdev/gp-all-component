@@ -11,9 +11,11 @@ export class TableColumnMetadata {
     filterable: boolean = true;
     filter: any;
     visible: boolean = true;
+    hideInAddOperation: boolean = false;
     editable: boolean = true;
     required: boolean = false;
     order: number = -1;
+    lengthInTable: number = -1;
     translationInfo: TranslationInfo;
     messages: string[] = [];
     isId: boolean;
