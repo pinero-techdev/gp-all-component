@@ -42,6 +42,7 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
     translationKeys: string = "";
     temporalValue: string = "";
     temoralFile: Attachment = new Attachment();
+    subject = new Subject();
     @Input('columnMetadata') column: TableColumnMetadata = new TableColumnMetadata();
     @Input() item: any; // item es el objeto row, con todos los campos
     @Input() isFilter: boolean;
@@ -164,9 +165,19 @@ export class GpAppInputWithMetadataComponent extends CustomInput implements Afte
         this.fileModalVisible = true;
     }
 
-    subject = new Subject();
+    getOptions() {
+        if(this.column.referencedTable) {
+            this.getRelatedOptions();
+        } else {
+            if (this.column.setOptionsFn) {
+                this.setCustomOptions(this.column.options || []);
+            } else {
+                this.setOptions(this.column.options || [])
+            }
+        }
+    }
 
-    getOptions(): any {
+    getRelatedOptions() {
         if (this.subject.observers.length === 0) {
             this.subject
                 .switchMap(() => {
