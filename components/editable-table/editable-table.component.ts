@@ -516,7 +516,7 @@ export class GpAppEditableTableComponent implements OnInit {
                     valid = false;
                 }
             } else {
-                if ( !this._metadataService.isValid(item[column.name], column) ) {
+                if ( !this._metadataService.isValid(item[column.name], column, this.onCreation) ) {
                     valid = false;
                 }
             }

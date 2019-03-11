@@ -28,6 +28,9 @@
             </th>
             <ng-template ngFor [ngForOf]="columns" let-column>
                 <th *ngIf="column.visible" (click)="changeSort(column)"
+                    [class.colsmall]="column.lengthInTable <=5"
+                    [class.colmedium]="column.lengthInTable < 20"
+                    [class.colbig]="column.lengthInTable >= 20"
                     [class.ui-state-highlight]="config.sortField == column.name">
                     {{column.label}}
                     <i class="table-sort-icon pull-right fa" aria-hidden="true"
@@ -223,6 +226,7 @@
         <td *ngIf="column.visible">
             <gp-app-input-with-metadata [(ngModel)]="item[column.name]"
                                         [item]="item"
+                                        *ngIf="!onCreation || !column.hideInAddOperation"
                                         #formInput
                                         [columnMetadata]="column"
                                         (startEditing)="startEditingField.emit($event)"

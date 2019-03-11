@@ -21,7 +21,7 @@ export class TableMetadataService {
         column.isId = metadata.id;
         column.allowAscii = metadata.allowAscii;
         column.referenceDescription = metadata.referenceDescription;
-        column.visible = metadata.lengthInTable === 0;
+        column.visible = metadata.lengthInTable !== 0;
         column.hideInAddOperation = metadata.hideInAddOperation;
         column.lengthInTable = metadata.lengthInTable;
         this.getType(metadata, column);
@@ -199,10 +199,11 @@ export class TableMetadataService {
         return column;
     }
 
-    isValid(value: any, column: TableColumnMetadata): boolean {
+    isValid(value: any, column: TableColumnMetadata, onCreation?: boolean): boolean {
         column.messages = [];
-        if (column.type === InputType.FILE_FIELD)
+        if (column.type === InputType.FILE_FIELD || (onCreation && column.hideInAddOperation) ) {
             return true;
+        }
         //Comprueba si el campo está vacío
         if (column.required && (value === undefined || value === null || value === "") ) { // 0 or false are valid values
             column.messages.push('El valor es obligatorio.');
