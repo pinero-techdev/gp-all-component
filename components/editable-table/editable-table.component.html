@@ -96,23 +96,23 @@
             </td>
             <!-- Edition -->
             <ng-template [ngIf]="item._editting" [ngIfElse]="normalRow">
-                <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate;
+                <ng-container *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate;
             context:{
                 $implicit:editionObject,
                 original:item ,
                 index: rowIndex,
                 columns: columns
-            }"></ng-content>
+            }"></ng-container>
             </ng-template>
             <!-- Visualization -->
             <ng-template #normalRow>
 
-                <ng-content *ngTemplateOutlet="(rowTemplate)?rowTemplate:defaultRowTemplate;
+                <ng-container *ngTemplateOutlet="(rowTemplate)?rowTemplate:defaultRowTemplate;
             context:{
                 $implicit:item,
                 index: rowIndex,
                 columns: columns
-            }"></ng-content>
+            }"></ng-container>
                 <ng-template #defaultRowTemplate let-item let-columns="columns">
                     <ng-template ngFor [ngForOf]="columns" let-column>
                         <td *ngIf="column.visible">
@@ -150,13 +150,13 @@
             </ng-template>
             <td *ngIf="config.actionsColumn" class="actions-colum">
                 <ng-template [ngIf]="!item._editting">
-                    <ng-content *ngTemplateOutlet="(actionsTemplate)?actionsTemplate:defaultActionsTemplate;
+                    <ng-container *ngTemplateOutlet="(actionsTemplate)?actionsTemplate:defaultActionsTemplate;
                 context:{
                     $implicit:item,
                     index: rowIndex,
                     editItem: editItem,
                     deleteItem: beforeDeleteItem
-                }"></ng-content>
+                }"></ng-container>
                     <ng-template #defaultActionsTemplate let-item let-columns="columns">
                         <button pButton label="Editar"
                                 [disabled]="(onEdition || onCreation || !isEditable(item))"
@@ -183,12 +183,12 @@
         <ng-template [ngIf]="onCreation">
             <tr>
                 <td *ngIf="config.selectable == SelectionType.MULTIPLE"></td>
-                <ng-content *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate;
+                <ng-container *ngTemplateOutlet="(formTemplate)?formTemplate:defaultFormTemplate;
             context:{
                 $implicit:creationObject,
                 index: rowIndex,
                 columns: columns
-            }"></ng-content>
+            }"></ng-container>
                 <td *ngIf="config.actionsColumn" class="actions-colum">
                     <button pButton label="Crear"
                             [disabled]="!itemValid"

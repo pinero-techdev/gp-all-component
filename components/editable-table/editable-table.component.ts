@@ -1,5 +1,6 @@
 import {
-    Component, ElementRef,
+    Component,
+    ElementRef,
     EventEmitter,
     Input,
     OnInit,
@@ -126,19 +127,22 @@ export class GpAppEditableTableComponent implements OnInit {
         return this.filteredData.sort( (a, b) => {
             let valueA = a[this.config.sortField];
             let valueB = b[this.config.sortField];
-            if((valueA < valueB && this.config.sortDirection == SortDirection.ASC) ||
-                (valueA > valueB && this.config.sortDirection == SortDirection.DESC)
-            ) {
-                return -1;
+            if (valueA === valueB) {
+               return 0;
+            } else if( this.config.sortDirection === SortDirection.ASC) {
+                if(!valueB || valueA < valueB) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            } else {
+                if(!valueA || valueA > valueB) {
+                    return -1;
+                } else {
+                    return 1;
+                }
             }
-            if((valueA > valueB && this.config.sortDirection == SortDirection.ASC) ||
-                (valueA < valueB && this.config.sortDirection == SortDirection.DESC)
-            ) {
-                return 1;
-            }
-
-            return 0;
-        })
+        });
     }
 
     get currentPageData() {
@@ -226,7 +230,6 @@ export class GpAppEditableTableComponent implements OnInit {
     }
 
     toggleItemSelection(item: any, event?) {
-        if(event) {event.stopPropagation();}
         if( event && (!event.target.tagName.startsWith('TR')) && (!event.target.tagName.startsWith('TD')) ) return;
         if(!this.isSelectable(item)) {return;}
         if(this.config.selectable == SelectionType.SINGLE) {
