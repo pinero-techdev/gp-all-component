@@ -20,6 +20,11 @@ export class GpFormTextAreaFieldComponent extends GpFormFieldControl implements 
     rows: number;
 
     translationKeys: string = '';
+    
+    // Vars control Insercion, edicion, borrado
+    @Input() canAdd = true;
+    @Input() canEdit = true;
+    @Input() canDelete = true;
 
     public static FORM_FIELD_TYPE_TEXT_AREA_FIELD : string = "gp-form-textarea-field";
 

@@ -1,6 +1,6 @@
 <p-growl [value]="msgsDialog" [sticky]="true"></p-growl>
 <div class="ui-g" *ngIf="!working && columnas.length > 0">
-    <div class="ui-g-6"  [ngClass]="displayEdicion ? 'custom--half-width' : 'custom--full-width'">
+    <div class="ui-g-6" [ngClass]="displayEdicion ? 'custom--half-width' : 'custom--full-width'">
         <div class="card card-w-title">
             <p-dataTable [value]="elementos" selectionMode="single" [(selection)]="selectedRow"
                          (onRowSelect)="onRowSelect()"
@@ -37,7 +37,8 @@
                 <p-footer>
                     <div class="ui-g">
                         <div class="ui-g-12 ui-md-2">
-                            <button class="export-to-csv" type="button" pButton icon="ui-icon-file-download" (click)="dt.exportCSV()"
+                            <button class="export-to-csv" type="button" pButton icon="ui-icon-file-download"
+                                    (click)="dt.exportCSV()"
                                     label="Exportar a CSV"></button>
                         </div>
                     </div>
@@ -64,9 +65,13 @@
                             [formField]="col"></gp-form-time-field>
                     <gp-form-text-field
                             *ngIf="col.formFieldType == 'gp-form-text-field'"
+                            [canAdd]="canAdd"
+                            [canEdit]="canEdit"
                             [formField]="col"></gp-form-text-field>
                     <gp-form-textarea-field
                             *ngIf="col.formFieldType == 'gp-form-textarea-field'"
+                            [canAdd]="canAdd"
+                            [canEdit]="canEdit"
                             [formField]="col"></gp-form-textarea-field>
                     <gp-form-dropdown-field
                             *ngIf="col.formFieldType == 'gp-form-dropdown-field'"

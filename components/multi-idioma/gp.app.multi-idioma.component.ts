@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {Mensajes} from "../../resources/data/mensajes";
+import {Component, Input, OnInit} from '@angular/core';
+import {Mensajes} from '../../resources/data/mensajes';
 import {Traduccion} from '../../resources/data/traduccion.model';
 import {
     MultiIdomaService,
     GetTraduccionesRq,
     UpdateTraduccionesRq
-} from "../../services/multi-idioma.service";
+} from '../../services/multi-idioma.service';
 
 export const orderLanguage = ['ES', 'EN', 'FR', 'DE', 'IT', 'PT'];
 
@@ -21,7 +21,10 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
     @Input() campo: string;
     @Input() campoDescripcion: string;
     @Input() habilitarEdicionHTML: boolean;
-    @Input() orderByLangCod: boolean = true;
+    @Input() orderByLangCod = true;
+    // Vars control edicion
+    @Input() canEdit = true;
+
     visualizarTablaTraducciones: boolean;
     visualizarEdicionHTML: boolean;
     traduccionTextoHTML: string;
@@ -43,7 +46,7 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
         if (this.pKey) {
             this.getTraducciones();
         } else {
-            this.showErrorAlert("Debe guardar primero el registro para poder insertar o visualizar las traducciones.")
+            this.showErrorAlert('Debe guardar primero el registro para poder insertar o visualizar las traducciones.')
         }
     }
 
@@ -113,7 +116,7 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
     }
 
     contieneHtml(traduccion: string): boolean {
-        return traduccion != null && (traduccion.indexOf("</") != -1 || traduccion.indexOf("/>") != -1 || traduccion.indexOf("&lt;") != -1 || traduccion.indexOf("&gt;") != -1);
+        return traduccion != null && (traduccion.indexOf('</') != -1 || traduccion.indexOf('/>') != -1 || traduccion.indexOf('&lt;') != -1 || traduccion.indexOf('&gt;') != -1);
     }
 
     cerrarEdicionTraduccion() {

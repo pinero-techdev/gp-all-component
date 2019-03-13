@@ -43,7 +43,7 @@
                 <div class="ui-grid-col-8"></div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Aceptar" type="button" icon="ui-icon-done"
-                            (click)="guardarCambios()" [disabled]="working"></button>
+                            (click)="guardarCambios()" [disabled]="working || !canEdit"></button>
                 </div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Salir" type="button" icon="ui-icon-clear"
@@ -86,7 +86,7 @@
                 <div class="ui-grid-col-2">
                     <button pButton label="Guardar" type="button" icon="ui-icon-done"
                             class="full-width"
-                            (click)="guardarCambiosHTML()" [disabled]="working"></button>
+                            (click)="guardarCambiosHTML()" [disabled]="working || !canEdit"></button>
                 </div>
                 <div class="ui-grid-col-2">
                     <button pButton label="Salir" type="button" icon="ui-icon-clear"
