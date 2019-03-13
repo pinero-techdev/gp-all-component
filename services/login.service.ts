@@ -64,7 +64,7 @@ export class LoginService {
      * @returns Json con la sesión del usuario
      */
     login(request: LoginRq) {
-        this.cleanSessionInfo();
+        this.cleanSessionInfo(false);
 
         let body = JSON.stringify(request);
         let headers = new HttpHeaders({'Content-Type': 'application/json'});
@@ -91,7 +91,7 @@ export class LoginService {
     logout(): Observable<CommonRs> {
         let logoutRq: any = {};
         logoutRq.sessionId = GlobalService.SESSION_ID;
-        this.cleanSessionInfo();
+        this.cleanSessionInfo(true);
 
         // request de logout.
         let headers = new HttpHeaders({'Content-Type': 'application/json'});
@@ -100,12 +100,17 @@ export class LoginService {
         return this.http.post<CommonRs>(url, logoutRq, options);
     }
 
-    cleanSessionInfo() {
+    cleanSessionInfo( cleanPreloginUrl: boolean = true ) {
         // Limpieza informacion de sesion.
         sessionStorage.clear();
         // Limpieza de los datos de usuario del global service.
         GlobalService.setLogged(false);
         GlobalService.setSession(new UserInfo());
         GlobalService.setSessionId(null);
+
+        if ( cleanPreloginUrl ) {
+            GlobalService.setPreLoginUrl(null);
+        }
+
     }
 }
