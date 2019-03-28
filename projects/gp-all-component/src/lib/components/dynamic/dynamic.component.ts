@@ -1,11 +1,5 @@
-import {
-    Component,
-    ComponentFactoryResolver,
-    ReflectiveInjector,
-    ViewContainerRef,
-    ViewChild,
-    Input,
-} from '@angular/core';
+import { Component, ComponentFactoryResolver, Injector, ViewContainerRef, ViewChild, Input } from '@angular/core';
+import 'rxjs/add/operator/first';
 
 @Component({
     selector: 'gp-dynamic-component',
@@ -16,7 +10,7 @@ export class DynamicComponent {
     currentComponent = null;
     @ViewChild('gpdynamic', { read: ViewContainerRef }) dynamicComponent: ViewContainerRef;
 
-    constructor(private resolver: ComponentFactoryResolver) {}
+    constructor(private resolver: ComponentFactoryResolver, private injector: Injector) {}
 
     @Input() set componentData(data: { component: any; inputs: any; outputs: any }) {
         if (!data) {
@@ -25,28 +19,25 @@ export class DynamicComponent {
             }
             return;
         }
-        const inputProviders = Object.keys(data.inputs).map((inputName) => {
-            return { provide: inputName, useValue: data.inputs[inputName] };
-        });
-        const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
-        const injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.dynamicComponent.parentInjector);
-        const factory = this.resolver.resolveComponentFactory(data.component);
-        const component = factory.create(injector);
-        inputProviders.forEach((input) => {
-            component.instance[input.provide] = input.useValue;
-        });
-        if (data.outputs) {
-            const outputProviders = Object.keys(data.outputs).map((outputName) => {
-                return { provide: outputName, useValue: data.outputs[outputName] };
-            });
-            outputProviders.forEach((output) => {
-                component.instance[output.provide].subscribe((value) => {
-                    output.useValue(value);
-                });
-            });
-        }
-        this.dynamicComponent.insert(component.hostView);
+        const inputProviders = Object.keys(data.inputs).map((inputName) =>
+            Object.create({ provide: inputName, useValue: data.inputs[inputName] })
+        );
 
+        const factory = this.resolver.resolveComponentFactory(data.component);
+        const component = factory.create(this.injector);
+
+        inputProviders.forEach((input) => (component.instance[input.provide] = input.useValue));
+
+        if (data.outputs) {
+            const outputProviders = Object.keys(data.outputs).map((outputName) =>
+                Object.create({ provide: outputName, useValue: data.outputs[outputName] })
+            );
+            outputProviders.forEach((output) =>
+                component.instance[output.provide].first().subscribe((value) => output.useValue(value))
+            );
+        }
+
+        this.dynamicComponent.insert(component.hostView);
         if (this.currentComponent) {
             this.currentComponent.destroy();
         }
