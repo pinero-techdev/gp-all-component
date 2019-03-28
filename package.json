@@ -13,6 +13,7 @@
         "---- TESTING ----": "",
         "test-lib": "ng t gp-all-component",
         "test": "ng t tester --watch=true",
+        "test-prepush": "ng t tester",
         "e2e": "cypress open",
         "---- LINTERS ----": "",
         "lint": "ng lint --format stylish",
@@ -24,7 +25,7 @@
         "tslint-check": "tslint-config-prettier-check ./tslint.json",
         "format:fix": "pretty-quick --staged",
         "fix:all": "npm run format:fix && npm run styles:fix",
-        "prepush": "run-s lint:prod test"
+        "prepush": "run-s lint:prod test-prepush"
     },
     "private": true,
     "dependencies": {
