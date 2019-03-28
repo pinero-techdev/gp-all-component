@@ -1,0 +1,35 @@
+.ui-tabview {
+    .ui-tabview-panel {
+        padding: 0.625em 0;
+    }
+
+    .ui-tabview-top > .ui-tabview-nav {
+        border-color: $borderColor;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        overflow-x: auto;
+    }
+
+    .ui-tabview-top > .ui-tabview-nav > li {
+        border-width: 0;
+    }
+
+    .ui-tabview-nav > li {
+        outline: none;
+
+        a {
+            font-weight: bold;
+        }
+    }
+
+    .ui-tabview-nav > li.ui-state-active {
+        border-width: 0 0 2px 0;
+        border-color: $primaryColor;
+        outline: none;
+
+        a {
+            color: $primaryColor;
+        }
+    }
+}

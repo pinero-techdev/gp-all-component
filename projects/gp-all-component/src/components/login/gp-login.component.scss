@@ -1,0 +1,140 @@
+@import './../../resources/scss/theme-360/global/base';
+
+.login-body {
+    background-image: url("/assets/images/bg-launcher.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.login-panel {
+    @include absolute-centered(all);
+    text-align: center;
+    width: 464px;
+    min-height: auto;
+    padding: 40px;
+    margin: 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 64px 0 $textColor;
+    font-family: "Lato", sans-serif;
+
+    &-logo {
+        height: 37.85px;
+        background-image: url("/assets/images/grupo-pinero.svg");
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+        background-position: center;
+    }
+
+    &-title {
+        color: $textColor;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &-action {
+        max-width: 164px;
+        font-weight: 600;
+        letter-spacing: 0.19px;
+        font-size: 13.5px;
+    }
+
+    &-change-password {
+        position: absolute;
+        right: 8px;
+        top: 10px;
+        color: $primaryColor;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.15px;
+        text-decoration: underline;
+
+        @media (min-width: map-get($breakpoints, "md")) {
+            top: 0;
+        }
+    }
+
+    &-change-password-wrapper {
+        position: relative;
+    }
+
+    .ui-col-fluid {
+        padding-top: 25px;
+
+        @media (max-width: map-get($breakpoints, "md")) {
+            padding-top: 35px;
+        }
+    }
+
+    .ui-col-fluid.login-panel-title {
+        padding-top: 50px;
+    }
+
+    .ui-button {
+        margin: 0 auto;
+
+        &:hover {
+            background-color: $primaryDarkColor;
+        }
+
+        &:focus {
+            outline: 0 none;
+            background-color: lighten($primaryColor, 10%);
+        }
+
+        &.secondary {
+            &:hover {
+                background-color: $accentDarkColor;
+            }
+
+            &:focus {
+                outline: 0 none;
+                background-color: lighten($accentColor, 10%);
+            }
+        }
+
+        .ui-button-text {
+            vertical-align: inherit;
+        }
+    }
+
+    .ui-inputtext {
+        &:focus {
+            padding-bottom: 6.875px;
+            border: 1px solid $primaryColor;
+        }
+    }
+
+    .md-inputfield {
+        text-align: left;
+    }
+
+    &-error {
+        color: $errorColor;
+        text-align: left;
+        font-size: 12px;
+    }
+
+    &-input-error {
+        &.ui-inputtext:not(label) {
+            border-color: $errorColor;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .login-panel {
+        min-height: auto;
+        margin: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .login-panel {
+        width: 300px;
+        min-height: auto;
+        padding: 40px 20px;
+        margin: 0;
+    }
+}

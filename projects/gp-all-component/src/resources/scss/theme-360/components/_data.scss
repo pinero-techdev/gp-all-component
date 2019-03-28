@@ -1,0 +1,273 @@
+.ui-tree-align-left .ui-tree > table {
+    margin-left: 0;
+}
+
+.ui-tree {
+    padding: $contentPadding / 2;
+
+    > table {
+        margin: 0 auto;
+    }
+
+    .ui-treenode-content {
+        @extend .ui-inputtext;
+        position: relative;
+        min-width: 150px;
+
+        &.ui-state-highlight {
+            background: $primaryLightestColor;
+
+            .ui-treenode-icon {
+                filter: brightness(0) invert(100%);
+            }
+        }
+
+        .ui-tree-toggler {
+            @include absolute-centered("vertical");
+            left: 100%;
+            width: 25px;
+            background: $primaryBg;
+            margin-left: $inputBorderWidth;
+            height: 1em;
+
+            &:before {
+                box-sizing: border-box;
+                padding: 2px;
+                color: $primaryColor;
+                border: solid 1.5px $primaryColor;
+                border-radius: 1.5px;
+                @include absolute-centered("vertical");
+                right: 0;
+            }
+        }
+    }
+
+    &.ui-tree-horizontal {
+        padding-left: 0;
+        padding-right: 0;
+        @include make-scroll();
+
+        .ui-treenode-content {
+            &.ui-state-highlight {
+                background-color: lighten($primaryLightestColor, 10%);
+            }
+        }
+
+        .ui-treenode {
+            padding-left: 0;
+            padding-right: 4em;
+            background: url("/assets/images/pixel-blue.png") repeat-x scroll center
+                center transparent;
+        }
+
+        .ui-treenode-connector-line {
+            background: url("/assets/images/pixel-blue.png") repeat-y scroll 0 0
+                transparent;
+        }
+
+        .ui-treenode-collapsed {
+            padding-right: 0;
+        }
+
+        .ui-treenode-children-container {
+            position: relative;
+            left: -1px;
+
+            .ui-treenode {
+                padding: 0.25em 4em;
+            }
+
+            .ui-treenode-collapsed {
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+.ui-tree-draghelper {
+    border: 1px solid $primaryColor;
+}
+
+.fc {
+    .fc-toolbar {
+        .ui-icon-circle-triangle-e {
+            @include material-icon("play_circle_outline");
+            margin-top: 0.15em;
+        }
+
+        .ui-icon-circle-triangle-w {
+            @include material-icon("play_circle_outline");
+            @include rotate(180deg);
+            margin-top: 0.15em;
+        }
+
+        .ui-state-active {
+            background-color: $accentColor;
+        }
+    }
+
+    .fc-event {
+        background-color: $primaryLightColor;
+        color: $primaryBg;
+    }
+
+    table {
+        box-sizing: border-box;
+    }
+}
+
+.ui-treetable {
+    .ui-treetable-header {
+        padding: $headerPadding;
+        font-size: $headerFontSize;
+    }
+
+    thead {
+        tr {
+            border-bottom: 1px solid $dividerColor;
+
+            th {
+                background-color: $primaryBg;
+                padding: 0.625em 0.875em;
+                border: 0 none;
+
+                .fa {
+                    color: $textSecondaryColor;
+                }
+
+                &:first-child {
+                    border-left: 1px solid $dividerColor;
+                }
+
+                &:last-child {
+                    border-right: 1px solid $dividerColor;
+                }
+
+                .ui-sortable-column-icon {
+                    vertical-align: middle;
+                    margin: -0.25em 0 0 0;
+                }
+
+                &.ui-state-active {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+
+                    .fa {
+                        color: $accentTextColor;
+                    }
+                }
+
+                .ui-column-resizer {
+                    @include material-icon("code");
+                    font-size: 1em;
+                    color: $textSecondaryColor;
+                }
+            }
+        }
+    }
+
+    tfoot {
+        td {
+            border: 0 none;
+            padding: 0.625em 0.875em;
+        }
+    }
+
+    tbody {
+        .ui-treetable-row {
+            background-color: $primaryBg;
+
+            td {
+                border: 0 none;
+                padding: 0.625em 0.875em;
+
+                .ui-treetable-toggler {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin: 0 0.167em;
+                    float: none;
+                }
+
+                .ui-chkbox {
+                    margin-right: 0.5em;
+                }
+
+                &.ui-treetable-child-table-container {
+                    padding: 0;
+                }
+            }
+
+            &.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
+                @include hover-element();
+            }
+
+            &.ui-state-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+
+                .ui-chkbox {
+                    .ui-chkbox-box {
+                        border-color: $accentTextColor;
+                    }
+                }
+            }
+        }
+    }
+
+    &.ui-treetable-scrollable {
+        .ui-treetable-scrollable-header,
+        .ui-treetable-scrollable-footer {
+            background-color: transparent;
+            border: 0 none;
+        }
+
+        thead {
+            th {
+                background-color: $primaryBg;
+                color: $textColor;
+            }
+        }
+    }
+}
+
+.ui-accordion.ficha-cliente-accordion {
+    margin-bottom: $separationLarge;
+
+    .ui-accordion-header {
+        @extend .ui-button;
+        @extend .ui-button-inverted;
+        position: relative;
+        margin-right: $separationXLarge;
+        margin-left: $separationXLarge;
+
+        @media (min-width: map-get($breakpoints, "md")) {
+            display: none;
+        }
+    }
+
+    .ui-accordion-toggle-icon {
+        @include absolute-centered("all");
+        transform: translate(-50%, 0);
+
+        &:before {
+            content: fa-content($fa-var-bars);
+        }
+    }
+
+    .ui-accordion-content {
+        padding: 0;
+    }
+
+    .ui-accordion-content-wrapper,
+    p-accordiontab {
+        @media (min-width: map-get($breakpoints, "md")) {
+            height: auto !important;
+            overflow: visible;
+            transition: unset !important;
+        }
+    }
+
+    .ui-accordion-header-text {
+        display: none;
+    }
+}

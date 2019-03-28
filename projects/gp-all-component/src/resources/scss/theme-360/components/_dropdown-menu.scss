@@ -1,0 +1,60 @@
+.dropdown-menu {
+    &-container {
+        position: relative;
+    }
+
+    &-action {
+        width: $dropdownMenuActionSize;
+        height: $dropdownMenuActionSize;
+        border-radius: 50%;
+        background: $dropdownMenuActionBg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .fa {
+            color: $textColor;
+        }
+    }
+
+    &-list {
+        @extend .card;
+        position: absolute;
+        height: 0;
+        opacity: 0;
+        overflow: hidden;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        z-index: 10;
+        transition: opacity 250ms ease-in-out;
+    }
+
+    &-item {
+        padding: $separationLarge;
+        font-size: $dropdownMenuItemFontSize;
+        color: $textSecondaryColor;
+        display: flex;
+        align-items: center;
+
+        svg,
+        .fa {
+            color: $textMutedColor;
+            margin-right: $separationLarge;
+        }
+    }
+
+    &.active .dropdown-menu-list {
+        opacity: 1;
+        height: auto;
+        overflow: visible;
+    }
+}
+
+p-header .dropdown-menu {
+    margin-left: $separation;
+}
+
+dropdown-menu-item.disabled {
+    pointer-events: none;
+}

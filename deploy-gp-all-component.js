@@ -8,7 +8,7 @@
 let server = 'apache.cen.intranet';
 let user = 'www';
 let packageName = 'gp-all-component';
-let component = 'gp-all-component-1.1.0.tgz';
+let component = 'gp-all-component-1.1.1.tgz';
 
 //
 let localFile = __dirname + '/dist/' + packageName + '/' + component;

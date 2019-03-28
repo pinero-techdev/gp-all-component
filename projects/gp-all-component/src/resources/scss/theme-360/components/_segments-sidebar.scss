@@ -1,0 +1,79 @@
+.segments-sidebar {
+    background: $primaryBg;
+    border-radius: 4px;
+    border: 1px solid $borderColor !important;
+    box-shadow: 0px 10px 20px rgba(173, 182, 217, 0.17);
+
+    &-action {
+        padding: 24px;
+        border-radius: 0 0 4px 4px;
+        font-size: 12px;
+        font-weight: 500;
+        color: $textSecondaryColor;
+        text-align: center;
+    }
+
+    &-container {
+        background-color: $textboxBgColor;
+        border-bottom: 1px solid $borderColor;
+        padding: 24px;
+        border-radius: 4px 4px 0 0;
+    }
+
+    &-header {
+        padding-bottom: 20px;
+        background-color: transparent;
+    }
+
+    &-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: $textColor;
+    }
+
+    .ui-panel,
+    .ui-panel-content {
+        background: $textboxBgColor;
+    }
+
+    .ui-panel-content {
+        padding: 1em 0 0;
+    }
+
+    .ui-panel-title {
+        vertical-align: middle;
+    }
+
+    .ui-panel-titlebar {
+        font-size: 16px;
+        font-weight: bold;
+        color: $textColor;
+        padding: 0;
+        border: 0;
+    }
+
+    .ui-panel-titlebar .ui-panel-titlebar-icon {
+        height: auto;
+        width: auto;
+        line-height: 0;
+        padding: 8px;
+        vertical-align: middle;
+        border: 1px solid $borderColor;
+        border-radius: 4px;
+        background-color: $primaryBg;
+        text-align: center;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+
+        .fa {
+            color: $textColor;
+        }
+
+        &:hover {
+            background: $primaryBg;
+        }
+
+        @media (min-width: map-get($breakpoints, "md")) {
+            display: none;
+        }
+    }
+}

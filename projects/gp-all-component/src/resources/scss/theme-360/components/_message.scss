@@ -1,0 +1,163 @@
+.ui-messages {
+    padding: $headerPadding;
+
+    ul {
+        display: inline-block;
+        margin-left: 0;
+        text-align: left;
+        padding-left: 45px;
+        padding-right: 25px;
+    }
+
+    &.ui-messages-info {
+        background-color: $infoColor;
+        border-color: $infoColor;
+        color: $messageText;
+    }
+
+    &.ui-messages-warn {
+        background-color: $warnColor;
+        border-color: $warnColor;
+        color: $messageText;
+    }
+
+    &.ui-messages-error {
+        background-color: $errorColor;
+        border-color: $errorColor;
+        color: $messageText;
+    }
+
+    &.ui-messages-fatal {
+        background-color: $fatalColor;
+        border-color: $fatalColor;
+        color: $messageText;
+    }
+
+    &.ui-messages-success {
+        background-color: $successColor;
+        border-color: $successColor;
+        color: $messageText;
+    }
+
+    .ui-messages-close {
+        text-decoration: none;
+        color: $messageText;
+        right: 0.25em;
+    }
+
+    .ui-messages-summary {
+        margin: 0;
+    }
+}
+
+.ui-messages .ui-messages-icon {
+    background: none;
+    color: $messageText;
+    margin-top: -2px;
+    position: absolute;
+
+    &.fa-info-circle {
+        @include material-icon("info");
+        font-size: 1.75em;
+    }
+
+    &.fa-warning {
+        @include material-icon("warning");
+        font-size: 1.75em;
+    }
+
+    &.fa-close {
+        @include material-icon("error_outline");
+        font-size: 1.75em;
+    }
+
+    &.fa-check {
+        @include material-icon("check_circle");
+        font-size: 1.75em;
+    }
+}
+
+.ui-growl {
+    top: 90px;
+
+    > .ui-growl-item-container {
+        opacity: 1;
+
+        &.ui-growl-message-info {
+            background-color: $infoColor;
+        }
+
+        &.ui-growl-message-warn {
+            background-color: $warnColor;
+        }
+
+        &.ui-growl-message-error {
+            background-color: $errorColor;
+        }
+
+        &.ui-growl-message-fatal {
+            background-color: $fatalColor;
+        }
+
+        &.ui-growl-message-success {
+            background-color: $successColor;
+        }
+
+        &.ui-shadow {
+            @include overlay-content-shadow();
+        }
+    }
+
+    .ui-growl-item {
+        .ui-growl-image {
+            background: none;
+            color: $messageText;
+            font-size: 36px;
+
+            &.fa-info-circle {
+                @include material-icon("info");
+                font-size: 1.75em;
+            }
+
+            &.fa-exclamation-circle {
+                @include material-icon("warning");
+                font-size: 1.75em;
+            }
+
+            &.fa-close {
+                @include material-icon("error_outline");
+                font-size: 1.75em;
+            }
+
+            &.fa-check {
+                @include material-icon("check_circle");
+                font-size: 1.75em;
+            }
+        }
+
+        .ui-growl-message {
+            padding: 0 0 0.25em 1em;
+            color: $messageText;
+        }
+
+        .ui-growl-icon-close {
+            @include material-icon("close");
+            font-size: 24px;
+            color: $messageText;
+        }
+    }
+}
+
+p-dialog {
+    p-growl {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        .ui-growl {
+            position: relative;
+            right: 0;
+            top: -20px;
+        }
+    }
+}

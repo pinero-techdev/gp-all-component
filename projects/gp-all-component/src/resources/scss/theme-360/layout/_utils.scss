@@ -1,0 +1,283 @@
+/* Utils */
+.clearfix:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
+
+*[hidden] {
+    display: none;
+}
+
+.card {
+    @include content-shadow();
+    @include border-radius(4px);
+    background: $primaryBg;
+    padding: 0;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+    box-shadow: -2px 5px 6px 0 rgba(214, 217, 231, 0.29),
+        -11px 9px 21px 0 rgba(173, 182, 217, 0.17);
+    border: 1px solid $borderColor;
+
+    &.card-w-title {
+        padding-bottom: 2em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        font-weight: 400;
+        margin: 1em 0;
+
+        &:first-child {
+            margin-top: 0.667em;
+        }
+    }
+
+    h2 {
+        font-size: 1.375em;
+        font-weight: 400;
+    }
+
+    h3 {
+        font-size: 1.25em;
+        font-weight: 400;
+    }
+
+    h4 {
+        font-size: 1.125em;
+        font-weight: 400;
+    }
+}
+
+.card-separator {
+    border-bottom: 1px solid $borderColor;
+    margin-top: 24px;
+    margin-bottom: 15px;
+
+    @media (min-width: map-get($breakpoints, "md")) {
+        margin-bottom: 24px;
+    }
+}
+.card-form-title,
+.card-form-title-consulting {
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.card-form-title {
+    padding-bottom: 30px;
+}
+
+.card-content {
+    padding: $cardContentPadding;
+}
+
+.nopad {
+    padding: 0;
+
+    .ui-panel-content {
+        padding: 0;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+@-webkit-keyframes fadeInDown {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -20px, 0);
+        transform: translate3d(0, -20px, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@-webkit-keyframes fadeOutUp {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -20px, 0);
+        transform: translate3d(0, -20px, 0);
+    }
+}
+
+@keyframes fadeOutUp {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -20px, 0);
+        transform: translate3d(0, -20px, 0);
+    }
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+.ui-icon-spin {
+    -webkit-animation-name: spin;
+    animation-name: spin;
+}
+
+.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+}
+
+.fadeOutUp {
+    -webkit-animation-name: fadeOutUp;
+    animation-name: fadeOutUp;
+}
+
+.ui-shadow-1 {
+    @include multi-shadow(
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24)
+    );
+}
+
+.ui-shadow-2 {
+    @include multi-shadow(
+        0 3px 6px rgba(0, 0, 0, 0.16),
+        0 3px 6px rgba(0, 0, 0, 0.23)
+    );
+}
+
+.ui-shadow-3 {
+    @include multi-shadow(
+        0 10px 20px rgba(0, 0, 0, 0.19),
+        0 6px 6px rgba(0, 0, 0, 0.23)
+    );
+}
+
+.ui-shadow-4 {
+    @include multi-shadow(
+        0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22)
+    );
+}
+
+.ui-shadow-5 {
+    @include multi-shadow(
+        0 19px 38px rgba(0, 0, 0, 0.3),
+        0 15px 12px rgba(0, 0, 0, 0.22)
+    );
+}
+
+.ui-g {
+    -ms-flex-wrap: wrap;
+
+    &.form-group {
+        > div {
+            padding: 1em;
+        }
+    }
+
+    &.form-group-m {
+        > div {
+            padding: 1em;
+        }
+    }
+}
+
+/* Ripple */
+/* Ripple Effect Style like Google Material Buttons Effect*/
+.ripplelink {
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    z-index: 0;
+}
+
+.ripplelink:hover {
+    /*z-index:1000;*/
+}
+
+.ink {
+    display: block;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 100%;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+}
+
+.ripple-animate {
+    -webkit-animation: ripple 0.65s linear;
+    -moz-animation: ripple 0.65s linear;
+    -ms-animation: ripple 0.65s linear;
+    -o-animation: ripple 0.65s linear;
+    animation: ripple 0.65s linear;
+}
+
+@-webkit-keyframes ripple {
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(2.5);
+    }
+}
+@-moz-keyframes ripple {
+    100% {
+        opacity: 0;
+        -moz-transform: scale(2.5);
+    }
+}
+@-o-keyframes ripple {
+    100% {
+        opacity: 0;
+        -o-transform: scale(2.5);
+    }
+}
+@keyframes ripple {
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}

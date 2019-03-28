@@ -1,0 +1,17 @@
+@function get-computed-padding($total-size, $content-size, $border-width) {
+    @return $total-size/2 - $content-size/2 - $border-width;
+}
+
+@function get-prev-step($step) {
+    @if ($step == 'xs') {
+        @return 0;
+    } @else if ($step == 'sm') {
+        @return map-get($breakpoints, 'xs');
+    } @if ($step == 'md') {
+        @return map-get($breakpoints, 'sm');
+    } @else if ($step == 'lg') {
+        @return map-get($breakpoints, 'md');
+    } @else if ($step == 'xl') {
+        @return map-get($breakpoints, 'lg');
+    }
+}

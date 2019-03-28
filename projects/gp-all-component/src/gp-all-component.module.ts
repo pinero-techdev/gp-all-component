@@ -61,7 +61,9 @@ import {GpDynamicComponent} from './components/dynamic/gp-dynamic.component';
 
 import {GpEmptyComponent} from './components/empty/gp-empty.component';
 import {GpLoadingIndicatorComponent} from './components/loading-indicator/gp-loading-indicator.component';
+import {GpLoginComponent} from './components/login/gp-login.component';
 import {GpMainMenuComponent} from './components/menu/gp-main-menu.component';
+import {GpModificaPasswordComponent} from './components/modifica-password/gp-modifica-password.component';
 import {GpMultiIdiomaComponent} from './components/multi-idioma/components/gp-multi-idioma.component';
 import {GpMultiSelectComponent} from './components/multiselect/components/gp-multi-select.component';
 import {GpRatingComponent} from './components/rating/gp-rating.component';
@@ -82,6 +84,7 @@ import {GpTopbarComponent} from './components/topbar/gp-topbar-component';
 import {FocusDirective} from './directives/focus.directive';
 import {LowercaseDirective} from './directives/lowercase.directive';
 import {UppercaseDirective} from './directives/uppercase.directive';
+import {routes} from './gp-all-component.routes';
 import {AuthGuard} from './services/auth-guard.service';
 import {CommonService} from './services/common.service';
 import {GlobalService} from './services/global.service';
@@ -145,7 +148,8 @@ import {TableService} from './services/table.service';
     ToolbarModule,
     TooltipModule,
     TreeModule,
-    TriStateCheckboxModule
+    TriStateCheckboxModule,
+    RouterModule.forChild(routes)
   ],
   exports: [
     // Directives.
@@ -156,7 +160,9 @@ import {TableService} from './services/table.service';
     GpDynamicComponent,
     GpEmptyComponent,
     GpLoadingIndicatorComponent,
+    GpLoginComponent,
     GpMainMenuComponent,
+    GpModificaPasswordComponent,
     GpMultiIdiomaComponent,
     GpMultiSelectComponent,
     GpRatingComponent,
@@ -183,7 +189,9 @@ import {TableService} from './services/table.service';
     GpDynamicComponent,
     GpEmptyComponent,
     GpLoadingIndicatorComponent,
+    GpLoginComponent,
     GpMainMenuComponent,
+    GpModificaPasswordComponent,
     GpMultiIdiomaComponent,
     GpMultiSelectComponent,
     GpRatingComponent,
