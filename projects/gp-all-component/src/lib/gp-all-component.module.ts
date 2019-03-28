@@ -1,11 +1,10 @@
+import { DynamicComponent } from './components/dynamic/dynamic.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooComponent } from './foo/foo.component';
-import { BarComponent } from './bar/bar.component';
 
 @NgModule({
-    declarations: [FooComponent, BarComponent],
+    declarations: [DynamicComponent],
     imports: [CommonModule],
-    exports: [FooComponent, BarComponent],
+    exports: [DynamicComponent],
 })
 export class GpAllComponentModule {}
