@@ -21,6 +21,14 @@
                         "project": "projects/gp-all-component/ng-package.json"
                     }
                 },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/gp-all-component/src/test.ts",
+                        "tsConfig": "projects/gp-all-component/tsconfig.spec.json",
+                        "karmaConfig": "projects/gp-all-component/karma.conf.js"
+                    }
+                },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
@@ -33,9 +41,9 @@
                 }
             }
         },
-        "gp-all-component-app": {
-            "root": "projects/gp-all-component-app/",
-            "sourceRoot": "projects/gp-all-component-app/src",
+        "tester": {
+            "root": "projects/tester/",
+            "sourceRoot": "projects/tester/src",
             "projectType": "application",
             "prefix": "app",
             "schematics": {
@@ -47,16 +55,13 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/gp-all-component-app",
-                        "index": "projects/gp-all-component-app/src/index.html",
-                        "main": "projects/gp-all-component-app/src/main.ts",
-                        "polyfills": "projects/gp-all-component-app/src/polyfills.ts",
-                        "tsConfig": "projects/gp-all-component-app/tsconfig.app.json",
-                        "assets": [
-                            "projects/gp-all-component-app/src/favicon.ico",
-                            "projects/gp-all-component-app/src/assets"
-                        ],
-                        "styles": [],
+                        "outputPath": "dist/tester",
+                        "index": "projects/tester/src/index.html",
+                        "main": "projects/tester/src/main.ts",
+                        "polyfills": "projects/tester/src/polyfills.ts",
+                        "tsConfig": "projects/tester/tsconfig.app.json",
+                        "assets": ["projects/tester/src/favicon.ico", "projects/tester/src/assets"],
+                        "styles": ["projects/tester/src/styles.css"],
                         "scripts": [],
                         "es5BrowserSupport": true
                     },
@@ -64,8 +69,8 @@
                         "production": {
                             "fileReplacements": [
                                 {
-                                    "replace": "projects/gp-all-component-app/src/environments/environment.ts",
-                                    "with": "projects/gp-all-component-app/src/environments/environment.prod.ts"
+                                    "replace": "projects/tester/src/environments/environment.ts",
+                                    "with": "projects/tester/src/environments/environment.prod.ts"
                                 }
                             ],
                             "optimization": true,
@@ -90,41 +95,36 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "gp-all-component-app:build"
+                        "browserTarget": "tester:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "gp-all-component-app:build:production"
+                            "browserTarget": "tester:build:production"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "gp-all-component-app:build"
+                        "browserTarget": "tester:build"
                     }
                 },
                 "test": {
-                    "builder": "@angular-devkit/build-angular:jest",
+                    "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "polyfills": "projects/gp-all-component-app/src/polyfills.ts",
-                        "tsConfig": "projects/gp-all-component-app/tsconfig.spec.json",
-                        "karmaConfig": "jest.conf.js",
+                        "main": "projects/tester/src/test.ts",
+                        "polyfills": "projects/tester/src/polyfills.ts",
+                        "tsConfig": "projects/tester/tsconfig.spec.json",
+                        "karmaConfig": "projects/tester/karma.conf.js",
                         "styles": [],
                         "scripts": [],
-                        "assets": [
-                            "projects/gp-all-component-app/src/favicon.ico",
-                            "projects/gp-all-component-app/src/assets"
-                        ]
+                        "assets": ["projects/tester/src/favicon.ico", "projects/tester/src/assets"]
                     }
                 },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
-                        "tsConfig": [
-                            "projects/gp-all-component-app/tsconfig.app.json",
-                            "projects/gp-all-component-app/tsconfig.spec.json"
-                        ],
+                        "tsConfig": ["projects/tester/tsconfig.app.json", "projects/tester/tsconfig.spec.json"],
                         "exclude": ["**/node_modules/**"]
                     }
                 }

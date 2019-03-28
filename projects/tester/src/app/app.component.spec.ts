@@ -1,10 +1,14 @@
+import { GpAllComponentModule } from './../../../gp-all-component/src/lib/gp-all-component.module';
+import { FooTesterComponent } from './foo-tester/foo-tester.component';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [AppComponent],
+            declarations: [AppComponent, FooTesterComponent, DynamicTesterComponent],
+            imports: [GpAllComponentModule],
         }).compileComponents();
     }));
 
