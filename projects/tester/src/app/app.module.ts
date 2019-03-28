@@ -4,12 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { BarComponent } from './bar/bar.component';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
 import { FooTesterComponent } from './foo-tester/foo-tester.component';
 
 @NgModule({
-    declarations: [BarComponent, AppComponent, DynamicTesterComponent, FooTesterComponent],
+    declarations: [AppComponent, DynamicTesterComponent, FooTesterComponent],
     entryComponents: [FooTesterComponent],
     exports: [FooTesterComponent],
     imports: [BrowserModule, CommonModule, GpAllComponentModule],
