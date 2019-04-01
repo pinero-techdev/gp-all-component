@@ -1,3 +1,5 @@
+import { MultiIdiomaTesterComponent } from './multi-idioma-tester/multi-idioma-tester.component';
+import { MenuTesterComponent } from './menu-tester/menu-tester.component';
 import { LoadingIndicatorTesterComponent } from './loading-indicator-tester/loading-indicator-tester.component';
 import { GpAllComponentModule } from './../../../gp-all-component/src/lib/gp-all-component.module';
 import { FooTesterComponent } from './foo-tester/foo-tester.component';
@@ -13,6 +15,8 @@ describe('AppComponent', () => {
                 FooTesterComponent,
                 DynamicTesterComponent,
                 LoadingIndicatorTesterComponent,
+                MenuTesterComponent,
+                MultiIdiomaTesterComponent,
             ],
             imports: [GpAllComponentModule],
         }).compileComponents();

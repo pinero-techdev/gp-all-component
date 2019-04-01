@@ -22,6 +22,51 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Dependencies
+
+### PrimeNG
+- Install PrimeNg, PrimeIcons and Angular animations.
+```
+    npm install primeng --save
+    npm install primeicons --save
+    npm install @angular/animations --save
+```
+- Add PrimeNG and PrimeIcons css to styles in angular.json.
+```
+  "styles": [
+    "node_modules/primeng/resources/primeng.min.css",
+    "/node_modules/primeicons/primeicons.css",
+    "node_modules/primeng/resources/themes/nova-light/theme.css"
+  ]
+```
+- You need to import BrowserAnimationsModule to your application. If you prefer to disable animations globally, _import NoopAnimationsModule_ instead.
+``` 
+    @NgModule({
+        imports: [
+            BrowserModule,
+            BrowserAnimationsModule,
+            //...
+        ],
+        //...
+    })
+``` 
+### Quill Editor 1.0.
+- Install Quill.
+```
+    npm install quill --save
+```
+- Add Quill to scripts in angular.json.
+```
+    "scripts": ["../node_modules/quill/dist/quill.js"]
+```
+- Add Quill css to styles in angular.json.
+```
+"styles": [
+    "../node_modules/quill/dist/quill.core.css", 
+    "../node_modules/quill/dist/quill.snow.css"
+]
+```
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
