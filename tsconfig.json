@@ -1,27 +1,36 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "*": ["types/*"],
-            "gp-all-components/*": ["projects/gp-all-component/src/lib/*"]
-        },
-        "outDir": "./dist/out-tsc",
-        "sourceMap": true,
-        "declaration": false,
-        "module": "es2015",
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "importHelpers": true,
-        "pretty": true,
-        "target": "es5",
-        "typeRoots": ["node_modules/@types"],
-        "lib": ["es2018", "dom"]
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "*": [
+        "types/*"
+      ],
+      "gp-all-components/*": [
+        "projects/gp-all-component/src/lib/*"
+      ]
     },
-    "exclude": [
-        "node_modules",
-        "dist",
-        "@types"
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "pretty": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
     ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "@types"
+  ]
 }
