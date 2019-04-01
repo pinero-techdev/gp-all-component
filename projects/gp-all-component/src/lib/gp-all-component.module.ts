@@ -5,7 +5,7 @@ import { LoginService } from './services/login.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { MenuProviderService } from './services/menu-provider.service';
 import { MenuService } from './services/menu.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
@@ -55,7 +55,7 @@ import { FormsModule } from '@angular/forms';
         MultiIdomaService,
         TableService,
         MenuProviderService,
-        MessageService
+        MessageService,
     ],
 })
 export class GpAllComponentModule {}

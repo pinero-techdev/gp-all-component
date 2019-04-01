@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditorModule } from 'primeng/editor';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [],
@@ -19,6 +20,7 @@ import { EditorModule } from 'primeng/editor';
         ProgressSpinnerModule,
         TooltipModule,
         InputTextModule,
+        TranslateModule
     ],
     exports: [
         ButtonModule,
@@ -29,6 +31,7 @@ import { EditorModule } from 'primeng/editor';
         ProgressSpinnerModule,
         TooltipModule,
         InputTextModule,
+        TranslateModule
     ],
 })
 export class SharedModule {}

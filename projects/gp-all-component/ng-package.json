@@ -4,6 +4,7 @@
     "lib": {
         "entryFile": "src/public-api.ts",
         "externals": {
+            "@ngx-translate/core":"@ngx-translate/core",
             "primeng/primeng": "primeng",
             "primeng/progressspinner": "primeng/components/progressspinner"
         },

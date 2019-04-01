@@ -67,6 +67,25 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ]
 ```
 
+### NGx Translate 
+- First you need to install the npm module:
+```
+    npm install @ngx-translate/core @ngx-translate/http-loader --save
+```
+- Add to AppModule.
+```
+    import {TranslateModule} from '@ngx-translate/core';
+    @NgModule({
+        imports: [
+            BrowserModule,
+            TranslateModule.forRoot()
+            //...
+        ],
+        //...
+    })
+```
+- More info [NGx Translate README](https://github.com/ngx-translate).
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

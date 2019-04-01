@@ -28,10 +28,12 @@ describe('DynamicTesterComponent', () => {
 
     it('should have a foo instance', () => {
         /* Getting FooTesterComponent tag element*/
-        const fooElement: HTMLElement = elementRef.querySelector('app-foo-tester');
+        const fooElement: HTMLElement = 
+            elementRef.querySelector('app-foo-tester');
 
         /* Getting FooTesterComponent instance */
-        const fooInstance: FooTesterComponent = fixture.componentInstance.dynamic.currentComponent.instance;
+        const fooInstance: FooTesterComponent =
+            fixture.componentInstance.dynamic.currentComponent.instance;
         expect(fooElement).toBeTruthy();
         expect(fooInstance).toBeDefined();
         expect(fooInstance.foo).toBe('Adios');
@@ -39,7 +41,8 @@ describe('DynamicTesterComponent', () => {
     });
 
     it('should have a foo instance given a custom componentData', () => {
-        const fooElement: HTMLElement = elementRef.querySelector('app-foo-tester');
+        const fooElement: HTMLElement =
+            elementRef.querySelector('app-foo-tester');
         const testData = {
             component: FooTesterComponent,
             inputs: { bar: null, foo: 'Test1' },
@@ -54,7 +57,8 @@ describe('DynamicTesterComponent', () => {
         fixture.detectChanges();
 
         /* Getting FooTesterComponent instance */
-        const fooInstance: FooTesterComponent = fixture.componentInstance.dynamic.currentComponent.instance;
+        const fooInstance: FooTesterComponent =
+            fixture.componentInstance.dynamic.currentComponent.instance;
         expect(fooElement).toBeTruthy();
         expect(fooInstance).toBeDefined();
         expect(fooInstance.foo).toBe(testData.inputs.foo);

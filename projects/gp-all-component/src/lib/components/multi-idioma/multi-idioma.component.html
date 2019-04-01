@@ -1,3 +1,15 @@
-<p>
-  <gp-multi-idioma-old></gp-multi-idioma-old>
-</p>
+<section>
+    <!-- <gp-multi-idioma-old></gp-multi-idioma-old> -->
+    <!-- New CODE -->
+    <p-toast life="5000"></p-toast>
+    <section class="ta-center">
+        <button
+            pButton
+            type="button"
+            icon="pi pi-globe"
+            class="ui-button-rounded"
+            (click)="showTranslations()"
+        ></button>
+    </section>
+    <p-dialog [header]="headerTitle" [(visible)]="isVisible">Accept</p-dialog>
+</section>
