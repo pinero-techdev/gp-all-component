@@ -5,7 +5,7 @@ import { Component, ViewChild } from '@angular/core';
 @Component({
     selector: 'app-dynamic-tester',
     templateUrl: './dynamic-tester.component.html',
-    styleUrls: ['./dynamic-tester.component.scss'],
+    styleUrls: ['./dynamic-tester.component.scss']
 })
 export class DynamicTesterComponent {
     @ViewChild(DynamicComponent) dynamic: DynamicComponent;

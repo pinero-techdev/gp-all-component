@@ -2,7 +2,11 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "outDir": "../../out-tsc/app",
-        "types": []
+        "types": [],
+        "paths": {
+            "*": ["types/*"],
+            "gp-all-component/*": ["projects/gp-all-component/src/lib/*"]
+        }
     },
     "exclude": ["test.ts", "**/*.spec.ts"]
 }

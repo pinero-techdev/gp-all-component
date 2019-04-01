@@ -1,10 +1,11 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "paths": {
-            "*": ["types/*"]
-        },
         "baseUrl": "./",
+        "paths": {
+            "*": ["types/*"],
+            "gp-all-components/*": ["projects/gp-all-component/src/lib/*"]
+        },
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
         "declaration": false,
@@ -13,10 +14,14 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "importHelpers": true,
+        "pretty": true,
         "target": "es5",
         "typeRoots": ["node_modules/@types"],
-        "lib": ["es2018", "dom"],
-        "types": ["jest"]
+        "lib": ["es2018", "dom"]
     },
-    "exclude": ["node_modules"]
+    "exclude": [
+        "node_modules",
+        "dist",
+        "@types"
+    ]
 }
