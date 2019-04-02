@@ -44,6 +44,9 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor {
     styleClass: string = null;
 
     @Input()
+    filter: boolean = true;
+
+    @Input()
     scrollHeight = '200px';
 
     @Input()

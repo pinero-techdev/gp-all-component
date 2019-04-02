@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
             userId = userInfo.userId;
         }
 
-        let url: string = state.url;
+        let url: string = state.url.split('?')[0];
         console.log('canActivate: ' + url + ', route: ' + this._router.url);
         console.log(route.pathFromRoot);
         console.log("Guard, canActivate, globalService: " + sessionStorage.getItem('userInfo'));
