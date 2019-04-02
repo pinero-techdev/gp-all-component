@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
             userId = userInfo.userId;
         }
 
-        const url: string = state.url;
+        const url: string = state.url.split('?')[0];
         if ((GlobalService.getLOGGED() || null != sessionStorage.getItem('userInfo'))) {
             // 'home' is the default page when user is logged
             if (url === '/home' || url === '/' || url.indexOf('/terminal') !== -1) {

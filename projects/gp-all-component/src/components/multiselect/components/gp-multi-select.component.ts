@@ -37,6 +37,9 @@ export class GpMultiSelectComponent implements ControlValueAccessor {
   styleClass = null;
 
   @Input()
+  filter = true;
+
+  @Input()
   scrollHeight = '200px';
 
   @Input()
