@@ -1,3 +1,4 @@
+import { LanguageApiService } from '../../services-2/api/language/language-api.service';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -11,7 +12,10 @@ export class MultiIdiomaComponent {
 
     @Input() campoDescripcion = '';
 
+    constructor(private languageService: LanguageApiService){}
+
     public showTranslations() {
         console.info('hello');
+        this.languageService.getLanguages().subscribe(data => {debugger;});
     }
 }

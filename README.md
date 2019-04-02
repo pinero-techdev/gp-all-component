@@ -30,12 +30,14 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
     npm install primeng --save
     npm install primeicons --save
     npm install @angular/animations --save
+    npm install primeflex --save
 ```
 - Add PrimeNG and PrimeIcons css to styles in angular.json.
 ```
   "styles": [
     "node_modules/primeng/resources/primeng.min.css",
-    "/node_modules/primeicons/primeicons.css",
+    "node_modules/primeicons/primeicons.css",
+    "node_modules/primeflex/primeflex.css",
     "node_modules/primeng/resources/themes/nova-light/theme.css"
   ]
 ```

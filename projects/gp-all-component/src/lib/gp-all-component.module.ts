@@ -1,3 +1,4 @@
+import { CoreModule } from './services-2/core/core.module';
 import { MessageService } from 'primeng/primeng';
 import { TableService } from './services/table.service';
 import { MultiIdomaService } from './services/multi-idioma.service';
@@ -35,6 +36,7 @@ import { FormsModule } from '@angular/forms';
         BrowserModule,
         BrowserAnimationsModule,
         CommonModule,
+        CoreModule,
         FormsModule,
         HttpClientModule,
         RouterModule,

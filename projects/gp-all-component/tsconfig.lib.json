@@ -4,7 +4,10 @@
         "outDir": "../../out-tsc/lib",
         "declaration": true,
         "inlineSources": true,
-        "types": ["jest", "typescript", "node", "angular"]
+        "types": ["jest", "typescript", "node", "angular"],
+        "paths": {
+            "services-2/*": ["src/lib/services-2/*"]
+        }
     },
     "angularCompilerOptions": {
         "annotateForClosureCompiler": true,
