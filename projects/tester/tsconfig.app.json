@@ -5,7 +5,12 @@
         "types": [],
         "paths": {
             "*": ["types/*"],
-            "gp-all-component/*": ["projects/gp-all-component/src/lib/*"]
+            "@shared/*": ["src/app/shared/*"],
+            "@modules/*": ["src/app/modules/*"],
+            "@env/*": ["src/app/environments/*"],
+            "gp-all-component/gp-all-component.module": ["../gp-all-component/src/lib/gp-all-component.module"],
+            "gp-all-component/resources/*": ["../gp-all-component/src/lib/resources/*"],
+            "gp-all-component/services/*": ["../gp-all-component/src/lib/services/*"]
         }
     },
     "exclude": ["test.ts", "**/*.spec.ts"]

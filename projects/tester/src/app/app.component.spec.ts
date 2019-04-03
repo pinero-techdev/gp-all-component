@@ -6,6 +6,7 @@ import { FooTesterComponent } from './foo-tester/foo-tester.component';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
@@ -18,7 +19,8 @@ describe('AppComponent', () => {
                 MenuTesterComponent,
                 MultiIdiomaTesterComponent,
             ],
-            imports: [GpAllComponentModule],
+            imports: [GpAllComponentModule, RouterTestingModule],
+            providers:[]
         }).compileComponents();
     }));
 

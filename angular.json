@@ -26,7 +26,16 @@
                     "options": {
                         "main": "projects/gp-all-component/src/test.ts",
                         "tsConfig": "projects/gp-all-component/tsconfig.spec.json",
-                        "karmaConfig": "projects/gp-all-component/karma.conf.js"
+                        "karmaConfig": "projects/gp-all-component/karma.conf.js",
+                        "styles": [
+                            "node_modules/primeng/resources/primeng.min.css",
+                            "node_modules/primeicons/primeicons.css", 
+                            "node_modules/primeflex/primeflex.css",
+                            "node_modules/quill/dist/quill.core.css",
+                            "node_modules/quill/dist/quill.snow.css",
+                            "node_modules/primeng/resources/themes/nova-light/theme.css"
+                        ],
+                        "scripts": ["node_modules/quill/dist/quill.js"]
                     }
                 },
                 "lint": {

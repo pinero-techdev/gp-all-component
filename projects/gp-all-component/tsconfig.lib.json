@@ -6,7 +6,11 @@
         "inlineSources": true,
         "types": ["jest", "typescript", "node", "angular"],
         "paths": {
-            "services-2/*": ["src/lib/services-2/*"]
+            "*": ["types/*"],
+            "@gp-all-component/*": ["projects/gp-all-component/src/lib/*"],
+            "@shared/*": ["projects/gp-all-component/src/lib/shared/*"],
+            "@resources/*": ["projects/gp-all-component/src/lib/resources/*"],
+            "@services/*": ["projects/gp-all-component/src/lib/services/*"]
         }
     },
     "angularCompilerOptions": {

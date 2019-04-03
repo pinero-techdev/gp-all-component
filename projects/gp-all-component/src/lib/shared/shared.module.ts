@@ -1,13 +1,14 @@
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
 import { NgModule } from '@angular/core';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditorModule } from 'primeng/editor';
+import { MessageService } from 'primeng/primeng';
 import { TranslateModule } from '@ngx-translate/core';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @NgModule({
     declarations: [],
@@ -20,7 +21,8 @@ import { TranslateModule } from '@ngx-translate/core';
         ProgressSpinnerModule,
         TooltipModule,
         InputTextModule,
-        TranslateModule
+        ScrollPanelModule,
+        TranslateModule,
     ],
     exports: [
         ButtonModule,
@@ -30,8 +32,10 @@ import { TranslateModule } from '@ngx-translate/core';
         ToastModule,
         ProgressSpinnerModule,
         TooltipModule,
+        ScrollPanelModule,
         InputTextModule,
-        TranslateModule
+        TranslateModule,
     ],
+    providers: [MessageService],
 })
 export class SharedModule {}
