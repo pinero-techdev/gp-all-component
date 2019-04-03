@@ -1,10 +1,8 @@
-import { MultiIdomaService, GetTraduccionesRq } from './../../../../gp-all-component/src/lib/services/api/multi-idioma/multi-idioma.service';
-import { MultiIdiomaServiceMock } from './multi-idioma-tester.mock';
+import { MultiIdomaService } from './../../../../gp-all-component/src/lib/services/api/multi-idioma/multi-idioma.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MultiIdiomaTesterComponent } from './multi-idioma-tester.component';
 import { GpAllComponentModule } from '../../../../gp-all-component/src/lib/gp-all-component.module';
-import { element } from '@angular/core/src/render3';
 
 describe('MultiIdiomaTesterComponent', () => {
     let component: MultiIdiomaTesterComponent;
@@ -16,7 +14,7 @@ describe('MultiIdiomaTesterComponent', () => {
         TestBed.configureTestingModule({
             declarations: [MultiIdiomaTesterComponent],
             imports: [GpAllComponentModule],
-            providers: [{ provide: MultiIdomaService, useClass: MultiIdiomaServiceMock }],
+            providers: [MultiIdomaService],
         }).compileComponents();
     }));
 
@@ -30,22 +28,5 @@ describe('MultiIdiomaTesterComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
-    });
-
-    fit('should get countries', () => {
-        component.pKey = 'a';
-        fixture.detectChanges();
-        spyOn(service, 'getTraducciones');
-        const request = new GetTraduccionesRq(
-            component.pKey,
-            component.schema,
-            component.tabla,
-            component.campo
-        );
-        debugger;
-        const componentRef = fixture.componentInstance.component;
-        service.getTraducciones(request);
-        // componentRef.despliegaTraducciones();
-        expect(service.getTraducciones).toHaveBeenCalled();
     });
 });

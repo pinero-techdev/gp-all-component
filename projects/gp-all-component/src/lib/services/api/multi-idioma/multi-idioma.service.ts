@@ -43,7 +43,6 @@ export class UpdateTraduccionesRq {
 @Injectable()
 export class MultiIdomaService extends CommonService {
     getTraducciones(request: GetTraduccionesRq): Observable<GetTraduccionesRs> {
-      console.info('NO TIENE QUE LLEGAR')
     const urlServicio = `${GlobalService.getBASE_URL()}/multiidioma-svc/getTranslations`;
     const rq = JSON.stringify(request);
 

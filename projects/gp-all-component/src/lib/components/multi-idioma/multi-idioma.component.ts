@@ -51,10 +51,6 @@ export class MultiIdiomaComponent extends MensajesComponent implements OnInit {
 
     getTraducciones() {
         const request = new GetTraduccionesRq(this.pKey, this.esquema, this.tabla, this.campo);
-        console.info(
-            'Componente real llamando...',
-            
-        );
         this._multiIdiomaService.getTraducciones(request).subscribe(
             (data) => {
                 if (data.ok) {
