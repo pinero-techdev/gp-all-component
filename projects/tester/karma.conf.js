@@ -3,7 +3,7 @@
 
 module.exports = function(config) {
     config.set({
-        basePath: './',
+        basePath: '',
         frameworks: ['jasmine', '@angular-devkit/build-angular'],
         plugins: [
             require('karma-jasmine'),
@@ -17,8 +17,14 @@ module.exports = function(config) {
         },
         coverageIstanbulReporter: {
             dir: require('path').join(__dirname, '../../coverage/tester'),
-            reports: ['html', 'lcovonly', 'text-summary'],
+            reports: ['html', 'lcovonly'],
             fixWebpackSourcePaths: true,
+            thresholds: {
+                statements: 80,
+                lines: 80,
+                branches: 80,
+                functions: 80,
+            },
         },
         reporters: ['progress', 'kjhtml'],
         port: 9876,

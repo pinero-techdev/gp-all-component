@@ -27,10 +27,11 @@
                         "main": "projects/gp-all-component/src/test.ts",
                         "tsConfig": "projects/gp-all-component/tsconfig.spec.json",
                         "karmaConfig": "projects/gp-all-component/karma.conf.js",
+                        "codeCoverage": true,
                         "styles": [
                             "projects/gp-all-component/src/lib/resources/css/gp-layout.css",
                             "node_modules/primeng/resources/primeng.min.css",
-                            "node_modules/primeicons/primeicons.css", 
+                            "node_modules/primeicons/primeicons.css",
                             "node_modules/primeflex/primeflex.css",
                             "node_modules/quill/dist/quill.core.css",
                             "node_modules/quill/dist/quill.snow.css",
@@ -70,14 +71,11 @@
                         "main": "projects/tester/src/main.ts",
                         "polyfills": "projects/tester/src/polyfills.ts",
                         "tsConfig": "projects/tester/tsconfig.app.json",
-                        "assets": [
-                            "projects/tester/src/favicon.ico",
-                            "projects/tester/src/assets"
-                        ],
+                        "assets": ["projects/tester/src/favicon.ico", "projects/tester/src/assets"],
                         "styles": [
                             "projects/gp-all-component/src/lib/resources/css/gp-layout.css",
                             "node_modules/primeng/resources/primeng.min.css",
-                            "node_modules/primeicons/primeicons.css", 
+                            "node_modules/primeicons/primeicons.css",
                             "node_modules/primeflex/primeflex.css",
                             "node_modules/quill/dist/quill.core.css",
                             "node_modules/quill/dist/quill.snow.css",
@@ -137,6 +135,7 @@
                         "polyfills": "projects/tester/src/polyfills.ts",
                         "tsConfig": "projects/tester/tsconfig.spec.json",
                         "karmaConfig": "projects/tester/karma.conf.js",
+                        "codeCoverage": true,
                         "styles": [
                             "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeicons/primeicons.css",
@@ -145,10 +144,7 @@
                             "node_modules/primeng/resources/themes/nova-light/theme.css"
                         ],
                         "scripts": ["node_modules/quill/dist/quill.js"],
-                        "assets": [
-                            "projects/tester/src/favicon.ico",
-                            "projects/tester/src/assets"
-                        ]
+                        "assets": ["projects/tester/src/favicon.ico", "projects/tester/src/assets"]
                     }
                 },
                 "lint": {

@@ -1,5 +1,5 @@
 export class TestingMockEvents {
-    public triggerClickOn($element: HTMLElement) {
+    public triggerClickOn($element: Element) {
         const event = new MouseEvent('click', {
             view: window,
             bubbles: true,

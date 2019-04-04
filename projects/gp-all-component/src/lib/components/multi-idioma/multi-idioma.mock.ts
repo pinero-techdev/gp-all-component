@@ -1,4 +1,5 @@
-import { GetTraduccionesRs } from '../../services/api/multi-idioma/multi-idioma.service';
+import { ErrorInformation } from './../../resources/data/error-information/error-information.model';
+import { GetTraduccionesRq, GetTraduccionesRs } from './../../services/api/multi-idioma/multi-idioma.service';
 import { of } from 'rxjs';
 import { Traduccion } from '../../resources/data/traduccion.model';
 
@@ -12,14 +13,19 @@ export class MultiIdiomaServiceMock {
         new Traduccion('PT', 'PORTUGUES', null),
         new Traduccion('RU', 'RUSO', null),
     ];
-    
-    translationsResponse: GetTraduccionesRs = new GetTraduccionesRs();
 
-    constructor() {
-        this.translationsResponse.traducciones = this.translations;
-    }
+    public getTraducciones(request: GetTraduccionesRq) {
+        const response = new GetTraduccionesRs();
+        if (request.pKey && request.esquema && request.tabla && request.campo) {
+            response.ok = true;
+            response.traducciones = this.translations;
+        } else {
+            response.ok = false;
+            response.error = new ErrorInformation();
+            response.error.errorMessage = 'An error has occurred.';
+            response.error.internalErrorMessage = 'An error has occurred.';
+        }
 
-    public getTraducciones() {
-        return of(this.translationsResponse);
+        return of(response);
     }
 }
