@@ -1,15 +1,18 @@
 import {
     Component,
+    OnInit,
     ComponentFactoryResolver,
     Injector,
     ViewContainerRef,
     ViewChild,
+    ComponentRef,
     Input,
+    Type
 } from '@angular/core';
 import 'rxjs/add/operator/first';
 
-class DynamicMetadata {
-    component: any;
+export class DynamicMetadata {
+    component: Type<any>;
     inputs?: any;
     outputs?: any;
 }
@@ -18,50 +21,57 @@ class DynamicMetadata {
     templateUrl: './dynamic.component.html',
     styleUrls: ['./dynamic.component.scss'],
 })
-export class DynamicComponent {
+export class DynamicComponent implements OnInit {
+    @Input() test = null;
+    @Input() componentData: DynamicMetadata = null;
     @ViewChild('gpdynamic', { read: ViewContainerRef }) dynamicComponent: ViewContainerRef;
 
     public currentComponent = null;
 
-    @Input() set componentData(data: DynamicMetadata) {
-        if (!data) {
-            if (this.currentComponent) {
-                this.currentComponent.destroy();
-            }
-            return;
-        }
-        
-        this.loadComponent(data);
+    constructor(private resolver: ComponentFactoryResolver, private injector: Injector) {
+        /* Empty */
     }
 
-    constructor(private resolver: ComponentFactoryResolver, private injector: Injector) {}
+    ngOnInit() {
+        if (!this.componentData) {
+            this.destroy();
+            return;
+        }
+        this.loadComponent();
+    }
 
-    private loadComponent(data: DynamicMetadata){
-        const inputProviders = Object.keys(data.inputs).map((inputName) =>
-            Object.create({ provide: inputName, useValue: data.inputs[inputName] })
+    destroy(): void {
+        if (this.currentComponent) {
+            this.currentComponent.destroy();
+        }
+    }
+
+    private loadComponent() {
+        const inputProviders = Object.keys(this.componentData.inputs).map((inputName) =>
+            Object.create({ provide: inputName, useValue: this.componentData.inputs[inputName] })
         );
 
-        const factory = this.resolver.resolveComponentFactory(data.component);
-        const component = factory.create(this.injector);
+        const factory = this.resolver.resolveComponentFactory(this.componentData.component);
+        const component: ComponentRef<any> = factory.create(this.injector);
 
         inputProviders.forEach((input) => (component.instance[input.provide] = input.useValue));
 
-        if (data.outputs) {
-            const outputProviders = Object.keys(data.outputs).map(outputName =>
-                Object.create({ provide: outputName, useValue: data.outputs[outputName] })
+        if (this.componentData.outputs) {
+            const outputProviders = Object.keys(this.componentData.outputs).map((outputName) =>
+                Object.create({
+                    provide: outputName,
+                    useValue: this.componentData.outputs[outputName],
+                })
             );
-            outputProviders.forEach(output =>
+            outputProviders.forEach((output) =>
                 component.instance[output.provide]
                     .first()
-                    .subscribe(value => output.useValue(value))
+                    .subscribe((value) => output.useValue(value))
             );
         }
 
         this.dynamicComponent.insert(component.hostView);
-
-        if (this.currentComponent) {
-            this.currentComponent.destroy();
-        }
-        this.currentComponent = component;
+        this.destroy();
+        this.currentComponent = component.instance;
     }
 }

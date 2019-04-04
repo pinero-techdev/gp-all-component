@@ -94,6 +94,7 @@ export class MultiIdiomaComponent extends MensajesComponent implements OnInit {
                 traduccionesInsertar.codigoIdioma,
                 traduccionesInsertar.idiomaPaisTraduccion
             );
+
             this._multiIdiomaService
                 .actualizaTraducciones(request)
                 .pipe(
@@ -146,12 +147,12 @@ export class MultiIdiomaComponent extends MensajesComponent implements OnInit {
     }
 
     guardarCambiosHTML() {
-        for (const item in this.elementosTraducciones) {
-            if (this.elementosTraducciones[item].idiomaPais === this.traduccionIdiomaHTML) {
-                this.elementosTraducciones[item].idiomaPaisTraduccion = this.traduccionTextoHTML;
-                this.cerrarEdicionHTML();
-            }
-        }
+        this.elementosTraducciones
+            .filter((item) => item.idiomaPais === this.traduccionIdiomaHTML)
+            .map((element) => {
+                element.idiomaPaisTraduccion = this.traduccionTextoHTML;
+            });
+        this.cerrarEdicionHTML();
     }
 
     cerrarEdicionHTML() {
