@@ -30,7 +30,7 @@
         "format:fix": "pretty-quick --staged",
         "fix:all": "npm run format:fix && npm run styles:fix",
         "---- COMMIT HOOKS ----": "",
-        "precommit": "run-s fix:all lint:dev test:prod",
+        "precommit": "run-s fix:all lint:dev",
         "prepush": "run-s lint:prod test:prod"
     },
     "private": true,
