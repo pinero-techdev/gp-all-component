@@ -19,6 +19,7 @@ module.exports = function(config) {
             dir: require('path').join(__dirname, '../../coverage/gp-all-component'),
             reports: ['html', 'lcovonly'],
             fixWebpackSourcePaths: true,
+            skipFilesWithNoCoverage: true,
             thresholds: {
                 statements: 80,
                 lines: 80,

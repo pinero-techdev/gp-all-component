@@ -1,3 +1,4 @@
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { LoginService } from './services/api/login/login.service';
 import { ApiModule } from './services/api/api.module';
 import { CoreModule } from './services/core/core.module';
@@ -13,17 +14,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MenuComponent } from './components/menu/menu.component';
-import {
-    MultiIdiomaComponent, //
-} from './components/multi-idioma/multi-idioma.component';
+import { MultiIdiomaComponent } from './components/multi-idioma/multi-idioma.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
     declarations: [
         DynamicComponent,
         LoadingIndicatorComponent,
-        MenuComponent,
         MultiIdiomaComponent,
+        MainMenuComponent,
+        LoginComponent,
     ],
     imports: [
         BrowserModule,
@@ -40,8 +40,9 @@ import {
         ApiModule,
         DynamicComponent,
         LoadingIndicatorComponent,
-        MenuComponent,
         MultiIdiomaComponent,
+        MainMenuComponent,
+        LoginComponent,
     ],
     providers: [LoginService],
 })

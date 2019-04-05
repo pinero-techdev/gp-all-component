@@ -12,6 +12,7 @@ import { LoadingIndicatorTesterComponent } from './loading-indicator-tester/load
 import { MultiIdiomaTesterComponent } from './multi-idioma-tester/multi-idioma-tester.component';
 import { RouterModule } from '@angular/router';
 import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.component';
+import { LoginTesterComponent } from './login-tester/login-tester.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -20,6 +21,7 @@ import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.com
         LoadingIndicatorTesterComponent,
         MultiIdiomaTesterComponent,
         MainMenuTesterComponent,
+        LoginTesterComponent,
     ],
     entryComponents: [FooTesterComponent],
     exports: [FooTesterComponent],
