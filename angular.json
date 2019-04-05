@@ -28,15 +28,22 @@
                         "tsConfig": "projects/gp-all-component/tsconfig.spec.json",
                         "karmaConfig": "projects/gp-all-component/karma.conf.js",
                         "codeCoverage": true,
+                        "codeCoverageExclude": [
+                            "projects/gp-all-component/src/lib/resources/**/*",
+                            "projects/gp-all-component/src/lib/shared/**/*",
+                            "projects/gp-all-component/src/lib/services/**/*",
+                            "projects/gp-all-component/src/lib/util/**/*"
+                        ],
                         "styles": [
-                            "projects/gp-all-component/src/assets/styles/main.scss",
-                            "projects/gp-all-component/src/lib/resources/css/gp-layout.css",
                             "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeicons/primeicons.css",
                             "node_modules/primeflex/primeflex.css",
                             "node_modules/quill/dist/quill.core.css",
                             "node_modules/quill/dist/quill.snow.css",
-                            "node_modules/primeng/resources/themes/nova-light/theme.css"
+                            "node_modules/primeng/resources/themes/nova-light/theme.css",
+                            "projects/gp-all-component/src/lib/resources/scss/theme-360/_theme.scss",
+                            "projects/gp-all-component/src/assets/styles/main.scss",
+                            "projects/gp-all-component/src/lib/resources/css/gp-layout.css"
                         ],
                         "scripts": ["node_modules/quill/dist/quill.js"]
                     }
@@ -74,14 +81,15 @@
                         "tsConfig": "projects/tester/tsconfig.app.json",
                         "assets": ["projects/tester/src/favicon.ico", "projects/tester/src/assets"],
                         "styles": [
-                            "projects/gp-all-component/src/assets/styles/main.scss",
-                            "projects/gp-all-component/src/lib/resources/css/gp-layout.css",
                             "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeicons/primeicons.css",
                             "node_modules/primeflex/primeflex.css",
                             "node_modules/quill/dist/quill.core.css",
                             "node_modules/quill/dist/quill.snow.css",
-                            "node_modules/primeng/resources/themes/nova-light/theme.css"
+                            "node_modules/primeng/resources/themes/nova-light/theme.css",
+                            "projects/gp-all-component/src/lib/resources/scss/theme-360/_theme.scss",
+                            "projects/gp-all-component/src/assets/styles/main.scss",
+                            "projects/gp-all-component/src/lib/resources/css/gp-layout.css"
                         ],
                         "scripts": ["node_modules/quill/dist/quill.js"],
                         "es5BrowserSupport": true

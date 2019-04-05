@@ -22,10 +22,7 @@ export class MainMenuComponent implements OnInit, AfterViewInit {
     menuItems: Observable<any>;
     @Output() menuCharged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor(
-        private _appMenuProviderService: MainMenuService,
-        private _applicationRef: ApplicationRef
-    ) {}
+    constructor(private mainMenuService: MainMenuService, private appRef: ApplicationRef) {}
 
     ngOnInit() {
         this.initMenu();
@@ -42,11 +39,10 @@ export class MainMenuComponent implements OnInit, AfterViewInit {
     initMenu() {
         const sessionId = sessionStorage.getItem('sessionId');
         const request = new MenuRq(sessionId, GlobalService.getPARAMS());
-        this.menuItems = this._appMenuProviderService.obtenMenu(request);
-        console.info('MENU', this.menuItems)
+        this.menuItems = this.mainMenuService.obtenMenu(request);
     }
 
     refresh() {
-        this._applicationRef.tick();
+        this.appRef.tick();
     }
 }

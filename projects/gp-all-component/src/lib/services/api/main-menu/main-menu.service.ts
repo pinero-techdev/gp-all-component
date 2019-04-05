@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Param } from '../../../resources/data/param.model';
-import { MenuProviderService } from './menu-provider.service';
+import { MainMenuProviderService } from './main-menu-provider.service';
 import { CommonRq } from '../../core/common.service';
 import { GlobalService } from '../../core/global.service';
 
@@ -17,18 +17,15 @@ export class MenuRq extends CommonRq {
 }
 
 @Injectable()
-export class MenuService {
+export class MainMenuService {
     temp: any[];
 
-    /* tslint:disable:variable-name */
-
-    constructor(private _appMenuProvider: MenuProviderService) {}
-    /* tslint:enable:variable-name */
+    constructor(private menuProvider: MainMenuProviderService) {}
 
     obtenMenu(rq: MenuRq): Observable<any> {
         return Observable.create((observer) => {
-            this.temp = this._appMenuProvider.getEstructuraMenu();
-            this._appMenuProvider.obtenOpcionesActivas(rq).subscribe(
+            this.temp = this.menuProvider.getEstructuraMenu();
+            this.menuProvider.obtenOpcionesActivas(rq).subscribe(
                 (data) => {
                     if (data.ok) {
                         if (!(data.menu.opciones === null || data.menu.opciones === undefined)) {

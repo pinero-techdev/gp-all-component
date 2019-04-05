@@ -1,4 +1,6 @@
-import { MainMenuServiceMock } from './main-menu.mock';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MainMenuProviderService } from './../../services/api/main-menu/main-menu-provider.service';
+import { MainMenuProviderServiceMock } from './main-menu.mock';
 import { MainMenuService } from '../../services/api/main-menu/main-menu.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MainMenuComponent } from './main-menu.component';
@@ -8,16 +10,20 @@ import { SharedModule } from '../../shared/shared.module';
 describe('MainMenuComponent', () => {
     let component: MainMenuComponent;
     let fixture: ComponentFixture<MainMenuComponent>;
-    let service: MainMenuServiceMock;
+    let menuService: MainMenuService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [MainMenuComponent],
-            imports: [SharedModule, RouterTestingModule],
+            imports: [SharedModule, RouterTestingModule, HttpClientTestingModule],
             providers: [
                 {
                     provide: MainMenuService,
-                    useClass: MainMenuServiceMock,
+                    useClass: MainMenuService,
+                },
+                {
+                    provide: MainMenuProviderService,
+                    useClass: MainMenuProviderServiceMock,
                 },
             ],
         }).compileComponents();
@@ -26,29 +32,30 @@ describe('MainMenuComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(MainMenuComponent);
         component = fixture.componentInstance;
-        service = TestBed.get(MainMenuService);
+        menuService = TestBed.get(MainMenuService);
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
 
-    // it('should init the menu', () => {
-    //     spyOn(component, 'initMenu').and.callThrough();
-    //     component.ngOnInit();
-    //     fixture.detectChanges();
-    //     expect(component.initMenu).toHaveBeenCalled();
-    // });
+    it('should init the menu', () => {
+        spyOn(component, 'initMenu').and.callThrough();
+        component.ngOnInit();
+        fixture.detectChanges();
+        expect(component.initMenu).toHaveBeenCalled();
+    });
 
-    // it('should get the menu data', () => {
-    //     spyOn(service, 'obtenMenu').and.callThrough();
-    //     component.ngOnInit();
-    //     fixture.detectChanges();
+    it('should get the menu data', () => {
+        spyOn(menuService, 'obtenMenu').and.callThrough();
+        spyOn(menuService, 'cargarOpciones').and.callThrough();
+        spyOn(component, 'ngAfterViewInit').and.callThrough();
 
-    //     component.menuItems.first().subscribe((data) => {
-    //         console.info('spec', data);
-    //     });
+        component.ngOnInit();
+        fixture.detectChanges();
 
-    //     expect(service.obtenMenu).toHaveBeenCalled();
-    // });
+        expect(menuService.cargarOpciones).toHaveBeenCalled();
+        expect(menuService.obtenMenu).toHaveBeenCalled();
+        expect(component.ngAfterViewInit).toHaveBeenCalled();
+    });
 });

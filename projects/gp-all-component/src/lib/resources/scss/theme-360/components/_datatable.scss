@@ -1,0 +1,737 @@
+p-datatable,
+p-table {
+    width: 100%;
+
+    &.no-dropdown-rows .ui-datatable-header {
+        padding-left: 0;
+
+        .ui-col-fluid {
+            padding: 12px 8px;
+        }
+    }
+}
+
+.table-wrap {
+    position: relative;
+}
+
+.ui-datatable,
+.ui-datatable-scrollable,
+.ui-table {
+    .total-rows {
+        display: flex;
+        line-height: 32px;
+        margin-left: 80px;
+        font-weight: 500;
+        padding-bottom: $separationXLarge;
+    }
+
+    position: relative;
+    @include clearfix;
+
+    .ui-datatable-tablewrapper,
+    .ui-table-wrapper {
+        overflow: auto;
+        @include make-scroll();
+
+        &:hover {
+            padding-bottom: 0;
+        }
+
+        table {
+            table-layout: auto;
+        }
+    }
+
+    .colsmall {
+        min-width: 50px;
+    }
+
+    .colmedium {
+        min-width: 110px;
+    }
+
+    .colbig {
+        min-width: 300px;
+    }
+
+    .ui-datatable-header {
+        height: 60px;
+        padding-bottom: 25px;
+        font-size: 13.5px;
+        padding-top: 0;
+        text-align: left;
+        color: $textColor;
+
+        .ui-button-group,
+        .ui-button-group-wide {
+            display: flex;
+        }
+
+        .ui-button-group,
+        .ui-button-group-wide {
+            position: absolute;
+            right: 0;
+        }
+    }
+
+    .rojo,
+    .verde,
+    .amarillo,
+    .naranja,
+    .plata,
+    .azul {
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+    }
+
+    .verde {
+        background-color: $successColor;
+    }
+
+    .rojo {
+        background-color: $dataTableRed;
+    }
+
+    .amarillo {
+        background-color: $dataTableYellow;
+    }
+
+    .naranja {
+        background-color: $dataTableOrange;
+    }
+
+    .plata {
+        background-color: $dataTableSilver;
+    }
+
+    .azul {
+        background-color: $dataTableBlue;
+    }
+
+    .ui-datatable-thead > tr > th,
+    .ui-datatable-tbody > tr > td,
+    .ui-datatable-data > tr > td,
+    .ui-datatable .ui-datatable-tfoot > tr > td,
+    .ui-datatable .ui-datatable-data > tr > td,
+    .ui-table-thead > tr > th,
+    .ui-table-tbody > tr > td {
+        outline: none;
+        padding: 0 $separation;
+        text-align: left;
+        line-height: 1.3;
+        height: 40px;
+        box-sizing: content-box;
+
+        > * {
+            max-height: 40px;
+        }
+
+        &.numeric,
+        .ui-sortable-column-icon {
+            text-align: right;
+        }
+
+        &.numeric {
+            .ui-column-filter {
+                text-align: right;
+            }
+
+            &:first-child {
+                text-align: left;
+
+                .ui-column-filter {
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    thead tr {
+        border-bottom: 1px solid $borderColor;
+
+        th {
+            position: relative;
+            border: none;
+            color: $textMutedColor;
+
+            &.conditionally-sticked {
+                text-align: center;
+            }
+        }
+    }
+
+    tbody td {
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        border-top: none;
+    }
+
+    thead th,
+    tbody td {
+        white-space: nowrap;
+        font-size: $fontSizeSmall;
+        font-weight: $fontMedium;
+        text-align: left;
+    }
+
+    .ui-column-filter {
+        display: none;
+        color: $textColor;
+        min-height: 24px;
+        height: auto;
+        margin-bottom: 10px;
+        border: 0;
+        border-image-width: 1;
+        border-bottom: 1px solid $borderColor;
+        border-radius: 0;
+        box-shadow: 0 3px 3px -3px rgba(0, 0, 0, 0.05);
+        padding-left: 0;
+        padding-bottom: 5px;
+        font-size: 12px;
+        padding-top: 5px;
+        font-weight: 500;
+        margin-right: 0;
+        padding-right: 0;
+        background: transparent;
+
+        &:focus {
+            border-color: $primaryColor;
+            background-color: transparent;
+        }
+    }
+
+    .ui-sortable-column-icon {
+        font-size: $fontSizeSmall;
+        color: inherit;
+    }
+
+    thead th.ui-state-active,
+    thead th.ui-state-highlight {
+        background: transparent;
+        color: $textMutedColor;
+
+        .fa {
+            color: $textMutedColor;
+        }
+    }
+
+    tbody tr.ui-datatable-even {
+        background-color: white;
+        border-bottom: 1px solid $navListBadgeBg;
+
+        &:not(:first-child) {
+            border-top: 1px solid $navListBadgeBg;
+        }
+
+        .col-sticky {
+            background: white;
+        }
+    }
+
+    tbody tr.ui-datatable-odd {
+        background-color: $tableOddBg;
+
+        .table-filter-rows {
+            background-color: $tableOddBg;
+        }
+
+        .col-sticky {
+            background: $tableOddBg;
+        }
+    }
+
+    tbody tr.ui-state-highlight,
+    tbody tr.ui-datatable-even.ui-state-highlight,
+    tbody tr.ui-datatable-odd.ui-state-highlight,
+    tbody tr.ui-datatable-even.ui-expanded-row,
+    tbody tr.ui-datatable-odd.ui-expanded-row,
+    tbody tr.ui-expanded-row-content {
+        background: $highlightedRow;
+        color: inherit;
+
+        .col-icon .fa {
+            color: $textSecondaryColor;
+        }
+    }
+
+    tbody tr.ui-state-highlight .ui-inputtext {
+        border-color: $inputBorderColor;
+        color: $textColor;
+    }
+
+    .col-sticky {
+        right: 0;
+        position: absolute;
+        top: auto;
+        background: $primaryBg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid $tableInnerBorder;
+        border-top: none;
+        min-width: 65px;
+        overflow: visible;
+    }
+
+    &.ui-datatable-resizable {
+        .ui-datatable-thead > tr > th,
+        .ui-datatable-data > tr > td {
+            &.col-sticky {
+                overflow: inherit;
+            }
+        }
+    }
+
+    .ui-datatable-thead {
+        .col-sticky {
+            border-bottom: 1px solid $tableHeaderBorder;
+        }
+    }
+
+    .col-sticky:before {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
+        height: 102%;
+        left: -15px;
+        position: absolute;
+        top: 0;
+        width: 15px;
+    }
+
+    .shadowSticky {
+        .col-sticky:before {
+            content: ' ';
+        }
+    }
+
+    .col-sticky .ui-button-icon-only {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+
+        .fa {
+            top: 50%;
+            left: 50%;
+        }
+    }
+
+    .ui-datatable-footer {
+        text-align: left;
+    }
+
+    td.col-link,
+    td.col-link a {
+        font-weight: $fontSemiBold;
+        color: $primaryLightestColor;
+    }
+
+    td.col-icon {
+        .fa-chevron-circle-right:before {
+            content: fa-content($fa-var-chevron-down);
+        }
+
+        .fa-chevron-circle-down:before {
+            content: fa-content($fa-var-chevron-up);
+        }
+    }
+
+    .ui-paginator .ui-paginator-prev,
+    .ui-paginator .ui-paginator-next {
+        @extend .ui-button;
+        @extend .ui-button-inverted;
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        position: relative;
+        padding: 5px 0;
+        line-height: 1.5;
+
+        &:before {
+            @include absolute-centered('all');
+        }
+    }
+
+    .ui-paginator .ui-paginator-first,
+    .ui-paginator .ui-paginator-last {
+        visibility: hidden;
+    }
+
+    .ui-paginator .ui-paginator-prev {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        &:before {
+            display: none;
+        }
+
+        .fa-backward {
+            display: inline;
+
+            &:before {
+                content: fa-content($fa-var-chevron-left);
+            }
+        }
+    }
+
+    .ui-paginator .ui-paginator-next {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+
+        &:before {
+            display: none;
+        }
+
+        .fa-forward {
+            display: inline;
+
+            &:before {
+                content: fa-content($fa-var-chevron-right);
+            }
+        }
+    }
+
+    .ui-paginator .ui-paginator-page {
+        @extend .ui-button;
+        @extend .ui-button-inverted;
+        display: inherit;
+        width: 32px;
+        height: 32px;
+        border-radius: 0;
+        margin: 0 !important;
+        padding: 5px 0;
+        line-height: 1.5;
+
+        &.ui-state-active {
+            @include make-button-theme($primaryColor, $primaryColor);
+            color: $textInvertedColor;
+        }
+    }
+
+    .ui-paginator .ui-paginator-pages {
+        padding: 0;
+        margin: 0;
+        height: inherit;
+    }
+
+    .ui-datatable-footer {
+        padding-top: 18px;
+        float: left;
+    }
+
+    .ui-paginator {
+        padding-top: 30px;
+        float: right;
+
+        .ui-inputwrapper-filled {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            .ui-dropdown {
+                width: 62px;
+                height: 32px;
+                padding: 8px 10px;
+
+                &-label {
+                    line-height: 16px;
+                    font-size: 12px;
+                    font-weight: bold;
+                    letter-spacing: 0.17px;
+                }
+
+                &-trigger {
+                    top: auto;
+                    transform: inherit;
+                }
+            }
+        }
+    }
+
+    .col-extra-small {
+        width: 1%;
+    }
+
+    &.ui-datatable-scrollable {
+        thead {
+            tr {
+                th {
+                    font-size: inherit;
+                    color: inherit;
+                    .fa {
+                        color: inherit;
+                    }
+                }
+            }
+        }
+        .ui-datatable-header {
+            text-align: left;
+
+            .ui-chkbox-label {
+                left: 20px;
+                top: -7px;
+            }
+        }
+
+        .ui-datatable-scrollable-wrapper {
+            display: flex;
+            flex-direction: row-reverse;
+
+            .ui-datatable-frozen-view {
+                position: relative;
+                z-index: 1;
+
+                .ui-datatable-thead {
+                    > tr {
+                        > th {
+                            text-align: center;
+                        }
+                    }
+                }
+
+                &:before {
+                    background: linear-gradient(
+                        90deg,
+                        rgba(0, 0, 0, 0) 0%,
+                        rgba(0, 0, 0, 0.1) 100%
+                    );
+                    content: ' ';
+                    height: 100%;
+                    left: -15px;
+                    position: absolute;
+                    top: 0;
+                    width: 15px;
+                }
+
+                .ui-datatable-scrollable-footer {
+                    display: none;
+                }
+                .ui-datatable-data {
+                    > tr {
+                        > td {
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+
+            .ui-datatable-unfrozen-view {
+                position: relative;
+                left: 0 !important;
+                overflow-x: scroll;
+                width: calc(100% - 750px);
+                @include make-scroll();
+
+                .ui-datatable-scrollable-header,
+                .ui-datatable-scrollable-body {
+                    width: 100vw;
+                }
+
+                .ui-datatable-scrollable-footer {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .ui-datatable-scrollable-body {
+        height: 200px;
+        overflow-y: auto;
+        @include make-scroll();
+    }
+
+    .table-filter-rows {
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        border-bottom: 1px solid $borderColor;
+        padding: 0 9px;
+        min-height: 24px;
+    }
+}
+
+$width-action: 32px;
+$extra-action: 8px;
+
+@for $i from 1 through 4 {
+    $calculated-width: if($i == 1, 60px, ($width-action + $extra-action) * $i);
+    .datatable-actions-#{$i} {
+        .ui-datatable-tablewrapper {
+            margin-right: $calculated-width;
+        }
+
+        .col-sticky {
+            width: $calculated-width;
+        }
+    }
+}
+
+.ui-tabview .ui-tabview-nav > li.ui-state-active {
+    border-color: $primaryColor;
+}
+
+.ui-tabview .ui-tabview-nav > li {
+    padding-bottom: $separationLarge;
+    border-color: transparent;
+}
+
+.ui-tabview-panel .ui-accordion-header,
+.ui-tabview-panel .ui-accordion-header.ui-state-active,
+.ui-tabview-panel .ui-accordion-content,
+.ui-tabview-panel .ui-datatable,
+.ui-tabview-panel .ui-datatable table th,
+.ui-tabview-panel .ui-datatable .ui-paginator,
+.ui-tabview-panel .ui-datatable .ui-datatable-footer {
+    background: $tableFooter;
+}
+
+.ui-tabview .ui-dropdown {
+    background: $primaryBg;
+}
+
+.ui-tabview-panel .ui-accordion-header.ui-state-active .fa,
+.ui-tabview-panel .ui-accordion-header .fa,
+.ui-tabview-panel .ui-accordion-header.ui-state-active > a,
+.ui-tabview-panel .ui-accordion-header > a {
+    color: $primaryColor;
+    font-size: 12px;
+    font-weight: 600;
+
+    &.fa-caret-right {
+        &:before {
+            content: fa-content($fa-var-chevron-right);
+        }
+    }
+}
+
+.ui-tabview-panel .ui-accordion-header.ui-state-active p-header > div,
+.ui-tabview-panel .ui-accordion-header p-header > div {
+    color: $primaryBg;
+}
+
+// ESTILOS ESPECIFICOS PARA TURBOTABLE
+p-table {
+    & + .total-rows {
+        position: absolute;
+        top: 7px;
+        left: 100px;
+    }
+
+    .ui-table {
+        &-wrapper {
+            padding-top: 50px;
+        }
+    }
+
+    .ui-table {
+        .col-sticky:before {
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
+            height: 102%;
+            left: -15px;
+            position: absolute;
+            top: 0;
+            width: 15px;
+        }
+
+        .shadowSticky {
+            .col-sticky:before {
+                content: ' ';
+            }
+        }
+
+        th,
+        td {
+            &.numeric {
+                text-align: right;
+
+                .ui-inputtext {
+                    text-align: right;
+                }
+
+                &:first-child {
+                    .ui-inputtext {
+                        text-align: left;
+                    }
+                }
+            }
+
+            &.col-sticky {
+                border: none;
+            }
+        }
+
+        &-thead {
+            border-bottom: none;
+
+            .ui-inputtext {
+                border: none;
+                box-shadow: none;
+                border-bottom: 1px solid #d5e4f2;
+                border-radius: 0;
+                color: #404c58;
+                min-height: 24px;
+                max-height: 40px;
+                height: auto;
+                margin-bottom: 6px;
+                border-image-width: 1;
+                box-shadow: 0 3px 3px -3px rgba(0, 0, 0, 0.05);
+                padding-left: 0;
+                padding-bottom: 5px;
+                font-size: 12px;
+                padding-top: 5px;
+                font-weight: 500;
+                margin-right: 0;
+                padding-right: 0;
+                background: transparent;
+            }
+        }
+
+        &-tbody {
+            border-top: none;
+
+            tr {
+                border-bottom: 1px solid $tableInnerBorder;
+            }
+
+            tr:nth-child(even) {
+                background: $primaryBg;
+
+                .conditionally-sticked {
+                    background: $primaryBg;
+                    border-bottom: 1px solid $tableInnerBorder;
+                }
+            }
+
+            tr:nth-child(odd) {
+                background: $tableOddBg;
+
+                .conditionally-sticked {
+                    background: $tableOddBg;
+                    border-bottom: 1px solid $tableInnerBorder;
+                }
+            }
+
+            .ui-selectable-row {
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+
+    .fa-chevron-circle-up::before,
+    .fa-chevron-circle-down::before {
+        color: $textColor;
+    }
+
+    .fa-chevron-circle-up::before {
+        content: '\f077';
+    }
+
+    .fa-chevron-circle-down::before {
+        content: '\f078';
+    }
+}
+// FIN ESTILOS ESPECIFICOS PARA TURBOTABLE

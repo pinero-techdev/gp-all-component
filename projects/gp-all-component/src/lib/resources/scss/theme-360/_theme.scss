@@ -1,0 +1,56 @@
+@import './global/base';
+@import './fonts/fonts';
+
+.theme-360 {
+    @import './layout/layout';
+    @import './components/text';
+    @import './components/icons';
+    @import './components/checkin';
+    @import './components/message';
+    @import './components/forms';
+    @import './components/tabview-menu';
+    @import './components/segments-sidebar';
+    @import './components/datatable';
+    @import './components/ui-datepicker';
+    @import './components/common';
+    @import './components/data';
+    @import './components/nav-list';
+    @import './components/dropdown-menu';
+    @import './components/card-kpi';
+    @import './components/overlay';
+    @import './components/panel';
+    @import './components/misc';
+    @import './components/responsive';
+    @import './components/slider';
+    @import './components/selector-fechas';
+    @import './components/loading-indicator';
+
+    .ui-inputswitch-slider:before {
+        background: $primaryBg;
+    }
+    .ui-paginator.ui-paginator-page {
+        height: auto;
+    }
+}
+
+/* styles for custom dialog for dialogs that are appended to body */
+/* when called inside another dialog */
+.custom-dialog {
+    @import './components/custom-dialog';
+}
+
+@media (max-width: map-get($breakpoints, 'md')) {
+    html.mobile-fixed {
+        overflow-y: hidden;
+    }
+}
+
+/* Force vertical scroll to affect to body instead of html, in order to avoid it on p-dialog opened.*/
+html {
+    overflow-y: hidden;
+}
+
+body {
+    overflow-y: auto;
+    height: 100%;
+}

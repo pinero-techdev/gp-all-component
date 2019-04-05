@@ -1,0 +1,447 @@
+@mixin border-radius($val) {
+    -moz-border-radius: $val;
+    -webkit-border-radius: $val;
+    border-radius: $val;
+}
+
+@mixin border-radius-right($val) {
+    -moz-border-radius-topright: $val;
+    -webkit-border-top-right-radius: $val;
+    border-top-right-radius: $val;
+    -moz-border-radius-bottomright: $val;
+    -webkit-border-bottom-right-radius: $val;
+    border-bottom-right-radius: $val;
+}
+
+@mixin border-radius-left($val) {
+    -moz-border-radius-topleft: $val;
+    -webkit-border-top-left-radius: $val;
+    border-top-left-radius: $val;
+    -moz-border-radius-bottomleft: $val;
+    -webkit-border-bottom-left-radius: $val;
+    border-bottom-left-radius: $val;
+}
+
+@mixin border-radius-top($val) {
+    -moz-border-radius-topleft: $val;
+    -webkit-border-top-left-radius: $val;
+    border-top-left-radius: $val;
+    -moz-border-radius-topright: $val;
+    -webkit-border-top-right-radius: $val;
+    border-top-right-radius: $val;
+}
+
+@mixin border-radius-bottom($val) {
+    -moz-border-radius-bottomleft: $val;
+    -webkit-border-bottom-left-radius: $val;
+    border-bottom-left-radius: $val;
+    -moz-border-radius-bottomright: $val;
+    -webkit-border-bottom-right-radius: $val;
+    border-bottom-right-radius: $val;
+}
+
+@mixin gradient($deg, $color1, $color2) {
+    background: -moz-linear-gradient($deg, $color1 0%, $color2 100%); /* ff3.6+ */
+    background: -webkit-gradient(
+        linear,
+        left bottom,
+        right top,
+        color-stop(0%, $color1),
+        color-stop(100%, $color2)
+    ); /* safari4+,chrome */
+    background: -webkit-linear-gradient($deg, $color1 0%, $color2 100%); /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient($deg, $color1 0%, $color2 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient($deg, $color1 0%, $color2 100%); /* ie10+ */
+    background: linear-gradient($deg, $color1 0%, $color2 100%); /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$color1}', endColorstr='#{$color2}',GradientType=1 ); /* ie6-9 */
+}
+
+@mixin transition($transition...) {
+    -moz-transition: $transition;
+    -o-transition: $transition;
+    -webkit-transition: $transition;
+    transition: $transition;
+}
+
+@mixin content-shadow() {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+        0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+        0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+        0 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+@mixin overlay-content-shadow() {
+    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+@mixin overlay-input-shadow() {
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+@mixin overlay-selector-shadow() {
+    -webkit-box-shadow: -2px 5px 6px 0 rgba(214, 217, 231, 0.1),
+        -11px 9px 21px 0 rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: -2px 5px 6px 0 rgba(214, 217, 231, 0.1), -11px 9px 21px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: -2px 5px 6px 0 rgba(214, 217, 231, 0.1), -11px 9px 21px 0 rgba(0, 0, 0, 0.05);
+}
+
+@mixin no-shadow() {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+@mixin shadow($value) {
+    box-shadow: $value;
+    -webkit-box-shadow: $value;
+    -moz-box-shadow: $value;
+}
+
+@mixin multi-shadow($value1, $value2) {
+    -webkit-box-shadow: $value1, $value2;
+    -moz-box-shadow: $value1, $value2;
+    box-shadow: $value1, $value2;
+}
+
+@mixin hover-element {
+    background-color: $hoverBgColor;
+    color: $hoverTextColor;
+}
+
+@mixin hover-element-primary {
+    background-color: $primaryLightColor;
+    color: $hoverTextColor;
+}
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie);
+}
+
+@mixin icon-override($icon) {
+    &:before {
+        content: $icon;
+    }
+}
+
+@mixin material-icon($icon) {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.5em; /* Preferred icon size */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    text-indent: 0;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+
+    &:before {
+        content: $icon;
+    }
+}
+
+@mixin rotate($deg) {
+    -webkit-transform: rotate($deg);
+    -moz-transform: rotate($deg);
+    -o-transform: rotate($deg);
+    -ms-transform: rotate($deg);
+    transform: rotate($deg);
+}
+
+@mixin scale($deg) {
+    -webkit-transform: scale($deg);
+    -moz-transform: scale($deg);
+    -o-transform: scale($deg);
+    -ms-transform: scale($deg);
+    transform: scale($deg);
+}
+
+@mixin rippleitem() {
+    position: relative;
+    overflow: hidden;
+}
+
+@mixin animation-duration($value) {
+    -webkit-animation-duration: $value;
+    -moz-animation-duration: $value;
+    animation-duration: $value;
+}
+
+@mixin animation($delay, $duration, $animation) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@mixin box-sizing($box-model) {
+    -webkit-box-sizing: $box-model;
+    -moz-box-sizing: $box-model;
+    box-sizing: $box-model;
+}
+
+@mixin flex() {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@mixin clearfix() {
+    &:before,
+    &:after {
+        content: '';
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin unstyled-base {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+@mixin unstyled-list {
+    @include unstyled-base;
+    list-style: none;
+}
+
+@mixin make-flex-item-span($num) {
+    $value: percentage($num / 12);
+    flex: 0 0 $value;
+    max-width: $value;
+}
+
+@mixin make-button-theme($color, $borderColor, $transition: 0.3s) {
+    @include transition(background-color $transition);
+    background-color: $color;
+    border-color: $borderColor;
+
+    &:enabled:not(:focus):hover {
+        background-color: darken($color, 3%);
+        border-color: darken($borderColor, 3%);
+    }
+
+    &:focus {
+        outline: 0 none;
+        background-color: darken($color, 5%);
+        border-color: darken($borderColor, 5%);
+    }
+}
+
+/* Absolute centered element */
+@mixin absolute-centered($direction: 'horizontal') {
+    position: absolute;
+
+    @if ($direction == 'horizontal') {
+        left: 50%;
+        transform: translateX(-50%);
+    } @else if ($direction == 'vertical') {
+        top: 50%;
+        transform: translateY(-50%);
+    } @else if ($direction == 'all') {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Make custom scroll */
+@mixin make-scroll($color: #000, $size: 8px, $border-radius: 8px) {
+    background-color: rgba($color, 0);
+    -webkit-background-clip: text;
+    transition: background-color 0.4s;
+
+    &:hover {
+        background-color: rgba($color, 0.2);
+    }
+
+    &::-webkit-scrollbar {
+        width: $size;
+        height: $size;
+    }
+
+    &::-webkit-scrollbar-track {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: $border-radius;
+        background-color: inherit;
+    }
+}
+
+@mixin ellipsis {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin make-input() {
+    @include make-input-text;
+
+    background: $inputBg;
+    border-width: $inputBorderWidth;
+    padding: $inputPaddingVertical $inputPaddingHorizontal;
+    border-color: $inputBorderColor;
+    border-style: $inputBorderStyle;
+    min-height: $inputHeight;
+    width: 100%;
+    transition: border-color 0.3s;
+    border-radius: $inputBorderRadius;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+
+    &:focus,
+    &.ui-state-focus {
+        @include make-input-state('focus');
+    }
+
+    &:disabled {
+        @include make-input-state('disabled');
+    }
+
+    &.ui-state-error {
+        @include make-input-state('error');
+    }
+}
+
+@mixin make-input-text {
+    font-size: $inputFontSize;
+    line-height: $inputLineHeight;
+    color: $inputColor;
+
+    &::placeholder {
+        color: $inputPlaceholderColor;
+    }
+}
+
+@mixin make-input-state($type) {
+    @if $type == 'focus' {
+        border-color: $inputBorderFocusColor;
+        background: $inputFocusBg;
+    }
+
+    @if $type == 'disabled' {
+        border-color: $inputBorderDisabledColor;
+        background: $inputDisabledBg;
+        background-color: rgba(240, 242, 245, 0.5);
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+    }
+
+    @if $type == 'error' {
+        border-color: $inputBorderErrorColor;
+        background: $inputErrorBg;
+    }
+}
+
+@mixin make-label($has-correction: true, $is-white: false) {
+    color: $textMutedColor;
+    line-height: inherit;
+    position: static;
+    font-size: $fontSizeSmall;
+    display: block;
+    letter-spacing: 0.15px;
+
+    @if ($has-correction) {
+        white-space: nowrap;
+        position: relative;
+        line-height: 0;
+        top: -15px;
+    }
+
+    @if ($is-white) {
+        color: $inputLabelPrimaryColor;
+    }
+}
+
+@mixin make-button {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    overflow: hidden;
+    color: $primaryBg;
+    font-family: 'Lato', sans-serif;
+    font-size: $buttonFontSize;
+    font-weight: $buttonFontWeight;
+    height: $buttonHeight;
+    line-height: $buttonLineHeight;
+    padding: $buttonPaddingVertical $buttonPaddingHorizontal;
+    border-width: $buttonBorderWidth;
+    border-style: $buttonBorderStyle;
+    border-color: $buttonBg;
+    border-radius: $buttonBorderRadius;
+    margin: 0;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+    @include make-button-theme($buttonBg, $buttonBorderColor);
+}
+
+@mixin make-splitbutton {
+    width: 100%;
+    box-shadow: none;
+
+    .ui-button {
+        @include border-radius(4px);
+        display: inherit;
+    }
+
+    .ui-button-text-icon-left {
+        width: 100%;
+    }
+
+    .ui-button-icon-only {
+        width: 100%;
+        height: 100%;
+        text-align: right;
+
+        .ui-button-text {
+            display: none;
+        }
+    }
+
+    .ui-button-icon-left {
+        right: 0;
+        left: auto;
+    }
+}

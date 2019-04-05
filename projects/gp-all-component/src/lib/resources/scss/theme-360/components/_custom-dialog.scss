@@ -1,0 +1,48 @@
+/* styles for custom dialog for dialogs that are appended to body
+ when called inside another dialog */
+&.ui-dialog {
+    font-family: 'Lato', sans-serif;
+    .ui-dialog-content {
+        padding: 24px;
+    }
+    .ui-dialog-titlebar {
+        padding: 8px 24px;
+    }
+    .custom-ui-dialog-buttonpane {
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0 0 0;
+        .custom-ui-button {
+            @include make-button();
+            display: flex;
+            &.danger,
+            &.danger:not(:focus):hover {
+                background-color: $buttonDangerBg;
+                border-color: $buttonDangerBgHover;
+            }
+            .ui-button-text {
+                line-height: 0;
+                padding-left: 16px;
+            }
+            .fa.fa-check,
+            .fa.fa-times {
+                font-family: 'Font Awesome 5 Free';
+                font-weight: 900;
+                color: $whiteColor;
+                font-size: 12px;
+                padding-left: 16px;
+            }
+            .fa-check {
+                &:before {
+                    content: '\f00c';
+                }
+            }
+            .fa-times {
+                &:before {
+                    content: '\f00d';
+                }
+            }
+        }
+    }
+}
