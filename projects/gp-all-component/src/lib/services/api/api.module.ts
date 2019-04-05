@@ -1,10 +1,10 @@
+import { MainMenuProviderService } from './main-menu/main-menu-provider.service';
+import { MainMenuService } from './main-menu/main-menu.service';
 import { MultiIdomaService } from './multi-idioma/multi-idioma.service';
-import { MenuProviderService } from './menu/menu-provider.service';
 import { LoginService } from './login/login.service';
 import { PasswordService } from './password/password.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuService } from './menu/menu.service';
 import { TableService } from './table/table.service';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { TableService } from './table/table.service';
         TableService,
         MultiIdomaService,
         LoginService,
-        MenuProviderService,
-        MenuService,
+        MainMenuProviderService,
+        MainMenuService,
     ],
 })
 export class ApiModule {}

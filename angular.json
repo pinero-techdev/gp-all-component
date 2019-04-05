@@ -29,6 +29,7 @@
                         "karmaConfig": "projects/gp-all-component/karma.conf.js",
                         "codeCoverage": true,
                         "styles": [
+                            "projects/gp-all-component/src/assets/styles/main.scss",
                             "projects/gp-all-component/src/lib/resources/css/gp-layout.css",
                             "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeicons/primeicons.css",
@@ -73,6 +74,7 @@
                         "tsConfig": "projects/tester/tsconfig.app.json",
                         "assets": ["projects/tester/src/favicon.ico", "projects/tester/src/assets"],
                         "styles": [
+                            "projects/gp-all-component/src/assets/styles/main.scss",
                             "projects/gp-all-component/src/lib/resources/css/gp-layout.css",
                             "node_modules/primeng/resources/primeng.min.css",
                             "node_modules/primeicons/primeicons.css",

@@ -4,10 +4,13 @@
 
 // Services
 export * from './lib/services/api/multi-idioma/multi-idioma.service';
+export * from './lib/services/api/main-menu/main-menu.service';
 export * from './lib/services/api/login/login.service';
 // Classes & Types
 export * from './lib/services/api/multi-idioma/language-order.constant';
 // Components
+export * from './lib/components/main-menu/main-menu.component';
+export * from './lib/components/multi-idioma/multi-idioma.component';
 export * from './lib/components/dynamic/dynamic.component';
 export * from './lib/components/loading-indicator/loading-indicator.component';
 // Module

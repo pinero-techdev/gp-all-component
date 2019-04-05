@@ -2,16 +2,7 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "outDir": "../../out-tsc/lib",
-        "declaration": true,
-        "inlineSources": true,
-        "types": ["jest", "typescript", "node", "angular"],
-        "paths": {
-            "*": ["types/*"],
-            "@gp-all-component/*": ["projects/gp-all-component/src/lib/*"],
-            "@shared/*": ["projects/gp-all-component/src/lib/shared/*"],
-            "@resources/*": ["projects/gp-all-component/src/lib/resources/*"],
-            "@services/*": ["projects/gp-all-component/src/lib/services/*"]
-        }
+        "declaration": true
     },
     "angularCompilerOptions": {
         "annotateForClosureCompiler": true,

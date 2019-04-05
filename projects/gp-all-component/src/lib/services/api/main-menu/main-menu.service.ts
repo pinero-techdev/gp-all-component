@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Param} from '../../../resources/data/param.model';
-import {MenuProviderService} from './menu-provider.service';
+import {MainMenuProviderService} from './main-menu-provider.service';
 import {CommonRq} from '../../core/common.service';
 import {GlobalService} from '../../core/global.service';
 
@@ -17,10 +17,10 @@ export class MenuRq extends CommonRq {
 }
 
 @Injectable()
-export class MenuService {
+export class MainMenuService {
   temp: any[];
 
-  constructor(private _appMenuProvider: MenuProviderService) {
+  constructor(private _appMenuProvider: MainMenuProviderService) {
   }
 
   obtenMenu(rq: MenuRq): Observable<any> {

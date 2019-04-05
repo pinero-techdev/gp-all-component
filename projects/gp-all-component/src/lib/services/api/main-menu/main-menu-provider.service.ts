@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {MenuRq} from './menu.service';
+import {MenuRq} from './main-menu.service';
 import {CommonService} from '../../core/common.service';
 
 @Injectable()
-export class MenuProviderService extends CommonService {
+export class MainMenuProviderService extends CommonService {
   getEstructuraMenu(): any[] {
     return null;
   }

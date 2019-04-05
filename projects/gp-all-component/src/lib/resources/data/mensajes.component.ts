@@ -1,50 +1,52 @@
-import {Message} from 'primeng/primeng';
+import { Message } from 'primeng/primeng';
+import { MessageService } from 'primeng/api';
 
 /* Añadir a la template del componente que lo extiende
- <p-growl [value]="alerts"></p-growl>
+ <p-toast></p-toast>
  <p-messages [value]="msgs"></p-messages>
  */
 export abstract class MensajesComponent {
-  msgs: Message[] = [];
-  alerts: Message[] = [];
+    msgs: Message[] = [];
 
-  showInfoMessage(alert: string) {
-    this.msgs = [];
-    this.msgs.push({severity: 'info', summary: 'Info', detail: alert});
-  }
+    constructor(protected messageService: MessageService) {}
 
-  showWarnMessage(alert: string) {
-    this.msgs = [];
-    this.msgs.push({severity: 'warn', summary: 'Atención', detail: alert});
-  }
+    showInfoMessage(alert: string) {
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: 'Info', detail: alert });
+    }
 
-  showErrorMessage(alert: string) {
-    this.msgs = [];
-    this.msgs.push({severity: 'error', summary: 'Error', detail: alert});
-  }
+    showWarnMessage(alert: string) {
+        this.msgs = [];
+        this.msgs.push({ severity: 'warn', summary: 'Atención', detail: alert });
+    }
 
-  showSuccessMessage(alert: string) {
-    this.msgs = [];
-    this.msgs.push({severity: 'success', summary: 'Success', detail: alert});
-  }
+    showErrorMessage(alert: string) {
+        this.msgs = [];
+        this.msgs.push({ severity: 'error', summary: 'Error', detail: alert });
+    }
 
-  showInfoAlert(alert: string) {
-    this.alerts = [];
-    this.alerts.push({severity: 'info', summary: 'Info', detail: alert});
-  }
+    showSuccessMessage(alert: string) {
+        this.msgs = [];
+        this.msgs.push({ severity: 'success', summary: 'Success', detail: alert });
+    }
 
-  showWarnAlert(alert: string) {
-    this.alerts = [];
-    this.alerts.push({severity: 'warn', summary: 'Atención', detail: alert});
-  }
+    showInfoAlert(alert: string) {
+        this.messageService.clear();
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: alert });
+    }
 
-  showErrorAlert(alert: string) {
-    this.alerts = [];
-    this.alerts.push({severity: 'error', summary: 'Error', detail: alert});
-  }
+    showWarnAlert(alert: string) {
+        this.messageService.clear();
+        this.messageService.add({ severity: 'warn', summary: 'Atención', detail: alert });
+    }
 
-  showSuccessAlert(alert: string) {
-    this.alerts = [];
-    this.alerts.push({severity: 'success', summary: 'Success', detail: alert});
-  }
+    showErrorAlert(alert: string) {
+        this.messageService.clear();
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: alert });
+    }
+
+    showSuccessAlert(alert: string) {
+        this.messageService.clear();
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: alert });
+    }
 }

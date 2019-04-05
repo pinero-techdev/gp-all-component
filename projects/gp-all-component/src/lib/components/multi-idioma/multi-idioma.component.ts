@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { LANGUAGE_ORDER } from './../../services/api/multi-idioma/language-order.constant';
 import {
     MultiIdomaService,
@@ -30,8 +31,11 @@ export class MultiIdiomaComponent extends MensajesComponent implements OnInit {
     elementosTraducciones: Traduccion[];
     working = false;
 
-    constructor(private _multiIdiomaService: MultiIdomaService) {
-        super();
+    constructor(
+        private _multiIdiomaService: MultiIdomaService,
+        protected messageService: MessageService
+    ) {
+        super(messageService);
     }
 
     ngOnInit() {
