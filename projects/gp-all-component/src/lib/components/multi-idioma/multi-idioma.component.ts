@@ -1,4 +1,4 @@
-import { MessageService } from 'primeng/api';
+/* tslint:disable */
 import { LANGUAGE_ORDER } from './../../services/api/multi-idioma/language-order.constant';
 import {
     MultiIdomaService,
@@ -31,11 +31,8 @@ export class MultiIdiomaComponent extends MensajesComponent implements OnInit {
     elementosTraducciones: Traduccion[];
     working = false;
 
-    constructor(
-        private _multiIdiomaService: MultiIdomaService,
-        protected messageService: MessageService
-    ) {
-        super(messageService);
+    constructor(private _multiIdiomaService: MultiIdomaService) {
+        super();
     }
 
     ngOnInit() {
@@ -98,7 +95,6 @@ export class MultiIdiomaComponent extends MensajesComponent implements OnInit {
                 traduccionesInsertar.codigoIdioma,
                 traduccionesInsertar.idiomaPaisTraduccion
             );
-
             this._multiIdiomaService
                 .actualizaTraducciones(request)
                 .pipe(
@@ -151,12 +147,12 @@ export class MultiIdiomaComponent extends MensajesComponent implements OnInit {
     }
 
     guardarCambiosHTML() {
-        this.elementosTraducciones
-            .filter((item) => item.idiomaPais === this.traduccionIdiomaHTML)
-            .map((element) => {
-                element.idiomaPaisTraduccion = this.traduccionTextoHTML;
-            });
-        this.cerrarEdicionHTML();
+        for (const item in this.elementosTraducciones) {
+            if (this.elementosTraducciones[item].idiomaPais === this.traduccionIdiomaHTML) {
+                this.elementosTraducciones[item].idiomaPaisTraduccion = this.traduccionTextoHTML;
+                this.cerrarEdicionHTML();
+            }
+        }
     }
 
     cerrarEdicionHTML() {

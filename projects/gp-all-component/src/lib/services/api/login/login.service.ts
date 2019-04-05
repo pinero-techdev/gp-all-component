@@ -1,12 +1,12 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Param} from '../../../resources/data/param.model';
-import {RequestOptions} from '../../../resources/data/request-options.model';
-import {UserInfo} from '../../../resources/data/user-info.model';
-import {CommonRs} from '../../core/common.service';
-import {GlobalService} from '../../core/global.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Param } from '../../../resources/data/param.model';
+import { RequestOptions } from '../../../resources/data/request-options.model';
+import { UserInfo } from '../../../resources/data/user-info.model';
+import { CommonRs } from '../../core/common.service';
+import { GlobalService } from '../../core/global.service';
 
 export class LoginRq {
     usuario: string;
@@ -15,7 +15,13 @@ export class LoginRq {
     params: Param[];
     otherparams: string;
 
-    constructor(usuario: string, password: string, aplicacion?: string, params?: Param[], otherparams?: string) {
+    constructor(
+        usuario: string,
+        password: string,
+        aplicacion?: string,
+        params?: Param[],
+        otherparams?: string
+    ) {
         if (usuario) {
             this.usuario = usuario;
         }
@@ -46,8 +52,7 @@ export class SessionInfoRs extends CommonRs {
 
 @Injectable()
 export class LoginService {
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     /**
      * Comprueba que el usuario tenga una sesión activa
@@ -67,11 +72,12 @@ export class LoginService {
             sessionInfoRq.sessionId = GlobalService.getSESSION_ID();
             const headers = new HttpHeaders({
                 'Content-Type': 'application/json; charset=UTF-8',
-                'Authorization': GlobalService.getSESSION_ID()
+                Authorization: GlobalService.getSESSION_ID(),
             });
             const options = new RequestOptions(headers);
             const url = `${GlobalService.getLOGIN_SERVICE_URL()}/sessionInfo`;
-            return this.http.post<SessionInfoRs>(url, sessionInfoRq, options).pipe(map((sessionInfoRs) => {
+            return this.http.post<SessionInfoRs>(url, sessionInfoRq, options).pipe(
+                map((sessionInfoRs) => {
                     if (sessionInfoRs.ok) {
                         GlobalService.setSession(sessionInfoRs.userInfo);
                         GlobalService.setSessionId(sessionInfoRs.sessionId);
@@ -80,8 +86,8 @@ export class LoginService {
                         sessionStorage.setItem('sessionId', sessionInfoRs.sessionId);
                     }
                     return sessionInfoRs;
-                }
-            ));
+                })
+            );
         } else {
             const rs = new SessionInfoRs();
             rs.ok = false;
@@ -91,28 +97,34 @@ export class LoginService {
 
     /**
      * Llamada para loguear al usuario
-     * @param username
-     * @param password
+     * @param username ''
+     * @param password ''
      * @returns Json con la sesión del usuario
      */
     login(request: LoginRq) {
         this.cleanSessionInfo();
         const body = JSON.stringify(request);
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const options = new RequestOptions(headers);
         const url = `${GlobalService.getLOGIN_SERVICE_URL()}/login`;
         sessionStorage.setItem('language', 'ES');
-        return this.http.post<SessionInfoRs>(url, body, options).pipe(map(loginResponse => {
-            if (loginResponse.ok) {
-                GlobalService.setSession(loginResponse.userInfo);
-                GlobalService.setSessionId(loginResponse.sessionId);
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                sessionStorage.setItem('userInfo', JSON.stringify(loginResponse.userInfo));
-                sessionStorage.setItem('sessionId', loginResponse.sessionId);
-                GlobalService.setLogged(true);
-            }
-            return loginResponse;
-        }));
+        return this.http.post<SessionInfoRs>(url, body, options).pipe(
+            map((loginResponse) => {
+                if (loginResponse.ok) {
+                    GlobalService.setSession(loginResponse.userInfo);
+                    GlobalService.setSessionId(loginResponse.sessionId);
+                    /**
+                     * store user details and jwt token in local storage
+                     * to keep user logged in between page refreshes
+                     */
+
+                    sessionStorage.setItem('userInfo', JSON.stringify(loginResponse.userInfo));
+                    sessionStorage.setItem('sessionId', loginResponse.sessionId);
+                    GlobalService.setLogged(true);
+                }
+                return loginResponse;
+            })
+        );
     }
 
     /**
@@ -125,7 +137,7 @@ export class LoginService {
         this.cleanSessionInfo();
 
         // request de logout.
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const options = new RequestOptions(headers);
         const url = `${GlobalService.getLOGIN_SERVICE_URL()}/logout`;
         return this.http.post<CommonRs>(url, logoutRq, options);

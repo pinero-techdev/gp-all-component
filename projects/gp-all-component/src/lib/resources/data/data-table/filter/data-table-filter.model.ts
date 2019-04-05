@@ -1,4 +1,4 @@
-import {DataTableFilterType} from './data-table-filter-type.enum';
+// import {DataTableFilterType} from './data-table-filter-type.enum';
 
 export class DataTableFilter {
     field: string;

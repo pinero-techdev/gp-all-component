@@ -1,4 +1,6 @@
-import { MultiIdiomaComponent } from './../../../../gp-all-component/src/lib/components/multi-idioma/multi-idioma.component';
+import {
+    MultiIdiomaComponent, //
+} from '@lib/components/multi-idioma/multi-idioma.component';
 import { Component, ViewChild, Input } from '@angular/core';
 
 @Component({

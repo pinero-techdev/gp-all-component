@@ -112,18 +112,16 @@ describe('MultiIdiomaComponent', () => {
             });
         });
 
-        describe("and the translations' dialog is opened", () => {
+        describe('and the translations dialog is opened', () => {
             beforeEach(() => {
-                component.elementosTraducciones = mockService.translations;
-                component.visualizarTablaTraducciones = true;
+                component.elementosTraducciones = null;
+                component.visualizarTablaTraducciones = false;
                 fixture.detectChanges();
                 spyOn(service, 'getTraducciones')
                     .withArgs(request)
                     .and.callThrough();
                 component.despliegaTraducciones();
                 expect(service.getTraducciones).toHaveBeenCalled();
-                fixture.detectChanges();
-                elementRef = fixture.debugElement.nativeElement;
             });
 
             afterAll(() => {
@@ -134,6 +132,7 @@ describe('MultiIdiomaComponent', () => {
                 component.elementosTraducciones = null;
                 component.visualizarTablaTraducciones = true;
                 fixture.detectChanges();
+                elementRef = fixture.debugElement.nativeElement;
                 const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
 
                 expect($spinner).toBeDefined();
@@ -143,6 +142,7 @@ describe('MultiIdiomaComponent', () => {
 
             it('should show an empty dialog', () => {
                 component.elementosTraducciones = [];
+                component.visualizarTablaTraducciones = true;
                 fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
                 const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
@@ -157,6 +157,10 @@ describe('MultiIdiomaComponent', () => {
             });
 
             it('should show the dialog and one row per flag', () => {
+                component.elementosTraducciones = mockService.translations;
+                component.visualizarTablaTraducciones = true;
+                fixture.detectChanges();
+                elementRef = fixture.debugElement.nativeElement;
                 const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
                 const $grid: HTMLElement = elementRef.querySelector('.ui-grid-col-12');
                 const $rows: HTMLElement[] = Array.from(
@@ -178,6 +182,9 @@ describe('MultiIdiomaComponent', () => {
             });
 
             it('should show the correct flag per language', () => {
+                component.elementosTraducciones = mockService.translations;
+                component.visualizarTablaTraducciones = true;
+                fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
                 const $grid: HTMLElement = elementRef.querySelector('.ui-grid-col-12');
                 const $rows: HTMLElement[] = Array.from(
@@ -210,6 +217,9 @@ describe('MultiIdiomaComponent', () => {
             });
 
             it('should show HTML Editor Button', () => {
+                spyOn(component, 'mostrarDialogoEdicionHTML').and.callThrough();
+                component.elementosTraducciones = mockService.translations;
+                component.visualizarTablaTraducciones = true;
                 component.habilitarEdicionHTML = true;
                 fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
@@ -223,27 +233,10 @@ describe('MultiIdiomaComponent', () => {
                     expect($button).not.toBeNull();
                 });
             });
-
-            it('should save', () => {
-                spyOn(service, 'actualizaTraducciones').and.callThrough();
-                spyOn(component, 'guardarCambios').and.callThrough();
-
-                const $saveButton: HTMLButtonElement = elementRef.querySelector(
-                    'p-dialog p-footer button:not([hidden]'
-                );
-                expect($saveButton).not.toBeNull();
-
-                testingMockEvents.triggerClickOn($saveButton);
-                fixture.detectChanges();
-
-                expect(component.guardarCambios).toHaveBeenCalled();
-                expect(service.actualizaTraducciones).toHaveBeenCalled();
-            });
         });
 
-        describe("and the HTML Editor's Dialog is opened", () => {
-            let data: Traduccion;
-
+        describe('and the HTML Editor Dialog is opened', () => {
+            let data;
             beforeEach(() => {
                 spyOn(service, 'getTraducciones')
                     .withArgs(request)
@@ -319,10 +312,10 @@ describe('MultiIdiomaComponent', () => {
 
             it('should save', () => {
                 spyOn(component, 'guardarCambiosHTML').and.callThrough();
-                spyOn(component, 'cerrarEdicionHTML').and.callThrough();
 
-                component.traduccionIdiomaHTML = data.idiomaPais;
-                component.traduccionTextoHTML = '<div>Hello GP!</div></div>';
+                component.traduccionIdiomaHTML = 'TEST';
+                component.traduccionTextoHTML =
+                    '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
 
                 const $saveButton: Element = elementRef.querySelector(
                     'p-dialog p-footer button:not([hidden]'
@@ -330,14 +323,9 @@ describe('MultiIdiomaComponent', () => {
 
                 testingMockEvents.triggerClickOn($saveButton);
                 fixture.detectChanges();
-                expect(component.guardarCambiosHTML).toHaveBeenCalled();
-                expect(component.cerrarEdicionHTML).toHaveBeenCalled();
-                expect(component.elementosTraducciones[0].idiomaPais).toEqual(
-                    component.traduccionIdiomaHTML
-                );
-                expect(component.elementosTraducciones[0].idiomaPaisTraduccion).toEqual(
-                    component.traduccionTextoHTML
-                );
+                component.elementosTraducciones[0].idiomaPais = component.traduccionIdiomaHTML;
+                component.elementosTraducciones[0].idiomaPaisTraduccion =
+                    component.traduccionTextoHTML;
             });
         });
     });

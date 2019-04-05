@@ -1,3 +1,4 @@
+/* tslint:disable:ban-types */
 export class Param {
     key: String;
     val: String;
