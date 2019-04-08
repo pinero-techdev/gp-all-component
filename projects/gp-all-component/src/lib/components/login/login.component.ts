@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     console.error(err);
                 },
                 () => {
-                    console.log('Login finalizado');
+                    console.info('Login finalizado');
                 }
             );
     }
