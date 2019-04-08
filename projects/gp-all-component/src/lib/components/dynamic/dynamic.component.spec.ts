@@ -35,9 +35,9 @@ describe('DynamicComponent', () => {
         component = fixture.componentInstance;
     });
 
-    it('should create', async () => {
+    it('should create', async(() => {
         expect(fixture.componentInstance).toBeTruthy();
-    });
+    }));
 
     xit('should instantiatе hosted component correctly', async () => {
         const data: DynamicMetadata = {

@@ -3,7 +3,6 @@ import {
     MAIN_MENU_TEMP_MOCK,
     MAIN_MENU_MOCK,
 } from './../../../../gp-all-component/src/lib/components/main-menu/main-menu.mock';
-import { MainMenuProviderService } from './../../../../gp-all-component/src/lib/services/api/main-menu/main-menu-provider.service';
 import { MenuRq } from './../../../../gp-all-component/src/lib/services/api/main-menu/main-menu.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

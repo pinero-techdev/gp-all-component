@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MenuProviderService } from '../api/menu/menu-provider.service';
+import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.service';
 import { GlobalService } from './global.service';
-import { MenuRq, MenuService } from '../api/menu/menu.service';
+import { MenuRq, MainMenuService } from '../api/main-menu/main-menu.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+    /* tslint:disable:variable-name */
     constructor(
-        /* tslint:disable:variable-name */
         private _router: Router,
-        private _menu: MenuService,
-        private _menuAppMenuProviderService: MenuProviderService /* tslint:enable:variable-name */
+        private _menu: MainMenuService,
+        private _menuAppMenuProviderService: MainMenuProviderService
     ) {}
-
+    /* tslint:enable:variable-name */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
         const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         let userId = null;

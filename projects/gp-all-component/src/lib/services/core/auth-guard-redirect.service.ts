@@ -1,10 +1,10 @@
+import { MainMenuService, MenuRq } from './../api/main-menu/main-menu.service';
+import { MainMenuProviderService } from './../api/main-menu/main-menu-provider.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MenuProviderService } from '../api/menu/menu-provider.service';
 import { GlobalService } from './global.service';
-import { MenuRq, MenuService } from '../api/menu/menu.service';
 
 /**
  * Guard para acciones que no vienen en el menu, sino que se crean al
@@ -16,8 +16,8 @@ export class AuthGuardRedirect implements CanActivate {
     /* tslint:disable:variable-name */
     constructor(
         private _router: Router,
-        private _menu: MenuService,
-        private _menuAppMenuProviderService: MenuProviderService
+        private _menu: MainMenuService,
+        private _menuAppMenuProviderService: MainMenuProviderService
     ) {}
     /* tslint:enable:variable-name */
 
