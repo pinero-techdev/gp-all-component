@@ -45,6 +45,7 @@
                             "projects/gp-all-component/src/assets/styles/main.scss",
                             "projects/gp-all-component/src/lib/resources/css/gp-layout.css"
                         ],
+                        "assets": ["projects/gp-all-component/src/assets/**/*"],
                         "scripts": ["node_modules/quill/dist/quill.js"]
                     }
                 },
@@ -154,7 +155,7 @@
                             "node_modules/primeng/resources/themes/nova-light/theme.css"
                         ],
                         "scripts": ["node_modules/quill/dist/quill.js"],
-                        "assets": ["projects/tester/src/favicon.ico", "projects/tester/src/assets"]
+                        "assets": ["projects/tester/src/assets"]
                     }
                 },
                 "lint": {

@@ -4,7 +4,7 @@ import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 @Component({
-    selector: 'test-hosted',
+    selector: 'gp-test-hosted',
     template: 'templ',
 })
 class HostedComponent {

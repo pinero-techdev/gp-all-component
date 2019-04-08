@@ -1,3 +1,4 @@
+import { MainMenuService } from './services/api/main-menu/main-menu.service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { LoginService } from './services/api/login/login.service';
 import { ApiModule } from './services/api/api.module';
@@ -44,6 +45,6 @@ import { LoginComponent } from './components/login/login.component';
         MainMenuComponent,
         LoginComponent,
     ],
-    providers: [LoginService],
+    providers: [LoginService, MainMenuService],
 })
 export class GpAllComponentModule {}

@@ -5,14 +5,12 @@
                 <div class="ui-col-fluid login-panel-logo"></div>
             </div>
             <div class="ui-row-fluid">
-                <div class="ui-col-fluid login-panel-title">
-                    {{ getApplicationTitle() }}
-                </div>
+                <div class="ui-col-fluid login-panel-title">{{ getApplicationTitle() }}</div>
             </div>
             <div class="ui-row-fluid ui-separation-lg">
                 <div class="ui-col-fluid ui-col-fluid-12">
                     <span class="md-inputfield">
-                        <label>Usuario</label>
+                        <label>Usuario {{ usuario }}</label>
                         <input
                             pInputText
                             type="text"

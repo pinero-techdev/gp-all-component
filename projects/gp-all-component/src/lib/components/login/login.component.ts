@@ -1,10 +1,9 @@
 import { finalize } from 'rxjs/operators';
 import { GlobalService } from './../../services/core/global.service';
-import { MainMenuComponent } from './../main-menu/main-menu.component';
 import { LoginService, LoginRq } from './../../services/api/login/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Message } from 'primeng/primeng';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,7 +11,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
     usuario: string;
     password: string;
     url: string;
@@ -32,9 +31,8 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private _loginService: LoginService,
-        private _gpAppMainMenu: MainMenuComponent,
-        private _route: ActivatedRoute
+        private loginService: LoginService,
+        private route: ActivatedRoute
     ) {
         GlobalService.setLogged(false);
     }
@@ -60,7 +58,7 @@ export class LoginComponent implements OnInit {
             GlobalService.getPARAMS_LOGIN(),
             otherParams
         );
-        this._loginService
+        this.loginService
             .login(request)
             .pipe(
                 finalize(() => {
@@ -72,7 +70,8 @@ export class LoginComponent implements OnInit {
                     if (data.ok) {
                         GlobalService.setSession(data.userInfo);
                         GlobalService.setLogged(true);
-                        // store user details and jwt token in local storage to keep user logged in between page refreshes
+                        // store user details and jwt token in local storage to keep
+                        // user logged in between page refreshes
                         sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
                         if (this.url) {
                             GlobalService.setPreLoginUrl(this.url);
@@ -123,12 +122,12 @@ export class LoginComponent implements OnInit {
     subscribe() {
         let otherParams = null;
         let urlToRedirect = null;
-        this.sub = this._route.queryParams.subscribe((params) => {
-            this.usuario = params['usuario'];
-            this.password = params['password'];
-            otherParams = params['otherparams'];
-            urlToRedirect = params['urlToRedirect'];
-            this.url = params['url'];
+        this.sub = this.route.queryParams.subscribe((params) => {
+            this.usuario = params.usuario;
+            this.password = params.password;
+            otherParams = params.otherparams;
+            urlToRedirect = params.urlToRedirect;
+            this.url = params.url;
         });
 
         if ((this.usuario && this.password) || otherParams) {
