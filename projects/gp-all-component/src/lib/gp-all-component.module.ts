@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -59,6 +60,6 @@ import {
         MultiSelectComponent,
         EmptyComponent,
     ],
-    providers: [LoginService, MainMenuService, CUSTOM_CONTROL_VALUE_ACCESSOR],
+    providers: [LoginService, MainMenuService,  MainMenuProviderService, CUSTOM_CONTROL_VALUE_ACCESSOR],
 })
 export class GpAllComponentModule {}

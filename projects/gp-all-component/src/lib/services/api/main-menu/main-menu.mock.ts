@@ -1,7 +1,30 @@
-import { MainMenuProviderService } from './../../services/api/main-menu/main-menu-provider.service';
-import { CommonRs } from './../../services/core/common.service';
-import { MenuRq } from '../../services/api/main-menu/main-menu.service';
+import { MainMenuProviderService } from './main-menu-provider.service';
+import { CommonRs } from '../../core/common.service';
+import { MenuRq } from './main-menu.service';
 import { Observable, of } from 'rxjs';
+
+export const MAIN_MENU_ROLES_MOCK = [
+    {
+        rolCodigo: 'BPGADMIN',
+        rolDesc: 'ADMINISTRADOR BPG',
+        rolEmpCodigo: 'KIP',
+    },
+    {
+        rolCodigo: 'BPGDESA360',
+        rolDesc: 'DESARROLLOS 360 BPG',
+        rolEmpCodigo: 'KIP',
+    },
+    {
+        rolCodigo: 'BPGDOCFICHA',
+        rolDesc: 'Aut. para ver/mod documentaci\u00f3n ficha',
+        rolEmpCodigo: 'KIP',
+    },
+    {
+        rolCodigo: 'BPGFICHACLI360',
+        rolDesc: 'FICHA CLIENTE 360',
+        rolEmpCodigo: 'KIP',
+    },
+];
 
 export const MAIN_MENU_MOCK = {
     opciones: [
@@ -262,29 +285,9 @@ export const MAIN_MENU_MOCK = {
             propiedades: ['insertar', 'borrar', 'modificar', 'consultar', 'exportar'],
         },
     ],
-    roles: [
-        {
-            rolCodigo: 'BPGADMIN',
-            rolDesc: 'ADMINISTRADOR BPG',
-            rolEmpCodigo: 'KIP',
-        },
-        {
-            rolCodigo: 'BPGDESA360',
-            rolDesc: 'DESARROLLOS 360 BPG',
-            rolEmpCodigo: 'KIP',
-        },
-        {
-            rolCodigo: 'BPGDOCFICHA',
-            rolDesc: 'Aut. para ver/mod documentaci\u00f3n ficha',
-            rolEmpCodigo: 'KIP',
-        },
-        {
-            rolCodigo: 'BPGFICHACLI360',
-            rolDesc: 'FICHA CLIENTE 360',
-            rolEmpCodigo: 'KIP',
-        },
-    ],
+    roles: MAIN_MENU_ROLES_MOCK,
 };
+
 export const MAIN_MENU_TEMP_MOCK = [
     {
         id: 'FROFR001',
@@ -1117,6 +1120,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         ],
     },
 ];
+
 export class MainMenuProviderServiceMock extends MainMenuProviderService {
     getEstructuraMenu(): any[] {
         return MAIN_MENU_TEMP_MOCK;
@@ -1126,6 +1130,7 @@ export class MainMenuProviderServiceMock extends MainMenuProviderService {
         const response: any = new CommonRs();
         response.ok = true;
         response.menu = MAIN_MENU_MOCK;
+        response.roles = MAIN_MENU_ROLES_MOCK;
         return of(response);
     }
 }

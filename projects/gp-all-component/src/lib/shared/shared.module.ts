@@ -1,4 +1,3 @@
-import { MainMenuProviderServiceMock } from './../components/main-menu/main-menu.mock';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
 import { NgModule } from '@angular/core';
@@ -40,6 +39,6 @@ import { MessageModule } from 'primeng/message';
         InputTextModule,
         TranslateModule,
     ],
-    providers: [MessageService, MainMenuProviderServiceMock],
+    providers: [MessageService],
 })
 export class SharedModule {}

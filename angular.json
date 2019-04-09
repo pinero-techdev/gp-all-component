@@ -31,7 +31,7 @@
                         "codeCoverageExclude": [
                             "projects/gp-all-component/src/lib/resources/**/*",
                             "projects/gp-all-component/src/lib/shared/**/*",
-                            "projects/gp-all-component/src/lib/services/**/*",
+                            "projects/gp-all-component/src/lib/services/core**/*",
                             "projects/gp-all-component/src/lib/util/**/*"
                         ],
                         "styles": [

@@ -68,6 +68,7 @@ export class LoginService {
                 GlobalService.setSessionId(sessionStorage.getItem('sessionId'));
             }
         }
+
         if (GlobalService.getSESSION_ID()) {
             sessionInfoRq.sessionId = GlobalService.getSESSION_ID();
             const headers = new HttpHeaders({
@@ -78,7 +79,6 @@ export class LoginService {
             const url = `${GlobalService.getLOGIN_SERVICE_URL()}/sessionInfo`;
             return this.http.post<SessionInfoRs>(url, sessionInfoRq, options).pipe(
                 map((sessionInfoRs) => {
-                    console.info('mola', sessionInfoRs);
                     if (sessionInfoRs.ok) {
                         GlobalService.setSession(sessionInfoRs.userInfo);
                         GlobalService.setSessionId(sessionInfoRs.sessionId);
@@ -112,7 +112,6 @@ export class LoginService {
 
         return this.http.post<SessionInfoRs>(url, body, options).pipe(
             map((loginResponse) => {
-                console.info('service', loginResponse);
                 if (loginResponse.ok) {
                     GlobalService.setSession(loginResponse.userInfo);
                     GlobalService.setSessionId(loginResponse.sessionId);
