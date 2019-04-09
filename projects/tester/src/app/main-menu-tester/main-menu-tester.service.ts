@@ -1,9 +1,7 @@
-import { CommonRs } from './../../../../gp-all-component/src/lib/services/core/common.service';
-import {
-    MAIN_MENU_TEMP_MOCK,
-    MAIN_MENU_MOCK,
-} from './../../../../gp-all-component/src/lib/components/main-menu/main-menu.mock';
-import { MenuRq } from './../../../../gp-all-component/src/lib/services/api/main-menu/main-menu.service';
+import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
+import { CommonRs } from '@lib/services/core/common.service';
+import { MAIN_MENU_TEMP_MOCK, MAIN_MENU_MOCK } from '@lib/components/main-menu/main-menu.mock';
+import { MenuRq } from '@lib/services/api/main-menu/main-menu.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
