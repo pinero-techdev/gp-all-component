@@ -1,3 +1,4 @@
+import { CommonRs } from './../../core/common.service';
 import {
     MainMenuProviderServiceMock,
     MAIN_MENU_TEMP_MOCK,
@@ -9,12 +10,14 @@ import { TestBed, async } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { MainMenuService, MenuRq } from './main-menu.service';
 import { GpAllComponentModule } from '@lib/gp-all-component.module';
+import { of } from 'rxjs';
 
 describe('MainMenuService', () => {
     let httpClient: HttpClient;
     let providerSpy: any;
     let service: MainMenuService;
     const sessionId = 'ABCDEFG12345';
+    const menuRequest = new MenuRq(sessionId);
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -36,19 +39,67 @@ describe('MainMenuService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should get menu elements', () => {
-        const menuRequest = new MenuRq(sessionId);
+    describe('When menu has elements', () => {
         const mock = new MainMenuProviderServiceMock(httpClient);
-        providerSpy.getEstructuraMenu.and.returnValue(mock.getEstructuraMenu());
-        providerSpy.obtenOpcionesActivas.and.returnValue(mock.obtenOpcionesActivas());
-        spyOn(service, 'cargarOpciones').and.callThrough();
-        spyOn(GlobalService, 'setRoles').and.callThrough();
 
-        service.obtenMenu(menuRequest).subscribe((data) => {
-            expect(data).toEqual(MAIN_MENU_TEMP_MOCK);
-            expect(GlobalService.setRoles).toHaveBeenCalled();
-            expect(GlobalService.getROLES()).toEqual(MAIN_MENU_ROLES_MOCK);
+        it('should get menu elements', () => {
+            providerSpy.getEstructuraMenu.and.returnValue(mock.getEstructuraMenu());
+            providerSpy.obtenOpcionesActivas.and.returnValue(mock.obtenOpcionesActivas());
+            spyOn(service, 'cargarOpciones').and.callThrough();
+            spyOn(GlobalService, 'setRoles').and.callThrough();
+
+            service.obtenMenu(menuRequest).subscribe((data) => {
+                expect(data).toEqual(MAIN_MENU_TEMP_MOCK);
+                expect(GlobalService.setRoles).toHaveBeenCalled();
+                expect(GlobalService.getROLES()).toEqual(MAIN_MENU_ROLES_MOCK);
+            });
+            expect(service.cargarOpciones).toHaveBeenCalled();
         });
-        expect(service.cargarOpciones).toHaveBeenCalled();
+    });
+
+    describe('When menu is empty', () => {
+        const emptyResponse: any = new CommonRs();
+        emptyResponse.ok = true;
+        emptyResponse.menu = { opciones: [] };
+        emptyResponse.roles = [];
+
+        it('should get zero elements', () => {
+            providerSpy.getEstructuraMenu.and.returnValue([]);
+            providerSpy.obtenOpcionesActivas.and.returnValue(of(emptyResponse));
+
+            spyOn(service, 'cargarOpciones').and.callThrough();
+            spyOn(GlobalService, 'setRoles').and.callThrough();
+
+            service.obtenMenu(menuRequest).subscribe((data) => {
+                expect(data).toEqual([]);
+                expect(GlobalService.setRoles).not.toHaveBeenCalled();
+                expect(GlobalService.getROLES()).toEqual([]);
+            });
+
+            expect(service.cargarOpciones).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('When provider returns an error', () => {
+        const emptyResponse: any = new CommonRs();
+        emptyResponse.ok = false;
+        emptyResponse.menu = null;
+        emptyResponse.roles = null;
+
+        it('should returns an empty menu', () => {
+            providerSpy.getEstructuraMenu.and.returnValue([]);
+            providerSpy.obtenOpcionesActivas.and.returnValue(of(emptyResponse));
+
+            spyOn(service, 'cargarOpciones').and.callThrough();
+            spyOn(GlobalService, 'setRoles').and.callThrough();
+
+            service.obtenMenu(menuRequest).subscribe((data) => {
+                expect(data.length).toBe(0);
+                expect(GlobalService.setRoles).not.toHaveBeenCalled();
+                expect(GlobalService.getROLES().length).toBe(0);
+            });
+
+            expect(service.cargarOpciones).not.toHaveBeenCalled();
+        });
     });
 });
