@@ -17,6 +17,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiIdiomaComponent } from './components/multi-idioma/multi-idioma.component';
 import { LoginComponent } from './components/login/login.component';
+import { GpRatingComponent } from './components/rating/gp-rating.component';
+import { GpEmptyComponent } from './components/empty/gp-empty.component';
 
 @NgModule({
     declarations: [
@@ -25,6 +27,8 @@ import { LoginComponent } from './components/login/login.component';
         MultiIdiomaComponent,
         MainMenuComponent,
         LoginComponent,
+        GpRatingComponent,
+        GpEmptyComponent,
     ],
     imports: [
         BrowserModule,
