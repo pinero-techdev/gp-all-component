@@ -1,4 +1,3 @@
-import { CommonRs } from '../../core/common.service';
 import { LoginRq, SessionInfoRs } from './login.service';
 import { Observable, of } from 'rxjs';
 import { ErrorInformation } from '@lib/resources/data/error-information/error-information.model';
