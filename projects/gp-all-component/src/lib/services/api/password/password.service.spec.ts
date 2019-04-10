@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { GlobalService } from '../../core/global.service';
 import { TestBed, async } from '@angular/core/testing';
 import { PasswordService, ModificaPasswordRq } from './password.service';
@@ -8,7 +9,7 @@ describe('PasswordServiceSpec', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [],
+            imports: [HttpClientTestingModule],
             providers: [GlobalService, PasswordService],
         }).compileComponents();
     }));

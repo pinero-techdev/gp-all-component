@@ -59,11 +59,30 @@ describe('MainMenuService', () => {
 
     describe('When menu is empty', () => {
         const emptyResponse: any = new CommonRs();
-        emptyResponse.ok = true;
-        emptyResponse.menu = { opciones: [] };
-        emptyResponse.roles = [];
+
+        beforeEach(() => {
+            emptyResponse.ok = true;
+            emptyResponse.menu = { opciones: [] };
+            emptyResponse.roles = [];
+        });
 
         it('should get zero elements', () => {
+            providerSpy.getEstructuraMenu.and.returnValue([]);
+            providerSpy.obtenOpcionesActivas.and.returnValue(of(emptyResponse));
+            spyOn(service, 'cargarOpciones').and.callThrough();
+            spyOn(GlobalService, 'setRoles').and.callThrough();
+
+            service.obtenMenu(menuRequest).subscribe((data) => {
+                expect(data).toEqual([]);
+                expect(GlobalService.setRoles).not.toHaveBeenCalled();
+            });
+
+            expect(service.cargarOpciones).not.toHaveBeenCalled();
+        });
+
+        it('should set roles although the menu is empty', () => {
+            emptyResponse.roles = MAIN_MENU_ROLES_MOCK;
+
             providerSpy.getEstructuraMenu.and.returnValue([]);
             providerSpy.obtenOpcionesActivas.and.returnValue(of(emptyResponse));
 
@@ -71,9 +90,8 @@ describe('MainMenuService', () => {
             spyOn(GlobalService, 'setRoles').and.callThrough();
 
             service.obtenMenu(menuRequest).subscribe((data) => {
-                expect(data).toEqual([]);
-                expect(GlobalService.setRoles).not.toHaveBeenCalled();
-                expect(GlobalService.getROLES()).toEqual([]);
+                expect(data.length).toBe(0);
+                expect(GlobalService.setRoles).toHaveBeenCalled();
             });
 
             expect(service.cargarOpciones).not.toHaveBeenCalled();
@@ -82,9 +100,12 @@ describe('MainMenuService', () => {
 
     describe('When provider returns an error', () => {
         const emptyResponse: any = new CommonRs();
-        emptyResponse.ok = false;
-        emptyResponse.menu = null;
-        emptyResponse.roles = null;
+
+        beforeEach(() => {
+            emptyResponse.ok = false;
+            emptyResponse.menu = null;
+            emptyResponse.roles = null;
+        });
 
         it('should returns an empty menu', () => {
             providerSpy.getEstructuraMenu.and.returnValue([]);
@@ -96,7 +117,6 @@ describe('MainMenuService', () => {
             service.obtenMenu(menuRequest).subscribe((data) => {
                 expect(data.length).toBe(0);
                 expect(GlobalService.setRoles).not.toHaveBeenCalled();
-                expect(GlobalService.getROLES().length).toBe(0);
             });
 
             expect(service.cargarOpciones).not.toHaveBeenCalled();

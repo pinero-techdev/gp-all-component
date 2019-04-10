@@ -32,7 +32,9 @@
                             "projects/gp-all-component/src/lib/resources/**/*",
                             "projects/gp-all-component/src/lib/shared/**/*",
                             "projects/gp-all-component/src/lib/services/core**/*",
-                            "projects/gp-all-component/src/lib/util/**/*"
+                            "projects/gp-all-component/src/lib/util/**/*",
+                            "projects/gp-all-component/src/lib/**/*.mock.*ts",
+                            "projects/gp-all-component/src/lib/**/*.module.ts"
                         ],
                         "styles": [
                             "node_modules/primeng/resources/primeng.min.css",

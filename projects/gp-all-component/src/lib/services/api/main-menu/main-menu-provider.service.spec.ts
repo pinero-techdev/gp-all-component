@@ -100,13 +100,9 @@ describe('MainMenuProviderService', () => {
             expect(response).toBeTruthy();
             response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'reservas360', -1);
             expect(response).toBeTruthy();
-            response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'reservas360', null);
+            response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'reservas360', 4);
             expect(response).toBeTruthy();
-            response = service.isOpcionMenuActivo(
-                MAIN_MENU_TEMP_MOCK,
-                'movimientos-concierge',
-                null
-            );
+            response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'movimientos-concierge', 1);
             expect(response).toBeTruthy();
         });
     });

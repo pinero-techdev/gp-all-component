@@ -109,7 +109,6 @@ export class LoginService {
         const options = new RequestOptions(headers);
         const url = `${GlobalService.getLOGIN_SERVICE_URL()}/login`;
         sessionStorage.setItem('language', 'ES');
-
         return this.http.post<SessionInfoRs>(url, body, options).pipe(
             map((loginResponse) => {
                 if (loginResponse.ok) {
