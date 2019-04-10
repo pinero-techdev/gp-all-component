@@ -3,16 +3,13 @@ import { AppMenuProviderService } from './app-menu-provider.service';
 import { MenuRq } from '../resources/data/menuRq';
 import { Observable } from 'rxjs/Rx';
 import { GlobalService } from './global.service';
-import { DemoOpcionesMenuService } from './../../../src/app/shared/services/demo-opciones-menu.service';
+import { isNullOrUndefined } from 'util';
 
 @Injectable()
 export class AppMenuService {
   temp: any[];
-  opcionesMenu: any[];
 
-  constructor(private _appMenuProvider: AppMenuProviderService, private _opcionesMenu: DemoOpcionesMenuService) {
-    this.opcionesMenu = _opcionesMenu.getPermisos();
-  }
+  constructor(private _appMenuProvider: AppMenuProviderService) {}
 
   obtenMenu(rq: MenuRq): Observable<any> {
     return Observable.create(observer => {
@@ -20,19 +17,11 @@ export class AppMenuService {
       this._appMenuProvider.obtenOpcionesActivas(rq).subscribe(
         data => {
           if (data.ok) {
-            if (data.menu != null && data.menu.opciones != null && data.roles != null) {
-              this.cargarOpciones(this.temp, data.menu.opciones);
-            } else {
-              data.menu = data.menu != null ? data.menu : {};
-              data.menu.opciones = data.menu.opciones != null ? data.menu.opciones : [];
-              data.menu.opciones = this.opcionesMenu;
-              let arrayRoles: any = [];
-              let rol = { rolCodigo: 'BPGADMIN', rolDesc: 'ADMINISTRADOR BPG', rolEmpCodigo: 'KIP' };
-              arrayRoles.push(rol);
-              data.roles = arrayRoles;
+            if (!isNullOrUndefined(data.menu.opciones)) {
               this.cargarOpciones(this.temp, data.menu.opciones);
             }
             GlobalService.setRoles(data.roles);
+            GlobalService.setOptionsMenu(data.menu.opciones);
           } else {
             console.error('No se recuperó un menú');
           }
@@ -52,7 +41,13 @@ export class AppMenuService {
       if (e.submenus) {
         e.enabled = this.cargarOpciones(e.submenus, options);
       } else {
-        e.enabled = options[e.id] !== undefined;
+        var aux = options.filter(v => {
+          return v.id === e.id;
+        });
+
+        if (aux && aux.length > 0) {
+          e.enabled = true;
+        }
       }
       if (!tieneOpciones && e.enabled) tieneOpciones = true;
     });

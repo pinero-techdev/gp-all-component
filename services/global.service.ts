@@ -25,6 +25,9 @@ export class GlobalService {
   private static roles: RolInfo[];
   private static language: string;
 
+  // 3digits opciones de menu y permisos
+  private static optionsMenu: any[];
+
   public static get BASE_URL(): string {
     return this.baseUrl;
   }
@@ -157,5 +160,13 @@ export class GlobalService {
 
   public static get LANGUAGE(): string {
     return this.language;
+  }
+
+  public static get OPTIONS_MENU(): any[] {
+    return this.optionsMenu;
+  }
+
+  public static setOptionsMenu(newOptionsMenu: any[]) {
+    this.optionsMenu = newOptionsMenu;
   }
 }
