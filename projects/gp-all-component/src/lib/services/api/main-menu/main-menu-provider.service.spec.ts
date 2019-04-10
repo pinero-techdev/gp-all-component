@@ -2,7 +2,7 @@ import { MAIN_MENU_TEMP_MOCK } from './main-menu.mock';
 import { MainMenuProviderService } from './main-menu-provider.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { GlobalService } from '../../core/global.service';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, fakeAsync } from '@angular/core/testing';
 import { GpAllComponentModule } from '@lib/gp-all-component.module';
 
 describe('MainMenuProviderService', () => {
@@ -24,8 +24,23 @@ describe('MainMenuProviderService', () => {
     });
 
     describe('Method: tieneOpcionesMenuActivas', () => {
-        it('should returns false', () => {
-            let response = service.tieneOpcionesMenuActivas([], []);
+        let response;
+
+        beforeEach(() => {
+            response = null;
+        });
+
+        it('should fails', fakeAsync(() => {
+            response = service.tieneOpcionesMenuActivas(MAIN_MENU_TEMP_MOCK, [
+                'concierge-service',
+                'FROFR001',
+                'CRMFR050A',
+            ]);
+            expect(response).toBeFalsy();
+        }));
+
+        it('should return false', () => {
+            response = service.tieneOpcionesMenuActivas([], []);
             expect(response).toBeFalsy();
             response = service.tieneOpcionesMenuActivas([], ['1', '2']);
             expect(response).toBeFalsy();
@@ -39,16 +54,10 @@ describe('MainMenuProviderService', () => {
             expect(response).toBeFalsy();
             response = service.tieneOpcionesMenuActivas([null], undefined);
             expect(response).toBeFalsy();
-            response = service.tieneOpcionesMenuActivas(MAIN_MENU_TEMP_MOCK, [
-                'concierge-service',
-                'FROFR001',
-                'CRMFR050A',
-            ]);
-            expect(response).toBeFalsy();
         });
 
-        it('should returns true', () => {
-            let response = service.tieneOpcionesMenuActivas(MAIN_MENU_TEMP_MOCK, [
+        it('should return true', () => {
+            response = service.tieneOpcionesMenuActivas(MAIN_MENU_TEMP_MOCK, [
                 'CLDFR029A',
                 'CLDFR029B',
             ]);
