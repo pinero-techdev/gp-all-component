@@ -1,0 +1,11 @@
+<span *ngIf="starsArray && starsArray.length > 0">
+    <span *ngFor="let star of starsArray; let i = index">
+        <i
+            class="material-icons"
+            [ngClass]="value > i ? styleClassOn : styleClassOff"
+            [ngStyle]="value > i ? styleOn : styleOff"
+        >
+            {{ value > i ? iconOn : iconOff }}</i
+        >
+    </span>
+</span>
