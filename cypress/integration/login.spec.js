@@ -10,8 +10,8 @@ describe('Feature: Login', () => {
     describe('Scenario: User gets to /login', () => {
         beforeEach(() => {
             cy.prepareLogin();
-            loginUrl = Cypress.env('loginUrl');
-            forgotPassUrl = Cypress.env('forgotPassUrl');
+            loginUrl = Cypress.config('baseUrl') + Cypress.env('loginUrl');
+            forgotPassUrl = Cypress.config('baseUrl') + Cypress.env('forgotPassUrl');
         });
 
         describe('Given: username and password', () => {
@@ -61,14 +61,14 @@ describe('Feature: Login', () => {
     describe('Scenario: User gets to /login?usuario&password', () => {
         beforeEach(() => {
             cy.prepareLogin({ usuario: email, password });
-            loginUrl = Cypress.env('loginUrl');
-            forgotPassUrl = Cypress.env('forgotPassUrl');
+            loginUrl = Cypress.config('baseUrl') + Cypress.env('loginUrl');
+            forgotPassUrl = Cypress.config('baseUrl') + Cypress.env('forgotPassUrl');
         });
 
         describe('Given: username and password', () => {
             context('When: click login button with username and password', () => {
                 it('Then: the user can login', () => {
-                    const homeUrl = Cypress.env('baseUrl');
+                    const homeUrl = Cypress.config('baseUrl');
                     cy.url().should('eq', homeUrl);
                 });
             });
@@ -77,7 +77,7 @@ describe('Feature: Login', () => {
         describe('Given: an url to redirect after login', () => {
             context('When: click login button with username and password', () => {
                 it('Then: the user can login', () => {
-                    const homeUrl = Cypress.env('baseUrl');
+                    const homeUrl = Cypress.config('baseUrl');
                     cy.url().should('eq', homeUrl);
                 });
             });
@@ -88,14 +88,14 @@ describe('Feature: Login', () => {
         beforeEach(() => {
             const urlToRedirect = 'foo';
             cy.prepareLogin({ usuario: email, password, urlToRedirect });
-            loginUrl = Cypress.env('loginUrl');
-            forgotPassUrl = Cypress.env('forgotPassUrl');
+            loginUrl = Cypress.config('baseUrl') + Cypress.env('loginUrl');
+            forgotPassUrl = Cypress.config('baseUrl') + Cypress.env('forgotPassUrl');
         });
 
         describe('Given: an url to redirect after login', () => {
             context('When: click login button with username and password', () => {
                 it('Then: login and redirect', () => {
-                    const fooUrl = Cypress.env('fooUrl');
+                    const fooUrl = Cypress.config('baseUrl') + Cypress.env('fooUrl');
                     cy.url().should('eq', fooUrl);
                 });
             });

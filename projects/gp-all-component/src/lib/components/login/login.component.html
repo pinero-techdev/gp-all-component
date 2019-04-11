@@ -10,10 +10,11 @@
             <div class="ui-row-fluid ui-separation-lg">
                 <div class="ui-col-fluid ui-col-fluid-12">
                     <span class="md-inputfield">
-                        <label>Usuario {{ usuario }}</label>
+                        <label>Usuario</label>
                         <input
                             pInputText
                             required
+                            name="username"
                             type="text"
                             autocomplete="off"
                             class="ng-valid ui-inputtext ui-corner-all ui-state-default ui-widget ng-dirty ng-touched"
@@ -37,6 +38,7 @@
                             pInputText
                             required
                             type="password"
+                            name="password"
                             autocomplete="off"
                             class="ng-valid ui-inputtext ui-corner-all ui-state-default ui-widget ng-dirty ng-touched"
                             [(ngModel)]="password"
@@ -56,7 +58,7 @@
                 <div class="ui-col-fluid ui-col-fluid-12">
                     <button
                         class="login-panel-action"
-                        type="button"
+                        type="submit"
                         pButton
                         label="Entrar"
                         (click)="login()"
