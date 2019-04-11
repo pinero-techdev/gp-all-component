@@ -16,24 +16,27 @@ import { LoginTesterComponent } from './login-tester/login-tester.component';
 import { NgModule } from '@angular/core';
 import { SharedRoutingModule } from './shared.routing.module';
 import { GpAllComponentModule } from '@lib/gp-all-component.module';
+import { RatingTesterComponent } from './rating-tester/rating-tester.component';
 
 @NgModule({
     declarations: [
         DynamicTesterComponent,
-        LoadingIndicatorTesterComponent,
-        MultiIdiomaTesterComponent,
-        MainMenuTesterComponent,
-        LoginTesterComponent,
         ForgotPasswordTesterComponent,
+        LoadingIndicatorTesterComponent,
+        LoginTesterComponent,
+        MainMenuTesterComponent,
+        MultiIdiomaTesterComponent,
+        RatingTesterComponent,
     ],
     imports: [CommonModule, GpAllComponentModule, SharedRoutingModule],
     exports: [
         DynamicTesterComponent,
-        LoadingIndicatorTesterComponent,
-        MultiIdiomaTesterComponent,
-        MainMenuTesterComponent,
-        LoginTesterComponent,
         ForgotPasswordTesterComponent,
+        LoadingIndicatorTesterComponent,
+        LoginTesterComponent,
+        MainMenuTesterComponent,
+        MultiIdiomaTesterComponent,
+        RatingTesterComponent,
     ],
     providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })
