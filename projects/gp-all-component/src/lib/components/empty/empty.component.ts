@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'gp-empty',
-    templateUrl: './gp-empty.component.html',
+    templateUrl: './empty.component.html',
 })
-export class GpEmptyComponent {}
+export class EmptyComponent {}

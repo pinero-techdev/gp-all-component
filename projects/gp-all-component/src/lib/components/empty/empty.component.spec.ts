@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GpEmptyComponent } from './gp-empty.component';
+import { EmptyComponent } from './empty.component';
 
-describe('GpEmptyComponent', () => {
-    let component: GpEmptyComponent;
-    let fixture: ComponentFixture<GpEmptyComponent>;
+describe('EmptyComponent', () => {
+    let component: EmptyComponent;
+    let fixture: ComponentFixture<EmptyComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [GpEmptyComponent],
+            declarations: [EmptyComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(GpEmptyComponent);
+        fixture = TestBed.createComponent(EmptyComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,19 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RatingTesterComponent } from './rating-tester.component';
 
-import { GpRatingComponent } from './gp-rating.component';
-
-describe('GpRatingComponent', () => {
-    let component: GpRatingComponent;
-    let fixture: ComponentFixture<GpRatingComponent>;
+describe('RatingTesterComponent', () => {
+    let component: RatingTesterComponent;
+    let fixture: ComponentFixture<RatingTesterComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [GpRatingComponent],
+            declarations: [RatingTesterComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(GpRatingComponent);
+        fixture = TestBed.createComponent(RatingTesterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

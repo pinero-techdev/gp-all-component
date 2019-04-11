@@ -13,6 +13,8 @@ import { MultiIdiomaTesterComponent } from './multi-idioma-tester/multi-idioma-t
 import { RouterModule } from '@angular/router';
 import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.component';
 import { LoginTesterComponent } from './login-tester/login-tester.component';
+import { RatingTesterComponent } from './rating-tester/rating-tester.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -22,6 +24,7 @@ import { LoginTesterComponent } from './login-tester/login-tester.component';
         MultiIdiomaTesterComponent,
         MainMenuTesterComponent,
         LoginTesterComponent,
+        RatingTesterComponent,
     ],
     entryComponents: [FooTesterComponent],
     exports: [FooTesterComponent],

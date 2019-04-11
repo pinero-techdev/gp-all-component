@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'gp-rating',
-    templateUrl: './gp-rating.component.html',
+    selector: 'rating-tester',
+    templateUrl: './rating-tester.component.html',
 })
-export class GpRatingComponent {
+export class RatingTesterComponent {
     public starsArray = [1, 2, 3, 4, 5];
 
     @Input() public value = 0;
