@@ -1,4 +1,4 @@
-import { GpAllComponentModule } from 'gp-all-component/gp-all-component.module';
+import { GpAllComponentModule } from '@lib/gp-all-component.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoadingIndicatorTesterComponent } from './loading-indicator-tester.component';
@@ -22,9 +22,7 @@ describe('LoadingIndicatorTesterComponent', () => {
         fixture = TestBed.createComponent(LoadingIndicatorTesterComponent);
         component = fixture.debugElement.componentInstance;
         fixture.detectChanges();
-        elementRef = fixture.nativeElement.querySelector(
-            '.ui-progress-spinner'
-        );
+        elementRef = fixture.nativeElement.querySelector('.ui-progress-spinner');
     });
 
     it('should create', () => {

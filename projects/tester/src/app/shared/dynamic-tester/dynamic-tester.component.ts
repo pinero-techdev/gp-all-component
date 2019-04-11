@@ -1,5 +1,5 @@
 import { DynamicComponent } from '@lib/components/dynamic/dynamic.component';
-import { FooTesterComponent } from './../foo-tester/foo-tester.component';
+import { FooTesterComponent } from '../../foo-tester/foo-tester.component';
 import { Component, ViewChild } from '@angular/core';
 
 @Component({

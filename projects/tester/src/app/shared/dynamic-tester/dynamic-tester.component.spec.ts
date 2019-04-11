@@ -28,8 +28,7 @@ describe('DynamicTesterComponent', () => {
 
     it('should have a foo instance', () => {
         /* Getting FooTesterComponent tag element*/
-        const fooElement: HTMLElement = 
-            elementRef.querySelector('app-foo-tester');
+        const fooElement: HTMLElement = elementRef.querySelector('app-foo-tester');
 
         /* Getting FooTesterComponent instance */
         const fooInstance: FooTesterComponent =
@@ -41,8 +40,7 @@ describe('DynamicTesterComponent', () => {
     });
 
     it('should have a foo instance given a custom componentData', () => {
-        const fooElement: HTMLElement =
-            elementRef.querySelector('app-foo-tester');
+        const fooElement: HTMLElement = elementRef.querySelector('app-foo-tester');
         const testData = {
             component: FooTesterComponent,
             inputs: { bar: null, foo: 'Test1' },

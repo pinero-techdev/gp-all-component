@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./loading-indicator-tester.component.scss'],
 })
 export class LoadingIndicatorTesterComponent {
-  @Input() msg = 'Recuperando datos ...';
-  @Input() w = '40px';
-  @Input() h = '40px';
+    @Input() msg = 'Recuperando datos ...';
+    @Input() w = '40px';
+    @Input() h = '40px';
 }
