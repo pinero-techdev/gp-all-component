@@ -85,7 +85,6 @@ export class LoginComponent implements OnInit, OnDestroy {
                             ) {
                                 this.router.navigate([GlobalService.getPRE_LOGIN_URL()]);
                             } else {
-                                console.info('VOY A HOME')
                                 this.router.navigate(['home']);
                             }
                         } else {
