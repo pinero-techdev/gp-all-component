@@ -6,12 +6,11 @@ describe('RatingComponent', () => {
     let component: RatingComponent;
     let fixture: ComponentFixture<RatingComponent>;
     let elementRef: HTMLElement;
-    let domStars: NodeListOf<Element>;
 
-    function getField() {
+    function getStars(): NodeListOf<Element> {
         fixture.detectChanges();
         elementRef = fixture.debugElement.nativeElement;
-        domStars = elementRef.querySelectorAll('i.material-icons');
+        return elementRef.querySelectorAll('.material-icons');
     }
 
     beforeEach(async(() => {
@@ -23,7 +22,6 @@ describe('RatingComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RatingComponent);
         component = fixture.componentInstance;
-        getField();
     });
 
     it('should create', () => {
@@ -43,6 +41,9 @@ describe('RatingComponent', () => {
 
         component.stars = starNumber;
 
-        expect(domStars.length).toEqual(starNumber);
+        const stars = getStars();
+
+        expect(component.starsArray.length).toEqual(starNumber);
+        expect(stars.length).toEqual(starNumber);
     });
 });
