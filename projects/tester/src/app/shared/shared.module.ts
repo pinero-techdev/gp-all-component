@@ -7,7 +7,6 @@ import {
     LoadingIndicatorTesterComponent, //
 } from './loading-indicator-tester/loading-indicator-tester.component';
 import { MultiIdiomaTesterComponent } from './multi-idioma-tester/multi-idioma-tester.component';
-import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
 import { CommonModule } from '@angular/common';
 import {
@@ -21,7 +20,6 @@ import { GpAllComponentModule } from '@lib/gp-all-component.module';
 @NgModule({
     declarations: [
         DynamicTesterComponent,
-        FooTesterComponent,
         LoadingIndicatorTesterComponent,
         MultiIdiomaTesterComponent,
         MainMenuTesterComponent,
@@ -31,7 +29,6 @@ import { GpAllComponentModule } from '@lib/gp-all-component.module';
     imports: [CommonModule, GpAllComponentModule, SharedRoutingModule],
     exports: [
         DynamicTesterComponent,
-        FooTesterComponent,
         LoadingIndicatorTesterComponent,
         MultiIdiomaTesterComponent,
         MainMenuTesterComponent,

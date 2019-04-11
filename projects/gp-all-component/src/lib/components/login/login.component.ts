@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-    usuario: string;
+    username: string;
     password: string;
     url: string;
     msgs: Message[] = [];
@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     login(urlToRedirect?: string, otherParams?: string) {
-        if (this.password && this.usuario) {
+        if (this.password && this.username) {
             this.working = true;
             const request: LoginRq = new LoginRq(
-                this.usuario,
+                this.username,
                 this.password,
                 GlobalService.getAPLICACION_LOGIN(),
                 GlobalService.getPARAMS_LOGIN(),
@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                             ) {
                                 this.router.navigate([GlobalService.getPRE_LOGIN_URL()]);
                             } else {
+                                console.info('VOY A HOME')
                                 this.router.navigate(['home']);
                             }
                         } else {
@@ -102,7 +103,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                     }
                 );
         } else {
-            this.showError('Los campos usuario y password deben tener un valor válido.');
+            this.showError('Los campos username y password deben tener un valor válido.');
         }
     }
 
@@ -120,21 +121,22 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     goModificaPwd() {
-        this.router.navigate(['modifica-password/' + this.usuario]);
+        this.router.navigate(['modifica-password/' + this.username]);
     }
 
     subscribe() {
         let otherParams = null;
         let urlToRedirect = null;
+
         this.sub = this.route.queryParams.subscribe((params) => {
-            this.usuario = params.usuario;
+            this.username = params.usuario;
             this.password = params.password;
             otherParams = params.otherparams;
             urlToRedirect = params.urlToRedirect;
             this.url = params.url;
         });
 
-        if ((this.usuario && this.password) || otherParams) {
+        if ((this.username && this.password) || otherParams) {
             this.login(urlToRedirect, otherParams);
         }
     }

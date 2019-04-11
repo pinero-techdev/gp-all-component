@@ -1,6 +1,7 @@
 {
     "projectId": "gp-all-component",
     "env": {
-        "baseUrl": "http://localhost:4200/"
+        "baseUrl": "http://localhost:4200/",
+        "fooUrl": "http://localhost:4200/foo"
     }
 }

@@ -1,3 +1,4 @@
+import { FooTesterModule } from './../foo-tester/foo-tester.module';
 import { GpAllComponentModule } from '@lib/gp-all-component.module';
 import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { HomeRoutingModule } from './home.routing.module';
@@ -9,7 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
     declarations: [HomeComponent],
     entryComponents: [FooTesterComponent],
-    imports: [CommonModule, SharedModule, HomeRoutingModule, GpAllComponentModule],
+    imports: [CommonModule, SharedModule, FooTesterModule, HomeRoutingModule, GpAllComponentModule],
     exports: [FooTesterComponent, HomeComponent],
 })
 export class HomeModule {}

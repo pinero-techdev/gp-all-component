@@ -1,57 +1,103 @@
 import Chance from 'chance';
 
-describe('Scenario: Login', () => {
+describe('Feature: Login', () => {
     const chance = new Chance();
     const email = chance.email();
     const password = chance.string();
     let loginUrl;
     let forgotPassUrl;
 
-    beforeEach(() => {
-        cy.prepareLogin();
-        loginUrl = Cypress.env('loginUrl');
-        forgotPassUrl = Cypress.env('forgotPassUrl');
-    });
+    describe('Scenario: User gets to /login', () => {
+        beforeEach(() => {
+            cy.prepareLogin();
+            loginUrl = Cypress.env('loginUrl');
+            forgotPassUrl = Cypress.env('forgotPassUrl');
+        });
 
-    describe('Given: username and password', () => {
-        context('When: click login button with username and password', () => {
-            it('Then: the user can login', () => {
-                cy.login(email, password);
-                cy.url().should('not.eq', loginUrl);
+        describe('Given: username and password', () => {
+            context('When: click login button with username and password', () => {
+                it('Then: the user can login', () => {
+                    cy.login(email, password);
+                    cy.url().should('not.eq', loginUrl);
+                });
+            });
+
+            context('When: click remember password', () => {
+                it('Then: the user visit forgotPass page', () => {
+                    cy.clickForgotPassword();
+                    cy.url().should('contains', forgotPassUrl);
+                });
             });
         });
 
-        context('When: click remember password', () => {
-            it('Then: the user visit forgotPass page', () => {
-                cy.clickForgotPassword();
-                cy.url().should('contains', forgotPassUrl);
+        describe('Given: username and password empty', () => {
+            context('When: click login button with username and password empty', () => {
+                it('Then: the user can not login', () => {
+                    cy.login();
+                    cy.url().should('eq', loginUrl);
+                });
+            });
+        });
+
+        describe('Given: username empty', () => {
+            context('When: click login button with username empty', () => {
+                it('Then: the user can not login', () => {
+                    cy.login('', password);
+                    cy.url().should('eq', loginUrl);
+                });
+            });
+        });
+
+        describe('Given: password empty', () => {
+            context('When: click login button with password empty', () => {
+                it('Then: the user can not login', () => {
+                    cy.login(email, '');
+                    cy.url().should('eq', loginUrl);
+                });
             });
         });
     });
 
-    describe('Given: username and password empty', () => {
-        context('When: click login button with username and password empty', () => {
-            it('Then: the user can not login', () => {
-                cy.login();
-                cy.url().should('eq', loginUrl);
+    describe('Scenario: User gets to /login?usuario&password', () => {
+        beforeEach(() => {
+            cy.prepareLogin({ usuario: email, password });
+            loginUrl = Cypress.env('loginUrl');
+            forgotPassUrl = Cypress.env('forgotPassUrl');
+        });
+
+        describe('Given: username and password', () => {
+            context('When: click login button with username and password', () => {
+                it('Then: the user can login', () => {
+                    const homeUrl = Cypress.env('baseUrl');
+                    cy.url().should('eq', homeUrl);
+                });
+            });
+        });
+
+        describe('Given: an url to redirect after login', () => {
+            context('When: click login button with username and password', () => {
+                it('Then: the user can login', () => {
+                    const homeUrl = Cypress.env('baseUrl');
+                    cy.url().should('eq', homeUrl);
+                });
             });
         });
     });
 
-    describe('Given: username empty', () => {
-        context('When: click login button with username empty', () => {
-            it('Then: the user can not login', () => {
-                cy.login('', password);
-                cy.url().should('eq', loginUrl);
-            });
+    describe('Scenario: User gets to /login?usuario&password&urlToRedirect', () => {
+        beforeEach(() => {
+            const urlToRedirect = 'foo';
+            cy.prepareLogin({ usuario: email, password, urlToRedirect });
+            loginUrl = Cypress.env('loginUrl');
+            forgotPassUrl = Cypress.env('forgotPassUrl');
         });
-    });
 
-    describe('Given: password empty', () => {
-        context('When: click login button with password empty', () => {
-            it('Then: the user can not login', () => {
-                cy.login(email, '');
-                cy.url().should('eq', loginUrl);
+        describe('Given: an url to redirect after login', () => {
+            context('When: click login button with username and password', () => {
+                it('Then: login and redirect', () => {
+                    const fooUrl = Cypress.env('fooUrl');
+                    cy.url().should('eq', fooUrl);
+                });
             });
         });
     });

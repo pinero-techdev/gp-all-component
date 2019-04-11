@@ -110,7 +110,7 @@ describe('LoginComponent', () => {
     it('should navigate to modifica-password', () => {
         spyOn(router, 'navigate').and.callThrough();
         spyOn(component, 'goModificaPwd').and.callThrough();
-        const testRoute = `modifica-password/${component.usuario}`;
+        const testRoute = `modifica-password/${component.username}`;
         const $button = elementRef.querySelector('a.login-panel-change-password');
         expect($button).toBeTruthy();
         helper.triggerClickOn($button);
@@ -121,7 +121,7 @@ describe('LoginComponent', () => {
 
     describe('when form is filled', () => {
         beforeEach(() => {
-            component.usuario = username;
+            component.username = username;
             component.password = password;
             component.url = null;
             getFields();
@@ -191,7 +191,7 @@ describe('LoginComponent', () => {
 
     describe('when form is not fullfilled', () => {
         beforeEach(() => {
-            component.usuario = '';
+            component.username = '';
             component.password = '';
             getFields();
         });
@@ -214,7 +214,7 @@ describe('LoginComponent', () => {
 
         it('should not try to login with no password and show an error message', () => {
             spyOn(service, 'login').and.callThrough();
-            component.usuario = username;
+            component.username = username;
             getFields();
 
             const $button: HTMLButtonElement = elementRef.querySelector('button');

@@ -17,7 +17,7 @@
                             type="text"
                             autocomplete="off"
                             class="ng-valid ui-inputtext ui-corner-all ui-state-default ui-widget ng-dirty ng-touched"
-                            [(ngModel)]="usuario"
+                            [(ngModel)]="username"
                             (ngModelChange)="resetError()"
                             [ngClass]="{ 'login-panel-input-error': msgs.length > 0 }"
                             (keyup.enter)="login()"

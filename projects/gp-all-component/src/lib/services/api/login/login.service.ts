@@ -55,8 +55,8 @@ export class LoginService {
     constructor(private http: HttpClient) {}
 
     /**
-     * Comprueba que el usuario tenga una sesión activa
-     * @returns Json con la sesión del usuario (si tiene sesión activa)
+     * Comprueba que el username tenga una sesión activa
+     * @returns Json con la sesión del username (si tiene sesión activa)
      */
     sessionInfo(): Observable<SessionInfoRs> {
         const sessionInfoRq: any = {};
@@ -97,10 +97,10 @@ export class LoginService {
     }
 
     /**
-     * Llamada para loguear al usuario
+     * Llamada para loguear al username
      * @param username ''
      * @param password ''
-     * @returns Json con la sesión del usuario
+     * @returns Json con la sesión del username
      */
     login(request: LoginRq) {
         this.cleanSessionInfo();
@@ -129,7 +129,7 @@ export class LoginService {
     }
 
     /**
-     * Llamada al WS para hacer un logout del usuario
+     * Llamada al WS para hacer un logout del username
      * @returns Json con un CommonRS de respuesta
      */
     logout(): Observable<CommonRs> {
@@ -147,7 +147,7 @@ export class LoginService {
     cleanSessionInfo() {
         // Limpieza informacion de sesion.
         sessionStorage.clear();
-        // Limpieza de los datos de usuario del global service.
+        // Limpieza de los datos de username del global service.
         GlobalService.setLogged(false);
         GlobalService.setSession(new UserInfo());
         GlobalService.setSessionId(null);
