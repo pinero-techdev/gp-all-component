@@ -1,24 +1,29 @@
-import { MainMenuService } from './services/api/main-menu/main-menu.service';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { LoginService } from './services/api/login/login.service';
-import { ApiModule } from './services/api/api.module';
-import { CoreModule } from './services/core/core.module';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { SharedModule } from './shared/shared.module';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { MultiSelectModule } from 'primeng/primeng';
+import { DynamicComponent } from './components/dynamic/dynamic.component';
+import { EmptyComponent } from './components/empty/empty.component';
 import {
     LoadingIndicatorComponent, //
 } from './components/loading-indicator/loading-indicator.component';
-import { DynamicComponent } from './components/dynamic/dynamic.component';
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MultiIdiomaComponent } from './components/multi-idioma/multi-idioma.component';
 import { LoginComponent } from './components/login/login.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { MultiIdiomaComponent } from './components/multi-idioma/multi-idioma.component';
+import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { RatingComponent } from './components/rating/rating.component';
-import { EmptyComponent } from './components/empty/empty.component';
+import { ApiModule } from './services/api/api.module';
+import { LoginService } from './services/api/login/login.service';
+import { MainMenuService } from './services/api/main-menu/main-menu.service';
+import { CoreModule } from './services/core/core.module';
+import { SharedModule } from './shared/shared.module';
+import {
+    CUSTOM_CONTROL_VALUE_ACCESSOR, //
+} from './resources/constants/custom-control-value-accessor.constant';
 
 @NgModule({
     declarations: [
@@ -29,6 +34,7 @@ import { EmptyComponent } from './components/empty/empty.component';
         LoginComponent,
         RatingComponent,
         EmptyComponent,
+        MultiSelectComponent,
     ],
     imports: [
         BrowserModule,
@@ -40,6 +46,7 @@ import { EmptyComponent } from './components/empty/empty.component';
         HttpClientModule,
         RouterModule,
         SharedModule,
+        MultiSelectModule,
     ],
     exports: [
         ApiModule,
@@ -48,7 +55,10 @@ import { EmptyComponent } from './components/empty/empty.component';
         MultiIdiomaComponent,
         MainMenuComponent,
         LoginComponent,
+        RatingComponent,
+        MultiSelectComponent,
+        EmptyComponent,
     ],
-    providers: [LoginService, MainMenuService],
+    providers: [LoginService, MainMenuService, CUSTOM_CONTROL_VALUE_ACCESSOR],
 })
 export class GpAllComponentModule {}
