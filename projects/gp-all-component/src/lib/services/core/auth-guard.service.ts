@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate {
                             );
                             if (!accesoPermitido) {
                                 console.error(
-                                    'El usuario ' +
+                                    'El username ' +
                                         userId +
                                         ' no tiene los permisos necesarios para acceder a ' +
                                         url
@@ -54,7 +54,7 @@ export class AuthGuard implements CanActivate {
                             return accesoPermitido;
                         } else {
                             console.error(
-                                'El usuario ' +
+                                'El username ' +
                                     userId +
                                     ' no tiene menú asociado en la aplicación ' +
                                     GlobalService.getAPP()
@@ -65,7 +65,7 @@ export class AuthGuard implements CanActivate {
                 );
             }
         } else {
-            console.error('El usuario no se encuentra logado');
+            console.error('El username no se encuentra logado');
             // not logged in so redirect to login page.
             GlobalService.setPreLoginUrl(url);
             this._router.navigate(['/login']);

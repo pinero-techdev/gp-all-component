@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
     styleUrls: ['./main-menu.component.scss'],
 })
 /**
- * Clase Menu que agrupa los servicios accesibles por el usuario
+ * Clase Menu que agrupa los servicios accesibles por el username
  */
 export class MainMenuComponent implements OnInit, AfterViewInit {
     menuItems: Observable<any>;

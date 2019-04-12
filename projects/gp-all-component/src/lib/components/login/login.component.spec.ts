@@ -1,19 +1,21 @@
 import { GlobalService } from './../../services/core/global.service';
-import { LoginServiceMock } from './login.mock';
+import { LoginServiceMock } from '../../services/api/login/login.mock';
 import { MainMenuService } from './../../services/api/main-menu/main-menu.service';
 import { SharedModule } from './../../shared/shared.module';
 import { MainMenuComponent } from './../main-menu/main-menu.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoginService } from './../../services/api/login/login.service';
+import { LoginService, SessionInfoRs } from './../../services/api/login/login.service';
 import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
-import { Routes, Router } from '@angular/router';
+import { Routes, Router, ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { ErrorInformation } from '@lib/resources/data/error-information/error-information.model';
 
-export class TestComponent {}
+class TestComponent {}
 const testRoutes: Routes = [
     {
         path: 'modifica-password/:user',
@@ -37,6 +39,7 @@ describe('LoginComponent', () => {
     const applicationLoginUrl = 'app-tester';
     const username = 'test';
     const password = '1234';
+    const url = 'home';
     let router: Router;
     let service: LoginService;
 
@@ -63,6 +66,12 @@ describe('LoginComponent', () => {
             ],
             providers: [
                 { provide: LoginService, useClass: LoginServiceMock },
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        queryParams: of({ usuario: username, password, urlToRedirect: url, url }),
+                    },
+                },
                 GlobalService,
                 MainMenuService,
             ],
@@ -74,7 +83,6 @@ describe('LoginComponent', () => {
         component = fixture.componentInstance;
         router = TestBed.get(Router);
         service = TestBed.get(LoginService);
-        component.ngOnInit();
         GlobalService.setApplicationTitle(applicationName);
         GlobalService.setLoginServiceUrl(applicationLoginUrl);
         getFields();
@@ -86,6 +94,13 @@ describe('LoginComponent', () => {
         expect($password).toBeTruthy();
     });
 
+    it('should init login', () => {
+        spyOn(component, 'login').and.callThrough();
+        component.ngOnInit();
+        fixture.detectChanges();
+        expect(component.login).toHaveBeenCalled();
+    });
+
     it('should have a title', () => {
         const $title: HTMLElement = elementRef.querySelector('.login-panel-title');
         expect($title).toBeTruthy();
@@ -95,20 +110,36 @@ describe('LoginComponent', () => {
     it('should navigate to modifica-password', () => {
         spyOn(router, 'navigate').and.callThrough();
         spyOn(component, 'goModificaPwd').and.callThrough();
-        const route = `modifica-password/${component.usuario}`;
+        const testRoute = `modifica-password/${component.username}`;
         const $button = elementRef.querySelector('a.login-panel-change-password');
         expect($button).toBeTruthy();
         helper.triggerClickOn($button);
         fixture.detectChanges();
         expect(component.goModificaPwd).toHaveBeenCalled();
-        expect(router.navigate).toHaveBeenCalledWith([route]);
+        expect(router.navigate).toHaveBeenCalledWith([testRoute]);
     });
 
     describe('when form is filled', () => {
         beforeEach(() => {
-            component.usuario = username;
+            component.username = username;
             component.password = password;
+            component.url = null;
             getFields();
+        });
+
+        it('should show an error message when API service fails', () => {
+            const response = new SessionInfoRs();
+            response.ok = false;
+            response.error = new ErrorInformation();
+            response.error.errorMessage = 'Error';
+            spyOn(service, 'login').and.returnValue(of(response));
+            spyOn(component, 'showError').and.callThrough();
+            component.login();
+            fixture.detectChanges();
+            checkErrorMessages();
+            fixture.detectChanges();
+            expect(service.login).toHaveBeenCalled();
+            expect(component.showError).toHaveBeenCalled();
         });
 
         it('should try to login', () => {
@@ -158,21 +189,11 @@ describe('LoginComponent', () => {
         });
     });
 
-    xdescribe('when form is not fullfilled', () => {
+    describe('when form is not fullfilled', () => {
         beforeEach(() => {
-            component.usuario = '';
+            component.username = '';
             component.password = '';
             getFields();
-        });
-
-        it('should show an error message when API service fails', () => {
-            spyOn(service, 'login').and.callThrough();
-            spyOn(component, 'showError').and.callThrough();
-            component.login();
-            fixture.detectChanges();
-            checkErrorMessages();
-            expect(service.login).toHaveBeenCalled();
-            expect(component.showError).toHaveBeenCalled();
         });
 
         it('should not try to login and show an error message', () => {
@@ -184,6 +205,7 @@ describe('LoginComponent', () => {
             expect($button).toBeTruthy();
             helper.triggerClickOn($button);
             fixture.detectChanges();
+
             checkErrorMessages();
             expect(component.login).toHaveBeenCalled();
             expect(component.showError).toHaveBeenCalled();
@@ -191,24 +213,30 @@ describe('LoginComponent', () => {
         });
 
         it('should not try to login with no password and show an error message', () => {
-            spyOn(component, 'login').and.callThrough();
-            component.usuario = username;
+            spyOn(service, 'login').and.callThrough();
+            component.username = username;
+            getFields();
+
             const $button: HTMLButtonElement = elementRef.querySelector('button');
             helper.triggerClickOn($button);
-            getFields();
+            fixture.detectChanges();
+
             checkErrorMessages();
-            expect(component.login).not.toHaveBeenCalled();
+            expect(service.login).not.toHaveBeenCalled();
         });
 
         it('should not try to login with no username and show an error message', () => {
-            spyOn(component, 'login').and.callThrough();
+            spyOn(service, 'login').and.callThrough();
             component.password = password;
+            getFields();
+
             const $button: HTMLButtonElement = elementRef.querySelector('button');
             helper.triggerClickOn($button);
-            getFields();
+            fixture.detectChanges();
+
             checkErrorMessages();
             expect($username.value).toEqual('');
-            expect(component.login).not.toHaveBeenCalled();
+            expect(service.login).not.toHaveBeenCalled();
         });
     });
 });

@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MainMenuProviderService } from './../../services/api/main-menu/main-menu-provider.service';
-import { MainMenuProviderServiceMock } from './main-menu.mock';
+import { MainMenuProviderServiceMock } from '../../services/api/main-menu/main-menu.mock';
 import { MainMenuService } from '../../services/api/main-menu/main-menu.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MainMenuComponent } from './main-menu.component';

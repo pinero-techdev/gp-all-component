@@ -28,10 +28,12 @@ export class MainMenuService {
             this.menuProvider.obtenOpcionesActivas(rq).subscribe(
                 (data) => {
                     if (data.ok) {
-                        if (!(data.menu.opciones === null || data.menu.opciones === undefined)) {
+                        if (data.menu.opciones && data.menu.opciones.length) {
                             this.cargarOpciones(this.temp, data.menu.opciones);
                         }
-                        GlobalService.setRoles(data.roles);
+                        if (data.roles && data.roles.length) {
+                            GlobalService.setRoles(data.roles);
+                        }
                     } else {
                         console.error('No se recuperó un menú');
                     }

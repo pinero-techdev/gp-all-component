@@ -1,4 +1,3 @@
-import { MainMenuProviderServiceMock } from './../components/main-menu/main-menu.mock';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
 import { NgModule } from '@angular/core';
@@ -12,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { MultiSelectModule } from 'primeng/multiselect';
 @NgModule({
     declarations: [],
     imports: [
@@ -26,6 +26,7 @@ import { MessageModule } from 'primeng/message';
         MessagesModule,
         MessageModule,
         TranslateModule,
+        MultiSelectModule,
     ],
     exports: [
         ButtonModule,
@@ -38,8 +39,9 @@ import { MessageModule } from 'primeng/message';
         TooltipModule,
         ScrollPanelModule,
         InputTextModule,
+        MultiSelectModule,
         TranslateModule,
     ],
-    providers: [MessageService, MainMenuProviderServiceMock],
+    providers: [MessageService],
 })
 export class SharedModule {}

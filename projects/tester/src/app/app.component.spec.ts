@@ -1,11 +1,15 @@
-import { MultiIdiomaTesterComponent } from './multi-idioma-tester/multi-idioma-tester.component';
-import { MenuTesterComponent } from './menu-tester/menu-tester.component';
-import { LoadingIndicatorTesterComponent } from './loading-indicator-tester/loading-indicator-tester.component';
+import { MainMenuTesterComponent } from './shared/main-menu-tester/main-menu-tester.component';
+import {
+    MultiIdiomaTesterComponent, //
+} from './shared/multi-idioma-tester/multi-idioma-tester.component';
+import {
+    LoadingIndicatorTesterComponent, //
+} from './shared/loading-indicator-tester/loading-indicator-tester.component';
 import { GpAllComponentModule } from './../../../gp-all-component/src/lib/gp-all-component.module';
 import { FooTesterComponent } from './foo-tester/foo-tester.component';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
+import { DynamicTesterComponent } from './shared/dynamic-tester/dynamic-tester.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
@@ -16,11 +20,11 @@ describe('AppComponent', () => {
                 FooTesterComponent,
                 DynamicTesterComponent,
                 LoadingIndicatorTesterComponent,
-                MenuTesterComponent,
+                MainMenuTesterComponent,
                 MultiIdiomaTesterComponent,
             ],
             imports: [GpAllComponentModule, RouterTestingModule],
-            providers:[]
+            providers: [],
         }).compileComponents();
     }));
 

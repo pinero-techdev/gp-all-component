@@ -66,7 +66,7 @@ export class TableService extends CommonService {
 
     /**
      * Llamada para obtener la metadata de una tabla.
-     * @returns Json con la sesión del usuario
+     * @returns Json con la sesión del username
      */
     metadata(tableName: string): Observable<MetadataRs> {
         return this.post<MetadataRs>(

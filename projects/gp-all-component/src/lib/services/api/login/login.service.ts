@@ -55,8 +55,8 @@ export class LoginService {
     constructor(private http: HttpClient) {}
 
     /**
-     * Comprueba que el usuario tenga una sesión activa
-     * @returns Json con la sesión del usuario (si tiene sesión activa)
+     * Comprueba que el username tenga una sesión activa
+     * @returns Json con la sesión del username (si tiene sesión activa)
      */
     sessionInfo(): Observable<SessionInfoRs> {
         const sessionInfoRq: any = {};
@@ -68,6 +68,7 @@ export class LoginService {
                 GlobalService.setSessionId(sessionStorage.getItem('sessionId'));
             }
         }
+
         if (GlobalService.getSESSION_ID()) {
             sessionInfoRq.sessionId = GlobalService.getSESSION_ID();
             const headers = new HttpHeaders({
@@ -78,7 +79,6 @@ export class LoginService {
             const url = `${GlobalService.getLOGIN_SERVICE_URL()}/sessionInfo`;
             return this.http.post<SessionInfoRs>(url, sessionInfoRq, options).pipe(
                 map((sessionInfoRs) => {
-                    console.info('mola', sessionInfoRs);
                     if (sessionInfoRs.ok) {
                         GlobalService.setSession(sessionInfoRs.userInfo);
                         GlobalService.setSessionId(sessionInfoRs.sessionId);
@@ -97,10 +97,10 @@ export class LoginService {
     }
 
     /**
-     * Llamada para loguear al usuario
+     * Llamada para loguear al username
      * @param username ''
      * @param password ''
-     * @returns Json con la sesión del usuario
+     * @returns Json con la sesión del username
      */
     login(request: LoginRq) {
         this.cleanSessionInfo();
@@ -109,10 +109,8 @@ export class LoginService {
         const options = new RequestOptions(headers);
         const url = `${GlobalService.getLOGIN_SERVICE_URL()}/login`;
         sessionStorage.setItem('language', 'ES');
-
         return this.http.post<SessionInfoRs>(url, body, options).pipe(
             map((loginResponse) => {
-                console.info('service', loginResponse);
                 if (loginResponse.ok) {
                     GlobalService.setSession(loginResponse.userInfo);
                     GlobalService.setSessionId(loginResponse.sessionId);
@@ -131,7 +129,7 @@ export class LoginService {
     }
 
     /**
-     * Llamada al WS para hacer un logout del usuario
+     * Llamada al WS para hacer un logout del username
      * @returns Json con un CommonRS de respuesta
      */
     logout(): Observable<CommonRs> {
@@ -149,7 +147,7 @@ export class LoginService {
     cleanSessionInfo() {
         // Limpieza informacion de sesion.
         sessionStorage.clear();
-        // Limpieza de los datos de usuario del global service.
+        // Limpieza de los datos de username del global service.
         GlobalService.setLogged(false);
         GlobalService.setSession(new UserInfo());
         GlobalService.setSessionId(null);

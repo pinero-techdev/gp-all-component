@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-    usuario: string;
+    username: string;
     password: string;
     url: string;
     msgs: Message[] = [];
@@ -50,56 +50,60 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     login(urlToRedirect?: string, otherParams?: string) {
-        this.working = true;
-        const request: LoginRq = new LoginRq(
-            this.usuario,
-            this.password,
-            GlobalService.getAPLICACION_LOGIN(),
-            GlobalService.getPARAMS_LOGIN(),
-            otherParams
-        );
-        this.loginService
-            .login(request)
-            .pipe(
-                finalize(() => {
-                    this.working = false;
-                })
-            )
-            .subscribe(
-                (data) => {
-                    if (data.ok) {
-                        GlobalService.setSession(data.userInfo);
-                        GlobalService.setLogged(true);
-                        // store user details and jwt token in local storage to keep
-                        // user logged in between page refreshes
-                        sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
-                        if (this.url) {
-                            GlobalService.setPreLoginUrl(this.url);
-                        }
-                        if (urlToRedirect) {
-                            this.router.navigate([urlToRedirect]);
-                        } else if (
-                            GlobalService.getPRE_LOGIN_URL() &&
-                            GlobalService.getPRE_LOGIN_URL() !== ''
-                        ) {
-                            this.router.navigate([GlobalService.getPRE_LOGIN_URL()]);
-                        } else {
-                            this.router.navigate(['home']);
-                        }
-                    } else {
-                        this.router.navigate(['login']);
-                        if (data.error != null && data.error.errorMessage != null) {
-                            this.showError(data.error.errorMessage.toString());
-                        }
-                    }
-                },
-                (err) => {
-                    console.error(err);
-                },
-                () => {
-                    console.info('Login finalizado');
-                }
+        if (this.password && this.username) {
+            this.working = true;
+            const request: LoginRq = new LoginRq(
+                this.username,
+                this.password,
+                GlobalService.getAPLICACION_LOGIN(),
+                GlobalService.getPARAMS_LOGIN(),
+                otherParams
             );
+            this.loginService
+                .login(request)
+                .pipe(
+                    finalize(() => {
+                        this.working = false;
+                    })
+                )
+                .subscribe(
+                    (data) => {
+                        if (data.ok) {
+                            GlobalService.setSession(data.userInfo);
+                            GlobalService.setLogged(true);
+                            // store user details and jwt token in local storage to keep
+                            // user logged in between page refreshes
+                            sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+                            if (this.url) {
+                                GlobalService.setPreLoginUrl(this.url);
+                            }
+                            if (urlToRedirect) {
+                                this.router.navigate([urlToRedirect]);
+                            } else if (
+                                GlobalService.getPRE_LOGIN_URL() &&
+                                GlobalService.getPRE_LOGIN_URL() !== ''
+                            ) {
+                                this.router.navigate([GlobalService.getPRE_LOGIN_URL()]);
+                            } else {
+                                this.router.navigate(['home']);
+                            }
+                        } else {
+                            this.router.navigate(['login']);
+                            let errorMessage = 'Ha ocurrido un error';
+                            if (data.error != null && data.error.errorMessage != null) {
+                                errorMessage = data.error.errorMessage.toString();
+                            }
+                            this.showError(errorMessage);
+                        }
+                    },
+                    (err) => {
+                        console.error(err);
+                        this.showError('Ha ocurrido un error');
+                    }
+                );
+        } else {
+            this.showError('Los campos username y password deben tener un valor válido.');
+        }
     }
 
     showError(message: string) {
@@ -116,21 +120,22 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     goModificaPwd() {
-        this.router.navigate(['modifica-password/' + this.usuario]);
+        this.router.navigate(['modifica-password/' + this.username]);
     }
 
     subscribe() {
         let otherParams = null;
         let urlToRedirect = null;
+
         this.sub = this.route.queryParams.subscribe((params) => {
-            this.usuario = params.usuario;
+            this.username = params.usuario;
             this.password = params.password;
             otherParams = params.otherparams;
             urlToRedirect = params.urlToRedirect;
             this.url = params.url;
         });
 
-        if ((this.usuario && this.password) || otherParams) {
+        if ((this.username && this.password) || otherParams) {
             this.login(urlToRedirect, otherParams);
         }
     }
