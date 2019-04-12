@@ -1,7 +1,8 @@
+import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
 import { MainMenuTesterService } from './main-menu-tester/main-menu-tester.service';
 import {
     MainMenuProviderService, //
-} from './../../../../gp-all-component/src/lib/services/api/main-menu/main-menu-provider.service';
+} from '@lib/services/api/main-menu/main-menu-provider.service';
 import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.component';
 import {
     LoadingIndicatorTesterComponent, //
@@ -26,6 +27,7 @@ import { RatingTesterComponent } from './rating-tester/rating-tester.component';
         LoginTesterComponent,
         MainMenuTesterComponent,
         MultiIdiomaTesterComponent,
+        MultiSelectTesterComponent,
         RatingTesterComponent,
     ],
     imports: [CommonModule, GpAllComponentModule, SharedRoutingModule],
@@ -36,6 +38,7 @@ import { RatingTesterComponent } from './rating-tester/rating-tester.component';
         LoginTesterComponent,
         MainMenuTesterComponent,
         MultiIdiomaTesterComponent,
+        MultiSelectTesterComponent,
         RatingTesterComponent,
     ],
     providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 
 @Component({
@@ -7,11 +7,7 @@ import { SelectItem } from 'primeng/api';
     styleUrls: ['./multi-select-tester.component.scss'],
 })
 export class MultiSelectTesterComponent {
-    onSelect(event) {
-        console.log(event);
-    }
-
-    selectionOptions: SelectItem[] = [
+    public selectionOptions: SelectItem[] = [
         {
             label: 'Test 1',
             value: 'D34FG',
@@ -23,4 +19,8 @@ export class MultiSelectTesterComponent {
             icon: 'fa-file',
         },
     ];
+
+    public onSelect(event: Event) {
+        console.info(event);
+    }
 }

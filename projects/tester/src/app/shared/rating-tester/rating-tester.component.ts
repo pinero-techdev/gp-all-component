@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
     selector: 'app-rating-tester',
     templateUrl: './rating-tester.component.html',
 })
-export class RatingTesterComponent {}
+export class RatingTesterComponent {
+    public stars = 3;
+}
