@@ -14,7 +14,7 @@ import {
 import { LoginComponent } from './components/login/login.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { MultiIdiomaComponent } from './components/multi-idioma/multi-idioma.component';
-import { MultiSelectComponent } from './components/multi-select/components/multi-select.component';
+import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { ApiModule } from './services/api/api.module';
 import { LoginService } from './services/api/login/login.service';
@@ -55,6 +55,9 @@ import {
         MultiIdiomaComponent,
         MainMenuComponent,
         LoginComponent,
+        RatingComponent,
+        MultiSelectComponent,
+        EmptyComponent,
     ],
     providers: [LoginService, MainMenuService, CUSTOM_CONTROL_VALUE_ACCESSOR],
 })

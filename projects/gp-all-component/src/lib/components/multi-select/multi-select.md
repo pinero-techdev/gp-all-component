@@ -23,7 +23,7 @@
 `app.component.ts`
 
 ```typescript
-const selectionOptions: SelectItem[] = [
+selectionOptions: SelectItem[] = [
     {
         label: 'Test 1',
         value: 'D34FG',

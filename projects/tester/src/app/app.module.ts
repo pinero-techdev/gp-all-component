@@ -15,6 +15,7 @@ import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.com
 import { MainMenuTesterService } from './main-menu-tester/main-menu-tester.service';
 import { MultiIdiomaTesterComponent } from './multi-idioma-tester/multi-idioma-tester.component';
 import { RatingTesterComponent } from './rating-tester/rating-tester.component';
+import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import { RatingTesterComponent } from './rating-tester/rating-tester.component';
         MainMenuTesterComponent,
         LoginTesterComponent,
         RatingTesterComponent,
+        MultiSelectTesterComponent,
     ],
     entryComponents: [FooTesterComponent],
     exports: [FooTesterComponent],
