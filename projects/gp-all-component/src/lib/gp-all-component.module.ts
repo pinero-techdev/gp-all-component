@@ -20,9 +20,10 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
 import { RatingComponent } from './components/rating/rating.component';
 import { EmptyComponent } from './components/empty/empty.component';
 import {
-  CUSTOM_CONTROL_VALUE_ACCESSOR, //
+    CUSTOM_CONTROL_VALUE_ACCESSOR, //
 } from './resources/constants/custom-control-value-accessor.constant';
 import { LoginComponent } from './components/login/login.component';
+import { RedirectComponent } from './components/redirect/redirect.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { LoginComponent } from './components/login/login.component';
         RatingComponent,
         EmptyComponent,
         MultiSelectComponent,
+        RedirectComponent,
     ],
     imports: [
         BrowserModule,
@@ -49,14 +51,19 @@ import { LoginComponent } from './components/login/login.component';
     exports: [
         DynamicComponent,
         LoadingIndicatorComponent,
-        LoginComponent,
-        MainMenuComponent,
         MultiIdiomaComponent,
+        MainMenuComponent,
+        LoginComponent,
         RatingComponent,
         MultiSelectComponent,
         EmptyComponent,
+        RedirectComponent,
     ],
-    providers: [LoginService, MainMenuService,  MainMenuProviderService,
-      CUSTOM_CONTROL_VALUE_ACCESSOR],
+    providers: [
+        LoginService,
+        MainMenuService,
+        MainMenuProviderService,
+        CUSTOM_CONTROL_VALUE_ACCESSOR,
+    ],
 })
 export class GpAllComponentModule {}
