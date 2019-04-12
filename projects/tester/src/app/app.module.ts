@@ -14,8 +14,6 @@ import { LoginTesterComponent } from './login-tester/login-tester.component';
 import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.component';
 import { MainMenuTesterService } from './main-menu-tester/main-menu-tester.service';
 import { MultiIdiomaTesterComponent } from './multi-idioma-tester/multi-idioma-tester.component';
-import { MultiSelectTesterComponent } from './multi-select-tester/components/multi-select-tester.component';
-import { CUSTOM_CONTROL_VALUE_ACCESSOR } from './multi-select-tester/constants/custom-control-value-accessor.constant';
 import { RatingTesterComponent } from './rating-tester/rating-tester.component';
 
 @NgModule({
@@ -28,7 +26,6 @@ import { RatingTesterComponent } from './rating-tester/rating-tester.component';
         MainMenuTesterComponent,
         LoginTesterComponent,
         RatingTesterComponent,
-        MultiSelectTesterComponent,
     ],
     entryComponents: [FooTesterComponent],
     exports: [FooTesterComponent],
@@ -45,7 +42,6 @@ import { RatingTesterComponent } from './rating-tester/rating-tester.component';
             provide: MainMenuProviderService,
             useClass: MainMenuTesterService,
         },
-        CUSTOM_CONTROL_VALUE_ACCESSOR,
     ],
     bootstrap: [AppComponent],
 })
