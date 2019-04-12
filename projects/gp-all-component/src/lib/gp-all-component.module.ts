@@ -8,18 +8,22 @@ import { RouterModule } from '@angular/router';
 import { MultiSelectModule } from 'primeng/primeng';
 import { DynamicComponent } from './components/dynamic/dynamic.component';
 import { EmptyComponent } from './components/empty/empty.component';
-import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import {
+    LoadingIndicatorComponent, //
+} from './components/loading-indicator/loading-indicator.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { MultiIdiomaComponent } from './components/multi-idioma/multi-idioma.component';
 import { MultiSelectComponent } from './components/multi-select/components/multi-select.component';
-import { CUSTOM_CONTROL_VALUE_ACCESSOR } from './components/multi-select/constants/custom-control-value-accessor.constant';
 import { RatingComponent } from './components/rating/rating.component';
 import { ApiModule } from './services/api/api.module';
 import { LoginService } from './services/api/login/login.service';
 import { MainMenuService } from './services/api/main-menu/main-menu.service';
 import { CoreModule } from './services/core/core.module';
 import { SharedModule } from './shared/shared.module';
+import {
+    CUSTOM_CONTROL_VALUE_ACCESSOR, //
+} from './resources/constants/custom-control-value-accessor.constant';
 
 @NgModule({
     declarations: [

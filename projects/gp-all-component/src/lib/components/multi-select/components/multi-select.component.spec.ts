@@ -30,7 +30,7 @@ describe('MultiSelectComponent', () => {
         const value = 'test';
 
         component.writeValue(value);
-        expect(component.valor).toEqual(value);
+        expect(component.value).toEqual(value);
     });
 
     describe('on register on change', () => {
@@ -62,22 +62,21 @@ describe('MultiSelectComponent', () => {
     describe('emit passed value', () => {
         it('should fail if passed value is the same as the new one', () => {
             const newValue = 'new-test';
-            // const oldValue = 'old-test';
 
-            component.changed.pipe(take(1)).subscribe((value) => expect(value).toBeUndefined());
+            component.onChange.pipe(take(1)).subscribe((value) => expect(value).toBeUndefined());
 
             component.writeValue(newValue);
-            component.valor = newValue;
+            component.value = newValue;
         });
 
         it('should pass if passed value is not the same as the new one', () => {
             const newValue = 'new-test';
             const oldValue = 'old-test';
 
-            component.changed.pipe(take(1)).subscribe((value) => expect(value).toEqual(newValue));
+            component.onChange.pipe(take(1)).subscribe((value) => expect(value).toEqual(newValue));
 
             component.writeValue(oldValue);
-            component.valor = newValue;
+            component.value = newValue;
         });
     });
 });

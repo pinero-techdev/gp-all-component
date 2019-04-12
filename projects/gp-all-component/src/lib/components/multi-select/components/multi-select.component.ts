@@ -11,7 +11,7 @@ import { noop } from 'rxjs';
 })
 export class MultiSelectComponent implements ControlValueAccessor {
     /**
-     * Text shown together the number of selected elements
+     * Text shown near the number of selected elements
      */
     @Input()
     selectionLabel = 'Opciones seleccionadas';
@@ -50,7 +50,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
     tabindex: number = null;
 
     @Output()
-    changed: EventEmitter<any> = new EventEmitter();
+    onChange: EventEmitter<any> = new EventEmitter();
 
     @ViewChild(MultiSelect) multi: MultiSelect;
 
@@ -63,9 +63,9 @@ export class MultiSelectComponent implements ControlValueAccessor {
     private onChangeCallback: (_: any) => void = noop;
 
     /**
-     * Get accessor for valor property
+     * Get accessor for value property
      */
-    get valor(): string {
+    get value(): string {
         return this.innerValue;
     }
 
@@ -73,11 +73,11 @@ export class MultiSelectComponent implements ControlValueAccessor {
      * Set accessor and call the onchange callback
      * @param v The new input value
      */
-    set valor(v: string) {
+    set value(v: string) {
         if (v !== this.innerValue) {
             this.innerValue = v;
             this.onChangeCallback(v);
-            this.changed.emit(v);
+            this.onChange.emit(v);
         }
     }
 
