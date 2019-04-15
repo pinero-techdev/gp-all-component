@@ -40,7 +40,6 @@ export class MultiLanguageComponent implements OnInit {
     }
 
     prepareTranslations() {
-        debugger;
         if (this.pKey) {
             this.getTranslations();
         } else {
