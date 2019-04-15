@@ -1,19 +1,18 @@
-import { GlobalService } from './../../services/core/global.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, Routes } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ErrorInformation } from '@lib/resources/data/error-information/error-information.model';
+import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
+import { of } from 'rxjs';
 import { LoginServiceMock } from '../../services/api/login/login.mock';
+import { LoginService, SessionInfoRs } from './../../services/api/login/login.service';
 import { MainMenuService } from './../../services/api/main-menu/main-menu.service';
+import { GlobalService } from './../../services/core/global.service';
 import { SharedModule } from './../../shared/shared.module';
 import { MainMenuComponent } from './../main-menu/main-menu.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoginService, SessionInfoRs } from './../../services/api/login/login.service';
-import { FormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LoginComponent } from './login.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
-import { Routes, Router, ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { ErrorInformation } from '@lib/resources/data/error-information/error-information.model';
 
 class TestComponent {}
 const testRoutes: Routes = [

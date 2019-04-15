@@ -39,7 +39,8 @@ export class MultiLanguageComponent implements OnInit {
         this.showHTMLEditor = false;
     }
 
-    prepareTranslations() {
+    initTranslations() {
+        console.info('INIT TRANSLATIONS', this.pKey);
         if (this.pKey) {
             this.getTranslations();
         } else {
@@ -57,7 +58,7 @@ export class MultiLanguageComponent implements OnInit {
                 if (data.ok) {
                     let translations = data.translations;
                     if (!this.orderByLangCod) {
-                        translations = this.sortTranslations(data.traducciones, LANGUAGE_ORDER);
+                        translations = this.sortTranslations(data.translations, LANGUAGE_ORDER);
                     }
                     this.translations = translations;
                 } else if (data.error != null) {
@@ -71,12 +72,12 @@ export class MultiLanguageComponent implements OnInit {
         );
     }
 
-    sortTranslations(traducciones: Translation[], ordenIds: string[]): Translation[] {
+    sortTranslations(translations: Translation[], ordenIds: string[]): Translation[] {
         const sorted: Translation[] = [];
         for (const codIdioma of ordenIds) {
-            for (const traduccion of traducciones) {
-                if (traduccion.langCode === codIdioma) {
-                    sorted.push(traduccion);
+            for (const translation of translations) {
+                if (translation.langCode === codIdioma) {
+                    sorted.push(translation);
                     break;
                 }
             }

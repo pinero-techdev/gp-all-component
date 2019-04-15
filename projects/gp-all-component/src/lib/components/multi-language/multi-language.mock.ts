@@ -31,7 +31,6 @@ export class MultiLanguageServiceMock {
             response.error.errorMessage = 'An error has occurred.';
             response.error.internalErrorMessage = 'An error has occurred.';
         }
-
         return of(response);
     }
 }

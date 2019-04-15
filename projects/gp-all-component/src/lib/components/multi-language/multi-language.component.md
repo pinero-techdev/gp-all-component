@@ -27,7 +27,7 @@ Everything in spanish was renamed to english language.
 
 -   `ordenarTraducciones` => `sortTranslations`
 -   `getTraducciones` => `getTranslations`
--   `despliegaTraducciones` => `prepareTranslations`
+-   `despliegaTraducciones` => `initTranslations`
 -   `cerrarEdicionTraduccion` => `hideTranslations`
 -   `mostrarDialogoEdicionHTML` => `showEditorHTMLDialog`
 -   `contieneHtml` => `hasHTMLContent`

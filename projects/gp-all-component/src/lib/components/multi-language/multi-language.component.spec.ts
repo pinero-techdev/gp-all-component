@@ -69,7 +69,7 @@ describe('MultiLanguageComponent', () => {
                 .withArgs(request)
                 .and.callThrough();
             spyOn(messageService, 'showErrorAlert').and.callThrough();
-            component.prepareTranslations();
+            component.initTranslations();
             expect(service.getTranslations).not.toHaveBeenCalled();
             expect(messageService.showErrorAlert).toHaveBeenCalled();
         });
@@ -86,31 +86,26 @@ describe('MultiLanguageComponent', () => {
         });
 
         it('should get translations', () => {
-            fixture.detectChanges();
             spyOn(service, 'getTranslations')
                 .withArgs(request)
                 .and.callThrough();
-            component.prepareTranslations();
+            component.initTranslations();
             expect(service.getTranslations).toHaveBeenCalled();
         });
 
-        describe('and ordering by language code', () => {
+        describe('and sorting by language code', () => {
             beforeEach(() => {
                 component.orderByLangCod = false;
                 fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
             });
 
-            afterAll(() => {
-                // TODO : Destroy component
-            });
-
-            it('should order the translations', () => {
+            it('should sort the translations', () => {
                 spyOn(service, 'getTranslations')
                     .withArgs(request)
                     .and.callThrough();
                 spyOn(component, 'sortTranslations').and.callThrough();
-                component.prepareTranslations();
+                component.initTranslations();
                 expect(service.getTranslations).toHaveBeenCalled();
                 expect(component.sortTranslations).toHaveBeenCalled();
             });
@@ -124,12 +119,8 @@ describe('MultiLanguageComponent', () => {
                 spyOn(service, 'getTranslations')
                     .withArgs(request)
                     .and.callThrough();
-                component.prepareTranslations();
+                component.initTranslations();
                 expect(service.getTranslations).toHaveBeenCalled();
-            });
-
-            afterAll(() => {
-                // TODO : Destroy component
             });
 
             it('should show the spinner if translations is NULL', () => {
@@ -253,7 +244,7 @@ describe('MultiLanguageComponent', () => {
                 component.showHTMLEditor = false;
                 fixture.detectChanges();
                 // Open first dialog about translations.
-                component.prepareTranslations();
+                component.initTranslations();
                 expect(service.getTranslations).toHaveBeenCalled();
                 fixture.detectChanges();
 
@@ -273,10 +264,6 @@ describe('MultiLanguageComponent', () => {
                 fixture.detectChanges();
                 expect(component.showEditorHTMLDialog).toHaveBeenCalledWith(data);
                 elementRef = fixture.debugElement.nativeElement;
-            });
-
-            afterAll(() => {
-                // TODO : Should destroy the component
             });
 
             it('should be active', () => {
