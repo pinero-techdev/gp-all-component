@@ -4,15 +4,14 @@ import { Component, ViewChild, Input } from '@angular/core';
 @Component({
     selector: 'app-multi-language-tester',
     templateUrl: './multi-language-tester.component.html',
-    styleUrls: ['./multi-language-tester.component.scss'],
 })
 export class MultiLanguageTesterComponent {
     @ViewChild(MultiLanguageComponent) component: MultiLanguageComponent;
-    @Input() tabla: string;
+    @Input() table: string;
     @Input() pKey: string;
     @Input() schema: string;
-    @Input() campo: string;
-    @Input() campoDescripcion: string;
-    @Input() habilitarEdicionHTML: boolean;
+    @Input() field: string;
+    @Input() description = 'Test description';
+    @Input() isEditing = false;
     @Input() orderByLangCod = true;
 }
