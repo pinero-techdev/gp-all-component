@@ -1,29 +1,30 @@
 import {
     ErrorInformation, //
 } from '../../resources/data/error-information/error-information.model';
-import {
-    GetTraduccionesRq,
-    GetTraduccionesRs,
-} from '../../services/api/multi-language/multi-language.service';
+
 import { of } from 'rxjs';
-import { Traduccion } from '../../resources/data/traduccion.model';
+import { Translation } from '@lib/resources/data/translation.model';
+import {
+    GetTranslationsRs,
+    GetTranslationsRq, //
+} from '@lib/services/api/multi-language/multi-language.service';
 
 export class MultiLanguageServiceMock {
-    translations: Traduccion[] = [
-        new Traduccion('DE', 'ALEMAN', null),
-        new Traduccion('ES', 'ESPA\u00d1OL', null),
-        new Traduccion('FR', 'FRANCES', null),
-        new Traduccion('EN', 'INGLES', null),
-        new Traduccion('IT', 'ITALIANO', null),
-        new Traduccion('PT', 'PORTUGUES', null),
-        new Traduccion('RU', 'RUSO', null),
+    translations: Translation[] = [
+        new Translation('DE', 'ALEMAN', null),
+        new Translation('ES', 'ESPA\u00d1OL', null),
+        new Translation('FR', 'FRANCES', null),
+        new Translation('EN', 'INGLES', null),
+        new Translation('IT', 'ITALIANO', null),
+        new Translation('PT', 'PORTUGUES', null),
+        new Translation('RU', 'RUSO', null),
     ];
 
-    public getTraducciones(request: GetTraduccionesRq) {
-        const response = new GetTraduccionesRs();
-        if (request.pKey && request.esquema && request.tabla && request.campo) {
+    public getTranslations(request: GetTranslationsRq) {
+        const response = new GetTranslationsRs();
+        if (request.pKey && request.schema && request.table && request.field) {
             response.ok = true;
-            response.traducciones = this.translations;
+            response.translations = this.translations;
         } else {
             response.ok = false;
             response.error = new ErrorInformation();

@@ -1,3 +1,5 @@
+import { MessagesService } from './services/core/messages.service';
+import { MultiLanguageComponent } from '@lib/components/multi-language/multi-language.component';
 import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
 import { MainMenuService } from './services/api/main-menu/main-menu.service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
@@ -60,7 +62,7 @@ import { FormWrapperModule } from './components/form-wrapper/form-wrapper.module
         RatingModule,
         DynamicModule,
         FormWrapperModule,
-        MultiIdiomaModule,
+        MultiLanguageModule,
         MultiSelectModule,
         LoadingIndicatorModule,
         MainMenuModule,
@@ -109,6 +111,7 @@ import { FormWrapperModule } from './components/form-wrapper/form-wrapper.module
         LoginService,
         MainMenuService,
         GPUtil,
+        MessagesService,
         MainMenuProviderService,
         CUSTOM_CONTROL_VALUE_ACCESSOR,
     ],

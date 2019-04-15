@@ -5,76 +5,63 @@
         type="button"
         icon="pi pi-globe"
         class="ui-button-rounded"
-        (click)="despliegaTraducciones()"
+        (click)="prepareTranslations()"
     >
     </button>
 </div>
 
 <p-dialog
-    [(visible)]="visualizarTablaTraducciones"
-    header="Mantenimiento traducciones - {{ campoDescripcion }}"
+    [(visible)]="showTranslations"
+    header="Mantenimiento traducciones - {{ description }}"
     modal="modal"
     [style]="{ width: '1000px', minHeight: '600px' }"
     appendTo="body"
 >
     <div class="ui-grid ui-grid-responsive ui-grid-pad">
-        <div class="ui-grid-col-12">
-            <div class="ui-grid-row" *ngFor="let traduccion of elementosTraducciones">
+        <div *ngIf="translations" class="ui-grid-col-12">
+            <div class="ui-grid-row" *ngFor="let t of translations">
                 <div
-                    class="ui-md-1 bandera bandera-{{ traduccion.idiomaPais.toLowerCase() }}"
-                    *ngIf="traduccion.idiomaPais != null"
-                    pTooltip="{{ traduccion.idiomaPais }}"
+                    class="ui-md-1 bandera bandera-{{ t.langCountry.toLowerCase() }}"
+                    *ngIf="t.langCountry != null"
+                    pTooltip="{{ t.langCountry }}"
                     tooltipPosition="top"
                 >
                 </div>
-                <div class="ui-md 1 bandera sin-bandera" *ngIf="traduccion.idiomaPais == null">
-                </div>
-                <div
-                    [class.ui-md-10]="habilitarEdicionHTML"
-                    [class.ui-md-11]="!habilitarEdicionHTML"
-                >
+                <div class="ui-md 1 bandera sin-bandera" *ngIf="t.langCountry == null"> </div>
+                <div [class.ui-md-10]="isEditing" [class.ui-md-11]="!isEditing">
                     <span class="md-inputfield padding-1 full-width">
                         <input
                             type="text"
                             pInputText
                             class="ui-inputtext ui-corner-all full-width large"
-                            *ngIf="
-                                !habilitarEdicionHTML ||
-                                !contieneHtml(traduccion.idiomaPaisTraduccion)
-                            "
-                            [(ngModel)]="traduccion.idiomaPaisTraduccion"
+                            *ngIf="!isEditing || !hasHTMLContent(t.langCountryTranslation)"
+                            [(ngModel)]="t.langCountryTranslation"
                         />
                         <input
                             type="text"
-                            *ngIf="
-                                contieneHtml(traduccion.idiomaPaisTraduccion) &&
-                                habilitarEdicionHTML
-                            "
+                            *ngIf="hasHTMLContent(t.langCountryTranslation) && isEditing"
                             class="ui-inputtext ui-corner-all full-width large ta-center"
                             disabled="true"
                             value="*****     CONTIENE HTML -  PULSE BOTÓN PARA EDITAR     ****"
                         />
                     </span>
                 </div>
-                <div class="ui-md-1" *ngIf="habilitarEdicionHTML">
+                <div class="ui-md-1" *ngIf="isEditing">
                     <button
                         pButton
                         type="button"
                         label="HTML"
                         class="ui-button-raised ui-button-success full-width"
-                        [class.contiene-html]="contieneHtml(traduccion.idiomaPaisTraduccion)"
-                        (click)="mostrarDialogoEdicionHTML(traduccion)"
+                        [class.contiene-html]="hasHTMLContent(t.langCountryTranslation)"
+                        (click)="showEditorHTMLDialog(t)"
                         icon="pi pi-pencil"
                     >
                     </button>
                 </div>
             </div>
         </div>
-        <gp-loading-indicator
-            *ngIf="elementosTraducciones == null"
-            style="width:100%;"
-        ></gp-loading-indicator>
-        <p-footer *ngIf="elementosTraducciones != null && visualizarTablaTraducciones">
+        <gp-loading-indicator *ngIf="!translations" style="width:100%;"></gp-loading-indicator>
+        <p-footer *ngIf="translations && showTranslations">
             <div class="ui-grid-row padding-1">
                 <div class="ui-grid-col-8"></div>
                 <div class="ui-grid-col-2">
@@ -83,7 +70,7 @@
                         type="button"
                         label="Aceptar"
                         class="ui-button-raised full-width"
-                        (click)="guardarCambios()"
+                        (click)="save()"
                         icon="pi pi-check"
                         [disabled]="working"
                     >
@@ -95,7 +82,7 @@
                         type="button"
                         label="Salir"
                         class="ui-button-raised full-width"
-                        (click)="cerrarEdicionTraduccion()"
+                        (click)="hideTranslations()"
                         icon="pi pi-times"
                     >
                     </button>
@@ -106,8 +93,8 @@
 </p-dialog>
 
 <p-dialog
-    [(visible)]="visualizarEdicionHTML"
-    header="Traducción - {{ traduccionIdiomaHTML }}"
+    [(visible)]="showHTMLEditor"
+    header="Traducción - {{ currentLanguageHTML }}"
     modal="modal"
     [style]="{ width: '1000px' }"
     responsive="true"
@@ -116,7 +103,7 @@
         <div class="ui-grid-col-12">
             <div class="ui-grid-row">
                 <p-editor
-                    [(ngModel)]="traduccionTextoHTML"
+                    [(ngModel)]="currentTextHTML"
                     [style]="{ height: '300px', width: '970px' }"
                 >
                     <p-header>
@@ -149,7 +136,7 @@
                         label="Guardar"
                         icon="pi pi-check"
                         class="ui-button-raised full-width"
-                        (click)="guardarCambiosHTML()"
+                        (click)="saveHTML()"
                         [disabled]="working"
                     ></button>
                 </div>
@@ -160,7 +147,7 @@
                         label="Salir"
                         icon="pi pi-times"
                         class="ui-button-raised full-width"
-                        (click)="cerrarEdicionHTML()"
+                        (click)="closeHTMLEditor()"
                     ></button>
                 </div>
             </div>

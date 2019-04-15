@@ -107,7 +107,7 @@ describe('LoginComponent', () => {
         expect($title.innerText).toEqual(applicationName.toUpperCase());
     });
 
-    it('should navigate to modifica-password', () => {
+    it('should navigate to forgot-password', () => {
         spyOn(router, 'navigate').and.callThrough();
         spyOn(component, 'goModificaPwd').and.callThrough();
         const testRoute = `modifica-password/${component.username}`;

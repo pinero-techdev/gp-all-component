@@ -1,12 +1,31 @@
-###MultiLanguage###
+### MultiLanguageComponent
 
-#### Renaming
+Tag element: `<gp-multi-language-component></gp-multi-language-component>`
 
-Service name: `MultiIdomaService` => `MultiLanguageService` Service methods:
+### Upgrading 1.1.0 to 1.1.1
+
+Everything in spanish was renamed to english language.
+
+#### Service name
+
+-   `MultiIdomaService` => `MultiLanguageService`
+
+#### Service methods
 
 -   `getTraducciones` => `getTranslations`
--   `actualizaTraducciones` => `updateTranslations` Component rename `MultiIdiomaComponent` => `MultiLanguageComponent` Component selector `gp-multi-idioma` => `gp-multi-language` Component methods:
--   `ordenarTraducciones` => `orderTranslations`
+-   `actualizaTraducciones` => `updateTranslations`
+
+#### Component rename
+
+`MultiIdiomaComponent` => `MultiLanguageComponent`
+
+#### Component selector
+
+-   `gp-multi-idioma` => `gp-multi-language`
+
+#### Component methods
+
+-   `ordenarTraducciones` => `sortTranslations`
 -   `getTraducciones` => `getTranslations`
 -   `despliegaTraducciones` => `prepareTranslations`
 -   `cerrarEdicionTraduccion` => `hideTranslations`
@@ -14,7 +33,10 @@ Service name: `MultiIdomaService` => `MultiLanguageService` Service methods:
 -   `contieneHtml` => `hasHTMLContent`
 -   `guardarCambios` => `save`
 -   `guardarCambiosHTML` => `saveHTML`
--   `cerrarEdicionHTML` => `closeHTMLEditor` Component variables:
+-   `cerrarEdicionHTML` => `closeHTMLEditor`
+
+#### Component variables
+
 -   `visualizarEdicionHTML` => `showHTMLEditor`
 -   `visualizarTablaTraducciones` => `showTranslations`
 -   `elementosTraducciones` => `translations`
@@ -26,3 +48,25 @@ Service name: `MultiIdomaService` => `MultiLanguageService` Service methods:
 -   `tabla` => `table`
 -   `traduccionTextoHTML` => `currentTextHTML`
 -   `traduccionIdiomaHTML` => `currentLanguageHTML`
+
+#### Related Classes
+
+-   `GetTraduccionesRq` => `GetTranslationsRq`
+    -   `pKey` => `pKey`
+    -   `esquema` => `schema`
+    -   `campo` => `field`
+    -   `tabla` => `table`
+-   `GetTraduccionesRs` => `GetTranslationsRs`
+    -   `traducciones` => `translations`
+-   `UpdateTraduccionesRq` => `UpdateTranslationsRq`
+    -   `pKey` => `pKey`
+    -   `esquema` => `schema`
+    -   `campo` => `field`
+    -   `tabla` => `table`
+    -   `langCode` => `langCode`
+    -   `texto_traduc` => `translationText`
+-   `UpdateTraduccionesRs` => `UpdateTranslationsRs`
+-   `Traduccion` => `Translation`
+    -   `codigoIdioma` => `langCode`
+    -   `idiomaPais` => `langCountry`
+    -   `idiomaPaisTraduccion` => `langCountryTranslation`

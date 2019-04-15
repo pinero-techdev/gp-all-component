@@ -1,18 +1,17 @@
+import { MessagesService } from './../../services/core/messages.service';
 import { LANGUAGE_ORDER } from './../../resources/constants/language-order.constant';
-import { MultiLanguageService } from './../../services/api/multi-language/multi-language.service';
 import {
-    GetTraduccionesRq,
-    UpdateTraduccionesRq,
-} from '../../services/api/multi-language/multi-language.service';
+    MultiLanguageService,
+    GetTranslationsRq,
+    UpdateTranslationsRq, //
+} from './../../services/api/multi-language/multi-language.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Traduccion } from '../../resources/data/traduccion.model';
+import { Translation } from '../../resources/data/translation.model';
 import { finalize } from 'rxjs/operators';
-import { MessagesService } from '../../services/core/messages/messages.service';
 
 @Component({
     selector: 'gp-multi-language',
     templateUrl: './multi-language.component.html',
-    styleUrls: ['./multi-language.component.scss'],
 })
 export class MultiLanguageComponent implements OnInit {
     @Input() table: string;
@@ -26,8 +25,8 @@ export class MultiLanguageComponent implements OnInit {
     showHTMLEditor: boolean;
     currentTextHTML: string;
     currentLanguageHTML: string;
-    text: Traduccion;
-    translations: Traduccion[];
+    text: Translation;
+    translations: Translation[];
     working = false;
 
     constructor(
@@ -41,6 +40,7 @@ export class MultiLanguageComponent implements OnInit {
     }
 
     prepareTranslations() {
+        debugger;
         if (this.pKey) {
             this.getTranslations();
         } else {
@@ -52,15 +52,15 @@ export class MultiLanguageComponent implements OnInit {
     }
 
     getTranslations() {
-        const request = new GetTraduccionesRq(this.pKey, this.schema, this.table, this.field);
+        const request = new GetTranslationsRq(this.pKey, this.schema, this.table, this.field);
         this.multiLanguageService.getTranslations(request).subscribe(
             (data: any) => {
                 if (data.ok) {
-                    let traducciones = data.traducciones;
+                    let translations = data.translations;
                     if (!this.orderByLangCod) {
-                        traducciones = this.orderTranslations(data.traducciones, LANGUAGE_ORDER);
+                        translations = this.sortTranslations(data.traducciones, LANGUAGE_ORDER);
                     }
-                    this.translations = traducciones;
+                    this.translations = translations;
                 } else if (data.error != null) {
                     console.error(data.error.internalErrorMessage);
                 }
@@ -72,29 +72,29 @@ export class MultiLanguageComponent implements OnInit {
         );
     }
 
-    orderTranslations(traducciones: Traduccion[], ordenIds: string[]): Traduccion[] {
-        const traduccionesOrdenadas: Traduccion[] = [];
+    sortTranslations(traducciones: Translation[], ordenIds: string[]): Translation[] {
+        const sorted: Translation[] = [];
         for (const codIdioma of ordenIds) {
             for (const traduccion of traducciones) {
-                if (traduccion.codigoIdioma === codIdioma) {
-                    traduccionesOrdenadas.push(traduccion);
+                if (traduccion.langCode === codIdioma) {
+                    sorted.push(traduccion);
                     break;
                 }
             }
         }
-        return traduccionesOrdenadas;
+        return sorted;
     }
 
     save() {
         this.working = true;
         for (const item of this.translations) {
-            const request = new UpdateTraduccionesRq(
+            const request = new UpdateTranslationsRq(
                 this.pKey,
                 this.schema,
                 this.table,
                 this.field,
-                item.codigoIdioma,
-                item.idiomaPaisTraduccion
+                item.langCode,
+                item.langCountryTranslation
             );
             this.multiLanguageService
                 .updateTranslations(request)
@@ -131,24 +131,24 @@ export class MultiLanguageComponent implements OnInit {
         this.showTranslations = false;
     }
 
-    showEditorHTMLDialog(traduccion: Traduccion) {
-        this.text = new Traduccion(
-            traduccion.codigoIdioma,
-            traduccion.idiomaPais,
-            traduccion.idiomaPaisTraduccion != null ? traduccion.idiomaPaisTraduccion : ''
+    showEditorHTMLDialog(traduccion: Translation) {
+        this.text = new Translation(
+            traduccion.langCode,
+            traduccion.langCountry,
+            traduccion.langCountryTranslation != null ? traduccion.langCountryTranslation : ''
         );
         if (this.isEditing) {
             this.showTranslations = false;
             this.showHTMLEditor = true;
-            this.currentTextHTML = this.text.idiomaPaisTraduccion;
-            this.currentLanguageHTML = this.text.idiomaPais;
+            this.currentTextHTML = this.text.langCountryTranslation;
+            this.currentLanguageHTML = this.text.langCountry;
         }
     }
 
     saveHTML() {
         for (const item in this.translations) {
-            if (this.translations[item].idiomaPais === this.currentLanguageHTML) {
-                this.translations[item].idiomaPaisTraduccion = this.currentTextHTML;
+            if (this.translations[item].langCountry === this.currentLanguageHTML) {
+                this.translations[item].langCountryTranslation = this.currentTextHTML;
                 this.closeHTMLEditor();
             }
         }

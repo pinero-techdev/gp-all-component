@@ -1,66 +1,64 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Traduccion } from '../../../resources/data/traduccion.model';
+import { Translation } from '../../../resources/data/translation.model';
 import { CommonRs, CommonService } from '../../core/common.service';
 import { GlobalService } from '../../core/global.service';
 
-export class GetTraduccionesRq {
+export class GetTranslationsRq {
     pKey: string;
-    esquema: string;
-    tabla: string;
-    campo: string;
+    schema: string;
+    table: string;
+    field: string;
 
     constructor(primaryKey: string, schema: string, table: string, field: string) {
         this.pKey = primaryKey;
-        this.esquema = schema;
-        this.tabla = table;
-        this.campo = field;
+        this.schema = schema;
+        this.table = table;
+        this.field = field;
     }
 }
 
-export class GetTraduccionesRs extends CommonRs {
-    traducciones: Traduccion[];
+export class GetTranslationsRs extends CommonRs {
+    translations: Translation[];
 }
 /* tslint:disable:variable-name */
-export class UpdateTraduccionesRq {
+export class UpdateTranslationsRq {
     pKey: string;
-    esquema: string;
-    tabla: string;
-    campo: string;
-    lang_codi: string;
-    texto_traduc: string;
+    schema: string;
+    table: string;
+    field: string;
+    langCode: string;
+    translationText: string;
 
     constructor(
         primaryKey: string,
         schema: string,
         table: string,
         field: string,
-        lenguage_code: string,
-        translation_text: string
+        langCode: string,
+        translationText: string
     ) {
         this.pKey = primaryKey;
-        this.esquema = schema;
-        this.tabla = table;
-        this.campo = field;
-        this.lang_codi = lenguage_code;
-        this.texto_traduc = translation_text;
+        this.schema = schema;
+        this.table = table;
+        this.field = field;
+        this.langCode = langCode;
+        this.translationText = translationText;
     }
 }
 /* tslint:enable:variable-name */
 
 @Injectable()
 export class MultiLanguageService extends CommonService {
-    getTranslations(request: GetTraduccionesRq): Observable<GetTraduccionesRs> {
+    getTranslations(request: GetTranslationsRq): Observable<GetTranslationsRs> {
         const urlServicio = `${GlobalService.getBASE_URL()}/multiidioma-svc/getTranslations`;
         const rq = JSON.stringify(request);
-
-        return this.post<GetTraduccionesRs>(urlServicio, rq);
+        return this.post<GetTranslationsRs>(urlServicio, rq);
     }
 
-    updateTranslations(request: UpdateTraduccionesRq): Observable<CommonRs> {
+    updateTranslations(request: UpdateTranslationsRq): Observable<CommonRs> {
         const url = `${GlobalService.getBASE_URL()}/multiidioma-svc/updateTranslations`;
         const rq = JSON.stringify(request);
-
         return this.post<CommonRs>(url, rq);
     }
 }
