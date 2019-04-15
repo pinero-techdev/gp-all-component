@@ -1,14 +1,14 @@
 import {
     ErrorInformation, //
-} from './../../resources/data/error-information/error-information.model';
+} from '../../resources/data/error-information/error-information.model';
 import {
     GetTraduccionesRq,
     GetTraduccionesRs,
-} from './../../services/api/multi-idioma/multi-idioma.service';
+} from '../../services/api/multi-language/multi-language.service';
 import { of } from 'rxjs';
 import { Traduccion } from '../../resources/data/traduccion.model';
 
-export class MultiIdiomaServiceMock {
+export class MultiLanguageServiceMock {
     translations: Traduccion[] = [
         new Traduccion('DE', 'ALEMAN', null),
         new Traduccion('ES', 'ESPA\u00d1OL', null),

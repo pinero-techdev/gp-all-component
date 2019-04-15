@@ -49,15 +49,15 @@ export class UpdateTraduccionesRq {
 /* tslint:enable:variable-name */
 
 @Injectable()
-export class MultiIdomaService extends CommonService {
-    getTraducciones(request: GetTraduccionesRq): Observable<GetTraduccionesRs> {
+export class MultiLanguageService extends CommonService {
+    getTranslations(request: GetTraduccionesRq): Observable<GetTraduccionesRs> {
         const urlServicio = `${GlobalService.getBASE_URL()}/multiidioma-svc/getTranslations`;
         const rq = JSON.stringify(request);
 
         return this.post<GetTraduccionesRs>(urlServicio, rq);
     }
 
-    actualizaTraducciones(request: UpdateTraduccionesRq): Observable<CommonRs> {
+    updateTranslations(request: UpdateTraduccionesRq): Observable<CommonRs> {
         const url = `${GlobalService.getBASE_URL()}/multiidioma-svc/updateTranslations`;
         const rq = JSON.stringify(request);
 

@@ -1,22 +1,24 @@
-import { Traduccion } from './../../resources/data/traduccion.model';
+import { MessagesService } from '../../services/core/messages/messages.service';
+import { Traduccion } from '../../resources/data/traduccion.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { LoadingIndicatorComponent } from './../loading-indicator/loading-indicator.component';
-import { SharedModule } from './../../shared/shared.module';
-import { MultiIdiomaServiceMock } from './multi-idioma.mock';
+import { LoadingIndicatorComponent } from '../loading-indicator/loading-indicator.component';
+import { SharedModule } from '../../shared/shared.module';
+import { MultiIdiomaServiceMock } from './multi-language.mock';
 import {
     MultiIdomaService,
     GetTraduccionesRq,
-} from './../../services/api/multi-idioma/multi-idioma.service';
+} from '../../services/api/multi-language/multi-language.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MultiIdiomaComponent } from './multi-idioma.component';
+import { MultiIdiomaComponent } from './multi-language.component';
 import { TestingMockEvents } from '../../shared/testing/testing-mock-events.class';
 
 describe('MultiIdiomaComponent', () => {
     let component: MultiIdiomaComponent;
     let fixture: ComponentFixture<MultiIdiomaComponent>;
     let service: MultiIdomaService;
+    let messageService: MessagesService;
     let elementRef: HTMLElement;
     const mockService = new MultiIdiomaServiceMock();
     const testingMockEvents = new TestingMockEvents();
@@ -27,6 +29,7 @@ describe('MultiIdiomaComponent', () => {
             declarations: [MultiIdiomaComponent, LoadingIndicatorComponent],
             imports: [BrowserAnimationsModule, SharedModule, FormsModule, HttpClientTestingModule],
             providers: [
+                MessagesService,
                 {
                     provide: MultiIdomaService,
                     useClass: MultiIdiomaServiceMock,
@@ -39,6 +42,7 @@ describe('MultiIdiomaComponent', () => {
         fixture = TestBed.createComponent(MultiIdiomaComponent);
         component = fixture.componentInstance;
         service = TestBed.get(MultiIdomaService);
+        messageService = TestBed.get(MessagesService);
         component.ngOnInit();
     });
 
@@ -64,10 +68,10 @@ describe('MultiIdiomaComponent', () => {
             spyOn(service, 'getTraducciones')
                 .withArgs(request)
                 .and.callThrough();
-            spyOn(component, 'showErrorAlert').and.callThrough();
+            spyOn(messageService, 'showErrorAlert').and.callThrough();
             component.despliegaTraducciones();
             expect(service.getTraducciones).not.toHaveBeenCalled();
-            expect(component.showErrorAlert).toHaveBeenCalled();
+            expect(messageService.showErrorAlert).toHaveBeenCalled();
         });
     });
 
