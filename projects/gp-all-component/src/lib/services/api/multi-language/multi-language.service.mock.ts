@@ -1,6 +1,6 @@
 import {
     ErrorInformation, //
-} from '../../resources/data/error-information/error-information.model';
+} from '../../../resources/data/error-information/error-information.model';
 
 import { of } from 'rxjs';
 import { Translation } from '@lib/resources/data/translation.model';

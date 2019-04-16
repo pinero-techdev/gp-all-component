@@ -4,8 +4,6 @@ Tag element: `<gp-multi-language-component></gp-multi-language-component>`
 
 ### Upgrading 1.1.0 to 1.1.1
 
-Everything in spanish was renamed to english language.
-
 #### Service name
 
 -   `MultiIdomaService` => `MultiLanguageService`

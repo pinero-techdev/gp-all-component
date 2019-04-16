@@ -4,7 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './../../shared/shared.module';
 import { LoadingIndicatorComponent } from './../loading-indicator/loading-indicator.component';
 import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
-import { MultiLanguageServiceMock } from './multi-language.mock';
+import {
+    MultiLanguageServiceMock, //
+} from '@lib/services/api/multi-language/multi-language.service.mock';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { MultiLanguageComponent } from './multi-language.component';
 import {
@@ -15,14 +17,13 @@ import { MessagesService } from '@lib/services/core/messages.service';
 import { Translation } from '@lib/resources/data/translation.model';
 
 describe('MultiLanguageComponent', () => {
-    let component: MultiLanguageComponent;
-    let fixture: ComponentFixture<MultiLanguageComponent>;
-    let service: MultiLanguageService;
-    let messageService: MessagesService;
-    let elementRef: HTMLElement;
     const mockService = new MultiLanguageServiceMock();
-    const testingMockEvents = new TestingMockEvents();
     const request = new GetTranslationsRq('a', 'b', 'c', 'd');
+    let component: MultiLanguageComponent;
+    let elementRef: HTMLElement;
+    let fixture: ComponentFixture<MultiLanguageComponent>;
+    let messageService: MessagesService;
+    let service: MultiLanguageService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -58,10 +59,6 @@ describe('MultiLanguageComponent', () => {
             component.field = null;
             fixture.detectChanges();
             elementRef = fixture.debugElement.nativeElement;
-        });
-
-        afterAll(() => {
-            // TODO : Destroy component
         });
 
         it('should not get translations', () => {
@@ -260,7 +257,7 @@ describe('MultiLanguageComponent', () => {
                 expect($button).not.toBeNull();
 
                 // Click on first HTML Editor button
-                testingMockEvents.triggerClickOn($button);
+                TestingMockEvents.triggerClickOn($button);
                 fixture.detectChanges();
                 expect(component.showEditorHTMLDialog).toHaveBeenCalledWith(data);
                 elementRef = fixture.debugElement.nativeElement;
@@ -312,7 +309,7 @@ describe('MultiLanguageComponent', () => {
                     'p-dialog p-footer button:not([hidden]'
                 );
 
-                testingMockEvents.triggerClickOn($saveButton);
+                TestingMockEvents.triggerClickOn($saveButton);
                 fixture.detectChanges();
                 component.translations[0].langCountry = component.currentLanguageHTML;
                 component.translations[0].langCountryTranslation = component.currentTextHTML;
