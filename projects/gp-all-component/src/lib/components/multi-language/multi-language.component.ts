@@ -40,7 +40,6 @@ export class MultiLanguageComponent implements OnInit {
     }
 
     initTranslations() {
-        console.info('INIT TRANSLATIONS', this.pKey);
         if (this.pKey) {
             this.getTranslations();
         } else {
