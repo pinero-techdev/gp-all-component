@@ -4,13 +4,21 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { GlobalService } from '../../core/global.service';
 import { TestBed, async } from '@angular/core/testing';
 import { GpAllComponentModule } from '@lib/gp-all-component.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MainMenuProviderService', () => {
     let service: MainMenuProviderService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [GpAllComponentModule, HttpClientTestingModule],
+            imports: [
+                GpAllComponentModule,
+                HttpClientTestingModule,
+                FormsModule,
+                ReactiveFormsModule,
+                RouterTestingModule,
+            ],
             providers: [GlobalService, MainMenuProviderService],
         }).compileComponents();
     }));

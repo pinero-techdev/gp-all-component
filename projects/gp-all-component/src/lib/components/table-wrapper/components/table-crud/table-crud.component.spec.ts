@@ -1,0 +1,32 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+    TableWrapperCommonModules,
+    TableWrapperCommonProviders,
+} from '../../common/common.imports';
+import { TableCrudComponent } from './table-crud.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TableFrameComponent } from '../table-frame/table-frame.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+describe('TableCrudComponent', () => {
+    let component: TableCrudComponent;
+    let fixture: ComponentFixture<TableCrudComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [TableCrudComponent, TableFrameComponent],
+            imports: [TableWrapperCommonModules, RouterTestingModule, HttpClientTestingModule],
+            providers: [TableWrapperCommonProviders],
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(TableCrudComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+});

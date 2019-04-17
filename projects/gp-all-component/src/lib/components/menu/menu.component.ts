@@ -1,6 +1,5 @@
 /* tslint:disable */
 import { GlobalService } from './../../services/core/global.service';
-import { MenuService, MenuRq } from './../../services/api/menu/menu.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit, EventEmitter, Output, ApplicationRef } from '@angular/core';
 

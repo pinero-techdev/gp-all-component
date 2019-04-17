@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
@@ -44,6 +45,10 @@ export class SelectOneRowRs extends CommonRs {
 
 @Injectable()
 export class TableService extends CommonService {
+    constructor(http: HttpClient) {
+        super(http);
+    }
+
     public static STRING_FIELD_TYPE = 'STRING';
     public static NUMBER_FIELD_TYPE = 'NUMBER';
     public static DATE_FIELD_TYPE = 'DATE';
