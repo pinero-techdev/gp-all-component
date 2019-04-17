@@ -95,14 +95,9 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
             this.formField.fieldMetadata.displayInfo.referencedTable !== ''
         ) {
             // Cargamos los datos de una tabla?
-            console.log(
-                'GpFormDropdownFieldComponent.ngOnInit: loading from table ' +
-                    this.formField.fieldMetadata.displayInfo.referencedTable
-            );
             this.listAllowedValuesOptions = [
                 { label: 'Cargando los datos del desplegable ...', value: null },
             ];
-            console.log(this.formField.fieldMetadata.displayInfo.referencedTable);
             const fieldToOrderBy = this.formField.fieldMetadata.displayInfo.fieldToOrderBy
                 ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy]
                 : null;
