@@ -14,6 +14,11 @@ export class TableFrameComponent implements OnInit, OnDestroy {
     viewChild: TableCrudComponent;
 
     /**
+     * Name for wrapping table
+     */
+    tableName: string;
+
+    /**
      * Lifecycle check for this component
      */
     private _isAlive = true;
@@ -25,14 +30,14 @@ export class TableFrameComponent implements OnInit, OnDestroy {
      */
     ngOnInit(): void {
         this._route.params.pipe(takeWhile(() => this._isAlive)).subscribe((params) => {
-            const tableName = params.tabla;
-
-            if (isNullOrUndefined(tableName)) {
+            if (isNullOrUndefined(params.tabla)) {
                 return;
             }
 
+            this.tableName = params.tabla;
+
             this.viewChild.closeDialog();
-            this.viewChild.cambiaTabla(tableName);
+            this.viewChild.cambiaTabla(this.tableName);
         });
     }
 
