@@ -23,7 +23,24 @@ import { DynamicModule } from './components/dynamic/dynamic.module';
 import { EmptyModule } from './components/empty/empty.module';
 import { MainMenuModule } from './components/main-menu/main-menu.module';
 import { LoginModule } from './components/login/login.module';
-import { RatingModule, MultiSelectModule } from 'primeng/primeng';
+import { MultiSelectComponent } from './components/multi-select/multi-select.component';
+import { MultiSelectModule } from './components/multi-select/multi-select.module';
+import { RatingModule } from './components/rating/rating.module';
+import { RatingComponent } from './components/rating/rating.component';
+import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import { FormCalendarFieldComponent } from './components/forms-wrapper/components/form-calendar-field/form-calendar-field.component';
+import { TableCrudComponent } from './components/table-wrapper/components/table-crud/table-crud.component';
+import { TableWrapperModule } from './components/table-wrapper/table-wrapper.module';
+import { FormCheckboxFieldComponent } from './components/forms-wrapper/components/form-checkbox-field/form-checkbox-field.component';
+import { FormDropdownFieldComponent } from './components/forms-wrapper/components/form-dropdown-field/form-dropdown-field.component';
+import { FormSwitchFieldComponent } from './components/forms-wrapper/components/form-switch-field/form-switch-field.component';
+import { FormTextAreaFieldComponent } from './components/forms-wrapper/components/form-text-area-field/form-text-area-field.component';
+import { FormTextFieldComponent } from './components/forms-wrapper/components/form-text-field/form-text-field.component';
+import { FormTimeFieldComponent } from './components/forms-wrapper/components/form-time-field/form-time-field.component';
+import { FormWysiwygFieldComponent } from './components/forms-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
+import { FormDropdownRelatedFieldComponent } from './components/forms-wrapper/components/form-dropdown-related-field/form-dropdown-related-field.component';
+import { FormImgFieldComponent } from './components/forms-wrapper/components/form-img-field/form-img-field.component';
+import { TableFrameComponent } from './components/table-wrapper/components/table-frame/table-frame.component';
 
 @NgModule({
     declarations: [],
@@ -33,33 +50,61 @@ import { RatingModule, MultiSelectModule } from 'primeng/primeng';
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
-        MultiIdiomaModule,
-        MultiSelectModule,
-        LoadingIndicatorModule,
-        MainMenuModule,
-        EmptyModule,
         CoreModule,
-        LoginModule,
-        DynamicModule,
         HttpClientModule,
         RouterModule,
         SharedModule,
+
+        // Library Modules
+        LoginModule,
+        RatingModule,
+        DynamicModule,
+        FormsWrapperModule,
+        MultiIdiomaModule,
+        MultiSelectModule,
+        LoadingIndicatorModule,
+        MainMenuModule,
+        EmptyModule,
+        TableWrapperModule,
         FormsWrapperModule,
     ],
     exports: [
-        DynamicComponent,
-        LoadingIndicatorModule,
-        LoginModule,
+        // We export library modules
+        DynamicModule,
         MultiSelectModule,
+        LoginModule,
+        MainMenuModule,
+        RatingModule,
+        EmptyModule,
+        LoadingIndicatorModule,
+        FormsWrapperModule,
+        MultiIdiomaModule,
+
+        // And we export components to maintain
+        // compatibility with previous versions
+        DynamicComponent,
+        MultiSelectComponent,
         LoginComponent,
         MainMenuComponent,
-        MultiIdiomaModule,
-        MainMenuModule,
-        FormsWrapperModule,
-        RatingModule,
-        DynamicModule,
-        EmptyModule,
+        RatingComponent,
         EmptyComponent,
+        LoadingIndicatorComponent,
+
+        // Forms Wrapper components
+        FormCalendarFieldComponent,
+        FormCheckboxFieldComponent,
+        FormDropdownFieldComponent,
+        FormSwitchFieldComponent,
+        FormTextAreaFieldComponent,
+        FormTextFieldComponent,
+        FormTimeFieldComponent,
+        FormWysiwygFieldComponent,
+        FormDropdownRelatedFieldComponent,
+        FormImgFieldComponent,
+
+        // Table Wrapper components
+        TableCrudComponent,
+        TableFrameComponent,
     ],
     providers: [
         LoginService,

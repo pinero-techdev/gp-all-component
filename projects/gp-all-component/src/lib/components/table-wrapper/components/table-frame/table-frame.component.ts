@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TableCrudComponent } from '../table-crud/table-crud.component';
 import { takeWhile } from 'rxjs/operators';
+import { isNullOrUndefined } from 'util';
 
 @Component({
     selector: 'gp-app-table-frame',
@@ -11,11 +12,6 @@ import { takeWhile } from 'rxjs/operators';
 export class TableFrameComponent implements OnInit, OnDestroy {
     @ViewChild(TableCrudComponent)
     viewChild: TableCrudComponent;
-
-    /**
-     * Name for the wrapping table
-     */
-    tableName: string;
 
     /**
      * Lifecycle check for this component
@@ -30,6 +26,11 @@ export class TableFrameComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._route.params.pipe(takeWhile(() => this._isAlive)).subscribe((params) => {
             const tableName = params.tabla;
+
+            if (isNullOrUndefined(tableName)) {
+                return;
+            }
+
             this.viewChild.closeDialog();
             this.viewChild.cambiaTabla(tableName);
         });

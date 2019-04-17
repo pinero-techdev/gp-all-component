@@ -8,6 +8,8 @@ import {
 import { TableCrudComponent } from '../table-crud/table-crud.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('TableFrameComponent', () => {
     let component: TableFrameComponent;
@@ -17,7 +19,15 @@ describe('TableFrameComponent', () => {
         TestBed.configureTestingModule({
             declarations: [TableFrameComponent, TableCrudComponent],
             imports: [TableWrapperCommonModules, RouterTestingModule, HttpClientTestingModule],
-            providers: [TableWrapperCommonProviders],
+            providers: [
+                TableWrapperCommonProviders,
+                {
+                    provide: ActivatedRoute,
+                    useValue: {
+                        params: of(),
+                    },
+                },
+            ],
         }).compileComponents();
     }));
 
@@ -29,5 +39,39 @@ describe('TableFrameComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should viewChild be defined', () => {
+        expect(component.viewChild).toBeTruthy();
+    });
+
+    describe('On params subscription', () => {
+        it('should call viewChild on params change if "tabla" param was provided', () => {
+            const testTableName = 'TestName';
+
+            const $closeDialogSpy = spyOn(component.viewChild, 'closeDialog');
+            const $cambiaTablaSpy = spyOn(component.viewChild, 'cambiaTabla');
+
+            TestBed.get(ActivatedRoute).params = of({ tabla: testTableName });
+
+            component.ngOnInit();
+
+            expect($closeDialogSpy).toHaveBeenCalled();
+            expect($cambiaTablaSpy).toHaveBeenCalled();
+        });
+
+        it('should not call viewChild on params change if no "tabla" param was provided', () => {
+            const testTableName = 'TestName';
+
+            const $closeDialogSpy = spyOn(component.viewChild, 'closeDialog');
+            const $cambiaTablaSpy = spyOn(component.viewChild, 'cambiaTabla');
+
+            TestBed.get(ActivatedRoute).params = of({ noTabla: testTableName });
+
+            component.ngOnInit();
+
+            expect($closeDialogSpy).not.toHaveBeenCalled();
+            expect($cambiaTablaSpy).not.toHaveBeenCalled();
+        });
     });
 });
