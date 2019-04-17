@@ -1,6 +1,4 @@
-import {
-    ForgotPasswordTesterComponent, //
-} from './forgot-password-tester/forgot-password-tester.component';
+import { ForgotPasswordTesterComponent } from './forgot-password-tester/forgot-password-tester.component';
 import { LoginTesterComponent } from './login-tester/login-tester.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -10,6 +8,7 @@ import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.com
 import { MultiIdiomaTesterComponent } from './multi-idioma-tester/multi-idioma-tester.component';
 import { RatingTesterComponent } from './rating-tester/rating-tester.component';
 import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
+import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
 
 export const appRoutes: Routes = [
     {
@@ -43,6 +42,10 @@ export const appRoutes: Routes = [
     {
         path: 'multi-select-tester',
         component: MultiSelectTesterComponent,
+    },
+    {
+        path: 'table-frame-tester',
+        component: TableFrameTesterComponent,
     },
 ];
 
