@@ -14,7 +14,7 @@ import { UserInfo } from '@lib/resources/data/user-info.model';
 
 class TestComponent {}
 
-fdescribe('TopbarComponent', () => {
+describe('TopbarComponent', () => {
   let component: TopbarComponent;
   let fixture: ComponentFixture<TopbarComponent>;
   let elementRef: HTMLElement;
