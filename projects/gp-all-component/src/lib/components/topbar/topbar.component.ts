@@ -20,7 +20,7 @@ import { GlobalService } from '@lib/services/core/global.service';
 })
 export class TopbarComponent implements OnInit {
   /**
-   * Elementos del html necesarios para saber si se ha clickado encima de ellos
+   * Get some DOM elements to check clicking on them.
    */
   @ViewChild('menuUser') menuUser: ElementRef;
   @ViewChild('userMobileButton') userMobileButton: ElementRef;
