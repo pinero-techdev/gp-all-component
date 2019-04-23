@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RedirectComponent } from './redirect.component';
 import { of } from 'rxjs/internal/observable/of';
 
-fdescribe('RedirectComponent', () => {
+describe('RedirectComponent', () => {
     let component: RedirectComponent;
     let fixture: ComponentFixture<RedirectComponent>;
     // let router: Router;
