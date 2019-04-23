@@ -1,5 +1,7 @@
 ### Forgot Password
 
+View to add a password reset functionality.
+
 ### Upgrading 1.1.0 => 1.1.2
 
 Routing:

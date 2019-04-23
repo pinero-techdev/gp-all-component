@@ -60,7 +60,7 @@ describe('Feature: Login', () => {
 
     describe('Scenario: User gets to /login?usuario&password', () => {
         beforeEach(() => {
-            cy.prepareLogin({ usuario: email, password });
+            cy.prepareLogin({ username: email, password });
             loginUrl = Cypress.config('baseUrl') + Cypress.env('loginUrl');
             forgotPassUrl = Cypress.config('baseUrl') + Cypress.env('forgotPassUrl');
         });
@@ -87,7 +87,7 @@ describe('Feature: Login', () => {
     describe('Scenario: User gets to /login?usuario&password&urlToRedirect', () => {
         beforeEach(() => {
             const urlToRedirect = 'foo';
-            cy.prepareLogin({ usuario: email, password, urlToRedirect });
+            cy.prepareLogin({ username: email, password, urlToRedirect });
             loginUrl = Cypress.config('baseUrl') + Cypress.env('loginUrl');
             forgotPassUrl = Cypress.config('baseUrl') + Cypress.env('forgotPassUrl');
         });

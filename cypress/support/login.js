@@ -5,10 +5,10 @@
 // Visit the page and pass the query params if it´s needed. Also,
 // create a mock when to fake the API calling.
 Cypress.Commands.add('prepareLogin', (queryParams = null) => {
-    let url = 'forgot-password';
+    let url = 'login';
     const options = {
         method: 'POST',
-        url: '**/login',
+        url: '**/login-svc/*',
         response: 'fixture:login.json',
     };
 
@@ -20,8 +20,7 @@ Cypress.Commands.add('prepareLogin', (queryParams = null) => {
                 .join('&');
     }
 
-    Cypress.env('loginUrl', 'login');
-    Cypress.env('forgotPassUrl', url);
+    Cypress.env('loginUrl', url);
 
     cy.server();
     cy.route(options);
