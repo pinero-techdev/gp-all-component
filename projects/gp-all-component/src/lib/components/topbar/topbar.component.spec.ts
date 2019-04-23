@@ -8,9 +8,10 @@ import { LoginService } from '@lib/services/api/login/login.service';
 import { LoginServiceMock } from '@lib/services/api/login/login.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
-import { throwError } from 'rxjs';
+import { throwError, of } from 'rxjs';
 import { Router, Routes } from '@angular/router';
 import { UserInfo } from '@lib/resources/data/user-info.model';
+import { CommonRs } from '@lib/services/core/common.service';
 
 class TestComponent {}
 
@@ -116,6 +117,22 @@ describe('TopbarComponent', () => {
 
       mockedEvent.triggerClickOn($itemLink);
       expect(component.redirect).toHaveBeenCalledWith('logout');
+    });
+
+    it('user logs out through item button successfully', () => {
+      const response = new CommonRs();
+      const testRoute = 'login';
+      const $itemLink = elementRef.querySelector('.ui-menuitem-link');
+      response.ok = true;
+
+      spyOn(service, 'logout').and.returnValue(of(response));
+      spyOn(router, 'navigate').and.callThrough();
+
+      mockedEvent.triggerClickOn($buttonToggle);
+      mockedEvent.triggerClickOn($itemLink);
+
+      fixture.detectChanges();
+      expect(router.navigate).toHaveBeenCalledWith([testRoute]);
     });
 
     it('user logs out through item button fails and should navigate to login', () => {

@@ -62,7 +62,7 @@ export class TopbarComponent implements OnInit {
       this.loginService.logout().subscribe(
         (data) => {
           response = data;
-          if (data.ok) {
+          if (response.ok) {
             this.router.navigate(['login']);
           }
         },
