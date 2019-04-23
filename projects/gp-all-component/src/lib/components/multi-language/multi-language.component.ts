@@ -52,23 +52,26 @@ export class MultiLanguageComponent implements OnInit {
 
     getTranslations() {
         const request = new GetTranslationsRq(this.pKey, this.schema, this.table, this.field);
-        this.multiLanguageService.getTranslations(request).subscribe(
-            (data: any) => {
-                if (data.ok) {
-                    let translations = data.translations;
-                    if (!this.orderByLangCod) {
-                        translations = this.sortTranslations(data.translations, LANGUAGE_ORDER);
+        this.multiLanguageService
+            .getTranslations(request)
+            .first()
+            .subscribe(
+                (data: any) => {
+                    if (data.ok) {
+                        let translations = data.translations;
+                        if (!this.orderByLangCod) {
+                            translations = this.sortTranslations(data.translations, LANGUAGE_ORDER);
+                        }
+                        this.translations = translations;
+                    } else if (data.error != null) {
+                        console.error(data.error.internalErrorMessage);
                     }
-                    this.translations = translations;
-                } else if (data.error != null) {
-                    console.error(data.error.internalErrorMessage);
+                },
+                (err) => console.error(err),
+                () => {
+                    this.showTranslations = true;
                 }
-            },
-            (err) => console.error(err),
-            () => {
-                this.showTranslations = true;
-            }
-        );
+            );
     }
 
     sortTranslations(translations: Translation[], ordenIds: string[]): Translation[] {
@@ -97,6 +100,7 @@ export class MultiLanguageComponent implements OnInit {
             );
             this.multiLanguageService
                 .updateTranslations(request)
+                .first()
                 .pipe(
                     finalize(() => {
                         this.working = false;
