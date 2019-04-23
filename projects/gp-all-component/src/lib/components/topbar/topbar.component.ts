@@ -33,7 +33,7 @@ export class TopbarComponent implements OnInit {
   @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   display = false;
   showMenu = false;
-  userMenuVisible = true;
+  userMenuVisible = false;
   classShowMenuButton = 'Fright ShowOnMobile ripplelink Unselectable ShadowEffect';
 
   constructor(private router: Router, private loginService: LoginService) {}
