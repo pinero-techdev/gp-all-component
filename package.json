@@ -5,6 +5,7 @@
         "ng": "ng",
         "dev": "ng serve tester --watch --port=4400",
         "start": "ng serve tester --proxy-config proxy.conf.json",
+        "start:aot": "ng serve tester --proxy-config proxy.conf.json --aot",
         "build": "ng build gp-all-component",
         "---- DOCUMENTATION ----": "",
         "compodoc:generate": "npx compodoc -p projects/gp-all-component/tsconfig.lib.json",

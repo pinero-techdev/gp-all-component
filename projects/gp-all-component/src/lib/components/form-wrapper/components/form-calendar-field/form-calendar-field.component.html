@@ -1,0 +1,14 @@
+<p-calendar
+    name="__field__{{ formField?.fieldMetadata.fieldName }}"
+    styleClass="full-width"
+    [(ngModel)]="currentValue"
+    [dateFormat]="dateFormat"
+    showAnim="slideDown"
+    [locale]="es"
+    [showIcon]="true"
+    icon="fa fa-calendar"
+    (change)="onFieldChange()"
+    [disabled]="controlDisabled()"
+    [defaultDate]="currentValue"
+>
+</p-calendar>
