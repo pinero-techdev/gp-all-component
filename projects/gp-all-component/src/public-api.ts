@@ -31,7 +31,7 @@ export * from './lib/components/loading-indicator/loading-indicator.module';
 export * from './lib/components/login/login.module';
 export * from './lib/components/rating/rating.module';
 export * from './lib/components/empty/empty.module';
-export * from './lib/components/forms-wrapper/forms-wrapper.module';
+export * from './lib/components/form-wrapper/form-wrapper.module';
 export * from './lib/components/table-wrapper/table-wrapper.module';
 export * from './lib/components/multi-select/multi-select.module';
 

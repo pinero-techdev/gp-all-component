@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="136px" height="136px" viewBox="0 0 136 136" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M51.9393318,47.757523 L9.1806443,47.757523 C4.45774586,47.757523 0.629003676,43.9287808 0.629003676,39.2058824 L0.629003676,9.27489798 C0.629003676,4.55199954 4.45774586,0.723257353 9.1806443,0.723257353 L51.9393318,0.723257353 L51.9393318,47.757523 Z" id="path-1"></path>
+        <filter x="-12.8%" y="-40.1%" width="125.5%" height="180.2%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="2" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <path d="M0.880266085,21.6936034 L0.880266085,68.7281112 C15.8457583,68.7281112 39.3631333,75.1419628 56.4664145,90.107455 L56.4664145,0.314501838 C39.3631333,15.279994 15.8457583,21.6936034 0.880266085,21.6936034 Z" id="path-4"></path>
+        <filter x="-10.8%" y="-16.5%" width="121.6%" height="133.0%" filterUnits="objectBoundingBox" id="filter-6">
+            <feGaussianBlur stdDeviation="2" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <path d="M5.12482996,94.0690156 L2.98679871,94.0690156 C1.80613465,94.0690156 0.848767463,93.1116484 0.848767463,91.9309844 L0.848767463,2.13803125 C0.848767463,0.957367187 1.80613465,0 2.98679871,0 L5.12482996,0 C6.30549403,0 7.26286121,0.957367188 7.26286121,2.13803125 L7.26286121,91.9312266 C7.26261903,93.1116484 6.30549403,94.0690156 5.12482996,94.0690156 Z" id="path-7"></path>
+        <filter x="-46.8%" y="-10.8%" width="193.5%" height="121.6%" filterUnits="objectBoundingBox" id="filter-9">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <rect id="path-10" x="0.251504596" y="0.723015165" width="4.27582031" height="47.0345078"></rect>
+        <filter x="-70.2%" y="-20.0%" width="240.3%" height="140.1%" filterUnits="objectBoundingBox" id="filter-12">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="ico-bpmkt" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="protest" transform="translate(6.000000, 6.000000)">
+            <path d="M120.562633,56.2734766 L113.310328,57.7241797 L113.310328,36.3448359 L120.562633,37.7955391 C122.561406,38.1951484 124,39.9497969 124,41.9880469 L124,52.0807266 C124,54.1189766 122.561406,55.8741094 120.562633,56.2734766 Z" id="Shape" fill="#D7DEED" fill-rule="nonzero"></path>
+            <path d="M120.562633,49.8598672 L113.310328,51.3105703 L113.310328,57.7244219 L120.562633,56.2737187 C122.561406,55.8738672 124,54.1192187 124,52.0809687 L124,45.6671172 C124,47.7053672 122.561406,49.4600156 120.562633,49.8598672 Z" id="Shape" fill="#C7CFE2" fill-rule="nonzero"></path>
+            <path d="M6.41385156,62 L4.27582031,62 C1.91425,62 0,60.08575 0,57.7241797 L0,36.3448359 C0,33.9832656 1.91425,32.0690156 4.27582031,32.0690156 L6.41385156,32.0690156 L6.41385156,62 Z" id="Shape" fill="#BE4B50" fill-rule="nonzero"></path>
+            <path d="M58.6214844,119.72418 C57.6026016,119.72418 56.7249141,119.004883 56.5248672,118.005617 L47.0345078,70.5516406 L23.5171328,70.5516406 L33.1755703,118.84407 C33.7752266,121.842109 36.4075625,124 39.4649375,124 L58.6214844,124 C59.8021484,124 60.7595156,123.042633 60.7595156,121.861969 C60.7595156,120.681305 59.8023906,119.72418 58.6214844,119.72418 Z" id="Shape" fill="#D2555A" fill-rule="nonzero"></path>
+            <path d="M51.3103281,70.5516406 L51.3103281,73.0163828 C51.3103281,74.0616641 50.5549453,74.9533984 49.5237109,75.1251094 L15.3169062,80.8262031 C14.0139375,81.0434453 12.8274609,80.0386094 12.8274609,78.7174766 L12.8274609,70.5516406 L51.3103281,70.5516406 Z" id="Shape" fill="#BE4B50" fill-rule="nonzero"></path>
+            <g id="Shape" transform="translate(3.647059, 22.794118)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FF6464" fill-rule="nonzero" xlink:href="#path-1"></use>
+                <path d="M0.628761489,32.7920308 L47.6632693,32.7920308 L47.6632693,47.757523 L9.1806443,47.757523 C4.45774586,47.757523 0.629003676,43.9287808 0.629003676,39.2058824 L0.628761489,32.7920308 Z" fill="#D2555A" fill-rule="nonzero" filter="url(#filter-3)" mask="url(#mask-2)"></path>
+            </g>
+            <g id="Shape" transform="translate(54.705882, 1.823529)">
+                <mask id="mask-5" fill="white">
+                    <use xlink:href="#path-4"></use>
+                </mask>
+                <use id="Mask" fill="#D7DEED" fill-rule="nonzero" xlink:href="#path-4"></use>
+                <path d="M0.880266085,68.7281112 C15.8457583,68.7281112 39.3631333,75.1419628 56.4664145,90.107455 L56.4664145,64.4522909 C39.3628911,57.3256815 15.8457583,53.762619 0.880266085,53.762619 L0.880266085,68.7281112 Z" fill="#C7CFE2" fill-rule="nonzero" filter="url(#filter-6)" mask="url(#mask-5)"></path>
+            </g>
+            <g id="Shape" transform="translate(110.323529, 0.000000)">
+                <mask id="mask-8" fill="white">
+                    <use xlink:href="#path-7"></use>
+                </mask>
+                <use id="Mask" fill="#959CB3" fill-rule="nonzero" xlink:href="#path-7"></use>
+                <path d="M5.12482996,68.4138516 L2.98679871,68.4138516 C1.80613465,68.4138516 0.848767463,67.4564844 0.848767463,66.2758203 L0.848767463,91.9309844 C0.848767463,93.1116484 1.80613465,94.0690156 2.98679871,94.0690156 L5.12482996,94.0690156 C6.30549403,94.0690156 7.26286121,93.1116484 7.26286121,91.9309844 L7.26286121,66.2758203 C7.26261903,67.4564844 6.30549403,68.4138516 5.12482996,68.4138516 Z" fill="#707487" fill-rule="nonzero" filter="url(#filter-9)" mask="url(#mask-8)"></path>
+            </g>
+            <g id="Rectangle-path" transform="translate(51.058824, 22.794118)">
+                <mask id="mask-11" fill="white">
+                    <use xlink:href="#path-10"></use>
+                </mask>
+                <use id="Mask" fill="#959CB3" fill-rule="nonzero" xlink:href="#path-10"></use>
+                <rect fill="#707487" fill-rule="nonzero" filter="url(#filter-12)" mask="url(#mask-11)" x="0.251504596" y="32.7920308" width="4.27582031" height="14.9654922"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

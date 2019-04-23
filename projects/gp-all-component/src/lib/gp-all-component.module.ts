@@ -16,7 +16,6 @@ import { EmptyComponent } from './components/empty/empty.component';
 import { CUSTOM_CONTROL_VALUE_ACCESSOR } from './resources/constants/custom-control-value-accessor.constant';
 import { LoginComponent } from './components/login/login.component';
 import { GPUtil } from './services/core/gp-util.service';
-import { FormsWrapperModule } from './components/forms-wrapper/forms-wrapper.module';
 import { MultiIdiomaModule } from './components/multi-idioma/multi-idioma.module';
 import { LoadingIndicatorModule } from './components/loading-indicator/loading-indicator.module';
 import { DynamicModule } from './components/dynamic/dynamic.module';
@@ -28,19 +27,20 @@ import { MultiSelectModule } from './components/multi-select/multi-select.module
 import { RatingModule } from './components/rating/rating.module';
 import { RatingComponent } from './components/rating/rating.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
-import { FormCalendarFieldComponent } from './components/forms-wrapper/components/form-calendar-field/form-calendar-field.component';
+import { FormCalendarFieldComponent } from './components/form-wrapper/components/form-calendar-field/form-calendar-field.component';
 import { TableCrudComponent } from './components/table-wrapper/components/table-crud/table-crud.component';
 import { TableWrapperModule } from './components/table-wrapper/table-wrapper.module';
-import { FormCheckboxFieldComponent } from './components/forms-wrapper/components/form-checkbox-field/form-checkbox-field.component';
-import { FormDropdownFieldComponent } from './components/forms-wrapper/components/form-dropdown-field/form-dropdown-field.component';
-import { FormSwitchFieldComponent } from './components/forms-wrapper/components/form-switch-field/form-switch-field.component';
-import { FormTextAreaFieldComponent } from './components/forms-wrapper/components/form-text-area-field/form-text-area-field.component';
-import { FormTextFieldComponent } from './components/forms-wrapper/components/form-text-field/form-text-field.component';
-import { FormTimeFieldComponent } from './components/forms-wrapper/components/form-time-field/form-time-field.component';
-import { FormWysiwygFieldComponent } from './components/forms-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
-import { FormDropdownRelatedFieldComponent } from './components/forms-wrapper/components/form-dropdown-related-field/form-dropdown-related-field.component';
-import { FormImgFieldComponent } from './components/forms-wrapper/components/form-img-field/form-img-field.component';
+import { FormCheckboxFieldComponent } from './components/form-wrapper/components/form-checkbox-field/form-checkbox-field.component';
+import { FormDropdownFieldComponent } from './components/form-wrapper/components/form-dropdown-field/form-dropdown-field.component';
+import { FormSwitchFieldComponent } from './components/form-wrapper/components/form-switch-field/form-switch-field.component';
+import { FormTextAreaFieldComponent } from './components/form-wrapper/components/form-text-area-field/form-text-area-field.component';
+import { FormTextFieldComponent } from './components/form-wrapper/components/form-text-field/form-text-field.component';
+import { FormTimeFieldComponent } from './components/form-wrapper/components/form-time-field/form-time-field.component';
+import { FormWysiwygFieldComponent } from './components/form-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
+import { FormDropdownRelatedFieldComponent } from './components/form-wrapper/components/form-dropdown-related-field/form-dropdown-related-field.component';
+import { FormImgFieldComponent } from './components/form-wrapper/components/form-img-field/form-img-field.component';
 import { TableFrameComponent } from './components/table-wrapper/components/table-frame/table-frame.component';
+import { FormWrapperModule } from './components/form-wrapper/form-wrapper.module';
 
 @NgModule({
     declarations: [],
@@ -59,14 +59,13 @@ import { TableFrameComponent } from './components/table-wrapper/components/table
         LoginModule,
         RatingModule,
         DynamicModule,
-        FormsWrapperModule,
+        FormWrapperModule,
         MultiIdiomaModule,
         MultiSelectModule,
         LoadingIndicatorModule,
         MainMenuModule,
         EmptyModule,
         TableWrapperModule,
-        FormsWrapperModule,
     ],
     exports: [
         // We export library modules
@@ -77,7 +76,7 @@ import { TableFrameComponent } from './components/table-wrapper/components/table
         RatingModule,
         EmptyModule,
         LoadingIndicatorModule,
-        FormsWrapperModule,
+        FormWrapperModule,
         MultiIdiomaModule,
 
         // And we export components to maintain
@@ -90,7 +89,7 @@ import { TableFrameComponent } from './components/table-wrapper/components/table
         EmptyComponent,
         LoadingIndicatorComponent,
 
-        // Forms Wrapper components
+        // Form Wrapper components
         FormCalendarFieldComponent,
         FormCheckboxFieldComponent,
         FormDropdownFieldComponent,

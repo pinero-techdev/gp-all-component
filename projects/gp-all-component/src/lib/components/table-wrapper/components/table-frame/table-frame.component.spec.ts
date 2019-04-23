@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableFrameComponent } from './table-frame.component';
 import {
-    TableWrapperCommonModules,
-    TableWrapperCommonProviders,
-} from '../../common/common.imports';
+    TableWrapperSharedModules,
+    TableWrapperSharedProviders,
+} from '../../../../shared/imports/table-wrapper-shared';
 import { TableCrudComponent } from '../table-crud/table-crud.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -18,9 +18,9 @@ describe('TableFrameComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [TableFrameComponent, TableCrudComponent],
-            imports: [TableWrapperCommonModules, RouterTestingModule, HttpClientTestingModule],
+            imports: [TableWrapperSharedModules, RouterTestingModule, HttpClientTestingModule],
             providers: [
-                TableWrapperCommonProviders,
+                TableWrapperSharedProviders,
                 {
                     provide: ActivatedRoute,
                     useValue: {

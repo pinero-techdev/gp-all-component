@@ -2,27 +2,27 @@ import { Component, EventEmitter, Input, Output, QueryList, ViewChildren } from 
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { GPUtil } from '../../../../services/core/gp-util.service';
-import { GpFormField } from '../../../forms-wrapper/resources/gp-form-field.model';
 import { Filter } from '../../../../resources/data/filter/filter.model';
-import { GpFormControl } from '../../../forms-wrapper/resources/gp-form-control.model';
 import { TableService } from '../../../../services/api/table/table.service';
 import { MessagesService } from '../../../../services/core/messages.service';
-import { FormTextFieldComponent } from '../../../forms-wrapper/components/form-text-field/form-text-field.component';
-import { FormImgFieldComponent } from '../../../forms-wrapper/components/form-img-field/form-img-field.component';
-import { FormTextAreaFieldComponent } from '../../../forms-wrapper/components/form-text-area-field/form-text-area-field.component';
-import { FormTimeFieldComponent } from '../../../forms-wrapper/components/form-time-field/form-time-field.component';
-import { FormSwitchFieldComponent } from '../../../forms-wrapper/components/form-switch-field/form-switch-field.component';
-import { FormDropdownFieldComponent } from '../../../forms-wrapper/components/form-dropdown-field/form-dropdown-field.component';
-import { FormDropdownRelatedFieldComponent } from '../../../forms-wrapper/components/form-dropdown-related-field/form-dropdown-related-field.component';
-import { FormCheckboxFieldComponent } from '../../../forms-wrapper/components/form-checkbox-field/form-checkbox-field.component';
-import { FormCalendarFieldComponent } from '../../../forms-wrapper/components/form-calendar-field/form-calendar-field.component';
-import { FormWysiwygFieldComponent } from '../../../forms-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
-import { GpFormFieldControl } from '../../../forms-wrapper/resources/gp-form-field-control';
+import { FormTextFieldComponent } from '../../../form-wrapper/components/form-text-field/form-text-field.component';
+import { FormImgFieldComponent } from '../../../form-wrapper/components/form-img-field/form-img-field.component';
+import { FormTextAreaFieldComponent } from '../../../form-wrapper/components/form-text-area-field/form-text-area-field.component';
+import { FormTimeFieldComponent } from '../../../form-wrapper/components/form-time-field/form-time-field.component';
+import { FormSwitchFieldComponent } from '../../../form-wrapper/components/form-switch-field/form-switch-field.component';
+import { FormDropdownFieldComponent } from '../../../form-wrapper/components/form-dropdown-field/form-dropdown-field.component';
+import { FormDropdownRelatedFieldComponent } from '../../../form-wrapper/components/form-dropdown-related-field/form-dropdown-related-field.component';
+import { FormCheckboxFieldComponent } from '../../../form-wrapper/components/form-checkbox-field/form-checkbox-field.component';
+import { FormCalendarFieldComponent } from '../../../form-wrapper/components/form-calendar-field/form-calendar-field.component';
+import { FormWysiwygFieldComponent } from '../../../form-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
 import { FilterOperationType } from '../../../../resources/data/filter/filter-operation-type.enum';
 import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
-import { GpFormFieldType } from '../../../forms-wrapper/resources/gp-form-field-type.enum';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { DataTableMetaData } from '../../../../resources/data/data-table/meta-data/data-table-meta-data.model';
+import { GpFormField } from '@lib/components/form-wrapper/resources/gp-form-field.model';
+import { GpFormControl } from '@lib/components/form-wrapper/resources/gp-form-control.model';
+import { GpFormFieldType } from '@lib/components/form-wrapper/resources/gp-form-field-type.enum';
+import { GpFormFieldControl } from '@lib/components/form-wrapper/resources/gp-form-field-control';
 
 @Component({
     selector: 'gp-app-table-crud',
