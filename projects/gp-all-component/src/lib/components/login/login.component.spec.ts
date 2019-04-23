@@ -17,7 +17,7 @@ import { of } from 'rxjs';
 class TestComponent {}
 const testRoutes: Routes = [
     {
-        path: 'modifica-password/:user',
+        path: 'forgot-password/:username',
         component: TestComponent,
     },
     {
@@ -67,7 +67,7 @@ describe('LoginComponent', () => {
                 {
                     provide: ActivatedRoute,
                     useValue: {
-                        queryParams: of({ usuario: username, password, urlToRedirect: url, url }),
+                        queryParams: of({ username, password, urlToRedirect: url, url }),
                     },
                 },
                 GlobalService,
@@ -108,7 +108,7 @@ describe('LoginComponent', () => {
     it('should navigate to forgot-password', () => {
         spyOn(router, 'navigate').and.callThrough();
         spyOn(component, 'goModificaPwd').and.callThrough();
-        const testRoute = `modifica-password/${component.username}`;
+        const testRoute = `forgot-password/${component.username}`;
         const $button = elementRef.querySelector('a.login-panel-change-password');
         expect($button).toBeTruthy();
         TestingMockEvents.triggerClickOn($button);

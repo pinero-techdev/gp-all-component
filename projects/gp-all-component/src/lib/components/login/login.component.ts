@@ -1,10 +1,10 @@
-import { finalize } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { GlobalService } from './../../services/core/global.service';
 import { LoginService, LoginRq } from './../../services/api/login/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Message } from 'primeng/primeng';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'gp-login',
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         'Faltan dos días para que su clave caduque, ¿Desea cambiarla ahora?',
     ];
 
-    sub: Subscription;
+    private isDestroyed: Subject<boolean> = new Subject<boolean>();
 
     constructor(
         private router: Router,
@@ -38,11 +38,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscribe();
+        this.initLogin();
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.isDestroyed.next(true);
+        this.isDestroyed.unsubscribe();
     }
 
     getApplicationTitle() {
@@ -62,6 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.loginService
                 .login(request)
                 .pipe(
+                    takeUntil(this.isDestroyed),
                     finalize(() => {
                         this.working = false;
                     })
@@ -120,15 +122,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     goModificaPwd() {
-        this.router.navigate(['modifica-password/' + this.username]);
+        this.router.navigate(['forgot-password/' + this.username]);
     }
 
-    subscribe() {
+    private initLogin() {
         let otherParams = null;
         let urlToRedirect = null;
 
-        this.sub = this.route.queryParams.subscribe((params) => {
-            this.username = params.usuario;
+        this.route.queryParams.pipe(takeUntil(this.isDestroyed)).subscribe((params) => {
+            this.username = params.username;
             this.password = params.password;
             otherParams = params.otherparams;
             urlToRedirect = params.urlToRedirect;

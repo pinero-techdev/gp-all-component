@@ -9,5 +9,5 @@
 
 ## Renaming
 
--   LoginComponent
+-   LoginComponent variables
     -   `usuario` => `username`

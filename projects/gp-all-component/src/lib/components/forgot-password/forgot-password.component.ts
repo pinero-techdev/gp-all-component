@@ -43,7 +43,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         this.route.params
             .pipe(
                 takeUntil(this.isDestroyed),
-                map((p) => p.usuario)
+                map((p) => p.username)
             )
             .subscribe((value: string) => (this.username = value));
     }

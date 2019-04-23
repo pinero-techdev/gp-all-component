@@ -18,9 +18,10 @@ import { of } from 'rxjs';
 
 /* These constants are used to test the routing navigation */
 const nextRoute = 'login';
-const currentRoute = 'modifica-password';
-const fullRoute = currentRoute + '/:usuario';
-const paramRoute = 'testUser';
+const currentRoute = 'forgot-password';
+const fullRoute = currentRoute + '/:username';
+const paramValue = 'testUser';
+const paramsRoute = { username: paramValue };
 
 class TestComponent {}
 
@@ -88,7 +89,7 @@ describe('ForgotPasswordComponent', () => {
                 {
                     provide: ActivatedRoute,
                     useValue: {
-                        params: of({ usuario: paramRoute }),
+                        params: of(paramsRoute),
                     },
                 },
                 MessagesService,
@@ -127,7 +128,7 @@ describe('ForgotPasswordComponent', () => {
         expect(component).toBeTruthy();
         expect(service).toBeTruthy();
 
-        expect(component.username).toEqual(paramRoute);
+        expect(component.username).toEqual(paramValue);
     });
 
     it('should call onEnterEvent method when the user press enter', () => {

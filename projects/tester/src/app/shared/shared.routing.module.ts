@@ -16,7 +16,11 @@ export const appRoutes: Routes = [
         component: LoginTesterComponent,
     },
     {
-        path: 'modifica-password/:user',
+        path: 'forgot-password',
+        component: ForgotPasswordTesterComponent,
+    },
+    {
+        path: 'forgot-password/:username',
         component: ForgotPasswordTesterComponent,
     },
     {

@@ -1,20 +1,14 @@
 ### Forgot Password
 
-Feel free to change whatever you need.
+### Upgrading 1.1.0 => 1.1.2
 
-| File extension | Description                                        |
-| -------------- | -------------------------------------------------- |
-| html           | an html file template for the component            |
-| md             | this file                                          |
-| scss           | a scss file template for the component             |
-| spect.ts       | a file for unit testing the component              |
-| ts             | a file to implement the features for the component |
+Routing:
 
-Enjoy 8-)
+-   `modifica-password/:usuario` => `forgot-password/:username` <br>
 
 Provider
 
--   `PasswordService` -> `ForgotPasswordService`
+-   `PasswordService` -> `ForgotPasswordService` <br>
 
 Component
 
