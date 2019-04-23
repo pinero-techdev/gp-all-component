@@ -24,7 +24,7 @@ export * from './lib/components/table-wrapper/components/table-frame/table-frame
 
 // Component Modules
 export * from './lib/components/main-menu/main-menu.module';
-export * from './lib/components/multi-idioma/multi-idioma.module';
+export * from './lib/components/multi-language/multi-language.module';
 export * from './lib/components/dynamic/dynamic.module';
 export * from './lib/components/loading-indicator/loading-indicator.module';
 export * from './lib/components/login/login.module';
