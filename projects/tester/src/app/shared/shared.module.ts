@@ -18,6 +18,8 @@ import { NgModule } from '@angular/core';
 import { SharedRoutingModule } from './shared.routing.module';
 import { GpAllComponentModule } from '@lib/gp-all-component.module';
 import { RatingTesterComponent } from './rating-tester/rating-tester.component';
+import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.module';
+import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 
 @NgModule({
@@ -30,9 +32,10 @@ import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
     MultiIdiomaTesterComponent,
     MultiSelectTesterComponent,
     RatingTesterComponent,
+    TableFrameTesterComponent,
     TopbarTesterComponent,
   ],
-  imports: [CommonModule, GpAllComponentModule, SharedRoutingModule],
+  imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
   exports: [
     DynamicTesterComponent,
     ForgotPasswordTesterComponent,

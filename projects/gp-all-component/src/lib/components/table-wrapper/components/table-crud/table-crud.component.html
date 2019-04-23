@@ -1,0 +1,197 @@
+<p-toast></p-toast>
+<div class="ui-row-fluid gp-table-wrapper" *ngIf="!working && columnas.length > 0">
+  <div class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-lg-6">
+    <div class="card panel-content">
+      <p-table
+        #tc
+        [columns]="columnsToRender"
+        [value]="elementos"
+        [rows]="10"
+        [paginator]="true"
+        [pageLinks]="4"
+        [rowsPerPageOptions]="[10, 20, 50]"
+        selectionMode="single"
+        [(selection)]="selectedRow"
+        (onRowSelect)="onRowSelect()"
+        (onRowUnselect)="closeDialog()"
+        csvSeparator=";"
+        exportFilename="table_crud_export"
+      >
+        <ng-template pTemplate="caption">
+          <div class="ui-row-fluid">
+            <div class="ui-col-fluid ui-col-fluid-8 ui-col-fluid-sm-10"
+              >Mantenimiento de tabla {{ tableLabel }}</div
+            >
+            <div class="ui-col-fluid ui-col-fluid-4 ui-col-fluid-sm-2">
+              <button
+                pButton
+                type="button"
+                *ngIf="canAdd"
+                icon="fa fa-plus"
+                label="Añadir"
+                class="full-width ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
+                (click)="onDialogAdd()"
+                [disabled]="formControl.lockFields"
+              >
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              {{ col.fieldMetadata.displayInfo.fieldLabel }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+              {{ rowData[col.fieldMetadata.fieldName] }}
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer" let-columns>
+          <div class="action-button-wrapper">
+            <button
+              class="export-to-csv"
+              type="button"
+              pButton
+              icon="fa fa-download"
+              (click)="tc.exportCSV()"
+              label="Exportar a CSV"
+            ></button>
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-lg-6">
+    <div class="card panel-content" [hidden]="!displayEdicion">
+      <div class="ui-row-fluid">
+        <h2 class="ui-col-fluid ui-col-fluid-12 big-topic">Edición - {{ tableLabel }}</h2>
+      </div>
+      <div class="ui-row-fluid input-group" *ngFor="let col of columnas">
+        <div *ngFor="let msg of col.fieldMsgs" class="ui-messages-error">
+          <i class="fa fa-close"></i>&nbsp;{{ msg.detail }}
+        </div>
+        <div
+          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-md-2"
+          *ngIf="
+            (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
+            (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
+          "
+        >
+          <label
+            >{{ col.fieldMetadata.displayInfo.fieldLabel }}
+            <span *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span></label
+          >
+        </div>
+        <div
+          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-md-10"
+          *ngIf="
+            (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
+            (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
+          "
+        >
+          <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField]="col">
+          </gp-form-time-field>
+          <gp-form-text-field *ngIf="col.formFieldType == 'gp-form-text-field'" [formField]="col">
+          </gp-form-text-field>
+          <gp-form-textarea-field
+            *ngIf="col.formFieldType == 'gp-form-textarea-field'"
+            [formField]="col"
+          >
+          </gp-form-textarea-field>
+          <gp-form-dropdown-field
+            *ngIf="col.formFieldType == 'gp-form-dropdown-field'"
+            [formField]="col"
+            (valueChanged)="changeEvent($event)"
+          ></gp-form-dropdown-field>
+          <gp-form-dropdown-related-field
+            [formField]="col"
+            *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
+            (valueChanged)="changeEvent($event)"
+            [relatedField]="fieldsChanged"
+          >
+          </gp-form-dropdown-related-field>
+          <gp-form-switch-field
+            *ngIf="col.formFieldType == 'gp-form-switch-field'"
+            [formField]="col"
+          >
+          </gp-form-switch-field>
+          <gp-form-checkbox-field
+            *ngIf="col.formFieldType == 'gp-form-checkbox-field'"
+            [formField]="col"
+          >
+          </gp-form-checkbox-field>
+          <gp-form-calendar-field
+            *ngIf="col.formFieldType == 'gp-form-calendar-field'"
+            [formField]="col"
+          >
+          </gp-form-calendar-field>
+          <gp-form-wysiwyg-field
+            *ngIf="col.formFieldType == 'gp-form-wysiwyg-field'"
+            [formField]="col"
+          >
+          </gp-form-wysiwyg-field>
+          <gp-form-img-field *ngIf="col.formFieldType == 'gp-form-img-field'" [formField]="col">
+          </gp-form-img-field>
+        </div>
+      </div>
+      <div class="ui-row-fluid">
+        <div class="ui-col-fluid ui-col-fluid-12">
+          * Campos obligatorios.
+        </div>
+      </div>
+      <div class="ui-row-fluid ui-separation-xlg action-buttons">
+        <div
+          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-sm-3"
+          *ngIf="canDelete && selectedRow"
+        >
+          <button
+            class="full-width ui-button-text-icon-left ui-button-danger"
+            label="Borrar"
+            pButton
+            type="button"
+            icon="fa fa-trash"
+            (click)="onDialogDelete()"
+            [disabled]="formControl.lockFields"
+          >
+          </button>
+        </div>
+        <div
+          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-sm-3"
+          *ngIf="canEdit || (canAdd && !selectedRow)"
+        >
+          <button
+            class="full-width ui-button-text-icon-left"
+            label="Guardar"
+            pButton
+            type="button"
+            icon="fa fa-save"
+            (click)="onDialogSave()"
+            [disabled]="formControl.lockFields"
+          >
+          </button>
+        </div>
+        <div class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-sm-3">
+          <button
+            class="full-width ui-button-text-icon-left"
+            label="Cerrar"
+            pButton
+            type="button"
+            icon="fa fa-times"
+            (click)="closeDialog()"
+            [disabled]="formControl.lockFields"
+          >
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="working">
+  <gp-loading-indicator></gp-loading-indicator>
+</div>

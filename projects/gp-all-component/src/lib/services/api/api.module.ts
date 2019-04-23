@@ -5,18 +5,17 @@ import { LoginService } from './login/login.service';
 import { PasswordService } from './password/password.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableService } from './table/table.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [],
-    providers: [
-        PasswordService,
-        TableService,
-        MultiIdomaService,
-        LoginService,
-        MainMenuProviderService,
-        MainMenuService,
-    ],
+  imports: [CommonModule, HttpClientModule],
+  exports: [],
+  providers: [
+    PasswordService,
+    MultiIdomaService,
+    LoginService,
+    MainMenuProviderService,
+    MainMenuService,
+  ],
 })
 export class ApiModule {}
