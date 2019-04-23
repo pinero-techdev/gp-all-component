@@ -1,10 +1,12 @@
-import { Component, 
-        OnInit,
-        ViewChild,
-        Input,
-        Output,
-        ElementRef,
-        EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  Output,
+  ElementRef,
+  EventEmitter,
+} from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { LoginService } from '@lib/services/api/login/login.service';
@@ -14,9 +16,8 @@ import { GlobalService } from '@lib/services/core/global.service';
 @Component({
   selector: 'gp-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss']
+  styleUrls: ['./topbar.component.scss'],
 })
-
 export class TopbarComponent implements OnInit {
   /**
    * Elementos del html necesarios para saber si se ha clickado encima de ellos
@@ -32,50 +33,48 @@ export class TopbarComponent implements OnInit {
   @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   display = false;
   showMenu = false;
-  userMenuVisible = false;
+  userMenuVisible = true;
   classShowMenuButton = 'Fright ShowOnMobile ripplelink Unselectable ShadowEffect';
 
-  constructor (
-    private router: Router,
-    private loginService: LoginService
-  ) {}
+  constructor(private router: Router, private loginService: LoginService) {}
 
   ngOnInit() {
     this.itemsUserMenu = [
       {
-        label: 'Logout', icon: 'ui-icon-power-settings-new',
+        label: 'Logout',
+        icon: 'ui-icon-power-settings-new',
         command: (click) => {
           this.toggleUserMenu(), this.redirect('logout');
-        }
-      }
+        },
+      },
     ];
   }
 
   /**
    * Redirects depending on option choosen by user.
    *
-   * @param {String} action 'login action'
+   * @param action 'login action'
    */
-  redirect(action: String) {
+  redirect(action: string) {
     let response = new CommonRs();
 
     if (action === 'logout') {
       this.loginService.logout().subscribe(
-        data => {
+        (data) => {
           response = data;
           if (data.ok) {
             this.router.navigate(['login']);
           }
         },
-        error => {
+        (error) => {
           console.error(error);
           this.router.navigate(['login']);
         },
         () => {
           // if logout response fails. User must keep logged
-          GlobalService.setLogged(!(response.ok));
+          GlobalService.setLogged(!response.ok);
         }
-      )
+      );
     }
   }
 

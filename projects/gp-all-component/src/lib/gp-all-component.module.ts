@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import {
-    LoadingIndicatorComponent, //
+  LoadingIndicatorComponent, //
 } from './components/loading-indicator/loading-indicator.component';
 import { DynamicComponent } from './components/dynamic/dynamic.component';
 import { NgModule } from '@angular/core';
@@ -23,40 +23,47 @@ import {
   CUSTOM_CONTROL_VALUE_ACCESSOR, //
 } from './resources/constants/custom-control-value-accessor.constant';
 import { LoginComponent } from './components/login/login.component';
+import { TopbarModule } from './components/topbar/topbar.module';
 
 @NgModule({
-    declarations: [
-        DynamicComponent,
-        LoadingIndicatorComponent,
-        MultiIdiomaComponent,
-        MainMenuComponent,
-        LoginComponent,
-        RatingComponent,
-        EmptyComponent,
-        MultiSelectComponent,
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        CoreModule,
-        FormsModule,
-        HttpClientModule,
-        RouterModule,
-        SharedModule,
-    ],
-    exports: [
-        DynamicComponent,
-        LoadingIndicatorComponent,
-        LoginComponent,
-        MainMenuComponent,
-        MultiIdiomaComponent,
-        RatingComponent,
-        MultiSelectComponent,
-        EmptyComponent,
-    ],
-    providers: [LoginService, MainMenuService,  MainMenuProviderService,
-      CUSTOM_CONTROL_VALUE_ACCESSOR],
+  declarations: [
+    DynamicComponent,
+    LoadingIndicatorComponent,
+    MultiIdiomaComponent,
+    MainMenuComponent,
+    LoginComponent,
+    RatingComponent,
+    EmptyComponent,
+    MultiSelectComponent,
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    CoreModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    SharedModule,
+    TopbarModule,
+  ],
+  exports: [
+    DynamicComponent,
+    LoadingIndicatorComponent,
+    LoginComponent,
+    MainMenuComponent,
+    MultiIdiomaComponent,
+    RatingComponent,
+    MultiSelectComponent,
+    EmptyComponent,
+    TopbarModule,
+  ],
+  providers: [
+    LoginService,
+    MainMenuService,
+    MainMenuProviderService,
+    CUSTOM_CONTROL_VALUE_ACCESSOR,
+  ],
 })
 export class GpAllComponentModule {}
