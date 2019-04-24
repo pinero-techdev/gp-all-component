@@ -22,7 +22,8 @@
         class="ui-col-fluid ui-col-fluid-2 nopad"
         *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''"
     >
-        <gp-multi-idioma
+        <!-- TODO: change to gp-multi-language -->
+        <!-- <gp-multi-idioma
             [pKey]="translationKeys"
             [esquema]="formField.fieldMetadata.displayInfo.translationInfo.scheme"
             [tabla]="formField.fieldMetadata.displayInfo.translationInfo.table"
@@ -33,6 +34,6 @@
             "
             [orderByLangCod]="formField.fieldMetadata.displayInfo.translationInfo.orderByLangCod"
         >
-        </gp-multi-idioma>
+        </gp-multi-idioma> -->
     </div>
 </div>

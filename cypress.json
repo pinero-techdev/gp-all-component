@@ -2,6 +2,8 @@
     "projectId": "gp-all-component",
     "baseUrl": "http://localhost:4200/",
     "env": {
-        "fooUrl": "foo"
+        "fooUrl": "foo",
+        "forgotPassUrl": "forgot-password",
+        "loginUrl": "login"
     }
 }

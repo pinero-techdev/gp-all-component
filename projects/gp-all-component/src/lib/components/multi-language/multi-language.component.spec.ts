@@ -1,44 +1,49 @@
-import { Traduccion } from './../../resources/data/traduccion.model';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { LoadingIndicatorComponent } from './../loading-indicator/loading-indicator.component';
-import { SharedModule } from './../../shared/shared.module';
-import { MultiIdiomaServiceMock } from './multi-idioma.mock';
-import {
-    MultiIdomaService,
-    GetTraduccionesRq,
-} from './../../services/api/multi-idioma/multi-idioma.service';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MultiIdiomaComponent } from './multi-idioma.component';
-import { TestingMockEvents } from '../../shared/testing/testing-mock-events.class';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './../../shared/shared.module';
+import { LoadingIndicatorComponent } from './../loading-indicator/loading-indicator.component';
+import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
+import {
+    MultiLanguageServiceMock, //
+} from '@lib/services/api/multi-language/multi-language.service.mock';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { MultiLanguageComponent } from './multi-language.component';
+import {
+    MultiLanguageService,
+    GetTranslationsRq, //
+} from '@lib/services/api/multi-language/multi-language.service';
+import { MessagesService } from '@lib/services/core/messages.service';
+import { Translation } from '@lib/resources/data/translation.model';
 
-describe('MultiIdiomaComponent', () => {
-    let component: MultiIdiomaComponent;
-    let fixture: ComponentFixture<MultiIdiomaComponent>;
-    let service: MultiIdomaService;
+describe('MultiLanguageComponent', () => {
+    const mockService = new MultiLanguageServiceMock();
+    const request = new GetTranslationsRq('a', 'b', 'c', 'd');
+    let component: MultiLanguageComponent;
     let elementRef: HTMLElement;
-    const mockService = new MultiIdiomaServiceMock();
-    const testingMockEvents = new TestingMockEvents();
-    const request = new GetTraduccionesRq('a', 'b', 'c', 'd');
+    let fixture: ComponentFixture<MultiLanguageComponent>;
+    let messageService: MessagesService;
+    let service: MultiLanguageService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MultiIdiomaComponent, LoadingIndicatorComponent],
+            declarations: [MultiLanguageComponent, LoadingIndicatorComponent],
             imports: [BrowserAnimationsModule, SharedModule, FormsModule, HttpClientTestingModule],
             providers: [
+                MessagesService,
                 {
-                    provide: MultiIdomaService,
-                    useClass: MultiIdiomaServiceMock,
+                    provide: MultiLanguageService,
+                    useClass: MultiLanguageServiceMock,
                 },
             ],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(MultiIdiomaComponent);
+        fixture = TestBed.createComponent(MultiLanguageComponent);
         component = fixture.componentInstance;
-        service = TestBed.get(MultiIdomaService);
+        service = TestBed.get(MultiLanguageService);
+        messageService = TestBed.get(MessagesService);
         component.ngOnInit();
     });
 
@@ -49,88 +54,75 @@ describe('MultiIdiomaComponent', () => {
     describe('when HTTP Request fails', () => {
         beforeEach(() => {
             component.pKey = null;
-            component.tabla = null;
-            component.esquema = null;
-            component.campo = null;
+            component.table = null;
+            component.schema = null;
+            component.field = null;
             fixture.detectChanges();
             elementRef = fixture.debugElement.nativeElement;
         });
 
-        afterAll(() => {
-            // TODO : Destroy component
-        });
-
         it('should not get translations', () => {
-            spyOn(service, 'getTraducciones')
+            spyOn(service, 'getTranslations')
                 .withArgs(request)
                 .and.callThrough();
-            spyOn(component, 'showErrorAlert').and.callThrough();
-            component.despliegaTraducciones();
-            expect(service.getTraducciones).not.toHaveBeenCalled();
-            expect(component.showErrorAlert).toHaveBeenCalled();
+            spyOn(messageService, 'showErrorAlert').and.callThrough();
+            component.initTranslations();
+            expect(service.getTranslations).not.toHaveBeenCalled();
+            expect(messageService.showErrorAlert).toHaveBeenCalled();
         });
     });
 
     describe('when HTTP Request is correct', () => {
         beforeEach(() => {
             component.pKey = request.pKey;
-            component.tabla = request.tabla;
-            component.esquema = request.esquema;
-            component.campo = request.campo;
+            component.table = request.table;
+            component.schema = request.schema;
+            component.field = request.field;
             fixture.detectChanges();
             elementRef = fixture.debugElement.nativeElement;
         });
 
         it('should get translations', () => {
-            fixture.detectChanges();
-            spyOn(service, 'getTraducciones')
+            spyOn(service, 'getTranslations')
                 .withArgs(request)
                 .and.callThrough();
-            component.despliegaTraducciones();
-            expect(service.getTraducciones).toHaveBeenCalled();
+            component.initTranslations();
+            expect(service.getTranslations).toHaveBeenCalled();
         });
 
-        describe('and ordering by language code', () => {
+        describe('and sorting by language code', () => {
             beforeEach(() => {
                 component.orderByLangCod = false;
                 fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
             });
 
-            afterAll(() => {
-                // TODO : Destroy component
-            });
-
-            it('should order the translations', () => {
-                spyOn(service, 'getTraducciones')
+            it('should sort the translations', () => {
+                spyOn(service, 'getTranslations')
                     .withArgs(request)
                     .and.callThrough();
-                spyOn(component, 'ordenarTraducciones').and.callThrough();
-                component.despliegaTraducciones();
-                expect(service.getTraducciones).toHaveBeenCalled();
-                expect(component.ordenarTraducciones).toHaveBeenCalled();
+                spyOn(component, 'sortTranslations').and.callThrough();
+                component.initTranslations();
+                expect(service.getTranslations).toHaveBeenCalled();
+                expect(component.sortTranslations).toHaveBeenCalled();
             });
         });
 
         describe('and the translations dialog is opened', () => {
             beforeEach(() => {
-                component.elementosTraducciones = null;
-                component.visualizarTablaTraducciones = false;
+                component.translations = null;
+                component.showTranslations = false;
                 fixture.detectChanges();
-                spyOn(service, 'getTraducciones')
+                spyOn(service, 'getTranslations')
                     .withArgs(request)
                     .and.callThrough();
-                component.despliegaTraducciones();
-                expect(service.getTraducciones).toHaveBeenCalled();
+                component.initTranslations();
+                expect(service.getTranslations).toHaveBeenCalled();
             });
 
-            afterAll(() => {
-                // TODO : Destroy component
-            });
-
-            it('should show the spinner if elementosTraducciones is NULL', () => {
-                component.elementosTraducciones = null;
-                component.visualizarTablaTraducciones = true;
+            it('should show the spinner if translations is NULL', () => {
+                component.translations = null;
+                component.showTranslations = true;
                 fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
                 const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
@@ -141,8 +133,8 @@ describe('MultiIdiomaComponent', () => {
             });
 
             it('should show an empty dialog', () => {
-                component.elementosTraducciones = [];
-                component.visualizarTablaTraducciones = true;
+                component.translations = [];
+                component.showTranslations = true;
                 fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
                 const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
@@ -153,12 +145,12 @@ describe('MultiIdiomaComponent', () => {
                 expect($spinner).toBeNull();
                 expect($grid).not.toBeNull();
                 expect($rows).not.toBeNull();
-                expect($rows.length).toBe(component.elementosTraducciones.length);
+                expect($rows.length).toBe(component.translations.length);
             });
 
             it('should show the dialog and one row per flag', () => {
-                component.elementosTraducciones = mockService.translations;
-                component.visualizarTablaTraducciones = true;
+                component.translations = mockService.translations;
+                component.showTranslations = true;
                 fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
                 const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
@@ -174,7 +166,7 @@ describe('MultiIdiomaComponent', () => {
                 // Grid
                 expect($grid).not.toBeNull();
                 expect($rows).not.toBeNull();
-                expect($rows.length).toBe(component.elementosTraducciones.length);
+                expect($rows.length).toBe(component.translations.length);
                 // Buttons
                 expect($buttons.length).toBe(2);
                 expect($buttons[0].innerText).toEqual('Aceptar');
@@ -182,8 +174,8 @@ describe('MultiIdiomaComponent', () => {
             });
 
             it('should show the correct flag per language', () => {
-                component.elementosTraducciones = mockService.translations;
-                component.visualizarTablaTraducciones = true;
+                component.translations = mockService.translations;
+                component.showTranslations = true;
                 fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
                 const $grid: HTMLElement = elementRef.querySelector('.ui-grid-col-12');
@@ -193,10 +185,10 @@ describe('MultiIdiomaComponent', () => {
 
                 let $flag: HTMLDivElement;
                 let $button: HTMLButtonElement;
-                component.elementosTraducciones.map((item: Traduccion, index: number) => {
-                    if (item.idiomaPais) {
+                component.translations.map((item: Translation, index: number) => {
+                    if (item.langCountry) {
                         $flag = elementRef.querySelector(
-                            `.bandera.bandera-${item.idiomaPais.toLowerCase()}`
+                            `.bandera.bandera-${item.langCountry.toLowerCase()}`
                         );
                         expect($flag).not.toBeNull();
                     } else {
@@ -210,17 +202,17 @@ describe('MultiIdiomaComponent', () => {
 
                 expect($grid).not.toBeNull();
                 expect($rows).not.toBeNull();
-                expect($rows.length).toBe(component.elementosTraducciones.length);
+                expect($rows.length).toBe(component.translations.length);
                 // Editor HTML should be hidden.
                 const $editorDialog = elementRef.querySelector('p-editor');
                 expect($editorDialog).toBeNull();
             });
 
             it('should show HTML Editor Button', () => {
-                spyOn(component, 'mostrarDialogoEdicionHTML').and.callThrough();
-                component.elementosTraducciones = mockService.translations;
-                component.visualizarTablaTraducciones = true;
-                component.habilitarEdicionHTML = true;
+                spyOn(component, 'showEditorHTMLDialog').and.callThrough();
+                component.translations = mockService.translations;
+                component.showTranslations = true;
+                component.isEditing = true;
                 fixture.detectChanges();
                 elementRef = fixture.debugElement.nativeElement;
                 const $rows: HTMLElement[] = Array.from(
@@ -238,24 +230,24 @@ describe('MultiIdiomaComponent', () => {
         describe('and the HTML Editor Dialog is opened', () => {
             let data;
             beforeEach(() => {
-                spyOn(service, 'getTraducciones')
+                spyOn(service, 'getTranslations')
                     .withArgs(request)
                     .and.callThrough();
-                spyOn(component, 'mostrarDialogoEdicionHTML').and.callThrough();
+                spyOn(component, 'showEditorHTMLDialog').and.callThrough();
 
-                component.elementosTraducciones = mockService.translations;
-                component.visualizarTablaTraducciones = true;
-                component.habilitarEdicionHTML = true;
-                component.visualizarEdicionHTML = false;
+                component.translations = mockService.translations;
+                component.showTranslations = true;
+                component.isEditing = true;
+                component.showHTMLEditor = false;
                 fixture.detectChanges();
                 // Open first dialog about translations.
-                component.despliegaTraducciones();
-                expect(service.getTraducciones).toHaveBeenCalled();
+                component.initTranslations();
+                expect(service.getTranslations).toHaveBeenCalled();
                 fixture.detectChanges();
 
                 elementRef = fixture.debugElement.nativeElement;
                 // Get the first element's data.
-                data = component.elementosTraducciones[0];
+                data = component.translations[0];
 
                 // Get first row and its HTML Editor button.
                 const $row: HTMLElement = elementRef.querySelector(
@@ -265,14 +257,10 @@ describe('MultiIdiomaComponent', () => {
                 expect($button).not.toBeNull();
 
                 // Click on first HTML Editor button
-                testingMockEvents.triggerClickOn($button);
+                TestingMockEvents.triggerClickOn($button);
                 fixture.detectChanges();
-                expect(component.mostrarDialogoEdicionHTML).toHaveBeenCalledWith(data);
+                expect(component.showEditorHTMLDialog).toHaveBeenCalledWith(data);
                 elementRef = fixture.debugElement.nativeElement;
-            });
-
-            afterAll(() => {
-                // TODO : Should destroy the component
             });
 
             it('should be active', () => {
@@ -280,12 +268,12 @@ describe('MultiIdiomaComponent', () => {
                 const $header: HTMLSpanElement = $editorDialog.querySelector(
                     'span.ui-dialog-title'
                 );
-                const translation = data.idiomaPaisTraduccion
-                    ? data.idiomaPaisTraduccion
-                    : data.idiomaPais;
+                const translation = data.langCountryTranslation
+                    ? data.langCountryTranslation
+                    : data.langCountry;
 
-                expect(component.visualizarTablaTraducciones).toBe(false);
-                expect(component.visualizarEdicionHTML).toBe(true);
+                expect(component.showTranslations).toBe(false);
+                expect(component.showHTMLEditor).toBe(true);
                 expect($editorDialog).not.toBeNull();
                 expect($header).not.toBeNull();
                 expect($header.innerText).toEqual('Traducción - ' + translation);
@@ -311,21 +299,20 @@ describe('MultiIdiomaComponent', () => {
             });
 
             it('should save', () => {
-                spyOn(component, 'guardarCambiosHTML').and.callThrough();
+                spyOn(component, 'saveHTML').and.callThrough();
 
-                component.traduccionIdiomaHTML = 'TEST';
-                component.traduccionTextoHTML =
+                component.currentLanguageHTML = 'TEST';
+                component.currentTextHTML =
                     '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
 
                 const $saveButton: Element = elementRef.querySelector(
                     'p-dialog p-footer button:not([hidden]'
                 );
 
-                testingMockEvents.triggerClickOn($saveButton);
+                TestingMockEvents.triggerClickOn($saveButton);
                 fixture.detectChanges();
-                component.elementosTraducciones[0].idiomaPais = component.traduccionIdiomaHTML;
-                component.elementosTraducciones[0].idiomaPaisTraduccion =
-                    component.traduccionTextoHTML;
+                component.translations[0].langCountry = component.currentLanguageHTML;
+                component.translations[0].langCountryTranslation = component.currentTextHTML;
             });
         });
     });
