@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  Input,
-  Output,
-  ElementRef,
-  EventEmitter,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, Output, ElementRef, EventEmitter } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { LoginService } from '@lib/services/api/login/login.service';
@@ -27,9 +19,6 @@ export class TopbarComponent implements OnInit {
 
   public itemsUserMenu: MenuItem[];
 
-  @Input() homeUrl: string;
-  @Input() logoUrl: string;
-  @Input() title: string;
   @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   display = false;
   showMenu = false;
@@ -59,22 +48,25 @@ export class TopbarComponent implements OnInit {
     let response = new CommonRs();
 
     if (action === 'logout') {
-      this.loginService.logout().subscribe(
-        (data) => {
-          response = data;
-          if (response.ok) {
+      this.loginService
+        .logout()
+        .first()
+        .subscribe(
+          (data) => {
+            response = data;
+            if (response.ok) {
+              this.router.navigate(['login']);
+            }
+          },
+          (error) => {
+            console.error(error);
             this.router.navigate(['login']);
+          },
+          () => {
+            // if logout response fails. User must keep logged
+            GlobalService.setLogged(!response.ok);
           }
-        },
-        (error) => {
-          console.error(error);
-          this.router.navigate(['login']);
-        },
-        () => {
-          // if logout response fails. User must keep logged
-          GlobalService.setLogged(!response.ok);
-        }
-      );
+        );
     }
   }
 
