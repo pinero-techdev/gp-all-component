@@ -7,7 +7,6 @@ import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.com
 import {
   LoadingIndicatorTesterComponent, //
 } from './loading-indicator-tester/loading-indicator-tester.component';
-import { MultiIdiomaTesterComponent } from './multi-idioma-tester/multi-idioma-tester.component';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
 import { CommonModule } from '@angular/common';
 import {
@@ -20,8 +19,8 @@ import { GpAllComponentModule } from '@lib/gp-all-component.module';
 import { RatingTesterComponent } from './rating-tester/rating-tester.component';
 import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.module';
 import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
+import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
-
 @NgModule({
   declarations: [
     DynamicTesterComponent,
@@ -29,7 +28,7 @@ import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
     LoadingIndicatorTesterComponent,
     LoginTesterComponent,
     MainMenuTesterComponent,
-    MultiIdiomaTesterComponent,
+    MultiLanguageTesterComponent,
     MultiSelectTesterComponent,
     RatingTesterComponent,
     TableFrameTesterComponent,
@@ -42,7 +41,7 @@ import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
     LoadingIndicatorTesterComponent,
     LoginTesterComponent,
     MainMenuTesterComponent,
-    MultiIdiomaTesterComponent,
+    MultiLanguageTesterComponent,
     MultiSelectTesterComponent,
     RatingTesterComponent,
     TopbarTesterComponent,

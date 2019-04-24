@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MultiIdiomaComponent } from './multi-idioma.component';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule, EditorModule } from 'primeng/primeng';
 import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MultiLanguageComponent } from '@lib/components/multi-language/multi-language.component';
 
 @NgModule({
-  declarations: [MultiIdiomaComponent],
+  declarations: [MultiLanguageComponent],
   imports: [
     CommonModule,
     ToastModule,
@@ -19,6 +19,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     FormsModule,
     EditorModule,
   ],
-  exports: [MultiIdiomaComponent],
+  exports: [MultiLanguageComponent],
 })
-export class MultiIdiomaModule {}
+export class MultiLanguageModule {}

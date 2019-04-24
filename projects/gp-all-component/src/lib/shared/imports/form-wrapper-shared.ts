@@ -10,7 +10,7 @@ import {
 } from 'primeng/primeng';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableService } from '@lib/services/api/table/table.service';
-import { MultiIdiomaModule } from '@lib/components/multi-idioma/multi-idioma.module';
+import { MultiLanguageModule } from '@lib/components/multi-language/multi-language.module';
 
 export const FormWrapperSharedModules = [
   CalendarModule,
@@ -22,7 +22,7 @@ export const FormWrapperSharedModules = [
   InputTextareaModule,
   InputSwitchModule,
   EditorModule,
-  MultiIdiomaModule,
+  MultiLanguageModule,
 ];
 
 export const FormWrapperSharedProviders = [TableService, GPUtil];

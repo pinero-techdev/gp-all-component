@@ -1,3 +1,4 @@
+import { MessagesService } from './services/core/messages.service';
 import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
 import { MainMenuService } from './services/api/main-menu/main-menu.service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
@@ -16,7 +17,7 @@ import { EmptyComponent } from './components/empty/empty.component';
 import { CUSTOM_CONTROL_VALUE_ACCESSOR } from './resources/constants/custom-control-value-accessor.constant';
 import { LoginComponent } from './components/login/login.component';
 import { GPUtil } from './services/core/gp-util.service';
-import { MultiIdiomaModule } from './components/multi-idioma/multi-idioma.module';
+import { MultiLanguageModule } from './components/multi-language/multi-language.module';
 import { LoadingIndicatorModule } from './components/loading-indicator/loading-indicator.module';
 import { DynamicModule } from './components/dynamic/dynamic.module';
 import { EmptyModule } from './components/empty/empty.module';
@@ -41,6 +42,7 @@ import { FormDropdownRelatedFieldComponent } from './components/form-wrapper/com
 import { FormImgFieldComponent } from './components/form-wrapper/components/form-img-field/form-img-field.component';
 import { TableFrameComponent } from './components/table-wrapper/components/table-frame/table-frame.component';
 import { FormWrapperModule } from './components/form-wrapper/form-wrapper.module';
+import { ForgotPasswordModule } from './components/forgot-password/forgot-password.module';
 import { TopbarModule } from './components/topbar/topbar.module';
 
 @NgModule({
@@ -61,11 +63,12 @@ import { TopbarModule } from './components/topbar/topbar.module';
     RatingModule,
     DynamicModule,
     FormWrapperModule,
-    MultiIdiomaModule,
+    MultiLanguageModule,
     MultiSelectModule,
     LoadingIndicatorModule,
     MainMenuModule,
     EmptyModule,
+    ForgotPasswordModule,
     TableWrapperModule,
     TopbarModule,
   ],
@@ -77,10 +80,10 @@ import { TopbarModule } from './components/topbar/topbar.module';
     MainMenuModule,
     RatingModule,
     EmptyModule,
+    ForgotPasswordModule,
     LoadingIndicatorModule,
     FormWrapperModule,
-    MultiIdiomaModule,
-    TopbarModule,
+    MultiLanguageModule,
 
     // And we export components to maintain
     // compatibility with previous versions
@@ -112,6 +115,7 @@ import { TopbarModule } from './components/topbar/topbar.module';
     LoginService,
     MainMenuService,
     GPUtil,
+    MessagesService,
     MainMenuProviderService,
     CUSTOM_CONTROL_VALUE_ACCESSOR,
   ],
