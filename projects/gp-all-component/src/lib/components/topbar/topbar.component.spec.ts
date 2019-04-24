@@ -5,7 +5,7 @@ import { MenuModule } from 'primeng/primeng';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LoginService } from '@lib/services/api/login/login.service';
-import { LoginServiceMock } from '@lib/services/api/login/login.mock';
+import { LoginServiceMock } from '@lib/services/api/login/login.service.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
 import { throwError, of } from 'rxjs';
@@ -22,7 +22,6 @@ describe('TopbarComponent', () => {
   let $buttonToggle;
   let service: LoginService;
   let router: Router;
-  const mockedEvent = new TestingMockEvents();
   const testRoutes: Routes = [
     {
       path: 'login',
@@ -100,7 +99,7 @@ describe('TopbarComponent', () => {
     });
 
     it('toggleusername has called when logged button clicked', () => {
-      mockedEvent.triggerClickOn($buttonToggle);
+      TestingMockEvents.triggerClickOn($buttonToggle);
 
       expect(component.toggleUserMenu).toHaveBeenCalled();
       expect(component.userMenuVisible).toBeTruthy();
@@ -111,11 +110,11 @@ describe('TopbarComponent', () => {
         .withArgs('logout')
         .and.callThrough();
 
-      mockedEvent.triggerClickOn($buttonToggle);
+      TestingMockEvents.triggerClickOn($buttonToggle);
       const $itemLink = elementRef.querySelector('.ui-menuitem-link');
       expect($itemLink).toBeDefined();
 
-      mockedEvent.triggerClickOn($itemLink);
+      TestingMockEvents.triggerClickOn($itemLink);
       expect(component.redirect).toHaveBeenCalledWith('logout');
     });
 
@@ -128,8 +127,8 @@ describe('TopbarComponent', () => {
       spyOn(service, 'logout').and.returnValue(of(response));
       spyOn(router, 'navigate').and.callThrough();
 
-      mockedEvent.triggerClickOn($buttonToggle);
-      mockedEvent.triggerClickOn($itemLink);
+      TestingMockEvents.triggerClickOn($buttonToggle);
+      TestingMockEvents.triggerClickOn($itemLink);
 
       fixture.detectChanges();
       expect(router.navigate).toHaveBeenCalledWith([testRoute]);
@@ -139,12 +138,12 @@ describe('TopbarComponent', () => {
       spyOn(service, 'logout').and.returnValue(throwError(new Error('error')));
       spyOn(router, 'navigate').and.callThrough();
 
-      mockedEvent.triggerClickOn($buttonToggle);
+      TestingMockEvents.triggerClickOn($buttonToggle);
       const testRoute = 'login';
       const $itemLink = elementRef.querySelector('.ui-menuitem-link');
       expect($itemLink).toBeDefined();
 
-      mockedEvent.triggerClickOn($itemLink);
+      TestingMockEvents.triggerClickOn($itemLink);
       fixture.detectChanges();
       expect(router.navigate).toHaveBeenCalledWith([testRoute]);
     });
