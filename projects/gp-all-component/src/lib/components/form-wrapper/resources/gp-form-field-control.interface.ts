@@ -1,4 +1,4 @@
 export interface GpFormFieldControlInterface {
-    copyValueFromControlToEditedRow(editedRow: any);
-    copyValueFromEditedRowToControl(editedRow: any);
+  copyValueFromControlToEditedRow(editedRow: any);
+  copyValueFromEditedRowToControl(editedRow: any);
 }

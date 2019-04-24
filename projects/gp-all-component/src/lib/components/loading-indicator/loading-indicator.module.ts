@@ -4,8 +4,8 @@ import { LoadingIndicatorComponent } from './loading-indicator.component';
 import { ProgressSpinnerModule } from 'primeng/primeng';
 
 @NgModule({
-    declarations: [LoadingIndicatorComponent],
-    imports: [CommonModule, ProgressSpinnerModule],
-    exports: [LoadingIndicatorComponent],
+  declarations: [LoadingIndicatorComponent],
+  imports: [CommonModule, ProgressSpinnerModule],
+  exports: [LoadingIndicatorComponent],
 })
 export class LoadingIndicatorModule {}

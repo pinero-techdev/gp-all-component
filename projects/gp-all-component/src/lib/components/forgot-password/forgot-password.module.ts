@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [ForgotPasswordComponent],
-    imports: [CommonModule, FormsModule, SharedModule],
-    exports: [ForgotPasswordComponent],
+  declarations: [ForgotPasswordComponent],
+  imports: [CommonModule, FormsModule, SharedModule],
+  exports: [ForgotPasswordComponent],
 })
 export class ForgotPasswordModule {}

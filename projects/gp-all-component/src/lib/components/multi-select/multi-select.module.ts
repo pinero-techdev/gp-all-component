@@ -5,8 +5,8 @@ import { MultiSelectModule as NgMultiselect } from 'primeng/multiselect';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [MultiSelectComponent],
-    imports: [CommonModule, NgMultiselect, FormsModule, ReactiveFormsModule],
-    exports: [MultiSelectComponent],
+  declarations: [MultiSelectComponent],
+  imports: [CommonModule, NgMultiselect, FormsModule, ReactiveFormsModule],
+  exports: [MultiSelectComponent],
 })
 export class MultiSelectModule {}

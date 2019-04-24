@@ -9,52 +9,57 @@ import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.com
 import { RatingTesterComponent } from './rating-tester/rating-tester.component';
 import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
 import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
+import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 
 export const appRoutes: Routes = [
-    {
-        path: 'login',
-        component: LoginTesterComponent,
-    },
-    {
-        path: 'forgot-password',
-        component: ForgotPasswordTesterComponent,
-    },
-    {
-        path: 'forgot-password/:username',
-        component: ForgotPasswordTesterComponent,
-    },
-    {
-        path: 'dynamic-tester',
-        component: DynamicTesterComponent,
-    },
-    {
-        path: 'loading-indicator-tester',
-        component: LoadingIndicatorTesterComponent,
-    },
-    {
-        path: 'main-menu-tester',
-        component: MainMenuTesterComponent,
-    },
-    {
-        path: 'multi-language-tester',
-        component: MultiLanguageTesterComponent,
-    },
-    {
-        path: 'rating-tester',
-        component: RatingTesterComponent,
-    },
-    {
-        path: 'multi-select-tester',
-        component: MultiSelectTesterComponent,
-    },
-    {
-        path: 'table-frame-tester',
-        component: TableFrameTesterComponent,
-    },
+  {
+    path: 'login',
+    component: LoginTesterComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordTesterComponent,
+  },
+  {
+    path: 'forgot-password/:username',
+    component: ForgotPasswordTesterComponent,
+  },
+  {
+    path: 'dynamic-tester',
+    component: DynamicTesterComponent,
+  },
+  {
+    path: 'loading-indicator-tester',
+    component: LoadingIndicatorTesterComponent,
+  },
+  {
+    path: 'main-menu-tester',
+    component: MainMenuTesterComponent,
+  },
+  {
+    path: 'multi-language-tester',
+    component: MultiLanguageTesterComponent,
+  },
+  {
+    path: 'rating-tester',
+    component: RatingTesterComponent,
+  },
+  {
+    path: 'multi-select-tester',
+    component: MultiSelectTesterComponent,
+  },
+  {
+    path: 'table-frame-tester',
+    component: TableFrameTesterComponent,
+  },
+  {
+    path: 'topbar-tester',
+    component: TopbarTesterComponent,
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes)],
-    exports: [RouterModule],
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule],
 })
 export class SharedRoutingModule {}

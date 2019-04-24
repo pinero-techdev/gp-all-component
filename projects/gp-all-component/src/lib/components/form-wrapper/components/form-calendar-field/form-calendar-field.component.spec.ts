@@ -6,26 +6,26 @@ import { GpFormField } from '../../resources/gp-form-field.model';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper-mock-types';
 
 describe('FormCalendarFieldComponent', () => {
-    let component: FormCalendarFieldComponent;
-    let fixture: ComponentFixture<FormCalendarFieldComponent>;
-    let formField: GpFormField;
+  let component: FormCalendarFieldComponent;
+  let fixture: ComponentFixture<FormCalendarFieldComponent>;
+  let formField: GpFormField;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [FormCalendarFieldComponent],
-            imports: [CommonModule, FormWrapperSharedModules],
-        }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [FormCalendarFieldComponent],
+      imports: [CommonModule, FormWrapperSharedModules],
+    }).compileComponents();
+  }));
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(FormCalendarFieldComponent);
-        component = fixture.componentInstance;
-        formField = FormFieldMock;
-        component.formField = formField;
-        fixture.detectChanges();
-    });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(FormCalendarFieldComponent);
+    component = fixture.componentInstance;
+    formField = FormFieldMock;
+    component.formField = formField;
+    fixture.detectChanges();
+  });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

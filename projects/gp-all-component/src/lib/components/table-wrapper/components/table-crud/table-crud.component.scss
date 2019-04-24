@@ -1,87 +1,87 @@
 .gp-table-wrapper {
-    &.ui-row-fluid {
-        align-items: flex-start;
+  &.ui-row-fluid {
+    align-items: flex-start;
 
-        > .ui-col-fluid {
-            padding-top: inherit;
+    > .ui-col-fluid {
+      padding-top: inherit;
+    }
+  }
+
+  .panel-content {
+    .ui-table {
+      &-caption {
+        .ui-col-fluid {
+          padding-top: 0;
+
+          &:first-child {
+            text-align: left;
+          }
         }
+      }
+
+      &-wrapper {
+        padding-top: 60px;
+      }
+
+      &-tfoot {
+        position: absolute;
+        bottom: 0;
+      }
+
+      p-paginator {
+        .ui-inputwrapper-filled {
+          top: 50px;
+        }
+
+        .ui-paginator-bottom {
+          margin-bottom: 60px;
+          padding-bottom: 0;
+
+          @media (min-width: 768px) {
+            margin-bottom: 0;
+          }
+        }
+      }
     }
 
-    .panel-content {
-        .ui-table {
-            &-caption {
-                .ui-col-fluid {
-                    padding-top: 0;
+    .input-group {
+      margin-bottom: 20px;
 
-                    &:first-child {
-                        text-align: left;
-                    }
-                }
-            }
+      > .ui-col-fluid:first-child {
+        padding-top: 0;
+      }
 
-            &-wrapper {
-                padding-top: 60px;
-            }
+      > .ui-col-fluid:last-child {
+        padding-top: 21px;
 
-            &-tfoot {
-                position: absolute;
-                bottom: 0;
-            }
-
-            p-paginator {
-                .ui-inputwrapper-filled {
-                    top: 50px;
-                }
-
-                .ui-paginator-bottom {
-                    margin-bottom: 60px;
-                    padding-bottom: 0;
-
-                    @media (min-width: 768px) {
-                        margin-bottom: 0;
-                    }
-                }
-            }
+        @media (min-width: 1280px) {
+          padding-top: 0;
         }
 
-        .input-group {
-            margin-bottom: 20px;
-
-            > .ui-col-fluid:first-child {
-                padding-top: 0;
-            }
-
-            > .ui-col-fluid:last-child {
-                padding-top: 21px;
-
-                @media (min-width: 1280px) {
-                    padding-top: 0;
-                }
-
-                .ui-col-fluid {
-                    padding-top: 0;
-                }
-            }
-
-            label {
-                top: 0;
-            }
+        .ui-col-fluid {
+          padding-top: 0;
         }
+      }
 
-        .action-buttons {
-            .ui-col-fluid {
-                margin-bottom: 10px;
-                padding: 0;
-
-                @media (min-width: 768px) {
-                    padding: 0 8px;
-                    margin-bottom: 0;
-                }
-            }
-        }
-
-        .ui-row-fluid .big-topic {
-            padding-top: 0;
-        }
+      label {
+        top: 0;
+      }
     }
+
+    .action-buttons {
+      .ui-col-fluid {
+        margin-bottom: 10px;
+        padding: 0;
+
+        @media (min-width: 768px) {
+          padding: 0 8px;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .ui-row-fluid .big-topic {
+      padding-top: 0;
+    }
+  }
 }

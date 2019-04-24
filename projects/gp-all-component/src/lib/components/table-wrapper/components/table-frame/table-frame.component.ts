@@ -5,46 +5,46 @@ import { takeWhile } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
 @Component({
-    selector: 'gp-app-table-frame',
-    templateUrl: './table-frame.component.html',
-    styleUrls: ['./table-frame.component.scss'],
+  selector: 'gp-app-table-frame',
+  templateUrl: './table-frame.component.html',
+  styleUrls: ['./table-frame.component.scss'],
 })
 export class TableFrameComponent implements OnInit, OnDestroy {
-    @ViewChild(TableCrudComponent)
-    viewChild: TableCrudComponent;
+  @ViewChild(TableCrudComponent)
+  viewChild: TableCrudComponent;
 
-    /**
-     * Name for wrapping table
-     */
-    tableName: string;
+  /**
+   * Name for wrapping table
+   */
+  tableName: string;
 
-    /**
-     * Lifecycle check for this component
-     */
-    private _isAlive = true;
+  /**
+   * Lifecycle check for this component
+   */
+  private _isAlive = true;
 
-    constructor(private readonly _route: ActivatedRoute) {}
+  constructor(private readonly _route: ActivatedRoute) {}
 
-    /**
-     * Angular OnInit lifecycle hook
-     */
-    ngOnInit(): void {
-        this._route.params.pipe(takeWhile(() => this._isAlive)).subscribe((params) => {
-            if (isNullOrUndefined(params.tabla)) {
-                return;
-            }
+  /**
+   * Angular OnInit lifecycle hook
+   */
+  ngOnInit(): void {
+    this._route.params.pipe(takeWhile(() => this._isAlive)).subscribe((params) => {
+      if (isNullOrUndefined(params.tabla)) {
+        return;
+      }
 
-            this.tableName = params.tabla;
+      this.tableName = params.tabla;
 
-            this.viewChild.closeDialog();
-            this.viewChild.cambiaTabla(this.tableName);
-        });
-    }
+      this.viewChild.closeDialog();
+      this.viewChild.cambiaTabla(this.tableName);
+    });
+  }
 
-    /**
-     * Angular OnDestroy lifecycle hook
-     */
-    ngOnDestroy(): void {
-        this._isAlive = false;
-    }
+  /**
+   * Angular OnDestroy lifecycle hook
+   */
+  ngOnDestroy(): void {
+    this._isAlive = false;
+  }
 }

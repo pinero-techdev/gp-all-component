@@ -5,28 +5,28 @@ import { MultiLanguageTesterComponent } from './multi-language-tester.component'
 import { GpAllComponentModule } from '../../../../../gp-all-component/src/lib/gp-all-component.module';
 
 describe('MultiIdiomaTesterComponent', () => {
-    let component: MultiLanguageTesterComponent;
-    let fixture: ComponentFixture<MultiLanguageTesterComponent>;
-    let elementRef: HTMLElement;
-    let service: MultiLanguageService;
+  let component: MultiLanguageTesterComponent;
+  let fixture: ComponentFixture<MultiLanguageTesterComponent>;
+  let elementRef: HTMLElement;
+  let service: MultiLanguageService;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [MultiLanguageTesterComponent],
-            imports: [GpAllComponentModule],
-            providers: [MultiLanguageService],
-        }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [MultiLanguageTesterComponent],
+      imports: [GpAllComponentModule],
+      providers: [MultiLanguageService],
+    }).compileComponents();
+  }));
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(MultiLanguageTesterComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-        elementRef = fixture.nativeElement;
-        service = fixture.debugElement.injector.get(MultiLanguageService);
-    });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MultiLanguageTesterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    elementRef = fixture.nativeElement;
+    service = fixture.debugElement.injector.get(MultiLanguageService);
+  });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

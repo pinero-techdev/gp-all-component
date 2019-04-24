@@ -7,5 +7,5 @@
 
 ### Upgrading 1.1.0 => 1.1.2
 
--   LoginComponent variables
-    -   `usuario` => `username`
+- LoginComponent variables
+  - `usuario` => `username`

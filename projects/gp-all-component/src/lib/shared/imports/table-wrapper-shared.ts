@@ -8,10 +8,10 @@ import { MessagesService } from '@lib/services/core/messages.service';
 import { MessageService } from 'primeng/api';
 
 export const TableWrapperSharedModules = [
-    ToastModule,
-    TableModule,
-    LoadingIndicatorModule,
-    FormWrapperModule,
+  ToastModule,
+  TableModule,
+  LoadingIndicatorModule,
+  FormWrapperModule,
 ];
 
 export const TableWrapperSharedProviders = [TableService, GPUtil, MessagesService, MessageService];

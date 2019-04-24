@@ -9,15 +9,15 @@ import { TableService } from './table/table.service';
 import { MultiLanguageService } from './multi-language/multi-language.service';
 
 @NgModule({
-    imports: [CommonModule, HttpClientModule],
-    exports: [],
-    providers: [
-        ForgotPasswordService,
-        TableService,
-        MultiLanguageService,
-        LoginService,
-        MainMenuProviderService,
-        MainMenuService,
-    ],
+  imports: [CommonModule, HttpClientModule],
+  exports: [],
+  providers: [
+    ForgotPasswordService,
+    TableService,
+    MultiLanguageService,
+    LoginService,
+    MainMenuProviderService,
+    MainMenuService,
+  ],
 })
 export class ApiModule {}

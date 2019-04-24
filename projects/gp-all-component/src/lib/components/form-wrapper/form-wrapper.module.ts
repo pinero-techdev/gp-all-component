@@ -11,36 +11,36 @@ import { FormSwitchFieldComponent } from './components/form-switch-field/form-sw
 import { FormTextFieldComponent } from './components/form-text-field/form-text-field.component';
 import { FormTimeFieldComponent } from './components/form-time-field/form-time-field.component';
 import {
-    FormWrapperSharedModules,
-    FormWrapperSharedProviders,
+  FormWrapperSharedModules,
+  FormWrapperSharedProviders,
 } from '@lib/shared/imports/form-wrapper-shared';
 
 @NgModule({
-    declarations: [
-        FormCalendarFieldComponent,
-        FormCheckboxFieldComponent,
-        FormDropdownFieldComponent,
-        FormDropdownRelatedFieldComponent,
-        FormImgFieldComponent,
-        FormSwitchFieldComponent,
-        FormTextAreaFieldComponent,
-        FormTextFieldComponent,
-        FormTimeFieldComponent,
-        FormWysiwygFieldComponent,
-    ],
-    imports: [CommonModule, FormWrapperSharedModules],
-    exports: [
-        FormCalendarFieldComponent,
-        FormCheckboxFieldComponent,
-        FormDropdownFieldComponent,
-        FormDropdownRelatedFieldComponent,
-        FormImgFieldComponent,
-        FormSwitchFieldComponent,
-        FormTextAreaFieldComponent,
-        FormTextFieldComponent,
-        FormTimeFieldComponent,
-        FormWysiwygFieldComponent,
-    ],
-    providers: [FormWrapperSharedProviders],
+  declarations: [
+    FormCalendarFieldComponent,
+    FormCheckboxFieldComponent,
+    FormDropdownFieldComponent,
+    FormDropdownRelatedFieldComponent,
+    FormImgFieldComponent,
+    FormSwitchFieldComponent,
+    FormTextAreaFieldComponent,
+    FormTextFieldComponent,
+    FormTimeFieldComponent,
+    FormWysiwygFieldComponent,
+  ],
+  imports: [CommonModule, FormWrapperSharedModules],
+  exports: [
+    FormCalendarFieldComponent,
+    FormCheckboxFieldComponent,
+    FormDropdownFieldComponent,
+    FormDropdownRelatedFieldComponent,
+    FormImgFieldComponent,
+    FormSwitchFieldComponent,
+    FormTextAreaFieldComponent,
+    FormTextFieldComponent,
+    FormTimeFieldComponent,
+    FormWysiwygFieldComponent,
+  ],
+  providers: [FormWrapperSharedProviders],
 })
 export class FormWrapperModule {}

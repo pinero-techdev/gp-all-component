@@ -6,16 +6,16 @@ View to add a password reset functionality.
 
 Routing:
 
--   `modifica-password/:usuario` => `forgot-password/:username` <br>
+- `modifica-password/:usuario` => `forgot-password/:username` <br>
 
 Provider
 
--   `PasswordService` -> `ForgotPasswordService` <br>
+- `PasswordService` -> `ForgotPasswordService` <br>
 
 Component
 
--   `modifica` -> `onEnterEvent`
--   `usuario` -> `username`
--   `passwordOld` -> `passwordOld`
--   `passwordNew` -> `password`
--   `passwordNew2` -> `passwordRep`
+- `modifica` -> `onEnterEvent`
+- `usuario` -> `username`
+- `passwordOld` -> `passwordOld`
+- `passwordNew` -> `password`
+- `passwordNew2` -> `passwordRep`

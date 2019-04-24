@@ -4,52 +4,52 @@ import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class MessagesService {
-    msgs: Message[] = [];
+  msgs: Message[] = [];
 
-    constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService) {}
 
-    showInfoMessage(alert: string) {
-        this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: 'Info', detail: alert });
-    }
+  showInfoMessage(alert: string) {
+    this.msgs = [];
+    this.msgs.push({ severity: 'info', summary: 'Info', detail: alert });
+  }
 
-    showWarnMessage(alert: string) {
-        this.msgs = [];
-        this.msgs.push({ severity: 'warn', summary: 'Atención', detail: alert });
-    }
+  showWarnMessage(alert: string) {
+    this.msgs = [];
+    this.msgs.push({ severity: 'warn', summary: 'Atención', detail: alert });
+  }
 
-    showErrorMessage(alert: string) {
-        this.msgs = [];
-        this.msgs.push({ severity: 'error', summary: 'Error', detail: alert });
-    }
+  showErrorMessage(alert: string) {
+    this.msgs = [];
+    this.msgs.push({ severity: 'error', summary: 'Error', detail: alert });
+  }
 
-    showSuccessMessage(alert: string) {
-        this.msgs = [];
-        this.msgs.push({ severity: 'success', summary: 'Success', detail: alert });
-    }
+  showSuccessMessage(alert: string) {
+    this.msgs = [];
+    this.msgs.push({ severity: 'success', summary: 'Success', detail: alert });
+  }
 
-    showInfoAlert(alert: string) {
-        this.messageService.clear();
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: alert });
-    }
+  showInfoAlert(alert: string) {
+    this.messageService.clear();
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: alert });
+  }
 
-    showWarnAlert(alert: string) {
-        this.messageService.clear();
-        this.messageService.add({ severity: 'warn', summary: 'Atención', detail: alert });
-    }
+  showWarnAlert(alert: string) {
+    this.messageService.clear();
+    this.messageService.add({ severity: 'warn', summary: 'Atención', detail: alert });
+  }
 
-    showErrorAlert(alert: string) {
-        this.messageService.clear();
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: alert });
-    }
+  showErrorAlert(alert: string) {
+    this.messageService.clear();
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: alert });
+  }
 
-    showSuccessAlert(alert: string) {
-        this.messageService.clear();
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: alert });
-    }
+  showSuccessAlert(alert: string) {
+    this.messageService.clear();
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: alert });
+  }
 
-    clear() {
-        this.messageService.clear();
-        this.msgs = [];
-    }
+  clear() {
+    this.messageService.clear();
+    this.msgs = [];
+  }
 }

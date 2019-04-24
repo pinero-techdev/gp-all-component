@@ -5,8 +5,8 @@ import { ScrollPanelModule } from 'primeng/primeng';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [MainMenuComponent],
-    imports: [CommonModule, ScrollPanelModule, RouterModule],
-    exports: [MainMenuComponent],
+  declarations: [MainMenuComponent],
+  imports: [CommonModule, ScrollPanelModule, RouterModule],
+  exports: [MainMenuComponent],
 })
 export class MainMenuModule {}

@@ -43,79 +43,81 @@ import { FormImgFieldComponent } from './components/form-wrapper/components/form
 import { TableFrameComponent } from './components/table-wrapper/components/table-frame/table-frame.component';
 import { FormWrapperModule } from './components/form-wrapper/form-wrapper.module';
 import { ForgotPasswordModule } from './components/forgot-password/forgot-password.module';
+import { TopbarModule } from './components/topbar/topbar.module';
 
 @NgModule({
-    declarations: [],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        CoreModule,
-        HttpClientModule,
-        RouterModule,
-        SharedModule,
+  declarations: [],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    CoreModule,
+    HttpClientModule,
+    RouterModule,
+    SharedModule,
 
-        // Library Modules
-        LoginModule,
-        RatingModule,
-        DynamicModule,
-        FormWrapperModule,
-        MultiLanguageModule,
-        MultiSelectModule,
-        LoadingIndicatorModule,
-        MainMenuModule,
-        EmptyModule,
-        ForgotPasswordModule,
-        TableWrapperModule,
-    ],
-    exports: [
-        // We export library modules
-        DynamicModule,
-        MultiSelectModule,
-        LoginModule,
-        MainMenuModule,
-        RatingModule,
-        EmptyModule,
-        ForgotPasswordModule,
-        LoadingIndicatorModule,
-        FormWrapperModule,
-        MultiLanguageModule,
+    // Library Modules
+    LoginModule,
+    RatingModule,
+    DynamicModule,
+    FormWrapperModule,
+    MultiLanguageModule,
+    MultiSelectModule,
+    LoadingIndicatorModule,
+    MainMenuModule,
+    EmptyModule,
+    ForgotPasswordModule,
+    TableWrapperModule,
+    TopbarModule,
+  ],
+  exports: [
+    // We export library modules
+    DynamicModule,
+    MultiSelectModule,
+    LoginModule,
+    MainMenuModule,
+    RatingModule,
+    EmptyModule,
+    ForgotPasswordModule,
+    LoadingIndicatorModule,
+    FormWrapperModule,
+    MultiLanguageModule,
 
-        // And we export components to maintain
-        // compatibility with previous versions
-        DynamicComponent,
-        MultiSelectComponent,
-        LoginComponent,
-        MainMenuComponent,
-        RatingComponent,
-        EmptyComponent,
-        LoadingIndicatorComponent,
+    // And we export components to maintain
+    // compatibility with previous versions
+    DynamicComponent,
+    MultiSelectComponent,
+    LoginComponent,
+    MainMenuComponent,
+    RatingComponent,
+    EmptyComponent,
+    LoadingIndicatorComponent,
 
-        // Form Wrapper components
-        FormCalendarFieldComponent,
-        FormCheckboxFieldComponent,
-        FormDropdownFieldComponent,
-        FormSwitchFieldComponent,
-        FormTextAreaFieldComponent,
-        FormTextFieldComponent,
-        FormTimeFieldComponent,
-        FormWysiwygFieldComponent,
-        FormDropdownRelatedFieldComponent,
-        FormImgFieldComponent,
+    // Form Wrapper components
+    FormCalendarFieldComponent,
+    FormCheckboxFieldComponent,
+    FormDropdownFieldComponent,
+    FormSwitchFieldComponent,
+    FormTextAreaFieldComponent,
+    FormTextFieldComponent,
+    FormTimeFieldComponent,
+    FormWysiwygFieldComponent,
+    FormDropdownRelatedFieldComponent,
+    FormImgFieldComponent,
 
-        // Table Wrapper components
-        TableCrudComponent,
-        TableFrameComponent,
-    ],
-    providers: [
-        LoginService,
-        MainMenuService,
-        GPUtil,
-        MessagesService,
-        MainMenuProviderService,
-        CUSTOM_CONTROL_VALUE_ACCESSOR,
-    ],
+    // Table Wrapper components
+    TableCrudComponent,
+    TableFrameComponent,
+  ],
+  providers: [
+    LoginService,
+    MainMenuService,
+    GPUtil,
+    MessagesService,
+    MainMenuProviderService,
+    CUSTOM_CONTROL_VALUE_ACCESSOR,
+  ],
 })
 export class GpAllComponentModule {}

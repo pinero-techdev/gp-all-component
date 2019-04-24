@@ -8,17 +8,17 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MultiLanguageComponent } from '@lib/components/multi-language/multi-language.component';
 
 @NgModule({
-    declarations: [MultiLanguageComponent],
-    imports: [
-        CommonModule,
-        ToastModule,
-        DialogModule,
-        TooltipModule,
-        LoadingIndicatorModule,
-        ReactiveFormsModule,
-        FormsModule,
-        EditorModule,
-    ],
-    exports: [MultiLanguageComponent],
+  declarations: [MultiLanguageComponent],
+  imports: [
+    CommonModule,
+    ToastModule,
+    DialogModule,
+    TooltipModule,
+    LoadingIndicatorModule,
+    ReactiveFormsModule,
+    FormsModule,
+    EditorModule,
+  ],
+  exports: [MultiLanguageComponent],
 })
 export class MultiLanguageModule {}
