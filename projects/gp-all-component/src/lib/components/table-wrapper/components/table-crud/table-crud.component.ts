@@ -23,6 +23,7 @@ import { GpFormField } from '@lib/components/form-wrapper/resources/gp-form-fiel
 import { GpFormControl } from '@lib/components/form-wrapper/resources/gp-form-control.model';
 import { GpFormFieldType } from '@lib/components/form-wrapper/resources/gp-form-field-type.enum';
 import { GpFormFieldControl } from '@lib/components/form-wrapper/resources/gp-form-field-control';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'gp-app-table-crud',
@@ -393,7 +394,7 @@ export class TableCrudComponent {
   calcFieldType(formField: GpFormField): void {
     const fieldType = this.matchFieldType(formField);
 
-    if (fieldType !== null) {
+    if (!isNullOrUndefined(fieldType)) {
       formField.formFieldType = fieldType;
       return;
     }
