@@ -33,7 +33,7 @@
     "cy:run": "cypress run",
     "---- COMMIT HOOKS ----": "",
     "precommit": "run-s fix:all lint:dev",
-    "prepush": "run-s lint:prod test:prod cy:run"
+    "prepush": "run-s lint:prod test:prod"
   },
   "private": true,
   "dependencies": {
