@@ -46,4 +46,5 @@ Thumbs.db
 
 # Testing
 /coverage
-/cypress
+/cypress/screenshots
+/cypress/videos
