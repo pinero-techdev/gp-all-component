@@ -110,6 +110,7 @@ import { TopbarModule } from './components/topbar/topbar.module';
     // Table Wrapper components
     TableCrudComponent,
     TableFrameComponent,
+    TopbarModule,
   ],
   providers: [
     LoginService,

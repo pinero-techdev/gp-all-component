@@ -34,7 +34,6 @@ speed-measure-plugin.json
 # misc
 /.sass-cache
 /connect.lock
-/coverage
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
@@ -44,3 +43,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Testing
+/coverage
+/cypress/screenshots
+/cypress/videos
