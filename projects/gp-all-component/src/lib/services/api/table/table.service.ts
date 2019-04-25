@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  DataTableMetaData, //
-} from '@lib/resources/data/data-table/meta-data/data-table-meta-data.model';
+import { DataTableMetaData } from '@lib/resources/data/data-table/meta-data/data-table-meta-data.model';
 import { Filter } from '../../../resources/data/filter/filter.model';
 import { CommonRs, CommonService } from '../../core/common.service';
 import { GlobalService } from '../../core/global.service';
@@ -96,10 +94,10 @@ export class TableService extends CommonService {
     let fieldsToOrder = null;
     let filtersRq = null;
 
-    if (ordered != null) {
+    if (ordered !== null) {
       order = ordered;
     }
-    if (fieldsToOrderBy != null) {
+    if (fieldsToOrderBy !== null) {
       fieldsToOrder = fieldsToOrderBy;
     }
     if (filters) {
@@ -127,10 +125,10 @@ export class TableService extends CommonService {
     let fieldsToOrder = null;
     let filtersRq = null;
 
-    if (ordered != null) {
+    if (ordered !== null) {
       order = ordered;
     }
-    if (fieldsToOrderBy != null) {
+    if (fieldsToOrderBy !== null) {
       fieldsToOrder = fieldsToOrderBy;
     }
     if (filters) {
