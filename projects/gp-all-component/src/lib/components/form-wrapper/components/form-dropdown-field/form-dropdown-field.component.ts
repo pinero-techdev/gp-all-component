@@ -25,14 +25,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
     }
 
     set currentValueDropDown(value: string) {
-        if (this.formField && this.formField.fieldMetadata) {
-            this.currentValue = value;
-            const infoCampoModificado = new InfoCampoModificado(
-                this.formField.fieldMetadata.fieldName,
-                this.currentValue
-            );
-            this.valueChanged.emit(infoCampoModificado);
-        }
+        this.onChange(value);
     }
 
     get currentValueDropDown(): string {
@@ -169,14 +162,14 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
         return false;
     }
 
-    onChange() {
-        console.info('HOLA');
+    onChange(value: string) {
         if (this.formField && this.formField.fieldMetadata) {
-            const fieldModified = new InfoCampoModificado(
+            this.currentValue = value;
+            const infoCampoModificado = new InfoCampoModificado(
                 this.formField.fieldMetadata.fieldName,
-                this.currentValueDropDown
+                this.currentValue
             );
-            this.valueChanged.emit(fieldModified);
+            this.valueChanged.emit(infoCampoModificado);
         }
     }
 }

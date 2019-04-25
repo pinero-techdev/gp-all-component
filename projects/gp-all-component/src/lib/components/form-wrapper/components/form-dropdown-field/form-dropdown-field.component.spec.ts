@@ -1,3 +1,4 @@
+import { TestingMockEvents } from './../../../../shared/testing/testing-mock-events.class';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormDropdownFieldComponent } from './form-dropdown-field.component';
@@ -189,8 +190,11 @@ fdescribe('FormDropdownFieldComponent', () => {
 
         fdescribe('Then select an option', () => {
             it('should trigger onchange event', () => {
-                const debugElement: DebugElement = fixture.debugElement;
-                // debugElement.query('')
+                const elementRef = fixture.debugElement.nativeElement;
+                const $dropdown = elementRef.querySelector('p-dropdown');
+                $dropdown.change();
+                fixture.detectChanges();
+                expect(component.onChange).toHaveBeenCalled();
             });
         });
     });

@@ -21,6 +21,12 @@ tag element `<gp-form-dropdown-field></gp-form-dropdown-field>`
         </ul>
     </li>
     <li>
+        <p>Methods</p>
+        <ul>
+            <li></li>
+        </ul>
+    </li>
+    <li>
         <p>Inputs/Outputs</p>
         <ul>
             <li>formField -> init</li>
