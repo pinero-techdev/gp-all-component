@@ -22,7 +22,7 @@ import { DataTableMetaData } from '../../../../resources/data/data-table/meta-da
 import { GpFormField } from '@lib/components/form-wrapper/resources/gp-form-field.model';
 import { GpFormControl } from '@lib/components/form-wrapper/resources/gp-form-control.model';
 import { GpFormFieldType } from '@lib/components/form-wrapper/resources/gp-form-field-type.enum';
-import { GpFormFieldControl } from '@lib/components/form-wrapper/resources/gp-form-field-control';
+import { GpFormFieldControl } from '@lib/components/form-wrapper/resources/form-field-control.class';
 
 @Component({
   selector: 'gp-app-table-crud',

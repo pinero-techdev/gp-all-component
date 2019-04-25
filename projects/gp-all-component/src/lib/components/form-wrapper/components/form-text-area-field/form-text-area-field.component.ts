@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GpFormFieldControl } from '../../resources/gp-form-field-control';
+import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../resources/gp-form-field.model';
 import { TableService } from '@lib/services/api/table/table.service';

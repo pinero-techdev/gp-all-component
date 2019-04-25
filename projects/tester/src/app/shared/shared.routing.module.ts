@@ -11,6 +11,7 @@ import { RatingTesterComponent } from './rating-tester/rating-tester.component';
 import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
 import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
+import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -60,6 +61,10 @@ export const appRoutes: Routes = [
   {
     path: 'foo',
     component: FooTesterComponent,
+  },
+  {
+    path: 'dropdown-tester',
+    component: DropdownTesterComponent,
   },
 ];
 

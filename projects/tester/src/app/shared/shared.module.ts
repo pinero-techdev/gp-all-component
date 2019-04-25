@@ -21,6 +21,8 @@ import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.
 import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
+import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
+
 @NgModule({
   declarations: [
     DynamicTesterComponent,
@@ -33,6 +35,7 @@ import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
     RatingTesterComponent,
     TableFrameTesterComponent,
     TopbarTesterComponent,
+    DropdownTesterComponent,
   ],
   imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
   exports: [
@@ -45,6 +48,7 @@ import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
     MultiSelectTesterComponent,
     RatingTesterComponent,
     TopbarTesterComponent,
+    DropdownTesterComponent,
   ],
   providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })
