@@ -47,17 +47,17 @@ export class TableCrudComponent {
   @Input() rowSelectedFilters: Filter[];
 
   /**
-   * Constrols creation permission
+   * Controls creation permission
    */
   @Input() canAdd = true;
 
   /**
-   * Constrols modification permission
+   * Controls modification permission
    */
   @Input() canEdit = true;
 
   /**
-   * Constrols deletion permission
+   * Controls deletion permission
    */
   @Input() canDelete = true;
 
