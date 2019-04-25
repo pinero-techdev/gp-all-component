@@ -5,7 +5,7 @@
 // Visit the page and pass the query params if it´s needed. Also,
 // create a mock when to fake the API calling.
 Cypress.Commands.add('prepareLogin', (queryParams = null) => {
-  let url = Cypress.env('loginUrl');
+  let url = Cypress.env('loginUrl') || 'login';
   const options = {
     method: 'POST',
     url: '**/login-svc/*',
