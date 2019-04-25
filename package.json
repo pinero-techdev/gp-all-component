@@ -30,9 +30,10 @@
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "format:fix": "pretty-quick --staged",
     "fix:all": "npm run format:fix && npm run styles:fix",
+    "cy:run": "cypress run",
     "---- COMMIT HOOKS ----": "",
     "precommit": "run-s fix:all lint:dev",
-    "prepush": "run-s lint:prod test:prod"
+    "prepush": "run-s lint:prod test:prod cy:run"
   },
   "private": true,
   "dependencies": {
