@@ -1,3 +1,4 @@
+import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
 import { ForgotPasswordTesterComponent } from './forgot-password-tester/forgot-password-tester.component';
 import { LoginTesterComponent } from './login-tester/login-tester.component';
@@ -55,6 +56,10 @@ export const appRoutes: Routes = [
   {
     path: 'topbar-tester',
     component: TopbarTesterComponent,
+  },
+  {
+    path: 'foo',
+    component: FooTesterComponent,
   },
 ];
 
