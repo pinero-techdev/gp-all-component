@@ -1,17 +1,11 @@
 import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
 import { MainMenuTesterService } from './main-menu-tester/main-menu-tester.service';
-import {
-  MainMenuProviderService, //
-} from '@lib/services/api/main-menu/main-menu-provider.service';
+import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
 import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.component';
-import {
-  LoadingIndicatorTesterComponent, //
-} from './loading-indicator-tester/loading-indicator-tester.component';
+import { LoadingIndicatorTesterComponent } from './loading-indicator-tester/loading-indicator-tester.component';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
 import { CommonModule } from '@angular/common';
-import {
-  ForgotPasswordTesterComponent, //
-} from './forgot-password-tester/forgot-password-tester.component';
+import { ForgotPasswordTesterComponent } from './forgot-password-tester/forgot-password-tester.component';
 import { LoginTesterComponent } from './login-tester/login-tester.component';
 import { NgModule } from '@angular/core';
 import { SharedRoutingModule } from './shared.routing.module';
@@ -21,6 +15,7 @@ import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.
 import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
+import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
 @NgModule({
   declarations: [
     DynamicTesterComponent,
@@ -33,6 +28,7 @@ import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
     RatingTesterComponent,
     TableFrameTesterComponent,
     TopbarTesterComponent,
+    TableCrudTesterComponent,
   ],
   imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
   exports: [
