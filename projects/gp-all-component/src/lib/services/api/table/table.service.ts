@@ -92,6 +92,7 @@ export class TableService extends CommonService {
     translate?: boolean,
     translationLanguage?: string
   ): Observable<ListRs> {
+    console.info('list');
     let order = true;
     let fieldsToOrder = null;
     let filtersRq = null;

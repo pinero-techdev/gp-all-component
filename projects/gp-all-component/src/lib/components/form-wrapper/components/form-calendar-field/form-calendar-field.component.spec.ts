@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormCalendarFieldComponent } from './form-calendar-field.component';
 import { CommonModule } from '@angular/common';
 import { FormWrapperSharedModules } from '../../../../shared/imports/form-wrapper-shared';
-import { GpFormField } from '../../resources/gp-form-field.model';
+import { GpFormField } from '../../resources/form-field.model';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper-mock-types';
 
 describe('FormCalendarFieldComponent', () => {

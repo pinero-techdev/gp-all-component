@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgotPasswordRq } from '@lib/services/api/forgot-password/forgot-password.service';
-import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
+import { TestingMockEvents } from '@lib/shared/testing/@mock/utils/testing-mock-events.class';
 import {
   ForgotPasswordServiceMock, //
 } from '@lib/services/api/forgot-password/forgot-password.service.mock';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '@lib/shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ForgotPasswordService } from '@lib/services/api/forgot-password/forgot-password.service';
-import { testingVars } from '@lib/shared/testing/testing-mock-constants.class';
+import { testingVars } from '@lib/shared/testing/@mock/utils/testing-mock-constants.class';
 import { Router, Routes, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 

@@ -6,7 +6,7 @@ import {
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper-mock-types';
-import { GpFormField } from '../../resources/gp-form-field.model';
+import { GpFormField } from '../../resources/form-field.model';
 
 describe('FormCheckboxFieldComponent', () => {
   let component: FormCheckboxFieldComponent;
