@@ -11,7 +11,7 @@ import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper-mock
 import { TableService } from '@lib/services/api/table/table.service';
 import { TestingErrorCodeMock } from '@lib/shared/testing/@mock/utils/testing-mock-constants.class';
 
-describe('FormDropdownRelatedFieldComponent', () => {
+fdescribe('FormDropdownRelatedFieldComponent', () => {
   let component: FormDropdownRelatedFieldComponent;
   let fixture: ComponentFixture<FormDropdownRelatedFieldComponent>;
   let tableService: TableService;
