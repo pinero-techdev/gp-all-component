@@ -12,6 +12,7 @@ tag element `<gp-form-dropdown-related-field></gp-form-dropdown-related-field>`
         <ul>
             <li>inicializa -> init</li>
             <li>reinicia -> reset</li>
+            <li>_relatedFields -> relatedFields</li>
         </ul>
     </li>
 </ol>

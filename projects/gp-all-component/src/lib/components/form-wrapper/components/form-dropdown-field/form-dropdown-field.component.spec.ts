@@ -1,4 +1,4 @@
-import { TableServiceMockError } from './../../../../services/api/table/table.service.mock';
+import { TestingErrorCodeMock } from './../../../../shared/testing/@mock/utils/testing-mock-constants.class';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormDropdownFieldComponent } from './form-dropdown-field.component';
@@ -248,7 +248,7 @@ describe('FormDropdownFieldComponent', () => {
     describe('and service is down', () => {
       beforeEach(() => {
         component.formField.fieldMetadata.displayInfo.referencedTable =
-          TableServiceMockError.ERROR_500;
+          TestingErrorCodeMock.ERROR_500;
         component.ngOnInit();
         fixture.detectChanges();
       });
@@ -263,7 +263,7 @@ describe('FormDropdownFieldComponent', () => {
     describe('and API call fails', () => {
       beforeEach(() => {
         component.formField.fieldMetadata.displayInfo.referencedTable =
-          TableServiceMockError.ERROR_404;
+          TestingErrorCodeMock.ERROR_404;
         component.ngOnInit();
         fixture.detectChanges();
       });

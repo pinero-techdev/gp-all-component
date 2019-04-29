@@ -15,18 +15,26 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./form-dropdown-related-field.component.scss'],
 })
 export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implements OnInit {
-  @Input() formField: GpFormField;
+  isDisabled = false; // isDisabled is set up when OnInit is called, used in the template.
+  list: any;
+  listAllowedValuesOptions: SelectItem[];
+  relatedFields: DataTableMetaDataFieldDisplayInfoRelatedField[] = [];
+
+  private _currentValue = null;
+  private listCharged = false;
 
   constructor(private _tableService: TableService, private _gpUtil: GPUtil) {
     super();
   }
+
+  @Input() formField: GpFormField;
 
   @Input()
   set relatedField(fieldsChanged) {
     if (fieldsChanged) {
       for (const fieldName of fieldsChanged) {
         const relatedField = this._gpUtil.getElementFromArray(
-          this._relatedFields,
+          this.relatedFields,
           'field',
           fieldName
         );
@@ -38,8 +46,8 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
         const label = this.getLabel();
         this.listAllowedValuesOptions = [{ label, value: null }];
         // Si se ha modificado el valor, actualizamos
-        if (this._currentValue !== null) {
-          this._currentValue = null;
+        if (this.currentValue !== null) {
+          this.currentValue = null;
         }
       } else {
         // Si todos los campos dependientes se han seleccionado,
@@ -50,8 +58,8 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   }
 
   // Capturamos los eventos onchange del valor
-  set _currentValue(value: string) {
-    this.currentValue = value;
+  set currentValue(value: string) {
+    this._currentValue = value;
     const infoCampoModificado = new InfoCampoModificado(
       this.formField.fieldMetadata.fieldName,
       this.currentValue
@@ -59,37 +67,25 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
     this.valueChanged.emit(infoCampoModificado);
   }
 
-  get _currentValue(): string {
-    return this.currentValue;
+  get currentValue(): string {
+    return this._currentValue;
   }
-
-  _relatedFields: DataTableMetaDataFieldDisplayInfoRelatedField[] = [];
 
   @Output()
   valueChanged = new EventEmitter<InfoCampoModificado>();
 
-  list: any;
-
-  private listCharged = false;
-
-  listAllowedValuesOptions: SelectItem[];
-
-  public getFormField(): GpFormField {
-    return this.formField;
-  }
-
-  getFieldMetadata(): DataTableMetaDataField {
-    return this.formField.fieldMetadata;
-  }
-
   ngOnInit() {
     this.init();
+    this.isDisabled = this.controlDisabled();
   }
 
   init() {
     this.listAllowedValuesOptions = [];
-    if (this.formField) {
-      this._relatedFields = this.formField.fieldMetadata.displayInfo.relatedFields;
+    if (this.formField && this.formField.fieldMetadata) {
+      this.relatedFields = this.formField.fieldMetadata.displayInfo.relatedFields
+        ? this.formField.fieldMetadata.displayInfo.relatedFields
+        : [];
+
       if (
         this.formField.fieldMetadata.displayInfo &&
         this.formField.fieldMetadata.displayInfo.referencedTable
@@ -98,9 +94,11 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
         this.listAllowedValuesOptions = [
           { label: 'Cargando los datos del desplegable ...', value: null },
         ];
+
         const fieldToOrderBy = this.formField.fieldMetadata.displayInfo.fieldToOrderBy
           ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy]
           : null;
+
         this._tableService
           .list(
             this.formField.fieldMetadata.displayInfo.referencedTable,
@@ -110,9 +108,11 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
             this.formField.fieldMetadata.displayInfo.filters
           )
           .pipe(finalize(() => (this.listCharged = true)))
+          .first()
           .subscribe(
             (data) => {
               if (data.ok) {
+                console.info('OK!!');
                 this.list = data.data;
                 this.processData();
               } else {
@@ -134,6 +134,13 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
     }
   }
 
+  getFieldMetadata(): DataTableMetaDataField {
+    return this.formField && this.formField.fieldMetadata ? this.formField.fieldMetadata : null;
+  }
+  getFormField(): GpFormField {
+    return this.formField ? this.formField : null;
+  }
+
   reset() {
     if (this.listCharged && this.list) {
       this.processData();
@@ -149,16 +156,11 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
       }
       // Si el valor no existe dentro de las opciones, se reinicia el valor
       if (
-        this.listAllowedValuesOptions.filter((item) => item.value === this._currentValue).length ===
+        this.listAllowedValuesOptions.filter((item) => item.value === this.currentValue).length ===
         0
       ) {
-        this._currentValue = null;
+        this.currentValue = null;
       }
-    } else if (!this.listCharged) {
-      // Si los datos se encuentran pendientes de cargarse, esperamos un 0.2 segundos
-      setTimeout(() => {
-        this.reset();
-      }, 200);
     } else {
       this.listAllowedValuesOptions = [
         { label: 'No existen opciones para el valor seleccionado', value: null },
@@ -166,23 +168,31 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
     }
   }
 
-  copyValueFromControlToEditedRow(editedRow: any) {
-    editedRow[this.formField.fieldMetadata.fieldName] = this.currentValue;
-  }
-
-  copyValueFromEditedRowToControl(editedRow: any) {
-    this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
-  }
-
-  validateField(editedRow: any) {
-    this.formField.validField = true;
-    this.formField.fieldMsgs = null;
-    const valorCampo = editedRow[this.formField.fieldMetadata.fieldName];
-    if (this.formField.fieldMetadata.notNull && valorCampo) {
-      this.formField.validField = false;
-      this.validateFieldAddMsgs('El valor es obligatorio.');
+  copyValueFromControlToEditedRow(editedRow: any = []) {
+    if (this.formField && this.formField.fieldMetadata) {
+      editedRow[this.formField.fieldMetadata.fieldName] = this.currentValue;
     }
-    return this.formField.validField;
+  }
+
+  copyValueFromEditedRowToControl(editedRow: any = []) {
+    this.currentValue =
+      this.formField && this.formField.fieldMetadata && editedRow.length > 0
+        ? editedRow[this.formField.fieldMetadata.fieldName]
+        : null;
+  }
+
+  validateField(editedRow: any = []): boolean {
+    if (this.formField && this.formField.fieldMetadata) {
+      this.formField.validField = true;
+      this.formField.fieldMsgs = null;
+      const fieldValue = editedRow[this.formField.fieldMetadata.fieldName];
+      if (this.formField.fieldMetadata.notNull && !fieldValue) {
+        this.formField.validField = false;
+        this.validateFieldAddMsgs('El valor es obligatorio.');
+      }
+      return this.formField.validField;
+    }
+    return false;
   }
 
   /**
@@ -190,7 +200,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    * con los campos relacionados que faltan por seleccionar.
    */
   getLabel(): string {
-    const fields = this._relatedFields
+    const fields = this.relatedFields
       .filter((field) => field.value === null)
       .map((item) => item.fieldDescription.toLowerCase());
 
@@ -214,8 +224,8 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    */
   relatedFieldsSelected(): boolean {
     let allFieldsSelected = true;
-    if (this._relatedFields) {
-      this._relatedFields.forEach(
+    if (this.relatedFields) {
+      this.relatedFields.forEach(
         (field) => (allFieldsSelected = allFieldsSelected && field.value != null)
       );
     }
@@ -230,7 +240,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    * relacionados que faltan por seleccionar
    */
   processData() {
-    if (!this.relatedFieldsSelected) {
+    if (!this.relatedFieldsSelected()) {
       const label = this.getLabel();
       this.listAllowedValuesOptions = [{ label, value: null }];
     } else {
@@ -243,10 +253,11 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
           value: null,
         },
       ];
+
       const optionsAllowed = this.list
         .filter((item) => {
           let valid = true;
-          for (const relatedField of this._relatedFields) {
+          for (const relatedField of this.relatedFields) {
             const fieldExt = relatedField.fieldExternal || relatedField.field;
             valid = valid && relatedField.value === item[fieldExt];
           }

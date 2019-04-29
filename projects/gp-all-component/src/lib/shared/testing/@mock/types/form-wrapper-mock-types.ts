@@ -1,3 +1,4 @@
+import { DataTableMetaDataFieldDisplayInfoRelatedField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field-display-info-related-field.model';
 import { DataTableMetaDataFieldDisplayInfoOption } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info-option.model';
 import { DataTableMetaDataFieldDisplayInfo } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info.model';
 import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
@@ -17,6 +18,29 @@ options[1].description = 'Mariana';
 options[2].value = '3';
 options[2].description = 'Napoleon';
 
+const rField1 = {
+  field: 'lang',
+  fieldExternal: 'langCodi',
+  fieldDescription: 'language',
+  value: 'EN',
+} as DataTableMetaDataFieldDisplayInfoRelatedField;
+
+const rField2 = {
+  field: 'lang',
+  fieldExternal: 'langCodi',
+  fieldDescription: 'language',
+  value: 'ES',
+} as DataTableMetaDataFieldDisplayInfoRelatedField;
+
+const rField3 = {
+  field: 'lang',
+  fieldExternal: 'langCodi',
+  fieldDescription: 'language',
+  value: 'ES',
+} as DataTableMetaDataFieldDisplayInfoRelatedField;
+
+const relatedFields = [rField1, rField2, rField3];
+
 const displayInfo = new DataTableMetaDataFieldDisplayInfo(
   'naciDesc',
   1,
@@ -31,7 +55,7 @@ const displayInfo = new DataTableMetaDataFieldDisplayInfo(
   1,
   ['langCodi', 'naciDesc'],
   ['height', 'red'],
-  null,
+  relatedFields,
   null
 );
 

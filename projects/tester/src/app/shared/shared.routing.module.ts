@@ -1,3 +1,4 @@
+import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
 import { ForgotPasswordTesterComponent } from './forgot-password-tester/forgot-password-tester.component';
@@ -65,6 +66,10 @@ export const appRoutes: Routes = [
   {
     path: 'dropdown-tester',
     component: DropdownTesterComponent,
+  },
+  {
+    path: 'dropdown-related-tester',
+    component: DropdownRelatedTesterComponent,
   },
 ];
 
