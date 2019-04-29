@@ -1,3 +1,4 @@
+import { TableServiceMockResponse } from './../../../../services/api/table/table.service.mock';
 import { TestingErrorCodeMock } from './../../../../shared/testing/@mock/utils/testing-mock-constants.class';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -240,7 +241,9 @@ describe('FormDropdownFieldComponent', () => {
 
       it('should init', () => {
         expect(component.init).toHaveBeenCalled();
-        expect(component.listAllowedValuesOptions.length).toEqual(3);
+        expect(component.listAllowedValuesOptions.length).toEqual(
+          TableServiceMockResponse.data.length + 1
+        );
         expect(tableService.list).toHaveBeenCalled();
       });
     });

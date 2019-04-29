@@ -23,7 +23,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   private _currentValue = null;
   private listCharged = false;
 
-  constructor(private _tableService: TableService, private _gpUtil: GPUtil) {
+  constructor(private tableService: TableService, private gpUtil: GPUtil) {
     super();
   }
 
@@ -33,7 +33,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   set relatedField(fieldsChanged) {
     if (fieldsChanged) {
       for (const fieldName of fieldsChanged) {
-        const relatedField = this._gpUtil.getElementFromArray(
+        const relatedField = this.gpUtil.getElementFromArray(
           this.relatedFields,
           'field',
           fieldName
@@ -99,7 +99,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
           ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy]
           : null;
 
-        this._tableService
+        this.tableService
           .list(
             this.formField.fieldMetadata.displayInfo.referencedTable,
             true,
@@ -112,7 +112,6 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
           .subscribe(
             (data) => {
               if (data.ok) {
-                console.info('OK!!');
                 this.list = data.data;
                 this.processData();
               } else {
