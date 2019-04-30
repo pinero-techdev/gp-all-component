@@ -9,7 +9,6 @@ import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { finalize } from 'rxjs/operators';
 import { isNullOrUndefined, isNull } from 'util';
-import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'gp-form-dropdown-related-field',
