@@ -126,22 +126,24 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
     }
   }
 
-  copyValueFromControlToEditedRow(editedRow: any[] = []) {
-    if (this.formField && this.formField.fieldMetadata) {
+  copyValueFromControlToEditedRow(editedRow: any = null) {
+    if (this.formField && this.formField.fieldMetadata && editedRow) {
       editedRow[this.formField.fieldMetadata.fieldName] = this.currentValueDropDown;
     }
   }
 
-  copyValueFromEditedRowToControl(editedRow: any[] = []) {
-    this.currentValueDropDown =
-      this.formField && this.formField.fieldMetadata && editedRow.length > 0
-        ? editedRow[this.formField.fieldMetadata.fieldName]
-        : null;
+  copyValueFromEditedRowToControl(editedRow: any = null) {
+    if (this.formField && this.formField.fieldMetadata) {
+      this.currentValueDropDown =
+        editedRow && editedRow.hasOwnProperty(this.formField.fieldMetadata.fieldName)
+          ? editedRow[this.formField.fieldMetadata.fieldName]
+          : null;
+    }
   }
 
-  validateField(editedRow: any[] = []): boolean {
+  validateField(editedRow: any = null): boolean {
     if (this.formField && this.formField.fieldMetadata) {
-      const value = editedRow[this.formField.fieldMetadata.fieldName];
+      const value = editedRow && editedRow[this.formField.fieldMetadata.fieldName];
       this.formField.validField = true;
       this.formField.fieldMsgs = null;
       if (this.formField.fieldMetadata.notNull && !value) {

@@ -155,7 +155,7 @@ describe('FormDropdownFieldComponent', () => {
       });
 
       it('should be valid', () => {
-        const row = [FormFieldMock.fieldMetadata.fieldName];
+        const row = {};
         row[FormFieldMock.fieldMetadata.fieldName] = 'A';
         fixture.detectChanges();
         returnedValue = component.validateField(row);
@@ -164,7 +164,7 @@ describe('FormDropdownFieldComponent', () => {
     });
 
     describe('Then copyValueFromEditedRowToControl is called', () => {
-      const row = [FormFieldMock.fieldMetadata.fieldName];
+      const row = {};
       row[FormFieldMock.fieldMetadata.fieldName] = 'A';
       beforeEach(() => {
         component.copyValueFromEditedRowToControl();
@@ -190,7 +190,7 @@ describe('FormDropdownFieldComponent', () => {
     });
 
     describe('Then copyValueFromControlToEditedRow is called', () => {
-      const row = [FormFieldMock.fieldMetadata.fieldName];
+      const row = {};
       row[FormFieldMock.fieldMetadata.fieldName] = 'TEST';
 
       beforeEach(() => {

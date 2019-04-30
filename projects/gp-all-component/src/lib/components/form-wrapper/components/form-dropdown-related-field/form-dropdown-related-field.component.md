@@ -1,6 +1,12 @@
-### Dropdown
+## Dropdown Related
 
-tag element `<gp-form-dropdown-related-field></gp-form-dropdown-related-field>`
+Tag element `<gp-form-dropdown-related-field></gp-form-dropdown-related-field>`
+
+### Inputs & Outputs
+
+<p>@Input() <b>relatedField</b>: <i>any</i> Info setup when another field element was changed by the user.</p>
+<p>@Input() <b>formField</b>: <i>GpFormField</i> Current dropdown field info</p>
+<p>@Output() <b>valueChanged</b>: <i>InfoCampoModificado</i> Emit current value when is changed</p>
 
 ## Upgrade 1.1.0 -> 1.1.2
 
@@ -8,7 +14,7 @@ tag element `<gp-form-dropdown-related-field></gp-form-dropdown-related-field>`
 
 <ol>
     <li>
-        <p>Variables</p>
+        <p>Variables renaming</p>
         <ul>
             <li>inicializa -> init</li>
             <li>reinicia -> reset</li>

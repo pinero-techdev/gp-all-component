@@ -1,17 +1,17 @@
 import { TableServiceMockResponse } from '@lib/services/api/table/table.service.mock';
 import { TableServiceMock } from '@lib/services/api/table/table.service.mock';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormDropdownRelatedFieldComponent } from './form-dropdown-related-field.component';
 import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
 } from '@lib/shared/imports/form-wrapper-shared';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper-mock-types';
 import { TableService } from '@lib/services/api/table/table.service';
 import { TestingErrorCodeMock } from '@lib/shared/testing/@mock/utils/testing-mock-constants.class';
 
-fdescribe('FormDropdownRelatedFieldComponent', () => {
+describe('FormDropdownRelatedFieldComponent', () => {
   let component: FormDropdownRelatedFieldComponent;
   let fixture: ComponentFixture<FormDropdownRelatedFieldComponent>;
   let tableService: TableService;
@@ -38,82 +38,15 @@ fdescribe('FormDropdownRelatedFieldComponent', () => {
     spyOn(tableService, 'list').and.callThrough();
   });
 
-  describe('When the field has metadata', () => {
-    beforeEach(() => {
-      component.formField = JSON.parse(JSON.stringify(FormFieldMock));
-      component.formField.fieldMetadata.displayInfo.referencedTable = null;
-      component.formField.fieldMetadata.notNull = true;
-      fixture.detectChanges();
-      component.ngOnInit();
-    });
-
-    it('should create', () => {
-      expect(component).toBeTruthy();
-      expect(component.init).toHaveBeenCalled();
-      expect(component.isDisabled).toBeFalsy();
-      expect(component.listAllowedValuesOptions.length).toEqual(0);
-      expect(component.relatedFields.length).toEqual(
-        FormFieldMock.fieldMetadata.displayInfo.relatedFields.length
-      );
-    });
-
-    describe('Then validateField is called', () => {
-      let returnedValue: boolean;
-
-      beforeEach(() => {
-        returnedValue = component.validateField();
-        fixture.detectChanges();
-      });
-
-      it('should return false', () => {
-        expect(returnedValue).toBeFalsy();
-      });
-    });
-
-    describe('Then reset is called', () => {
-      beforeEach(() => {
-        component.reset();
-      });
-
-      it('should have been charged', () => {
-        expect(component.list).toBeUndefined();
-        expect(component.processData).not.toHaveBeenCalled();
-        expect(component.listAllowedValuesOptions.length).toEqual(1);
-      });
-    });
-  });
-
-  describe('Then reset is called', () => {
-    beforeEach(() => {
-      component.ngOnInit();
-      component.reset();
-    });
-
-    it('should have been charged', () => {
-      expect(component.list).toBeUndefined();
-      expect(component.processData).not.toHaveBeenCalled();
-      expect(component.listAllowedValuesOptions.length).toEqual(1);
-    });
-  });
-
-  describe('Then validateField is called', () => {
-    let returnedValue: boolean;
-
-    beforeEach(() => {
-      returnedValue = component.validateField();
-      fixture.detectChanges();
-    });
-
-    it('should return false', () => {
-      expect(returnedValue).toBeFalsy();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
   it('should not have metadata', () => {
     expect(component.getFieldMetadata()).toBeNull();
   });
 
-  describe('When it has a table reference', () => {
+  describe('When the field has metadata', () => {
     beforeEach(() => {
       component.formField = JSON.parse(JSON.stringify(FormFieldMock));
       fixture.detectChanges();
@@ -135,6 +68,16 @@ fdescribe('FormDropdownRelatedFieldComponent', () => {
       );
     });
 
+    describe('Then a related field is changed', () => {
+      beforeEach(() => {
+        component.relatedField = { name: 'Frederik' };
+        fixture.detectChanges();
+      });
+      it('should update the value', () => {
+        expect(component.relatedFieldsSelected).toHaveBeenCalled();
+      });
+    });
+
     describe('Then validateField is called', () => {
       let returnedValue: boolean;
 
@@ -153,7 +96,7 @@ fdescribe('FormDropdownRelatedFieldComponent', () => {
     });
 
     describe('Then copyValueFromControlToEditedRow is called', () => {
-      const row = [FormFieldMock.fieldMetadata.fieldName];
+      const row = {};
       row[FormFieldMock.fieldMetadata.fieldName] = 'TEST';
 
       beforeEach(() => {
@@ -168,7 +111,7 @@ fdescribe('FormDropdownRelatedFieldComponent', () => {
     });
 
     describe('Then copyValueFromEditedRowToControl is called', () => {
-      const row = [FormFieldMock.fieldMetadata.fieldName];
+      const row = {};
       row[FormFieldMock.fieldMetadata.fieldName] = 'A';
 
       beforeEach(() => {
@@ -195,97 +138,46 @@ fdescribe('FormDropdownRelatedFieldComponent', () => {
     });
   });
 
-  describe('When there is not related fields', () => {
+  describe('When the field has metadata and no table reference', () => {
     beforeEach(() => {
-      spyOn(component, 'getLabel').and.callThrough();
       component.formField = JSON.parse(JSON.stringify(FormFieldMock));
-      component.formField.fieldMetadata.displayInfo.relatedFields = [];
+      component.formField.fieldMetadata.notNull = true;
+      component.formField.fieldMetadata.displayInfo.referencedTable = null;
       fixture.detectChanges();
+      component.ngOnInit();
     });
 
-    it('should not have options', () => {
-      expect(component.relatedFieldsSelected).toHaveBeenCalled();
-      expect(component.getLabel).not.toHaveBeenCalled();
-      expect(component.relatedFields.length).toEqual(0);
-      expect(component.listAllowedValuesOptions.length).toEqual(
-        TableServiceMockResponse.data.length + 1
-      );
-    });
-  });
-
-  describe('When there is not valid related fields', () => {
-    beforeEach(() => {
-      spyOn(component, 'getLabel').and.callThrough();
-      component.formField = JSON.parse(JSON.stringify(FormFieldMock));
-      component.formField.fieldMetadata.displayInfo.relatedFields.forEach(
-        (field) => (field.value = null)
-      );
-      fixture.detectChanges();
-    });
-
-    it('should not have options', () => {
-      expect(component.relatedFieldsSelected).toHaveBeenCalled();
-      expect(component.getLabel).toHaveBeenCalled();
+    it('should create', () => {
+      expect(component.init).toHaveBeenCalled();
+      expect(component.isDisabled).toBeFalsy();
+      expect(component.listAllowedValuesOptions.length).toEqual(0);
       expect(component.relatedFields.length).toEqual(
         FormFieldMock.fieldMetadata.displayInfo.relatedFields.length
       );
-      expect(component.listAllowedValuesOptions.length).toEqual(1);
     });
 
-    describe('Then reset is called', () => {
+    describe('Testing validateField method', () => {
+      let returnedValue: boolean;
+
+      beforeEach(() => {
+        returnedValue = component.validateField();
+      });
+
+      it('should return false', () => {
+        expect(returnedValue).toBeFalsy();
+      });
+    });
+
+    describe('Testing reset method', () => {
       beforeEach(() => {
         component.reset();
       });
 
       it('should have been charged', () => {
+        expect(component.list).toBeNull();
+        expect(component.processData).not.toHaveBeenCalled();
         expect(component.listAllowedValuesOptions.length).toEqual(1);
-        expect(component.listAllowedValuesOptions['0'].label).toEqual(
-          'No existen opciones para el valor seleccionado'
-        );
       });
-    });
-  });
-
-  describe('When there is valid related fields', () => {
-    beforeEach(() => {
-      component.formField = JSON.parse(JSON.stringify(FormFieldMock));
-      component.formField.fieldMetadata.displayInfo.relatedFields = [
-        FormFieldMock.fieldMetadata.displayInfo.relatedFields.pop(),
-      ];
-      fixture.detectChanges();
-    });
-
-    it('should have 3 options', () => {
-      expect(component.relatedFieldsSelected).toHaveBeenCalled();
-      expect(component.relatedFields.length).toEqual(1);
-      expect(component.listAllowedValuesOptions.length).toEqual(3);
-    });
-
-    describe('Then reset is called', () => {
-      beforeEach(() => {
-        component.currentValue = 'TESTING-COUNTRY';
-        component.reset();
-      });
-
-      it('should have been charged', () => {
-        expect(component.currentValue).toBeNull();
-      });
-    });
-  });
-
-  describe('When the related field input is set up', () => {
-    beforeEach(() => {
-      component.formField = JSON.parse(JSON.stringify(FormFieldMock));
-      fixture.detectChanges();
-    });
-
-    it('should have 3 options', () => {
-      component.relatedField = [FormFieldMock.fieldMetadata.displayInfo.relatedFields[0].field];
-      fixture.detectChanges();
-      expect(component.relatedFieldsSelected).toHaveBeenCalled();
-      expect(component.relatedFields.length).toEqual(
-        FormFieldMock.fieldMetadata.displayInfo.relatedFields.length
-      );
     });
   });
 

@@ -8,6 +8,8 @@ import { SelectItem } from 'primeng/api';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { finalize } from 'rxjs/operators';
+import { isNullOrUndefined, isNull } from 'util';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'gp-form-dropdown-related-field',
@@ -39,17 +41,25 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   // The current field can have dependencies with another related field.s
   @Input()
   set relatedField(fieldsChanged: any) {
+    console.info('fieldsChanged', fieldsChanged);
     if (fieldsChanged) {
-      for (const fieldName of fieldsChanged) {
-        const relatedField = this.gpUtil.getElementFromArray(
-          this.relatedFields,
-          'field',
-          fieldName
-        );
-        if (relatedField) {
-          relatedField.value = fieldsChanged[fieldName];
+      for (const fieldName in fieldsChanged) {
+        if (fieldsChanged.hasOwnProperty(fieldName)) {
+          console.info('fieldName', fieldName);
+          const relatedField = this.gpUtil.getElementFromArray(
+            this.relatedFields,
+            'field',
+            fieldName
+          );
+          if (relatedField) {
+            relatedField.value = fieldsChanged[fieldName];
+          }
+          console.info('RELATED FIELD', relatedField);
         }
       }
+
+      console.info('this.relatedFieldsSelected()', this.relatedFieldsSelected());
+
       if (!this.relatedFieldsSelected()) {
         const label = this.getLabel();
         this.listAllowedValuesOptions = [{ label, value: null }];
@@ -163,7 +173,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    * Given a table's row, set the current value to it.
    * @param editedRow Table's row
    */
-  copyValueFromControlToEditedRow(editedRow: any = []) {
+  copyValueFromControlToEditedRow(editedRow: any = {}) {
     if (this.formField && this.formField.fieldMetadata) {
       editedRow[this.formField.fieldMetadata.fieldName] = this.currentValue;
     }
@@ -173,18 +183,20 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    * Given a table's row, set the current value at the row value
    * @param editedRow Table's row
    */
-  copyValueFromEditedRowToControl(editedRow: any = []) {
-    this.currentValue =
-      this.formField && this.formField.fieldMetadata && editedRow.length > 0
-        ? editedRow[this.formField.fieldMetadata.fieldName]
-        : null;
+  copyValueFromEditedRowToControl(editedRow: any = {}) {
+    if (this.formField && this.formField.fieldMetadata) {
+      this.currentValue =
+        editedRow && editedRow.hasOwnProperty(this.formField.fieldMetadata.fieldName)
+          ? editedRow[this.formField.fieldMetadata.fieldName]
+          : null;
+    }
   }
 
   /**
    * Validate the current value
    * @param editedRow Table's row
    */
-  validateField(editedRow: any = []): boolean {
+  validateField(editedRow: any = {}): boolean {
     if (this.formField && this.formField.fieldMetadata) {
       this.formField.validField = true;
       this.formField.fieldMsgs = null;
@@ -203,7 +215,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    */
   getLabel(): string {
     const fields = this.relatedFields
-      .filter((field) => field.value === null)
+      .filter((field) => !isNullOrUndefined(field.fieldDescription) && isNull(field.value))
       .map((item) => item.fieldDescription.toLowerCase());
 
     let label = 'Primero debe seleccionar ';
