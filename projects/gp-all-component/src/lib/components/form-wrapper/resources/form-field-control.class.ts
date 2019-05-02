@@ -5,7 +5,6 @@ import { GpFormControl } from './form-control.model';
 import { GpFormField } from './form-field.model';
 import { GpFormFieldControlInterface } from './form-field-control.interface';
 
-// TODO optimizar 17/12/2018
 export abstract class GpFormFieldControl extends GpFormControl
   implements GpFormFieldControlInterface {
   @Input() formField: GpFormField;

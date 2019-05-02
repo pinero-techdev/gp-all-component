@@ -260,10 +260,6 @@ export class GPUtil {
     }
   }
 
-  /**
-   * FIXME: VICENTE PRATS 28/11/2017 Eliminar cuando esté solucionado el bug
-   * Debido a un bug en primeng, no se pueden poner rangos relativos en el calendar
-   */
   public obtainCalendarYearRange(offset = 0): string {
     const year = new Date().getFullYear() + offset;
     return '1900:' + year;
