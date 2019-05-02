@@ -8,7 +8,7 @@ import { SelectItem } from 'primeng/api';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { finalize } from 'rxjs/operators';
-import { isNullOrUndefined, isNull } from 'util';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'gp-form-dropdown-related-field',
@@ -40,11 +40,9 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   // The current field can have dependencies with another related field.s
   @Input()
   set relatedField(fieldsChanged: any) {
-    console.info('fieldsChanged', fieldsChanged);
     if (fieldsChanged) {
       for (const fieldName in fieldsChanged) {
         if (fieldsChanged.hasOwnProperty(fieldName)) {
-          console.info('fieldName', fieldName);
           const relatedField = this.gpUtil.getElementFromArray(
             this.relatedFields,
             'field',
@@ -53,19 +51,17 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
           if (relatedField) {
             relatedField.value = fieldsChanged[fieldName];
           }
-          console.info('RELATED FIELD', relatedField);
         }
       }
 
-      console.info('this.relatedFieldsSelected()', this.relatedFieldsSelected());
-
-      if (!this.relatedFieldsSelected()) {
+      // If every related field already has a valid value
+      // then the list is updated
+      if (this.relatedFieldsSelected()) {
+        this.reset();
+      } else {
         const label = this.getLabel();
         this.listAllowedValuesOptions = [{ label, value: null }];
         this.currentValue = null;
-      } else {
-        // If every related field was already selected then the list is updated
-        this.reset();
       }
     }
   }
@@ -214,7 +210,9 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    */
   getLabel(): string {
     const fields = this.relatedFields
-      .filter((field) => !isNullOrUndefined(field.fieldDescription) && isNull(field.value))
+      .filter(
+        (field) => !isNullOrUndefined(field.fieldDescription) && isNullOrUndefined(field.value)
+      )
       .map((item) => item.fieldDescription.toLowerCase());
 
     let label = 'Primero debe seleccionar ';
@@ -233,16 +231,10 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   }
 
   /**
-   * Check if every related field has been selected
+   * Check if every related field has been selected, in other terms, every related field has value.
    */
   relatedFieldsSelected(): boolean {
-    let allFieldsSelected = true;
-    if (this.relatedFields) {
-      this.relatedFields.forEach(
-        (field) => (allFieldsSelected = allFieldsSelected && field.value != null)
-      );
-    }
-    return allFieldsSelected;
+    return this.relatedFields.every((field) => !isNullOrUndefined(field.value));
   }
 
   /**

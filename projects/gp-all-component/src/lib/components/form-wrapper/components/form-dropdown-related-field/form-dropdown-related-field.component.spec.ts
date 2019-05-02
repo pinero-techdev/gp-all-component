@@ -73,8 +73,52 @@ describe('FormDropdownRelatedFieldComponent', () => {
         component.relatedField = { name: 'Frederik' };
         fixture.detectChanges();
       });
+
+      it('should update the value', () => {
+        expect(component.listAllowedValuesOptions.length).toEqual(1);
+        expect(component.relatedFieldsSelected).toHaveBeenCalled();
+        expect(component.currentValue).toBeNull();
+      });
+    });
+
+    describe('Then every related field has been selected', () => {
+      beforeEach(() => {
+        spyOn(component, 'reset').and.callThrough();
+        component.relatedFields = [FormFieldMock.fieldMetadata.displayInfo.relatedFields[0]];
+        component.formField.fieldMetadata.displayInfo.relatedFields = [
+          FormFieldMock.fieldMetadata.displayInfo.relatedFields[0],
+        ];
+        fixture.detectChanges();
+        component.relatedField = { lang: 'EN' };
+        fixture.detectChanges();
+      });
+
       it('should update the value', () => {
         expect(component.relatedFieldsSelected).toHaveBeenCalled();
+        expect(component.reset).toHaveBeenCalled();
+        expect(component.processData).toHaveBeenCalled();
+        expect(component.currentValue).toBeNull();
+        expect(component.listAllowedValuesOptions.length).toEqual(6);
+      });
+    });
+
+    describe('Then every related field has been selected but there is not data for them', () => {
+      beforeEach(() => {
+        spyOn(component, 'reset').and.callThrough();
+        component.relatedFields = [FormFieldMock.fieldMetadata.displayInfo.relatedFields[0]];
+        component.formField.fieldMetadata.displayInfo.relatedFields = [
+          FormFieldMock.fieldMetadata.displayInfo.relatedFields[0],
+        ];
+        fixture.detectChanges();
+        component.relatedField = { lang: 'NEW_VALUE' };
+        fixture.detectChanges();
+      });
+
+      it('should update the value', () => {
+        expect(component.relatedFieldsSelected).toHaveBeenCalled();
+        expect(component.reset).toHaveBeenCalled();
+        expect(component.processData).toHaveBeenCalled();
+        expect(component.listAllowedValuesOptions.length).toEqual(1);
       });
     });
 

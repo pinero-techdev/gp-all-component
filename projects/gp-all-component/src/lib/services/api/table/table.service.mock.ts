@@ -8,8 +8,23 @@ export const TableServiceMockResponse: ListRs = {
   data: [
     {
       langCodi: 'EN',
-      naciCodi: 'AFG',
-      naciDesc: 'AFGANISTAN',
+      naciCodi: 'TEST1',
+      naciDesc: 'TEST 1',
+    },
+    {
+      langCodi: 'EN',
+      naciCodi: 'TEST2',
+      naciDesc: 'TEST 2',
+    },
+    {
+      langCodi: 'EN',
+      naciCodi: 'TEST3',
+      naciDesc: 'TEST 3',
+    },
+    {
+      langCodi: 'EN',
+      naciCodi: 'TEST4',
+      naciDesc: 'TEST 4',
     },
     {
       langCodi: 'ES',
@@ -22,7 +37,7 @@ export const TableServiceMockResponse: ListRs = {
       naciDesc: 'ESPAÑA',
     },
     {
-      langCodi: 'EN-GB',
+      langCodi: 'EN',
       naciCodi: 'ENG',
       naciDesc: 'GREAT BRITAIN',
     },

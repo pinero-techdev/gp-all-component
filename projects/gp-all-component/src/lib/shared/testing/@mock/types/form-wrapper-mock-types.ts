@@ -20,29 +20,29 @@ options[2].description = 'Napoleon';
 
 const rField1 = {
   field: 'lang',
-  fieldExternal: null,
-  fieldDescription: null,
+  fieldExternal: 'langCodi',
+  fieldDescription: 'Language',
   value: null,
 } as DataTableMetaDataFieldDisplayInfoRelatedField;
 
 const rField2 = {
   field: 'name',
   fieldExternal: null,
-  fieldDescription: null,
+  fieldDescription: 'Name',
   value: null,
 } as DataTableMetaDataFieldDisplayInfoRelatedField;
 
 const rField3 = {
   field: 'surname',
   fieldExternal: null,
-  fieldDescription: null,
+  fieldDescription: 'Surname',
   value: null,
 } as DataTableMetaDataFieldDisplayInfoRelatedField;
 
 const relatedFields = [rField1, rField2, rField3];
 
 const displayInfo = new DataTableMetaDataFieldDisplayInfo(
-  'naciDesc',
+  'naciCodi',
   1,
   'TEXT',
   null,
