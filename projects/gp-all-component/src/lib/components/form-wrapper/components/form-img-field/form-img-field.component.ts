@@ -33,7 +33,7 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
   inicializa() {
     if (
       this.formField.fieldMetadata.displayInfo &&
-      this.formField.fieldMetadata.displayInfo.textProperties != null
+      this.formField.fieldMetadata.displayInfo.textProperties !== null
     ) {
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
@@ -58,19 +58,19 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
 
   copyValueFromControlToEditedRow(editedRow: any) {
     let newValue = this.currentValue;
-    if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
+    if (this.formField.fieldMetadata.displayInfo.textProperties !== null) {
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
           TableService.TEXT_UPPERCASE
         ) >= 0
       ) {
-        newValue = newValue == null ? null : newValue.toUpperCase();
+        newValue = newValue === null ? null : newValue.toUpperCase();
         this.currentValue = newValue;
       }
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(TableService.TEXT_TRIM) >= 0
       ) {
-        newValue = newValue == null ? null : newValue.trim();
+        newValue = newValue === null ? null : newValue.trim();
         this.currentValue = newValue;
       }
     }
@@ -95,7 +95,7 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
 
     // Validacion del campo.
     // a) Null?
-    if (this.formField.fieldMetadata.notNull && (valorCampo === '' || valorCampo == null)) {
+    if (this.formField.fieldMetadata.notNull && (valorCampo === '' || valorCampo === null)) {
       this.formField.validField = false;
       this.validateFieldAddMsgs('El valor es obligatorio.');
       return false;
@@ -127,7 +127,7 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
       }
     }
 
-    if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
+    if (this.formField.fieldMetadata.displayInfo.textProperties !== null) {
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
           TableService.TEXT_NO_SPACE
