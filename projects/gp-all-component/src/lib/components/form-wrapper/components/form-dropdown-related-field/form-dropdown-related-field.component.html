@@ -1,10 +1,9 @@
 <p-dropdown
   name="__field__{{ formField?.fieldMetadata.fieldName }}"
   [options]="listAllowedValuesOptions"
-  [(ngModel)]="_currentValue"
+  [(ngModel)]="currentValue"
   filter="true"
   (onChange)="onFieldChange()"
-  [disabled]="controlDisabled()"
+  [disabled]="isDisabled"
   class="ui-inputfield ui-selectonemenu-label full-width"
->
-</p-dropdown>
+></p-dropdown>

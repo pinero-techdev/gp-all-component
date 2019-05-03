@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GpFormFieldControl } from '../../resources/gp-form-field-control';
+import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
-import { GpFormField } from '../../resources/gp-form-field.model';
+import { GpFormField } from '../../resources/form-field.model';
 import { TableService } from '@lib/services/api/table/table.service';
 import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
 import { GPUtil } from '@lib/services/core/gp-util.service';
@@ -34,7 +34,7 @@ export class FormWysiwygFieldComponent extends GpFormFieldControl implements OnI
   inicializa() {
     if (
       this.formField.fieldMetadata.displayInfo &&
-      this.formField.fieldMetadata.displayInfo.textProperties != null
+      this.formField.fieldMetadata.displayInfo.textProperties !== null
     ) {
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
@@ -59,7 +59,7 @@ export class FormWysiwygFieldComponent extends GpFormFieldControl implements OnI
 
   copyValueFromControlToEditedRow(editedRow: any) {
     let newValue = this.currentValue;
-    if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
+    if (this.formField.fieldMetadata.displayInfo.textProperties !== null) {
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
           TableService.TEXT_UPPERCASE
@@ -129,7 +129,7 @@ export class FormWysiwygFieldComponent extends GpFormFieldControl implements OnI
       }
     }
 
-    if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
+    if (this.formField.fieldMetadata.displayInfo.textProperties !== null) {
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
           TableService.TEXT_NO_SPACE

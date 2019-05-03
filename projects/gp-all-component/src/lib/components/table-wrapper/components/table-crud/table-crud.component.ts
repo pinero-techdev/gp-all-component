@@ -19,10 +19,10 @@ import { FilterOperationType } from '../../../../resources/data/filter/filter-op
 import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { DataTableMetaData } from '../../../../resources/data/data-table/meta-data/data-table-meta-data.model';
-import { GpFormField } from '@lib/components/form-wrapper/resources/gp-form-field.model';
-import { GpFormControl } from '@lib/components/form-wrapper/resources/gp-form-control.model';
-import { GpFormFieldType } from '@lib/components/form-wrapper/resources/gp-form-field-type.enum';
-import { GpFormFieldControl } from '@lib/components/form-wrapper/resources/gp-form-field-control';
+import { GpFormField } from '@lib/components/form-wrapper/resources/form-field.model';
+import { GpFormControl } from '@lib/components/form-wrapper/resources/form-control.model';
+import { GpFormFieldType } from '@lib/components/form-wrapper/resources/form-field-type.enum';
+import { GpFormFieldControl } from '@lib/components/form-wrapper/resources/form-field-control.class';
 import { isNullOrUndefined } from 'util';
 
 @Component({

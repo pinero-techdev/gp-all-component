@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { GpFormFieldControl } from '../../resources/gp-form-field-control';
+import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
-import { GpFormField } from '../../resources/gp-form-field.model';
+import { GpFormField } from '../../resources/form-field.model';
 import { GPUtil } from '@lib/services/core/gp-util.service';
 import { TableService } from '@lib/services/api/table/table.service';
 import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
@@ -47,7 +47,7 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
 
     // Validacion del campo.
     // a) Null?
-    if (this.formField.fieldMetadata.notNull && (valorCampo === '' || valorCampo == null)) {
+    if (this.formField.fieldMetadata.notNull && (valorCampo === '' || valorCampo === null)) {
       this.formField.validField = false;
       this.validateFieldAddMsgs('El valor es obligatorio.');
       return false;

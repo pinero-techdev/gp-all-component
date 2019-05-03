@@ -1,3 +1,4 @@
+import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
 import { MainMenuTesterService } from './main-menu-tester/main-menu-tester.service';
 import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
@@ -16,8 +17,12 @@ import { TableFrameTesterComponent } from './table-frame-tester/table-frame-test
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
+import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
+
 @NgModule({
   declarations: [
+    DropdownTesterComponent,
+    DropdownRelatedTesterComponent,
     DynamicTesterComponent,
     ForgotPasswordTesterComponent,
     LoadingIndicatorTesterComponent,
@@ -32,6 +37,8 @@ import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.
   ],
   imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
   exports: [
+    DropdownRelatedTesterComponent,
+    DropdownTesterComponent,
     DynamicTesterComponent,
     ForgotPasswordTesterComponent,
     LoadingIndicatorTesterComponent,

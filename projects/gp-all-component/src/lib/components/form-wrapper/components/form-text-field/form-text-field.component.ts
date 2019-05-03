@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GpFormFieldControl } from '../../resources/gp-form-field-control';
+import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
-import { GpFormField } from '../../resources/gp-form-field.model';
+import { GpFormField } from '../../resources/form-field.model';
 import { TableService } from '@lib/services/api/table/table.service';
 import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
 import { GPUtil } from '@lib/services/core/gp-util.service';
@@ -36,7 +36,7 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
   inicializa() {
     if (
       this.formField.fieldMetadata.displayInfo &&
-      this.formField.fieldMetadata.displayInfo.textProperties != null
+      this.formField.fieldMetadata.displayInfo.textProperties !== null
     ) {
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
@@ -61,19 +61,19 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
 
   copyValueFromControlToEditedRow(editedRow: any) {
     let newValue = this.currentValue;
-    if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
+    if (this.formField.fieldMetadata.displayInfo.textProperties !== null) {
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
           TableService.TEXT_UPPERCASE
         ) >= 0
       ) {
-        newValue = newValue == null ? null : newValue.toUpperCase();
+        newValue = newValue === null ? null : newValue.toUpperCase();
         this.currentValue = newValue;
       }
       if (
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(TableService.TEXT_TRIM) >= 0
       ) {
-        newValue = newValue == null ? null : newValue.trim();
+        newValue = newValue === null ? null : newValue.trim();
         this.currentValue = newValue;
       }
     }
@@ -85,8 +85,8 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
     // Si tiene traducción, recogemos todos los valores de los campos que actuan como
     // identificadores y los juntamos para crear el identificador de la tabla de traducciones
     if (
-      this.formField.fieldMetadata.displayInfo.translationInfo != null &&
-      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields != null
+      this.formField.fieldMetadata.displayInfo.translationInfo !== null &&
+      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields !== null
     ) {
       this.translationKeys = '';
       for (const keyField of this.formField.fieldMetadata.displayInfo.translationInfo.keyFields) {
@@ -109,7 +109,7 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
 
     // Validacion del campo.
     // a) Null?
-    if (this.formField.fieldMetadata.notNull && (valorCampo === '' || valorCampo == null)) {
+    if (this.formField.fieldMetadata.notNull && (valorCampo === '' || valorCampo === null)) {
       this.formField.validField = false;
       this.validateFieldAddMsgs('El valor es obligatorio.');
       return false;
@@ -142,7 +142,7 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
     }
 
     if (!this.formField.fieldMetadata.allowAscii) {
-      if (this.formField.fieldMetadata.displayInfo.textProperties != null) {
+      if (this.formField.fieldMetadata.displayInfo.textProperties !== null) {
         if (
           this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
             TableService.TEXT_NO_SPACE

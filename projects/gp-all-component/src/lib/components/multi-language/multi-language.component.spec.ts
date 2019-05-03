@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './../../shared/shared.module';
 import { LoadingIndicatorComponent } from './../loading-indicator/loading-indicator.component';
-import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
+import { TestingMockEvents } from '@lib/shared/testing/@mock/utils/testing-mock-events.class';
 import {
   MultiLanguageServiceMock, //
 } from '@lib/services/api/multi-language/multi-language.service.mock';

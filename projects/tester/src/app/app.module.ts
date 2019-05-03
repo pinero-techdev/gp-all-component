@@ -7,8 +7,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 @NgModule({
-    declarations: [AppComponent],
-    imports: [BrowserModule, CommonModule, SharedModule, FormsModule, HomeModule, AppRoutingModule],
-    bootstrap: [AppComponent],
+  declarations: [AppComponent],
+  imports: [BrowserModule, CommonModule, SharedModule, FormsModule, HomeModule, AppRoutingModule],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

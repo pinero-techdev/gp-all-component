@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgotPasswordRq } from '@lib/services/api/forgot-password/forgot-password.service';
-import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
+import { TestingMockEvents } from '@lib/shared/testing/@mock/utils/testing-mock-events.class';
 import {
   ForgotPasswordServiceMock, //
 } from '@lib/services/api/forgot-password/forgot-password.service.mock';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '@lib/shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ForgotPasswordService } from '@lib/services/api/forgot-password/forgot-password.service';
-import { testingVars } from '@lib/shared/testing/testing-mock-constants.class';
+import { TestingVars } from '@lib/shared/testing/@mock/utils/testing-mock-constants.class';
 import { Router, Routes, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -169,9 +169,9 @@ describe('ForgotPasswordComponent', () => {
   describe('Given an incompleted form - no username', () => {
     beforeEach(() => {
       component.username = '';
-      component.password = testingVars.PASSWORD;
-      component.passwordRep = testingVars.PASSWORD;
-      component.passwordOld = testingVars.PASSWORD_OLD;
+      component.password = TestingVars.PASSWORD;
+      component.passwordRep = TestingVars.PASSWORD;
+      component.passwordOld = TestingVars.PASSWORD_OLD;
       fixture.detectChanges();
     });
 
@@ -186,10 +186,10 @@ describe('ForgotPasswordComponent', () => {
 
   describe('Given an incompleted form - no password', () => {
     beforeEach(() => {
-      component.username = testingVars.USERNAME;
+      component.username = TestingVars.USERNAME;
       component.password = '';
-      component.passwordRep = testingVars.PASSWORD;
-      component.passwordOld = testingVars.PASSWORD_OLD;
+      component.passwordRep = TestingVars.PASSWORD;
+      component.passwordOld = TestingVars.PASSWORD_OLD;
       fixture.detectChanges();
     });
 
@@ -204,10 +204,10 @@ describe('ForgotPasswordComponent', () => {
 
   describe('Given an incompleted form - no password rep', () => {
     beforeEach(() => {
-      component.username = testingVars.USERNAME;
-      component.password = testingVars.PASSWORD;
+      component.username = TestingVars.USERNAME;
+      component.password = TestingVars.PASSWORD;
       component.passwordRep = '';
-      component.passwordOld = testingVars.PASSWORD_OLD;
+      component.passwordOld = TestingVars.PASSWORD_OLD;
       fixture.detectChanges();
     });
 
@@ -222,9 +222,9 @@ describe('ForgotPasswordComponent', () => {
 
   describe('Given an incompleted form - no password old', () => {
     beforeEach(() => {
-      component.username = testingVars.USERNAME;
-      component.password = testingVars.PASSWORD;
-      component.passwordRep = testingVars.PASSWORD;
+      component.username = TestingVars.USERNAME;
+      component.password = TestingVars.PASSWORD;
+      component.passwordRep = TestingVars.PASSWORD;
       component.passwordOld = '';
       fixture.detectChanges();
     });
@@ -240,10 +240,10 @@ describe('ForgotPasswordComponent', () => {
 
   describe('Given an incorrect filled form', () => {
     beforeEach(() => {
-      component.username = testingVars.USERNAME;
-      component.password = testingVars.PASSWORD;
+      component.username = TestingVars.USERNAME;
+      component.password = TestingVars.PASSWORD;
       component.passwordRep = '-';
-      component.passwordOld = testingVars.PASSWORD_OLD;
+      component.passwordOld = TestingVars.PASSWORD_OLD;
       fixture.detectChanges();
     });
 
@@ -258,18 +258,18 @@ describe('ForgotPasswordComponent', () => {
 
   describe('Given a correct filled form', () => {
     beforeEach(() => {
-      component.username = testingVars.USERNAME;
-      component.password = testingVars.PASSWORD;
-      component.passwordRep = testingVars.PASSWORD;
-      component.passwordOld = testingVars.PASSWORD_OLD;
+      component.username = TestingVars.USERNAME;
+      component.password = TestingVars.PASSWORD;
+      component.passwordRep = TestingVars.PASSWORD;
+      component.passwordOld = TestingVars.PASSWORD_OLD;
       fixture.detectChanges();
     });
 
     it('should call to API Service and everything is ok', () => {
       const request = new ForgotPasswordRq(
-        testingVars.USERNAME,
-        testingVars.PASSWORD_OLD,
-        testingVars.PASSWORD
+        TestingVars.USERNAME,
+        TestingVars.PASSWORD_OLD,
+        TestingVars.PASSWORD
       );
       $submit.click();
       expect(router.navigate).toHaveBeenCalledWith([nextRoute]);
@@ -284,8 +284,8 @@ describe('ForgotPasswordComponent', () => {
       fixture.detectChanges();
       const request = new ForgotPasswordRq(
         username,
-        testingVars.PASSWORD_OLD,
-        testingVars.PASSWORD
+        TestingVars.PASSWORD_OLD,
+        TestingVars.PASSWORD
       );
       $submit.click();
       expect(router.navigate).not.toHaveBeenCalled();
@@ -301,8 +301,8 @@ describe('ForgotPasswordComponent', () => {
       fixture.detectChanges();
       const request = new ForgotPasswordRq(
         username,
-        testingVars.PASSWORD_OLD,
-        testingVars.PASSWORD
+        TestingVars.PASSWORD_OLD,
+        TestingVars.PASSWORD
       );
       $submit.click();
       expect(router.navigate).not.toHaveBeenCalled();

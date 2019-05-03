@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             } else {
               this.router.navigate(['login']);
               let errorMessage = 'Ha ocurrido un error';
-              if (data.error != null && data.error.errorMessage != null) {
+              if (data.error !== null && data.error.errorMessage !== null) {
                 errorMessage = data.error.errorMessage.toString();
               }
               this.showError(errorMessage);

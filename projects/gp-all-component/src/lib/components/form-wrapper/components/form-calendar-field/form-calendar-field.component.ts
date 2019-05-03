@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { GpFormFieldControl } from '../../resources/gp-form-field-control';
-import { GpFormField } from '../../resources/gp-form-field.model';
+import { GpFormFieldControl } from '../../resources/form-field-control.class';
+import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GPUtil } from '../../../../services/core/gp-util.service';
 
@@ -87,7 +87,7 @@ export class FormCalendarFieldComponent extends GpFormFieldControl {
     this.formField.fieldMsgs = null;
     const inputValue = editedRow[this.formField.fieldMetadata.fieldName];
 
-    if (this.formField.fieldMetadata.notNull && (inputValue === '' || inputValue == null)) {
+    if (this.formField.fieldMetadata.notNull && (inputValue === '' || inputValue === null)) {
       this.formField.validField = false;
       this.validateFieldAddMsgs('El valor es obligatorio.');
       return false;
