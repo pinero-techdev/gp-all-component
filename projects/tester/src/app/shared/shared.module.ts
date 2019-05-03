@@ -23,6 +23,7 @@ import { TableFrameTesterComponent } from './table-frame-tester/table-frame-test
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
+import { FormCheckboxFieldTesterComponent } from './form-checkbox-field-tester/form-checkbox-field-tester.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.compo
     DropdownRelatedTesterComponent,
     DynamicTesterComponent,
     ForgotPasswordTesterComponent,
+    FormCheckboxFieldTesterComponent,
     LoadingIndicatorTesterComponent,
     LoginTesterComponent,
     MainMenuTesterComponent,
@@ -45,6 +47,7 @@ import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.compo
     DropdownTesterComponent,
     DynamicTesterComponent,
     ForgotPasswordTesterComponent,
+    FormCheckboxFieldTesterComponent,
     LoadingIndicatorTesterComponent,
     LoginTesterComponent,
     MainMenuTesterComponent,

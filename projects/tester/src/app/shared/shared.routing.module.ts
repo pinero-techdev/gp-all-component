@@ -13,6 +13,7 @@ import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-t
 import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
+import { FormCheckboxFieldTesterComponent } from './form-checkbox-field-tester/form-checkbox-field-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -70,6 +71,10 @@ export const appRoutes: Routes = [
   {
     path: 'dropdown-related-tester',
     component: DropdownRelatedTesterComponent,
+  },
+  {
+    path: 'form-checkbox-field-tester',
+    component: FormCheckboxFieldTesterComponent,
   },
 ];
 
