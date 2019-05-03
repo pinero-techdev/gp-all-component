@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+  ViewChildren,
+  ElementRef,
+  AfterViewChecked,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { GPUtil } from '../../../../services/core/gp-util.service';
@@ -30,7 +39,7 @@ import { isNullOrUndefined } from 'util';
   templateUrl: './table-crud.component.html',
   styleUrls: ['./table-crud.component.scss'],
 })
-export class TableCrudComponent {
+export class TableCrudComponent implements AfterViewChecked {
   /**
    * Editing table name
    */
@@ -203,8 +212,15 @@ export class TableCrudComponent {
     private readonly _router: Router,
     private readonly _tableService: TableService,
     private readonly _gpUtil: GPUtil,
+    private _el: ElementRef,
     private readonly _messagesService: MessagesService
   ) {}
+
+  ngAfterViewChecked() {
+    if (this._el.nativeElement.querySelector('.ui-table-tbody')) {
+      this.applyStickyShadow('.ui-table-tbody', '.ui-table-wrapper');
+    }
+  }
 
   /**
    * Initializes table with given name
@@ -624,6 +640,24 @@ export class TableCrudComponent {
   changeEvent(info: InfoCampoModificado): void {
     this.fieldsChanged[info.field] = info.value;
     this.fieldsChanged = Object.assign({}, this.fieldsChanged);
+  }
+
+  /**
+   * Apply sticky shadow
+   * @param tableElementBody Element body
+   * @param tableElementWrapper Element wrapper
+   */
+  applyStickyShadow(tableElementBody, tableElementWrapper) {
+    const tableBody = this._el.nativeElement.querySelector(tableElementBody);
+    const tableWrapper = this._el.nativeElement.querySelector(tableElementWrapper);
+    const tableBodyVisibleWidth = tableBody.offsetWidth;
+    const tableWrapperWidth = tableWrapper.offsetWidth;
+
+    if (tableWrapperWidth < tableBodyVisibleWidth) {
+      tableWrapper.classList.add('shadowSticky');
+    } else {
+      tableWrapper.classList.remove('shadowSticky');
+    }
   }
 
   /**
