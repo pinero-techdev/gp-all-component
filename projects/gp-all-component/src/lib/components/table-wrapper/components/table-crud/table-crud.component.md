@@ -4,8 +4,6 @@
 
 ### Example component usage:
 
-`app.component.html`
-
 ```html
 <gp-app-table-crud
   tableName="TABLE_BPG_RMK"
@@ -25,21 +23,21 @@
   /**
    * Emits an event on row selection
    */
-  @Output() rowSelected
+  @Output() rowSelected: Object
 ```
 
 ```typescript
   /**
    * Emits an event on dialog close action
    */
-  @Output() closedDialog
+  @Output() closedDialog: boolean
 ```
 
 ```typescript
   /**
    * Emits an event on row changes
    */
-  @Output() changes
+  @Output() changes: boolean
 ```
 
 ```typescript
