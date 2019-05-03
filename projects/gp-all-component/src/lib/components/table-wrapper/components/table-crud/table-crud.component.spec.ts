@@ -28,12 +28,12 @@ import moment = require('moment');
 import { MessagesService } from '@lib/services/core/messages.service';
 import { Router } from '@angular/router';
 import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper-mock-types';
-import { GpFormField } from '@lib/components/form-wrapper/resources/gp-form-field.model';
-import { GpFormFieldType } from '@lib/components/form-wrapper/resources/gp-form-field-type.enum';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { take } from 'rxjs/operators';
 import { CommonRs } from '@lib/services/core/common.service';
 import { InfoCampoModificado } from '@lib/resources/data/info-campo-modificado.model';
+import { GpFormFieldType } from '@lib/components/form-wrapper/resources/form-field-type.enum';
+import { GpFormField } from '@lib/components/form-wrapper/resources/form-field.model';
 
 describe('TableCrudComponent', () => {
   let component: TableCrudComponent;
