@@ -10,7 +10,7 @@ import { MainMenuComponent } from './../main-menu/main-menu.component';
 import { MainMenuService } from './../../services/api/main-menu/main-menu.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from './../../shared/shared.module';
-import { TestingMockEvents } from './../../shared/testing/testing-mock-events.class';
+import { TestingMockEvents } from '../../shared/testing/@mock/utils/testing-mock-events.class';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 

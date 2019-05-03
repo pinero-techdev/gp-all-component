@@ -1,3 +1,4 @@
+import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
 import { ForgotPasswordTesterComponent } from './forgot-password-tester/forgot-password-tester.component';
@@ -11,6 +12,7 @@ import { RatingTesterComponent } from './rating-tester/rating-tester.component';
 import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
 import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
+import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -60,6 +62,14 @@ export const appRoutes: Routes = [
   {
     path: 'foo',
     component: FooTesterComponent,
+  },
+  {
+    path: 'dropdown-tester',
+    component: DropdownTesterComponent,
+  },
+  {
+    path: 'dropdown-related-tester',
+    component: DropdownRelatedTesterComponent,
   },
 ];
 

@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LoginService } from '@lib/services/api/login/login.service';
 import { LoginServiceMock } from '@lib/services/api/login/login.service.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TestingMockEvents } from '@lib/shared/testing/testing-mock-events.class';
+import { TestingMockEvents } from '@lib/shared/testing/@mock/utils/testing-mock-events.class';
 import { throwError, of } from 'rxjs';
 import { Router, Routes } from '@angular/router';
 import { UserInfo } from '@lib/resources/data/user-info.model';
