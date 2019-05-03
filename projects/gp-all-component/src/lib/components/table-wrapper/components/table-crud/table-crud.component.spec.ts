@@ -533,7 +533,15 @@ describe('TableCrudComponent', () => {
       const mockedFormField = {
         ...FormFieldMock,
         formFieldType: 'gp-form-text-field',
-        fieldMetadata: { notNull: true, displayInfo: { fieldLabel: '' } },
+        fieldMetadata: {
+          ...FormFieldMock.fieldMetadata,
+          hideInAddOperation: false,
+          notNull: true,
+          displayInfo: {
+            ...FormFieldMock.fieldMetadata.displayInfo,
+            fieldLabel: '',
+          },
+        },
       } as GpFormField;
 
       const tableName = 'TEST';
@@ -560,7 +568,7 @@ describe('TableCrudComponent', () => {
 
       component.onDialogSave();
 
-      expect(component.formControl.lockFields).toBeFalsy();
+      expect(component.formControl.lockFields).toBeTruthy();
     });
 
     describe('on call to component update row method', () => {
