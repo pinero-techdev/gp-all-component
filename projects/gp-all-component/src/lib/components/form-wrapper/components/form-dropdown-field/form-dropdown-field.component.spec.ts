@@ -1,3 +1,4 @@
+import { MockTranslateLoader } from './../../../../shared/testing/@mock/utils/testing-mock-translate.class';
 import { TableServiceMockResponse } from './../../../../services/api/table/table.service.mock';
 import { TestingErrorCodeMock } from './../../../../shared/testing/@mock/utils/testing-mock-constants.class';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -11,8 +12,9 @@ import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapp
 import { InfoCampoModificado } from '@lib/resources/data/info-campo-modificado.model';
 import { TableServiceMock } from '@lib/services/api/table/table.service.mock';
 import { TableService } from '@lib/services/api/table/table.service';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
-describe('FormDropdownFieldComponent', () => {
+fdescribe('FormDropdownFieldComponent', () => {
   let component: FormDropdownFieldComponent;
   let fixture: ComponentFixture<FormDropdownFieldComponent>;
   let tableService: TableService;
@@ -20,9 +22,16 @@ describe('FormDropdownFieldComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FormDropdownFieldComponent],
-      imports: [FormWrapperSharedModules, HttpClientTestingModule],
+      imports: [
+        FormWrapperSharedModules,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: MockTranslateLoader },
+        }),
+        HttpClientTestingModule,
+      ],
       providers: [
         FormWrapperSharedProviders,
+        TranslateService,
         { provide: TableService, useClass: TableServiceMock },
       ],
     }).compileComponents();

@@ -2,6 +2,9 @@
  * Public API Surface of gp-all-component
  */
 
+// Locale i18n
+export * from './lib/resources/localization/es-ES.lang';
+
 // Services
 export * from './lib/services/api/multi-language/multi-language.service';
 export * from './lib/services/api/main-menu/main-menu.service';
@@ -10,6 +13,7 @@ export * from './lib/services/core/gp-util.service';
 
 // Classes & Types
 export * from './lib/resources/constants/language-order.constant';
+
 // Components
 export * from './lib/components/main-menu/main-menu.component';
 export * from './lib/components/multi-language/multi-language.component';

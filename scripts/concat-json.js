@@ -53,7 +53,7 @@ function readJsonFile(filePath) {
 }
 
 /**
- * Create a new json/object using filename as key for files content.
+ * Create a new json/object.
  * @param {String} filepath - The filepath to the source json file.
  */
 function concatJson(filePath) {

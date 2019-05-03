@@ -1,3 +1,4 @@
+import { LocaleES } from '@lib/resources/localization/es-ES.lang';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { InfoCampoModificado } from '@lib/resources/data/info-campo-modificado.model';
@@ -53,11 +54,13 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
         this.formField.fieldMetadata.displayInfo.options &&
         this.formField.fieldMetadata.displayInfo.options.length
       ) {
+        const label =
+          LocaleES.SELECT +
+          this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase() +
+          '...';
+
         this.listAllowedValuesOptions.push({
-          label:
-            'Seleccione ' +
-            this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase() +
-            ' ...',
+          label,
           value: null,
         });
         for (const i of this.formField.fieldMetadata.displayInfo.options) {
@@ -68,9 +71,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
         this.formField.fieldMetadata.displayInfo.referencedTable
       ) {
         // Cargamos los datos de una tabla?
-        this.listAllowedValuesOptions = [
-          { label: 'Cargando los datos del desplegable ...', value: null },
-        ];
+        this.listAllowedValuesOptions = [{ label: LocaleES.LOADING_DROPDOWN_DATA, value: null }];
 
         const fieldToOrderBy = this.formField.fieldMetadata.displayInfo.fieldToOrderBy
           ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy]
@@ -92,7 +93,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
                 this.listAllowedValuesOptions = [
                   {
                     label:
-                      'Seleccione ' +
+                      LocaleES.SELECT +
                       this.formField.fieldMetadata.displayInfo.fieldLabel //
                         .toLowerCase() +
                       ' ...',
@@ -114,12 +115,14 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
                 }
               } else {
                 this.listAllowedValuesOptions = [
-                  { label: 'Error recuperando datos.', value: null },
+                  { label: LocaleES.AN_ERROR_HAS_OCURRED, value: null },
                 ];
               }
             },
             (err) => {
-              this.listAllowedValuesOptions = [{ label: 'Error recuperando datos.', value: null }];
+              this.listAllowedValuesOptions = [
+                { label: LocaleES.AN_ERROR_HAS_OCURRED, value: null },
+              ];
             }
           );
       }
