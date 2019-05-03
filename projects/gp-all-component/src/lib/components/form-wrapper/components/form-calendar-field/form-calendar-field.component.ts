@@ -87,7 +87,7 @@ export class FormCalendarFieldComponent extends GpFormFieldControl {
     this.formField.fieldMsgs = null;
     const inputValue = editedRow[this.formField.fieldMetadata.fieldName];
 
-    if (this.formField.fieldMetadata.notNull && (inputValue === '' || inputValue == null)) {
+    if (this.formField.fieldMetadata.notNull && (inputValue === '' || inputValue === null)) {
       this.formField.validField = false;
       this.validateFieldAddMsgs('El valor es obligatorio.');
       return false;

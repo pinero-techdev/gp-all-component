@@ -163,7 +163,7 @@ export class TableCrudComponent {
       )
       .subscribe(
         (data) => {
-          const requestError = !data.ok && data.error != null && data.error.errorMessage != null;
+          const requestError = !data.ok && data.error !== null && data.error.errorMessage !== null;
 
           if (requestError) {
             const expiredSession =
@@ -195,7 +195,11 @@ export class TableCrudComponent {
    * @param fieldsToOrderBy Optional list of fields to order by
    */
   cambiaTabla(tableName: string, fieldsToOrderBy?: string[]): void {
-    if (this.tableName != null && tableName === this.tableName && this.rowSelectedFilters == null) {
+    if (
+      this.tableName !== null &&
+      tableName === this.tableName &&
+      this.rowSelectedFilters === null
+    ) {
       this.working = false;
       return;
     }
@@ -210,7 +214,7 @@ export class TableCrudComponent {
     this.dialogErrors = false;
     this.filters = [];
 
-    if (this.rowSelectedFilters != null) {
+    if (this.rowSelectedFilters !== null) {
       this.filters = this.rowSelectedFilters;
     }
 
@@ -222,7 +226,7 @@ export class TableCrudComponent {
       )
       .subscribe(
         (data) => {
-          const requestError = !data.ok && data.error != null && data.error.errorMessage != null;
+          const requestError = !data.ok && data.error !== null && data.error.errorMessage !== null;
 
           const expiredSession =
             data.error.errorMessage === 'No se ha establecido sesion o se ha perdido.';
@@ -315,7 +319,7 @@ export class TableCrudComponent {
   calcFieldType(formField: GpFormField) {
     const fieldType = this.matchFieldType(formField);
 
-    if (fieldType != null) {
+    if (fieldType !== null) {
       formField.formFieldType = fieldType;
       return;
     }
@@ -474,7 +478,7 @@ export class TableCrudComponent {
         const filter: Filter = self._gpUtil.getElementFromArray(self.filters, 'field', fieldName);
 
         if (
-          filter != null &&
+          filter !== null &&
           filter.op === FilterOperationType.EQUAL &&
           filter.values.length === 1
         ) {

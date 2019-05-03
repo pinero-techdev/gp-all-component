@@ -96,10 +96,10 @@ export class TableService extends CommonService {
     let fieldsToOrder = null;
     let filtersRq = null;
 
-    if (ordered != null) {
+    if (ordered !== null) {
       order = ordered;
     }
-    if (fieldsToOrderBy != null) {
+    if (fieldsToOrderBy !== null) {
       fieldsToOrder = fieldsToOrderBy;
     }
     if (filters) {
@@ -127,10 +127,10 @@ export class TableService extends CommonService {
     let fieldsToOrder = null;
     let filtersRq = null;
 
-    if (ordered != null) {
+    if (ordered !== null) {
       order = ordered;
     }
-    if (fieldsToOrderBy != null) {
+    if (fieldsToOrderBy !== null) {
       fieldsToOrder = fieldsToOrderBy;
     }
     if (filters) {

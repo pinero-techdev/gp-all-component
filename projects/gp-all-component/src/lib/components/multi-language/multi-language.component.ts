@@ -62,7 +62,7 @@ export class MultiLanguageComponent implements OnInit {
               translations = this.sortTranslations(data.translations, LANGUAGE_ORDER);
             }
             this.translations = translations;
-          } else if (data.error != null) {
+          } else if (data.error !== null) {
             console.error(data.error.internalErrorMessage);
           }
         },
@@ -109,7 +109,7 @@ export class MultiLanguageComponent implements OnInit {
           (data: any) => {
             if (data.ok) {
               // TODO:
-            } else if (data.error != null) {
+            } else if (data.error !== null) {
               console.error(data.error.internalErrorMessage);
             }
           },
@@ -121,7 +121,7 @@ export class MultiLanguageComponent implements OnInit {
 
   hasHTMLContent(traduccion: string): boolean {
     return (
-      traduccion != null &&
+      traduccion !== null &&
       (traduccion.indexOf('</') !== -1 ||
         traduccion.indexOf('/>') !== -1 ||
         traduccion.indexOf('&lt;') !== -1 ||
@@ -137,7 +137,7 @@ export class MultiLanguageComponent implements OnInit {
     this.text = new Translation(
       traduccion.langCode,
       traduccion.langCountry,
-      traduccion.langCountryTranslation != null ? traduccion.langCountryTranslation : ''
+      traduccion.langCountryTranslation !== null ? traduccion.langCountryTranslation : ''
     );
     if (this.isEditing) {
       this.showTranslations = false;

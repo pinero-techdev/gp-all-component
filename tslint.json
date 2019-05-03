@@ -11,7 +11,7 @@
     "import-blacklist": [true, "rxjs/Rx"],
     "interface-name": false,
     "max-classes-per-file": false,
-    "triple-equals": false,
+    "triple-equals": true,
     "max-line-length": [
       true,
       {
