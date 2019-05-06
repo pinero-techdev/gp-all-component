@@ -8,24 +8,28 @@ class TestingUnsubscribeSpec {
   subscription: Subscription = null;
 
   initTake() {
-    this.subscription = this.observable1.pipe(take(1)).subscribe((x) => console.log('first: ' + x));
+    this.subscription = this.observable1
+      .pipe(take(1))
+      .subscribe((x) => console.info('first: ' + x));
     const childSubscription = this.observable2
       .pipe(take(1))
-      .subscribe((x) => console.log('second: ' + x));
+      .subscribe((x) => console.info('second: ' + x));
     this.subscription.add(childSubscription);
   }
 
   initFirst() {
-    this.subscription = this.observable1.pipe(first()).subscribe((x) => console.log('first: ' + x));
+    this.subscription = this.observable1
+      .pipe(first())
+      .subscribe((x) => console.info('first: ' + x));
     const childSubscription = this.observable2
       .pipe(first())
-      .subscribe((x) => console.log('second: ' + x));
+      .subscribe((x) => console.info('second: ' + x));
     this.subscription.add(childSubscription);
   }
 
   init() {
-    this.subscription = this.observable1.subscribe((x) => console.log('first: ' + x));
-    const childSubscription = this.observable2.subscribe((x) => console.log('second: ' + x));
+    this.subscription = this.observable1.subscribe((x) => console.info('first: ' + x));
+    const childSubscription = this.observable2.subscribe((x) => console.info('second: ' + x));
     this.subscription.add(childSubscription);
   }
 }
