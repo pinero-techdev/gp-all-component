@@ -8,7 +8,7 @@ import {
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper-mock-types';
 // import { GpFormField } from '../../resources/form-field.model';
 
-fdescribe('FormCheckboxFieldComponent', () => {
+describe('FormCheckboxFieldComponent', () => {
   let component: FormCheckboxFieldComponent;
   let fixture: ComponentFixture<FormCheckboxFieldComponent>;
   // let formField: GpFormField;
