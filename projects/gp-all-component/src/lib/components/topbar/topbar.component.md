@@ -1,8 +1,8 @@
-# TopBar
+# TopBar #
 
-## Features information about logged user and the option to logout.
+## Features information about logged user and the option to logout. ##
 
-## Component usage:
+## Component usage: ##
 
 `app.component.html`
 
@@ -11,9 +11,9 @@
 
 ```
 
-### Component props
+### Component props ###
 
-> :boom: Those props are unused and removed
+> Those props are unused and removed
 
 ```typescript
 @Input() homeUrl: string;

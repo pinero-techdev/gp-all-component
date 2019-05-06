@@ -1,3 +1,4 @@
+import { LocaleES } from './../../resources/localization/es-ES.lang';
 import { MessagesService } from './../../services/core/messages.service';
 import { LANGUAGE_ORDER } from './../../resources/constants/language-order.constant';
 import {
@@ -43,9 +44,7 @@ export class MultiLanguageComponent implements OnInit {
     if (this.pKey) {
       this.getTranslations();
     } else {
-      this.messagesService.showErrorAlert(
-        'Debe guardar primero el registro para ' + 'poder insertar o visualizar las traducciones.'
-      );
+      this.messagesService.showErrorAlert(LocaleES.YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS);
     }
   }
 

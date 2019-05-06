@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '@lib/services/api/login/login.service';
 import { CommonRs } from '@lib/services/core/common.service';
 import { GlobalService } from '@lib/services/core/global.service';
+import { LocaleES } from '@lib/resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-topbar',
@@ -17,13 +18,14 @@ export class TopbarComponent implements OnInit {
   @ViewChild('menuUser') menuUser: ElementRef;
   @ViewChild('userMobileButton') userMobileButton: ElementRef;
 
-  public itemsUserMenu: MenuItem[];
-
-  @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   display = false;
+  readonly locale = LocaleES;
+  classShowMenuButton = 'Fright ShowOnMobile ripplelink Unselectable ShadowEffect';
+  itemsUserMenu: MenuItem[];
   showMenu = false;
   userMenuVisible = false;
-  classShowMenuButton = 'Fright ShowOnMobile ripplelink Unselectable ShadowEffect';
+
+  @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
 
   constructor(private router: Router, private loginService: LoginService) {}
 

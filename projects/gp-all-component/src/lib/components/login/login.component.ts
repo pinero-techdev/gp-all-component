@@ -1,3 +1,4 @@
+import { LocaleES } from '@lib/resources/localization/es-ES.lang';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { GlobalService } from './../../services/core/global.service';
 import { LoginService, LoginRq } from './../../services/api/login/login.service';
@@ -12,20 +13,14 @@ import { Subject } from 'rxjs';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  username: string;
-  password: string;
-  url: string;
   msgs: Message[] = [];
+  password: string;
+  title: string = null;
+  url: string;
+  username: string;
   working = false;
 
-  passwordErrors: string[] = [
-    'Su clave ha caducado, tiene que cambiar la clave de acceso.',
-    'Es el último día para cambiar su clave ¿Desea cambiarla ahora?',
-    'Su clave ha caducado hace 1 día, tiene que cambiar la clave de acceso.',
-    'Su clave caduca hoy, ¿Desea cambiarla ahora?',
-    'Falta un día para que su clave caduque, ¿Desea cambiarla ahora?',
-    'Faltan dos días para que su clave caduque, ¿Desea cambiarla ahora?',
-  ];
+  readonly locale = LocaleES;
 
   private isDestroyed: Subject<boolean> = new Subject<boolean>();
 
@@ -35,6 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {
     GlobalService.setLogged(false);
+    this.title = GlobalService.getAPPLICATION_TITLE();
   }
 
   ngOnInit() {
@@ -44,10 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.isDestroyed.next(true);
     this.isDestroyed.unsubscribe();
-  }
-
-  getApplicationTitle() {
-    return GlobalService.getAPPLICATION_TITLE();
   }
 
   login(urlToRedirect?: string, otherParams?: string) {
@@ -91,7 +83,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               }
             } else {
               this.router.navigate(['login']);
-              let errorMessage = 'Ha ocurrido un error';
+              let errorMessage = LocaleES.AN_ERROR_HAS_OCURRED;
               if (data.error !== null && data.error.errorMessage !== null) {
                 errorMessage = data.error.errorMessage.toString();
               }
@@ -100,11 +92,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           },
           (err) => {
             console.error(err);
-            this.showError('Ha ocurrido un error');
+            this.showError(LocaleES.AN_ERROR_HAS_OCURRED);
           }
         );
     } else {
-      this.showError('Los campos username y password deben tener un valor válido.');
+      this.showError(LocaleES.USERNAME_PASS_SHOULD_CORRECT_VALUE);
     }
   }
 
@@ -112,7 +104,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.msgs = [];
     this.msgs.push({
       severity: 'error',
-      summary: 'Se ha producido un error: ',
+      summary: LocaleES.AN_ERROR_HAS_OCURRED,
       detail: message,
     });
   }
