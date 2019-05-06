@@ -20,7 +20,7 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl {
   }
 
   getFieldMetadata(): DataTableMetaDataField {
-    return this.formField.fieldMetadata;
+    return this.formField ? this.formField.fieldMetadata : null;
   }
 
   copyValueFromControlToEditedRow(editedRow: any) {
@@ -35,10 +35,12 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl {
       editedRow[this.formField.fieldMetadata.fieldName];
   }
 
-  validateField(editedRow: any) {
-    // Un checkbox siempre es valido.
-    this.formField.validField = true;
-    this.formField.fieldMsgs = null;
-    return this.formField.validField;
+  validateField(editedRow: any = null) {
+    // A checkbox is always valid.
+    if (this.formField !== undefined) {
+      this.formField.validField = true;
+      this.formField.fieldMsgs = null;
+      return this.formField.validField;
+    }
   }
 }

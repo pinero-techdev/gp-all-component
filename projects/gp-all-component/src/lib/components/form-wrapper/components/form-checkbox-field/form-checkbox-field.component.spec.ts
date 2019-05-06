@@ -6,12 +6,12 @@ import {
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper-mock-types';
-import { GpFormField } from '../../resources/form-field.model';
+// import { GpFormField } from '../../resources/form-field.model';
 
-describe('FormCheckboxFieldComponent', () => {
+fdescribe('FormCheckboxFieldComponent', () => {
   let component: FormCheckboxFieldComponent;
   let fixture: ComponentFixture<FormCheckboxFieldComponent>;
-  let formField: GpFormField;
+  // let formField: GpFormField;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,12 +24,60 @@ describe('FormCheckboxFieldComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FormCheckboxFieldComponent);
     component = fixture.componentInstance;
-    formField = FormFieldMock;
-    component.formField = formField;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('When formField is undefined', () => {
+    beforeEach(() => {
+      component.formField = undefined;
+      fixture.detectChanges();
+    });
+
+    it('should not have metadata', () => {
+      expect(component.getFieldMetadata()).toBeNull();
+    });
+
+    describe('Then validateField is called', () => {
+      let returnedValue: boolean;
+
+      beforeEach(() => {
+        returnedValue = component.validateField();
+        fixture.detectChanges();
+      });
+
+      it('should return true', () => {
+        expect(returnedValue).toBeUndefined();
+        expect(component.formField).toBeUndefined();
+      });
+    });
+  });
+
+  describe('When formField is filled', () => {
+    beforeEach(() => {
+      component.formField = FormFieldMock;
+      fixture.detectChanges();
+    });
+
+    it('should have metadata', () => {
+      expect(component.getFieldMetadata()).not.toBeNull();
+    });
+
+    describe('Then validateField is called', () => {
+      let returnedValue: boolean;
+
+      beforeEach(() => {
+        returnedValue = component.validateField();
+        fixture.detectChanges();
+      });
+
+      it('should return true', () => {
+        expect(returnedValue).toBeTruthy();
+        expect(component.formField).not.toBeUndefined();
+        expect(component.formField.fieldMsgs).toBeNull();
+      });
+    });
   });
 });
