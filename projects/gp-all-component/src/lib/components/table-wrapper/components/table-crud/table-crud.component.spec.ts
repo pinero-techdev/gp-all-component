@@ -74,13 +74,17 @@ describe('TableCrudComponent', () => {
   });
 
   describe('on new given filter or options', () => {
-    it('should reset properties and set filters', () => {
-      const mockFilters = [
+    let mockFilters: Filter[];
+    let mockFieldsToOrderBy: string[];
+
+    beforeEach(() => {
+      mockFilters = [
         new Filter(FilterOperationType.GTE, 'fecHasta', [moment().format('YYYY-MM-DD')]),
       ];
+      mockFieldsToOrderBy = ['codTurno'];
+    });
 
-      const mockFieldsToOrderBy = ['codTurno'];
-
+    it('should reset properties and set filters', () => {
       component.cambiaTablaDetail(mockFilters, mockFieldsToOrderBy);
 
       expect(component.working).toEqual(true);
@@ -94,12 +98,6 @@ describe('TableCrudComponent', () => {
     });
 
     it('should success on requesting data', () => {
-      const mockFilters = [
-        new Filter(FilterOperationType.GTE, 'fecHasta', [moment().format('YYYY-MM-DD')]),
-      ];
-
-      const mockFieldsToOrderBy = ['codTurno'];
-
       const customData = ['Test'];
 
       const mockObservable = new Observable<ListRs>((subscriber) =>
@@ -116,12 +114,6 @@ describe('TableCrudComponent', () => {
 
     describe('should success on connection but fail requesting data', () => {
       it('should fail due to an expired session', () => {
-        const mockFilters = [
-          new Filter(FilterOperationType.GTE, 'fecHasta', [moment().format('YYYY-MM-DD')]),
-        ];
-
-        const mockFieldsToOrderBy = ['codTurno'];
-
         const mockObservable = new Observable<ListRs>((subscriber) =>
           subscriber.next(ListRsFailSessionMock)
         );
@@ -135,12 +127,6 @@ describe('TableCrudComponent', () => {
       });
 
       it('should fail due to a generic error', () => {
-        const mockFilters = [
-          new Filter(FilterOperationType.GTE, 'fecHasta', [moment().format('YYYY-MM-DD')]),
-        ];
-
-        const mockFieldsToOrderBy = ['codTurno'];
-
         const mockObservable = new Observable<ListRs>((subscriber) =>
           subscriber.next(ListRsFailGenericMock)
         );
@@ -156,12 +142,6 @@ describe('TableCrudComponent', () => {
     });
 
     it('should fail on requesting data', () => {
-      const mockFilters = [
-        new Filter(FilterOperationType.GTE, 'fecHasta', [moment().format('YYYY-MM-DD')]),
-      ];
-
-      const mockFieldsToOrderBy = ['codTurno'];
-
       const mockObservable = new Observable<ListRs>((subscriber) => subscriber.error('Error'));
 
       const $tableServiceSpy = spyOn(tableService, 'list').and.returnValue(mockObservable);
@@ -173,11 +153,16 @@ describe('TableCrudComponent', () => {
   });
 
   describe('on new table selected', () => {
+    let mockTableName: string;
+    let mockFieldsToOrderBy: string[];
+
+    beforeEach(() => {
+      mockTableName = 'TEST';
+      mockFieldsToOrderBy = ['codTurno'];
+    });
+
     it(`should do nothing if provided table name equals current
       table name, and selected row filters are null`, () => {
-      const mockTableName = 'TEST';
-      const mockFieldsToOrderBy = ['codTurno'];
-
       component.tableName = mockTableName;
       component.working = true;
       component.rowSelectedFilters = null;
@@ -188,13 +173,9 @@ describe('TableCrudComponent', () => {
     });
 
     it('should reset properties and set filters', () => {
-      const mockTableName = 'TEST';
-
       const mockFilters = [
         new Filter(FilterOperationType.GTE, 'fecHasta', [moment().format('YYYY-MM-DD')]),
       ];
-
-      const mockFieldsToOrderBy = ['codTurno'];
 
       component.rowSelectedFilters = mockFilters;
 
@@ -212,10 +193,6 @@ describe('TableCrudComponent', () => {
     });
 
     it('should success on requesting data', () => {
-      const mockTableName = 'TEST';
-
-      const mockFieldsToOrderBy = ['codTurno'];
-
       const customData = ['Test'];
 
       const mockObservable = new Observable<ListRs>((subscriber) =>
@@ -238,10 +215,6 @@ describe('TableCrudComponent', () => {
 
     describe('should success on connection but fail requesting data', () => {
       it('should fail due to an expired session', () => {
-        const mockTableName = 'TEST';
-
-        const mockFieldsToOrderBy = ['codTurno'];
-
         const mockObservable = new Observable<ListRs>((subscriber) =>
           subscriber.next(ListRsFailSessionMock)
         );
@@ -261,10 +234,6 @@ describe('TableCrudComponent', () => {
       });
 
       it('should fail due to a generic error', () => {
-        const mockTableName = 'TEST';
-
-        const mockFieldsToOrderBy = ['codTurno'];
-
         const mockObservable = new Observable<ListRs>((subscriber) =>
           subscriber.next(ListRsFailGenericMock)
         );
@@ -286,10 +255,6 @@ describe('TableCrudComponent', () => {
     });
 
     it('should fail on requesting data', () => {
-      const mockTableName = 'TEST';
-
-      const mockFieldsToOrderBy = ['codTurno'];
-
       const mockObservable = new Observable<ListRs>((subscriber) => subscriber.error('Error'));
 
       const $tableServiceSpy = spyOn(tableService, 'list').and.returnValue(mockObservable);
