@@ -10,6 +10,7 @@ import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data
 import { finalize } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
+// tslint:disable:variable-name
 @Component({
   selector: 'gp-form-dropdown-related-field',
   templateUrl: './form-dropdown-related-field.component.html',

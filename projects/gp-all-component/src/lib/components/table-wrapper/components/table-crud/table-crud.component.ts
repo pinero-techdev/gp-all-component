@@ -209,15 +209,15 @@ export class TableCrudComponent implements AfterViewChecked {
   wysiwygFormFields: QueryList<FormWysiwygFieldComponent>;
 
   constructor(
-    private readonly _router: Router,
-    private readonly _tableService: TableService,
-    private readonly _gpUtil: GPUtil,
-    private _el: ElementRef,
-    private readonly _messagesService: MessagesService
+    private readonly router: Router,
+    private readonly tableService: TableService,
+    private readonly gpUtil: GPUtil,
+    private el: ElementRef,
+    private readonly messagesService: MessagesService
   ) {}
 
   ngAfterViewChecked() {
-    if (this._el.nativeElement.querySelector('.ui-table-tbody')) {
+    if (this.el.nativeElement.querySelector('.ui-table-tbody')) {
       this.applyStickyShadow('.ui-table-tbody', '.ui-table-wrapper');
     }
   }
@@ -248,7 +248,7 @@ export class TableCrudComponent implements AfterViewChecked {
 
     this.filters = filters;
 
-    this._tableService
+    this.tableService
       .list(this.tableName, true, true, fieldsToOrderBy, filters)
       .pipe(
         finalize(() => (this.working = false)),
@@ -263,13 +263,13 @@ export class TableCrudComponent implements AfterViewChecked {
               data.error.errorMessage === 'No se ha establecido sesion o se ha perdido.';
 
             if (expiredSession) {
-              this._router.navigate(['login']);
+              this.router.navigate(['login']);
             }
 
             const msg =
               data.error.errorMessage.toString() ||
               'Se ha producido un error realizando la operación solicitada.';
-            this._messagesService.showErrorAlert(msg);
+            this.messagesService.showErrorAlert(msg);
 
             return;
           }
@@ -311,7 +311,7 @@ export class TableCrudComponent implements AfterViewChecked {
       this.filters = this.rowSelectedFilters;
     }
 
-    this._tableService
+    this.tableService
       .list(this.tableName, true, true, fieldsToOrderBy, this.filters)
       .pipe(
         finalize(() => (this.working = false)),
@@ -326,13 +326,13 @@ export class TableCrudComponent implements AfterViewChecked {
               data.error.errorMessage === 'No se ha establecido sesion o se ha perdido.';
 
             if (expiredSession) {
-              this._router.navigate(['login']);
+              this.router.navigate(['login']);
             }
 
             const msg =
               data.error.errorMessage.toString() ||
               'Se ha producido un error realizando la operación solicitada.';
-            this._messagesService.showErrorAlert(msg);
+            this.messagesService.showErrorAlert(msg);
 
             return;
           }
@@ -440,13 +440,13 @@ export class TableCrudComponent implements AfterViewChecked {
   onRowSelect(): void {
     this.rowSelected.emit(this.selectedRow);
 
-    this._tableService
+    this.tableService
       .selectOneRow(this.tableName, JSON.stringify(this.selectedRow))
       .pipe(take(1))
       .subscribe(
         (data) => {
           if (!data.ok) {
-            this._messagesService.showErrorAlert('Error recuperando el registro.');
+            this.messagesService.showErrorAlert('Error recuperando el registro.');
             return;
           }
 
@@ -461,7 +461,7 @@ export class TableCrudComponent implements AfterViewChecked {
           this.displayEdicion = true;
         },
 
-        (err) => this._messagesService.showErrorAlert('Error interno recuperando el registro.'),
+        (err) => this.messagesService.showErrorAlert('Error interno recuperando el registro.'),
 
         () => (this.formControl.lockFields = false)
       );
@@ -474,13 +474,13 @@ export class TableCrudComponent implements AfterViewChecked {
     this.formControl.lockFields = true;
     const jsonDeleteRow = JSON.stringify(this.formControl.originalRow);
 
-    this._tableService
+    this.tableService
       .deleteRow(this.tableName, jsonDeleteRow)
       .pipe(take(1))
       .subscribe(
         (data) => {
           if (!data.ok) {
-            this._messagesService.showErrorAlert(
+            this.messagesService.showErrorAlert(
               'Error borrando el registro: ' + data.error.errorMessage
             );
             return;
@@ -496,7 +496,7 @@ export class TableCrudComponent implements AfterViewChecked {
           this.changes.emit(true);
         },
 
-        (err) => this._messagesService.showErrorAlert('Error interno borrando el registro.'),
+        (err) => this.messagesService.showErrorAlert('Error interno borrando el registro.'),
 
         () => (this.formControl.lockFields = false)
       );
@@ -564,7 +564,7 @@ export class TableCrudComponent implements AfterViewChecked {
 
       if (!lengthGreaterThanZero) {
         const fieldName = col.getFormField().fieldMetadata.fieldName;
-        const filter: Filter = self._gpUtil.getElementFromArray(self.filters, 'field', fieldName);
+        const filter: Filter = self.gpUtil.getElementFromArray(self.filters, 'field', fieldName);
 
         if (
           filter !== null &&
@@ -648,8 +648,8 @@ export class TableCrudComponent implements AfterViewChecked {
    * @param tableElementWrapper Element wrapper
    */
   applyStickyShadow(tableElementBody, tableElementWrapper) {
-    const tableBody = this._el.nativeElement.querySelector(tableElementBody);
-    const tableWrapper = this._el.nativeElement.querySelector(tableElementWrapper);
+    const tableBody = this.el.nativeElement.querySelector(tableElementBody);
+    const tableWrapper = this.el.nativeElement.querySelector(tableElementWrapper);
     const tableBodyVisibleWidth = tableBody.offsetWidth;
     const tableWrapperWidth = tableWrapper.offsetWidth;
 
@@ -668,13 +668,13 @@ export class TableCrudComponent implements AfterViewChecked {
     const self = this;
     const jsonOriginalRow = JSON.stringify(this.formControl.originalRow);
 
-    this._tableService
+    this.tableService
       .updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow)
       .pipe(take(1))
       .subscribe(
         (data) => {
           if (!data.ok) {
-            this._messagesService.showErrorAlert(
+            this.messagesService.showErrorAlert(
               'Error actualizando el registro: ' + data.error.errorMessage
             );
             return;
@@ -689,7 +689,7 @@ export class TableCrudComponent implements AfterViewChecked {
           this.changes.emit(true);
         },
 
-        (err) => this._messagesService.showErrorAlert('Error interno actualizando el registro.'),
+        (err) => this.messagesService.showErrorAlert('Error interno actualizando el registro.'),
 
         () => (this.formControl.lockFields = false)
       );
@@ -700,13 +700,13 @@ export class TableCrudComponent implements AfterViewChecked {
    * @param jsonModifiedRow Row data to insert
    */
   private insertRow(jsonModifiedRow: string): void {
-    this._tableService
+    this.tableService
       .insertRow(this.tableName, jsonModifiedRow)
       .pipe(take(1))
       .subscribe(
         (data) => {
           if (!data.ok) {
-            this._messagesService.showErrorAlert(
+            this.messagesService.showErrorAlert(
               'Error actualizando el registro: ' + data.error.errorMessage
             );
             return;
@@ -716,7 +716,7 @@ export class TableCrudComponent implements AfterViewChecked {
           this.closeDialog();
         },
 
-        (err) => this._messagesService.showErrorAlert('Error interno insertando el registro.'),
+        (err) => this.messagesService.showErrorAlert('Error interno insertando el registro.'),
 
         () => (this.formControl.lockFields = false)
       );
