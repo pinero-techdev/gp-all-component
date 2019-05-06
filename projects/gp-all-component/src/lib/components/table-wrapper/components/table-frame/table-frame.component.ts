@@ -21,15 +21,15 @@ export class TableFrameComponent implements OnInit, OnDestroy {
   /**
    * Lifecycle check for this component
    */
-  private _isAlive = true;
+  private isAlive = true;
 
-  constructor(private readonly _route: ActivatedRoute) {}
+  constructor(private readonly route: ActivatedRoute) {}
 
   /**
    * Angular OnInit lifecycle hook
    */
   ngOnInit(): void {
-    this._route.params.pipe(takeWhile(() => this._isAlive)).subscribe((params) => {
+    this.route.params.pipe(takeWhile(() => this.isAlive)).subscribe((params) => {
       if (isNullOrUndefined(params.tabla)) {
         return;
       }
@@ -45,6 +45,6 @@ export class TableFrameComponent implements OnInit, OnDestroy {
    * Angular OnDestroy lifecycle hook
    */
   ngOnDestroy(): void {
-    this._isAlive = false;
+    this.isAlive = false;
   }
 }

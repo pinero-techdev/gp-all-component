@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DropdownTesterComponent } from './dropdown-tester.component';
+import { TableCrudTesterComponent } from './table-crud-tester.component';
 
-describe('DropdownTesterComponent', () => {
-  let component: DropdownTesterComponent;
-  let fixture: ComponentFixture<DropdownTesterComponent>;
+describe('TableCrudTesterComponent', () => {
+  let component: TableCrudTesterComponent;
+  let fixture: ComponentFixture<TableCrudTesterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DropdownTesterComponent],
+      declarations: [TableCrudTesterComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DropdownTesterComponent);
+    fixture = TestBed.createComponent(TableCrudTesterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

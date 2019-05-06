@@ -2,6 +2,8 @@ import { FormFieldMock } from './../../../shared/testing/@mock/types/form-wrappe
 import { GpFormField } from './form-field.model';
 import { GpFormFieldControl } from './form-field-control.class';
 
+// tslint:disable:variable-name
+
 class FormFieldControlMock extends GpFormFieldControl {
   private _formField: GpFormField;
 

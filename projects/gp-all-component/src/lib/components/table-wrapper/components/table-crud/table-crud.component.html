@@ -1,11 +1,11 @@
 <p-toast></p-toast>
-<div class="ui-row-fluid gp-table-wrapper" *ngIf="!working && columnas.length > 0">
+<div class="ui-row-fluid gp-table-wrapper" *ngIf="!working && columns.length > 0">
   <div class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-lg-6">
     <div class="card panel-content">
       <p-table
         #tc
         [columns]="columnsToRender"
-        [value]="elementos"
+        [value]="data"
         [rows]="10"
         [paginator]="true"
         [pageLinks]="4"
@@ -71,12 +71,12 @@
       <div class="ui-row-fluid">
         <h2 class="ui-col-fluid ui-col-fluid-12 big-topic">Edición - {{ tableLabel }}</h2>
       </div>
-      <div class="ui-row-fluid input-group" *ngFor="let col of columnas">
+      <div class="ui-row-fluid input-group" *ngFor="let col of columns">
         <div *ngFor="let msg of col.fieldMsgs" class="ui-messages-error">
           <i class="fa fa-close"></i>&nbsp;{{ msg.detail }}
         </div>
         <div
-          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-md-2"
+          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-md-4"
           *ngIf="
             (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
             (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
@@ -88,7 +88,7 @@
           >
         </div>
         <div
-          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-md-10"
+          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-md-8"
           *ngIf="
             (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
             (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
