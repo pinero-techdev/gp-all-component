@@ -1,7 +1,7 @@
 import { ListRs, InsertRowRs } from '../../../../services/api/table/table.service';
 import { DataTableMetaData } from '@lib/resources/data/data-table/meta-data/data-table-meta-data.model';
 import { CommonRs } from '@lib/services/core/common.service';
-import { FormFieldMock } from './form-wrapper-mock-types';
+import { FormFieldMock } from './form-wrapper.type.mock';
 
 export let DataTableMetadataMock: DataTableMetaData = {
   tableLabel: 'Test',

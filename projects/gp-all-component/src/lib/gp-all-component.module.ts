@@ -1,3 +1,4 @@
+import { GpAllComponentRoutingModule } from './gp-all-component.routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_CONTROL_VALUE_ACCESSOR } from './resources/constants/custom-control-value-accessor.constant';
@@ -44,7 +45,6 @@ import { TableCrudComponent } from './components/table-wrapper/components/table-
 import { TableFrameComponent } from './components/table-wrapper/components/table-frame/table-frame.component';
 import { TableWrapperModule } from './components/table-wrapper/table-wrapper.module';
 import { TopbarModule } from './components/topbar/topbar.module';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [],
@@ -58,6 +58,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     HttpClientModule,
     RouterModule,
     SharedModule,
+    GpAllComponentRoutingModule,
 
     // Library Modules
     DynamicModule,
@@ -73,7 +74,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     TableWrapperModule,
     TopbarModule,
 
-    TranslateModule.forRoot(),
+    // Directives
+    // FocusDirective,
+    // LowercaseDirective,
+    // UppercaseDirective
   ],
   exports: [
     // We export library modules
@@ -87,6 +91,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     MultiLanguageModule,
     MultiSelectModule,
     RatingModule,
+    TopbarModule,
 
     // And we export components to maintain
     // compatibility with previous versions
@@ -113,7 +118,11 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     // Table Wrapper components
     TableCrudComponent,
     TableFrameComponent,
-    TopbarModule,
+
+    // // Directives
+    // FocusDirective,
+    // LowercaseDirective,
+    // UppercaseDirective,
   ],
   providers: [
     CUSTOM_CONTROL_VALUE_ACCESSOR,
@@ -122,7 +131,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     MainMenuProviderService,
     MainMenuService,
     MessagesService,
-    TranslateService,
   ],
 })
 export class GpAllComponentModule {}

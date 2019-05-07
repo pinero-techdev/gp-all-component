@@ -1,4 +1,4 @@
-import { LocaleES } from './../../resources/localization/es-ES.lang';
+import { LocaleES } from '@lib/resources/localization/es-ES.lang';
 import { MessagesService } from './../../services/core/messages.service';
 import {
   ForgotPasswordRq,

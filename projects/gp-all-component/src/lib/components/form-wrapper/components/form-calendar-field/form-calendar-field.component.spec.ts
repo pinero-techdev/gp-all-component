@@ -3,7 +3,7 @@ import { FormCalendarFieldComponent } from './form-calendar-field.component';
 import { CommonModule } from '@angular/common';
 import { FormWrapperSharedModules } from '../../../../shared/imports/form-wrapper-shared';
 import { GpFormField } from '../../resources/form-field.model';
-import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper-mock-types';
+import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
 
 describe('FormCalendarFieldComponent', () => {
   let component: FormCalendarFieldComponent;

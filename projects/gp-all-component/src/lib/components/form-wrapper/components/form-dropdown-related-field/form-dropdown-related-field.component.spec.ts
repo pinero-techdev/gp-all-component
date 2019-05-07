@@ -7,7 +7,7 @@ import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
 } from '@lib/shared/imports/form-wrapper-shared';
-import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper-mock-types';
+import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper.type.mock';
 import { TableService } from '@lib/services/api/table/table.service';
 import { TestingErrorCodeMock } from '@lib/shared/testing/@mock/utils/testing-mock-constants.class';
 

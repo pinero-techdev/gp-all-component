@@ -27,7 +27,7 @@ import {
 import moment = require('moment');
 import { MessagesService } from '@lib/services/core/messages.service';
 import { Router } from '@angular/router';
-import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper-mock-types';
+import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper.type.mock';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { take } from 'rxjs/operators';
 import { CommonRs } from '@lib/services/core/common.service';
