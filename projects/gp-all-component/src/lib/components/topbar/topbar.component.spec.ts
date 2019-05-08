@@ -4,14 +4,14 @@ import { GlobalService } from './../../services/core/global.service';
 import { MenuModule } from 'primeng/primeng';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LoginService } from '@lib/services/api/login/login.service';
-import { LoginServiceMock } from '@lib/services/api/login/login.service.mock';
+import { LoginService } from './../../services/api/login/login.service';
+import { LoginServiceMock } from './../../services/api/login/login.service.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TestingMockEvents } from '@lib/shared/testing/@mock/utils/testing-mock-events.class';
+import { TestingMockEvents } from './../../shared/testing/@mock/utils/testing-mock-events.class';
 import { throwError, of } from 'rxjs';
 import { Router, Routes } from '@angular/router';
-import { UserInfo } from '@lib/resources/data/user-info.model';
-import { CommonRs } from '@lib/services/core/common.service';
+import { UserInfo } from './../../resources/data/user-info.model';
+import { CommonRs } from './../../services/core/common.service';
 
 class TestComponent {}
 

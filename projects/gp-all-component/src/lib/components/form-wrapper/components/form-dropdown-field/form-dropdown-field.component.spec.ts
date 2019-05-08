@@ -8,9 +8,9 @@ import {
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
-import { InfoCampoModificado } from '@lib/resources/data/info-campo-modificado.model';
-import { TableServiceMock } from '@lib/services/api/table/table.service.mock';
-import { TableService } from '@lib/services/api/table/table.service';
+import { InfoCampoModificado } from './../../../../resources/data/info-campo-modificado.model';
+import { TableServiceMock } from './../../../../services/api/table/table.service.mock';
+import { TableService } from './../../../../services/api/table/table.service';
 
 fdescribe('FormDropdownFieldComponent', () => {
   let component: FormDropdownFieldComponent;

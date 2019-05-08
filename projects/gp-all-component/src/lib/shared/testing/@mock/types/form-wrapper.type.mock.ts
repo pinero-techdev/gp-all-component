@@ -1,9 +1,9 @@
-import { DataTableMetaDataFieldDisplayInfoRelatedField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field-display-info-related-field.model';
+import { DataTableMetaDataFieldDisplayInfoRelatedField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info-related-field.model';
 import { DataTableMetaDataFieldDisplayInfoOption } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info-option.model';
 import { DataTableMetaDataFieldDisplayInfo } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../../../components/form-wrapper/resources/form-field.model';
-import { GpFormControl } from '@lib/components/form-wrapper/resources/form-control.model';
+import { GpFormControl } from './../../../../components/form-wrapper/resources/form-control.model';
 
 const options = [
   new DataTableMetaDataFieldDisplayInfoOption(),

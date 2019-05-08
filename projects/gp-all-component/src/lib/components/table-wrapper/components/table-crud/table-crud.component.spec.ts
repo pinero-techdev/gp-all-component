@@ -11,10 +11,10 @@ import {
   ListRs,
   SelectOneRowRs,
   InsertRowRs,
-} from '@lib/services/api/table/table.service';
+} from './../../../../services/api/table/table.service';
 import { Observable } from 'rxjs';
-import { Filter } from '@lib/resources/data/filter/filter.model';
-import { FilterOperationType } from '@lib/resources/data/filter/filter-operation-type.enum';
+import { Filter } from './../../../../resources/data/filter/filter.model';
+import { FilterOperationType } from './../../../../resources/data/filter/filter-operation-type.enum';
 import {
   ListRsSuccessMock,
   ListRsFailSessionMock,
@@ -25,15 +25,15 @@ import {
   InsertRowRsMock,
 } from '../../../../shared/testing/@mock/types/list-rs.type.mock';
 import moment = require('moment');
-import { MessagesService } from '@lib/services/core/messages.service';
+import { MessagesService } from './../../../../services/core/messages.service';
 import { Router } from '@angular/router';
-import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper.type.mock';
+import { FormFieldMock } from './../../../../shared/testing/@mock/types/form-wrapper.type.mock';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { take } from 'rxjs/operators';
-import { CommonRs } from '@lib/services/core/common.service';
-import { InfoCampoModificado } from '@lib/resources/data/info-campo-modificado.model';
-import { GpFormFieldType } from '@lib/components/form-wrapper/resources/form-field-type.enum';
-import { GpFormField } from '@lib/components/form-wrapper/resources/form-field.model';
+import { CommonRs } from './../../../../services/core/common.service';
+import { InfoCampoModificado } from './../../../../resources/data/info-campo-modificado.model';
+import { GpFormFieldType } from './../../../../components/form-wrapper/resources/form-field-type.enum';
+import { GpFormField } from './../../../../components/form-wrapper/resources/form-field.model';
 
 describe('TableCrudComponent', () => {
   let component: TableCrudComponent;

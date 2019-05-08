@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
-import { TableService } from '@lib/services/api/table/table.service';
-import { GpTableRestrictions } from '../../../table-wrapper/resources/gp-table-restrictions.enum';
+import { TableService } from './../../../../services/api/table/table.service';
+import { GpTableRestrictions } from './../../../table-wrapper/resources/gp-table-restrictions.enum';
 
 @Component({
   selector: 'gp-form-img-field',

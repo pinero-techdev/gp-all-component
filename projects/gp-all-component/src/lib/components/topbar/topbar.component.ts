@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, Output, ElementRef, EventEmitter } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
-import { LoginService } from '@lib/services/api/login/login.service';
-import { CommonRs } from '@lib/services/core/common.service';
-import { GlobalService } from '@lib/services/core/global.service';
-import { LocaleES } from '@lib/resources/localization/es-ES.lang';
+import { LoginService } from './../../services/api/login/login.service';
+import { CommonRs } from './../../services/core/common.service';
+import { GlobalService } from './../../services/core/global.service';
+import { LocaleES } from './../../resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-topbar',

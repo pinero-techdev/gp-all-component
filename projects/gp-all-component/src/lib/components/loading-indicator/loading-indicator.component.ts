@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { LocaleES } from '@lib/resources/localization/es-ES.lang';
+import { LocaleES } from './../../resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-loading-indicator',

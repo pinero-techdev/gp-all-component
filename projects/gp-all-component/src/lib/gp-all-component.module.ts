@@ -1,4 +1,3 @@
-import { GpAllComponentRoutingModule } from './gp-all-component.routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_CONTROL_VALUE_ACCESSOR } from './resources/constants/custom-control-value-accessor.constant';
@@ -22,6 +21,7 @@ import { FormWrapperModule } from './components/form-wrapper/form-wrapper.module
 import { FormWysiwygFieldComponent } from './components/form-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GPUtil } from './services/core/gp-util.service';
+import { GpAllComponentRoutingModule } from './gp-all-component.routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { LoadingIndicatorModule } from './components/loading-indicator/loading-indicator.module';
@@ -30,7 +30,7 @@ import { LoginModule } from './components/login/login.module';
 import { LoginService } from './services/api/login/login.service';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { MainMenuModule } from './components/main-menu/main-menu.module';
-import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
+import { MainMenuProviderService } from './services/api/main-menu/main-menu-provider.service';
 import { MainMenuService } from './services/api/main-menu/main-menu.service';
 import { MessagesService } from './services/core/messages.service';
 import { MultiLanguageModule } from './components/multi-language/multi-language.module';

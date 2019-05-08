@@ -13,7 +13,7 @@ import { FormTimeFieldComponent } from './components/form-time-field/form-time-f
 import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
-} from '@lib/shared/imports/form-wrapper-shared';
+} from './../../shared/imports/form-wrapper-shared';
 
 @NgModule({
   declarations: [

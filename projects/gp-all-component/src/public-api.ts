@@ -1,6 +1,7 @@
 /*
  * Public API Surface of gp-all-component
  */
+(window as any).global = window;
 
 // Services
 export * from './lib/services/api/forgot-password/forgot-password.service';
