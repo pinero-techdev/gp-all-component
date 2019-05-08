@@ -1,0 +1,564 @@
+/** GENERAL **/
+
+/** COLOR VARIABLES **/
+$white-color: #fff;
+$black-color: #000;
+$red-color: #ff0000;
+$yellow-color: #ffff00;
+$orange-color: #ffa500;
+$blue-medium-color: #3f51b5;
+$blue-dark-color: #2c4180;
+$green-light-color: #7ade7a;
+$green-dark-color: #006400;
+$gray-lighter-color: #dcdcdc;
+$gray-lighter-color-2: #cacaca;
+$gray-light-color: #c0c0c0;
+$gray-medium-color: #a9a9a9;
+$gray-medium-color-2: #9c9c9c;
+$gray-dark-color: #676767;
+$gray-darker-color: #484848;
+$gray-darker-color-2: #212121;
+$gold-color: #988642;
+$valid-control-color: #42a948;
+$error-control-color: #a94442;
+$box-shadow-color: rgba(0, 0, 0, 0.8);
+
+@mixin box-shadow($color) {
+  box-shadow: 0 0 8px $color;
+  -webkit-box-shadow: 0 0 8px $color;
+  -moz-box-shadow: 0 0 8px $-color;
+}
+
+/** CLASSES **/
+html {
+  overflow-y: auto;
+}
+
+a {
+  cursor: pointer;
+}
+
+.warn,
+.error {
+  color: $red-color;
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+
+.logo {
+  background: url('../images/logo_grupo_pinero.png') top left no-repeat !important;
+}
+
+.navy {
+  background-color: $blue-dark-color !important;
+}
+
+.text-lopd {
+  white-space: pre-wrap;
+  overflow-x: hidden;
+  height: 30vh;
+}
+
+.text-multiline {
+  white-space: pre-wrap;
+}
+
+.valid {
+  color: $green-light-color;
+}
+
+/** IDS **/
+#router-outlet {
+  height: inherit;
+}
+
+/** PRIMENG OVERWRITES **/
+.ui-dropdown-filter-container {
+  width: 95%;
+}
+
+.ui-button-icon-only .fa {
+  margin-left: -10px;
+}
+
+.ui-button:disabled,
+button[disabled] {
+  cursor: default !important;
+  background-color: $gray-dark-color !important;
+}
+
+.ui-inputtext:disabled {
+  border-left: 0 !important;
+  color: $gray-dark-color;
+}
+
+/** TOPBAR **/
+.layout-container .topbar .topbar-left {
+  background-color: $white-color;
+  background-image: url('../images/logo_gp.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.application-title {
+  color: $white-color;
+  padding-top: 0.3em;
+  font-size: 2em;
+}
+
+.col {
+  &-min {
+    width: 1.5%;
+  }
+  &-small {
+    width: 3%;
+  }
+  &-medium {
+    width: 6%;
+  }
+  &-big {
+    width: 14%;
+  }
+}
+
+.control {
+  &-valid {
+    border-left: 5px solid $valid-control-color !important;
+  }
+  &-error {
+    border-left: 5px solid $error-control-color !important;
+  }
+}
+
+.close-btn {
+  left: 90%;
+  background-color: $gray-light-color !important;
+
+  button:focus {
+    background-color: $gray-medium-color !important;
+  }
+
+  > span {
+    left: 50% !important;
+  }
+}
+
+.ta {
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-center {
+    text-align: center;
+  }
+  &-center {
+    text-align: center;
+  }
+}
+
+.ui-radiobutton-icon {
+  margin: 0 !important;
+}
+
+.col {
+  &-left {
+    width: 55%;
+  }
+  &-right {
+    width: 45%;
+    text-align: right;
+  }
+}
+
+.profile-img {
+  height: 110px;
+  width: 110px;
+  border-radius: 15px;
+}
+
+.x-large {
+  font-size: x-large;
+}
+
+.large {
+  font-size: large;
+}
+
+#world-map {
+  width: inherit;
+  height: inherit;
+  margin: 0 auto;
+}
+
+.ui-dialog.ui-dialog-responsive {
+  width: 90% !important;
+}
+
+.graphic > div > canvas {
+  height: 27vh !important;
+}
+
+#graphic-contact-search > div > canvas {
+  height: 27vh !important;
+}
+
+.graphic-map {
+  height: 27vh;
+  > .jvectormap-container {
+    height: 27vh;
+    width: 35vw;
+    > svg {
+      height: 27vh;
+    }
+  }
+}
+
+.jvectormap-tip {
+  z-index: 2000;
+}
+
+.card-level {
+  width: 30px;
+  height: 30px;
+}
+
+.query-level {
+  width: 30px;
+  height: 30px;
+}
+
+.concierge-level {
+  width: 12px;
+  height: 12px;
+}
+
+.blue {
+  background-color: $blue-medium-color;
+}
+
+.silver {
+  background-color: $gray-light-color;
+}
+
+.gold {
+  background-color: $gold-color;
+}
+
+.black {
+  background-color: $black-color;
+}
+
+.green {
+  background-color: $green-dark-color;
+}
+
+.yellow {
+  background-color: $yellow-color;
+}
+
+.red {
+  background-color: $red-color;
+}
+
+.orange {
+  background-color: $orange-color;
+}
+
+.blue,
+.silver,
+.gold,
+.black,
+.green,
+.yellow,
+.red,
+.orange {
+  @include box-shadow($box-shadow-color);
+}
+
+.circular {
+  border-radius: 50%;
+}
+
+.material-label {
+  top: -20px;
+  font-size: 12px;
+  color: $blue-medium-color;
+}
+
+.no-pad {
+  padding: 0;
+  &-top {
+    padding-top: 0;
+  }
+  &-bottom {
+    padding-bottom: 0;
+  }
+  &-left {
+    padding-left: 0;
+  }
+  &-right {
+    padding-right: 0;
+  }
+}
+
+.padding {
+  &-1 {
+    padding: 1% !important;
+  }
+  &-2 {
+    padding: 2% !important;
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+body {
+  .ui-datatable {
+    tbody tr td {
+      border: 1px solid gray !important;
+    }
+    .ui-datatable-footer {
+      padding: 0;
+    }
+    .ui-datatable-thead > tr > th {
+      font-weight: normal;
+      border: 1px solid $gray-lighter-color-2 !important;
+    }
+  }
+}
+
+.splash-screen .logo {
+  width: 203px;
+  height: 50px;
+}
+
+.ca-bordered {
+  border: 1px solid $gray-lighter-color-2;
+}
+
+.no-top-border {
+  border-top: none;
+}
+
+#clients-search > .ui-tabview-panels {
+  min-height: 262px;
+}
+
+.tv-320 {
+  min-height: 320px;
+}
+
+.visible {
+  display: block !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.colorbox-icontext {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  display: inline-block;
+  width: 100%;
+  color: $white-color;
+}
+
+/* MOVES EDITION COMPONENT */
+body .ui-datatable .ui-datatable-header {
+  .ui-inputtext {
+    color: $gray-darker-color-2;
+  }
+  .ui-tabview-panels {
+    color: $gray-darker-color-2;
+  }
+}
+
+/* CALENDAR - YEARS DIDN'T SHOW COMPLETE*/
+.ui-datepicker select.ui-datepicker-year {
+  width: 40%;
+}
+
+/* FORMS */
+.md-dropboxfield {
+  display: block;
+  position: relative;
+  > label {
+    top: -20px;
+    font-size: 12px;
+    color: $blue-medium-color;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+  }
+}
+
+.preference-menu .ui-panelmenu .ui-panelmenu-header .ui-panelmenu-icon {
+  position: initial;
+}
+
+.map {
+  position: relative;
+  visibility: visible;
+  z-index: 1;
+}
+
+.locator {
+  position: absolute;
+  visibility: visible;
+  z-index: 2;
+}
+
+.no-label {
+  margin-top: 0.35em;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+/* FLAGS TRANSLATIONS */
+.flag {
+  background-size: cover;
+  background: center no-repeat;
+  width: 48px;
+  height: 48px;
+  &-ru {
+    background-image: url('../images/flags/ruso.png');
+  }
+  &-es {
+    background-image: url('../images/flags/español.png');
+  }
+  &-fr {
+    background-image: url('../images/flags/frances.png');
+  }
+  &-en {
+    background-image: url('../images/flags/ingles.png');
+  }
+  &-it {
+    background-image: url('../images/flags/italiano.png');
+  }
+  &-po {
+    background-image: url('../images/flags/portugues.png');
+  }
+  &-de {
+    background-image: url('../images/flags/aleman.png');
+  }
+}
+
+.no-flag {
+  background-image: url('../images/flags/sin-bandera.png');
+}
+
+.html {
+  background-color: $green-dark-color !important;
+}
+
+.ms-dialog > .ui-multiselect .ui-multiselect-panel {
+  position: relative !important;
+}
+
+.map-locator {
+  background-image: url('../images/senalador_negro.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+}
+
+.ui-datatable-tfoot > tr > td {
+  text-align: left;
+  border-color: $gray-lighter-color-2 !important;
+  background-color: $white-color;
+}
+
+p-footer > .ui-grid-row > .ui-grid-col-2 {
+  padding: 0.25em 0.5em;
+}
+
+/* CORRECTION SO THE BUTTON DOES NOT COME OUT OVAL INSIDE A FILEUPLOAD */
+.ui-fluid .ui-fileupload-content .ui-button-icon-only {
+  width: 2em;
+  height: 2em;
+}
+
+.dialog-responsive > .ui-dialog {
+  width: 90vw !important;
+  height: 90vh !important;
+  top: 1%;
+  left: 1%;
+  overflow-y: scroll;
+}
+
+.dialog-mini-responsive > .ui-dialog {
+  width: 25vw !important;
+}
+
+.w100 {
+  width: 100% !important;
+}
+
+.calendar-top .ui-datepicker {
+  top: -320px !important;
+}
+
+.dashboard .colorbox.colorbox-dark div {
+  &:first-child {
+    background-color: $gray-darker-color;
+  }
+  &:last-child {
+    background-color: $gray-dark-color;
+  }
+}
+
+/* FORMS ADJUSTMENTS */
+.margin-top-1 {
+  margin-top: 1%;
+}
+
+/** DATE VIEWER INSIDE INPUT-FIELDS **/
+.ui-calendar > input {
+  width: inherit;
+}
+
+.gray {
+  &-text {
+    color: $gray-medium-color-2;
+  }
+  &-border {
+    border: 1px solid $gray-medium-color !important;
+  }
+}
+
+.gold {
+  &-border {
+    border: 1px solid $gold-color !important;
+  }
+  &-color {
+    color: $gold-color !important;
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.round-label {
+  background-color: $gray-lighter-color;
+  border-radius: 100%;
+  width: auto;
+}
