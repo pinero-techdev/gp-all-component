@@ -5,10 +5,8 @@ import {
   CalendarModule,
   CheckboxModule,
   DropdownModule,
-  InputTextModule,
   InputTextareaModule,
   InputSwitchModule,
-  EditorModule,
 } from 'primeng/primeng';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared.module';
@@ -20,10 +18,8 @@ export const FormWrapperSharedModules = [
   DropdownModule,
   FormsModule,
   ReactiveFormsModule,
-  InputTextModule,
   InputTextareaModule,
   InputSwitchModule,
-  EditorModule,
   MultiLanguageModule,
   SharedModule,
 ];

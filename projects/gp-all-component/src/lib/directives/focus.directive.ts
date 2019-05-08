@@ -1,7 +1,7 @@
 import { Directive, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[gp-focus]',
+  selector: '[gpFocus]',
 })
 export class FocusDirective {
   @Input() elementToFocus: any;

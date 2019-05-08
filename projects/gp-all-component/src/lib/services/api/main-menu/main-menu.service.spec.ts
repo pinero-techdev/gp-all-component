@@ -9,7 +9,6 @@ import { GlobalService } from './../../core/global.service';
 import { TestBed, async } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { MainMenuService, MenuRq } from './main-menu.service';
-import { GpAllComponentModule } from './../../../gp-all-component.module';
 import { of } from 'rxjs';
 
 describe('MainMenuService', () => {
@@ -21,7 +20,7 @@ describe('MainMenuService', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [GpAllComponentModule, HttpClientTestingModule],
+            imports: [HttpClientTestingModule],
             providers: [GlobalService, MainMenuService],
         }).compileComponents();
     }));
