@@ -7,7 +7,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditorModule } from 'primeng/editor';
 import { MessageService } from 'primeng/primeng';
-import { TranslateModule } from '@ngx-translate/core';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
@@ -26,7 +25,6 @@ import { MenuModule } from 'primeng/menu';
     ScrollPanelModule,
     MessagesModule,
     MessageModule,
-    TranslateModule,
     MultiSelectModule,
     MenuModule,
   ],
@@ -42,7 +40,6 @@ import { MenuModule } from 'primeng/menu';
     ScrollPanelModule,
     InputTextModule,
     MultiSelectModule,
-    TranslateModule,
     MenuModule,
   ],
   providers: [MessageService],

@@ -1,5 +1,5 @@
 import { DataTableMetaDataFieldDisplayInfoRelatedField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field-display-info-related-field.model';
-import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper-mock-types';
+import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper.type.mock';
 import { Component } from '@angular/core';
 
 @Component({

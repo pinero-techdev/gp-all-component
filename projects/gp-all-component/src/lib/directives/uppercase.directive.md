@@ -1,0 +1,1 @@
+selector => gp-uppercase to gpUppercase

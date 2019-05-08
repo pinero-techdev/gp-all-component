@@ -1,5 +1,13 @@
-@import "../../../assets/styles/main";
-
 :host {
-    background: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .oculto {
+    display: none;
+  }
+
+  .visible {
+    display: flex;
+  }
 }

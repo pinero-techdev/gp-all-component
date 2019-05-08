@@ -1,8 +1,9 @@
+import { LocaleES } from './../../resources/localization/es-ES.lang';
 import { MessagesService } from './../../services/core/messages.service';
 import {
   ForgotPasswordRq,
   ForgotPasswordService,
-} from '@lib/services/api/forgot-password/forgot-password.service';
+} from './../../services/api/forgot-password/forgot-password.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Message } from 'primeng/api';
@@ -15,13 +16,19 @@ import { Subject } from 'rxjs';
   styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
+  /** New password */
   password: string;
+  /** Current password */
   passwordOld: string;
+  /** New password repeated */
   passwordRep: string;
+  /** Username */
   username: string;
+  /** If something wrong occurs an error message is shown in the HTML */
   errors: Message;
 
   private isDestroyed: Subject<boolean> = new Subject<boolean>();
+  /** Next route which is took after change the password. */
   private nextRoute = 'login';
 
   constructor(
@@ -40,6 +47,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    /** If the route contains an username as param, the input field is filled with the value */
     this.route.params
       .pipe(
         takeUntil(this.isDestroyed),
@@ -53,10 +61,12 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.isDestroyed.unsubscribe();
   }
 
+  /** When the user click on cancel event */
   onCancelEvent() {
     this.router.navigate([this.nextRoute]);
   }
 
+  /** When the user submit the form */
   onEnterEvent() {
     if (this.username && this.passwordOld && this.password && this.password === this.passwordRep) {
       const request = new ForgotPasswordRq(this.username, this.passwordOld, this.password);
@@ -66,7 +76,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         .subscribe(
           (data) => {
             if (data.ok) {
-              this.messagesService.showInfoAlert('¡Contraseña modificada correctamente!');
+              this.messagesService.showInfoAlert(LocaleES.PASSWORD_CORRECTLY_MODIFIED);
               this.router.navigate([this.nextRoute]);
             } else {
               this.errorMessage = data.error.internalErrorMessage;
@@ -79,17 +89,18 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         );
     } else {
       if (this.password !== this.passwordRep) {
-        this.errorMessage = '¡Las contraseñas no coinciden!';
+        this.errorMessage = LocaleES.PASSWORD_FIELDS_DO_NOT_MATCH;
       } else {
-        this.errorMessage = 'Todos los campos son obligatorios';
+        this.errorMessage = LocaleES.FIELDS_ARE_MANDATORY;
       }
     }
   }
 
+  /** Handling errors: show an error message */
   private handlerError(errorMessage: string) {
     this.errors = {
       severity: 'error',
-      summary: 'Se ha producido un error: ',
+      summary: LocaleES.AN_ERROR_HAS_OCURRED + ':',
       detail: errorMessage,
     };
   }

@@ -1,4 +1,4 @@
-import { FormFieldMock } from './../../../../../gp-all-component/src/lib/shared/testing/@mock/types/form-wrapper-mock-types';
+import { FormFieldMock } from '../../../../../gp-all-component/src/lib/shared/testing/@mock/types/form-wrapper.type.mock';
 import { Component } from '@angular/core';
 
 @Component({
