@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RedirectComponent } from './redirect.component';
 import { of } from 'rxjs/internal/observable/of';
 
-describe('RedirectComponent', () => {
+fdescribe('RedirectComponent', () => {
     let component: RedirectComponent;
     let fixture: ComponentFixture<RedirectComponent>;
     // let router: Router;
@@ -17,7 +17,7 @@ describe('RedirectComponent', () => {
                 {
                     provide: ActivatedRoute,
                     useValue: {
-                        params: of(),
+                        queryParams: of(),
                     },
                 },
             ],
@@ -41,9 +41,9 @@ describe('RedirectComponent', () => {
     //         const urlPrefix = 'http://';
     //         const newUrl = 'localhost';
 
-    //         component.ngOnInit();
+    //         TestBed.get(ActivatedRoute).queryParams = of({ url: newUrl, new: true });
 
-    //         TestBed.get(ActivatedRoute).params = of({ url: newUrl, new: true });
+    //         component.ngOnInit();
 
     //         expect(windowOpenSpy).toHaveBeenCalledWith(urlPrefix + newUrl);
     //     });
@@ -55,9 +55,9 @@ describe('RedirectComponent', () => {
     //         const urlPrefix = 'http://';
     //         const newUrl = 'test';
 
-    //         component.ngOnInit();
+    //         TestBed.get(ActivatedRoute).queryParams = of({ url: newUrl, new: false });
 
-    //         TestBed.get(ActivatedRoute).params = of({ url: newUrl, new: false });
+    //         component.ngOnInit();
 
     //         expect(windowOpenSpy).not.toHaveBeenCalledWith(urlPrefix + newUrl);
     //         expect(navigateSpy).toHaveBeenCalledWith(urlPrefix + newUrl);

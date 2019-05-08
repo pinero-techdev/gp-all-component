@@ -1,19 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
 @Component({
     selector: 'gp-redirect',
     template: 'Redirecting...',
 })
-export class RedirectComponent implements OnInit, OnDestroy {
-    private sub: Subscription;
-
-    constructor(private readonly _route: ActivatedRoute, private readonly _router: Router) {}
+export class RedirectComponent implements OnInit {
+    constructor(private readonly route: ActivatedRoute, private readonly router: Router) {}
 
     ngOnInit() {
-        this.sub = this._route.queryParams.subscribe((params) => {
+        this.route.queryParams.pipe(take(1)).subscribe((params) => {
             const url = params.url;
             const newUrl = params.new;
 
@@ -29,11 +27,7 @@ export class RedirectComponent implements OnInit, OnDestroy {
 
             isNewUrl(newUrl)
                 ? window.open('http://' + url)
-                : this._router.navigate(['/']).then(() => (window.location.href = 'http://' + url));
+                : this.router.navigate(['/']).then(() => (window.location.href = 'http://' + url));
         });
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 }
