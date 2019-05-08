@@ -12,7 +12,7 @@ import { InfoCampoModificado } from './../../../../resources/data/info-campo-mod
 import { TableServiceMock } from './../../../../services/api/table/table.service.mock';
 import { TableService } from './../../../../services/api/table/table.service';
 
-fdescribe('FormDropdownFieldComponent', () => {
+describe('FormDropdownFieldComponent', () => {
   let component: FormDropdownFieldComponent;
   let fixture: ComponentFixture<FormDropdownFieldComponent>;
   let tableService: TableService;

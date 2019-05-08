@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "*": ["types/*"]
+      "*": ["types/*"],
+      "@lib/*": ["projects/gp-all-component/src/lib/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

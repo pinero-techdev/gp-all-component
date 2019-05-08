@@ -1,9 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "paths": {
-      "@lib/*": ["projects/gp-all-component/src/lib/*"]
-    },
     "outDir": "../../out-tsc/lib",
     "module": "es2015",
     "moduleResolution": "node",

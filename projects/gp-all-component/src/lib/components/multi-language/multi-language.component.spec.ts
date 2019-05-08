@@ -3,18 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './../../shared/shared.module';
 import { LoadingIndicatorComponent } from './../loading-indicator/loading-indicator.component';
-import { TestingMockEvents } from '@lib/shared/testing/@mock/utils/testing-mock-events.class';
+import { TestingMockEvents } from './../../.../../shared/testing/@mock/utils/testing-mock-events.class';
 import {
   MultiLanguageServiceMock, //
-} from '@lib/services/api/multi-language/multi-language.service.mock';
+} from './../../.../../services/api/multi-language/multi-language.service.mock';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { MultiLanguageComponent } from './multi-language.component';
 import {
   MultiLanguageService,
   GetTranslationsRq, //
-} from '@lib/services/api/multi-language/multi-language.service';
-import { MessagesService } from '@lib/services/core/messages.service';
-import { Translation } from '@lib/resources/data/translation.model';
+} from './../../.../../services/api/multi-language/multi-language.service';
+import { MessagesService } from './../../.../../services/core/messages.service';
+import { Translation } from './../../.../../resources/data/translation.model';
 
 describe('MultiLanguageComponent', () => {
   const mockService = new MultiLanguageServiceMock();

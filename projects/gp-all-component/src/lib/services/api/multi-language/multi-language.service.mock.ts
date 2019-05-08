@@ -1,13 +1,13 @@
 import {
   ErrorInformation, //
-} from '../../../resources/data/error-information/error-information.model';
+} from './../../../resources/data/error-information/error-information.model';
 
 import { of } from 'rxjs';
-import { Translation } from '@lib/resources/data/translation.model';
+import { Translation } from './../../../resources/data/translation.model';
 import {
   GetTranslationsRs,
   GetTranslationsRq, //
-} from '@lib/services/api/multi-language/multi-language.service';
+} from './../../../services/api/multi-language/multi-language.service';
 
 export class MultiLanguageServiceMock {
   translations: Translation[] = [

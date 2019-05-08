@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableCrudTesterComponent } from './table-crud-tester.component';
 
-fdescribe('TableCrudTesterComponent', () => {
+describe('TableCrudTesterComponent', () => {
   let component: TableCrudTesterComponent;
   let fixture: ComponentFixture<TableCrudTesterComponent>;
 
