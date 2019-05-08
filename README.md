@@ -27,11 +27,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ### PrimeNG
 - Install PrimeNg, PrimeIcons and Angular animations.
 ```
-    npm install primeng --save
-    npm install primeicons --save
-    npm install @angular/animations --save
-    npm install @angular/cdk --save
-    npm install primeflex --save
+    npm install primeng primeicons @angular/animations @angular/cdk primeflex --save
 ```
 - Add PrimeNG and PrimeIcons css to styles in angular.json.
 ```
@@ -60,13 +56,13 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ```
 - Add Quill to scripts in angular.json.
 ```
-    "scripts": ["../node_modules/quill/dist/quill.js"]
+    "scripts": ["node_modules/quill/dist/quill.js"]
 ```
 - Add Quill css to styles in angular.json.
 ```
 "styles": [
-    "../node_modules/quill/dist/quill.core.css", 
-    "../node_modules/quill/dist/quill.snow.css"
+    "node_modules/quill/dist/quill.core.css", 
+    "node_modules/quill/dist/quill.snow.css"
 ]
 ```
 

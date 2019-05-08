@@ -1,7 +1,6 @@
 /*
  * Public API Surface of gp-all-component
  */
-(window as any).global = window;
 
 // Services
 export * from './lib/services/api/forgot-password/forgot-password.service';
@@ -52,9 +51,9 @@ export * from './lib/resources/data/menu/menu-opcion-propiedades.model';
 export * from './lib/resources/data/menu/menu-opcion-propiedades-propiedad.model';
 
 // Directives
-// export * from './lib/directives/focus.directive';
-// export * from './lib/directives/lowercase.directive';
-// export * from './lib/directives/uppercase.directive';
+export * from './lib/directives/focus.directive';
+export * from './lib/directives/lowercase.directive';
+export * from './lib/directives/uppercase.directive';
 
 // Components
 export * from './lib/components/dynamic/dynamic.component';
