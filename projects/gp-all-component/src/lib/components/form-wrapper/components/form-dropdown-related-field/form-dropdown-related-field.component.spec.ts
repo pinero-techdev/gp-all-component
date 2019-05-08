@@ -1,3 +1,4 @@
+import { FormWrapperModule } from './../../form-wrapper.module';
 import { TableService } from './../../../../services/api/table/table.service';
 import { FormWrapperSharedProviders } from './../../../../shared/imports/form-wrapper-shared';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -17,8 +18,8 @@ describe('FormDropdownRelatedFieldComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FormDropdownRelatedFieldComponent],
-      imports: [, HttpClientTestingModule],
+      declarations: [],
+      imports: [HttpClientTestingModule, FormWrapperModule],
       providers: [
         FormWrapperSharedProviders,
         { provide: TableService, useClass: TableServiceMock },

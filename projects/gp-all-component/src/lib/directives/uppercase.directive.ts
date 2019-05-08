@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
-  selector: '[gp-uppercase]',
+  selector: '[gpUppercase]',
 })
 export class UppercaseDirective {
   constructor(private el: ElementRef, private control: NgControl) {}

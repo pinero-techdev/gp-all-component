@@ -1,0 +1,1 @@
+selector => gp-lowercase to gpLowercase
