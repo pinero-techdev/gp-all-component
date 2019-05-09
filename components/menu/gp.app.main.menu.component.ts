@@ -20,6 +20,14 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.initMenu();
+    this.relocateSplashMenu();
+  }
+
+  relocateSplashMenu() {
+    setTimeout( () => {
+      const htmlSplash: any = document.getElementsByClassName("splash");
+      htmlSplash[0].style.left = "0px";
+    }, 4000)
   }
 
   /**

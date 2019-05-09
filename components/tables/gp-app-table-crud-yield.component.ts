@@ -98,6 +98,9 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   @Output()
   changes = new EventEmitter<boolean>();
 
+  @Output()
+  changesEventDropdown = new EventEmitter<any>();
+
   @ViewChildren(GpFormTextFieldComponent)
   textFormFields: QueryList<GpFormTextFieldComponent>;
   @ViewChildren(GpFormImgFieldComponent)
@@ -928,6 +931,8 @@ export class GpAppTableCrudYieldComponent implements OnInit {
 
   changeEvent(info: InfoCampoModificado) {
     this.fieldChanged = info;
+    let selectedRow = this.selectedRowDetail;
+    this.changesEventDropdown.emit( {info, selectedRow});
   }
 
   selectRowByIndex(atributeName: string, value: any) {

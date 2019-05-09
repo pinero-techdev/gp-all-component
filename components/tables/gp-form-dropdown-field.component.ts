@@ -14,6 +14,8 @@ export class GpFormDropdownFieldComponent extends GpFormFieldControl {
   @Output()
   valueChanged = new EventEmitter<InfoCampoModificado>();
 
+  visible: boolean = true;
+
   // Drop down.
   currentValueDropDown: string;
   listAllowedValuesOptions: SelectItem[];
