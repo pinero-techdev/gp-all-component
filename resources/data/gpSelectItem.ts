@@ -1,6 +1,7 @@
-import {SelectItem} from "primeng/primeng";
+import { SelectItem } from 'primeng/primeng';
 
-export interface GPSelectItem extends SelectItem
-{
-    additional?: any;
+export interface GPSelectItem extends SelectItem {
+  label: string;
+  value: any;
+  additional: any;
 }
