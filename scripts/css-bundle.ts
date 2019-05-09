@@ -5,7 +5,7 @@ import * as fs from 'fs';
 
 /** Bundles all SCSS files into a single file */
 async function bundleScss() {
-  const dirOutput = './dist/gp-all-component/lib/resources/scss';
+  const dirOutput = './dist/gp-all-component/lib/resources/scss/theme-360';
   const { found, bundledContent, imports } = await new Bundler().Bundle(
     './projects/gp-all-component/src/lib/resources/scss/theme-360/_theme.scss'
   );
@@ -26,7 +26,7 @@ async function bundleScss() {
   }
 
   if (found) {
-    await writeFile(dirOutput + '/_theme.scss', bundledContent);
+    await writeFile(dirOutput + '/theme.scss', bundledContent);
   }
 }
 
