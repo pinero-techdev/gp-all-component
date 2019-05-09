@@ -1,3 +1,4 @@
+import { TestingMockEvents } from './../../../../shared/testing/@mock/utils/testing-mock-events.class';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormCheckboxFieldComponent } from './form-checkbox-field.component';
@@ -11,7 +12,7 @@ import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapp
 describe('FormCheckboxFieldComponent', () => {
   let component: FormCheckboxFieldComponent;
   let fixture: ComponentFixture<FormCheckboxFieldComponent>;
-  // let formField: GpFormField;
+  let $checkbox: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,6 +25,7 @@ describe('FormCheckboxFieldComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FormCheckboxFieldComponent);
     component = fixture.componentInstance;
+    $checkbox = fixture.debugElement.nativeElement;
   });
 
   it('should create', () => {
@@ -39,6 +41,24 @@ describe('FormCheckboxFieldComponent', () => {
     it('should not have metadata', () => {
       expect(component.getFieldMetadata()).toBeNull();
     });
+
+    // describe('When checkbox is clicked', () => {
+    //   let $checkboxElement;
+
+    //   beforeEach(() => {
+    //     spyOn(component, 'onFieldChange').and.callThrough();
+    //     // console.log('BLABLA', component.formField);
+    //     spyOn(component, 'copyValueFromControlToEditedRow').and.callThrough();
+    //     $checkboxElement = $checkbox.querySelector('input[type="checkbox"]');
+    //   });
+
+    //   it('should call onFieldChange function', () => {
+    //     TestingMockEvents.triggerChangeEvent($checkboxElement);
+    //     fixture.detectChanges();
+    //     expect(component.onFieldChange).toHaveBeenCalled();
+    //     expect(component.copyValueFromControlToEditedRow).toHaveBeenCalled();
+    //   });
+    // });
 
     describe('Then validateField is called', () => {
       let returnedValue: boolean;
@@ -63,6 +83,24 @@ describe('FormCheckboxFieldComponent', () => {
 
     it('should have metadata', () => {
       expect(component.getFieldMetadata()).not.toBeNull();
+    });
+
+    describe('When checkbox is clicked', () => {
+      let $checkboxElement;
+
+      beforeEach(() => {
+        spyOn(component, 'onFieldChange').and.callThrough();
+        // console.log('BLABLA', component.formField);
+        spyOn(component, 'copyValueFromControlToEditedRow').and.callThrough();
+        $checkboxElement = $checkbox.querySelector('input[type="checkbox"]');
+      });
+
+      it('should call onFieldChange function', () => {
+        TestingMockEvents.triggerChangeEvent($checkboxElement);
+        fixture.detectChanges();
+        expect(component.onFieldChange).toHaveBeenCalled();
+        expect(component.copyValueFromControlToEditedRow).toHaveBeenCalled();
+      });
     });
 
     describe('Then validateField is called', () => {
