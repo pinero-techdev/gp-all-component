@@ -99,7 +99,7 @@ describe('LoginComponent', () => {
     expect(component.login).toHaveBeenCalled();
   });
 
-  it('should have a title', () => {
+  xit('should have a title', () => {
     const $title: HTMLElement = elementRef.querySelector('.login-panel-title');
     expect($title).toBeTruthy();
     expect($title.innerText).toEqual(applicationName.toUpperCase());
