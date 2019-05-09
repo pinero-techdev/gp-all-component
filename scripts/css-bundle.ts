@@ -16,7 +16,7 @@ async function bundleScss() {
     const filesNotFound = imports.filter((x) => !x.found).map((x) => relative(cwd, x.filePath));
 
     if (!fs.existsSync(dirOutput)) {
-      fs.mkdirSync(dirOutput);
+      fs.mkdirSync(dirOutput, { recursive: true });
     }
 
     if (filesNotFound.length) {
