@@ -1,4 +1,4 @@
-<p-dropdown
+<p-dropdown *ngIf="visible"
   name="__field__{{ formField.fieldMetadata.fieldName }}"
   [options]="listAllowedValuesOptions"
   [(ngModel)]="_currentValueDropDown"

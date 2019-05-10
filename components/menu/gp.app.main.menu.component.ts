@@ -20,6 +20,14 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.initMenu();
+    this.relocateSplashMenu();
+  }
+
+  relocateSplashMenu() {
+    setTimeout(() => {
+      const htmlSplash: any = document.getElementsByClassName('splash');
+      htmlSplash[0].style.left = '0px';
+    }, 4000);
   }
 
   /**
@@ -37,8 +45,7 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
     if (userInfo != undefined && userInfo != null) {
       userId = userInfo.userId;
     }
-    let request: MenuRq = new MenuRq(userId, GlobalService.APP); // 3digits
-    //let request: MenuRq = new MenuRq(sessionId, GlobalService.PARAMS); // master
+    let request: MenuRq = new MenuRq(sessionId, GlobalService.PARAMS);
     this.menuItems = this._appMenuProviderService.obtenMenu(request);
   }
 

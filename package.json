@@ -1,25 +1,32 @@
 {
-  "_from": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
-  "_id": "gp-all-component@1.0.8",
+  "_args": [
+    [
+      "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#3digits",
+      "C:\\DESARROLLO\\WORKSPACE\\dvivanco\\eclipse-workspace_yield\\yield-productos-backoffice-angular\\angular-front"
+    ]
+  ],
+  "_from": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#3digits",
+  "_id": "gp-all-component@git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#989f9b87cfe3e7cf60a71746628d5fdb684b826c",
   "_inBundle": false,
+  "_integrity": "",
   "_location": "/gp-all-component",
-  "_phantomChildren": {},
+  "_phantomChildren": {
+    "tslib": "1.8.0"
+  },
   "_requested": {
     "type": "git",
-    "raw": "gp-all-component@git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
-    "name": "gp-all-component",
-    "escapedName": "gp-all-component",
-    "rawSpec": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
-    "saveSpec": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
+    "raw": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#3digits",
+    "rawSpec": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#3digits",
+    "saveSpec": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#3digits",
     "fetchSpec": "http://teamdev.cen.intranet/angular-components/gp-all-component.git",
-    "gitCommittish": "versionNuevoMenuBack"
+    "gitCommittish": "3digits"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#8ed622ec12e7238952a9b15be0b4af85f09d67fe",
-  "_spec": "gp-all-component@git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#versionNuevoMenuBack",
-  "_where": "C:\\Users\\bdomenge\\git\\backoffice-bp-front",
+  "_resolved": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#989f9b87cfe3e7cf60a71746628d5fdb684b826c",
+  "_spec": "git+http://teamdev.cen.intranet/angular-components/gp-all-component.git#3digits",
+  "_where": "C:\\DESARROLLO\\WORKSPACE\\dvivanco\\eclipse-workspace_yield\\yield-productos-backoffice-angular\\angular-front",
   "bundleDependencies": false,
   "dependencies": {
     "@angular/animations": "^5.2.0",
@@ -34,14 +41,14 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@angular/upgrade": "^5.2.0",
-    "ng2-img-max": "^2.1.15",
-    "ng2-validation": "^4.2.0",
     "chart.js": "^2.4.0",
     "core-js": "^2.5.0",
     "fullcalendar": "^3.6.1",
     "jquery": "^3.1.1",
     "jvectormap-next": "^3.0.0",
     "moment": "^2.17.1",
+    "ng2-img-max": "^2.1.15",
+    "ng2-validation": "^4.2.0",
     "primeicons": "^1.0.0",
     "primeng": "^6.1.6",
     "primeui": "^4.1.15",

@@ -11,9 +11,9 @@ export class AuthGuard implements CanActivate {
   constructor(private _router: Router, private _menu: AppMenuService, private _menuAppMenuProviderService: AppMenuProviderService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    if(document.getElementById('bienvenida') != null) {
-      document.getElementById('bienvenida').style.display = "none";
-    } 
+    if (document.getElementById('bienvenida') != null) {
+      document.getElementById('bienvenida').style.display = 'none';
+    }
     let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     let userId = null;
     if (userInfo != undefined && userInfo != null) {
@@ -29,8 +29,7 @@ export class AuthGuard implements CanActivate {
       if (url == '/home' || url == '/' || url.indexOf('/terminal') != -1) {
         return Observable.of(true);
       } else {
-        let request: MenuRq = new MenuRq(GlobalService.SESSION_ID, GlobalService.APP); // 3digits
-        // let request: MenuRq = new MenuRq(GlobalService.SESSION_ID, GlobalService.PARAMS); // master
+        let request: MenuRq = new MenuRq(GlobalService.SESSION_ID, GlobalService.PARAMS);
         return this._menu.obtenMenu(request).map(menu => {
           if (menu) {
             // Check if option menu is active
