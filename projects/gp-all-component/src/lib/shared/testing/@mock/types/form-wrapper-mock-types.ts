@@ -1,4 +1,5 @@
 import { DataTableMetaDataFieldDisplayInfoRelatedField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field-display-info-related-field.model';
+import { TranslationInfo } from '@lib/resources/data/translation-info.model';
 import { DataTableMetaDataFieldDisplayInfoOption } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info-option.model';
 import { DataTableMetaDataFieldDisplayInfo } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info.model';
 import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
@@ -41,6 +42,16 @@ const rField3 = {
 
 const relatedFields = [rField1, rField2, rField3];
 
+const translationInfo = {
+  allowEdition: false,
+  description: 'Description',
+  field: 'cansCodi',
+  keyFields: [],
+  orderByLangCod: false,
+  scheme: '',
+  table: '',
+} as TranslationInfo;
+
 const displayInfo = new DataTableMetaDataFieldDisplayInfo(
   'naciCodi',
   1,
@@ -56,7 +67,7 @@ const displayInfo = new DataTableMetaDataFieldDisplayInfo(
   ['langCodi', 'naciDesc'],
   ['height', 'red'],
   relatedFields,
-  null
+  translationInfo
 );
 
 const metadata = new DataTableMetaDataField(

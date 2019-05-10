@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
 import { FormTimeFieldComponent } from './form-time-field.component';
 import {
   FormWrapperSharedModules,
@@ -30,5 +31,152 @@ describe('FormTimeFieldComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should return fieldMetadata', () => {
+    const metadata = component.getFieldMetadata();
+    expect(metadata).toEqual(component.formField.fieldMetadata);
+  });
+
+  it('should copy value from edited row to control and get it', () => {
+    const editedFormField = {
+      ...FormFieldMock,
+      cansCodi: '01:45',
+      fieldMetadata: { ...FormFieldMock.fieldMetadata, notNull: true },
+    };
+
+    component.copyValueFromEditedRowToControl(editedFormField);
+    component.copyValueFromControlToEditedRow(editedFormField);
+
+    expect(editedFormField[component.formField.fieldMetadata.fieldName]).toBeTruthy();
+  });
+
+  describe('on validate field', () => {
+    describe('validating not null condition', () => {
+      it('should pass', () => {
+        const editedFormField = {
+          ...FormFieldMock,
+          cansCodi: '01:45',
+          fieldMetadata: { ...FormFieldMock.fieldMetadata, notNull: true },
+        };
+
+        const valid = component.validateField(editedFormField);
+
+        expect(valid).toBeTruthy();
+        expect(component.formField.validField).toBeTruthy();
+      });
+
+      it('should not pass', () => {
+        const editedFormField = {
+          ...FormFieldMock,
+          cansCodi: '',
+          fieldMetadata: { ...FormFieldMock.fieldMetadata, notNull: true },
+        };
+
+        const valid = component.validateField(editedFormField);
+
+        expect(valid).toBeFalsy();
+        expect(component.formField.validField).toBeFalsy();
+        expect(component.formField.fieldMsgs).toContain({
+          severity: 'error',
+          detail: 'El valor es obligatorio.',
+        });
+      });
+    });
+
+    describe('validate min length', () => {
+      it('should pass', () => {
+        const editedFormField = {
+          ...FormFieldMock,
+          cansCodi: '01:45',
+          fieldMetadata: {
+            ...FormFieldMock.fieldMetadata,
+            restrictions: [
+              { restrictionType: GpTableRestrictions.MIN_LENGTH, minLength: 5, maxLength: 20 },
+            ],
+          },
+        };
+
+        component.formField = editedFormField;
+
+        const valid = component.validateField(editedFormField);
+
+        expect(valid).toBeTruthy();
+        expect(component.formField.validField).toBeTruthy();
+      });
+
+      it('should not pass', () => {
+        const minLength = 5;
+        const editedFormField = {
+          ...FormFieldMock,
+          cansCodi: '01:4',
+          fieldMetadata: {
+            ...FormFieldMock.fieldMetadata,
+            restrictions: [
+              { restrictionType: GpTableRestrictions.MIN_LENGTH, minLength, maxLength: 20 },
+            ],
+          },
+        };
+
+        component.formField = editedFormField;
+
+        const valid = component.validateField(editedFormField);
+
+        expect(valid).toBeFalsy();
+        expect(component.formField.validField).toBeFalsy();
+        expect(component.formField.fieldMsgs).toContain({
+          severity: 'error',
+          detail: 'Valor demasiado corto (longitud mínima ' + minLength + ')',
+        });
+      });
+    });
+
+    describe('validate max length', () => {
+      it('should pass', () => {
+        const maxLength = 5;
+        const editedFormField = {
+          ...FormFieldMock,
+          cansCodi: '01:45',
+          fieldMetadata: {
+            ...FormFieldMock.fieldMetadata,
+            restrictions: [
+              { restrictionType: GpTableRestrictions.MAX_LENGTH, maxLength, minLength: 5 },
+            ],
+          },
+        };
+
+        component.formField = editedFormField;
+
+        const valid = component.validateField(editedFormField);
+
+        expect(valid).toBeTruthy();
+        expect(component.formField.validField).toBeTruthy();
+      });
+
+      it('should not pass', () => {
+        const maxLength = 5;
+        const editedFormField = {
+          ...FormFieldMock,
+          cansCodi: '01:434',
+          fieldMetadata: {
+            ...FormFieldMock.fieldMetadata,
+            restrictions: [
+              { restrictionType: GpTableRestrictions.MAX_LENGTH, maxLength, minLength: 5 },
+            ],
+          },
+        };
+
+        component.formField = editedFormField;
+
+        const valid = component.validateField(editedFormField);
+
+        expect(valid).toBeFalsy();
+        expect(component.formField.validField).toBeFalsy();
+        expect(component.formField.fieldMsgs).toContain({
+          severity: 'error',
+          detail: 'Valor demasiado largo (longitud máxima ' + maxLength + ')',
+        });
+      });
+    });
   });
 });
