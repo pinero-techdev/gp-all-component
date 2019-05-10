@@ -1,7 +1,7 @@
-@import '../../resources/scss/theme-360/theme';
+@import './../../resources/scss/theme-360/theme';
 
 .login-body {
-  background-image: url('/assets/images/bg-launcher.jpg');
+  background-image: url('./../../resources/images/bg-launcher.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
@@ -20,7 +20,7 @@
 
   &-logo {
     height: 37.85px;
-    background-image: url('/assets/images/grupo-pinero.svg');
+    background-image: url('./../../resources/images/grupo-pinero.svg');
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-position: center;
