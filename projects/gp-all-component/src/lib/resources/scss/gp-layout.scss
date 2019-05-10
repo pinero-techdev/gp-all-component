@@ -29,29 +29,6 @@ a {
   background: url('../images/logo_grupo_pinero.png') top left no-repeat !important;
 }
 
-.navy {
-  background-color: $blue-dark !important;
-}
-
-.text-lopd {
-  white-space: pre-wrap;
-  overflow-x: hidden;
-  height: 30vh;
-}
-
-.text-multiline {
-  white-space: pre-wrap;
-}
-
-.valid {
-  color: $green-light;
-}
-
-/** IDS **/
-#router-outlet {
-  height: inherit;
-}
-
 /** PRIMENG OVERWRITES **/
 .ui-dropdown-filter-container {
   width: 95%;
@@ -81,24 +58,9 @@ button[disabled] {
 }
 
 .application-title {
-  color: $white-color;
+  color: $white;
   padding-top: 0.3em;
   font-size: 2em;
-}
-
-.col {
-  &-min {
-    width: 1.5%;
-  }
-  &-small {
-    width: 3%;
-  }
-  &-medium {
-    width: 6%;
-  }
-  &-big {
-    width: 14%;
-  }
 }
 
 .control {
@@ -133,154 +95,22 @@ button[disabled] {
   &-center {
     text-align: center;
   }
-  &-center {
-    text-align: center;
-  }
 }
 
 .ui-radiobutton-icon {
   margin: 0 !important;
 }
 
-.col {
-  &-left {
-    width: 55%;
-  }
-  &-right {
-    width: 45%;
-    text-align: right;
-  }
-}
-
-.profile-img {
-  height: 110px;
-  width: 110px;
-  border-radius: 15px;
-}
-
-.x-large {
-  font-size: x-large;
-}
-
 .large {
   font-size: large;
-}
-
-#world-map {
-  width: inherit;
-  height: inherit;
-  margin: 0 auto;
 }
 
 .ui-dialog.ui-dialog-responsive {
   width: 90% !important;
 }
 
-.graphic > div > canvas {
-  height: 27vh !important;
-}
-
-#graphic-contact-search > div > canvas {
-  height: 27vh !important;
-}
-
-.graphic-map {
-  height: 27vh;
-  > .jvectormap-container {
-    height: 27vh;
-    width: 35vw;
-    > svg {
-      height: 27vh;
-    }
-  }
-}
-
 .jvectormap-tip {
   z-index: 2000;
-}
-
-.card-level {
-  width: 30px;
-  height: 30px;
-}
-
-.query-level {
-  width: 30px;
-  height: 30px;
-}
-
-// .concierge-level {
-//   width: 12px;
-//   height: 12px;
-// }
-
-.blue {
-  background-color: $blue-medium;
-}
-
-.silver {
-  background-color: $gray-light;
-}
-
-.gold {
-  background-color: $gold;
-}
-
-.black {
-  background-color: $black;
-}
-
-.green {
-  background-color: $green-dark;
-}
-
-.yellow {
-  background-color: $yellow;
-}
-
-.red {
-  background-color: $red;
-}
-
-.orange {
-  background-color: $orange;
-}
-
-.blue,
-.silver,
-.gold,
-.black,
-.green,
-.yellow,
-.red,
-.orange {
-  @include box-shadow($box-shadow);
-}
-
-.circular {
-  border-radius: 50%;
-}
-
-.material-label {
-  top: -20px;
-  font-size: 12px;
-  color: $blue-medium;
-}
-
-.no-pad {
-  padding: 0;
-  &-top {
-    padding-top: 0;
-  }
-  &-bottom {
-    padding-bottom: 0;
-  }
-  &-left {
-    padding-left: 0;
-  }
-  &-right {
-    padding-right: 0;
-  }
 }
 
 .padding {
@@ -296,111 +126,9 @@ button[disabled] {
   font-weight: bold;
 }
 
-body {
-  .ui-datatable {
-    tbody tr td {
-      border: 1px solid $gray-dark !important;
-    }
-    .ui-datatable-footer {
-      padding: 0;
-    }
-    .ui-datatable-thead > tr > th {
-      font-weight: normal;
-      border: 1px solid $gray-lighter !important;
-    }
-  }
-}
-
-.splash-screen .logo {
-  width: 203px;
-  height: 50px;
-}
-
-.ca-bordered {
-  border: 1px solid $gray-lighter;
-}
-
-.no-top-border {
-  border-top: none;
-}
-
-#clients-search > .ui-tabview-panels {
-  min-height: 262px;
-}
-
-.tv-320 {
-  min-height: 320px;
-}
-
-.visible {
-  display: block !important;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.colorbox-icontext {
-  margin-top: 25px;
-  margin-bottom: 20px;
-  font-size: 24px;
-  display: inline-block;
-  width: 100%;
-  color: $white-color;
-}
-
-/* MOVES EDITION COMPONENT */
-body .ui-datatable .ui-datatable-header {
-  .ui-inputtext {
-    color: $gray-darkest;
-  }
-  .ui-tabview-panels {
-    color: $gray-darkest;
-  }
-}
-
 /* CALENDAR - YEARS DIDN'T SHOW COMPLETE*/
 .ui-datepicker select.ui-datepicker-year {
   width: 40%;
-}
-
-/* FORMS */
-.md-dropboxfield {
-  display: block;
-  position: relative;
-  > label {
-    top: -20px;
-    font-size: 12px;
-    color: $blue-medium;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-  }
-}
-
-.preference-menu .ui-panelmenu .ui-panelmenu-header .ui-panelmenu-icon {
-  position: initial;
-}
-
-.map {
-  position: relative;
-  visibility: visible;
-  z-index: 1;
-}
-
-.locator {
-  position: absolute;
-  visibility: visible;
-  z-index: 2;
-}
-
-.no-label {
-  margin-top: 0.35em;
-}
-
-.full-width {
-  width: 100% !important;
 }
 
 /* FLAGS TRANSLATIONS */
@@ -409,25 +137,25 @@ body .ui-datatable .ui-datatable-header {
   background: center no-repeat;
   width: 48px;
   height: 48px;
-  &-ru {
+  &-ruso {
     background-image: url('../images/flags/ruso.png');
   }
-  &-es {
+  &-espanol {
     background-image: url('../images/flags/español.png');
   }
-  &-fr {
+  &-frances {
     background-image: url('../images/flags/frances.png');
   }
-  &-en {
+  &-ingles {
     background-image: url('../images/flags/ingles.png');
   }
-  &-it {
+  &-italiano {
     background-image: url('../images/flags/italiano.png');
   }
-  &-po {
+  &-portugues {
     background-image: url('../images/flags/portugues.png');
   }
-  &-de {
+  &-aleman {
     background-image: url('../images/flags/aleman.png');
   }
 }
@@ -440,26 +168,6 @@ body .ui-datatable .ui-datatable-header {
   background-color: $green-dark !important;
 }
 
-.ms-dialog > .ui-multiselect .ui-multiselect-panel {
-  position: relative !important;
-}
-
-.map-locator {
-  background-image: url('../images/senalador_negro.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 2;
-  width: 30px;
-  height: 30px;
-}
-
-.ui-datatable-tfoot > tr > td {
-  text-align: left;
-  border-color: $gray-lighter !important;
-  background-color: $white;
-}
-
 p-footer > .ui-grid-row > .ui-grid-col-2 {
   padding: 0.25em 0.5em;
 }
@@ -470,69 +178,7 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
   height: 2em;
 }
 
-.dialog-responsive > .ui-dialog {
-  width: 90vw !important;
-  height: 90vh !important;
-  top: 1%;
-  left: 1%;
-  overflow-y: scroll;
-}
-
-.dialog-mini-responsive > .ui-dialog {
-  width: 25vw !important;
-}
-
-.w100 {
-  width: 100% !important;
-}
-
-.calendar-top .ui-datepicker {
-  top: -320px !important;
-}
-
-.dashboard .colorbox.colorbox-dark div {
-  &:first-child {
-    background-color: $gray-darker;
-  }
-  &:last-child {
-    background-color: $gray-dark;
-  }
-}
-
-/* FORMS ADJUSTMENTS */
-.margin-top-1 {
-  margin-top: 1%;
-}
-
 /** DATE VIEWER INSIDE INPUT-FIELDS **/
 .ui-calendar > input {
   width: inherit;
-}
-
-.gray {
-  &-text {
-    color: $gray-medium;
-  }
-  &-border {
-    border: 1px solid $gray-medium !important;
-  }
-}
-
-.gold {
-  &-border {
-    border: 1px solid $gold !important;
-  }
-  &-color {
-    color: $gold !important;
-  }
-}
-
-.uppercase {
-  text-transform: uppercase;
-}
-
-.round-label {
-  background-color: $gray-lightest;
-  border-radius: 100%;
-  width: auto;
 }

@@ -187,10 +187,10 @@ describe('MultiLanguageComponent', () => {
         let $button: HTMLButtonElement;
         component.translations.map((item: Translation, index: number) => {
           if (item.langCountry) {
-            $flag = elementRef.querySelector(`.bandera.bandera-${item.langCountry.toLowerCase()}`);
+            $flag = elementRef.querySelector(`.flag.flag-${item.langCountry.toLowerCase()}`);
             expect($flag).not.toBeNull();
           } else {
-            $flag = elementRef.querySelector('.bandera.sin-bandera');
+            $flag = elementRef.querySelector('.flag.sin-flag');
             expect($flag).not.toBeNull();
           }
 
