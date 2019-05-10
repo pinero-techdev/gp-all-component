@@ -1,33 +1,7 @@
+@import '_variables';
+@import '_mixins';
+
 /** GENERAL **/
-
-/** COLOR VARIABLES **/
-$white-color: #fff;
-$black-color: #000;
-$red-color: #ff0000;
-$yellow-color: #ffff00;
-$orange-color: #ffa500;
-$blue-medium-color: #3f51b5;
-$blue-dark-color: #2c4180;
-$green-light-color: #7ade7a;
-$green-dark-color: #006400;
-$gray-lighter-color: #dcdcdc;
-$gray-lighter-color-2: #cacaca;
-$gray-light-color: #c0c0c0;
-$gray-medium-color: #a9a9a9;
-$gray-medium-color-2: #9c9c9c;
-$gray-dark-color: #676767;
-$gray-darker-color: #484848;
-$gray-darker-color-2: #212121;
-$gold-color: #988642;
-$valid-control-color: #42a948;
-$error-control-color: #a94442;
-$box-shadow-color: rgba(0, 0, 0, 0.8);
-
-@mixin box-shadow($color) {
-  box-shadow: 0 0 8px $color;
-  -webkit-box-shadow: 0 0 8px $color;
-  -moz-box-shadow: 0 0 8px $-color;
-}
 
 /** CLASSES **/
 html {
@@ -40,7 +14,7 @@ a {
 
 .warn,
 .error {
-  color: $red-color;
+  color: $red;
 }
 
 .f-left {
@@ -56,7 +30,7 @@ a {
 }
 
 .navy {
-  background-color: $blue-dark-color !important;
+  background-color: $blue-dark !important;
 }
 
 .text-lopd {
@@ -70,7 +44,7 @@ a {
 }
 
 .valid {
-  color: $green-light-color;
+  color: $green-light;
 }
 
 /** IDS **/
@@ -90,17 +64,17 @@ a {
 .ui-button:disabled,
 button[disabled] {
   cursor: default !important;
-  background-color: $gray-dark-color !important;
+  background-color: $gray-dark !important;
 }
 
 .ui-inputtext:disabled {
   border-left: 0 !important;
-  color: $gray-dark-color;
+  color: $gray-dark;
 }
 
 /** TOPBAR **/
 .layout-container .topbar .topbar-left {
-  background-color: $white-color;
+  background-color: $white;
   background-image: url('../images/logo_gp.png');
   background-position: center center;
   background-repeat: no-repeat;
@@ -129,19 +103,19 @@ button[disabled] {
 
 .control {
   &-valid {
-    border-left: 5px solid $valid-control-color !important;
+    border-left: 5px solid $success !important;
   }
   &-error {
-    border-left: 5px solid $error-control-color !important;
+    border-left: 5px solid $error !important;
   }
 }
 
 .close-btn {
   left: 90%;
-  background-color: $gray-light-color !important;
+  background-color: $gray-light !important;
 
   button:focus {
-    background-color: $gray-medium-color !important;
+    background-color: $gray-medium !important;
   }
 
   > span {
@@ -235,41 +209,41 @@ button[disabled] {
   height: 30px;
 }
 
-.concierge-level {
-  width: 12px;
-  height: 12px;
-}
+// .concierge-level {
+//   width: 12px;
+//   height: 12px;
+// }
 
 .blue {
-  background-color: $blue-medium-color;
+  background-color: $blue-medium;
 }
 
 .silver {
-  background-color: $gray-light-color;
+  background-color: $gray-light;
 }
 
 .gold {
-  background-color: $gold-color;
+  background-color: $gold;
 }
 
 .black {
-  background-color: $black-color;
+  background-color: $black;
 }
 
 .green {
-  background-color: $green-dark-color;
+  background-color: $green-dark;
 }
 
 .yellow {
-  background-color: $yellow-color;
+  background-color: $yellow;
 }
 
 .red {
-  background-color: $red-color;
+  background-color: $red;
 }
 
 .orange {
-  background-color: $orange-color;
+  background-color: $orange;
 }
 
 .blue,
@@ -280,7 +254,7 @@ button[disabled] {
 .yellow,
 .red,
 .orange {
-  @include box-shadow($box-shadow-color);
+  @include box-shadow($box-shadow);
 }
 
 .circular {
@@ -290,7 +264,7 @@ button[disabled] {
 .material-label {
   top: -20px;
   font-size: 12px;
-  color: $blue-medium-color;
+  color: $blue-medium;
 }
 
 .no-pad {
@@ -325,14 +299,14 @@ button[disabled] {
 body {
   .ui-datatable {
     tbody tr td {
-      border: 1px solid gray !important;
+      border: 1px solid $gray-dark !important;
     }
     .ui-datatable-footer {
       padding: 0;
     }
     .ui-datatable-thead > tr > th {
       font-weight: normal;
-      border: 1px solid $gray-lighter-color-2 !important;
+      border: 1px solid $gray-lighter !important;
     }
   }
 }
@@ -343,7 +317,7 @@ body {
 }
 
 .ca-bordered {
-  border: 1px solid $gray-lighter-color-2;
+  border: 1px solid $gray-lighter;
 }
 
 .no-top-border {
@@ -378,10 +352,10 @@ body {
 /* MOVES EDITION COMPONENT */
 body .ui-datatable .ui-datatable-header {
   .ui-inputtext {
-    color: $gray-darker-color-2;
+    color: $gray-darkest;
   }
   .ui-tabview-panels {
-    color: $gray-darker-color-2;
+    color: $gray-darkest;
   }
 }
 
@@ -397,7 +371,7 @@ body .ui-datatable .ui-datatable-header {
   > label {
     top: -20px;
     font-size: 12px;
-    color: $blue-medium-color;
+    color: $blue-medium;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
@@ -463,7 +437,7 @@ body .ui-datatable .ui-datatable-header {
 }
 
 .html {
-  background-color: $green-dark-color !important;
+  background-color: $green-dark !important;
 }
 
 .ms-dialog > .ui-multiselect .ui-multiselect-panel {
@@ -482,8 +456,8 @@ body .ui-datatable .ui-datatable-header {
 
 .ui-datatable-tfoot > tr > td {
   text-align: left;
-  border-color: $gray-lighter-color-2 !important;
-  background-color: $white-color;
+  border-color: $gray-lighter !important;
+  background-color: $white;
 }
 
 p-footer > .ui-grid-row > .ui-grid-col-2 {
@@ -518,10 +492,10 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
 
 .dashboard .colorbox.colorbox-dark div {
   &:first-child {
-    background-color: $gray-darker-color;
+    background-color: $gray-darker;
   }
   &:last-child {
-    background-color: $gray-dark-color;
+    background-color: $gray-dark;
   }
 }
 
@@ -537,19 +511,19 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
 
 .gray {
   &-text {
-    color: $gray-medium-color-2;
+    color: $gray-medium;
   }
   &-border {
-    border: 1px solid $gray-medium-color !important;
+    border: 1px solid $gray-medium !important;
   }
 }
 
 .gold {
   &-border {
-    border: 1px solid $gold-color !important;
+    border: 1px solid $gold !important;
   }
   &-color {
-    color: $gold-color !important;
+    color: $gold !important;
   }
 }
 
@@ -558,7 +532,7 @@ p-footer > .ui-grid-row > .ui-grid-col-2 {
 }
 
 .round-label {
-  background-color: $gray-lighter-color;
+  background-color: $gray-lightest;
   border-radius: 100%;
   width: auto;
 }

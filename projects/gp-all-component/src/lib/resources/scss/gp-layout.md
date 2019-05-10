@@ -11,24 +11,25 @@
 `.goldColor` -> `.gold-color`<br>
 `.nopad` -> `.no-pad`<br>
 <br>Following color variables have been included:<br>
-`$white-color: #fff;`<br>
-`$black-color: #000;`<br>
-`$red-color: #ff0000;`<br>
-`$yellow-color: #ffff00;`<br>
-`$orange-color: #ffa500;`<br>
-`$blue-medium-color: #3f51b5;`<br>
-`$blue-dark-color: #2c4180;`<br>
-`$green-light-color: #7ade7a;`<br>
-`$green-dark-color: #006400;`<br>
-`$gray-lighter-color: #dcdcdc;`<br>
-`$gray-lighter-color-2: #cacaca;`<br>
-`$gray-light-color: #c0c0c0;`<br>
-`$gray-medium-color: #a9a9a9;`<br>
-`$gray-medium-color-2: #9c9c9c;`<br>
-`$gray-dark-color: #676767;`<br>
-`$gray-darker-color: #484848;`<br>
-`$gray-darker-color-2: #212121;`<br>
-`$gold-color: #988642;`<br>
-`$valid-control-color: #42a948;`<br>
-`$error-control-color: #a94442;`<br>
-`$box-shadow-color: rgba(0, 0, 0, 0.8);`<br>
+`$white: #fff;`<br>
+`$black: #000;`<br>
+`$red: #ff0000;`<br>
+`$yellow: #ffff00;`<br>
+`$orange: #ffa500;`<br>
+`$blue-medium: #3f51b5;`<br>
+`$blue-dark: #2c4180;`<br>
+`$green-light: #7ade7a;`<br>
+`$green-dark: #006400;`<br>
+`$gray-lightest: #dcdcdc;`<br>
+`$gray-lighter: #cacaca;`<br>
+`$gray-light: #c0c0c0;`<br>
+`$gray-medium: #a9a9a9;`<br>
+`$gray-dark: #676767;`<br>
+`$gray-darker: #484848;`<br>
+`$gray-darkest: #212121;`<br>
+`$gold: #988642;`<br>
+`$success: #42a948;`<br>
+`$error: #a94442;`<br>
+`$box-shadow: rgba(0, 0, 0, 0.8);`<br>
+<br>Following mixins have been included:<br>
+`@mixin box-shadow($color)`<br>
