@@ -1,5 +1,5 @@
-@import '_variables';
-@import '_mixins';
+@import './global/variables';
+@import './global/mixins';
 
 /** GENERAL **/
 
@@ -47,20 +47,6 @@ button[disabled] {
 .ui-inputtext:disabled {
   border-left: 0 !important;
   color: $gray-dark;
-}
-
-/** TOPBAR **/
-.layout-container .topbar .topbar-left {
-  background-color: $white;
-  background-image: url('../images/logo_gp.png');
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-
-.application-title {
-  color: $white;
-  padding-top: 0.3em;
-  font-size: 2em;
 }
 
 .control {
@@ -129,43 +115,6 @@ button[disabled] {
 /* CALENDAR - YEARS DIDN'T SHOW COMPLETE*/
 .ui-datepicker select.ui-datepicker-year {
   width: 40%;
-}
-
-/* FLAGS TRANSLATIONS */
-.flag {
-  background-size: cover;
-  background: center no-repeat;
-  width: 48px;
-  height: 48px;
-  &-ruso {
-    background-image: url('../images/flags/ruso.png');
-  }
-  &-espanol {
-    background-image: url('../images/flags/español.png');
-  }
-  &-frances {
-    background-image: url('../images/flags/frances.png');
-  }
-  &-ingles {
-    background-image: url('../images/flags/ingles.png');
-  }
-  &-italiano {
-    background-image: url('../images/flags/italiano.png');
-  }
-  &-portugues {
-    background-image: url('../images/flags/portugues.png');
-  }
-  &-aleman {
-    background-image: url('../images/flags/aleman.png');
-  }
-}
-
-.no-flag {
-  background-image: url('../images/flags/sin-bandera.png');
-}
-
-.html {
-  background-color: $green-dark !important;
 }
 
 p-footer > .ui-grid-row > .ui-grid-col-2 {
