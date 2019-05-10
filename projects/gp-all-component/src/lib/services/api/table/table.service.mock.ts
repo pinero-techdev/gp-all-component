@@ -2,7 +2,7 @@ import { TestingErrorCodeMock } from './../../../shared/testing/@mock/utils/test
 import { Observable, of, throwError } from 'rxjs';
 import { ListRs } from './table.service';
 import { Filter } from './../../../resources/data/filter/filter.model';
-import { ErrorInformation } from '@lib/resources/data/error-information/error-information.model';
+import { ErrorInformation } from './../../../resources/data/error-information/error-information.model';
 export const TableServiceMockResponse: ListRs = {
   ok: true,
   data: [

@@ -12,11 +12,10 @@
       <li class="profile-item">
         <a (click)="toggleUserMenu()" [hidden]="!logged">
           <i class="topbar-icon material-icons">account_circle</i>
-          <span class="topbar-item-name">Logged User</span>
+          <span class="topbar-item-name">{{ locale.LOGGED_USER }}</span>
         </a>
       </li>
       <li class="application-title">
-        cabron
         <span *ngIf="logged" [innerHtml]="fullName"></span>
       </li>
     </ul>

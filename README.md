@@ -30,6 +30,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
     npm install primeng --save
     npm install primeicons --save
     npm install @angular/animations --save
+    npm install @angular/cdk --save
     npm install primeflex --save
 ```
 - Add PrimeNG and PrimeIcons css to styles in angular.json.
@@ -69,25 +70,40 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ]
 ```
 
-### NGx Translate 
-- First you need to install the npm module:
-```
-    npm install @ngx-translate/core @ngx-translate/http-loader --save
-```
-- Add to AppModule.
-```
-    import {TranslateModule} from '@ngx-translate/core';
-    @NgModule({
-        imports: [
-            BrowserModule,
-            TranslateModule.forRoot()
-            //...
-        ],
-        //...
-    })
-```
-- More info [NGx Translate README](https://github.com/ngx-translate).
+### Moment.js ###
+<ul>
+    <li>
+        First you need to install the npm module:<br>
+        <code>npm install moment --save</code>
+    </li>
+    <li>
+        If you need more help check out the [Moment.js Documentation](https://momentjs.com/)
+    </li>
+</ul>
 
-## Further help
-
+## Further help ###
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Errors fixes ##
+<p>On version 6+ of Angular CLI the shim for global and other node built-ins is removed. You could have this error on your console log:</p>
+<code>
+    index.js:43 Uncaught ReferenceError: global is not defined<br>
+    at Object../node_modules/buffer/index.js (index.js:43)<br>
+    at __webpack_require__ (bootstrap:78)<br>
+    at Module../node_modules/gp-all-component/fesm5/gp-all-component.js (gp-all-component.js:1)<br>
+    at __webpack_require__ (bootstrap:78)<br>
+    at Object../src/app/app.module.ts (app.module.ts:1)<br>
+    at __webpack_require__ (bootstrap:78)<br>
+    at Object../src/main.ts (main.ts:4)<br>
+    at __webpack_require__ (bootstrap:78)<br>
+    at Object.0 (main.ts:12)<br>
+    at __webpack_require__ (bootstrap:78)<br>
+</code>
+<br>
+
+#### Solution ####
+<p>Adding this line to polyfills.ts should resolve node global error.</p>
+
+```(window as any).global = window;```
+
+The solution was mentioned in this [angular-cli issue thread](https://github.com/angular/angular-cli/issues/9827).

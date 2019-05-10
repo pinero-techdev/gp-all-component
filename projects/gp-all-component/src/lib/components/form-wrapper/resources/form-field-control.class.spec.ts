@@ -1,4 +1,4 @@
-import { FormFieldMock } from './../../../shared/testing/@mock/types/form-wrapper-mock-types';
+import { FormFieldMock } from '../../../shared/testing/@mock/types/form-wrapper.type.mock';
 import { GpFormField } from './form-field.model';
 import { GpFormFieldControl } from './form-field-control.class';
 

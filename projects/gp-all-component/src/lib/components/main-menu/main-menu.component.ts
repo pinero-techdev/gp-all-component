@@ -1,48 +1,52 @@
 import { GlobalService } from './../../services/core/global.service';
 import { MainMenuService, MenuRq } from '../../services/api/main-menu/main-menu.service';
 import {
-    Component,
-    OnInit,
-    AfterViewInit,
-    ApplicationRef,
-    EventEmitter,
-    Output,
+  Component,
+  OnInit,
+  AfterViewInit,
+  ApplicationRef,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'gp-main-menu',
-    templateUrl: './main-menu.component.html',
-    styleUrls: ['./main-menu.component.scss'],
+  selector: 'gp-main-menu',
+  templateUrl: './main-menu.component.html',
+  styleUrls: ['./main-menu.component.scss'],
 })
 /**
  * Clase Menu que agrupa los servicios accesibles por el username
  */
 export class MainMenuComponent implements OnInit, AfterViewInit {
-    menuItems: Observable<any>;
-    @Output() menuCharged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  /* The items needed in the menu */
+  menuItems: Observable<any>;
 
-    constructor(private mainMenuService: MainMenuService, private appRef: ApplicationRef) {}
+  /* When the menu is loaded, an event is triggered */
+  @Output() menuCharged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    ngOnInit() {
-        this.initMenu();
-    }
+  constructor(private mainMenuService: MainMenuService, private appRef: ApplicationRef) {}
 
-    /**
-     * Esperamos a que esté cargado el menú, para indicar al componente padre
-     * que ya puede inicar la carga del layout.js de Ultima
-     */
-    ngAfterViewInit() {
-        this.menuCharged.emit(true);
-    }
+  ngOnInit() {
+    this.initMenu();
+  }
 
-    initMenu() {
-        const sessionId = sessionStorage.getItem('sessionId');
-        const request = new MenuRq(sessionId, GlobalService.getPARAMS());
-        this.menuItems = this.mainMenuService.obtenMenu(request);
-    }
+  /**
+   * Waiting to view is loaded to trigger the event to parent component
+   * for init the layout.js
+   */
+  ngAfterViewInit() {
+    this.menuCharged.emit(true);
+  }
 
-    refresh() {
-        this.appRef.tick();
-    }
+  /* Set menu items */
+  initMenu() {
+    const sessionId = sessionStorage.getItem('sessionId');
+    const request = new MenuRq(sessionId, GlobalService.getPARAMS());
+    this.menuItems = this.mainMenuService.obtenMenu(request);
+  }
+
+  refresh() {
+    this.appRef.tick();
+  }
 }

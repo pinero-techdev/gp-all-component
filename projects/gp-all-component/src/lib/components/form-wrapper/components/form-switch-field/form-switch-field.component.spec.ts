@@ -5,7 +5,7 @@ import {
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
 import { GpFormField } from '../../resources/form-field.model';
-import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper-mock-types';
+import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
 
 describe('FormSwitchFieldComponent', () => {
   let component: FormSwitchFieldComponent;

@@ -1,11 +1,11 @@
 import { ActivatedRoute, Router, Routes } from '@angular/router';
-import { ErrorInformation } from '@lib/resources/data/error-information/error-information.model';
+import { ErrorInformation } from './../../resources/data/error-information/error-information.model';
 import { FormsModule } from '@angular/forms';
 import { GlobalService } from './../../services/core/global.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoginComponent } from './login.component';
 import { LoginService, SessionInfoRs } from './../../services/api/login/login.service';
-import { LoginServiceMock } from '@lib/services/api/login/login.service.mock';
+import { LoginServiceMock } from './../../services/api/login/login.service.mock';
 import { MainMenuComponent } from './../main-menu/main-menu.component';
 import { MainMenuService } from './../../services/api/main-menu/main-menu.service';
 import { RouterTestingModule } from '@angular/router/testing';
