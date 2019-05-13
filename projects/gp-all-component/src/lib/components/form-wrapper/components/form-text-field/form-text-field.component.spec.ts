@@ -40,7 +40,7 @@ describe('FormTextFieldComponent', () => {
     expect(metadata).toEqual(component.formField.fieldMetadata);
   });
 
-  describe('on inicializa', () => {
+  describe('on init', () => {
     const minLength = 5;
     const maxLength = 5;
 
@@ -48,7 +48,7 @@ describe('FormTextFieldComponent', () => {
       component.formField.fieldMetadata.restrictions = [
         { maxLength, minLength, restrictionType: GpTableRestrictions.MIN_LENGTH },
       ];
-      component.inicializa();
+      component.init();
       expect(component.minLength).toEqual(minLength);
     });
 
@@ -56,7 +56,7 @@ describe('FormTextFieldComponent', () => {
       component.formField.fieldMetadata.restrictions = [
         { maxLength, minLength, restrictionType: GpTableRestrictions.MAX_LENGTH },
       ];
-      component.inicializa();
+      component.init();
       expect(component.maxLength).toEqual(maxLength);
     });
 

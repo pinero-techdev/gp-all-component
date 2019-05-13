@@ -39,7 +39,7 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
   translationKeys = '';
 
   ngOnInit() {
-    this.inicializa();
+    this.init();
   }
 
   /**
@@ -60,7 +60,7 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
    * Initializes current component,
    * and sets length validation properties
    */
-  inicializa() {
+  init() {
     const hasTextProperties =
       this.formField.fieldMetadata.displayInfo &&
       this.formField.fieldMetadata.displayInfo.textProperties !== null;
