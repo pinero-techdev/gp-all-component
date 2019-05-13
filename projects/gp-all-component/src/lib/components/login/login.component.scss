@@ -1,3 +1,4 @@
+// @import './../../resources/scss/theme-360/theme';
 @import './../../resources/scss/theme-360/theme';
 
 .login-body {
@@ -16,7 +17,6 @@
   margin: 0;
   border-radius: 4px;
   box-shadow: 0 2px 64px 0 $textColor;
-  font-family: 'Lato', sans-serif;
 
   &-logo {
     height: 37.85px;
@@ -27,6 +27,7 @@
   }
 
   &-title {
+    padding-top: 50px;
     color: $textColor;
     font-size: 16px;
     font-weight: 600;
@@ -34,7 +35,7 @@
   }
 
   &-action {
-    max-width: 164px;
+    max-width: 90px;
     font-weight: 600;
     letter-spacing: 0.19px;
     font-size: 13.5px;
@@ -43,20 +44,31 @@
   &-change-password {
     position: absolute;
     right: 8px;
-    top: 10px;
+    top: -10px;
     color: $primaryColor;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.15px;
     text-decoration: underline;
-
-    @media (min-width: map-get($breakpoints, 'md')) {
-      top: 0;
-    }
   }
 
   &-change-password-wrapper {
     position: relative;
+  }
+
+  .input-group {
+    padding-top: 25px;
+  }
+
+  label {
+    font-size: 12px;
+    color: $textMutedColor;
+    text-align: left;
+    display: block;
+    position: relative;
+    top: -8px;
+    letter-spacing: 0.15px;
+    font-weight: 400;
   }
 
   .ui-col-fluid {
@@ -99,7 +111,15 @@
     }
   }
 
+  .ui-inputtext,
+  .ui-inputtext:hover {
+    border-color: $borderColor;
+  }
+
   .ui-inputtext {
+    font-size: $inputFontSize;
+    line-height: $inputLineHeight;
+
     &:focus {
       padding-bottom: 6.875px;
       border: 1px solid $primaryColor;

@@ -1,0 +1,73 @@
+.ui-widget,
+.ui-widget .ui-widget {
+  font-family: 'Lato', sans-serif;
+  text-decoration: none;
+}
+
+.ui-widget-content {
+  background-color: $primaryBg;
+  font-size: $contentFontSize;
+  border: none;
+
+  .fa {
+    color: inherit;
+  }
+  .ui-row-toggler {
+    &.fa {
+      color: $textSecondaryColor;
+    }
+  }
+}
+
+.ui-widget-header {
+  background-color: transparent;
+  color: $textMutedColor;
+  font-size: $fontSizeSmall;
+  border: none;
+}
+
+.ui-state-active,
+.ui-state-highlight {
+  background-color: $accentColor;
+  color: $accentTextColor;
+}
+
+button.ui-widget:disabled {
+  opacity: 0.2;
+  filter: Alpha(Opacity=35);
+  background-image: none;
+  cursor: auto !important;
+}
+
+input.ui-widget:disabled,
+.ui-dropdown.ui-state-disabled,
+.ui-multiselect.ui-state-disabled {
+  background: $widgetBgDisabled !important;
+  border: 1px solid $borderColor !important;
+  cursor: auto !important;
+}
+
+.ui-corner-all {
+  @include border-radius($borderRadius);
+}
+
+.ui-corner-top {
+  @include border-radius-top($borderRadius);
+}
+
+.ui-corner-bottom {
+  @include border-radius-bottom($borderRadius);
+}
+
+.ui-corner-left {
+  @include border-radius-left($borderRadius);
+}
+
+.ui-corner-right {
+  @include border-radius-right($borderRadius);
+}
+
+.ui-widget-overlay {
+  background-color: $widgetOverlay;
+  opacity: 0.8;
+}
