@@ -27,4 +27,6 @@ export const LocaleES = {
   VALIDATION_SPECIAL_CHARACTERS: `El valor indicado contiene caracteres no 
   válidos (acentos, eñes ...). Han sido sustituidos por caracteres equivalentes o descartados. 
   Seleccione guardar otra vez para aceptar los cambios.`,
+  VALIDATION_TIME_FORMAT: `El valor indicado no cumple con un formato 
+  válido: "hh:mm". Ejemplo  de hora válida: 01:45`,
 };
