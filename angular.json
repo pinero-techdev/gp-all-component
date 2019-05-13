@@ -79,7 +79,7 @@
             "main": "projects/tester/src/main.ts",
             "polyfills": "projects/tester/src/polyfills.ts",
             "tsConfig": "projects/tester/tsconfig.app.json",
-            "assets": ["projects/tester/src/favicon.ico", "projects/tester/src/assets"],
+            "assets": ["projects/tester/src/favicon.ico"],
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
