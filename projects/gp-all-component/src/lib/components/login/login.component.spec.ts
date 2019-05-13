@@ -49,7 +49,7 @@ describe('LoginComponent', () => {
   }
 
   function checkErrorMessages() {
-    const $errorMessages = elementRef.querySelectorAll('.login-panel-error > div');
+    const $errorMessages = elementRef.querySelectorAll('.login-panel-error');
     expect($errorMessages.length).toBeGreaterThan(0);
   }
 
