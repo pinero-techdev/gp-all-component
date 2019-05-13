@@ -4,7 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MultiLanguageTesterComponent } from './multi-language-tester.component';
 import { GpAllComponentModule } from '../../../../../gp-all-component/src/lib/gp-all-component.module';
 
-describe('MultiIdiomaTesterComponent', () => {
+describe('MultiLanguageTesterComponent', () => {
   let component: MultiLanguageTesterComponent;
   let fixture: ComponentFixture<MultiLanguageTesterComponent>;
   let elementRef: HTMLElement;
