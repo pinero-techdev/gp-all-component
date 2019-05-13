@@ -32,7 +32,7 @@ class FormFieldControlMock extends GpFormFieldControl {
   }
 }
 
-describe('FormFieldControl', () => {
+xdescribe('FormFieldControl', () => {
   let returnedValue;
   const message = 'testing messages';
   const formControl = new FormFieldControlMock();
