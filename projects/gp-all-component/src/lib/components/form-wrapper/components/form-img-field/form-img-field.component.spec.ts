@@ -30,7 +30,7 @@ fdescribe('FormImgFieldComponent', () => {
     fixture = TestBed.createComponent(FormImgFieldComponent);
     component = fixture.componentInstance;
     // Spies
-    spyOn(component, 'inicializa').and.callThrough();
+    spyOn(component, 'init').and.callThrough();
   });
 
   it('should create', () => {
