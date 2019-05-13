@@ -7,6 +7,7 @@ import {
 } from '../../../../shared/imports/form-wrapper-shared';
 import { GpFormField } from '../../resources/form-field.model';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
+import { LocaleES } from '@lib/resources/localization/es-ES.lang';
 
 describe('FormTimeFieldComponent', () => {
   let component: FormTimeFieldComponent;
@@ -79,7 +80,7 @@ describe('FormTimeFieldComponent', () => {
         expect(component.formField.validField).toBeFalsy();
         expect(component.formField.fieldMsgs).toContain({
           severity: 'error',
-          detail: 'El valor es obligatorio.',
+          detail: LocaleES.VALUE_IS_REQUIRED,
         });
       });
     });
@@ -126,7 +127,7 @@ describe('FormTimeFieldComponent', () => {
         expect(component.formField.validField).toBeFalsy();
         expect(component.formField.fieldMsgs).toContain({
           severity: 'error',
-          detail: 'Valor demasiado corto (longitud mínima ' + minLength + ')',
+          detail: LocaleES.VALIDATION_VALUE_TOO_SHORT(minLength),
         });
       });
     });
@@ -174,7 +175,7 @@ describe('FormTimeFieldComponent', () => {
         expect(component.formField.validField).toBeFalsy();
         expect(component.formField.fieldMsgs).toContain({
           severity: 'error',
-          detail: 'Valor demasiado largo (longitud máxima ' + maxLength + ')',
+          detail: LocaleES.VALIDATION_VALUE_TOO_LONG(maxLength),
         });
       });
     });

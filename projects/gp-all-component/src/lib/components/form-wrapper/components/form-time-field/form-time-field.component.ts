@@ -6,6 +6,7 @@ import { GPUtil } from './../../../../services/core/gp-util.service';
 import { TableService } from './../../../../services/api/table/table.service';
 import { GpTableRestrictions } from './../../../../components/table-wrapper/resources/gp-table-restrictions.enum';
 import { RegexValidations } from '../../resources/regex-validations.type';
+import { LocaleES } from '@lib/resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-form-time-field',
@@ -77,7 +78,7 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
 
     if (notNullable) {
       this.formField.validField = false;
-      this.validateFieldAddMsgs('El valor es obligatorio.');
+      this.validateFieldAddMsgs(LocaleES.VALUE_IS_REQUIRED);
       return false;
     }
 
@@ -92,9 +93,7 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
 
         if (invalidMinLength) {
           this.formField.validField = false;
-          this.validateFieldAddMsgs(
-            'Valor demasiado corto (longitud mínima ' + restriction.minLength + ')'
-          );
+          this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_SHORT(restriction.minLength));
         }
 
         const invalidMaxLength =
@@ -104,9 +103,7 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
 
         if (invalidMaxLength) {
           this.formField.validField = false;
-          this.validateFieldAddMsgs(
-            'Valor demasiado largo (longitud máxima ' + restriction.maxLength + ')'
-          );
+          this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_LONG(restriction.maxLength));
         }
       }
     }
@@ -114,10 +111,7 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
     // c) Time validation (hh:mm / 24h)
     if (!RegexValidations.isTime24Hours(fieldValue)) {
       this.formField.validField = false;
-      this.validateFieldAddMsgs(
-        `El valor indicado no cumple con un formato 
-                válido: "hh:mm". Ejemplo  de hora válida: 01:45`
-      );
+      this.validateFieldAddMsgs(LocaleES.VALIDATION_TIME_FORMAT);
     }
     return this.formField.validField;
   }
