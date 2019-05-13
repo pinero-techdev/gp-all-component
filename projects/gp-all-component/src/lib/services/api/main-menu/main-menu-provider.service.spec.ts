@@ -9,9 +9,7 @@ describe('MainMenuProviderService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule
-      ],
+      imports: [HttpClientTestingModule],
       providers: [GlobalService, MainMenuProviderService],
     }).compileComponents();
   }));

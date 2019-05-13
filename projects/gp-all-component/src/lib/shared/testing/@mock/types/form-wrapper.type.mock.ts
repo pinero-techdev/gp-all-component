@@ -4,6 +4,7 @@ import { DataTableMetaDataFieldDisplayInfo } from '../../../../resources/data/da
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../../../components/form-wrapper/resources/form-field.model';
 import { GpFormControl } from './../../../../components/form-wrapper/resources/form-control.model';
+import { TranslationInfo } from '@lib/resources/data/translation-info.model';
 
 const options = [
   new DataTableMetaDataFieldDisplayInfoOption(),
@@ -41,6 +42,16 @@ const rField3 = {
 
 const relatedFields = [rField1, rField2, rField3];
 
+const translationInfo = {
+  allowEdition: false,
+  description: 'Description',
+  field: 'cansCodi',
+  keyFields: [],
+  orderByLangCod: false,
+  scheme: '',
+  table: '',
+} as TranslationInfo;
+
 const displayInfo = new DataTableMetaDataFieldDisplayInfo(
   'naciCodi',
   1,
@@ -56,7 +67,7 @@ const displayInfo = new DataTableMetaDataFieldDisplayInfo(
   ['langCodi', 'naciDesc'],
   ['height', 'red'],
   relatedFields,
-  null
+  translationInfo
 );
 
 const metadata = new DataTableMetaDataField(
