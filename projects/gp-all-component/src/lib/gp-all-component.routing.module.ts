@@ -18,12 +18,12 @@ const routes: Routes = [
     canActivate: [],
   },
   {
-    path: 'modifica-password/:username',
+    path: 'forgot-password/:username',
     component: ForgotPasswordComponent,
     canActivate: [],
   },
   {
-    path: 'modifica-password',
+    path: 'forgot-password',
     component: ForgotPasswordComponent,
     canActivate: [],
   },

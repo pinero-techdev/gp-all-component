@@ -98,7 +98,7 @@ And the theme for the library:
 ```
 "styles": [
     ...
-    "node_modules/gp-all-component/lib/resources/scss/theme-360/_theme.scss"
+    "node_modules/gp-all-component/lib/resources/scss/theme-360/theme.scss"
     ...
   ]
 ```
