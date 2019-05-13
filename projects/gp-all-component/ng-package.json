@@ -4,7 +4,17 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "externals": {
-      "primeng": "primeng"
+      "primeng/primeng": "primeng",
+      "primeflex": "primeflex",
+      "primeicons": "primeicons"
+    },
+    "umdModuleIds": {
+      "@angular/animations": "@angular/animations",
+      "@angular/common": "@angular/common",
+      "@angular/core": "@angular/core",
+      "@angular/cdk": "@angular/cdk",
+      "rxjs": "rxjs",
+      "rxjs-compat": "rxjs-compat"
     },
     "cssUrl": "inline",
     "styleIncludePaths": ["./src/lib/resources/css", "./src/lib/resources/scss"]

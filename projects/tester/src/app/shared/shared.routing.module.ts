@@ -1,8 +1,6 @@
 import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
-import { ForgotPasswordTesterComponent } from './forgot-password-tester/forgot-password-tester.component';
-import { LoginTesterComponent } from './login-tester/login-tester.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
@@ -16,18 +14,6 @@ import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 
 export const appRoutes: Routes = [
-  {
-    path: 'login',
-    component: LoginTesterComponent,
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordTesterComponent,
-  },
-  {
-    path: 'forgot-password/:username',
-    component: ForgotPasswordTesterComponent,
-  },
   {
     path: 'dynamic-tester',
     component: DynamicTesterComponent,

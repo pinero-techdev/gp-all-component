@@ -9,7 +9,9 @@
     "inlineSources": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "typeRoots": ["node_modules/@types"],
+    "target": "es6"
   },
   "lib": ["dom", "es2015"],
   "angularCompilerOptions": {

@@ -23,7 +23,7 @@
   @import './components/responsive';
   @import './components/slider';
   @import './components/selector-fechas';
-  //   @import './components/loading-indicator';
+  @import './components/loading-indicator';
 
   .ui-inputswitch-slider:before {
     background: $primaryBg;

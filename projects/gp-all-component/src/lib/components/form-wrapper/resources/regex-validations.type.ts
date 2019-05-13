@@ -1,3 +1,4 @@
+// @dynamic
 export class RegexValidations {
   static BLANK_SPACE = /\s/;
   static CONTROL_SPACE = /[\u0000-\u0019]/;
