@@ -6,6 +6,8 @@ import { TableService } from './../../../../services/api/table/table.service';
 import { GpTableRestrictions } from './../../../../components/table-wrapper/resources/gp-table-restrictions.enum';
 import { GPUtil } from './../../../../services/core/gp-util.service';
 import { RegexValidations } from '../../resources/regex-validations.type';
+import { LocaleES } from '@lib/resources/localization/es-ES.lang';
+
 @Component({
   selector: 'gp-form-text-field',
   templateUrl: './form-text-field.component.html',
@@ -155,25 +157,25 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
     this.formField.validField = true;
     this.formField.fieldMsgs = null;
 
-    let valorCampo = editedRow[this.formField.fieldMetadata.fieldName];
+    let fieldValue = editedRow[this.formField.fieldMetadata.fieldName];
 
     const isDisplayType =
-      typeof valorCampo === 'string' &&
+      typeof fieldValue === 'string' &&
       this.formField.fieldMetadata.displayInfo.displayType === TableService.TEXT_DISPLAY_TYPE;
 
     if (isDisplayType) {
-      valorCampo = valorCampo.trim();
+      fieldValue = fieldValue.trim();
     }
 
     // Start field validation rules
 
     // a) Check nullability
     const notNullable =
-      this.formField.fieldMetadata.notNull && (valorCampo === '' || valorCampo === null);
+      this.formField.fieldMetadata.notNull && (fieldValue === '' || fieldValue === null);
 
     if (notNullable) {
       this.formField.validField = false;
-      this.validateFieldAddMsgs('El valor es obligatorio.');
+      this.validateFieldAddMsgs(LocaleES.VALUE_IS_REQUIRED);
       return false;
     }
 
@@ -184,27 +186,23 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
       for (const restriction of restrictions) {
         const hasMinLength =
           restriction.restrictionType === GpTableRestrictions.MIN_LENGTH &&
-          typeof valorCampo === 'string';
+          typeof fieldValue === 'string';
 
         const hasMaxLength =
           restriction.restrictionType === GpTableRestrictions.MAX_LENGTH &&
-          typeof valorCampo === 'string';
+          typeof fieldValue === 'string';
 
         if (hasMinLength) {
-          if (valorCampo.length < restriction.minLength) {
+          if (fieldValue.length < restriction.minLength) {
             this.formField.validField = false;
-            this.validateFieldAddMsgs(
-              'Valor demasiado corto (longitud mínima ' + restriction.minLength + ')'
-            );
+            this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_SHORT(restriction.minLength));
           }
         }
 
         if (hasMaxLength) {
-          if (valorCampo.length > restriction.maxLength) {
+          if (fieldValue.length > restriction.maxLength) {
             this.formField.validField = false;
-            this.validateFieldAddMsgs(
-              'Valor demasiado largo (longitud máxima ' + restriction.maxLength + ')'
-            );
+            this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_LONG(restriction.maxLength));
           }
         }
       }
@@ -214,7 +212,7 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
     const allowsAscii = this.formField.fieldMetadata.allowAscii;
 
     if (!allowsAscii) {
-      const hasBlankSpace = RegexValidations.hasBlankSpace(valorCampo);
+      const hasBlankSpace = RegexValidations.hasBlankSpace(fieldValue);
       const disallowsSpaces =
         this.formField.fieldMetadata.displayInfo.textProperties !== null &&
         this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
@@ -223,34 +221,23 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
 
       if (disallowsSpaces && hasBlankSpace) {
         this.formField.validField = false;
-        this.validateFieldAddMsgs(
-          `El valor indicado no puede contener espacios. Han sido
-                             eliminados. Seleccione guardar otra vez para aceptar los cambios.`
-        );
-        valorCampo = valorCampo.replace(RegexValidations.BLANK_SPACE, '');
-        this.currentValue = valorCampo;
+        this.validateFieldAddMsgs(LocaleES.VALIDATION_SPACES);
+        fieldValue = fieldValue.replace(RegexValidations.BLANK_SPACE, '');
+        this.currentValue = fieldValue;
       }
 
-      if (RegexValidations.hasControlSpace(valorCampo)) {
+      if (RegexValidations.hasControlSpace(fieldValue)) {
         this.formField.validField = false;
-        this.validateFieldAddMsgs(
-          `El valor indicado contiene caracteres de control. Han sido
-                     sustituidos por espacios. Seleccione guardar
-                      otra vez para aceptar los cambios.`
-        );
-        valorCampo = valorCampo.replace(/[\u0000-\u0019]/g, ' ');
-        this.currentValue = valorCampo;
+        this.validateFieldAddMsgs(LocaleES.VALIDATION_CONTROL_SPACES);
+        fieldValue = fieldValue.replace(RegexValidations.CONTROL_SPACE, ' ');
+        this.currentValue = fieldValue;
       }
 
-      if (RegexValidations.hasSpecialCharacters(valorCampo)) {
+      if (RegexValidations.hasSpecialCharacters(fieldValue)) {
         this.formField.validField = false;
-        this.validateFieldAddMsgs(
-          `El valor indicado contiene caracteres no válidos (acentos, eñes ...).
-                     Han sido sustituidos por caracteres equivalentes o descartados.
-                      Seleccione guardar otra vez para aceptar los cambios.`
-        );
-        valorCampo = GPUtil.normaliza(valorCampo);
-        this.currentValue = valorCampo;
+        this.validateFieldAddMsgs(LocaleES.VALIDATION_SPECIAL_CHARACTERS);
+        fieldValue = GPUtil.normaliza(fieldValue);
+        this.currentValue = fieldValue;
       }
     }
     return this.formField.validField;

@@ -15,4 +15,16 @@ export const LocaleES = {
   VALUE_IS_REQUIRED: 'El valor es obligatorio.',
   YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS:
     'Debe guardar primero el registro para poder insertar o visualizar las traducciones.',
+  VALIDATION_VALUE_TOO_SHORT: (minLength) =>
+    'Valor demasiado corto (longitud mínima ' + minLength + ')',
+  VALIDATION_VALUE_TOO_LONG: (maxLength) =>
+    'Valor demasiado largo (longitud máxima ' + maxLength + ')',
+  VALIDATION_SPACES: `El valor indicado no puede contener espacios. Han sido
+                      eliminados. Seleccione guardar otra vez para aceptar los cambios.`,
+  VALIDATION_CONTROL_SPACES: `El valor indicado contiene caracteres de control. Han sido
+  sustituidos por espacios. Seleccione guardar 
+  otra vez para aceptar los cambios.`,
+  VALIDATION_SPECIAL_CHARACTERS: `El valor indicado contiene caracteres no 
+  válidos (acentos, eñes ...). Han sido sustituidos por caracteres equivalentes o descartados. 
+  Seleccione guardar otra vez para aceptar los cambios.`,
 };
