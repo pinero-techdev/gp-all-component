@@ -8,6 +8,7 @@ import {
 } from '../../../../shared/imports/form-wrapper-shared';
 import { GpFormField } from '../../resources/form-field.model';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
+import { LocaleES } from '@lib/resources/localization/es-ES.lang';
 
 describe('FormTextFieldComponent', () => {
   let component: FormTextFieldComponent;
@@ -186,7 +187,7 @@ describe('FormTextFieldComponent', () => {
         expect(component.formField.validField).toBeFalsy();
         expect(component.formField.fieldMsgs).toContain({
           severity: 'error',
-          detail: 'El valor es obligatorio.',
+          detail: LocaleES.VALUE_IS_REQUIRED,
         });
       });
     });
@@ -233,7 +234,7 @@ describe('FormTextFieldComponent', () => {
         expect(component.formField.validField).toBeFalsy();
         expect(component.formField.fieldMsgs).toContain({
           severity: 'error',
-          detail: 'Valor demasiado corto (longitud mínima ' + minLength + ')',
+          detail: LocaleES.VALIDATION_VALUE_TOO_SHORT(minLength),
         });
       });
     });
@@ -281,7 +282,7 @@ describe('FormTextFieldComponent', () => {
         expect(component.formField.validField).toBeFalsy();
         expect(component.formField.fieldMsgs).toContain({
           severity: 'error',
-          detail: 'Valor demasiado largo (longitud máxima ' + maxLength + ')',
+          detail: LocaleES.VALIDATION_VALUE_TOO_LONG(maxLength),
         });
       });
     });
@@ -329,8 +330,7 @@ describe('FormTextFieldComponent', () => {
           expect(component.formField.validField).toBeFalsy();
           expect(component.formField.fieldMsgs).toContain({
             severity: 'error',
-            detail: `El valor indicado no puede contener espacios. Han sido
-                             eliminados. Seleccione guardar otra vez para aceptar los cambios.`,
+            detail: LocaleES.VALIDATION_SPACES,
           });
         });
       });
@@ -358,9 +358,7 @@ describe('FormTextFieldComponent', () => {
           expect(component.formField.validField).toBeFalsy();
           expect(component.formField.fieldMsgs).toContain({
             severity: 'error',
-            detail: `El valor indicado contiene caracteres de control. Han sido
-                     sustituidos por espacios. Seleccione guardar
-                      otra vez para aceptar los cambios.`,
+            detail: LocaleES.VALIDATION_CONTROL_SPACES,
           });
         });
       });
@@ -386,9 +384,7 @@ describe('FormTextFieldComponent', () => {
           expect(component.formField.validField).toBeFalsy();
           expect(component.formField.fieldMsgs).toContain({
             severity: 'error',
-            detail: `El valor indicado contiene caracteres no válidos (acentos, eñes ...).
-                     Han sido sustituidos por caracteres equivalentes o descartados.
-                      Seleccione guardar otra vez para aceptar los cambios.`,
+            detail: LocaleES.VALIDATION_SPECIAL_CHARACTERS,
           });
         });
       });
