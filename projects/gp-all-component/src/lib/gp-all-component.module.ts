@@ -31,7 +31,12 @@ import { TopbarModule } from './components/topbar/topbar.module';
 import { UppercaseDirective } from './directives/uppercase.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    // Directives
+    FocusDirective,
+    LowercaseDirective,
+    UppercaseDirective,
+  ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -57,11 +62,6 @@ import { UppercaseDirective } from './directives/uppercase.directive';
     RatingModule,
     TableWrapperModule,
     TopbarModule,
-
-    // Directives
-    FocusDirective,
-    LowercaseDirective,
-    UppercaseDirective
   ],
   exports: [
     // We export library modules
@@ -80,7 +80,7 @@ import { UppercaseDirective } from './directives/uppercase.directive';
     // Directives
     FocusDirective,
     LowercaseDirective,
-    UppercaseDirective
+    UppercaseDirective,
   ],
   providers: [
     CUSTOM_CONTROL_VALUE_ACCESSOR,

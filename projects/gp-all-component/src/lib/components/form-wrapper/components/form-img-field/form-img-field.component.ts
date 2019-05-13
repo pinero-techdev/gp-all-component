@@ -19,7 +19,7 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
   maxLength: number;
 
   getFieldMetadata(): DataTableMetaDataField {
-    return this.formField.fieldMetadata;
+    return this.formField && this.formField.fieldMetadata ? this.formField.fieldMetadata : null;
   }
 
   ngOnInit() {
