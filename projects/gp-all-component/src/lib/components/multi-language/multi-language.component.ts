@@ -13,6 +13,7 @@ import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'gp-multi-language',
   templateUrl: './multi-language.component.html',
+  styleUrls: ['./multi-language.component.scss'],
 })
 export class MultiLanguageComponent implements OnInit {
   @Input() table: string;

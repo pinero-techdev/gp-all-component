@@ -1,0 +1,39 @@
+// @import './../../resources/scss/theme-360/theme';
+@import './../../resources/scss/theme-360/theme';
+
+/* FLAGS TRANSLATIONS */
+.flag {
+  background-size: cover;
+  background: center no-repeat;
+  width: 48px;
+  height: 48px;
+  &-ruso {
+    background-image: url('./../../resources/images/flags/ruso.png');
+  }
+  &-espanol {
+    background-image: url('./../../resources/images/flags/español.png');
+  }
+  &-frances {
+    background-image: url('./../../resources/images/flags/frances.png');
+  }
+  &-ingles {
+    background-image: url('./../../resources/images/flags/ingles.png');
+  }
+  &-italiano {
+    background-image: url('./../../resources/images/flags/italiano.png');
+  }
+  &-portugues {
+    background-image: url('./../../resources/images/flags/portugues.png');
+  }
+  &-aleman {
+    background-image: url('./../../resources/images/flags/aleman.png');
+  }
+}
+
+.no-flag {
+  background-image: url('./../../resources/images/flags/sin-bandera.png');
+}
+
+.html {
+  background-color: $tealBadge !important;
+}

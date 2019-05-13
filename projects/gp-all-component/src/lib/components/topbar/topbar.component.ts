@@ -20,7 +20,7 @@ export class TopbarComponent implements OnInit {
 
   display = false;
   readonly locale = LocaleES;
-  classShowMenuButton = 'Fright ShowOnMobile ripplelink Unselectable ShadowEffect';
+  classShowMenuButton = 'f-right ShowOnMobile ripplelink Unselectable ShadowEffect';
   itemsUserMenu: MenuItem[];
   showMenu = false;
   userMenuVisible = false;

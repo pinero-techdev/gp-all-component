@@ -1,15 +1,17 @@
-@import 'colors';
-@import './../fonts/fa/variables';
+@import '_colors.scss';
 
 /* White for any element like svg strokes, fonts, etc. */
 $whiteColor: color(white);
 
+// /* White for any element like svg strokes, fonts, etc. */
+// $blackColor: color(black);
+
 /* primary */
 $primaryColor: color(primary);
 $primaryDarkColor: darken($primaryColor, 3%);
-$primaryDarkestColor: darken($primaryColor, 5%);
-$primaryLightColor: lighten($primaryColor, 3%);
-$primaryLightestColor: lighten($primaryColor, 5%);
+// $primaryDarkestColor: darken($primaryColor, 5%);
+// $primaryLightColor: lighten($primaryColor, 3%);
+// $primaryLightestColor: lighten($primaryColor, 5%);
 
 /* error */
 $errorColor: color(error);
@@ -17,138 +19,139 @@ $errorColor: color(error);
 /* success */
 $successColor: color(success);
 
-/* warn */
-$warnColor: color(warn);
+// /* warn */
+// $warnColor: color(warn);
 
-/* info */
-$infoColor: color(info);
+// /* info */
+// $infoColor: color(info);
 
-/* fatal */
-$fatalColor: color(fatal);
+// /* fatal */
+// $fatalColor: color(fatal);
 
-/* message text */
-$messageText: color(text, inverted);
-$messageIcon: color(text, inverted);
+// /* message text */
+// $messageText: color(text, inverted);
+// $messageIcon: color(text, inverted);
 
-/* unused colors
-$successDarkColor: darken($successColor, 3%);
-$successDarkestColor: darken($successColor, 5%);
-$successLightColor: lighten($successColor, 3%);
-$successLightestColor: lighten($successColor, 5%);
-*/
+// /* unused colors
+// $successDarkColor: darken($successColor, 3%);
+// $successDarkestColor: darken($successColor, 5%);
+// $successLightColor: lighten($successColor, 3%);
+// $successLightestColor: lighten($successColor, 5%);
+// */
 
 /* accent */
 $accentColor: color(accent);
 $accentDarkColor: color(accent, dark);
-$accentLightColor: color(accent, dark);
-$accentTextColor: color(accent, text);
+// $accentLightColor: color(accent, dark);
+// $accentTextColor: color(accent, text);
 
-/* menu */
-$darkMenuBgColor: color(accent, dark);
-$darkMenuHoverColor: color(accent);
-$darkMenuRouterLinkActiveColor: color(purple, purple-1);
-$lightMenuRouterLinkActiveColor: color(blue, blue-3);
-$horizontalLightMenuRouterLinkActiveColor: color(purple, purple-1);
+// /* menu */
+// $darkMenuBgColor: color(accent, dark);
+// $darkMenuHoverColor: color(accent);
+// $darkMenuRouterLinkActiveColor: color(purple, purple-1);
+// $lightMenuRouterLinkActiveColor: color(blue, blue-3);
+// $horizontalLightMenuRouterLinkActiveColor: color(purple, purple-1);
 
-/* table */
-$tableOddBg: color(gray, gray-1);
-$tableEvenBg: color(white, white-4);
-$tableFooter: color(gray, gray-1);
-$tableHeader: color(white, white-4);
-$tableHeaderBorder: color(gray, gray-5);
-$tableInnerBorder: color(white, white-6);
+// /* table */
+// $tableOddBg: color(gray, gray-1);
+// $tableEvenBg: color(white, white-4);
+// $tableFooter: color(gray, gray-1);
+// $tableHeader: color(white, white-4);
+// $tableHeaderBorder: color(gray, gray-5);
+// $tableInnerBorder: color(white, white-6);
 
 /* text */
 $textColor: color(text, base);
 $textSecondaryColor: color(text, secondary);
 $textMutedColor: color(text, muted);
-$textInvertedColor: color(text, inverted);
-$textInvertedMutedColor: color(text, invertedMuted);
-$hoverTextColor: color(black);
+// $textInvertedColor: color(text, inverted);
+// $textInvertedMutedColor: color(text, invertedMuted);
+// $hoverTextColor: color(black);
+// $tabTextColor: color(gray, gray-13);
 
 /* breakpoints */
 $breakpoints: (
-    'xs': 480px,
-    'sm': 768px,
-    'md': 992px,
-    'lg': 1280px,
-    'xl': 1440px,
+  'xs': 480px,
+  'sm': 768px,
+  'md': 992px,
+  'lg': 1280px,
+  'xl': 1440px,
 );
 
-/* font sizes weights etc */
+// /* font sizes weights etc */
 $fontSize: 13.5px;
-$fontSizeSmall: 12px;
-$fontSizeLarge: 16px;
-$fontRegular: 400;
-$fontMedium: 500;
+// $fontSizeSmall: 12px;
+// $fontSizeLarge: 16px;
+// $fontRegular: 400;
+// $fontMedium: 500;
 $fontSemiBold: 600;
-$fontBold: 700;
-$lineHeight: 1.5;
-$contentFontSize: 1em;
-$contentPadding: 24px;
+// $fontBold: 700;
+// $lineHeight: 1.5;
+// $contentFontSize: 1em;
+// $contentPadding: 24px;
 
-/* transition */
-$transitionDuration: 0.3s;
+// /* transition */
+// $transitionDuration: 0.3s;
 
 /* border */
 $borderRadius: 4px;
 $borderColor: color(gray, gray-5);
-$borderColor-2: color(blue, blue-11);
+// $borderColor-2: color(blue, blue-11);
 
-/* separation */
-$separation: 8px;
-$separationLarge: $separation * 2;
-$separationXLarge: $separationLarge * 1.5;
-$separationSmall: $separation / 2;
-$dividerColor: color(gray, gray-6);
-$dividerLightColor: color(gray, gray-4);
+// /* separation */
+// $separation: 8px;
+// $separationLarge: $separation * 2;
+// $separationXLarge: $separationLarge * 1.5;
+// $separationSmall: $separation / 2;
+// $dividerColor: color(gray, gray-6);
+// $dividerLightColor: color(gray, gray-4);
 
-/* mask */
-$bodyBgColor: color(white, white-5);
-$maskBgColor: color(gray, gray-9);
+// /* mask */
+// $bodyBgColor: color(white, white-5);
+// $maskBgColor: color(gray, gray-9);
 
-/* top bar and menu */
-$topbarButtonColor: color(white);
-$topbarButtonHoverColor: color(white, white-2);
-$topbarSearchBorderColor: color(white);
-$topbarSearchColor: color(white);
-$topbarIconColor: color(white);
-$topbarIconHoverColor: color(white, white-2);
-$topbarMenuBgColor: color(white);
-$topbarSubmenuBgColor: color(white);
+// /* top bar and menu */
+// $topbarButtonColor: color(white);
+// $topbarButtonHoverColor: color(white, white-2);
+// $topbarSearchBorderColor: color(white);
+// $topbarSearchColor: color(white);
+// $topbarIconColor: color(white);
+// $topbarIconHoverColor: color(white, white-2);
+// $topbarMenuBgColor: color(white);
+// $topbarSubmenuBgColor: color(white);
 
-/* layout menu */
-$layoutMenuBgColor: color(white);
-$layoutMenuScrollbarBgColor: color(gray, gray-2);
-$layoutMenuItemIconColor: color(gray, gray-13);
-$layoutMenuItemActiveColor: color(white, white-2);
-$horizontalLayoutMenuItemTextColor: color(white);
-$horizontalLayoutMenuItemHoverBgColor: color(white, white-2);
-$horizontalLayoutMenuSubMenuBgColor: color(white);
-$horizontalLayoutMenuSubMenuActiveBgColor: color(white, white-2);
-$horizontalDarkLayoutMenuItemTextColor: color(white);
-$slimLayoutMenuSubMenuBgColor: color(white);
-$slimMenuTooltipColor: color(white);
+// /* layout menu */
+// $layoutMenuBgColor: color(white);
+// $layoutMenuScrollbarBgColor: color(gray, gray-2);
+// $layoutMenuItemIconColor: color(gray, gray-13);
+// $layoutMenuItemActiveColor: color(white, white-2);
+// $horizontalLayoutMenuItemTextColor: color(white);
+// $horizontalLayoutMenuItemHoverBgColor: color(white, white-2);
+// $horizontalLayoutMenuSubMenuBgColor: color(white);
+// $horizontalLayoutMenuSubMenuActiveBgColor: color(white, white-2);
+// $horizontalDarkLayoutMenuItemTextColor: color(white);
+// $slimLayoutMenuSubMenuBgColor: color(white);
+// $slimMenuTooltipColor: color(white);
 
-/* dark menu */
-$darkMenuColor: color(white);
+// /* dark menu */
+// $darkMenuColor: color(white);
 
-/* profile menu */
-$profileMenuBorderBottomColor: color(gray, gray-6);
-$profileMenuDarkBorderBottomColor: color(gray, gray-11);
+// /* profile menu */
+// $profileMenuBorderBottomColor: color(gray, gray-6);
+// $profileMenuDarkBorderBottomColor: color(gray, gray-11);
 
-/* active menu */
-$activeMenuItemBadgeColor: color(white);
-$activeMenuItemBadgeTextColor: color(gray, gray-14);
+// /* active menu */
+// $activeMenuItemBadgeColor: color(white);
+// $activeMenuItemBadgeTextColor: color(gray, gray-14);
 
-/* card */
-$cardContentPadding: $separationXLarge;
+// /* card */
+// $cardContentPadding: $separationXLarge;
 
-/* gutter */
-$gridGutter: $separation;
+// /* gutter */
+// $gridGutter: $separation;
 
-/* Tables */
-$highlightedRow: color(white, white-3);
+// /* Tables */
+// $highlightedRow: color(white, white-3);
 
 /* input */
 $inputHeight: 36px;
@@ -160,9 +163,9 @@ $inputLineHeight: 1.5;
 $inputBorderStyle: solid;
 $inputBorderRadius: $borderRadius;
 $inputPaddingVertical: get-computed-padding(
-    $inputHeight,
-    $inputFontSize * $inputLineHeight,
-    $inputBorderWidth
+  $inputHeight,
+  $inputFontSize * $inputLineHeight,
+  $inputBorderWidth
 );
 $inputPaddingHorizontal: 10px;
 $inputBorderColor: $borderColor;
@@ -194,11 +197,12 @@ $inputBorderValidColor: $successColor;
 $inputLabelColor: color(gray, gra15);
 $inputLabelPrimaryColor: color(white);
 
-/* checkbox */
-$checkboxBorder: color(gray, gray-13);
+// /* checkbox */
+// $checkboxBorder: color(gray, gray-13);
+// $switchInactiveColor: color(gray, gray-15);
 
-/* radioButton */
-$radioButtonBorder: color(gray, gray-13);
+// /* radioButton */
+// $radioButtonBorder: color(gray, gray-13);
 
 /* Buttons */
 $buttonBg: $primaryColor;
@@ -213,162 +217,166 @@ $buttonBorderWidth: $inputBorderWidth;
 $buttonBorderStyle: $inputBorderStyle;
 $buttonBorderRadius: $inputBorderRadius;
 $buttonPaddingVertical: get-computed-padding(
-    $buttonHeight,
-    $buttonFontSize * $buttonLineHeight,
-    $buttonBorderWidth
+  $buttonHeight,
+  $buttonFontSize * $buttonLineHeight,
+  $buttonBorderWidth
 );
 $buttonPaddingHorizontal: $inputPaddingHorizontal + 14px;
-$buttonSuccessBg: $successColor;
-$buttonSuccessBorderColor: $buttonSuccessBg;
-$buttonDangerBg: $errorColor;
-$buttonDangerBgHover: $errorColor;
-$buttonInvertedBg: color(white);
-$buttonInvertedBorder: color(gray, gray-5);
-$buttonDisabledBg: color(gray, gray-20);
+// $buttonSuccessBg: $successColor;
+// $buttonSuccessBorderColor: $buttonSuccessBg;
+// $buttonDangerBg: $errorColor;
+// $buttonDangerBgHover: $errorColor;
+// $buttonInvertedBg: color(white);
+// $buttonInvertedBorder: color(gray, gray-5);
+// $buttonDisabledBg: color(gray, gray-20);
 
-/* header */
-$headerFontSize: 1em;
-$headerPadding: 24px;
+// /* header */
+// $headerFontSize: 1em;
+// $headerPadding: 24px;
 
 /* backgrounds */
 $primaryBg: color(white);
-$widgetOverlay: color(gray, gray-19);
-$widgetBgDisabled: color(gray, gray-17);
-$textboxBgColor: color(white, white-1);
-$hoverBgColor: color(gray, gray-7);
-$grayBgColor: color(gray, gray-13);
-$rightPanelBgColor: color(white);
-$grayBgColorLight: color(gray, gray-1);
+// $widgetOverlay: color(gray, gray-19);
+// $widgetBgDisabled: color(gray, gray-17);
+// $textboxBgColor: color(white, white-1);
+// $hoverBgColor: color(gray, gray-7);
+// $grayBgColor: color(gray, gray-13);
+// $rightPanelBgColor: color(white);
+// $grayBgColorLight: color(gray, gray-1);
+// $tabviewNavBgColor: color(gray, gray-3);
 
-/* icon*/
-$iconFontSize: 1.5em;
+// /* icon*/
+// $iconFontSize: 1.5em;
 
-/* nav list */
-$navListItemHeight: 40px;
-$navListItemFontSize: $fontSize;
-$navListItemFontWeight: $fontSemiBold;
-$navListItemLineHeight: $lineHeight;
-$navListItemColor: $textSecondaryColor;
-$navListIconColor: $textMutedColor;
-$navListItemPaddingVertical: get-computed-padding(
-    $navListItemHeight,
-    $navListItemFontSize * $navListItemLineHeight,
-    0
-);
-$navListItemPaddingHorizontal: $separationXLarge;
-$navListItemActiveBg: $primaryBg;
-$navListItemActiveColor: $primaryLightestColor;
-$navListItemActiveQualityColor: color(red, red-1);
-$navListItemActivePollColor: color(yellow, yellow-1);
-$navListItemActiveBoxShadow: inset 3px 0px 0px 0px rgba($primaryColor, 1);
-$navListBadgeHeight: 24px;
-$navListBadgeFontSize: $fontSizeSmall;
-$navListBadgeFontWeight: $fontBold;
-$navListBadgeLineHeight: normal;
-$navListBadgeColor: $textSecondaryColor;
-$navListBadgePaddingVertical: get-computed-padding(
-    $navListBadgeHeight,
-    $navListBadgeFontSize + 2,
-    0
-);
-$navListBadgePaddingHorizontal: $separation;
-$navListBadgeBg: color(white, white-6);
-$navListBadgeActiveColor: $textInvertedColor;
-$navListBadgeActiveBg: $primaryColor;
-$navListItemClientActiveBg: color(white, white-4);
+// /* nav list */
+// $navListItemHeight: 40px;
+// $navListItemFontSize: $fontSize;
+// $navListItemFontWeight: $fontSemiBold;
+// $navListItemLineHeight: $lineHeight;
+// $navListItemColor: $textSecondaryColor;
+// $navListIconColor: $textMutedColor;
+// $navListItemPaddingVertical: get-computed-padding(
+//     $navListItemHeight,
+//     $navListItemFontSize * $navListItemLineHeight,
+//     0
+// );
+// $navListItemPaddingHorizontal: $separationXLarge;
+// $navListItemActiveBg: $primaryBg;
+// $navListItemActiveColor: $primaryLightestColor;
+// $navListItemActiveQualityColor: color(red, red-1);
+// $navListItemActivePollColor: color(yellow, yellow-1);
+// $navListItemActiveBoxShadow: inset 3px 0px 0px 0px rgba($primaryColor, 1);
+// $navListBadgeHeight: 24px;
+// $navListBadgeFontSize: $fontSizeSmall;
+// $navListBadgeFontWeight: $fontBold;
+// $navListBadgeLineHeight: normal;
+// $navListBadgeColor: $textSecondaryColor;
+// $navListBadgePaddingVertical: get-computed-padding(
+//     $navListBadgeHeight,
+//     $navListBadgeFontSize + 2,
+//     0
+// );
+// $navListBadgePaddingHorizontal: $separation;
+// $navListBadgeBg: color(white, white-6);
+// $navListBadgeActiveColor: $textInvertedColor;
+// $navListBadgeActiveBg: $primaryColor;
+// $navListItemClientActiveBg: color(white, white-4);
 
-/* card Kpi */
-$cardKpiHeight: 180px;
-$cardKpiBorder: 1px solid $borderColor;
-$cardKpiBorderRadius: 4px;
-$cardKpiBackgroundColor: $textInvertedColor;
-$cardKpiBoxShadow: -2px 5px 6px 0 rgba(214, 217, 231, 0.29),
-    -11px 9px 21px 0 rgba(173, 182, 217, 0.17);
-$cardKpiPadding: 0 7px 0 14px;
-$cardKpiMarginBottom: 24px;
-$cardKpiIconBackground: linear-gradient(
-    138.24deg,
-    color(blue, blue-6) 0%,
-    color(blue, blue-7) 100%
-);
-$cardKpiIconBackgroundQuality: color(red, red-1);
-$cardKpiIconBackgroundPoll: color(yellow, yellow-1);
-$cardKpiIconBackgroundLogin: color(orange, orange-1);
-$cardKpiIconBackgroundManual: color(yellow, yellow-2);
-$cardKpiIconBackgroundAutom: color(red, red-1);
-$cardKpiIconBackgroundRest: color(blue, blue-1);
-$cardKpiIconBackgroundSpa: color(purple, purple-2);
-$cardKpiIconBackgroundHotel: color(green, green-1);
-$cardKpiIconBackgroundPetic: color(red, red-1);
-$cardKpiIconBackgroundApp: color(yellow, yellow-3);
-$cardKpiIconBackgroundBpg: color(green, green-2);
-$cardKpiIconBackgroundOtro: color(blue, blue-4);
-$cardKpiIconBackgroundAct: color(green, green-3);
-$cardKpiIconBackgroundAnt: color(blue, blue-5);
-$cardKpiIconSize: 80px;
-$cardKpiIconBorderRadius: 50%;
-$cardKpiIconSvgSize: 30px;
-$cardKpiIconSvgColor: $textInvertedColor;
-$cardKpiLabelFontSize: 18px;
-$cardKpiLabelFontWeight: $fontMedium;
-$cardKpiLabelColor: $textSecondaryColor;
-$cardKpiCountFontSize: 28px;
-$cardKpiCountFontWeight: $fontBold;
-$cardKpiLabelMdFontSize: 20px;
-$cardKpiCountMdFontSize: 40px;
+// /* card Kpi */
+// $cardKpiHeight: 180px;
+// $cardKpiBorder: 1px solid $borderColor;
+// $cardKpiBorderRadius: 4px;
+// $cardKpiBackgroundColor: $textInvertedColor;
+// $cardKpiBoxShadow: -2px 5px 6px 0 rgba(214, 217, 231, 0.29),
+//     -11px 9px 21px 0 rgba(173, 182, 217, 0.17);
+// $cardKpiPadding: 0 7px 0 14px;
+// $cardKpiMarginBottom: 24px;
+// $cardKpiIconBackground: linear-gradient(
+//     138.24deg,
+//     color(blue, blue-6) 0%,
+//     color(blue, blue-7) 100%
+// );
+// $cardKpiIconBackgroundQuality: color(red, red-1);
+// $cardKpiIconBackgroundPoll: color(yellow, yellow-1);
+// $cardKpiIconBackgroundLogin: color(orange, orange-1);
+// $cardKpiIconBackgroundManual: color(yellow, yellow-2);
+// $cardKpiIconBackgroundAutom: color(red, red-1);
+// $cardKpiIconBackgroundRest: color(blue, blue-1);
+// $cardKpiIconBackgroundSpa: color(purple, purple-2);
+// $cardKpiIconBackgroundHotel: color(green, green-1);
+// $cardKpiIconBackgroundPetic: color(red, red-1);
+// $cardKpiIconBackgroundApp: color(yellow, yellow-3);
+// $cardKpiIconBackgroundBpg: color(green, green-2);
+// $cardKpiIconBackgroundOtro: color(blue, blue-4);
+// $cardKpiIconBackgroundAct: color(green, green-3);
+// $cardKpiIconBackgroundAnt: color(blue, blue-5);
+// $cardKpiIconSize: 80px;
+// $cardKpiIconBorderRadius: 50%;
+// $cardKpiIconSvgSize: 30px;
+// $cardKpiIconSvgColor: $textInvertedColor;
+// $cardKpiLabelFontSize: 18px;
+// $cardKpiLabelFontWeight: $fontMedium;
+// $cardKpiLabelColor: $textSecondaryColor;
+// $cardKpiCountFontSize: 28px;
+// $cardKpiCountFontWeight: $fontBold;
+// $cardKpiLabelMdFontSize: 20px;
+// $cardKpiCountMdFontSize: 40px;
 
-/* dropdown */
-$dropdownBg: color(white);
-$dropdownMenuActionSize: $buttonHeight;
-$dropdownMenuActionBg: color(gray, gray-17);
-$dropdownMenuItemFontSize: $fontSize;
-$dropdownFilterBackground: color(gray, gray-1);
+// /* dropdown */
+// $dropdownBg: color(white);
+// $dropdownMenuActionSize: $buttonHeight;
+// $dropdownMenuActionBg: color(gray, gray-17);
+// $dropdownMenuItemFontSize: $fontSize;
+// $dropdownFilterBackground: color(gray, gray-1);
 
-/* multiselect */
-$multiselectHeaderBg: color(gray, gray-1);
+// /* multiselect */
+// $multiselectHeaderBg: color(gray, gray-1);
 
-/* Compact */
-$c-fontSize: 14px;
-$c-lineHeight: 18px;
+// /* Compact */
+// $c-fontSize: 14px;
+// $c-lineHeight: 18px;
 
-/* datatable circles */
-$dataTableRed: color(red, red-1);
-$dataTableYellow: color(yellow, yellow-4);
-$dataTableOrange: color(orange, orange-1);
-$dataTableSilver: color(silver, silver-1);
-$dataTableBlue: color(blue, blue-8);
+// /* rating */
+// $ratingStarColor: color(gold, gold-1);
 
-$listboxHeaderChkboxBorder: color(white);
-$listboxFilterInputBorder: color(white);
+// /* datatable circles */
+// $dataTableRed: color(red, red-1);
+// $dataTableYellow: color(yellow, yellow-4);
+// $dataTableOrange: color(orange, orange-1);
+// $dataTableSilver: color(silver, silver-1);
+// $dataTableBlue: color(blue, blue-8);
 
-$datepickerIconColor: color(white);
+// $listboxHeaderChkboxBorder: color(white);
+// $listboxFilterInputBorder: color(white);
 
-$editorToolbarBg: color(white, white-2);
-$pickerLabelColor: color(gray, gray-21);
+// $datepickerIconColor: color(white);
 
-$tooltipBg: color(gray, gray-22);
+// $editorToolbarBg: color(white, white-2);
+// $pickerLabelColor: color(gray, gray-21);
 
-$colorbox1: color(green, green-3);
-$colorbox1Darker: color(green, green-4);
-$colorbox2: color(blue, blue-5);
-$colorbox2Darker: color(blue, blue-9);
-$colorbox3: color(purple, purple-3);
-$colorbox3Darker: color(purple, purple-4);
-$colorbox3: color(purple, purple-3);
-$colorbox3Darker: color(purple, purple-4);
-$colorbox4: color(green, green-5);
-$colorbox4Darker: color(green, green-6);
+// $tooltipBg: color(gray, gray-22);
 
-$activityListCountBg: color(blue, blue-5);
+// $colorbox1: color(green, green-3);
+// $colorbox1Darker: color(green, green-4);
+// $colorbox2: color(blue, blue-5);
+// $colorbox2Darker: color(blue, blue-9);
+// $colorbox3: color(purple, purple-3);
+// $colorbox3Darker: color(purple, purple-4);
+// $colorbox3: color(purple, purple-3);
+// $colorbox3Darker: color(purple, purple-4);
+// $colorbox4: color(green, green-5);
+// $colorbox4Darker: color(green, green-6);
 
-$redBadge: color(red, red-1);
-$purpleBadge: color(purple, purple-4);
+// $activityListCountBg: color(blue, blue-5);
+
+// $redBadge: color(red, red-1);
+// $purpleBadge: color(purple, purple-4);
 $tealBadge: color(green, green-6);
 
-$menuGradient1: color(blue, blue-10);
-$menuGradient2: color(blue, blue-7);
-$menuGradient3: color(blue, blue-6);
-$menu360Bg: color(blue, blue-7);
+// $menuGradient1: color(blue, blue-10);
+// $menuGradient2: color(blue, blue-7);
+// $menuGradient3: color(blue, blue-6);
+// $menu360Bg: color(blue, blue-7);
 
-$topbar360Bg: color(blue, blue-7);
-$tobar360ActionBg: color(blue, blue-11);
+// $topbar360Bg: color(blue, blue-7);
+// $tobar360ActionBg: color(blue, blue-11);

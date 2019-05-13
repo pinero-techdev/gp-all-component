@@ -80,7 +80,7 @@ import { UppercaseDirective } from './directives/uppercase.directive';
     // Directives
     FocusDirective,
     LowercaseDirective,
-    UppercaseDirective
+    UppercaseDirective,
   ],
   providers: [
     CUSTOM_CONTROL_VALUE_ACCESSOR,

@@ -1,0 +1,16 @@
+// @import './../../resources/scss/theme-360/theme';
+@import './../../resources/scss/theme-360/theme';
+
+/* TOPBAR */
+.layout-container .topbar .topbar-left {
+  background-color: $whiteColor;
+  background-image: url('./../../resources/images/logo_gp.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.application-title {
+  color: $whiteColor;
+  padding-top: 0.3em;
+  font-size: 2em;
+}
