@@ -6,8 +6,6 @@ import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.com
 import { LoadingIndicatorTesterComponent } from './loading-indicator-tester/loading-indicator-tester.component';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
 import { CommonModule } from '@angular/common';
-import { ForgotPasswordTesterComponent } from './forgot-password-tester/forgot-password-tester.component';
-import { LoginTesterComponent } from './login-tester/login-tester.component';
 import { NgModule } from '@angular/core';
 import { SharedRoutingModule } from './shared.routing.module';
 import { GpAllComponentModule } from '@lib/gp-all-component.module';
@@ -24,9 +22,7 @@ import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.compo
     DropdownTesterComponent,
     DropdownRelatedTesterComponent,
     DynamicTesterComponent,
-    ForgotPasswordTesterComponent,
     LoadingIndicatorTesterComponent,
-    LoginTesterComponent,
     MainMenuTesterComponent,
     MultiLanguageTesterComponent,
     MultiSelectTesterComponent,
@@ -36,19 +32,6 @@ import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.compo
     TableCrudTesterComponent,
   ],
   imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
-  exports: [
-    DropdownRelatedTesterComponent,
-    DropdownTesterComponent,
-    DynamicTesterComponent,
-    ForgotPasswordTesterComponent,
-    LoadingIndicatorTesterComponent,
-    LoginTesterComponent,
-    MainMenuTesterComponent,
-    MultiLanguageTesterComponent,
-    MultiSelectTesterComponent,
-    RatingTesterComponent,
-    TopbarTesterComponent,
-  ],
   providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })
 export class SharedModule {}
