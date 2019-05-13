@@ -1,7 +1,6 @@
 /*
  * Public API Surface of gp-all-component
  */
-(window as any).global = window;
 
 // Services
 export * from './lib/services/api/forgot-password/forgot-password.service';
@@ -24,6 +23,7 @@ export * from './lib/resources/constants/calendar.constants';
 export * from './lib/resources/constants/custom-control-value-accessor.constant';
 export * from './lib/shared/imports/form-wrapper-shared';
 export * from './lib/shared/imports/table-wrapper-shared';
+export * from './lib/components/form-wrapper/resources/regex-validations.type';
 export * from './lib/resources/localization/es-ES.lang';
 
 // Resources (Classes)
@@ -52,9 +52,9 @@ export * from './lib/resources/data/menu/menu-opcion-propiedades.model';
 export * from './lib/resources/data/menu/menu-opcion-propiedades-propiedad.model';
 
 // Directives
-// export * from './lib/directives/focus.directive';
-// export * from './lib/directives/lowercase.directive';
-// export * from './lib/directives/uppercase.directive';
+export * from './lib/directives/focus.directive';
+export * from './lib/directives/lowercase.directive';
+export * from './lib/directives/uppercase.directive';
 
 // Components
 export * from './lib/components/dynamic/dynamic.component';

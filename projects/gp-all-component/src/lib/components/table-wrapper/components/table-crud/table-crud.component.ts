@@ -227,7 +227,7 @@ export class TableCrudComponent implements AfterViewChecked {
    * @param tableName Table name
    * @deprecated Pass the table name via the input binding
    */
-  inicializaTabla(tableName: string): void {
+  initTable(tableName: string): void {
     this.tableName = tableName;
   }
 

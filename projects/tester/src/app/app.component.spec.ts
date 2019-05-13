@@ -1,13 +1,24 @@
+import { MainMenuTesterComponent } from './shared/main-menu-tester/main-menu-tester.component';
+import {
+  LoadingIndicatorTesterComponent, //
+} from './shared/loading-indicator-tester/loading-indicator-tester.component';
 import { GpAllComponentModule } from './../../../gp-all-component/src/lib/gp-all-component.module';
 import { FooTesterComponent } from './foo-tester/foo-tester.component';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DynamicTesterComponent } from './shared/dynamic-tester/dynamic-tester.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent, FooTesterComponent],
+      declarations: [
+        AppComponent,
+        FooTesterComponent,
+        DynamicTesterComponent,
+        LoadingIndicatorTesterComponent,
+        MainMenuTesterComponent,
+      ],
       imports: [GpAllComponentModule, RouterTestingModule],
       providers: [],
     }).compileComponents();

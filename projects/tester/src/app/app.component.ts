@@ -14,10 +14,11 @@ export class AppComponent {
       'https://svcext.grupo-pinero.com/gp/identity-service/login-svc'
     );
     GlobalService.setMenuServiceUrl('https://svcext.grupo-pinero.com/gp/identity-service/menu-svc');
-    GlobalService.setApp('BPG');
-    GlobalService.setAplicacionLogin('BPG');
-    GlobalService.setLogged(false);
+    GlobalService.setApp('Test');
+    GlobalService.setAplicacionLogin('Test');
+    GlobalService.setApplicationTitle('Testing');
     GlobalService.setSession(new UserInfo());
-    GlobalService.setApplicationTitle('BSuite');
+    sessionStorage.setItem('userInfo', JSON.stringify(new UserInfo()));
+    GlobalService.setLogged(true);
   }
 }

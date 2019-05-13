@@ -68,7 +68,7 @@ describe('TableCrudComponent', () => {
   it('should initialize table', () => {
     const tableName = 'Test';
 
-    component.inicializaTabla(tableName);
+    component.initTable(tableName);
 
     expect(component.tableName).toEqual(tableName);
   });

@@ -10,7 +10,7 @@ import { TableServiceMock } from '@lib/services/api/table/table.service.mock';
 import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
 import { GpFormField } from '../../resources/form-field.model';
 
-fdescribe('FormImgFieldComponent', () => {
+describe('FormImgFieldComponent', () => {
   let component: FormImgFieldComponent;
   let fixture: ComponentFixture<FormImgFieldComponent>;
   let formField: GpFormField;
@@ -344,7 +344,6 @@ fdescribe('FormImgFieldComponent', () => {
           const text = 'Text With Space';
           editedFormField.cansCodi = text;
           const valid = component.validateField(editedFormField);
-
           expect(valid).toBeFalsy();
         });
       });
