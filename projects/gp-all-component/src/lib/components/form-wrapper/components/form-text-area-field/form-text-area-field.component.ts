@@ -97,17 +97,20 @@ export class FormTextAreaFieldComponent extends GpFormFieldControl implements On
    */
   copyValueFromEditedRowToControl(editedRow: any = null) {
     const metadata = this.getFieldMetadata();
-    const keyFields = this.displayInfo.translationInfo.keyFields;
 
     if (metadata && editedRow) {
+      const keyFields =
+        this.displayInfo && this.displayInfo.translationInfo
+          ? this.displayInfo.translationInfo.keyFields
+          : [];
+
       this.currentValue = editedRow[metadata.fieldName];
+
       /* If it has translation, we collect all the values of the fields that act as
       identifiers and put them together to create the translation table identifier */
-      if (this.displayInfo.translationInfo && keyFields) {
-        this.translationKeys = '';
-        for (const keyField of keyFields) {
-          this.translationKeys += editedRow[keyField];
-        }
+      this.translationKeys = '';
+      for (const keyField of keyFields) {
+        this.translationKeys += editedRow[keyField];
       }
     }
   }
