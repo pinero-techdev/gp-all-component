@@ -1,6 +1,8 @@
 import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
-import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
-import { MainMenuTesterService } from './main-menu-tester/main-menu-tester.service';
+import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
+import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
+import { GpAllComponentModule } from '@lib/gp-all-component.module';
+import { LoadingIndicatorTesterComponent } from './loading-indicator-tester/loading-indicator-tester.component';
 import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
 import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.component';
 import { LoadingIndicatorTesterComponent } from './loading-indicator-tester/loading-indicator-tester.component';
@@ -32,6 +34,18 @@ import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.compo
     TableCrudTesterComponent,
   ],
   imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
+  exports: [
+    DropdownRelatedTesterComponent,
+    DropdownTesterComponent,
+    DynamicTesterComponent,
+    LoadingIndicatorTesterComponent,
+    MainMenuTesterComponent,
+    MultiLanguageTesterComponent,
+    MultiSelectTesterComponent,
+    RatingTesterComponent,
+    TextareaTesterComponent,
+    TopbarTesterComponent,
+  ],
   providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })
 export class SharedModule {}

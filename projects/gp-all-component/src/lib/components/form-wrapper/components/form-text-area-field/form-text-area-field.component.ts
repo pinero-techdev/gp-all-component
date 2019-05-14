@@ -14,6 +14,7 @@ export class FormTextAreaFieldComponent extends GpFormFieldControl implements On
   @Input() formField: GpFormField;
 
   maxLength: number;
+  name = 'field-textarea';
   minLength: number;
   rows: number;
   textboxClass: string;
@@ -52,16 +53,22 @@ export class FormTextAreaFieldComponent extends GpFormFieldControl implements On
    * and sets length validation properties
    */
   init() {
-    if (
-      this.displayInfo &&
-      this.displayInfo.textProperties &&
-      this.displayInfo.textProperties.indexOf(TableService.TEXT_UPPERCASE) !== -1
-    ) {
-      this.textboxClass = 'text-uppercase';
-    }
+    if (this.displayInfo) {
+      if (
+        this.displayInfo.textProperties &&
+        this.displayInfo.textProperties.indexOf(TableService.TEXT_UPPERCASE) !== -1
+      ) {
+        this.textboxClass = 'text-uppercase';
+      }
 
+      this.rows =
+        this.displayInfo.rowsTextArea && this.displayInfo.rowsTextArea > 0
+          ? this.displayInfo.rowsTextArea
+          : 3;
+    }
+    const metadata = this.getFieldMetadata();
+    this.name = metadata ? metadata.fieldName : '';
     this.setRestrictions();
-    this.rows = this.displayInfo.rowsTextArea > 0 ? this.displayInfo.rowsTextArea : 3;
   }
 
   /**
@@ -69,16 +76,17 @@ export class FormTextAreaFieldComponent extends GpFormFieldControl implements On
    * @param editedRow The editing row
    */
   copyValueFromControlToEditedRow(editedRow: any = null) {
-    const metadata = this.getFieldMetadata();
-    if (metadata) {
-      if (this.displayInfo.textProperties) {
-        if (this.displayInfo.textProperties.indexOf(TableService.TEXT_UPPERCASE) >= 0) {
-          this.currentValue = !this.currentValue ? null : this.currentValue.toUpperCase();
-        }
-        if (this.displayInfo.textProperties.indexOf(TableService.TEXT_TRIM) >= 0) {
-          this.currentValue = !this.currentValue ? null : this.currentValue.trim();
-        }
+    if (this.displayInfo.textProperties) {
+      if (this.displayInfo.textProperties.indexOf(TableService.TEXT_UPPERCASE) >= 0) {
+        this.currentValue = !this.currentValue ? null : this.currentValue.toUpperCase();
       }
+      if (this.displayInfo.textProperties.indexOf(TableService.TEXT_TRIM) >= 0) {
+        this.currentValue = !this.currentValue ? null : this.currentValue.trim();
+      }
+    }
+
+    const metadata = this.getFieldMetadata();
+    if (metadata && editedRow) {
       editedRow[metadata.fieldName] = this.currentValue;
     }
   }
@@ -89,10 +97,10 @@ export class FormTextAreaFieldComponent extends GpFormFieldControl implements On
    */
   copyValueFromEditedRowToControl(editedRow: any = null) {
     const metadata = this.getFieldMetadata();
-    if (metadata) {
+    if (metadata && editedRow) {
       this.currentValue = editedRow[metadata.fieldName];
-      // Si tiene traducción, recogemos todos los valores de los campos que actuan como
-      // identificadores y los juntamos para crear el identificador de la tabla de traducciones
+      /* If it has translation, we collect all the values of the fields that act as
+      identifiers and put them together to create the translation table identifier */
       if (this.displayInfo.translationInfo && this.displayInfo.translationInfo.keyFields) {
         this.translationKeys = '';
         for (const keyField of this.displayInfo.translationInfo.keyFields) {
