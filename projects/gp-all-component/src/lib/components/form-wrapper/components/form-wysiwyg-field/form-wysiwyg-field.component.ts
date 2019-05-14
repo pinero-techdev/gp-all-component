@@ -164,7 +164,7 @@ export class FormWysiwygFieldComponent extends GpFormFieldControl implements OnI
                  Han sido sustituidos por caracteres equivalentes o descartados.
                   Seleccione guardar otra vez para aceptar los cambios.`
       );
-      valorCampo = GPUtil.normaliza(valorCampo);
+      valorCampo = GPUtil.normalize(valorCampo);
       this.currentValue = valorCampo;
     }
 
