@@ -15,6 +15,13 @@
   }
 }
 
+@mixin transition($transition...) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
+}
+
 @mixin make-button {
   display: flex;
   align-items: baseline;
@@ -51,4 +58,10 @@
     background-color: darken($color, 5%);
     border-color: darken($borderColor, 5%);
   }
+}
+
+@mixin make-flex-item-span($num) {
+  $value: percentage($num / 12);
+  flex: 0 0 $value;
+  max-width: $value;
 }

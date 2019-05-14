@@ -1,4 +1,3 @@
-// @import './../../resources/scss/theme-360/theme';
 @import './../../resources/scss/theme-360/theme';
 
 .login-body {
@@ -81,34 +80,6 @@
 
   .ui-col-fluid.login-panel-title {
     padding-top: 50px;
-  }
-
-  .ui-button {
-    margin: 0 auto;
-
-    &:hover {
-      background-color: $primaryDarkColor;
-    }
-
-    &:focus {
-      outline: 0 none;
-      background-color: lighten($primaryColor, 10%);
-    }
-
-    &.secondary {
-      &:hover {
-        background-color: $accentDarkColor;
-      }
-
-      &:focus {
-        outline: 0 none;
-        background-color: lighten($accentColor, 10%);
-      }
-    }
-
-    .ui-button-text {
-      vertical-align: inherit;
-    }
   }
 
   .ui-inputtext,

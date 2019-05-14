@@ -1,4 +1,4 @@
-@import '_colors.scss';
+@import 'colors';
 
 /* White for any element like svg strokes, fonts, etc. */
 $whiteColor: color(white);
@@ -82,10 +82,10 @@ $breakpoints: (
 $fontSize: 13.5px;
 // $fontSizeSmall: 12px;
 // $fontSizeLarge: 16px;
-// $fontRegular: 400;
-// $fontMedium: 500;
+$fontRegular: 400;
+$fontMedium: 500;
 $fontSemiBold: 600;
-// $fontBold: 700;
+$fontBold: 700;
 // $lineHeight: 1.5;
 // $contentFontSize: 1em;
 // $contentPadding: 24px;
@@ -98,8 +98,8 @@ $borderRadius: 4px;
 $borderColor: color(gray, gray-5);
 // $borderColor-2: color(blue, blue-11);
 
-// /* separation */
-// $separation: 8px;
+/* separation */
+$separation: 8px;
 // $separationLarge: $separation * 2;
 // $separationXLarge: $separationLarge * 1.5;
 // $separationSmall: $separation / 2;
@@ -147,8 +147,8 @@ $borderColor: color(gray, gray-5);
 // /* card */
 // $cardContentPadding: $separationXLarge;
 
-// /* gutter */
-// $gridGutter: $separation;
+/* gutter */
+$gridGutter: $separation;
 
 // /* Tables */
 // $highlightedRow: color(white, white-3);
@@ -224,8 +224,8 @@ $buttonPaddingVertical: get-computed-padding(
 $buttonPaddingHorizontal: $inputPaddingHorizontal + 14px;
 // $buttonSuccessBg: $successColor;
 // $buttonSuccessBorderColor: $buttonSuccessBg;
-// $buttonDangerBg: $errorColor;
-// $buttonDangerBgHover: $errorColor;
+$buttonDangerBg: $errorColor;
+$buttonDangerBgHover: $errorColor;
 // $buttonInvertedBg: color(white);
 // $buttonInvertedBorder: color(gray, gray-5);
 // $buttonDisabledBg: color(gray, gray-20);

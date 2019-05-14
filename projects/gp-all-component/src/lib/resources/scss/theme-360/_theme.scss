@@ -74,6 +74,16 @@ a {
   margin-top: 16px;
 }
 
+.button {
+  &-base {
+    @include make-button-theme($buttonBg, $buttonBg);
+  }
+
+  &-danger {
+    @include make-button-theme($buttonDangerBg, $buttonDangerBg);
+  }
+}
+
 // /* CALENDAR - YEARS DIDN'T SHOW COMPLETE*/
 // .ui-datepicker select.ui-datepicker-year {
 //   width: 40%;
