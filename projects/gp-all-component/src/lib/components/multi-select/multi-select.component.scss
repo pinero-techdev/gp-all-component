@@ -1,0 +1,134 @@
+@import './../../resources/scss/theme-360/theme';
+
+// ::ng-deep is deprecated but not removed.
+// Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
+::ng-deep {
+  .ui-inputwrapper-filled {
+    .ui-multiselect {
+      font-family: 'Lato', sans-serif;
+      @include make-input();
+
+      &:not(.ui-state-disabled):hover {
+        border-color: $inputBorderColor;
+      }
+
+      .ui-multiselect-label-container {
+        .ui-multiselect-label {
+          @include make-input-text();
+          padding: 0;
+          padding-right: $separationLarge;
+        }
+      }
+
+      .ui-multiselect-trigger {
+        height: 1.5em;
+        width: auto;
+        margin-top: 0;
+        padding: 0;
+        top: 0;
+        margin-right: 0;
+        @include absolute-centered('vertical');
+
+        .pi {
+          color: $textSecondaryColor;
+          margin-left: -25px;
+          //margin-right: 10px;
+        }
+      }
+
+      &.ui-state-focus {
+        @include make-input-state('focus');
+        border-width: 1px;
+      }
+    }
+
+    .ui-multiselect-panel.ui-widget {
+      width: auto;
+      min-width: 100% !important;
+      max-width: 370px;
+      border: 1px solid $borderColor;
+      border-radius: 4px;
+      padding: 0;
+
+      &.ui-shadow {
+        @include content-shadow();
+      }
+
+      .ui-multiselect-header {
+        padding: 0;
+        font-size: $fontSize;
+        border-bottom: 1px solid $inputBorderColor;
+        background-color: $multiselectHeaderBg;
+        width: 100%;
+        border-radius: 0;
+
+        .ui-multiselect-filter {
+          &-container {
+            width: 100%;
+            position: initial;
+            margin: inherit;
+            margin-bottom: 0;
+            padding: 1em 1em;
+
+            .ui-inputtext {
+              @include make-input();
+              color: $textColor;
+
+              &:not(label):focus {
+                border-color: $borderColor;
+              }
+            }
+          }
+
+          &-icon {
+            right: $separationXLarge;
+            top: 50%;
+            transform: translateY(-50%);
+            left: inherit;
+            color: $textColor;
+            font-size: $fontSizeLarge;
+          }
+        }
+
+        .ui-chkbox {
+          display: none;
+        }
+
+        .ui-multiselect-close {
+          display: none;
+        }
+      }
+
+      .ui-multiselect-items-wrapper {
+        @include make-scroll();
+        z-index: 1;
+        padding: 0.6em 0;
+
+        .ui-multiselect-list {
+          background: inherit;
+        }
+      }
+
+      .ui-multiselect-item {
+        font-size: $fontSize;
+        padding: $separation / 2 $separationLarge;
+        color: $textSecondaryColor;
+        outline: none;
+        width: calc(100% - 1px);
+
+        span {
+          padding-left: $separationXLarge;
+        }
+
+        &.ui-state-highlight {
+          background: $primaryBg;
+
+          .ui-chkbox-icon {
+            padding-left: inherit;
+            padding-bottom: 3px;
+          }
+        }
+      }
+    }
+  }
+}

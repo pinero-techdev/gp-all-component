@@ -1,10 +1,21 @@
 @import './global/functions';
 @import './global/variables';
 @import './global/mixins';
+@import './fonts/fonts';
 
 /** GENERAL **/
-* {
-  font-family: 'Lato', sans-serif !important;
+span,
+p,
+label,
+li,
+a,
+button::ng-deep,
+input {
+  font-family: 'Lato', sans-serif;
+}
+
+.pi {
+  font-family: 'primeicons';
 }
 
 .card {

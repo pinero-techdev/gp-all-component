@@ -80,8 +80,8 @@ $breakpoints: (
 
 // /* font sizes weights etc */
 $fontSize: 13.5px;
-// $fontSizeSmall: 12px;
-// $fontSizeLarge: 16px;
+$fontSizeSmall: 12px;
+$fontSizeLarge: 16px;
 $fontRegular: 400;
 $fontMedium: 500;
 $fontSemiBold: 600;
@@ -100,8 +100,8 @@ $borderColor: color(gray, gray-5);
 
 /* separation */
 $separation: 8px;
-// $separationLarge: $separation * 2;
-// $separationXLarge: $separationLarge * 1.5;
+$separationLarge: $separation * 2;
+$separationXLarge: $separationLarge * 1.5;
 // $separationSmall: $separation / 2;
 // $dividerColor: color(gray, gray-6);
 // $dividerLightColor: color(gray, gray-4);
@@ -329,8 +329,8 @@ $primaryBg: color(white);
 // $dropdownMenuItemFontSize: $fontSize;
 // $dropdownFilterBackground: color(gray, gray-1);
 
-// /* multiselect */
-// $multiselectHeaderBg: color(gray, gray-1);
+/* multiselect */
+$multiselectHeaderBg: color(gray, gray-1);
 
 // /* Compact */
 // $c-fontSize: 14px;

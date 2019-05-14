@@ -65,3 +65,114 @@
   flex: 0 0 $value;
   max-width: $value;
 }
+
+@mixin make-input() {
+  @include make-input-text;
+
+  background: $inputBg;
+  border-width: $inputBorderWidth;
+  padding: $inputPaddingVertical $inputPaddingHorizontal;
+  border-color: $inputBorderColor;
+  border-style: $inputBorderStyle;
+  min-height: $inputHeight;
+  width: 100%;
+  transition: border-color 0.3s;
+  border-radius: $inputBorderRadius;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+
+  &:focus,
+  &.ui-state-focus {
+    @include make-input-state('focus');
+  }
+
+  &:disabled {
+    @include make-input-state('disabled');
+  }
+
+  &.ui-state-error {
+    @include make-input-state('error');
+  }
+}
+
+@mixin make-input-text {
+  font-size: $inputFontSize;
+  line-height: $inputLineHeight;
+  color: $inputColor;
+
+  &::placeholder {
+    color: $inputPlaceholderColor;
+  }
+}
+
+@mixin make-input-state($type) {
+  @if $type == 'focus' {
+    border-color: $inputBorderFocusColor;
+    background: $inputFocusBg;
+  }
+
+  @if $type == 'disabled' {
+    border-color: $inputBorderDisabledColor;
+    background: $inputDisabledBg;
+    background-color: rgba(240, 242, 245, 0.5);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+  }
+
+  @if $type == 'error' {
+    border-color: $inputBorderErrorColor;
+    background: $inputErrorBg;
+  }
+}
+
+/* Make custom scroll */
+@mixin make-scroll($color: #000, $size: 8px, $border-radius: 8px) {
+  background-color: rgba($color, 0);
+  -webkit-background-clip: text;
+  transition: background-color 0.4s;
+
+  &:hover {
+    background-color: rgba($color, 0.2);
+  }
+
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: $border-radius;
+    background-color: inherit;
+  }
+}
+
+@mixin make-label($has-correction: true, $is-white: false) {
+  color: $textMutedColor;
+  line-height: inherit;
+  position: static;
+  font-size: $fontSizeSmall;
+  display: block;
+  letter-spacing: 0.15px;
+
+  @if ($has-correction) {
+    white-space: nowrap;
+    position: relative;
+    line-height: 0;
+    top: -15px;
+  }
+
+  @if ($is-white) {
+    color: $inputLabelPrimaryColor;
+  }
+}
+
+@mixin content-shadow() {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
