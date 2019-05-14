@@ -29,12 +29,19 @@ import { GPTreeTableComponent } from './gp-treetable.component';
 export class GpAppTableCrudYieldComponent implements OnInit {
   @Input()
   campoDropdownDinamico: string;
+
+  @Input()
+  referenceTableDropdownDinamico: string;
+
+  @Input()
+  referenceTableOperationsDropdownDinamico: string;
   // Nombre de la tabla a editar.
   @Input()
   tableName: string;
   // Nombre de la tabla de detalle
   @Input()
   tableNameDetail: string;
+  
   // Identificador de la tabla detalle que tiene en común con la tabla principal
   @Input()
   filterField: string;
@@ -114,7 +121,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   @ViewChildren(GpFormDropdownFieldComponent)
   dropdownFormFields: QueryList<GpFormDropdownFieldComponent>;
   @ViewChildren(GpFormDropdownDynamicFieldComponent)
-  dropdownDynamicFormFields: QueryList<GpFormDropdownFieldComponent>;
+  dropdownDynamicFormFields: QueryList<GpFormDropdownDynamicFieldComponent>;
   @ViewChildren(GpFormCheckboxFieldComponent)
   checkboxFormFields: QueryList<GpFormCheckboxFieldComponent>;
   @ViewChildren(GpFormCalendarFieldComponent)
@@ -397,7 +404,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
     let selectedDisplay = false;
     if (formField.fieldMetadata.fieldName == this.campoDropdownDinamico) {
       formField.formFieldType = GpFormDropdownDynamicFieldComponent.FORM_FIELD_TYPE_DROPDOWN_DYNAMIC_FIELD;
-      formField.fieldMetadata.displayInfo.referencedTable = this.tableNameDetail;
+      formField.fieldMetadata.displayInfo.referencedTable = this.referenceTableDropdownDinamico;
       selectedDisplay = true;
     }
     if (formField.fieldMetadata.displayInfo.displayType == TableService.TEXT_AREA_DISPLAY_TYPE) {
@@ -644,9 +651,40 @@ export class GpAppTableCrudYieldComponent implements OnInit {
         data => {
           if (data.ok) {
             // Actualizamos el registro.
-            this.forEachField(function(col: GpFormField) {
-              self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
-            });
+              if ((this.exclusionsTableMaster.length > 0) && !this.treeTableDetail && this.referenceTableOperationsDropdownDinamico != null) {
+                this.tableService.getValue(this.referenceTableOperationsDropdownDinamico, jsonModifiedRow).subscribe(data => {
+                  if (data.ok) {
+                    let jsonOriginalRow = data.data;
+                    self.formControl.editedRow = jsonOriginalRow;
+
+                    if(self.selectedRow == null) {
+                      self.selectedRow = self.elementos.find( item => item[self.tableId] == jsonOriginalRow[self.tableId])
+                    }
+
+                    this.forEachField(function(col: GpFormField) {
+                      self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
+                    });
+                  }
+                });
+              } else if (this.treeTableDetail) {
+                // TODO: hay que ajustar este método para el treeTable Master
+                this.selectedTree.children = this.treeTableService.eliminarNodo(this.elementosDetail, this.selectedTree.data, this.columnasDetail);
+
+                this.forEachDetailField(function(col: GpFormFieldDetail) {
+                  self.selectedTree.data[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
+                });
+                this.elementosDetail = this.treeTableService.insertarNodo(
+                  this.elementosDetail,
+                  this.selectedTree.data,
+                  this.columnasDetail,
+                  this.selectedTree.children
+                );
+              } else {
+                this.forEachField(function(col: GpFormField) {
+                  self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
+                });
+              }
+
             // Y cerramos el dialog.
             this.closeDialog();
             this.changes.emit(true);
@@ -684,8 +722,8 @@ export class GpAppTableCrudYieldComponent implements OnInit {
           this.tableService.updateRow(this.tableNameDetail, jsonOriginalRow, jsonModifiedRow).subscribe(
             data => {
               if (data.ok) {
-                if (this.exclusionsTableDetail.length > 0 && !this.treeTableDetail) {
-                  this.tableService.getValue(this.tableNameDetail, jsonModifiedRow).subscribe(data => {
+                if (this.exclusionsTableDetail.length > 0 && !this.treeTableDetail && this.referenceTableOperationsDropdownDinamico != null) {
+                  this.tableService.getValue(this.referenceTableOperationsDropdownDinamico, jsonModifiedRow).subscribe(data => {
                     if (data.ok) {
                       let jsonOriginalRow = data.data;
                       self.formControlDetail.editedRow = jsonOriginalRow;
@@ -931,7 +969,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
 
   changeEvent(info: InfoCampoModificado) {
     this.fieldChanged = info;
-    let selectedRow = this.selectedRowDetail;
+    let selectedRow = this.selectedRowDetail != null ? this.selectedRowDetail : this.selectedRow;
     this.changesEventDropdown.emit( {info, selectedRow});
   }
 

@@ -99,6 +99,12 @@
                 [formField]="col"
                 (valueChanged)="changeEvent($event)"
               ></gp-form-dropdown-field>
+              <gp-form-dropdown-dynamic-field
+              *ngIf="col.formFieldType == 'gp-form-dropdown-dynamic-field'"
+              [formField]="col"
+              (valueChanged)="changeEvent($event)"
+              [fieldsRq]="fieldsRq"
+            ></gp-form-dropdown-dynamic-field>
               <gp-form-dropdown-related-field
                 *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
                 [formField]="col"
