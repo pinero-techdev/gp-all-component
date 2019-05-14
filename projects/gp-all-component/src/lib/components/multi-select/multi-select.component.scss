@@ -21,18 +21,13 @@
       }
 
       .ui-multiselect-trigger {
-        height: 1.5em;
         width: auto;
-        margin-top: 0;
-        padding: 0;
         top: 0;
-        margin-right: 0;
         @include absolute-centered('vertical');
 
         .pi {
           color: $textSecondaryColor;
           margin-left: -25px;
-          //margin-right: 10px;
         }
       }
 
@@ -44,11 +39,10 @@
 
     .ui-multiselect-panel.ui-widget {
       width: auto;
-      min-width: 100% !important;
+      min-width: 100%;
       max-width: 370px;
       border: 1px solid $borderColor;
       border-radius: 4px;
-      padding: 0;
 
       &.ui-shadow {
         @include content-shadow();
@@ -59,15 +53,11 @@
         font-size: $fontSize;
         border-bottom: 1px solid $inputBorderColor;
         background-color: $multiselectHeaderBg;
-        width: 100%;
         border-radius: 0;
 
         .ui-multiselect-filter {
           &-container {
             width: 100%;
-            position: initial;
-            margin: inherit;
-            margin-bottom: 0;
             padding: 1em 1em;
 
             .ui-inputtext {
@@ -82,11 +72,10 @@
 
           &-icon {
             right: $separationXLarge;
-            top: 50%;
             transform: translateY(-50%);
-            left: inherit;
             color: $textColor;
             font-size: $fontSizeLarge;
+            margin-top: 0;
           }
         }
 
@@ -106,6 +95,7 @@
 
         .ui-multiselect-list {
           background: inherit;
+          font-family: 'Lato', sans-serif;
         }
       }
 
@@ -116,11 +106,42 @@
         outline: none;
         width: calc(100% - 1px);
 
-        span {
+        > span {
           padding-left: $separationXLarge;
         }
 
+        .ui-chkbox {
+          position: absolute;
+          font-size: $fontSize;
+          line-height: 1.25em;
+          width: 1.25em;
+          height: 1.25em;
+          cursor: default;
+
+          &-box {
+            border: 2px solid $checkboxBorder;
+            width: 1.25em;
+            height: 1.25em;
+            overflow: hidden;
+            border-radius: 3px;
+            @include transition(background-color 0.3s);
+
+            .ui-chkbox-icon {
+              font-size: 1.25em;
+              margin-left: -2px;
+              margin-top: -2px;
+              position: relative;
+            }
+
+            &.ui-state-active {
+              border-color: $primaryColor;
+              background: $primaryColor;
+            }
+          }
+        }
+
         &.ui-state-highlight {
+          color: $textColor;
           background: $primaryBg;
 
           .ui-chkbox-icon {
