@@ -1,7 +1,12 @@
 {
-    "/bpguest-svc": {
-      "target": "https://apps.grupo-pinero.com",
-      "secure": false,
-      "changeOrigin": true
-    }
-  }  
+  "/fenix-api": {
+    "target": "http://wapsco2test.cen.intranet",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/bpguest-svc": {
+    "target": "https://apps.grupo-pinero.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
