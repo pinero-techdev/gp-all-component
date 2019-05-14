@@ -128,12 +128,6 @@ describe('FormTextAreaFieldComponent', () => {
         expect(isValid).toBeFalsy();
       });
 
-      it('should not be valid', () => {
-        isValid = component.validateField();
-        fixture.detectChanges();
-        expect(isValid).toBeFalsy();
-      });
-
       it('should be valid', () => {
         editedRow.description = description;
         isValid = component.validateField(editedRow);
@@ -183,11 +177,11 @@ describe('FormTextAreaFieldComponent', () => {
 
       it('should copy currentValue UPPERCASE property', () => {
         component.currentValue = description;
-        fixture.detectChanges();
         editedRow.description = description;
         component.formField.fieldMetadata.displayInfo.textProperties = [
           TableService.TEXT_UPPERCASE,
         ];
+        fixture.detectChanges();
         component.copyValueFromControlToEditedRow(editedRow);
         fixture.detectChanges();
         expect(editedRow.description).toEqual(description.toUpperCase());

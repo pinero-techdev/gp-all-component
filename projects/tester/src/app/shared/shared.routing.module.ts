@@ -12,7 +12,7 @@ import { TableFrameTesterComponent } from './table-frame-tester/table-frame-test
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
-import { FormImgFieldTesterComponent } from './form-img-field-tester/form-img-field-tester.component';
+import { ImgTesterComponent } from './img-tester/img-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -64,8 +64,8 @@ export const appRoutes: Routes = [
     component: DropdownRelatedTesterComponent,
   },
   {
-    path: 'form-img-field-tester',
-    component: FormImgFieldTesterComponent,
+    path: 'img-tester',
+    component: ImgTesterComponent,
   },
 ];
 

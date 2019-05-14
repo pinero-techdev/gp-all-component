@@ -3,9 +3,6 @@ import { DataTableMetaDataField } from './../../../../resources/data/data-table/
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
 import { TableService } from './../../../../services/api/table/table.service';
-import { GpTableRestrictions } from './../../../table-wrapper/resources/gp-table-restrictions.enum';
-import { LocaleES } from '@lib/resources/localization/es-ES.lang';
-import { RegexValidations } from '../../resources/regex-validations.type';
 
 @Component({
   selector: 'gp-form-img-field',
@@ -34,10 +31,10 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
 
   ngOnInit() {
     this.init();
+    this.isDisabled = this.controlDisabled();
   }
 
   init() {
-    const restrictions = this.formField.fieldMetadata.restrictions;
     const hasTextProperties =
       this.formField.fieldMetadata.displayInfo &&
       this.formField.fieldMetadata.displayInfo.textProperties !== null;
@@ -53,21 +50,7 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
       }
     }
 
-    // Restrictions set up.
-    if (restrictions) {
-      for (const restriction of restrictions) {
-        const isMinLength = restriction.restrictionType === GpTableRestrictions.MIN_LENGTH;
-        const isMaxLength = restriction.restrictionType === GpTableRestrictions.MAX_LENGTH;
-
-        if (isMinLength) {
-          this.minLength = restriction.minLength;
-        }
-
-        if (isMaxLength) {
-          this.maxLength = restriction.maxLength;
-        }
-      }
-    }
+    this.setRestrictions();
   }
 
   copyValueFromControlToEditedRow(editedRow: any) {
@@ -118,76 +101,6 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
   }
 
   validateField(editedRow: any) {
-    this.formField.validField = true;
-    this.formField.fieldMsgs = null;
-    let fieldValue = editedRow[this.formField.fieldMetadata.fieldName];
-
-    const isDisplayType =
-      typeof fieldValue === 'string' &&
-      this.formField.fieldMetadata.displayInfo.displayType === TableService.TEXT_DISPLAY_TYPE;
-
-    const notNullable =
-      this.formField.fieldMetadata.notNull && (fieldValue === '' || fieldValue === null);
-
-    const restrictions = this.formField.fieldMetadata.restrictions;
-    const allowAcii = this.formField.fieldMetadata.allowAscii;
-
-    if (isDisplayType) {
-      fieldValue = fieldValue.trim();
-    }
-
-    /*
-        Field validation rules.
-        a) Check nullability
-    */
-    if (notNullable) {
-      this.formField.validField = false;
-      this.validateFieldAddMsgs(LocaleES.VALUE_IS_REQUIRED);
-      return false;
-    }
-    // b) check restrictions
-    if (restrictions) {
-      for (const restriction of restrictions) {
-        const hasMinLength =
-          typeof fieldValue === 'string' &&
-          restriction.restrictionType === GpTableRestrictions.MIN_LENGTH;
-
-        const hasMaxLength =
-          typeof fieldValue === 'string' &&
-          restriction.restrictionType === GpTableRestrictions.MAX_LENGTH;
-
-        if (hasMinLength) {
-          if (fieldValue.length < restriction.minLength) {
-            this.formField.validField = false;
-            this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_SHORT(restriction.minLength));
-          }
-        }
-
-        if (hasMaxLength) {
-          if (fieldValue.length > restriction.maxLength) {
-            this.formField.validField = false;
-            this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_LONG(restriction.maxLength));
-          }
-        }
-      }
-    }
-
-    // c) Check ascii and special characters
-    if (!allowAcii) {
-      const hasBlankSpace = RegexValidations.hasBlankSpace(fieldValue);
-      const disallowsSpaces =
-        this.formField.fieldMetadata.displayInfo.textProperties !== null &&
-        this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
-          TableService.TEXT_NO_SPACE
-        ) !== -1;
-
-      if (disallowsSpaces && hasBlankSpace) {
-        this.formField.validField = false;
-        this.validateFieldAddMsgs(LocaleES.VALIDATION_SPACES);
-        fieldValue = fieldValue.replace(RegexValidations.BLANK_SPACE, '');
-        this.currentValue = fieldValue;
-      }
-    }
-    return this.formField.validField;
+    return this.validateTextField(editedRow);
   }
 }

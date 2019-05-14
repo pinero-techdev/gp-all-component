@@ -236,7 +236,7 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
       if (RegexValidations.hasSpecialCharacters(fieldValue)) {
         this.formField.validField = false;
         this.validateFieldAddMsgs(LocaleES.VALIDATION_SPECIAL_CHARACTERS);
-        fieldValue = GPUtil.normaliza(fieldValue);
+        fieldValue = GPUtil.normalize(fieldValue);
         this.currentValue = fieldValue;
       }
     }

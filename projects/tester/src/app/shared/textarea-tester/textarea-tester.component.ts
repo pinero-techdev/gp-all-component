@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-textarea-tester',
   templateUrl: './textarea-tester.component.html',
-  styleUrls: ['./textarea-tester.component.scss'],
 })
 export class TextareaTesterComponent {
   // copy object with no reference

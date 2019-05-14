@@ -104,7 +104,6 @@ export abstract class GpFormFieldControl extends GpFormControl
    */
   onFieldChange() {
     const field = this.getFormField();
-    console.info('CHANGE!', field);
     if (!field || !field.formControl) {
       return;
     }
