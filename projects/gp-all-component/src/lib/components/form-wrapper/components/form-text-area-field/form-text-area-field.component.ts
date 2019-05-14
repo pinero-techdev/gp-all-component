@@ -87,6 +87,7 @@ export class FormTextAreaFieldComponent extends GpFormFieldControl implements On
 
     const metadata = this.getFieldMetadata();
     if (metadata && editedRow) {
+      debugger;
       editedRow[metadata.fieldName] = this.currentValue;
     }
   }

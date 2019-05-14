@@ -159,6 +159,7 @@ describe('FormTextAreaFieldComponent', () => {
       });
 
       it('should not be valid', () => {
+        editedRow.description = null;
         component.currentValue = description;
         component.copyValueFromControlToEditedRow(editedRow);
         fixture.detectChanges();
