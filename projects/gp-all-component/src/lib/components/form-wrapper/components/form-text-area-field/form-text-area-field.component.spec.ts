@@ -99,7 +99,7 @@ describe('FormTextAreaFieldComponent', () => {
         expect(component.isDisabled).toBeFalsy();
         expect(component.currentValue).toEqual(description);
         expect(component.translateInfo).toBeNull();
-        expect(component.translationKeys).toBeUndefined();
+        expect(component.translationKeys).toBeFalsy();
         expect($elementRef.querySelector('gp-multi-language')).toBeNull();
       });
     });
