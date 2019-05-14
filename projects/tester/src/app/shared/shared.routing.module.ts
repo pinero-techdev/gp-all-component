@@ -13,6 +13,7 @@ import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 import { FormImgFieldTesterComponent } from './form-img-field-tester/form-img-field-tester.component';
+import { FormSwitchFieldTesterComponent } from './form-switch-field-tester/form-switch-field-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -66,6 +67,10 @@ export const appRoutes: Routes = [
   {
     path: 'form-img-field-tester',
     component: FormImgFieldTesterComponent,
+  },
+  {
+    path: 'form-switch-field-tester',
+    component: FormSwitchFieldTesterComponent,
   },
 ];
 
