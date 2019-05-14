@@ -6,8 +6,8 @@ import { GpAllComponentModule } from './../../../gp-all-component/src/lib/gp-all
 import { FooTesterComponent } from './foo-tester/foo-tester.component';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { DynamicTesterComponent } from './shared/dynamic-tester/dynamic-tester.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DynamicTesterComponent } from './shared/dynamic-tester/dynamic-tester.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

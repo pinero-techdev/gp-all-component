@@ -501,6 +501,7 @@ describe('TableCrudComponent', () => {
         fieldMetadata: {
           ...FormFieldMock.fieldMetadata,
           hideInAddOperation: false,
+          cansCodi: 'test',
           notNull: true,
           displayInfo: {
             ...FormFieldMock.fieldMetadata.displayInfo,

@@ -1,0 +1,14 @@
+<section
+  ><h3>Form Img Field tester!</h3>
+  <gp-form-img-field
+    name="__field__{{ formField?.fieldMetadata.fieldName }}"
+    pInputText
+    type="text"
+    [(ngModel)]="currentValue"
+    [maxlength]="maxLength"
+    [class]="textboxClass"
+    (change)="onFieldChange()"
+    [disabled]="controlDisabled()"
+    class="full-width"
+  ></gp-form-img-field>
+</section>
