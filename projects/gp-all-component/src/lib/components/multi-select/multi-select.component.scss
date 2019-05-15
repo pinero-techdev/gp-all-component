@@ -5,7 +5,6 @@
 ::ng-deep {
   .ui-inputwrapper-filled {
     .ui-multiselect {
-      font-family: 'Lato', sans-serif;
       @include make-input();
 
       &:not(.ui-state-disabled):hover {
@@ -95,7 +94,6 @@
 
         .ui-multiselect-list {
           background: inherit;
-          font-family: 'Lato', sans-serif;
         }
       }
 

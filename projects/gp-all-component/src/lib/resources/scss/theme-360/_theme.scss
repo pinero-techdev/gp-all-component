@@ -4,7 +4,7 @@
 @import './fonts/fonts';
 
 /** GENERAL **/
-span,
+span:not(.ui-button-icon-left),
 p,
 label,
 ul,

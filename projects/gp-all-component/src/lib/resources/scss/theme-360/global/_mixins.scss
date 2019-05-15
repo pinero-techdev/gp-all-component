@@ -39,7 +39,7 @@
   border-color: $buttonBg;
   border-radius: $buttonBorderRadius;
   margin: 0;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 4px 0 rgba($buttonShadowColor, $buttonShadowOpacity);
   @include make-button-theme($buttonBg, $buttonBorderColor);
 }
 
@@ -78,7 +78,7 @@
   width: 100%;
   transition: border-color 0.3s;
   border-radius: $inputBorderRadius;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 4px 0 rgba($inputShadowColor, $inputShadowOpacity);
 
   &:focus,
   &.ui-state-focus {
@@ -114,7 +114,7 @@
     border-color: $inputBorderDisabledColor;
     background: $inputDisabledBg;
     background-color: rgba(240, 242, 245, 0.5);
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04);
+    box-shadow: 0 0 4px 0 rgba($inputShadowColor, $inputShadowOpacity);
   }
 
   @if $type == 'error' {
@@ -170,9 +170,5 @@
 
 @mixin content-shadow() {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 2px 1px -1px rgba(0, 0, 0, 0.12);
-  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 2px 1px -1px rgba(0, 0, 0, 0.12);
-  -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     0 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
