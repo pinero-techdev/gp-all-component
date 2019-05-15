@@ -1,0 +1,9 @@
+@import './../../resources/scss/theme-360/theme';
+
+::ng-deep {
+  .rating {
+    .pi-star {
+      color: $ratingStars !important;
+    }
+  }
+}
