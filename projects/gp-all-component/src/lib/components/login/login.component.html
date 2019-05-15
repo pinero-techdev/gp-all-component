@@ -1,7 +1,9 @@
 <div class="login-body">
   <div class="card login-panel ui-fluid">
     <div class="login-panel-logo"></div>
-    <div class="login-panel-title">{{ title }}</div>
+    <div class="login-panel-title"
+      ><span>{{ title }}</span></div
+    >
     <div class="input-group ui-separation-lg">
       <span class="md-inputfield">
         <label>{{ locale.USERNAME }}</label>
@@ -42,7 +44,7 @@
       </div>
     </div>
     <div class="input-group login-panel-error" *ngFor="let msg of msgs">
-      {{ msg.summary }}
+      <span>{{ msg.summary }}</span>
       <span class="bold">{{ msg.detail }}</span>
     </div>
     <div class="input-group">
