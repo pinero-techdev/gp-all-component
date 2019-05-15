@@ -1,33 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
 
 @Component({
-    selector: 'gp-redirect',
-    template: 'Redirecting...',
+  selector: 'gp-redirect',
+  template: 'Redirecting...',
 })
 export class RedirectComponent implements OnInit {
-    constructor(private readonly route: ActivatedRoute, private readonly router: Router) {}
+  private url: string;
+  private new: boolean;
 
-    ngOnInit() {
-        this.route.queryParams.pipe(take(1)).subscribe((params) => {
-            const url = params.url;
-            const newUrl = params.new;
+  constructor(private route: ActivatedRoute) {}
 
-            const existingParams = !isNullOrUndefined(url) && !isNullOrUndefined(newUrl);
+  ngOnInit() {
+    this.route.params.pipe(take(1)).subscribe((params) => {
+      this.url = params.url;
+      this.new = params.new;
+      if (this.new) {
+        window.open('http://' + this.url);
+      } else {
+        this.changeLocation('http://' + this.url);
+      }
+    });
+  }
 
-            if (!existingParams) {
-                return;
-            }
-
-            const isNewUrl = (isNew: string): boolean => {
-                return !isNullOrUndefined(isNew) && isNew === 'true';
-            };
-
-            isNewUrl(newUrl)
-                ? window.open('http://' + url)
-                : this.router.navigate(['/']).then(() => (window.location.href = 'http://' + url));
-        });
-    }
+  changeLocation(location: string) {
+    window.location.href = location;
+  }
 }
