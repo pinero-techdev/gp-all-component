@@ -12,6 +12,9 @@ export class RedirectComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
 
+  /**
+   * Angular OnInit lifecycle hook
+   */
   ngOnInit() {
     this.route.params.pipe(take(1)).subscribe((params) => {
       this.url = params.url;
@@ -24,6 +27,9 @@ export class RedirectComponent implements OnInit {
     });
   }
 
+  /**
+   * Wrapper for window location object
+   */
   changeLocation(location: string) {
     window.location.href = location;
   }
