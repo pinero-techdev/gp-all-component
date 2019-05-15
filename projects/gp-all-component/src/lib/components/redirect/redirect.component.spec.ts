@@ -16,7 +16,7 @@ describe('RedirectComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({ id: 123 }),
+            params: of({}),
           },
         },
       ],
