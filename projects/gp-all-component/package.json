@@ -1,9 +1,24 @@
 {
-    "name": "gp-all-component",
-    "version": "0.0.1",
-    "peerDependencies": {
-        "@angular/common": "^7.2.0",
-        "@angular/core": "^7.2.0",
-        "primeng": "primeng"
-    }
+  "name": "gp-all-component",
+  "version": "1.1.1",
+  "peerDependencies": {
+    "@angular/animations": "^7.2.11",
+    "@angular/cdk": "^7.3.6",
+    "@angular/common": "~7.2.0",
+    "@angular/compiler": "~7.2.0",
+    "@angular/core": "~7.2.0",
+    "@angular/forms": "~7.2.0",
+    "@angular/platform-browser": "~7.2.0",
+    "@angular/platform-browser-dynamic": "~7.2.0",
+    "@angular/router": "~7.2.0",
+    "moment": "moment",
+    "primeflex": "primeflex",
+    "primeicons": "primeicons",
+    "primeng": "primeng",
+    "rxjs": "rxjs",
+    "rxjs-compat": "rxjs-compat"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.0"
+  }
 }

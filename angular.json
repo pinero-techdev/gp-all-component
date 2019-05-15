@@ -1,181 +1,169 @@
 {
-    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-    "version": 1,
-    "newProjectRoot": "projects",
-    "projects": {
-        "gp-all-component": {
-            "root": "projects/gp-all-component",
-            "sourceRoot": "projects/gp-all-component/src",
-            "projectType": "library",
-            "prefix": "gp",
-            "schematics": {
-                "@schematics/angular:component": {
-                    "style": "scss"
-                }
-            },
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-ng-packagr:build",
-                    "options": {
-                        "tsConfig": "projects/gp-all-component/tsconfig.lib.json",
-                        "project": "projects/gp-all-component/ng-package.json"
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "projects/gp-all-component/src/test.ts",
-                        "tsConfig": "projects/gp-all-component/tsconfig.spec.json",
-                        "karmaConfig": "projects/gp-all-component/karma.conf.js",
-                        "codeCoverage": true,
-                        "codeCoverageExclude": [
-                            "projects/gp-all-component/src/lib/resources/**/*",
-                            "projects/gp-all-component/src/lib/shared/**/*",
-                            "projects/gp-all-component/src/lib/services/core**/*",
-                            "projects/gp-all-component/src/lib/util/**/*",
-                            "projects/gp-all-component/src/lib/**/*.mock.*ts",
-                            "projects/gp-all-component/src/lib/**/*.module.ts"
-                        ],
-                        "styles": [
-                            "node_modules/primeng/resources/primeng.min.css",
-                            "node_modules/primeicons/primeicons.css",
-                            "node_modules/primeflex/primeflex.css",
-                            "node_modules/quill/dist/quill.core.css",
-                            "node_modules/quill/dist/quill.snow.css",
-                            "node_modules/primeng/resources/themes/nova-light/theme.css",
-                            "projects/gp-all-component/src/lib/resources/scss/theme-360/_theme.scss",
-                            "projects/gp-all-component/src/assets/styles/main.scss",
-                            "projects/gp-all-component/src/lib/resources/css/gp-layout.css"
-                        ],
-                        "assets": ["projects/gp-all-component/src/assets/**/*"],
-                        "scripts": ["node_modules/quill/dist/quill.js"]
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "projects/gp-all-component/tsconfig.lib.json",
-                            "projects/gp-all-component/tsconfig.spec.json"
-                        ],
-                        "exclude": ["**/node_modules/**"]
-                    }
-                }
-            }
-        },
-        "tester": {
-            "root": "projects/tester/",
-            "sourceRoot": "projects/tester/src",
-            "projectType": "application",
-            "prefix": "app",
-            "schematics": {
-                "@schematics/angular:component": {
-                    "style": "scss"
-                }
-            },
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
-                    "options": {
-                        "outputPath": "dist/tester",
-                        "index": "projects/tester/src/index.html",
-                        "main": "projects/tester/src/main.ts",
-                        "polyfills": "projects/tester/src/polyfills.ts",
-                        "tsConfig": "projects/tester/tsconfig.app.json",
-                        "assets": ["projects/tester/src/favicon.ico", "projects/tester/src/assets"],
-                        "styles": [
-                            "node_modules/primeng/resources/primeng.min.css",
-                            "node_modules/primeicons/primeicons.css",
-                            "node_modules/primeflex/primeflex.css",
-                            "node_modules/quill/dist/quill.core.css",
-                            "node_modules/quill/dist/quill.snow.css",
-                            "node_modules/primeng/resources/themes/nova-light/theme.css",
-                            "projects/gp-all-component/src/lib/resources/scss/theme-360/_theme.scss",
-                            "projects/gp-all-component/src/assets/styles/main.scss",
-                            "projects/gp-all-component/src/lib/resources/css/gp-layout.css"
-                        ],
-                        "scripts": ["node_modules/quill/dist/quill.js"],
-                        "es5BrowserSupport": true
-                    },
-                    "configurations": {
-                        "production": {
-                            "fileReplacements": [
-                                {
-                                    "replace": "projects/tester/src/environments/environment.ts",
-                                    "with": "projects/tester/src/environments/environment.prod.ts"
-                                }
-                            ],
-                            "optimization": true,
-                            "outputHashing": "all",
-                            "sourceMap": false,
-                            "extractCss": true,
-                            "namedChunks": false,
-                            "aot": true,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true,
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
-                                }
-                            ]
-                        }
-                    }
-                },
-                "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
-                    "options": {
-                        "browserTarget": "tester:build"
-                    },
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "tester:build:production"
-                        }
-                    }
-                },
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "tester:build"
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "projects/tester/src/test.ts",
-                        "polyfills": "projects/tester/src/polyfills.ts",
-                        "tsConfig": "projects/tester/tsconfig.spec.json",
-                        "karmaConfig": "projects/tester/karma.conf.js",
-                        "codeCoverage": true,
-                        "styles": [
-                            "node_modules/primeng/resources/primeng.min.css",
-                            "node_modules/primeicons/primeicons.css",
-                            "node_modules/quill/dist/quill.core.css",
-                            "node_modules/quill/dist/quill.snow.css",
-                            "node_modules/primeng/resources/themes/nova-light/theme.css"
-                        ],
-                        "scripts": ["node_modules/quill/dist/quill.js"],
-                        "assets": ["projects/tester/src/assets"]
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "projects/tester/tsconfig.app.json",
-                            "projects/tester/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**",
-                            "**/projects/tester/**",
-                            "**/src/polyfills.ts"
-                        ]
-                    }
-                }
-            }
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "gp-all-component": {
+      "root": "projects/gp-all-component",
+      "sourceRoot": "projects/gp-all-component/src",
+      "projectType": "library",
+      "prefix": "gp",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
         }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/gp-all-component/tsconfig.lib.json",
+            "project": "projects/gp-all-component/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/gp-all-component/src/test.ts",
+            "tsConfig": "projects/gp-all-component/tsconfig.spec.json",
+            "karmaConfig": "projects/gp-all-component/karma.conf.js",
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "projects/gp-all-component/src/lib/resources/**/*",
+              "projects/gp-all-component/src/lib/shared/**/*",
+              "projects/gp-all-component/src/lib/services/core**/*",
+              "projects/gp-all-component/src/lib/util/**/*",
+              "projects/gp-all-component/src/lib/**/*.mock.*ts",
+              "projects/gp-all-component/src/lib/**/*.module.ts"
+            ],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css"
+            ],
+            "assets": [],
+            "scripts": ["node_modules/quill/dist/quill.js"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/gp-all-component/tsconfig.lib.json",
+              "projects/gp-all-component/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     },
-    "defaultProject": "gp-all-component"
+    "tester": {
+      "root": "projects/tester/",
+      "sourceRoot": "projects/tester/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/tester",
+            "index": "projects/tester/src/index.html",
+            "main": "projects/tester/src/main.ts",
+            "polyfills": "projects/tester/src/polyfills.ts",
+            "tsConfig": "projects/tester/tsconfig.app.json",
+            "assets": ["projects/tester/src/favicon.ico"],
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/gp-all-component/lib/resources/scss/theme-360/theme.scss"
+            ],
+            "scripts": ["node_modules/quill/dist/quill.js"],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/tester/src/environments/environment.ts",
+                  "with": "projects/tester/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "tester:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "tester:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "tester:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/tester/src/test.ts",
+            "polyfills": "projects/tester/src/polyfills.ts",
+            "tsConfig": "projects/tester/tsconfig.spec.json",
+            "karmaConfig": "projects/tester/karma.conf.js",
+            "codeCoverage": true,
+            "styles": [
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css"
+            ],
+            "scripts": ["node_modules/quill/dist/quill.js"],
+            "assets": ["projects/tester/src/assets"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["projects/tester/tsconfig.app.json", "projects/tester/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "**/projects/tester/**", "**/src/polyfills.ts"]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "gp-all-component"
 }

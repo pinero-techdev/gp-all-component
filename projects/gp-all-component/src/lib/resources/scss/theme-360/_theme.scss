@@ -1,56 +1,154 @@
-@import './global/base';
-@import './fonts/fonts';
+@import './global/functions';
+@import './global/variables';
+@import './global/mixins';
 
-.theme-360 {
-    @import './layout/layout';
-    @import './components/text';
-    @import './components/icons';
-    @import './components/checkin';
-    @import './components/message';
-    @import './components/forms';
-    @import './components/tabview-menu';
-    @import './components/segments-sidebar';
-    @import './components/datatable';
-    @import './components/ui-datepicker';
-    @import './components/common';
-    @import './components/data';
-    @import './components/nav-list';
-    @import './components/dropdown-menu';
-    @import './components/card-kpi';
-    @import './components/overlay';
-    @import './components/panel';
-    @import './components/misc';
-    @import './components/responsive';
-    @import './components/slider';
-    @import './components/selector-fechas';
-    @import './components/loading-indicator';
-
-    .ui-inputswitch-slider:before {
-        background: $primaryBg;
-    }
-    .ui-paginator.ui-paginator-page {
-        height: auto;
-    }
+/** GENERAL **/
+* {
+  font-family: 'Lato', sans-serif !important;
 }
 
-/* styles for custom dialog for dialogs that are appended to body */
-/* when called inside another dialog */
-.custom-dialog {
-    @import './components/custom-dialog';
+.card {
+  background: $whiteColor;
+  box-shadow: -2px 5px 6px 0 rgba(0, 0, 0, 0.15), -11px 9px 21px 0 rgba(0, 0, 0, 0.17);
+  border: 1px solid $borderColor;
+  border-radius: $borderRadius;
 }
 
-@media (max-width: map-get($breakpoints, 'md')) {
-    html.mobile-fixed {
-        overflow-y: hidden;
-    }
+/** CLASSES **/
+a {
+  cursor: pointer;
 }
 
-/* Force vertical scroll to affect to body instead of html, in order to avoid it on p-dialog opened.*/
-html {
-    overflow-y: hidden;
+.warn,
+.error {
+  color: $errorColor;
 }
 
-body {
-    overflow-y: auto;
-    height: 100%;
+.f-left {
+  float: left;
 }
+
+.f-right {
+  float: right;
+}
+
+.control {
+  &-valid {
+    border-left: 5px solid $successColor !important;
+  }
+  &-error {
+    border-left: 5px solid $errorColor !important;
+  }
+}
+
+.ta {
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-center {
+    text-align: center;
+  }
+}
+
+.large {
+  font-size: large;
+}
+
+.padding {
+  &-1 {
+    padding: 1% !important;
+  }
+  &-2 {
+    padding: 2% !important;
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.ui-separation-lg {
+  margin-top: 16px;
+}
+
+.button {
+  &-base {
+    @include make-button-theme($buttonBg, $buttonBg);
+  }
+
+  &-danger {
+    @include make-button-theme($buttonDangerBg, $buttonDangerBg);
+  }
+}
+
+// /* CALENDAR - YEARS DIDN'T SHOW COMPLETE*/
+// .ui-datepicker select.ui-datepicker-year {
+//   width: 40%;
+// }
+
+// p-footer > .ui-grid-row > .ui-grid-col-2 {
+//   padding: 0.25em 0.5em;
+// }
+
+// /* CORRECTION SO THE BUTTON DOES NOT COME OUT OVAL INSIDE A FILEUPLOAD */
+// .ui-fluid .ui-fileupload-content .ui-button-icon-only {
+//   width: 2em;
+//   height: 2em;
+// }
+
+// /** DATE VIEWER INSIDE INPUT-FIELDS **/
+// .ui-calendar > input {
+//   width: inherit;
+// }
+
+// /** PRIMENG OVERWRITES **/
+// .ui-dropdown-filter-container {
+//   width: 95%;
+// }
+
+// .ui-button-icon-only .fa {
+//   margin-left: -10px;
+// }
+
+// .ui-button:disabled,
+// button[disabled] {
+//   cursor: default !important;
+//   background-color: $gray-dark !important;
+// }
+
+// .ui-inputtext:disabled {
+//   border-left: 0 !important;
+//   color: $gray-dark;
+// }
+
+// .ui-dialog.ui-dialog-responsive {
+//   width: 90% !important;
+// }
+
+// .jvectormap-tip {
+//   z-index: 2000;
+// }
+
+// .ui-radiobutton-icon {
+//   margin: 0 !important;
+// }
+
+// .close-btn {
+//   left: 90%;
+//   background-color: $gray-light !important;
+
+//   button:focus {
+//     background-color: $gray-medium !important;
+//   }
+
+//   > span {
+//     left: 50% !important;
+//   }
+// }
+
+// .logo {
+//   background: url('/projects/gp-all-component/src/lib/resources/images/logo_grupo_pinero.png') top left no-repeat !important;
+// }

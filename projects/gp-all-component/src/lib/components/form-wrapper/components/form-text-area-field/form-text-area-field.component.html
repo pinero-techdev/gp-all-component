@@ -1,0 +1,28 @@
+<div class="ui-row-fluid">
+  <div
+    [class.ui-col-fluid-12]="!translateInfo"
+    [class.ui-col-fluid-10]="translateInfo && translationKeys"
+    class="ui-col-fluid nopad"
+  >
+    <textarea
+      name="__field__{{ name }}"
+      pInputTextarea
+      [(ngModel)]="currentValue"
+      rows="{{ rows }}"
+      (change)="onFieldChange()"
+      class="full-width {{ textboxClass }}"
+      [disabled]="isDisabled"
+    ></textarea>
+  </div>
+  <div class="ui-col-fluid ui-col-fluid-2 nopad" *ngIf="translateInfo && translationKeys">
+    <gp-multi-language
+      [pKey]="translationKeys"
+      [schema]="translateInfo.scheme"
+      [table]="translateInfo.table"
+      [field]="translateInfo.field"
+      [description]="translateInfo.description"
+      [isEditing]="translateInfo.allowEdition"
+      [orderByLangCod]="translateInfo.orderByLangCod"
+    ></gp-multi-language>
+  </div>
+</div>

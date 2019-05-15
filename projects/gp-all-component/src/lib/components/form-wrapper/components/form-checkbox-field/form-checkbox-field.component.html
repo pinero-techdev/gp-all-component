@@ -1,0 +1,8 @@
+<p-checkbox
+  name="__field__{{ formField?.fieldMetadata.fieldName }}"
+  binary="true"
+  [(ngModel)]="currentValue"
+  (change)="onFieldChange()"
+  [disabled]="controlDisabled()"
+>
+</p-checkbox>

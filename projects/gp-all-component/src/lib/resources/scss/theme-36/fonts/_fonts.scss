@@ -1,0 +1,70 @@
+/* Lato */
+@import 'fa/solid';
+
+$font-path: '/lib/resources/fonts';
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: $fontRegular;
+  src: url('#{$font-path}/LatoLatin-Regular.eot'); /* IE9 Compat Modes */
+  src: local('Lato'), local('Lato-Regular'),
+    url('#{$font-path}/LatoLatin-Regular.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('#{$font-path}/LatoLatin-Regular.woff') format('woff'),
+    /* Modern Browsers */ url('#{$font-path}/LatoLatin-Regular.ttf') format('truetype'); /* Legacy iOS */
+}
+/* roboto-regular - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: $fontMedium;
+  src: url('#{$font-path}/LatoLatin-Medium.eot'); /* IE9 Compat Modes */
+  src: local('Lato Medium'), local('Lato-Medium'),
+    url('#{$font-path}/LatoLatin-Medium.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('#{$font-path}/LatoLatin-Medium.woff') format('woff'),
+    /* Modern Browsers */ url('#{$font-path}/LatoLatin-Medium.ttf') format('truetype'); /* Legacy iOS */
+}
+/* Lato italic */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: $fontRegular;
+  src: url('#{$font-path}/LatoLatin-Italic.eot'); /* IE9 Compat Modes */
+  src: local('Lato Italic'), local('Lato-Italic'),
+    url('#{$font-path}/LatoLatin-Italic.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('#{$font-path}/LatoLatin-Italic.woff') format('woff'),
+    /* Modern Browsers */ url('#{$font-path}/LatoLatin-Italic.ttf') format('truetype'); /* Legacy iOS */
+}
+/* roboto-700 - latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: $fontSemiBold;
+  src: url('#{$font-path}/LatoLatin-Semibold.eot'); /* IE9 Compat Modes */
+  src: local('Lato SemiBold'), local('Lato-Semibold'),
+    url('#{$font-path}/LatoLatin-Semibold.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('#{$font-path}/LatoLatin-Semibold.woff') format('woff'),
+    /* Modern Browsers */ url('#{$font-path}/LatoLatin-Semibold.ttf') format('truetype'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: $fontBold;
+  src: url('#{$font-path}/LatoLatin-Bold.eot'); /* IE9 Compat Modes */
+  src: local('Lato Bold'), local('Lato-Bold'),
+    url('#{$font-path}/LatoLatin-Bold.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('#{$font-path}/LatoLatin-Bold.woff') format('woff'),
+    /* Modern Browsers */ url('#{$font-path}/LatoLatin-Bold.ttf') format('truetype'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('#{$font-path}/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src: local('Material Icons'), local('MaterialIcons-Regular'),
+    url('#{$font-path}/MaterialIcons-Regular.woff2') format('woff2'),
+    url('#{$font-path}/MaterialIcons-Regular.woff') format('woff'),
+    url('#{$font-path}/MaterialIcons-Regular.ttf') format('truetype');
+}

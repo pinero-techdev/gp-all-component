@@ -1,5 +1,6 @@
-import {HostListener} from '@angular/core';
-import {MensajesComponent} from './mensajes.component';
+import { HostListener } from '@angular/core';
+import { MensajesComponent } from './mensajes.component';
+import { MessageService } from 'primeng/api';
 
 export abstract class GpBaseComponent extends MensajesComponent {
   width: number;
@@ -8,8 +9,8 @@ export abstract class GpBaseComponent extends MensajesComponent {
   jobs = 0;
   private offset = 0.95;
 
-  constructor() {
-    super();
+  constructor(messageService: MessageService) {
+    super(messageService);
 
     this.height = window.innerHeight * this.offset;
     this.width = window.innerWidth * this.offset;

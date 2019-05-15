@@ -1,0 +1,173 @@
+.card-kpi {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  justify-content: space-around;
+  border: $cardKpiBorder;
+  border-radius: $cardKpiBorderRadius;
+  background-image: url('/lib/resources/images/kpi-bg@2x.png');
+  background-color: $cardKpiBackgroundColor;
+  background-size: 100% 180px;
+  background-repeat: no-repeat;
+  padding: 20px 0;
+  margin-bottom: $cardKpiMarginBottom;
+  cursor: pointer;
+  min-height: 220px;
+
+  @media (min-width: map-get($breakpoints, 'md')) {
+    flex-flow: row;
+    justify-content: flex-start;
+    padding: $cardKpiPadding;
+    min-height: 180px;
+  }
+
+  &-overview {
+    flex-flow: row;
+    justify-content: flex-start;
+    padding: $cardKpiPadding;
+    min-height: 64px;
+    background-size: auto 100%;
+    background-position-x: right;
+    cursor: pointer;
+    margin-bottom: 0;
+    background-image: url('/lib/resources/images/kpi-overview.png');
+
+    .card-kpi-icon {
+      width: $cardKpiIconSize / 2;
+      height: $cardKpiIconSize / 2;
+      margin-right: $separationLarge;
+
+      svg {
+        width: 25px;
+        height: 25px;
+
+        g {
+          stroke: $whiteColor;
+        }
+      }
+    }
+
+    .card-kpi-info {
+      width: calc(100% - 56px);
+      align-items: start;
+
+      .card-kpi-label {
+        font-size: 12px;
+        line-height: 15px;
+        margin: 5px 0 4px 0;
+        @include ellipsis;
+      }
+
+      .card-kpi-count {
+        font-size: 30px;
+        line-height: 36px;
+      }
+    }
+  }
+
+  &-icon {
+    background: $cardKpiIconBackground;
+    width: $cardKpiIconSize;
+    height: $cardKpiIconSize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $cardKpiIconBorderRadius;
+
+    @media (min-width: map-get($breakpoints, 'md')) {
+      margin-right: $separationLarge;
+    }
+
+    svg {
+      width: $cardKpiIconSvgSize;
+      height: $cardKpiIconSvgSize;
+      color: $cardKpiIconSvgColor;
+    }
+
+    &-quality {
+      background: $cardKpiIconBackgroundQuality;
+    }
+
+    &-poll {
+      background: $cardKpiIconBackgroundPoll;
+    }
+
+    &-login {
+      background: $cardKpiIconBackgroundLogin;
+    }
+
+    &-manual {
+      background: $cardKpiIconBackgroundManual;
+    }
+
+    &-autom {
+      background: $cardKpiIconBackgroundAutom;
+    }
+
+    &-rest {
+      background: $cardKpiIconBackgroundRest;
+    }
+
+    &-spa {
+      background: $cardKpiIconBackgroundSpa;
+    }
+
+    &-hotel {
+      background: $cardKpiIconBackgroundHotel;
+    }
+
+    &-petic {
+      background: $cardKpiIconBackgroundPetic;
+    }
+
+    &-app {
+      background: $cardKpiIconBackgroundApp;
+    }
+
+    &-bpg {
+      background: $cardKpiIconBackgroundBpg;
+    }
+
+    &-otro {
+      background: $cardKpiIconBackgroundOtro;
+    }
+
+    &-actual {
+      background: $cardKpiIconBackgroundAct;
+    }
+
+    &-anterior {
+      background: $cardKpiIconBackgroundAnt;
+    }
+  }
+
+  &-info {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    @media (min-width: map-get($breakpoints, 'md')) {
+      align-items: flex-start;
+    }
+  }
+
+  &-label {
+    font-size: $cardKpiLabelFontSize;
+    font-weight: $cardKpiLabelFontWeight;
+    color: $textSecondaryColor;
+
+    @media (min-width: map-get($breakpoints, 'md')) {
+      font-size: $cardKpiLabelMdFontSize;
+    }
+  }
+
+  &-count {
+    color: $textSecondaryColor;
+    font-size: $cardKpiCountFontSize;
+    font-weight: $cardKpiCountFontWeight;
+
+    @media (min-width: map-get($breakpoints, 'md')) {
+      font-size: $cardKpiCountMdFontSize;
+    }
+  }
+}
