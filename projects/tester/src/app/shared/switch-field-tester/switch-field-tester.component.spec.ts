@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormSwitchFieldTesterComponent } from './form-switch-field-tester.component';
+import { SwitchFieldTesterComponent } from './switch-field-tester.component';
 
 describe('FormSwitchFieldComponent', () => {
-  let component: FormSwitchFieldTesterComponent;
-  let fixture: ComponentFixture<FormSwitchFieldTesterComponent>;
+  let component: SwitchFieldTesterComponent;
+  let fixture: ComponentFixture<SwitchFieldTesterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FormSwitchFieldTesterComponent],
+      declarations: [SwitchFieldTesterComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormSwitchFieldTesterComponent);
+    fixture = TestBed.createComponent(SwitchFieldTesterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -23,7 +23,7 @@ export class GPUtil {
   public static readonly odd_rec = new RegExp('\u00E7', 'g');
   public static readonly odd_reOthers = new RegExp('[\u0080-\uFFFF]', 'g');
 
-  public static normaliza(s: string): string {
+  public static normalize(s: string): string {
     s = s.replace(GPUtil.odd_reA, 'A');
     s = s.replace(GPUtil.odd_rea, 'a');
     s = s.replace(GPUtil.odd_reE, 'E');
