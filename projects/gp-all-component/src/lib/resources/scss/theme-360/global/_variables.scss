@@ -3,6 +3,9 @@
 /* White for any element like svg strokes, fonts, etc. */
 $whiteColor: color(white);
 
+/* Black for any element like svg strokes, fonts, etc. */
+$blackColor: color(black);
+
 /* primary */
 $primaryColor: color(primary);
 $primaryDarkColor: darken($primaryColor, 3%);
@@ -75,7 +78,6 @@ $inputOptionFontSize: 1em;
 $inputOptionPadding: 0.625em 0.875em;
 $inputHeaderFontSize: 1em;
 $inputHeaderPadding: 0.625em 1em;
-$inputShadowColor: color(black);
 $inputShadowOpacity: 0.04;
 
 /* input disabled */
@@ -120,7 +122,6 @@ $buttonPaddingVertical: get-computed-padding(
 $buttonPaddingHorizontal: $inputPaddingHorizontal + 14px;
 $buttonDangerBg: $errorColor;
 $buttonDangerBgHover: $errorColor;
-$buttonShadowColor: color(black);
 $buttonShadowOpacity: 0.08;
 
 /* backgrounds */
