@@ -24,7 +24,7 @@ export class MultiLanguageServiceMock {
     const response = new GetTranslationsRs();
     if (request.pKey && request.esquema && request.tabla && request.campo) {
       response.ok = true;
-      response.translations = this.translations;
+      response.traducciones = this.translations;
     } else {
       response.ok = false;
       response.error = new ErrorInformation();

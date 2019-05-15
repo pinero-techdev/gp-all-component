@@ -20,7 +20,7 @@ export class GetTranslationsRq {
 }
 
 export class GetTranslationsRs extends CommonRs {
-  translations: Translation[];
+  traducciones: Translation[];
 }
 
 /* tslint:disable:variable-name */
