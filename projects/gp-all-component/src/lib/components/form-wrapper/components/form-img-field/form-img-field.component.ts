@@ -55,7 +55,8 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
 
   copyValueFromControlToEditedRow(editedRow: any) {
     const hasTextProperties =
-      this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo;
+      this.formField.fieldMetadata.displayInfo &&
+      this.formField.fieldMetadata.displayInfo.textProperties;
 
     let newValue = this.currentValue;
 

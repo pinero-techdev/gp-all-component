@@ -18,7 +18,11 @@ import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.
 import { TextareaTesterComponent } from './textarea-tester/textarea-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
+<<<<<<< HEAD
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
+=======
+import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
+>>>>>>> development
 
 @NgModule({
   declarations: [
@@ -36,6 +40,7 @@ import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-t
     TableFrameTesterComponent,
     TextareaTesterComponent,
     TopbarTesterComponent,
+    WysiwygTesterComponent,
   ],
   imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
   exports: [
@@ -52,6 +57,7 @@ import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-t
     TextareaTesterComponent,
     TextareaTesterComponent,
     TopbarTesterComponent,
+    WysiwygTesterComponent,
   ],
   providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })

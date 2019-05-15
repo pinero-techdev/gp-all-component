@@ -14,6 +14,7 @@ import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
+import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -69,8 +70,12 @@ export const appRoutes: Routes = [
     component: ImgTesterComponent,
   },
   {
-    path: 'form-switch-field-tester',
+    path: 'switch-field-tester',
     component: SwitchFieldTesterComponent,
+  },
+  {
+    path: 'wysiwyg-tester',
+    component: WysiwygTesterComponent,
   },
 ];
 
