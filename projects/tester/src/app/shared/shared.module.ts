@@ -18,6 +18,7 @@ import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.
 import { TextareaTesterComponent } from './textarea-tester/textarea-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
+import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ImgTesterComponent } from './img-tester/img-tester.component';
     TableFrameTesterComponent,
     TextareaTesterComponent,
     TopbarTesterComponent,
+    WysiwygTesterComponent,
   ],
   imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
   exports: [
@@ -49,6 +51,7 @@ import { ImgTesterComponent } from './img-tester/img-tester.component';
     TextareaTesterComponent,
     TextareaTesterComponent,
     TopbarTesterComponent,
+    WysiwygTesterComponent,
   ],
   providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })
