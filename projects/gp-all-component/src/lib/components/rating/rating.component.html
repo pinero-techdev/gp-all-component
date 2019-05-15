@@ -1,5 +1,5 @@
 <span class="rating" *ngIf="starsArray && starsArray.length > 0">
   <span *ngFor="let star of starsArray; let i = index">
-    <i class="pi" [ngClass]="stars <= i ? 'pi-star-o' : 'pi-star'"></i>
+    <i class="pi" [ngClass]="stars <= i ? '' : 'pi-star'"></i>
   </span>
 </span>
