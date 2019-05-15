@@ -1,11 +1,8 @@
-import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 import { Component, OnInit, Input } from '@angular/core';
 import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
 import { TableService } from './../../../../services/api/table/table.service';
-import { GpTableRestrictions } from './../../../table-wrapper/resources/gp-table-restrictions.enum';
-import { RegexValidations } from '../../resources/regex-validations.type';
 
 @Component({
   selector: 'gp-form-img-field',

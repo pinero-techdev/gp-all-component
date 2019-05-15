@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { FormImgFieldTesterComponent } from './form-img-field-tester/form-img-field-tester.component';
 import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
@@ -22,10 +21,10 @@ import { ImgTesterComponent } from './img-tester/img-tester.component';
 
 @NgModule({
   declarations: [
-    ImgTesterComponent,
     DropdownRelatedTesterComponent,
     DropdownTesterComponent,
     DynamicTesterComponent,
+    ImgTesterComponent,
     LoadingIndicatorTesterComponent,
     MainMenuTesterComponent,
     MultiLanguageTesterComponent,
@@ -35,8 +34,6 @@ import { ImgTesterComponent } from './img-tester/img-tester.component';
     TableFrameTesterComponent,
     TextareaTesterComponent,
     TopbarTesterComponent,
-    FormImgFieldTesterComponent,
-    TableCrudTesterComponent,
   ],
   imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
   exports: [
