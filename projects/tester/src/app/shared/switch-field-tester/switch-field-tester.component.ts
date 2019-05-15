@@ -6,7 +6,7 @@ import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper.type
   templateUrl: './form-switch-field-tester.component.html',
   styleUrls: ['./form-switch-field-tester.component.scss'],
 })
-export class SwitchFieldTesterComponent implements OnInit {
+export class SwitchFieldTesterComponent {
   formField = JSON.parse(JSON.stringify(FormFieldMock));
   constructor() {
     this.formField.fieldMetadata.fieldName = 'ImageField';

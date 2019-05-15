@@ -1,10 +1,4 @@
 <section>
   <h3>Form switch field</h3>
-  <gp-form-switch-field
-    name="__field__{{ formField?.fieldMetadata.fieldName }}"
-    [(ngModel)]="currentValue"
-    (change)="onFieldChange()"
-    [disabled]="controlDisabled()"
-  >
-  </gp-form-switch-field>
+  <gp-form-switch-field [formField]="formField"></gp-form-switch-field>
 </section>
