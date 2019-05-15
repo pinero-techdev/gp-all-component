@@ -12,6 +12,7 @@ import { isUndefined } from 'util';
 @Component({
   selector: 'gp-form-dropdown-field',
   templateUrl: './form-dropdown-field.component.html',
+  styleUrls: ['./form-dropdown-field.component.scss'],
 })
 export class FormDropdownFieldComponent extends GpFormFieldControl implements OnInit {
   /** List of current values */
@@ -102,7 +103,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
     }
   }
 
-  /* If the field can't be null then the user is forced to select a value, 
+  /* If the field can't be null then the user is forced to select a value,
   if not always the field is valid */
   validateField(editedRow: any = null): boolean {
     if (this.formField && this.formField.fieldMetadata) {
