@@ -29,4 +29,97 @@ export const LocaleES = {
   Seleccione guardar otra vez para aceptar los cambios.`,
   VALIDATION_TIME_FORMAT: `El valor indicado no cumple con un formato 
   válido: "hh:mm". Ejemplo  de hora válida: 01:45`,
+  CALENDAR: {
+    MONTH: {
+      JAN: {
+        SHORT: 'ene',
+        LONG: 'enero',
+      },
+      FEB: {
+        SHORT: 'feb',
+        LONG: 'febrero',
+      },
+      MAR: {
+        SHORT: 'mar',
+        LONG: 'marzo',
+      },
+      APR: {
+        SHORT: 'abr',
+        LONG: 'abril',
+      },
+      MAY: {
+        SHORT: 'may',
+        LONG: 'mayo',
+      },
+      JUN: {
+        SHORT: 'jun',
+        LONG: 'junio',
+      },
+      JUL: {
+        SHORT: 'jul',
+        LONG: 'julio',
+      },
+      AGO: {
+        SHORT: 'ago',
+        LONG: 'agosto',
+      },
+      SEP: {
+        SHORT: 'sep',
+        LONG: 'septiembre',
+      },
+      OCT: {
+        SHORT: 'oct',
+        LONG: 'octubre',
+      },
+      NOV: {
+        SHORT: 'nov',
+        LONG: 'noviembre',
+      },
+      DEC: {
+        SHORT: 'dic',
+        LONG: 'diciembre',
+      },
+    },
+    DAY: {
+      MON: {
+        SHORT: 'lun',
+        LONG: 'lunes',
+        MIN: 'L',
+      },
+      TUE: {
+        SHORT: 'mar',
+        LONG: 'martes',
+        MIN: 'M',
+      },
+      WED: {
+        SHORT: 'mié',
+        LONG: 'miércoles',
+        MIN: 'X',
+      },
+      THU: {
+        SHORT: 'jue',
+        LONG: 'jueves',
+        MIN: 'J',
+      },
+      FRI: {
+        SHORT: 'vie',
+        LONG: 'viernes',
+        MIN: 'V',
+      },
+      SAT: {
+        SHORT: 'sáb',
+        LONG: 'sábado',
+        MIN: 'S',
+      },
+      SUN: {
+        SHORT: 'dom',
+        LONG: 'domingo',
+        MIN: 'D',
+      },
+    },
+  },
+  CLOSE_TEXT: 'Cerrar',
+  PREV_TEXT: '<Ant',
+  NEXT_TEXT: 'Sig>',
+  TODAY: 'Hoy',
 };
