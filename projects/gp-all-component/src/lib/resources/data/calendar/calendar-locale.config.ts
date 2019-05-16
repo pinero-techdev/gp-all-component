@@ -1,4 +1,4 @@
-import { LocaleES } from '../../../resources/localization/es-ES.lang';
+import { LocaleES, LocaleEN } from '../../../resources/localization';
 
 export const CalendarLocaleConfigES = {
   closeText: LocaleES.CLOSE_TEXT,
@@ -66,6 +66,6 @@ export const CalendarLocaleConfigES = {
   showMonthAfterYear: false,
   yearSuffix: '',
   firstDayOfWeek: 1,
-  today: 'Today',
-  clear: 'Clear',
+  today: LocaleEN.TODAY,
+  clear: LocaleEN.CLEAR,
 };
