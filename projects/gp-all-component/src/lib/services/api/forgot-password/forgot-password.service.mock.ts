@@ -1,7 +1,7 @@
 import { Observable, of, throwError } from 'rxjs';
 import { CommonRs } from './../../core/common.service';
-import { ForgotPasswordRq } from '@lib/services/api/forgot-password/forgot-password.service';
-import { ErrorInformation } from '@lib/resources/data/error-information/error-information.model';
+import { ForgotPasswordRq } from './../../../services/api/forgot-password/forgot-password.service';
+import { ErrorInformation } from './../../../resources/data/error-information/error-information.model';
 
 export class ForgotPasswordServiceMock {
   updatePassword(request: ForgotPasswordRq): Observable<CommonRs> {

@@ -1,0 +1,20 @@
+/* Only related to Padding && Margins */
+
+// Padding
+.padding {
+  &-1 {
+    padding: 1% !important;
+  }
+  &-2 {
+    padding: 2% !important;
+  }
+}
+
+.p-bottom-small {
+  padding-bottom: 0.3rem;
+}
+
+// Margin
+.m-top-large {
+  margin-top: 1em;
+}

@@ -1,3 +1,4 @@
+import { LocaleES } from './../../resources/localization/es-ES.lang';
 import { MessagesService } from './../../services/core/messages.service';
 import { LANGUAGE_ORDER } from './../../resources/constants/language-order.constant';
 import {
@@ -12,6 +13,7 @@ import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'gp-multi-language',
   templateUrl: './multi-language.component.html',
+  styleUrls: ['./multi-language.component.scss'],
 })
 export class MultiLanguageComponent implements OnInit {
   @Input() table: string;
@@ -21,6 +23,7 @@ export class MultiLanguageComponent implements OnInit {
   @Input() description: string;
   @Input() isEditing: boolean;
   @Input() orderByLangCod = true;
+
   showTranslations: boolean;
   showHTMLEditor: boolean;
   currentTextHTML: string;
@@ -43,9 +46,7 @@ export class MultiLanguageComponent implements OnInit {
     if (this.pKey) {
       this.getTranslations();
     } else {
-      this.messagesService.showErrorAlert(
-        'Debe guardar primero el registro para ' + 'poder insertar o visualizar las traducciones.'
-      );
+      this.messagesService.showErrorAlert(LocaleES.YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS);
     }
   }
 
@@ -57,9 +58,9 @@ export class MultiLanguageComponent implements OnInit {
       .subscribe(
         (data: any) => {
           if (data.ok) {
-            let translations = data.translations;
+            let translations = data.traducciones;
             if (!this.orderByLangCod) {
-              translations = this.sortTranslations(data.translations, LANGUAGE_ORDER);
+              translations = this.sortTranslations(data.traducciones, LANGUAGE_ORDER);
             }
             this.translations = translations;
           } else if (data.error !== null) {
@@ -107,9 +108,7 @@ export class MultiLanguageComponent implements OnInit {
         )
         .subscribe(
           (data: any) => {
-            if (data.ok) {
-              // TODO:
-            } else if (data.error !== null) {
+            if (!data.ok && data.error) {
               console.error(data.error.internalErrorMessage);
             }
           },
@@ -121,7 +120,7 @@ export class MultiLanguageComponent implements OnInit {
 
   hasHTMLContent(traduccion: string): boolean {
     return (
-      traduccion !== null &&
+      traduccion &&
       (traduccion.indexOf('</') !== -1 ||
         traduccion.indexOf('/>') !== -1 ||
         traduccion.indexOf('&lt;') !== -1 ||

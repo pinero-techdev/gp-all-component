@@ -1,6 +1,5 @@
 import { ForgotPasswordService } from './forgot-password/forgot-password.service';
 import { MainMenuProviderService } from './main-menu/main-menu-provider.service';
-import { MainMenuService } from './main-menu/main-menu.service';
 import { LoginService } from './login/login.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,7 +16,6 @@ import { MultiLanguageService } from './multi-language/multi-language.service';
     MultiLanguageService,
     LoginService,
     MainMenuProviderService,
-    MainMenuService,
   ],
 })
 export class ApiModule {}

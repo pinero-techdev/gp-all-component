@@ -3,18 +3,18 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './../../shared/shared.module';
 import { LoadingIndicatorComponent } from './../loading-indicator/loading-indicator.component';
-import { TestingMockEvents } from '@lib/shared/testing/@mock/utils/testing-mock-events.class';
+import { TestingMockEvents } from './../../.../../shared/testing/@mock/utils/testing-mock-events.class';
 import {
   MultiLanguageServiceMock, //
-} from '@lib/services/api/multi-language/multi-language.service.mock';
+} from './../../.../../services/api/multi-language/multi-language.service.mock';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { MultiLanguageComponent } from './multi-language.component';
 import {
   MultiLanguageService,
   GetTranslationsRq, //
-} from '@lib/services/api/multi-language/multi-language.service';
-import { MessagesService } from '@lib/services/core/messages.service';
-import { Translation } from '@lib/resources/data/translation.model';
+} from './../../.../../services/api/multi-language/multi-language.service';
+import { MessagesService } from './../../.../../services/core/messages.service';
+import { Translation } from './../../.../../resources/data/translation.model';
 
 describe('MultiLanguageComponent', () => {
   const mockService = new MultiLanguageServiceMock();
@@ -75,9 +75,9 @@ describe('MultiLanguageComponent', () => {
   describe('when HTTP Request is correct', () => {
     beforeEach(() => {
       component.pKey = request.pKey;
-      component.table = request.table;
-      component.schema = request.schema;
-      component.field = request.field;
+      component.table = request.tabla;
+      component.schema = request.esquema;
+      component.field = request.campo;
       fixture.detectChanges();
       elementRef = fixture.debugElement.nativeElement;
     });
@@ -187,10 +187,10 @@ describe('MultiLanguageComponent', () => {
         let $button: HTMLButtonElement;
         component.translations.map((item: Translation, index: number) => {
           if (item.langCountry) {
-            $flag = elementRef.querySelector(`.bandera.bandera-${item.langCountry.toLowerCase()}`);
+            $flag = elementRef.querySelector(`.flag.flag-${item.langCountry.toLowerCase()}`);
             expect($flag).not.toBeNull();
           } else {
-            $flag = elementRef.querySelector('.bandera.sin-bandera');
+            $flag = elementRef.querySelector('.flag.sin-flag');
             expect($flag).not.toBeNull();
           }
 

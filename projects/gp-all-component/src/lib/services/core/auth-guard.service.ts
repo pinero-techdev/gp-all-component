@@ -1,8 +1,16 @@
+import { LocaleES } from '@lib/resources/localization/es-ES.lang';
+import { LoginService, SessionInfoRs } from './../api/login/login.service';
 import { isNull, isNullOrUndefined } from 'util';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  Params,
+} from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.service';
 import { GlobalService } from './global.service';
 import { MenuRq, MainMenuService } from '../api/main-menu/main-menu.service';
@@ -11,19 +19,27 @@ import { MenuRq, MainMenuService } from '../api/main-menu/main-menu.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
+    private loginService: LoginService,
     private menu: MainMenuService,
     private menuAppMenuProviderService: MainMenuProviderService
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    const isPublic = route.data.hasOwnProperty('public') ? route.data.public : false;
     let userId = null;
+
     if (!isNullOrUndefined(userInfo)) {
       userId = userInfo.userId;
     }
 
     const url: string = state.url;
-    if (GlobalService.getLOGGED() || !isNull(sessionStorage.getItem('userInfo'))) {
+    if (isPublic) {
+      return of(true);
+    } else if (this.hasPermissions(isPublic)) {
+      /** The view is private and the user has permissions
+       *  then the user can access to the app
+       */
       if (url === '/home' || url === '/' || url.indexOf('/terminal') !== -1) {
         return of(true);
       } else {
@@ -35,28 +51,18 @@ export class AuthGuard implements CanActivate {
           map((menu) => {
             if (menu) {
               // Check if option menu is active
-              // prettier-ignore
-              const accesoPermitido = this.menuAppMenuProviderService.
-                            isOpcionMenuActivo(
-                                menu,
-                                url.substring(1), // Obtain action from url
-                                Object.getOwnPropertyNames(route.params).length
-                            );
-              if (!accesoPermitido) {
-                console.error(
-                  'El username ' +
-                    userId +
-                    ' no tiene los permisos necesarios para acceder a ' +
-                    url
-                );
+              const isAllowed = this.menuAppMenuProviderService.isOpcionMenuActivo(
+                menu,
+                url.substring(1), // Obtain action from url
+                Object.getOwnPropertyNames(route.params).length
+              );
+              if (!isAllowed) {
+                console.error(LocaleES.ACCESS_URL_FORBIDDEN(userId, url));
               }
-              return accesoPermitido;
+              return isAllowed;
             } else {
               console.error(
-                'El username ' +
-                  userId +
-                  ' no tiene menú asociado en la aplicación ' +
-                  GlobalService.getAPP()
+                LocaleES.USER_HAS_NOT_ASSOCIATED_A_MENU(userId, GlobalService.getAPP())
               );
               return of(false);
             }
@@ -64,11 +70,49 @@ export class AuthGuard implements CanActivate {
         );
       }
     } else {
-      console.error('El username no se encuentra logado');
-      // not logged in so redirect to login page.
-      GlobalService.setPreLoginUrl(url);
-      this.router.navigate(['/login']);
+      /** The view is private and there is not any session registered
+       *  then the user goes to /login
+       */
+      if (url.includes('/login')) {
+        return of(true);
+      } else {
+        console.error(LocaleES.USER_IS_NOT_LOGGED);
+        // not logged in so redirect to login page.
+        GlobalService.setPreLoginUrl(url);
+        return this.checkSession(route.queryParams).first();
+      }
+    }
+  }
+
+  private checkSession(queryParams: Params): Observable<boolean> {
+    return this.loginService.sessionInfo().pipe(
+      switchMap((data) => this.checkSessionResponse(data, queryParams)),
+      catchError((err) => this.handlerError(err))
+    );
+  }
+
+  private hasPermissions(isPublic: boolean) {
+    return !isPublic && (GlobalService.getLOGGED() || !isNull(sessionStorage.getItem('userInfo')));
+  }
+
+  private checkSessionResponse(data: SessionInfoRs, queryParams: Params): Observable<boolean> {
+    if (data && data.ok) {
+      GlobalService.setSession(data.userInfo);
+      GlobalService.setLogged(true);
+      sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+      return of(true);
+    } else {
+      this.navigateTo(queryParams);
       return of(false);
     }
+  }
+
+  private handlerError(err) {
+    console.error(err);
+    return of(false);
+  }
+
+  private navigateTo(queryParams, state = '/login') {
+    this.router.navigate([state], queryParams);
   }
 }

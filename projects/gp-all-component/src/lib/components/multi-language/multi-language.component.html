@@ -9,7 +9,6 @@
   >
   </button>
 </div>
-
 <p-dialog
   [(visible)]="showTranslations"
   header="Mantenimiento traducciones - {{ description }}"
@@ -21,13 +20,13 @@
     <div *ngIf="translations" class="ui-grid-col-12">
       <div class="ui-grid-row" *ngFor="let t of translations">
         <div
-          class="ui-md-1 bandera bandera-{{ t.langCountry.toLowerCase() }}"
+          class="ui-md-1 flag flag-{{ t.langCountry.toLowerCase() }}"
           *ngIf="t.langCountry != null"
           pTooltip="{{ t.langCountry }}"
           tooltipPosition="top"
         >
         </div>
-        <div class="ui-md 1 bandera sin-bandera" *ngIf="t.langCountry == null"> </div>
+        <div class="ui-md 1 flag no-flag" *ngIf="t.langCountry == null"> </div>
         <div [class.ui-md-10]="isEditing" [class.ui-md-11]="!isEditing">
           <span class="md-inputfield padding-1 full-width">
             <input
@@ -52,7 +51,7 @@
             type="button"
             label="HTML"
             class="ui-button-raised ui-button-success full-width"
-            [class.contiene-html]="hasHTMLContent(t.langCountryTranslation)"
+            [class.html]="hasHTMLContent(t.langCountryTranslation)"
             (click)="showEditorHTMLDialog(t)"
             icon="pi pi-pencil"
           >

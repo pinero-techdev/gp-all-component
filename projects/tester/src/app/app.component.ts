@@ -1,6 +1,7 @@
+import { LoginService } from './../../../gp-all-component/src/lib/services/api/login/login.service';
 import { GlobalService } from '../../../gp-all-component/src/lib/services/core/global.service';
-import { UserInfo } from '../../../gp-all-component/src/lib/resources/data/user-info.model';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor() {
+  constructor(private loginService: LoginService, private router: Router) {
     GlobalService.setBaseUrl('/bpguest-svc');
     GlobalService.setLoginServiceUrl(
       'https://svcext.grupo-pinero.com/gp/identity-service/login-svc'
@@ -17,7 +18,14 @@ export class AppComponent {
     GlobalService.setApp('BPG');
     GlobalService.setAplicacionLogin('BPG');
     GlobalService.setLogged(false);
-    GlobalService.setSession(new UserInfo());
     GlobalService.setApplicationTitle('BSuite');
+
+    // GlobalService.setBaseUrl('/fenix-api');
+    // GlobalService.setLoginServiceUrl(
+    //   ' https://apps.wapt.cen.intranet/gp/identity-service/login-svc'
+    // );
+    // GlobalService.setMenuServiceUrl(' https://apps.wapt.cen.intranet/gp/identity-service/menu-svc');
+    // GlobalService.setApp('INS');
+    // GlobalService.setAplicacionLogin('INS');
   }
 }

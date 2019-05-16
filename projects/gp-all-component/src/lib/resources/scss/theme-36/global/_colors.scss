@@ -1,0 +1,130 @@
+/* Color Map */
+$colors: (
+  primary: (
+    base: #147eff,
+    light: #2386ff,
+    lightest: #2e8cff,
+    dark: #0576ff,
+    darkest: #0071fa,
+  ),
+  success: (
+    base: #8bc349,
+  ),
+  error: (
+    base: #fc4e4e,
+  ),
+  info: (
+    base: #2196f3,
+  ),
+  warn: (
+    base: #ffc107,
+  ),
+  fatal: (
+    base: #212121,
+  ),
+  accent: (
+    base: #676767,
+    dark: #424242,
+    text: #ffffff,
+  ),
+  text: (
+    base: #404c58,
+    secondary: #516170,
+    muted: #9aa6b1,
+    inverted: #ffffff,
+    invertedMuted: rgba(255, 255, 255, 0.6),
+  ),
+  white: (
+    base: #fff,
+    white-1: #f7f7f7,
+    white-2: #e8e8e8,
+    white-3: #f2f4f7,
+    white-4: #f4f8ff,
+    white-5: #f5f6fa,
+    white-6: #f0f2f5,
+  ),
+  black: (
+    base: #000000,
+  ),
+  gray: (
+    gray-1: #fafcff,
+    gray-2: #aaaaaa,
+    gray-3: #bdbdbd,
+    gray-4: #cacaca,
+    gray-5: #d5e4f2,
+    gray-6: #d6d5d5,
+    gray-7: #e8e8e8,
+    gray-8: #404c58,
+    gray-9: #424242,
+    gray-10: #516170,
+    gray-11: #545454,
+    gray-12: #676767,
+    gray-13: #757575,
+    gray-14: #212121,
+    gray-15: #9aa6b1,
+    gray-16: rgba(255, 255, 255, 0.6),
+    gray-17: rgba(240, 242, 245, 0.5),
+    gray-18: rgba(214, 217, 231, 0.29),
+    gray-19: #58575c,
+    gray-20: #e0e1e2,
+    gray-21: #444444,
+    gray-22: #323232,
+  ),
+  red: (
+    red-1: #fc4e4e,
+  ),
+  pink: (
+    pink-1: #f2d7d5,
+  ),
+  green: (
+    green-1: #8bc349,
+    green-2: #709644,
+    green-3: #4caf50,
+    green-4: #2e7d32,
+    green-5: #009688,
+    green-6: #00695c,
+  ),
+  blue: (
+    blue-1: #147eff,
+    blue-2: #0576ff,
+    blue-3: #3f51b5,
+    blue-4: #2667b8,
+    blue-5: #03a9f4,
+    blue-6: #2789c4,
+    blue-7: #115191,
+    blue-8: #3f51b5,
+    blue-9: #0277bd,
+    blue-10: #0a448e,
+    blue-11: #0c3f72,
+  ),
+  purple: (
+    purple-1: #9fa8da,
+    purple-2: #bd10e0,
+    purple-3: #673ab7,
+    purple-4: #4527a0,
+    purple-5: #ebdef0,
+  ),
+  yellow: (
+    yellow-1: #baa33b,
+    yellow-2: #f8e71c,
+    yellow-3: #c2b745,
+    yellow-4: #ffda23,
+  ),
+  orange: (
+    orange-1: #f5a623,
+  ),
+  silver: (
+    silver-1: #c0c0c0,
+  ),
+);
+
+@function color($color-name, $color-variant: 'base') {
+  /*color variant is optional*/
+  @if map-has-key($colors, $color-name) {
+    /* map inception */
+    @return map-get(map-get($colors, $color-name), $color-variant);
+  } @else {
+    /* @return map-get($colors, $color-name); */
+    @error 'color value does not exist';
+  }
+}

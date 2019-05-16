@@ -1,0 +1,13 @@
+gp-loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oculto {
+  display: none;
+}
+
+.visible {
+  display: flex;
+}

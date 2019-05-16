@@ -1,8 +1,6 @@
 import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
-import { ForgotPasswordTesterComponent } from './forgot-password-tester/forgot-password-tester.component';
-import { LoginTesterComponent } from './login-tester/login-tester.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
@@ -12,22 +10,18 @@ import { RatingTesterComponent } from './rating-tester/rating-tester.component';
 import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
 import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
+import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 import { FormCheckboxFieldTesterComponent } from './form-checkbox-field-tester/form-checkbox-field-tester.component';
+import { ImgTesterComponent } from './img-tester/img-tester.component';
+import { CalendarTesterComponent } from './calendar-tester/calendar-tester.component';
+import { RedirectComponent } from '@lib/components/redirect/redirect.component';
+import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
+import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
+import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.component';
+import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.component';
 
 export const appRoutes: Routes = [
-  {
-    path: 'login',
-    component: LoginTesterComponent,
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordTesterComponent,
-  },
-  {
-    path: 'forgot-password/:username',
-    component: ForgotPasswordTesterComponent,
-  },
   {
     path: 'dynamic-tester',
     component: DynamicTesterComponent,
@@ -49,12 +43,20 @@ export const appRoutes: Routes = [
     component: RatingTesterComponent,
   },
   {
+    path: 'text-field-tester',
+    component: TextFieldTesterComponent,
+  },
+  {
     path: 'multi-select-tester',
     component: MultiSelectTesterComponent,
   },
   {
     path: 'table-frame-tester',
     component: TableFrameTesterComponent,
+  },
+  {
+    path: 'table-crud-tester',
+    component: TableCrudTesterComponent,
   },
   {
     path: 'topbar-tester',
@@ -75,6 +77,30 @@ export const appRoutes: Routes = [
   {
     path: 'form-checkbox-field-tester',
     component: FormCheckboxFieldTesterComponent,
+  },
+  {
+    path: 'img-tester',
+    component: ImgTesterComponent,
+  },
+  {
+    path: 'calendar-tester',
+    component: CalendarTesterComponent,
+  },
+  {
+    path: 'redirect-tester/:new/:url',
+    component: RedirectComponent,
+  },
+  {
+    path: 'switch-tester',
+    component: SwitchFieldTesterComponent,
+  },
+  {
+    path: 'wysiwyg-tester',
+    component: WysiwygTesterComponent,
+  },
+  {
+    path: 'time-field-tester',
+    component: TimeFieldTesterComponent,
   },
 ];
 

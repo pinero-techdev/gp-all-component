@@ -1,0 +1,26 @@
+.slider {
+  min-height: 55px;
+
+  &-label {
+    padding-bottom: 15px;
+  }
+
+  &-summary {
+    .material-label {
+      color: $textMutedColor;
+    }
+
+    @media (min-width: map-get($breakpoints, 'md')) {
+      padding-left: 30px;
+    }
+  }
+}
+@media (max-width: map-get($breakpoints, 'md')) {
+  .tabview-form .slider-summary:not(.slider-summary-inline) {
+    padding-top: 15px;
+  }
+
+  .slider-summary-inline {
+    margin-top: 10px;
+  }
+}

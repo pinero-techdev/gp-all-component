@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
-import { DataTableMetaDataField } from '@lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../resources/form-field.model';
-import { TableService } from '@lib/services/api/table/table.service';
-import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
-import { GPUtil } from '@lib/services/core/gp-util.service';
+import { TableService } from './../../../../services/api/table/table.service';
+import { isUndefined } from 'util';
 
 @Component({
   selector: 'gp-form-textarea-field',
@@ -14,184 +13,113 @@ import { GPUtil } from '@lib/services/core/gp-util.service';
 export class FormTextAreaFieldComponent extends GpFormFieldControl implements OnInit {
   @Input() formField: GpFormField;
 
-  textboxClass: string;
-
-  minLength: number;
   maxLength: number;
-
+  name = 'field-textarea';
+  minLength: number;
   rows: number;
-
-  translationKeys = '';
-
-  getFieldMetadata(): DataTableMetaDataField {
-    return this.formField.fieldMetadata;
-  }
+  textboxClass: string;
+  translationKeys: string;
 
   ngOnInit() {
-    this.inicializa();
+    this.init();
+    this.isDisabled = this.controlDisabled();
   }
 
-  public getFormField(): GpFormField {
-    return this.formField;
+  get displayInfo() {
+    const metadata = this.getFieldMetadata();
+    return metadata ? metadata.displayInfo : null;
   }
 
-  inicializa() {
-    if (
-      this.formField.fieldMetadata.displayInfo &&
-      this.formField.fieldMetadata.displayInfo.textProperties !== null
-    ) {
+  get translateInfo() {
+    return this.displayInfo ? this.displayInfo.translationInfo : null;
+  }
+
+  /**
+   * Returns current field metadata
+   */
+  getFieldMetadata(): DataTableMetaDataField {
+    return this.formField ? this.formField.fieldMetadata : null;
+  }
+
+  /**
+   * Returns current form field
+   */
+  getFormField(): GpFormField {
+    return isUndefined(this.formField) ? null : this.formField;
+  }
+
+  /**
+   * Initializes current component,
+   * and sets length validation properties
+   */
+  init() {
+    if (this.displayInfo) {
       if (
-        this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
-          TableService.TEXT_UPPERCASE
-        ) !== -1
+        this.displayInfo.textProperties &&
+        this.displayInfo.textProperties.indexOf(TableService.TEXT_UPPERCASE) !== -1
       ) {
         this.textboxClass = 'text-uppercase';
       }
-    }
 
-    // Procesa restricciones.
-    if (this.formField.fieldMetadata.restrictions) {
-      for (const restriction of this.formField.fieldMetadata.restrictions) {
-        if (restriction.restrictionType === GpTableRestrictions.MIN_LENGTH) {
-          this.minLength = restriction.minLength;
-        } else if (restriction.restrictionType === GpTableRestrictions.MAX_LENGTH) {
-          this.maxLength = restriction.maxLength;
-        }
+      this.rows =
+        this.displayInfo.rowsTextArea && this.displayInfo.rowsTextArea > 0
+          ? this.displayInfo.rowsTextArea
+          : 3;
+    }
+    const metadata = this.getFieldMetadata();
+    this.name = metadata ? metadata.fieldName : '';
+    this.setRestrictions();
+  }
+
+  /**
+   * Copies value from control to editing row
+   * @param editedRow The editing row
+   */
+  copyValueFromControlToEditedRow(editedRow: any = null) {
+    if (this.displayInfo.textProperties) {
+      if (this.displayInfo.textProperties.indexOf(TableService.TEXT_UPPERCASE) >= 0) {
+        this.currentValue = !this.currentValue ? null : this.currentValue.toUpperCase();
+      }
+      if (this.displayInfo.textProperties.indexOf(TableService.TEXT_TRIM) >= 0) {
+        this.currentValue = !this.currentValue ? null : this.currentValue.trim();
       }
     }
 
-    if (this.formField.fieldMetadata.displayInfo.rowsTextArea > 0) {
-      this.rows = this.formField.fieldMetadata.displayInfo.rowsTextArea;
-    } else {
-      this.rows = 3;
+    const metadata = this.getFieldMetadata();
+    if (metadata && editedRow) {
+      editedRow[metadata.fieldName] = this.currentValue;
     }
   }
 
-  copyValueFromControlToEditedRow(editedRow: any) {
-    let newValue = this.currentValue;
-    if (this.formField.fieldMetadata.displayInfo.textProperties !== null) {
-      if (
-        this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
-          TableService.TEXT_UPPERCASE
-        ) >= 0
-      ) {
-        newValue = newValue === null ? null : newValue.toUpperCase();
-        this.currentValue = newValue;
-      }
-      if (
-        this.formField.fieldMetadata.displayInfo.textProperties.indexOf(TableService.TEXT_TRIM) >= 0
-      ) {
-        newValue = newValue === null ? null : newValue.trim();
-        this.currentValue = newValue;
-      }
-    }
-    editedRow[this.formField.fieldMetadata.fieldName] = newValue;
-  }
+  /**
+   * Copies values from editing row to control
+   * @param editedRow The editing row
+   */
+  copyValueFromEditedRowToControl(editedRow: any = null) {
+    const metadata = this.getFieldMetadata();
 
-  copyValueFromEditedRowToControl(editedRow: any) {
-    this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
-    // Si tiene traducción, recogemos todos los valores de los campos que actuan como
-    // identificadores y los juntamos para crear el identificador de la tabla de traducciones
-    if (
-      this.formField.fieldMetadata.displayInfo.translationInfo !== null &&
-      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields !== null
-    ) {
+    if (metadata && editedRow) {
+      const keyFields =
+        this.displayInfo && this.displayInfo.translationInfo
+          ? this.displayInfo.translationInfo.keyFields
+          : [];
+
+      this.currentValue = editedRow[metadata.fieldName];
+
+      /* If it has translation, we collect all the values of the fields that act as
+      identifiers and put them together to create the translation table identifier */
       this.translationKeys = '';
-      for (const keyField of this.formField.fieldMetadata.displayInfo.translationInfo.keyFields) {
+      for (const keyField of keyFields) {
         this.translationKeys += editedRow[keyField];
       }
     }
   }
 
-  validateField(editedRow: any) {
-    this.formField.validField = true;
-    this.formField.fieldMsgs = null;
-
-    let valorCampo = editedRow[this.formField.fieldMetadata.fieldName];
-    if (
-      typeof valorCampo === 'string' &&
-      this.formField.fieldMetadata.displayInfo.displayType === TableService.TEXT_DISPLAY_TYPE
-    ) {
-      valorCampo = valorCampo.trim();
-    }
-
-    // Validacion del campo.
-    // a) Null?
-    if (this.formField.fieldMetadata.notNull && (valorCampo === '' || valorCampo === null)) {
-      this.formField.validField = false;
-      this.validateFieldAddMsgs('El valor es obligatorio.');
-      return false;
-    }
-
-    if (this.formField.fieldMetadata.restrictions) {
-      for (const restriction of this.formField.fieldMetadata.restrictions) {
-        if (
-          restriction.restrictionType === GpTableRestrictions.MIN_LENGTH &&
-          typeof valorCampo === 'string'
-        ) {
-          if (valorCampo.length < restriction.minLength) {
-            this.formField.validField = false;
-            this.validateFieldAddMsgs(
-              'Valor demasiado corto (longitud mínima ' + restriction.minLength + ')'
-            );
-          }
-        } else if (
-          restriction.restrictionType === GpTableRestrictions.MAX_LENGTH &&
-          typeof valorCampo === 'string'
-        ) {
-          if (valorCampo.length > restriction.maxLength) {
-            this.formField.validField = false;
-            this.validateFieldAddMsgs(
-              'Valor demasiado largo (longitud máxima ' + restriction.maxLength + ')'
-            );
-          }
-        }
-      }
-    }
-
-    // En el caso de que el campo no permita caracteres ASCII,
-    // hacemos la conversión de dichos carácteres a carácteres válidos
-    if (!this.formField.fieldMetadata.allowAscii) {
-      if (this.formField.fieldMetadata.displayInfo.textProperties !== null) {
-        if (
-          this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
-            TableService.TEXT_NO_SPACE
-          ) !== -1
-        ) {
-          if (/\s/.test(valorCampo)) {
-            this.formField.validField = false;
-            this.validateFieldAddMsgs(
-              `El valor indicado no puede contener espacios. Han sido eliminados.
-                             Seleccione guardar otra vez para aceptar los cambios.`
-            );
-            valorCampo = valorCampo.replace(/\s/g, '');
-            this.currentValue = valorCampo;
-          }
-        }
-      }
-
-      // Por defecto, solo caracteres ASCII.
-      if (/[\u0000-\u0019]/.test(valorCampo)) {
-        this.formField.validField = false;
-        this.validateFieldAddMsgs(
-          `El valor indicado contiene caracteres de control. Han sido sustituidos por
-                     espacios. Seleccione guardar otra vez para aceptar los cambios.`
-        );
-        valorCampo = valorCampo.replace(/[\u0000-\u0019]/g, ' ');
-        this.currentValue = valorCampo;
-      }
-      if (/[\u0080-\uFFFF]/.test(valorCampo)) {
-        this.formField.validField = false;
-        this.validateFieldAddMsgs(
-          `El valor indicado contiene caracteres no válidos
-                     (acentos, eñes ...). Han sido sustituidos por caracteres equivalentes
-                      o descartados. Seleccione guardar otra vez para aceptar los cambios.`
-        );
-        valorCampo = GPUtil.normaliza(valorCampo);
-        this.currentValue = valorCampo;
-      }
-    }
-
-    return this.formField.validField;
+  /**
+   * Starts validation for editing row
+   * @param editedRow The editing row
+   */
+  validateField(editedRow: any = null) {
+    return this.validateTextField(editedRow);
   }
 }

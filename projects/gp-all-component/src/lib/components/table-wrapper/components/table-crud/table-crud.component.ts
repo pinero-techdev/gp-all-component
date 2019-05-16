@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+  ViewChildren,
+  ElementRef,
+  AfterViewChecked,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { GPUtil } from '../../../../services/core/gp-util.service';
@@ -19,122 +28,206 @@ import { FilterOperationType } from '../../../../resources/data/filter/filter-op
 import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { DataTableMetaData } from '../../../../resources/data/data-table/meta-data/data-table-meta-data.model';
-import { GpFormField } from '@lib/components/form-wrapper/resources/form-field.model';
-import { GpFormControl } from '@lib/components/form-wrapper/resources/form-control.model';
-import { GpFormFieldType } from '@lib/components/form-wrapper/resources/form-field-type.enum';
-import { GpFormFieldControl } from '@lib/components/form-wrapper/resources/form-field-control.class';
+import { GpFormField } from './../../../../components/form-wrapper/resources/form-field.model';
+import { GpFormControl } from './../../../../components/form-wrapper/resources/form-control.model';
+import { GpFormFieldType } from './../../../../components/form-wrapper/resources/form-field-type.enum';
+import { GpFormFieldControl } from './../../../../components/form-wrapper/resources/form-field-control.class';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'gp-app-table-crud',
   templateUrl: './table-crud.component.html',
   styleUrls: ['./table-crud.component.scss'],
 })
-export class TableCrudComponent {
-  // Nombre de la tabla a editar.
+export class TableCrudComponent implements AfterViewChecked {
+  /**
+   * Editing table name
+   */
   @Input() tableName: string;
 
-  // Filtros
+  /**
+   * Filters property
+   */
   @Input() filterField: string;
 
-  // Filtros a partir de la tabla principal
+  /**
+   * Filters from main table
+   */
   @Input() rowSelectedFilters: Filter[];
 
-  // Vars control Insercion, edicion, borrado
+  /**
+   * Controls creation permission
+   */
   @Input() canAdd = true;
 
+  /**
+   * Controls modification permission
+   */
   @Input() canEdit = true;
 
+  /**
+   * Controls deletion permission
+   */
   @Input() canDelete = true;
 
+  /**
+   * Emits an event on row selection
+   */
   @Output() rowSelected = new EventEmitter<any>();
 
+  /**
+   * Emits an event on dialog close action
+   */
   @Output() closedDialog = new EventEmitter<boolean>();
 
+  /**
+   * Emits an event on row changes
+   */
   @Output() changes = new EventEmitter<boolean>();
 
-  // Indicador de trabajando.
+  /**
+   * Flag to check active jobs
+   */
   working = true;
 
-  // Id de la tabla
+  /**
+   * Table ID
+   */
   tableId: string = null;
 
-  // Descripcion de la tabla a editar.
+  /**
+   * Editing table description
+   */
   tableLabel: string;
 
-  // Columnas de la tabla.
-  columnas: GpFormField[] = [];
+  /**
+   * Columns list
+   */
+  columns: GpFormField[] = [];
 
-  columnasTabla: GpFormField[] = [];
+  /**
+   * Table columns list
+   */
+  tableColumns: GpFormField[] = [];
 
-  // Elementos de la tabla.
-  elementos: any[] = [];
+  /**
+   * Table data list
+   */
+  data: any[] = [];
 
-  // Fila seleccionada.
+  /**
+   * Selected row property
+   */
   selectedRow: any;
 
-  // Filtros
+  /**
+   * Filter property
+   */
   filter: Filter;
 
+  /**
+   * Filter property list
+   */
   filters: Filter[] = [];
 
+  /**
+   * Code property list
+   */
   codes: string[] = [];
 
+  /**
+   * Filter code property
+   */
   filterCode: string;
 
+  /**
+   * Filter column property
+   */
   filterColumn: string;
 
-  // Indica si se muestra el control de edicion.
+  /**
+   * Flag to show edition control field
+   */
   displayEdicion = false;
 
-  // Indica si se han producido errores en el dialog. Si es así, se recarga la tabla.
+  /**
+   * Flag to check any dialog errors,
+   * if so reloads the table.
+   */
   dialogErrors = false;
 
+  /**
+   * Add selected codes property list
+   */
   addSelectedCodes: any[] = [];
 
-  // Form control
+  /**
+   * Form control property
+   */
   formControl: GpFormControl = new GpFormControl();
 
-  // Campo que ha sido modificado por el usuario
+  /**
+   * Modified field
+   */
   fieldsChanged: any = {};
 
-  // Copia de columnasTabla con adicion de campos header y
-  // field para que funcione el método exportCSV() de p-table en primeng/
+  /**
+   * Duplicated from tableColumns, adding field
+   * and header fields, in order for PrimeNG
+   * exportCSV() method to work
+   */
   columnsToRender: any;
 
-  @ViewChildren(FormTextFieldComponent) textFormFields: QueryList<FormTextFieldComponent>;
-  @ViewChildren(FormImgFieldComponent) imgFormFields: QueryList<FormImgFieldComponent>;
-  @ViewChildren(FormTextAreaFieldComponent) textAreaFormFields: QueryList<
-    FormTextAreaFieldComponent
-  >;
-  @ViewChildren(FormTimeFieldComponent) timeFormFields: QueryList<FormTimeFieldComponent>;
-  @ViewChildren(FormSwitchFieldComponent) switchFormFields: QueryList<FormSwitchFieldComponent>;
-  @ViewChildren(FormDropdownFieldComponent) dropdownFormFields: QueryList<
-    FormDropdownFieldComponent
-  >;
-  @ViewChildren(FormDropdownRelatedFieldComponent) dropdownRelatedFormFields: QueryList<
-    FormDropdownRelatedFieldComponent
-  >;
-  @ViewChildren(FormCheckboxFieldComponent) checkboxFormFields: QueryList<
-    FormCheckboxFieldComponent
-  >;
-  @ViewChildren(FormCalendarFieldComponent) calendarFormFields: QueryList<
-    FormCalendarFieldComponent
-  >;
-  @ViewChildren(FormWysiwygFieldComponent) wysiwygFormFields: QueryList<FormWysiwygFieldComponent>;
+  @ViewChildren(FormTextFieldComponent)
+  textFormFields: QueryList<FormTextFieldComponent>;
+
+  @ViewChildren(FormImgFieldComponent)
+  imgFormFields: QueryList<FormImgFieldComponent>;
+
+  @ViewChildren(FormTextAreaFieldComponent)
+  textAreaFormFields: QueryList<FormTextAreaFieldComponent>;
+
+  @ViewChildren(FormTimeFieldComponent)
+  timeFormFields: QueryList<FormTimeFieldComponent>;
+
+  @ViewChildren(FormSwitchFieldComponent)
+  switchFormFields: QueryList<FormSwitchFieldComponent>;
+
+  @ViewChildren(FormDropdownFieldComponent)
+  dropdownFormFields: QueryList<FormDropdownFieldComponent>;
+
+  @ViewChildren(FormDropdownRelatedFieldComponent)
+  dropdownRelatedFormFields: QueryList<FormDropdownRelatedFieldComponent>;
+
+  @ViewChildren(FormCheckboxFieldComponent)
+  checkboxFormFields: QueryList<FormCheckboxFieldComponent>;
+
+  @ViewChildren(FormCalendarFieldComponent)
+  calendarFormFields: QueryList<FormCalendarFieldComponent>;
+
+  @ViewChildren(FormWysiwygFieldComponent)
+  wysiwygFormFields: QueryList<FormWysiwygFieldComponent>;
 
   constructor(
-    private readonly _router: Router,
-    private readonly _tableService: TableService,
-    private readonly _gpUtil: GPUtil,
-    private readonly _messagesService: MessagesService
+    private readonly router: Router,
+    private readonly tableService: TableService,
+    private readonly gpUtil: GPUtil,
+    private el: ElementRef,
+    private readonly messagesService: MessagesService
   ) {}
+
+  ngAfterViewChecked() {
+    if (this.el.nativeElement.querySelector('.ui-table-tbody')) {
+      this.applyStickyShadow('.ui-table-tbody', '.ui-table-wrapper');
+    }
+  }
 
   /**
    * Initializes table with given name
    * @param tableName Table name
    * @deprecated Pass the table name via the input binding
    */
-  inicializaTabla(tableName: string): void {
+  initTable(tableName: string): void {
     this.tableName = tableName;
   }
 
@@ -146,16 +239,16 @@ export class TableCrudComponent {
   cambiaTablaDetail(filters: Filter[], fieldsToOrderBy?: string[]): void {
     this.working = true;
 
-    this.columnas = [];
-    this.columnasTabla = [];
-    this.elementos = [];
+    this.columns = [];
+    this.tableColumns = [];
+    this.data = [];
     this.selectedRow = null;
     this.formControl.originalRow = null;
     this.dialogErrors = false;
 
     this.filters = filters;
 
-    this._tableService
+    this.tableService
       .list(this.tableName, true, true, fieldsToOrderBy, filters)
       .pipe(
         finalize(() => (this.working = false)),
@@ -170,19 +263,19 @@ export class TableCrudComponent {
               data.error.errorMessage === 'No se ha establecido sesion o se ha perdido.';
 
             if (expiredSession) {
-              this._router.navigate(['login']);
+              this.router.navigate(['login']);
             }
 
             const msg =
               data.error.errorMessage.toString() ||
               'Se ha producido un error realizando la operación solicitada.';
-            this._messagesService.showErrorAlert(msg);
+            this.messagesService.showErrorAlert(msg);
 
             return;
           }
 
           this.actualizaDefinicion(data.metadata);
-          this.elementos = data.data;
+          this.data = data.data;
         },
 
         (err) => console.error(err)
@@ -205,10 +298,10 @@ export class TableCrudComponent {
     }
 
     this.working = true;
-    this.columnas = [];
-    this.columnasTabla = [];
+    this.columns = [];
+    this.tableColumns = [];
     this.tableName = tableName;
-    this.elementos = [];
+    this.data = [];
     this.selectedRow = null;
     this.formControl.originalRow = null;
     this.dialogErrors = false;
@@ -218,7 +311,7 @@ export class TableCrudComponent {
       this.filters = this.rowSelectedFilters;
     }
 
-    this._tableService
+    this.tableService
       .list(this.tableName, true, true, fieldsToOrderBy, this.filters)
       .pipe(
         finalize(() => (this.working = false)),
@@ -228,24 +321,24 @@ export class TableCrudComponent {
         (data) => {
           const requestError = !data.ok && data.error !== null && data.error.errorMessage !== null;
 
-          const expiredSession =
-            data.error.errorMessage === 'No se ha establecido sesion o se ha perdido.';
-
           if (requestError) {
+            const expiredSession =
+              data.error.errorMessage === 'No se ha establecido sesion o se ha perdido.';
+
             if (expiredSession) {
-              this._router.navigate(['login']);
+              this.router.navigate(['login']);
             }
 
             const msg =
               data.error.errorMessage.toString() ||
               'Se ha producido un error realizando la operación solicitada.';
-            this._messagesService.showErrorAlert(msg);
+            this.messagesService.showErrorAlert(msg);
 
             return;
           }
 
           this.actualizaDefinicion(data.metadata);
-          this.elementos = data.data;
+          this.data = data.data;
         },
 
         (err) => console.error(err)
@@ -257,12 +350,12 @@ export class TableCrudComponent {
    * @param tableMetadata Metadata for table
    */
   actualizaDefinicion(tableMetadata: DataTableMetaData): void {
-    const tempColumnas: GpFormField[] = [];
-    const tempColumnasTabla: GpFormField[] = [];
+    const tempColumns: GpFormField[] = [];
+    const tempTableColumns: GpFormField[] = [];
 
     this.tableLabel = tableMetadata.tableLabel;
 
-    for (const metadata of tableMetadata.fields) {
+    tableMetadata.fields.forEach((metadata) => {
       const formField = new GpFormField(this.formControl, metadata);
 
       // Save id for this table
@@ -270,22 +363,20 @@ export class TableCrudComponent {
         this.tableId = metadata.fieldName;
       }
 
-      tempColumnas.push(formField);
+      tempColumns.push(formField);
 
       if (formField.fieldMetadata.lengthInTable !== 0) {
-        tempColumnasTabla.push(formField);
+        tempTableColumns.push(formField);
       }
-    }
+    });
 
-    for (const col of tempColumnas) {
-      this.calcFieldType(col);
-    }
+    tempColumns.forEach((col) => this.calcFieldType(col));
 
-    this.columnas = tempColumnas;
-    this.columnasTabla = tempColumnasTabla;
+    this.columns = tempColumns;
+    this.tableColumns = tempTableColumns;
 
     // Add header and field to each column to be able to access p-table exportCSV() method
-    this.columnsToRender = [...this.columnasTabla];
+    this.columnsToRender = [...this.tableColumns];
     this.columnsToRender.forEach((column) => {
       column.header = column.fieldMetadata.displayInfo.fieldLabel;
       column.field = column.fieldMetadata.fieldName;
@@ -293,8 +384,8 @@ export class TableCrudComponent {
   }
 
   /**
-   * Match field type?
-   * @param formField Field?
+   * Match field type for given form field
+   * @param formField Field to be matched
    */
   matchFieldType(formField: GpFormField): string {
     const displayTypes: Map<string, string> = new Map([
@@ -316,10 +407,10 @@ export class TableCrudComponent {
    * Define component type for given control
    * @param formField The form field to determine
    */
-  calcFieldType(formField: GpFormField) {
+  calcFieldType(formField: GpFormField): void {
     const fieldType = this.matchFieldType(formField);
 
-    if (fieldType !== null) {
+    if (!isNullOrUndefined(fieldType)) {
       formField.formFieldType = fieldType;
       return;
     }
@@ -343,31 +434,37 @@ export class TableCrudComponent {
     formField.formFieldType = GpFormFieldType.TEXT;
   }
 
-  onRowSelect() {
+  /**
+   * Logic to execute when a row has been selected
+   */
+  onRowSelect(): void {
     this.rowSelected.emit(this.selectedRow);
 
-    this._tableService.selectOneRow(this.tableName, JSON.stringify(this.selectedRow)).subscribe(
-      (data) => {
-        if (!data.ok) {
-          this._messagesService.showErrorAlert('Error recuperando el registro.');
-          return;
-        }
+    this.tableService
+      .selectOneRow(this.tableName, JSON.stringify(this.selectedRow))
+      .pipe(take(1))
+      .subscribe(
+        (data) => {
+          if (!data.ok) {
+            this.messagesService.showErrorAlert('Error recuperando el registro.');
+            return;
+          }
 
-        this.formControl.editedRow = JSON.parse(JSON.stringify(data.data));
-        this.formControl.originalRow = JSON.parse(JSON.stringify(data.data));
-        const self = this;
-        this.forEachFieldControl((col: GpFormFieldControl) => {
-          col.copyValueFromEditedRowToControl(self.formControl.editedRow);
-          col.clearValidations();
-        });
-        this.formControl.edicionEdit = true;
-        this.displayEdicion = true;
-      },
+          this.formControl.editedRow = JSON.parse(JSON.stringify(data.data));
+          this.formControl.originalRow = JSON.parse(JSON.stringify(data.data));
+          const self = this;
+          this.forEachFieldControl((col: GpFormFieldControl) => {
+            col.copyValueFromEditedRowToControl(self.formControl.editedRow);
+            col.clearValidations();
+          });
+          this.formControl.edicionEdit = true;
+          this.displayEdicion = true;
+        },
 
-      (err) => this._messagesService.showErrorAlert('Error interno recuperando el registro.'),
+        (err) => this.messagesService.showErrorAlert('Error interno recuperando el registro.'),
 
-      () => (this.formControl.lockFields = false)
-    );
+        () => (this.formControl.lockFields = false)
+      );
   }
 
   /**
@@ -377,30 +474,32 @@ export class TableCrudComponent {
     this.formControl.lockFields = true;
     const jsonDeleteRow = JSON.stringify(this.formControl.originalRow);
 
-    this._tableService.deleteRow(this.tableName, jsonDeleteRow).subscribe(
-      (data) => {
-        if (!data.ok) {
-          this._messagesService.showErrorAlert(
-            'Error borrando el registro: ' + data.error.errorMessage
-          );
+    this.tableService
+      .deleteRow(this.tableName, jsonDeleteRow)
+      .pipe(take(1))
+      .subscribe(
+        (data) => {
+          if (!data.ok) {
+            this.messagesService.showErrorAlert(
+              'Error borrando el registro: ' + data.error.errorMessage
+            );
+            return;
+          }
 
-          return;
-        }
+          // Deletes the entry
+          const i = this.data.indexOf(this.selectedRow);
+          if (i >= 0) {
+            this.data.splice(i, 1);
+          }
 
-        // Deletes the entry
-        const i = this.elementos.indexOf(this.selectedRow);
-        if (i >= 0) {
-          this.elementos.splice(i, 1);
-        }
+          this.closeDialog();
+          this.changes.emit(true);
+        },
 
-        this.closeDialog();
-        this.changes.emit(true);
-      },
+        (err) => this.messagesService.showErrorAlert('Error interno borrando el registro.'),
 
-      (err) => this._messagesService.showErrorAlert('Error interno borrando el registro.'),
-
-      () => (this.formControl.lockFields = false)
-    );
+        () => (this.formControl.lockFields = false)
+      );
   }
 
   /**
@@ -423,7 +522,7 @@ export class TableCrudComponent {
 
     const selectedRow = this.selectedRow !== null;
 
-    selectedRow ? this.updateRow(self, jsonModifiedRow) : this.insertRow(jsonModifiedRow);
+    selectedRow ? this.updateRow(jsonModifiedRow) : this.insertRow(jsonModifiedRow);
   }
 
   /**
@@ -443,14 +542,6 @@ export class TableCrudComponent {
   }
 
   /**
-   * Logic to execute on dialog field change action
-   * @param change Field to change
-   */
-  onDialogChangeField(change: any): void {
-    change.formField.copyValueFromControlToEditedRow(this.formControl.editedRow);
-  }
-
-  /**
    * Logic to execute on dialog add action
    */
   onDialogAdd(): void {
@@ -464,18 +555,16 @@ export class TableCrudComponent {
       const lengthGreaterThanZero = self.addSelectedCodes.length > 0;
 
       if (lengthGreaterThanZero) {
-        for (const [i, selectedCode] of self.addSelectedCodes.entries()) {
-          if (self.addSelectedCodes[i].key === col.getFormField().fieldMetadata.fieldName) {
-            // si el valor existe, introducimos valor
-            self.formControl.editedRow[col.getFormField().fieldMetadata.fieldName] =
-              self.addSelectedCodes[i].value;
+        self.addSelectedCodes.forEach((code) => {
+          if (code.key === col.getFormField().fieldMetadata.fieldName) {
+            self.formControl.editedRow[col.getFormField().fieldMetadata.fieldName] = code.value;
           }
-        }
+        });
       }
 
       if (!lengthGreaterThanZero) {
         const fieldName = col.getFormField().fieldMetadata.fieldName;
-        const filter: Filter = self._gpUtil.getElementFromArray(self.filters, 'field', fieldName);
+        const filter: Filter = self.gpUtil.getElementFromArray(self.filters, 'field', fieldName);
 
         if (
           filter !== null &&
@@ -498,18 +587,18 @@ export class TableCrudComponent {
   }
 
   /**
-   * Iterates each field
-   * @param f ?
+   * Iterates each column and applies passed callback
+   * @param f Logic to be executed for each iteration
    */
   private forEachField(f: (col: GpFormField) => void): void {
-    this.columnas.forEach((col) => {
+    this.columns.forEach((col) => {
       f(col);
     });
   }
 
   /**
-   * Iterates each field control
-   * @param f ?
+   * Iterates each field control and applies passed callback
+   * @param f Logic to be executed for each iteration
    */
   private forEachFieldControl(f: (col: GpFormControl) => void): void {
     this.textFormFields.forEach((col) => {
@@ -554,49 +643,56 @@ export class TableCrudComponent {
   }
 
   /**
-   * Selects a row by its index position
-   * @param atributeName The attribute name
-   * @param value The value input
+   * Apply sticky shadow
+   * @param tableElementBody Element body
+   * @param tableElementWrapper Element wrapper
    */
-  selectRowByIndex(atributeName: string, value: any): void {
-    const i: number = this._gpUtil.indexOf(this.elementos, atributeName, value);
-    if (i > -1) {
-      this.selectedRow = this.elementos[i];
+  applyStickyShadow(tableElementBody, tableElementWrapper) {
+    const tableBody = this.el.nativeElement.querySelector(tableElementBody);
+    const tableWrapper = this.el.nativeElement.querySelector(tableElementWrapper);
+    const tableBodyVisibleWidth = tableBody.offsetWidth;
+    const tableWrapperWidth = tableWrapper.offsetWidth;
+
+    if (tableWrapperWidth < tableBodyVisibleWidth) {
+      tableWrapper.classList.add('shadowSticky');
+    } else {
+      tableWrapper.classList.remove('shadowSticky');
     }
   }
 
-  // TODO: Refactor methods below to avoid providing self instance
-
   /**
    * Updates row with provided input modified row data
-   * @param self Parent object instance
    * @param jsonModifiedRow Modified row object
    */
-  private updateRow(self: TableCrudComponent, jsonModifiedRow: string): void {
+  private updateRow(jsonModifiedRow: string): void {
+    const self = this;
     const jsonOriginalRow = JSON.stringify(this.formControl.originalRow);
 
-    this._tableService.updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow).subscribe(
-      (data) => {
-        if (!data.ok) {
-          this._messagesService.showErrorAlert(
-            'Error actualizando el registro: ' + data.error.errorMessage
-          );
-          return;
-        }
+    this.tableService
+      .updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow)
+      .pipe(take(1))
+      .subscribe(
+        (data) => {
+          if (!data.ok) {
+            this.messagesService.showErrorAlert(
+              'Error actualizando el registro: ' + data.error.errorMessage
+            );
+            return;
+          }
 
-        this.forEachField((col: GpFormField) => {
-          self.selectedRow[col.fieldMetadata.fieldName] =
-            self.formControl.editedRow[col.fieldMetadata.fieldName];
-        });
+          this.forEachField((col: GpFormField) => {
+            self.selectedRow[col.fieldMetadata.fieldName] =
+              self.formControl.editedRow[col.fieldMetadata.fieldName];
+          });
 
-        this.closeDialog();
-        this.changes.emit(true);
-      },
+          this.closeDialog();
+          this.changes.emit(true);
+        },
 
-      (err) => this._messagesService.showErrorAlert('Error interno actualizando el registro.'),
+        (err) => this.messagesService.showErrorAlert('Error interno actualizando el registro.'),
 
-      () => (this.formControl.lockFields = false)
-    );
+        () => (this.formControl.lockFields = false)
+      );
   }
 
   /**
@@ -604,23 +700,26 @@ export class TableCrudComponent {
    * @param jsonModifiedRow Row data to insert
    */
   private insertRow(jsonModifiedRow: string): void {
-    this._tableService.insertRow(this.tableName, jsonModifiedRow).subscribe(
-      (data) => {
-        if (!data.ok) {
-          this._messagesService.showErrorAlert(
-            'Error insertando el registro: ' + data.error.errorMessage
-          );
-          return;
-        }
+    this.tableService
+      .insertRow(this.tableName, jsonModifiedRow)
+      .pipe(take(1))
+      .subscribe(
+        (data) => {
+          if (!data.ok) {
+            this.messagesService.showErrorAlert(
+              'Error actualizando el registro: ' + data.error.errorMessage
+            );
+            return;
+          }
 
-        this.elementos.push(data.insertedRow);
-        this.closeDialog();
-      },
+          this.data.push(data.insertedRow);
+          this.closeDialog();
+        },
 
-      (err) => this._messagesService.showErrorAlert('Error interno insertando el registro.'),
+        (err) => this.messagesService.showErrorAlert('Error interno insertando el registro.'),
 
-      () => (this.formControl.lockFields = false)
-    );
+        () => (this.formControl.lockFields = false)
+      );
   }
 
   /**
@@ -630,9 +729,9 @@ export class TableCrudComponent {
     let valid = true;
     const self = this;
 
-    this.forEachFieldControl(function(col: GpFormFieldControl) {
+    this.forEachFieldControl((col: GpFormFieldControl) => {
       const inAddOperation =
-        this.formControl.edicionAdd || col.getFormField().fieldMetadata.hideInAddOperation;
+        self.formControl.edicionAdd || col.getFormField().fieldMetadata.hideInAddOperation;
 
       if (!inAddOperation) {
         valid = col.validateField(self.formControl.editedRow) && valid;

@@ -2,12 +2,12 @@ import { UpdateTranslationsRq } from './multi-language.service';
 import {
   MultiLanguageService,
   GetTranslationsRq, //
-} from '@lib/services/api/multi-language/multi-language.service';
+} from './../../../services/api/multi-language/multi-language.service';
 import { TestBed, async } from '@angular/core/testing';
 import { GlobalService } from '../../core/global.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('MultiIdiomaServiceSpec', () => {
+describe('MultiLanguageServiceSpec', () => {
   let service: MultiLanguageService;
   const applicationApiUrl = '/test-app';
 

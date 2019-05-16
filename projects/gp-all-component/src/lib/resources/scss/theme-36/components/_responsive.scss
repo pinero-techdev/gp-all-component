@@ -1,0 +1,14 @@
+@each $step in map-keys($breakpoints) {
+  .ui-visible-#{$step} {
+    display: none;
+  }
+  @media (max-width: map-get($breakpoints, $step)) and (min-width: get-prev-step($step)) {
+    .ui-visible-#{$step} {
+      display: block;
+    }
+
+    .ui-hidden-#{$step} {
+      display: none;
+    }
+  }
+}

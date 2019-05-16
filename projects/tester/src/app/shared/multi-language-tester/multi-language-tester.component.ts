@@ -1,5 +1,5 @@
 import { MultiLanguageComponent } from '@lib/components/multi-language/multi-language.component';
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-multi-language-tester',
@@ -7,11 +7,11 @@ import { Component, ViewChild, Input } from '@angular/core';
 })
 export class MultiLanguageTesterComponent {
   @ViewChild(MultiLanguageComponent) component: MultiLanguageComponent;
-  @Input() table: string;
-  @Input() pKey: string;
-  @Input() schema: string;
-  @Input() field: string;
-  @Input() description = 'Test description';
-  @Input() isEditing = false;
-  @Input() orderByLangCod = true;
+  table = 'CD_EDPT';
+  pKey = 'AALL';
+  schema = 'HOTCAL';
+  field = 'EDPT_DESC';
+  description: string;
+  isEditing = false;
+  orderByLangCod = true;
 }

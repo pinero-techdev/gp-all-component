@@ -1,6 +1,7 @@
+import { LocaleES } from './../../resources/localization/es-ES.lang';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { GlobalService } from './../../services/core/global.service';
-import { LoginService, LoginRq } from './../../services/api/login/login.service';
+import { LoginService, LoginRq, LoginRs } from './../../services/api/login/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Message } from 'primeng/primeng';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -12,21 +13,23 @@ import { Subject } from 'rxjs';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  username: string;
-  password: string;
-  url: string;
+  /** Validation error messages */
   msgs: Message[] = [];
+  /* Password text input value */
+  password: string;
+  /* Application's name */
+  title: string = null;
+  /* PreLoginUrl */
+  url: string;
+  /* Username text input value */
+  username: string;
+  /* Loading */
   working = false;
 
-  passwordErrors: string[] = [
-    'Su clave ha caducado, tiene que cambiar la clave de acceso.',
-    'Es el último día para cambiar su clave ¿Desea cambiarla ahora?',
-    'Su clave ha caducado hace 1 día, tiene que cambiar la clave de acceso.',
-    'Su clave caduca hoy, ¿Desea cambiarla ahora?',
-    'Falta un día para que su clave caduque, ¿Desea cambiarla ahora?',
-    'Faltan dos días para que su clave caduque, ¿Desea cambiarla ahora?',
-  ];
+  /** Localization strings */
+  readonly locale = LocaleES;
 
+  /** Unsubscribe the subscriptions before the component is destroyed */
   private isDestroyed: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -35,6 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {
     GlobalService.setLogged(false);
+    this.title = GlobalService.getAPPLICATION_TITLE();
   }
 
   ngOnInit() {
@@ -46,10 +50,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.isDestroyed.unsubscribe();
   }
 
-  getApplicationTitle() {
-    return GlobalService.getAPPLICATION_TITLE();
-  }
-
+  /**
+   * When form is submitted, get the input fields values and try to login
+   * @param urlToRedirect After login state
+   * @param otherParams string
+   */
   login(urlToRedirect?: string, otherParams?: string) {
     if (this.password && this.username) {
       this.working = true;
@@ -69,62 +74,74 @@ export class LoginComponent implements OnInit, OnDestroy {
           })
         )
         .subscribe(
-          (data) => {
-            if (data.ok) {
-              GlobalService.setSession(data.userInfo);
-              GlobalService.setLogged(true);
-              // store user details and jwt token in local storage to keep
-              // user logged in between page refreshes
-              sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
-              if (this.url) {
-                GlobalService.setPreLoginUrl(this.url);
-              }
-              if (urlToRedirect) {
-                this.router.navigate([urlToRedirect]);
-              } else if (
-                GlobalService.getPRE_LOGIN_URL() &&
-                GlobalService.getPRE_LOGIN_URL() !== ''
-              ) {
-                this.router.navigate([GlobalService.getPRE_LOGIN_URL()]);
-              } else {
-                this.router.navigate(['home']);
-              }
-            } else {
-              this.router.navigate(['login']);
-              let errorMessage = 'Ha ocurrido un error';
-              if (data.error !== null && data.error.errorMessage !== null) {
-                errorMessage = data.error.errorMessage.toString();
-              }
-              this.showError(errorMessage);
-            }
-          },
-          (err) => {
-            console.error(err);
-            this.showError('Ha ocurrido un error');
-          }
+          (data) => this.setLogin(data, urlToRedirect),
+          (err) => this.showError(LocaleES.AN_ERROR_HAS_OCURRED, err)
         );
     } else {
-      this.showError('Los campos username y password deben tener un valor válido.');
+      this.showError(LocaleES.USERNAME_PASS_SHOULD_CORRECT_VALUE);
     }
   }
 
-  showError(message: string) {
+  /**
+   * Handling error state
+   * @param message Error message
+   * @param error Error information by the service only for the console
+   */
+  showError(message: string, error: any = null) {
+    if (error) {
+      console.error(error);
+    }
+
     this.msgs = [];
     this.msgs.push({
       severity: 'error',
-      summary: 'Se ha producido un error: ',
+      summary: LocaleES.AN_ERROR_HAS_OCURRED,
       detail: message,
     });
   }
 
+  /** Clear errors */
   resetError() {
     this.msgs = [];
   }
 
-  goModificaPwd() {
+  /** Navigate to forgot password view */
+  goForgotPwd() {
     this.router.navigate(['forgot-password/' + this.username]);
   }
 
+  /** If everything is ok, set login data (user recently logged, prelogin url ...)
+   * and navigate to home or urlToRedirect,
+   * if something goes wrong show an error message.
+   */
+  private setLogin(data: LoginRs, urlToRedirect: string = null) {
+    if (data.ok) {
+      GlobalService.setSession(data.userInfo);
+      GlobalService.setLogged(true);
+      // store user details and jwt token in local storage to keep
+      // user logged in between page refreshes
+      sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+      if (this.url) {
+        GlobalService.setPreLoginUrl(this.url);
+      }
+      if (urlToRedirect) {
+        this.router.navigate([urlToRedirect]);
+      } else if (GlobalService.getPRE_LOGIN_URL()) {
+        this.router.navigate([GlobalService.getPRE_LOGIN_URL()]);
+      } else {
+        this.router.navigate(['home']);
+      }
+    } else {
+      this.router.navigate(['login']);
+      let errorMessage = LocaleES.AN_ERROR_HAS_OCURRED;
+      if (data.error !== null && data.error.errorMessage !== null) {
+        errorMessage = data.error.errorMessage.toString();
+      }
+      this.showError(errorMessage);
+    }
+  }
+
+  /** On init state, a router listener is set for getting the possible query params by url. */
   private initLogin() {
     let otherParams = null;
     let urlToRedirect = null;
