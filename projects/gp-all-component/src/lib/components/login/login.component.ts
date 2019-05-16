@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   /** Navigate to forgot password view */
-  goModificaPwd() {
+  goForgotPwd() {
     this.router.navigate(['forgot-password/' + this.username]);
   }
 

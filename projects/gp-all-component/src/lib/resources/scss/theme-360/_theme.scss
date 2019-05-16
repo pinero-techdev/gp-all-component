@@ -1,9 +1,15 @@
 @import './global/functions';
 @import './global/variables';
 @import './global/mixins';
+@import './global/box-model';
+@import './global/buttons';
 @import './fonts/fonts';
 
 /** GENERAL **/
+:root {
+  font-size: 16px;
+}
+
 span:not(.ui-button-icon-left),
 p,
 label,
@@ -36,14 +42,6 @@ a {
   color: $errorColor;
 }
 
-.f-left {
-  float: left;
-}
-
-.f-right {
-  float: right;
-}
-
 .control {
   &-valid {
     border-left: 5px solid $successColor !important;
@@ -69,31 +67,8 @@ a {
   font-size: large;
 }
 
-.padding {
-  &-1 {
-    padding: 1% !important;
-  }
-  &-2 {
-    padding: 2% !important;
-  }
-}
-
 .bold {
   font-weight: bold;
-}
-
-.ui-separation-lg {
-  margin-top: 16px;
-}
-
-.button {
-  &-base {
-    @include make-button-theme($buttonBg, $buttonBg);
-  }
-
-  &-danger {
-    @include make-button-theme($buttonDangerBg, $buttonDangerBg);
-  }
 }
 
 // /* CALENDAR - YEARS DIDN'T SHOW COMPLETE*/

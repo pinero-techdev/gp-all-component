@@ -1,9 +1,7 @@
-import Chance from 'chance';
-
 describe('Feature: Login', () => {
-  const chance = new Chance();
-  const email = chance.email();
-  const password = chance.string();
+  const email = 'PATTERSON';
+  const password = '8VZVADSLSRYEYYU';
+  const pageAfterLogin = 'components';
   let loginUrl;
   let forgotPassUrl;
 
@@ -68,7 +66,7 @@ describe('Feature: Login', () => {
     describe('Given: username and password', () => {
       context('When: click login button with username and password', () => {
         it('Then: the user can login', () => {
-          const homeUrl = Cypress.config('baseUrl');
+          const homeUrl = Cypress.config('baseUrl') + pageAfterLogin;
           cy.url().should('eq', homeUrl);
         });
       });
@@ -77,7 +75,7 @@ describe('Feature: Login', () => {
     describe('Given: an url to redirect after login', () => {
       context('When: click login button with username and password', () => {
         it('Then: the user can login', () => {
-          const homeUrl = Cypress.config('baseUrl');
+          const homeUrl = Cypress.config('baseUrl') + pageAfterLogin;
           cy.url().should('eq', homeUrl);
         });
       });
