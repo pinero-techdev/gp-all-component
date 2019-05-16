@@ -30,6 +30,7 @@ import {
   RatingModule,
   TopbarModule,
 } from 'gp-all-component';
+import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.component';
 import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.component';
 
 @NgModule({
@@ -50,6 +51,7 @@ import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.
     TopbarTesterComponent,
     CalendarTesterComponent,
     WysiwygTesterComponent,
+    TimeFieldTesterComponent,
     TextFieldTesterComponent,
   ],
   imports: [
@@ -80,6 +82,7 @@ import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.
     TextareaTesterComponent,
     TopbarTesterComponent,
     WysiwygTesterComponent,
+    TimeFieldTesterComponent,
     TextFieldTesterComponent,
   ],
   providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
