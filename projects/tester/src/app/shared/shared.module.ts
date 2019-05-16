@@ -21,6 +21,7 @@ import { ImgTesterComponent } from './img-tester/img-tester.component';
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
 import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.component';
+import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.
     TopbarTesterComponent,
     WysiwygTesterComponent,
     TimeFieldTesterComponent,
+    TextFieldTesterComponent,
   ],
   imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
   exports: [
@@ -58,6 +60,7 @@ import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.
     TopbarTesterComponent,
     WysiwygTesterComponent,
     TimeFieldTesterComponent,
+    TextFieldTesterComponent,
   ],
   providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })
