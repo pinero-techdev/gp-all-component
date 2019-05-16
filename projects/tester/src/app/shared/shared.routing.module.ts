@@ -17,6 +17,7 @@ import { CalendarTesterComponent } from './calendar-tester/calendar-tester.compo
 import { RedirectComponent } from '@lib/components/redirect/redirect.component';
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
+import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -38,6 +39,10 @@ export const appRoutes: Routes = [
   {
     path: 'rating-tester',
     component: RatingTesterComponent,
+  },
+  {
+    path: 'text-field-tester',
+    component: TextFieldTesterComponent,
   },
   {
     path: 'multi-select-tester',

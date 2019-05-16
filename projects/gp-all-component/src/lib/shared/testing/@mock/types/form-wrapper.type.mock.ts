@@ -10,6 +10,12 @@ const options = [
   new DataTableMetaDataFieldDisplayInfoOption(),
   new DataTableMetaDataFieldDisplayInfoOption(),
   new DataTableMetaDataFieldDisplayInfoOption(),
+  new DataTableMetaDataFieldDisplayInfoOption(),
+  new DataTableMetaDataFieldDisplayInfoOption(),
+  new DataTableMetaDataFieldDisplayInfoOption(),
+  new DataTableMetaDataFieldDisplayInfoOption(),
+  new DataTableMetaDataFieldDisplayInfoOption(),
+  new DataTableMetaDataFieldDisplayInfoOption(),
 ];
 
 options[0].value = '1';
@@ -18,6 +24,18 @@ options[1].value = '2';
 options[1].description = 'Mariana';
 options[2].value = '3';
 options[2].description = 'Napoleon';
+options[3].value = '4';
+options[3].description = 'Frederik II';
+options[4].value = '5';
+options[4].description = 'Mariana II';
+options[5].value = '6';
+options[5].description = 'Napoleon II';
+options[6].value = '7';
+options[6].description = 'Frederik III';
+options[7].value = '8';
+options[7].description = 'Mariana III';
+options[8].value = '9';
+options[8].description = 'Napoleon III';
 
 const rField1 = {
   field: 'lang',

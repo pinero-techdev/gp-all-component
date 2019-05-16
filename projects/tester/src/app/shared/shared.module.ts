@@ -30,6 +30,7 @@ import {
   RatingModule,
   TopbarModule,
 } from 'gp-all-component';
+import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {
     TopbarTesterComponent,
     CalendarTesterComponent,
     WysiwygTesterComponent,
+    TextFieldTesterComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +80,7 @@ import {
     TextareaTesterComponent,
     TopbarTesterComponent,
     WysiwygTesterComponent,
+    TextFieldTesterComponent,
   ],
   providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })
