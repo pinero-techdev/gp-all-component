@@ -18,6 +18,7 @@ import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.
 import { TextareaTesterComponent } from './textarea-tester/textarea-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
+import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.componen
     MultiLanguageTesterComponent,
     MultiSelectTesterComponent,
     RatingTesterComponent,
+    SwitchFieldTesterComponent,
     TableCrudTesterComponent,
     TableFrameTesterComponent,
     TextareaTesterComponent,
@@ -48,6 +50,7 @@ import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.componen
     MultiLanguageTesterComponent,
     MultiSelectTesterComponent,
     RatingTesterComponent,
+    SwitchFieldTesterComponent,
     TextareaTesterComponent,
     TextareaTesterComponent,
     TopbarTesterComponent,
