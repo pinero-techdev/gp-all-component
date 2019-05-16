@@ -70,7 +70,7 @@ export const appRoutes: Routes = [
     component: ImgTesterComponent,
   },
   {
-    path: 'switch-field-tester',
+    path: 'switch-tester',
     component: SwitchFieldTesterComponent,
   },
   {
