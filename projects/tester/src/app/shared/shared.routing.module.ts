@@ -16,6 +16,7 @@ import { ImgTesterComponent } from './img-tester/img-tester.component';
 import { RedirectComponent } from '@lib/components/redirect/redirect.component';
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
+import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -81,6 +82,10 @@ export const appRoutes: Routes = [
   {
     path: 'wysiwyg-tester',
     component: WysiwygTesterComponent,
+  },
+  {
+    path: 'time-field-tester',
+    component: TimeFieldTesterComponent,
   },
 ];
 
