@@ -22,6 +22,7 @@ import { MainMenuService } from './services/api/main-menu/main-menu.service';
 import { MessagesService } from './services/core/messages.service';
 import { MultiLanguageModule } from './components/multi-language/multi-language.module';
 import { MultiSelectModule } from './components/multi-select/multi-select.module';
+import { RedirectModule } from './components/redirect/redirect.module';
 import { NgModule } from '@angular/core';
 import { RatingModule } from './components/rating/rating.module';
 import { RouterModule } from '@angular/router';
@@ -62,6 +63,7 @@ import { UppercaseDirective } from './directives/uppercase.directive';
     RatingModule,
     TableWrapperModule,
     TopbarModule,
+    RedirectModule,
   ],
   exports: [
     // We export library modules
@@ -76,6 +78,7 @@ import { UppercaseDirective } from './directives/uppercase.directive';
     MultiSelectModule,
     RatingModule,
     TopbarModule,
+    RedirectModule,
 
     // Directives
     FocusDirective,

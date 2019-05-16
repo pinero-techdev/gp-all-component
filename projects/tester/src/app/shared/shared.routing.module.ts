@@ -13,6 +13,7 @@ import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
+import { RedirectComponent } from '@lib/components/redirect/redirect.component';
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
 
@@ -68,6 +69,10 @@ export const appRoutes: Routes = [
   {
     path: 'img-tester',
     component: ImgTesterComponent,
+  },
+  {
+    path: 'redirect-tester/:new/:url',
+    component: RedirectComponent,
   },
   {
     path: 'switch-tester',
