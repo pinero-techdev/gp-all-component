@@ -1,5 +1,5 @@
-<span class="rating" *ngIf="starsArray && starsArray.length > 0">
-  <span *ngFor="let star of starsArray; let i = index">
+<span class="rating">
+  <span *ngFor="let star of positions; let i = index">
     <i class="pi" [ngClass]="getRatingClass(i)" [ngStyle]="value > i ? styleOn : styleOff"></i>
   </span>
 </span>

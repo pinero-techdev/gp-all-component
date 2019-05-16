@@ -6,7 +6,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./rating.component.scss'],
 })
 export class RatingComponent implements OnInit {
-  starsArray = [1, 2, 3, 4, 5];
+  /**
+   * Total rating positions to fill
+   */
+  positions = [1, 2, 3, 4, 5];
 
   @Input() value: number;
   @Input() iconOn = 'pi-star';
@@ -21,7 +24,7 @@ export class RatingComponent implements OnInit {
     this.value = this.stars;
   }
 
-  getRatingClass(i): string {
+  getRatingClass(i: number): string {
     return this.value > i
       ? `${this.iconOn} ${this.styleClassOn}`
       : `${this.iconOff} ${this.styleClassOff}`;

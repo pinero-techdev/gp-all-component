@@ -2,16 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RatingComponent } from './rating.component';
 
-xdescribe('RatingComponent', () => {
+describe('RatingComponent', () => {
   let component: RatingComponent;
   let fixture: ComponentFixture<RatingComponent>;
-  let elementRef: HTMLElement;
-
-  function getStars(): NodeListOf<Element> {
-    fixture.detectChanges();
-    elementRef = fixture.debugElement.nativeElement;
-    return elementRef.querySelectorAll('.material-icons');
-  }
+  let starNumber: number;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,28 +16,32 @@ xdescribe('RatingComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RatingComponent);
     component = fixture.componentInstance;
+    starNumber = 3;
+    component.stars = starNumber;
+    component.ngOnInit();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('stars should be equal as passed input number', () => {
-    const starNumber = 3;
-
-    component.stars = starNumber;
-
-    expect(component.starsArray.length).toEqual(starNumber);
+  it('stars should be equal as value OnInit', () => {
+    expect(component.value).toEqual(component.stars);
   });
 
-  it('DOM nodes should be equal as passed input', () => {
-    const starNumber = 3;
+  describe('on getRatingClass', () => {
+    it('should return On classes when positions is smaller than value', () => {
+      const expectedOnClasses = `${component.iconOn} ${component.styleClassOn}`;
+      const ratingClassString = component.getRatingClass(2);
 
-    component.stars = starNumber;
+      expect(ratingClassString).toEqual(expectedOnClasses);
+    });
 
-    const stars = getStars();
+    it('should return Off classes when positons is greater than value', () => {
+      const expectedOffClasses = `${component.iconOff} ${component.styleClassOff}`;
+      const ratingClassString = component.getRatingClass(4);
 
-    expect(component.starsArray.length).toEqual(starNumber);
-    expect(stars.length).toEqual(starNumber);
+      expect(ratingClassString).toEqual(expectedOffClasses);
+    });
   });
 });
