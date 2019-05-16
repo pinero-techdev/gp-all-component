@@ -18,6 +18,8 @@ import { TextareaTesterComponent } from './textarea-tester/textarea-tester.compo
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
 import { CalendarTesterComponent } from './calendar-tester/calendar-tester.component';
+import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
+import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
 import {
   FormWrapperModule,
   DynamicModule,
@@ -31,20 +33,22 @@ import {
 
 @NgModule({
   declarations: [
-    ImgTesterComponent,
     DropdownRelatedTesterComponent,
     DropdownTesterComponent,
     DynamicTesterComponent,
+    ImgTesterComponent,
     LoadingIndicatorTesterComponent,
     MainMenuTesterComponent,
     MultiLanguageTesterComponent,
     MultiSelectTesterComponent,
     RatingTesterComponent,
+    SwitchFieldTesterComponent,
     TableCrudTesterComponent,
     TableFrameTesterComponent,
     TextareaTesterComponent,
     TopbarTesterComponent,
     CalendarTesterComponent,
+    WysiwygTesterComponent,
   ],
   imports: [
     CommonModule,
@@ -69,9 +73,11 @@ import {
     MultiLanguageTesterComponent,
     MultiSelectTesterComponent,
     RatingTesterComponent,
+    SwitchFieldTesterComponent,
     TextareaTesterComponent,
     TextareaTesterComponent,
     TopbarTesterComponent,
+    WysiwygTesterComponent,
   ],
   providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })

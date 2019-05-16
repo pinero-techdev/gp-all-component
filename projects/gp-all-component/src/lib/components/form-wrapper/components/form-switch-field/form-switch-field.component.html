@@ -2,6 +2,6 @@
   name="__field__{{ formField?.fieldMetadata.fieldName }}"
   [(ngModel)]="currentValue"
   (change)="onFieldChange()"
-  [disabled]="controlDisabled()"
+  [disabled]="isDisabled"
 >
 </p-inputSwitch>

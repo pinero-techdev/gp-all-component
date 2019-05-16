@@ -1,3 +1,4 @@
+import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
 import { TableService } from '@lib/services/api/table/table.service';
@@ -8,7 +9,6 @@ import {
 } from '../../../../shared/imports/form-wrapper-shared';
 import { GpFormField } from '../../resources/form-field.model';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
-import { LocaleES } from '@lib/resources/localization/es-ES.lang';
 
 describe('FormTextFieldComponent', () => {
   let component: FormTextFieldComponent;

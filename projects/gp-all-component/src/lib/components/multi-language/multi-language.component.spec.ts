@@ -75,9 +75,9 @@ describe('MultiLanguageComponent', () => {
   describe('when HTTP Request is correct', () => {
     beforeEach(() => {
       component.pKey = request.pKey;
-      component.table = request.table;
-      component.schema = request.schema;
-      component.field = request.field;
+      component.table = request.tabla;
+      component.schema = request.esquema;
+      component.field = request.campo;
       fixture.detectChanges();
       elementRef = fixture.debugElement.nativeElement;
     });

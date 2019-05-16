@@ -22,9 +22,9 @@ export class MultiLanguageServiceMock {
 
   public getTranslations(request: GetTranslationsRq) {
     const response = new GetTranslationsRs();
-    if (request.pKey && request.schema && request.table && request.field) {
+    if (request.pKey && request.esquema && request.tabla && request.campo) {
       response.ok = true;
-      response.translations = this.translations;
+      response.traducciones = this.translations;
     } else {
       response.ok = false;
       response.error = new ErrorInformation();
