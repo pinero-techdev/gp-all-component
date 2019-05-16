@@ -3,7 +3,11 @@
 ::ng-deep {
   .rating {
     .pi-star {
-      color: $ratingStars !important;
+      color: $accentColor;
+
+      &.gold {
+        color: $ratingStars;
+      }
     }
   }
 }

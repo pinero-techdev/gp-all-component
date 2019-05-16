@@ -8,12 +8,5 @@ import { Component, Input } from '@angular/core';
 export class RatingComponent {
   public starsArray = [1, 2, 3, 4, 5];
 
-  @Input()
-  set stars(numStars: number) {
-    const array = [];
-    for (let i = 0; i < numStars; i++) {
-      array.push(i);
-    }
-    this.starsArray = array;
-  }
+  @Input() stars;
 }
