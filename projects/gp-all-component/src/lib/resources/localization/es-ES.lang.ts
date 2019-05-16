@@ -1,7 +1,10 @@
 export const LocaleES = {
   ACCEPT: 'Aceptar',
+  ACCESS_URL_FORBIDDEN: (userId, url) =>
+    `El username ${userId} no tiene los permisos necesarios para acceder a ${url}`,
   AN_ERROR_HAS_OCURRED: 'Ha ocurrido un error',
   CHANGE_PASSWORD: 'Cambiar clave',
+  ENTER: 'Entrar',
   FIELDS_ARE_MANDATORY: 'Todos los campos son obligatorios',
   LOADING_DROPDOWN_DATA: 'Cargando los datos del desplegable ...',
   LOGGED_USER: 'Usuario logado',
@@ -12,6 +15,9 @@ export const LocaleES = {
   SELECT: 'Seleccione',
   USERNAME: 'Usuario',
   USERNAME_PASS_SHOULD_CORRECT_VALUE: 'Los campos username y password deben tener un valor válido.',
+  USER_HAS_NOT_ASSOCIATED_A_MENU: (userId, app) =>
+    `El username ${userId} no tiene menú asociado en la aplicación ${app}`,
+  USER_IS_NOT_LOGGED: 'El username no se encuentra logado',
   VALUE_IS_REQUIRED: 'El valor es obligatorio.',
   YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS:
     'Debe guardar primero el registro para poder insertar o visualizar las traducciones.',

@@ -107,13 +107,13 @@ describe('LoginComponent', () => {
 
   it('should navigate to forgot-password', () => {
     spyOn(router, 'navigate').and.callThrough();
-    spyOn(component, 'goModificaPwd').and.callThrough();
+    spyOn(component, 'goForgotPwd').and.callThrough();
     const testRoute = `forgot-password/${component.username}`;
     const $button = elementRef.querySelector('a.login-panel-change-password');
     expect($button).toBeTruthy();
     TestingMockEvents.triggerClickOn($button);
     fixture.detectChanges();
-    expect(component.goModificaPwd).toHaveBeenCalled();
+    expect(component.goForgotPwd).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith([testRoute]);
   });
 
@@ -178,12 +178,12 @@ describe('LoginComponent', () => {
     });
 
     it('should navigate to modifica-password', () => {
-      spyOn(component, 'goModificaPwd').and.callThrough();
+      spyOn(component, 'goForgotPwd').and.callThrough();
       const $button = elementRef.querySelector('a.login-panel-change-password');
       expect($button).toBeTruthy();
       TestingMockEvents.triggerClickOn($button);
       fixture.detectChanges();
-      expect(component.goModificaPwd).toHaveBeenCalled();
+      expect(component.goForgotPwd).toHaveBeenCalled();
     });
   });
 

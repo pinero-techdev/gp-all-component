@@ -1,0 +1,9 @@
+.button {
+  &-base {
+    @include make-button-theme($buttonBg, $buttonBg);
+  }
+
+  &-danger {
+    @include make-button-theme($buttonDangerBg, $buttonDangerBg);
+  }
+}
