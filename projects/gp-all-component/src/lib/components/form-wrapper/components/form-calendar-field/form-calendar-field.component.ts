@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { LocaleES } from '@lib/resources/localization/es-ES.lang';
+import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
