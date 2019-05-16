@@ -1,0 +1,13 @@
+@import './../../resources/scss/theme-360/theme';
+
+::ng-deep {
+  .rating {
+    .pi-star {
+      color: $accentColor;
+
+      &.gold {
+        color: $ratingStars;
+      }
+    }
+  }
+}
