@@ -22,10 +22,10 @@ import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.componen
 
 @NgModule({
   declarations: [
-    ImgTesterComponent,
     DropdownRelatedTesterComponent,
     DropdownTesterComponent,
     DynamicTesterComponent,
+    ImgTesterComponent,
     LoadingIndicatorTesterComponent,
     MainMenuTesterComponent,
     MultiLanguageTesterComponent,
