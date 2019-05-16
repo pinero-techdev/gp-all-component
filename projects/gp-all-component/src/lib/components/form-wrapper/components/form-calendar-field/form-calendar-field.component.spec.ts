@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { LocaleES } from '@lib/resources/localization/es-ES.lang';
+import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 import { FormCalendarFieldComponent } from './form-calendar-field.component';
 import { CommonModule } from '@angular/common';
 import { FormWrapperSharedModules } from '../../../../shared/imports/form-wrapper-shared';
