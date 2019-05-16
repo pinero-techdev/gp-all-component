@@ -15,7 +15,7 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl {
     super();
   }
 
-  public getFormField(): GpFormField {
+  getFormField(): GpFormField {
     return this.formField;
   }
 
