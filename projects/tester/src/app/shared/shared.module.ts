@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
-import { GpAllComponentModule } from '@lib/gp-all-component.module';
 import { LoadingIndicatorTesterComponent } from './loading-indicator-tester/loading-indicator-tester.component';
 import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
 import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.component';
@@ -18,6 +17,17 @@ import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.
 import { TextareaTesterComponent } from './textarea-tester/textarea-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
+import { CalendarTesterComponent } from './calendar-tester/calendar-tester.component';
+import {
+  FormWrapperModule,
+  DynamicModule,
+  LoadingIndicatorModule,
+  MainMenuModule,
+  MultiLanguageModule,
+  MultiSelectModule,
+  RatingModule,
+  TopbarModule,
+} from 'gp-all-component';
 
 @NgModule({
   declarations: [
@@ -34,8 +44,21 @@ import { ImgTesterComponent } from './img-tester/img-tester.component';
     TableFrameTesterComponent,
     TextareaTesterComponent,
     TopbarTesterComponent,
+    CalendarTesterComponent,
   ],
-  imports: [CommonModule, GpAllComponentModule, SharedRoutingModule, TableWrapperModule],
+  imports: [
+    CommonModule,
+    FormWrapperModule,
+    SharedRoutingModule,
+    TableWrapperModule,
+    DynamicModule,
+    LoadingIndicatorModule,
+    MainMenuModule,
+    MultiLanguageModule,
+    MultiSelectModule,
+    RatingModule,
+    TopbarModule,
+  ],
   exports: [
     DropdownRelatedTesterComponent,
     DropdownTesterComponent,

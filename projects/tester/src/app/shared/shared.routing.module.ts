@@ -13,6 +13,7 @@ import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
+import { CalendarTesterComponent } from './calendar-tester/calendar-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -66,6 +67,10 @@ export const appRoutes: Routes = [
   {
     path: 'img-tester',
     component: ImgTesterComponent,
+  },
+  {
+    path: 'calendar-tester',
+    component: CalendarTesterComponent,
   },
 ];
 
