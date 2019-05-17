@@ -11,9 +11,9 @@
 
 ```
 
-### Component props ###
+### Component binding props ###
 
-> Those props are unused and removed
+> ⚠️ Properties with an initialization corresponds with its default value
 
 ```typescript
 @Input() homeUrl: string;
@@ -26,3 +26,10 @@
 ```typescript
 @Input() title: string;
 ```
+```typescript
+@Input() isOpen: boolean = false;
+```
+```typescript
+@Input() newStatusBreadcrumb: any;
+```
+
