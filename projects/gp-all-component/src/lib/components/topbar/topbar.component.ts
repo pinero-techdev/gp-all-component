@@ -46,12 +46,14 @@ export class TopbarComponent implements OnInit, OnChanges {
   constructor(private router: Router, private loginService: LoginService) {}
 
   ngOnInit() {
-    this.router.events.subscribe((event) => {
+    this.breadCrumb = [];
+
+    this.router.events.first().subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.toggleMenu(false);
       }
     });
-    this.breadCrumb = [];
+
     this.itemsUserMenu = [
       {
         label: 'Logout',
