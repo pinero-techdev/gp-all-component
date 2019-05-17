@@ -63,6 +63,16 @@ export class GPUtil {
 
     // FIXME 17/12/2018 convertir con moment
     public static dateToYyyymmdd(dt: Date): string {
+        if (dt == null) {
+            return null;
+        }
+        if ('string' === typeof dt) {
+            // TODO Error en p-calendar. Viene segun el formato del control.
+            let s = '' + dt; // Convierte en string, aunque no hace falta.
+            if (s === '') {
+                return null;
+            }
+        }
         const y = '000' + dt.getFullYear();
         const m = '0' + (dt.getMonth() + 1);
         const d = '0' + dt.getDate();
