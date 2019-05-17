@@ -5,12 +5,13 @@ import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GPUtil } from '../../../../services/core/gp-util.service';
 import { CalendarLocaleConfigES } from '../../../../resources/data/calendar/calendar-locale.config';
+import { FormGenericField } from '../../resources/form-generic-field.interface';
 
 @Component({
   selector: 'gp-form-calendar-field',
   templateUrl: './form-calendar-field.component.html',
 })
-export class FormCalendarFieldComponent extends GpFormFieldControl {
+export class FormCalendarFieldComponent extends GpFormFieldControl implements FormGenericField {
   /**
    * The formField for this component
    */
@@ -30,41 +31,23 @@ export class FormCalendarFieldComponent extends GpFormFieldControl {
     super();
   }
 
-  /**
-   * Returns current field metadata
-   */
   getFieldMetadata(): DataTableMetaDataField {
     return this.formField.fieldMetadata;
   }
 
-  /**
-   * Returns current form field
-   */
   getFormField(): GpFormField {
     return this.formField;
   }
 
-  /**
-   * Copies value from control to editing row
-   * @param editedRow The editing row
-   */
   copyValueFromControlToEditedRow(editedRow: any) {
     editedRow[this.formField.fieldMetadata.fieldName] = GPUtil.dateToYyyymmdd(this.currentValue);
   }
 
-  /**
-   * Copies values from editing row to control
-   * @param editedRow The editing row
-   */
   copyValueFromEditedRowToControl(editedRow: any) {
     const value = editedRow[this.formField.fieldMetadata.fieldName];
     this.currentValue = GPUtil.str2Date(value, 'YYYY-MM-DD');
   }
 
-  /**
-   * Starts validation for editing row
-   * @param editedRow The editing row
-   */
   validateField(editedRow: any) {
     this.formField.validField = true;
     this.formField.fieldMsgs = null;
