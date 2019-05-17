@@ -36,6 +36,9 @@ $colors: (
   green: (
     green-6: #00695c,
   ),
+  gold: (
+    base: #baa33b,
+  ),
 );
 
 @function color($color-name, $color-variant: 'base') {

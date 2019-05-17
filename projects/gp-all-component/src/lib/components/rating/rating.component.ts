@@ -1,26 +1,32 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'gp-rating',
-    templateUrl: './rating.component.html',
+  selector: 'gp-rating',
+  templateUrl: './rating.component.html',
+  styleUrls: ['./rating.component.scss'],
 })
-export class RatingComponent {
-    public starsArray = [1, 2, 3, 4, 5];
+export class RatingComponent implements OnInit {
+  /**
+   * Total rating positions to fill
+   */
+  positions = [1, 2, 3, 4, 5];
 
-    @Input() public value = 0;
-    @Input() public iconOn = 'grade';
-    @Input() public iconOff = 'grade';
-    @Input() public styleClassOn = 'goldColor';
-    @Input() public styleClassOff = '';
-    @Input() styleOn = '';
-    @Input() styleOff = '';
+  @Input() value: number;
+  @Input() iconOn = 'pi-star';
+  @Input() iconOff = 'pi-star';
+  @Input() styleClassOn = 'gold';
+  @Input() styleClassOff = '';
+  @Input() styleOn = '';
+  @Input() styleOff = '';
+  @Input() stars: number;
 
-    @Input()
-    set stars(numStars: number) {
-        const array = [];
-        for (let i = 0; i < numStars; i++) {
-            array.push(i);
-        }
-        this.starsArray = array;
-    }
+  ngOnInit(): void {
+    this.value = this.stars;
+  }
+
+  getRatingClass(i: number): string {
+    return this.value > i
+      ? `${this.iconOn} ${this.styleClassOn}`
+      : `${this.iconOff} ${this.styleClassOff}`;
+  }
 }
