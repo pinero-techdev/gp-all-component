@@ -1,3 +1,4 @@
+import { RedirectComponent } from './../../../../gp-all-component/src/lib/components/redirect/redirect.component';
 import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
@@ -14,7 +15,6 @@ import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
 import { CalendarTesterComponent } from './calendar-tester/calendar-tester.component';
-import { RedirectComponent } from '@lib/components/redirect/redirect.component';
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
 import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.component';
