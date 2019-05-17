@@ -1,3 +1,4 @@
+import { MainMenuProviderService } from './../../services/api/main-menu/main-menu-provider.service';
 import { MainMenuService } from './../../services/api/main-menu/main-menu.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,6 +10,6 @@ import { RouterModule } from '@angular/router';
   declarations: [MainMenuComponent],
   imports: [CommonModule, ScrollPanelModule, RouterModule],
   exports: [MainMenuComponent],
-  providers: [MainMenuService],
+  providers: [MainMenuService, MainMenuProviderService],
 })
 export class MainMenuModule {}
