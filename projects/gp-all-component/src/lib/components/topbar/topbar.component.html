@@ -1,5 +1,5 @@
 <div class="topbar360 clearfix">
-  <div class="topbar360-action" (click)="toggleIconUserMenu()" *ngIf="router.url !== '/home'">
+  <div class="topbar360-action" (click)="toggleIconUserMenu()" *ngIf="isHome">
     <i *ngIf="!isOpen || !logged" class="fa fa-th"></i>
     <i *ngIf="isOpen && logged" class="fa fa-times"></i>
   </div>

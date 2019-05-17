@@ -42,11 +42,13 @@ export class TopbarComponent implements OnInit, OnChanges {
   showMenu = false;
   userMenuVisible = false;
   breadCrumb: any = [];
+  isHome = false;
 
   constructor(private router: Router, private loginService: LoginService) {}
 
   ngOnInit() {
     this.breadCrumb = [];
+    this.isHome = this.router.url !== '/home';
 
     this.router.events.first().subscribe((event) => {
       if (event instanceof NavigationEnd) {
