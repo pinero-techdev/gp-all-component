@@ -54,7 +54,7 @@ export * from './lib/resources/data/menu/menu-opcion-propiedades-propiedad.model
 // Directives
 export * from './lib/directives/focus.directive';
 export * from './lib/directives/lowercase.directive';
-export * from './lib/directives/uppercase.directive';
+export * from './lib/directives/uppercase-directive/uppercase.directive';
 
 // Components
 export * from './lib/components/dynamic/dynamic.component';
@@ -97,6 +97,9 @@ export * from './lib/components/rating/rating.module';
 export * from './lib/components/table-wrapper/table-wrapper.module';
 export * from './lib/components/topbar/topbar.module';
 export * from './lib/shared/shared.module';
+
+// Directive Modules
+export * from './lib/directives/uppercase-directive/uppercase-directive.module';
 
 // Util
 export * from './lib/util/sha256';

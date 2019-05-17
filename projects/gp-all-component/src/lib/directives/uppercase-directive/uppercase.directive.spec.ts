@@ -9,7 +9,7 @@ import { UppercaseDirective } from './uppercase.directive';
 })
 class TestUppercaseComponent {}
 
-describe('UppercaseDirective', () => {
+fdescribe('UppercaseDirective', () => {
   let component: TestUppercaseComponent;
   let fixture: ComponentFixture<TestUppercaseComponent>;
 
