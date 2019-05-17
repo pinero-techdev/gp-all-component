@@ -12,10 +12,11 @@ import { throwError, of } from 'rxjs';
 import { Router, Routes } from '@angular/router';
 import { UserInfo } from './../../resources/data/user-info.model';
 import { CommonRs } from './../../services/core/common.service';
+import { SimpleChange } from '@angular/core';
 
 class TestComponent {}
 
-describe('TopbarComponent', () => {
+fdescribe('TopbarComponent', () => {
   let component: TopbarComponent;
   let fixture: ComponentFixture<TopbarComponent>;
   let elementRef: HTMLElement;
@@ -68,9 +69,7 @@ describe('TopbarComponent', () => {
     });
 
     it('should not logged', () => {
-      const $menuButton = elementRef.querySelector('#menu-button[hidden]');
       expect(component.logged).toBeFalsy();
-      expect($menuButton).not.toBeNull();
     });
   });
 
@@ -86,15 +85,11 @@ describe('TopbarComponent', () => {
     });
 
     it('should show logged menu', () => {
-      const $menuButton = elementRef.querySelector('#menu-button[hidden]');
       const userInfo = new UserInfo();
-      userInfo.fullName = 'Patterson';
+      userInfo.fullName = 'Pinero';
 
       GlobalService.setSession(userInfo);
-
       expect(component.logged).toBeTruthy();
-      expect(GlobalService.getLOGGED()).toBeTruthy();
-      expect($menuButton).toBeNull();
       expect(component.fullName).toEqual(userInfo.fullName);
     });
 
@@ -106,12 +101,13 @@ describe('TopbarComponent', () => {
     });
 
     it('user logs out through menu item button success', () => {
+      const $itemLink = elementRef.querySelector('.ui-menuitem-link');
+
       spyOn(component, 'redirect')
         .withArgs('logout')
         .and.callThrough();
 
       TestingMockEvents.triggerClickOn($buttonToggle);
-      const $itemLink = elementRef.querySelector('.ui-menuitem-link');
       expect($itemLink).toBeDefined();
 
       TestingMockEvents.triggerClickOn($itemLink);
@@ -135,17 +131,85 @@ describe('TopbarComponent', () => {
     });
 
     it('user logs out through item button fails and should navigate to login', () => {
+      const testRoute = 'login';
+      const $itemLink = elementRef.querySelector('.ui-menuitem-link');
+
       spyOn(service, 'logout').and.returnValue(throwError(new Error('error')));
       spyOn(router, 'navigate').and.callThrough();
 
       TestingMockEvents.triggerClickOn($buttonToggle);
-      const testRoute = 'login';
-      const $itemLink = elementRef.querySelector('.ui-menuitem-link');
       expect($itemLink).toBeDefined();
 
       TestingMockEvents.triggerClickOn($itemLink);
       fixture.detectChanges();
       expect(router.navigate).toHaveBeenCalledWith([testRoute]);
+    });
+  });
+
+  describe('TopBar Actions:', () => {
+    beforeEach(() => {
+      GlobalService.setLogged(false);
+      router = TestBed.get(Router);
+      fixture.detectChanges();
+      $buttonToggle = elementRef.querySelector('.topbar360-action');
+      spyOn(component, 'toggleIconUserMenu').and.callThrough();
+    });
+
+    it('toggles icon user menu', () => {
+      TestingMockEvents.triggerClickOn($buttonToggle);
+
+      expect(component.toggleIconUserMenu).toHaveBeenCalled();
+    });
+  });
+
+  describe('TopBar: Breadcrumb', () => {
+    beforeEach(() => {
+      elementRef = fixture.debugElement.nativeElement;
+      GlobalService.setLogged(true);
+      fixture.detectChanges();
+      service = TestBed.get(LoginService);
+      router = TestBed.get(Router);
+    });
+
+    it('set breadcrumb when it changes', () => {
+      const breadcrumb = [{ label: 'Concierge', isActive: true }];
+      spyOn(component, 'setBreadcrumb').and.callThrough();
+      component.ngOnChanges({
+        newStatusBreadcrumb: new SimpleChange('', breadcrumb, true),
+      });
+      fixture.detectChanges();
+      expect(component.setBreadcrumb).toHaveBeenCalledWith(breadcrumb);
+    });
+
+    it('get breadcrumb info', () => {
+      // const $actionButton = elementRef.querySelector('.topbar360-toolbar-action');
+      spyOn(component, 'getBreadCrumbMenu').and.callThrough();
+
+      const breadcrumb = { label: 'Reservas360', isActive: true };
+
+      component.setBreadcrumb(breadcrumb);
+      fixture.detectChanges();
+
+      const $actionButton = elementRef.querySelector('.topbar360-toolbar-action');
+
+      TestingMockEvents.triggerClickOn($actionButton);
+
+      expect(component.getBreadCrumbMenu).toHaveBeenCalledWith(component.breadCrumb, 0);
+    });
+
+    it('reset menu should be called', () => {
+      spyOn(component, 'resetMenu').and.callThrough();
+
+      const breadcrumb = { label: 'Reservas360', isActive: true };
+
+      component.setBreadcrumb(breadcrumb);
+      fixture.detectChanges();
+
+      const $actionButton = elementRef.querySelector('.topbar360-toolbar-main > a');
+
+      TestingMockEvents.triggerClickOn($actionButton);
+
+      expect(component.resetMenu).toHaveBeenCalled();
     });
   });
 });

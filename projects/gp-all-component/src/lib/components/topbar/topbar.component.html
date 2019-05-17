@@ -1,26 +1,46 @@
-<div class="topbar clearfix">
-  <div class="topbar-left"> </div>
-  <div class="topbar-right">
-    <a id="menu-button" href="#" [hidden]="!logged">
-      <i></i>
-    </a>
-    <a id="topbar-menu-button" (click)="toggleUserMenu()" [hidden]="!logged">
-      <i class="material-icons">account_circle</i>
-    </a>
-
-    <ul class="topbar-items fadeInDown animated" [hidden]="!logged">
-      <li class="profile-item">
-        <a (click)="toggleUserMenu()" [hidden]="!logged">
-          <i class="topbar-icon material-icons">account_circle</i>
-          <span class="topbar-item-name">{{ locale.LOGGED_USER }}</span>
-        </a>
-      </li>
-      <li class="application-title">
-        <span *ngIf="logged" [innerHtml]="fullName"></span>
-      </li>
-    </ul>
+<div class="topbar360 clearfix">
+  <div class="topbar360-action" (click)="toggleIconUserMenu()" *ngIf="router.url !== '/home'">
+    <i *ngIf="!isOpen || !logged" class="fa fa-th"></i>
+    <i *ngIf="isOpen && logged" class="fa fa-times"></i>
   </div>
-  <div class="f-right">
-    <p-menu #logout [model]="itemsUserMenu" [hidden]="!userMenuVisible"></p-menu>
+  <div class="topbar360-info full-width">
+    <div class="topbar360-container">
+      <div class="topbar360-toolbar">
+        <div *ngIf="breadCrumb.length > 0">
+          <span class="topbar360-toolbar-main">
+            <a (click)="resetMenu()">Inicio</a>
+          </span>
+          <span *ngFor="let m of breadCrumb; let indx = index">
+            <i class="topbar360-toolbar-icon fa fa-angle-right"></i>
+            <a
+              class="topbar360-toolbar-action"
+              (click)="getBreadCrumbMenu(breadCrumb, indx)"
+              [ngClass]="{ 'topbar360-toolbar-active': isLastMenu(indx) }"
+            >
+              {{ m.label }}
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="topbar360-user-actions">
+        <span
+          *ngIf="logged"
+          class="topbar360-user-name fadeInDown animated"
+          [innerHtml]="fullName"
+        ></span>
+        <a (click)="toggleUserMenu()" [hidden]="!logged">
+          <i class="topbar360-user-icon fa fa fa-user-circle"></i>
+        </a>
+      </div>
+    </div>
+    <div class="topbar360-settings">
+      <p-menu
+        #logout
+        [model]="itemsUserMenu"
+        [hidden]="!userMenuVisible"
+        styleClass="topbar360-settings-modal"
+      >
+      </p-menu>
+    </div>
   </div>
 </div>
