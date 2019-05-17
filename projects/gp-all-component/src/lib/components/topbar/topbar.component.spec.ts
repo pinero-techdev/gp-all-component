@@ -16,7 +16,7 @@ import { SimpleChange } from '@angular/core';
 
 class TestComponent {}
 
-fdescribe('TopbarComponent', () => {
+describe('TopbarComponent', () => {
   let component: TopbarComponent;
   let fixture: ComponentFixture<TopbarComponent>;
   let elementRef: HTMLElement;

@@ -63,6 +63,11 @@ export class TopbarComponent implements OnInit, OnChanges {
     ];
   }
 
+  /**
+   * Watch breadcrumb prop changes.
+   *
+   * @param changes 'Simple changes object'
+   */
   ngOnChanges(changes: SimpleChanges) {
     const newStatusBreadcrumb =
       changes.newStatusBreadcrumb && changes.newStatusBreadcrumb.currentValue;
@@ -78,10 +83,13 @@ export class TopbarComponent implements OnInit, OnChanges {
    * @param action 'login action'
    */
   redirect(action: string) {
-    switch (action) {
-      case 'logout':
-        let response = new CommonRs();
-        this.loginService.logout().subscribe(
+    let response = new CommonRs();
+
+    if (action === 'logout') {
+      this.loginService
+        .logout()
+        .first()
+        .subscribe(
           (data) => {
             response = data;
             if (response.ok) {
@@ -93,19 +101,20 @@ export class TopbarComponent implements OnInit, OnChanges {
             this.goToLogin();
           },
           () => {
-            console.log('petición de logout finalizada con resultado: ');
-            // CommonRs se crea con ok por defecto a falso
-            // Si ha habido algún problema con el logout, el usuario sigue logueado
+            // if logout response fails. User must keep logged
             GlobalService.setLogged(!response.ok);
           }
         );
-        break;
-      default:
-        console.info('redireccionar a:' + action);
     }
   }
 
-  getBreadCrumbMenu(menu, index) {
+  /**
+   * Show breadcrumb on navigation bar.
+   *
+   * @param menu 'breadCrumb object with label and active keys'
+   * @param index 'numeric index'
+   */
+  getBreadCrumbMenu(menu: object, index: number) {
     this.breadCrumb.splice(index + 1, this.breadCrumb.length - 1);
 
     if (menu[index] && menu[index].floatMenu && menu[index].floatMenu.length) {
@@ -114,16 +123,26 @@ export class TopbarComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Navigates to login screen and
+   * closes the menu.
+   */
   goToLogin() {
     this.router.navigate(['login']);
     this.toggleMenu(false);
   }
 
+  /**
+   * Change user menu icon.
+   */
   toggleIconUserMenu() {
     this.toggleMenu(!this.isOpen);
     this.checkLastItemBreadcrumb();
   }
 
+  /**
+   * Check and remove last menu item
+   */
   checkLastItemBreadcrumb() {
     const lastItemBreadcrumb = this.breadCrumb[this.breadCrumb.length - 1];
 
@@ -132,19 +151,25 @@ export class TopbarComponent implements OnInit, OnChanges {
     }
   }
 
-  setBreadcrumb(item) {
-    if (item.isActive) {
-      this.breadCrumb.push(item);
-    } else {
-      this.removeItemBreadcrumb();
-    }
+  /**
+   * Updates the breadcrumb
+   *
+   * @param item 'Breadcrumb object'
+   */
+  setBreadcrumb(item: any) {
+    item.isActive ? this.breadCrumb.push(item) : this.removeItemBreadcrumb();
   }
 
   removeItemBreadcrumb() {
     this.breadCrumb.splice(-1, 1);
   }
 
-  toggleMenu(isOpen) {
+  /**
+   * Toggles menu open or close.
+   *
+   * @param isOpen 'open boolean prop'
+   */
+  toggleMenu(isOpen: boolean) {
     if (this.logged) {
       this.isOpen = typeof isOpen === 'boolean' ? isOpen : !this.isOpen;
       this.openMenu.emit(this.isOpen);
