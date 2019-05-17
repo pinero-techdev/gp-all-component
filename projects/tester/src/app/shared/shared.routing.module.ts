@@ -75,7 +75,7 @@ export const appRoutes: Routes = [
     component: DropdownRelatedTesterComponent,
   },
   {
-    path: 'form-checkbox-field-tester',
+    path: 'checkbox-tester',
     component: FormCheckboxFieldTesterComponent,
   },
   {

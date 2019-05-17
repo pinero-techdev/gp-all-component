@@ -7,7 +7,6 @@ import { FormGenericField } from '../../resources/form-generic-field.interface';
 @Component({
   selector: 'gp-form-checkbox-field',
   templateUrl: './form-checkbox-field.component.html',
-  styleUrls: ['./form-checkbox-field.component.scss'],
 })
 export class FormCheckboxFieldComponent extends GpFormFieldControl implements FormGenericField {
   /**
@@ -39,12 +38,14 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl implements Fo
       editedRow[this.formField.fieldMetadata.fieldName];
   }
 
-  validateField(editedRow: any = null): boolean {
+  validateField(): boolean {
     // A checkbox is always valid.
     if (this.formField !== undefined) {
       this.formField.validField = true;
       this.formField.fieldMsgs = null;
       return this.formField.validField;
     }
+
+    return false;
   }
 }
