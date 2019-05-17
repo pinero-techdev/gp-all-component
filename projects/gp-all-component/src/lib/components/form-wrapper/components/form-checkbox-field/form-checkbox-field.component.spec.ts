@@ -6,7 +6,7 @@ import {
 } from '../../../../shared/imports/form-wrapper-shared';
 import { FormFieldMock } from '@lib/shared/testing/@mock/types/form-wrapper.type.mock';
 
-fdescribe('FormCheckboxFieldComponent', () => {
+describe('FormCheckboxFieldComponent', () => {
   let component: FormCheckboxFieldComponent;
   let fixture: ComponentFixture<FormCheckboxFieldComponent>;
 
