@@ -1,0 +1,25 @@
+@import './../../../../resources/scss/theme-360/theme';
+
+::ng-deep {
+  .ui-inputswitch.ui-widget {
+    &.ui-inputswitch-checked {
+      &:not(.ui-state-disabled) {
+        &:hover {
+          .ui-inputswitch-slider {
+            background: $primaryDarkColor;
+          }
+        }
+      }
+
+      &.ui-inputswitch-focus {
+        .ui-inputswitch-slider {
+          background: $primaryColor;
+        }
+      }
+
+      .ui-inputswitch-slider {
+        background: $primaryColor;
+      }
+    }
+  }
+}
