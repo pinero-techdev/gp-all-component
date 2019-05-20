@@ -28,62 +28,62 @@ export const LocaleES = {
   VALIDATION_SPACES: `El valor indicado no puede contener espacios. Han sido
                       eliminados. Seleccione guardar otra vez para aceptar los cambios.`,
   VALIDATION_CONTROL_SPACES: `El valor indicado contiene caracteres de control. Han sido
-  sustituidos por espacios. Seleccione guardar 
+  sustituidos por espacios. Seleccione guardar
   otra vez para aceptar los cambios.`,
-  VALIDATION_SPECIAL_CHARACTERS: `El valor indicado contiene caracteres no 
-  válidos (acentos, eñes ...). Han sido sustituidos por caracteres equivalentes o descartados. 
+  VALIDATION_SPECIAL_CHARACTERS: `El valor indicado contiene caracteres no
+  válidos (acentos, eñes ...). Han sido sustituidos por caracteres equivalentes o descartados.
   Seleccione guardar otra vez para aceptar los cambios.`,
-  VALIDATION_TIME_FORMAT: `El valor indicado no cumple con un formato 
+  VALIDATION_TIME_FORMAT: `El valor indicado no cumple con un formato
   válido: "hh:mm". Ejemplo  de hora válida: 01:45`,
   CALENDAR: {
     MONTH: {
       JAN: {
-        SHORT: 'ene',
-        LONG: 'enero',
+        SHORT: 'Ene',
+        LONG: 'Enero',
       },
       FEB: {
-        SHORT: 'feb',
-        LONG: 'febrero',
+        SHORT: 'Feb',
+        LONG: 'Febrero',
       },
       MAR: {
-        SHORT: 'mar',
-        LONG: 'marzo',
+        SHORT: 'Mar',
+        LONG: 'Marzo',
       },
       APR: {
-        SHORT: 'abr',
-        LONG: 'abril',
+        SHORT: 'Abr',
+        LONG: 'Abril',
       },
       MAY: {
-        SHORT: 'may',
-        LONG: 'mayo',
+        SHORT: 'May',
+        LONG: 'Mayo',
       },
       JUN: {
-        SHORT: 'jun',
-        LONG: 'junio',
+        SHORT: 'Jun',
+        LONG: 'Junio',
       },
       JUL: {
-        SHORT: 'jul',
-        LONG: 'julio',
+        SHORT: 'Jul',
+        LONG: 'Julio',
       },
       AGO: {
-        SHORT: 'ago',
-        LONG: 'agosto',
+        SHORT: 'Ago',
+        LONG: 'Agosto',
       },
       SEP: {
-        SHORT: 'sep',
-        LONG: 'septiembre',
+        SHORT: 'Sep',
+        LONG: 'Septiembre',
       },
       OCT: {
-        SHORT: 'oct',
-        LONG: 'octubre',
+        SHORT: 'Oct',
+        LONG: 'Octubre',
       },
       NOV: {
-        SHORT: 'nov',
-        LONG: 'noviembre',
+        SHORT: 'Nov',
+        LONG: 'Noviembre',
       },
       DEC: {
-        SHORT: 'dic',
-        LONG: 'diciembre',
+        SHORT: 'Dic',
+        LONG: 'Diciembre',
       },
     },
     DAY: {
