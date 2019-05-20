@@ -1,12 +1,9 @@
-<div class="ui-row-fluid">
-  <div
-    [class.ui-col-fluid-12]="!translateInfo"
-    [class.ui-col-fluid-10]="translateInfo && translationKeys"
-    class="ui-col-fluid nopad"
-  >
+<div class="p-grid">
+  <div [class.p-col-12]="!translateInfo" [class.p-col-10]="translateInfo && translationKeys">
     <textarea
       name="__field__{{ name }}"
       pInputTextarea
+      autoResize="autoResize"
       [(ngModel)]="currentValue"
       rows="{{ rows }}"
       (change)="onFieldChange()"
@@ -14,7 +11,7 @@
       [disabled]="isDisabled"
     ></textarea>
   </div>
-  <div class="ui-col-fluid ui-col-fluid-2 nopad" *ngIf="translateInfo && translationKeys">
+  <div class="p-col-2" *ngIf="translateInfo && translationKeys">
     <gp-multi-language
       [pKey]="translationKeys"
       [schema]="translateInfo.scheme"

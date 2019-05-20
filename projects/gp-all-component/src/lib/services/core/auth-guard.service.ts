@@ -1,4 +1,4 @@
-import { LocaleES } from '@lib/resources/localization/es-ES.lang';
+import { LocaleES } from './../../resources/localization/es-ES.lang';
 import { LoginService, SessionInfoRs } from './../api/login/login.service';
 import { isNull, isNullOrUndefined } from 'util';
 import { Injectable } from '@angular/core';

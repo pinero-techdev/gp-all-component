@@ -1,3 +1,6 @@
+import { LocaleES } from './../../../../resources/localization/es-ES.lang';
+import { TableService } from './../../../../services/api/table/table.service';
+import { GpTableRestrictions } from './../../../table-wrapper/resources/gp-table-restrictions.enum';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormWysiwygFieldComponent } from './form-wysiwyg-field.component';
 import {
@@ -6,9 +9,6 @@ import {
 } from '../../../../shared/imports/form-wrapper-shared';
 import { GpFormField } from '../../resources/form-field.model';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
-import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
-import { TableService } from '@lib/services/api/table/table.service';
-import { LocaleES } from '@lib/resources/localization/es-ES.lang';
 
 describe('FormWysiwygFieldComponent', () => {
   let component: FormWysiwygFieldComponent;
