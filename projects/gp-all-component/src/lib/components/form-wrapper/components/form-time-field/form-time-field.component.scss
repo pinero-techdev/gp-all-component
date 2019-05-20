@@ -1,0 +1,45 @@
+@import './../../../../resources/scss/theme-360/theme';
+
+::ng-deep {
+  .ui-inputtext.ui-widget {
+    @include make-input();
+
+    &:enabled:hover:not(.ui-state-error) {
+      border-color: $inputBorderColor;
+    }
+  }
+
+  .ui-datepicker.ui-widget {
+    &.ui-datepicker-timeonly {
+      @include overlay-input-shadow();
+      border: none;
+      color: $textMutedColor;
+      padding: $separation;
+
+      .ui-timepicker {
+        border-radius: $borderRadius;
+        padding: 0;
+        font-size: $fontSizeSmall;
+      }
+
+      .ui-hour-picker {
+        margin-left: inherit;
+      }
+
+      .ui-hour-picker,
+      .ui-minute-picker {
+        a:first-child {
+          margin-bottom: 0.3em;
+        }
+      }
+
+      .ui-widget-header {
+        span,
+        .pi {
+          color: $textMutedColor;
+          font-size: $fontSizeSmall;
+        }
+      }
+    }
+  }
+}
