@@ -97,6 +97,7 @@ export * from './lib/components/rating/rating.module';
 export * from './lib/components/table-wrapper/table-wrapper.module';
 export * from './lib/components/topbar/topbar.module';
 export * from './lib/shared/shared.module';
+export * from './lib/components/redirect/redirect.module';
 
 // Util
 export * from './lib/util/sha256';
