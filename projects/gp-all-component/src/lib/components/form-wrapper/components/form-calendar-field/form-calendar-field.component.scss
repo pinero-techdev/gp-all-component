@@ -1,0 +1,138 @@
+@import './../../../../resources/scss/theme-360/theme';
+
+// ::ng-deep is deprecated but not removed.
+// Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
+::ng-deep {
+  .ui-calendar {
+    display: inline-flex;
+
+    input.ui-inputtext {
+      @include make-input();
+      box-shadow: none;
+
+      &:enabled:hover:not(.ui-state-error),
+      &:enabled:focus:not(.ui-state-error) {
+        border-color: $inputBorderColor;
+      }
+    }
+
+    button.ui-calendar-button {
+      background: transparent;
+      border-top-right-radius: $borderRadius;
+      border-bottom-right-radius: $borderRadius;
+      border-color: $borderColor;
+      line-height: $inputLineHeight;
+      padding: 0 10px;
+      min-height: 36px;
+
+      .ui-button-icon-left {
+        color: $textColor;
+        font-size: 18px;
+      }
+
+      .ui-button-text {
+        padding: inherit;
+      }
+
+      &:hover {
+        background-color: $whiteColor;
+      }
+
+      &:enabled:hover:not(.ui-state-error) {
+        border-color: $inputBorderColor;
+      }
+    }
+
+    .ui-datepicker {
+      padding: 0;
+
+      &:not(.ui-datepicker-inline) {
+        @include overlay-input-shadow();
+        border: none;
+      }
+
+      .ui-datepicker-header {
+        padding: 8.5px 13.5px;
+        background: $primaryDarkColor;
+        color: $whiteColor;
+        border-top-right-radius: $borderRadius;
+        border-top-left-radius: $borderRadius;
+
+        .ui-datepicker-title {
+          margin: 0 2.3em;
+          line-height: 1.8em;
+          font-size: 1em;
+        }
+      }
+
+      .ui-datepicker-calendar-container {
+        border-bottom-right-radius: $borderRadius;
+        border-bottom-left-radius: $borderRadius;
+
+        .ui-datepicker-calendar {
+          width: calc(100% + 1px);
+        }
+      }
+
+      a.ui-corner-all {
+        color: $whiteColor;
+        top: 20%;
+
+        &.ui-datepicker-prev,
+        &.ui-datepicker-next {
+          &:hover {
+            color: $whiteColor;
+          }
+        }
+
+        span {
+          font-size: $fontSize;
+        }
+      }
+    }
+
+    .ui-datepicker-calendar {
+      margin-top: 0;
+      font-size: 11.5px;
+
+      thead {
+        background: $primaryColor;
+        color: $whiteColor;
+      }
+
+      tbody {
+        td {
+          padding: 0.25em 0.125em;
+
+          .ui-state-default {
+            padding: 0.25em;
+            padding-top: 0.3rem;
+            height: 2.25em;
+            width: 2.25em;
+            margin: 0 auto;
+
+            &:hover {
+              border-radius: 50%;
+            }
+          }
+        }
+
+        .ui-state-active {
+          background-color: $accentColor;
+          color: $whiteColor;
+          border-radius: 50%;
+        }
+
+        .ui-datepicker-today {
+          a {
+            background: $calendarDaySelectedBg;
+            padding-top: 0.25em;
+            color: $whiteColor;
+            border-radius: 50%;
+            line-height: 1.8em;
+          }
+        }
+      }
+    }
+  }
+}
