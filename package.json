@@ -1,11 +1,8 @@
 {
-  "name": "gp-all-components",
-  "version": "0.0.0",
+  "name": "gp-all-component",
+  "version": "1.1.1",
   "scripts": {
     "ng": "ng",
-    "dev": "ng serve tester --watch --port=4400",
-    "start": "ng serve tester --proxy-config proxy.conf.json",
-    "start:aot": "ng serve tester --proxy-config proxy.conf.json --aot",
     "rebuild-gp": "npm run build && rm -rf node_modules/gp-all-component/ && npm i",
     "---- DOCUMENTATION ----": "",
     "compodoc:generate": "npx compodoc -p projects/gp-all-component/tsconfig.lib.json",
@@ -47,7 +44,6 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
-    "gp-all-component": "file:dist/gp-all-component/gp-all-component-1.1.1.tgz",
     "hammerjs": "^2.0.8",
     "npm": "^6.9.0",
     "primeflex": "^1.0.0-rc.1",
