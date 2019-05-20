@@ -3,12 +3,6 @@
 // ::ng-deep is deprecated but not removed.
 // Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
 ::ng-deep {
-}
-@import './../../../../../gp-all-component/src/lib/resources/scss/theme-360/theme';
-
-// ::ng-deep is deprecated but not removed.
-// Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
-::ng-deep {
   .ui-calendar {
     display: inline-flex;
     font-family: 'latolatinregular', sans-serif;
