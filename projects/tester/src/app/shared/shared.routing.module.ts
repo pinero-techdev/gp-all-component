@@ -19,6 +19,7 @@ import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-t
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
 import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.component';
 import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.component';
+import { TextareaTesterComponent } from './textarea-tester/textarea-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -96,6 +97,10 @@ export const appRoutes: Routes = [
   {
     path: 'time-field-tester',
     component: TimeFieldTesterComponent,
+  },
+  {
+    path: 'textarea-field-tester',
+    component: TextareaTesterComponent,
   },
 ];
 
