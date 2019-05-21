@@ -1,13 +1,11 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { Directive, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[gpUppercase]',
 })
 export class UppercaseDirective {
-  constructor(private el: ElementRef, private control: NgControl) {}
-
-  @HostListener('input', ['$event']) onEvent($event) {
-    this.control.control.setValue(this.el.nativeElement.value.toUpperCase());
+  @HostListener('input', ['$event.target', '$event.target.value'])
+  onInput(el: any, value: string): void {
+    el.value = value.toUpperCase();
   }
 }
