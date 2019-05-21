@@ -10,11 +10,9 @@ export * from './components/menu/gp.app.topbar.component';
 export * from './components/multi-idioma/gp.app.multi-idioma.component';
 export * from './components/multiselect/gp.app.multi-select.component';
 export * from './components/password/gp.app.modifica-password.component';
-export * from './components/qlikview/gp.app.qlikview.frame.component';
+export * from './components/rating/gp.app.rating.component';
 export * from './components/redirect/gp.app.redirect.component';
 export * from './components/remote-fsys/gp.app.remote-fsys-picker.component';
-export * from './components/reports/gp-app-report-dialog.component';
-export * from './components/reports/gp-app-report-frame.component';
 export * from './components/tables/gp-app-table-crud.component';
 export * from './components/tables/gp-app-table-crud-yield.component';
 export * from './components/tables/gp-app-table-frame.component';
@@ -30,7 +28,6 @@ export * from './components/tables/gp-form-textarea-field.component';
 export * from './components/tables/gp-form-time-field.component';
 export * from './components/tables/gp-form-wysiwyg-field.component';
 export * from './components/dynamic/gp.dynamic.component';
-export * from './components/rating/gp.app.rating.component';
 /** @author 3digits */
 export * from './components/tables/gp-treetable.component';
 
@@ -65,7 +62,6 @@ export * from './services/app-menu.service';
 export * from './services/common.service';
 export * from './services/global.service';
 export * from './services/login.service';
-export * from './services/report.service';
 export * from './services/table.service';
 export * from './services/multi-idioma.service';
 export * from './services/remote-fsys.service';
