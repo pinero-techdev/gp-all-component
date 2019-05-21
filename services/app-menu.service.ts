@@ -22,6 +22,9 @@ export class AppMenuService {
               this.cargarOpciones(this.temp, data.menu.opciones);
             }
             GlobalService.setRoles(data.roles);
+            /** Inicio @author 3digits */
+            GlobalService.setOptionsMenu(data.menu.opciones);
+            /** Fin @author 3digits */
           } else {
             console.error('No se recuperó un menú');
           }
