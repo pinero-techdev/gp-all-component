@@ -1,0 +1,11 @@
+@import './../../../../resources/scss/theme-360/theme';
+
+::ng-deep {
+  .ui-inputtext.ui-widget {
+    @include make-input();
+
+    &:enabled:hover:not(.ui-state-error) {
+      border-color: $inputBorderColor;
+    }
+  }
+}

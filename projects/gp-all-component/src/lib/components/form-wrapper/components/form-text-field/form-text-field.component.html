@@ -1,10 +1,9 @@
-<div class="ui-row-fluid">
+<div class="p-grid">
   <div
-    [class.ui-col-fluid-12]="formField.fieldMetadata.displayInfo.translationInfo == null"
-    [class.ui-col-fluid-10]="
+    [class.p-col-12]="formField.fieldMetadata.displayInfo.translationInfo == null"
+    [class.p-col-10]="
       formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''
     "
-    class="ui-col-fluid nopad"
   >
     <input
       name="__field__{{ formField?.fieldMetadata.fieldName }}"
@@ -19,21 +18,18 @@
     />
   </div>
   <div
-    class="ui-col-fluid ui-col-fluid-2 nopad"
     *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''"
+    class="p-col-2"
   >
-    <!-- TODO: change to gp-multi-language -->
-    <!-- <gp-multi-idioma
-          [pKey]="translationKeys"
-          [esquema]="formField.fieldMetadata.displayInfo.translationInfo.scheme"
-          [tabla]="formField.fieldMetadata.displayInfo.translationInfo.table"
-          [campo]="formField.fieldMetadata.displayInfo.translationInfo.field"
-          [campoDescripcion]="formField.fieldMetadata.displayInfo.translationInfo.description"
-          [habilitarEdicionHTML]="
-              formField.fieldMetadata.displayInfo.translationInfo.allowEdition
-          "
-          [orderByLangCod]="formField.fieldMetadata.displayInfo.translationInfo.orderByLangCod"
-      >
-      </gp-multi-idioma> -->
+    <gp-multi-language
+      [pKey]="translationKeys"
+      [schema]="formField.fieldMetadata.displayInfo.translationInfo.scheme"
+      [table]="formField.fieldMetadata.displayInfo.translationInfo.table"
+      [field]="formField.fieldMetadata.displayInfo.translationInfo.field"
+      [description]="formField.fieldMetadata.displayInfo.translationInfo.description"
+      [isEditing]="formField.fieldMetadata.displayInfo.translationInfo.allowEdition"
+      [orderByLangCod]="formField.fieldMetadata.displayInfo.translationInfo.orderByLangCod"
+    >
+    </gp-multi-language>
   </div>
 </div>
