@@ -16,6 +16,7 @@ import { TableFrameTesterComponent } from './table-frame-tester/table-frame-test
 import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.module';
 import { TextareaTesterComponent } from './textarea-tester/textarea-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
+import { FormCheckboxFieldTesterComponent } from './form-checkbox-field-tester/form-checkbox-field-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
 import { CalendarTesterComponent } from './calendar-tester/calendar-tester.component';
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
@@ -38,6 +39,7 @@ import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.
     DropdownRelatedTesterComponent,
     DropdownTesterComponent,
     DynamicTesterComponent,
+    FormCheckboxFieldTesterComponent,
     ImgTesterComponent,
     LoadingIndicatorTesterComponent,
     MainMenuTesterComponent,
@@ -71,6 +73,7 @@ import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.
     DropdownRelatedTesterComponent,
     DropdownTesterComponent,
     DynamicTesterComponent,
+    FormCheckboxFieldTesterComponent,
     ImgTesterComponent,
     LoadingIndicatorTesterComponent,
     MainMenuTesterComponent,

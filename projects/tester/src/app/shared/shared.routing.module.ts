@@ -13,6 +13,7 @@ import { TableFrameTesterComponent } from './table-frame-tester/table-frame-test
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
+import { FormCheckboxFieldTesterComponent } from './form-checkbox-field-tester/form-checkbox-field-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
 import { CalendarTesterComponent } from './calendar-tester/calendar-tester.component';
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
@@ -73,6 +74,10 @@ export const appRoutes: Routes = [
   {
     path: 'dropdown-related-tester',
     component: DropdownRelatedTesterComponent,
+  },
+  {
+    path: 'checkbox-tester',
+    component: FormCheckboxFieldTesterComponent,
   },
   {
     path: 'img-tester',
