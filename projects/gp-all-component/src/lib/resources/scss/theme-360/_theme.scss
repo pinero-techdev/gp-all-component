@@ -18,8 +18,11 @@ li,
 a,
 button::ng-deep,
 input,
-textarea {
-  font-family: 'latolatinregular', sans-serif;
+textarea,
+p-multiselect ::ng-deep .ui-widget,
+p-dropdown ::ng-deep .ui-widget,
+p-calendar ::ng-deep .ui-widget {
+  font-family: $mainFont;
 }
 
 i,
