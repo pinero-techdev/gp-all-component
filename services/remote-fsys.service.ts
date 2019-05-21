@@ -7,7 +7,9 @@ import { BaseDir } from '../resources/data/baseDir';
 import { GlobalService } from './global.service';
 
 export class ObtenListaFicherosRq {
-  constructor() {}
+
+  constructor() {
+  }
 }
 
 export class ObtenListaFicherosRs extends CommonRs {
@@ -38,11 +40,17 @@ export class RemoteFsysService extends CommonService {
 
   obtenListaFicheros(request: ObtenListaFicherosRq): Observable<ObtenListaFicherosRs> {
     let rq = JSON.stringify(request);
-    return this.serviceRequest<ObtenListaFicherosRs>(`${GlobalService.BASE_URL}/utils-svc/obtenListaFicheros`, rq);
+    return this.serviceRequest<ObtenListaFicherosRs>(
+      `${GlobalService.BASE_URL}/utils-svc/obtenListaFicheros`, 
+      rq
+    );
   }
 
   obtenNivelSuperior(request: ObtenNivelSuperiorRq): Observable<ObtenNivelSuperiorRs> {
     let rq = JSON.stringify(request);
-    return this.serviceRequest<ObtenNivelSuperiorRs>(`${GlobalService.BASE_URL}/utils-svc/obtenNivelSuperior`, rq);
+    return this.serviceRequest<ObtenNivelSuperiorRs>(
+      `${GlobalService.BASE_URL}/utils-svc/obtenNivelSuperior`, 
+      rq
+    );
   }
 }

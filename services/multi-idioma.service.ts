@@ -40,7 +40,9 @@ export class UpdateTraduccionesRq {
   }
 }
 
-export class UpdateTraduccionesRs extends CommonRs {}
+export class UpdateTraduccionesRs extends CommonRs {
+
+}
 
 @Injectable()
 export class MultiIdomaService extends CommonService {
@@ -48,7 +50,8 @@ export class MultiIdomaService extends CommonService {
     let urlServicio = `${GlobalService.BASE_URL}/multiidioma-svc/getTranslations`;
     let rq = JSON.stringify(request);
 
-    return this.serviceRequest<GetTraduccionesRs>(urlServicio, rq);
+    return this.serviceRequest<GetTraduccionesRs>(
+        urlServicio, rq);
   }
 
   actualizaTraducciones(request: UpdateTraduccionesRq): Observable<UpdateTraduccionesRs> {

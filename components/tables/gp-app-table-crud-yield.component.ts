@@ -19,6 +19,7 @@ import { GpFormWysiwygFieldComponent } from './gp-form-wysiwyg-field.component';
 import { GpFormDropdownDynamicFieldComponent } from './gp-form-dropdown-dynamic-field.component';
 import { GPTreeTableComponent } from './gp-treetable.component';
 
+
 @Component({
   selector: 'gp-app-table-crud-yield',
   templateUrl: './gp-app-table-crud-yield.component.html',

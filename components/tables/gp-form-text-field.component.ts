@@ -8,6 +8,7 @@ import { GpFormField, GpFormFieldControl } from './gp-app-table-crud-shared';
   templateUrl: './gp-form-text-field.component.html'
 })
 export class GpFormTextFieldComponent extends GpFormFieldControl implements OnInit {
+ 
   @Input() formField: GpFormField;
 
   currentValueText: string;
@@ -17,6 +18,11 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
   maxLength: number;
 
   translationKeys: string = '';
+
+  // Vars control Insercion, edicion, borrado
+  @Input() canAdd = true;
+  @Input() canEdit = true;
+  @Input() canDelete = true;
 
   public static FORM_FIELD_TYPE_TEXT_FIELD: string = 'gp-form-text-field';
 
@@ -72,6 +78,7 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
 
     // console.log("GpFormFieldComponent.changeItemValue newValue '" + newValue + "'" );
     editedRow[this.formField.fieldMetadata.fieldName] = newValue;
+
   }
 
   copyValueFromEditedRowToControl(editedRow: any) {
@@ -82,15 +89,13 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
 
     // Si tiene traducción, recogemos todos los valores de los campos que actuan como identificadores
     // y los juntamos para crear el identificador de la tabla de traducciones
-    if (
-      this.formField.fieldMetadata.displayInfo.translationInfo != null &&
-      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields != null
-    ) {
+    if (this.formField.fieldMetadata.displayInfo.translationInfo != null &&this.formField.fieldMetadata.displayInfo.translationInfo.keyFields != null) {
       this.translationKeys = '';
       for (let keyField of this.formField.fieldMetadata.displayInfo.translationInfo.keyFields) {
         this.translationKeys += editedRow[keyField];
       }
     }
+
   }
 
   validateField(editedRow: any) {
@@ -136,9 +141,7 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
         if (this.formField.fieldMetadata.displayInfo.textProperties.indexOf(TableService.TEXT_NO_SPACE) != -1) {
           if (/\s/.test(valorCampo)) {
             this.formField.validField = false;
-            this.validateFieldAddMsgs(
-              'El valor indicado no puede contener espacios. Han sido eliminados. Seleccione guardar otra vez para aceptar los cambios.'
-            );
+            this.validateFieldAddMsgs('El valor indicado no puede contener espacios. Han sido eliminados. Seleccione guardar otra vez para aceptar los cambios.');
             valorCampo = valorCampo.replace(/\s/g, '');
             this.currentValueText = valorCampo;
           }
@@ -153,17 +156,13 @@ export class GpFormTextFieldComponent extends GpFormFieldControl implements OnIn
       // Por defecto, solo caracteres ASCII.
       if (/[\u0000-\u0019]/.test(valorCampo)) {
         this.formField.validField = false;
-        this.validateFieldAddMsgs(
-          'El valor indicado contiene caracteres de control. Han sido sustituidos por espacios. Seleccione guardar otra vez para aceptar los cambios.'
-        );
+        this.validateFieldAddMsgs('El valor indicado contiene caracteres de control. Han sido sustituidos por espacios. Seleccione guardar otra vez para aceptar los cambios.');
         valorCampo = valorCampo.replace(/[\u0000-\u0019]/g, ' ');
         this.currentValueText = valorCampo;
       }
       if (/[\u0080-\uFFFF]/.test(valorCampo)) {
         this.formField.validField = false;
-        this.validateFieldAddMsgs(
-          'El valor indicado contiene caracteres no válidos (acentos, eñes, c cedillas, ...). Han sido sustituidos por caracteres equivalentes o descartados. Seleccione guardar otra vez para aceptar los cambios.'
-        );
+        this.validateFieldAddMsgs('El valor indicado contiene caracteres no válidos (acentos, eñes, c cedillas, ...). Han sido sustituidos por caracteres equivalentes o descartados. Seleccione guardar otra vez para aceptar los cambios.');
         valorCampo = GPUtil.normaliza(valorCampo);
         this.currentValueText = valorCampo;
       }

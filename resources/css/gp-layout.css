@@ -41,7 +41,6 @@ a {
 
 .texto-lopd {
   white-space: pre-wrap;
-  height: 80vh;
   overflow-x: hidden;
   height: 30vh;
 }
@@ -113,13 +112,11 @@ button[disabled] {
 }
 
 .control-valid {
-  border-left: 5px solid #42a948 !important;
-  /* green */
+  border-left: 5px solid #42a948 !important; /* green */
 }
 
 .control-error {
-  border-left: 5px solid #a94442 !important;
-  /* red */
+  border-left: 5px solid #a94442 !important; /* red */
 }
 
 /*para mostrar bien las validaciones*/

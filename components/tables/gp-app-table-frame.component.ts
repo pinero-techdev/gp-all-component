@@ -11,7 +11,9 @@ export class GpAppTableFrameComponent implements OnInit, OnDestroy {
   tableName: string;
   @ViewChild(GpAppTableCrudComponent) viewChild: GpAppTableCrudComponent;
 
-  constructor(private _route: ActivatedRoute, private _router: Router) {}
+  constructor(private _route: ActivatedRoute, 
+              private _router: Router) {
+  }
 
   ngOnInit() {
     this.sub = this._route.params.subscribe(params => {
@@ -22,7 +24,8 @@ export class GpAppTableFrameComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.sub) {
+    if (this.sub) 
+    {
       this.sub.unsubscribe();
     }
   }

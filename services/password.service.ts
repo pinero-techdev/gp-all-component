@@ -17,10 +17,12 @@ export class ModificaPasswordRq {
 
 @Injectable()
 export class PasswordService extends CommonService {
+
   modifica(request: ModificaPasswordRq): Observable<CommonRs> {
     let urlServicio = `${GlobalService.BASE_URL}/password-svc/modifica`;
     let rq = JSON.stringify(request);
 
-    return this.serviceRequest<CommonRs>(urlServicio, rq);
+    return this.serviceRequest<CommonRs>(
+      urlServicio, rq);
   }
 }

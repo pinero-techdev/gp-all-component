@@ -1,5 +1,7 @@
 import { SelectItem, MenuItem } from 'primeng/primeng';
-import { GPSelectItem } from './gpSelectItem';
+import {isNullOrUndefined} from 'util';
+import {GPSelectItem} from './gpSelectItem';
+import moment = require('moment/moment');
 
 export class GPUtil {
   public static readonly odd_reA = new RegExp('\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5', 'g');
@@ -38,7 +40,23 @@ export class GPUtil {
     return s;
   }
 
-  public static dateToYyyymmdd(dt: Date, possibleFormat: string, value: string): string {
+  public static str2Date(str: string, fmt: string): Date {
+    let fecha = null;
+    if (str) {
+        fecha = moment.utc(str, fmt).toDate();
+    }
+    return fecha;
+  }
+
+  public static str2DateString(str: string, fmt1: string, fmt2: string): string {
+      let fecha = null;
+      if (str) {
+          fecha = moment.utc(str, fmt1).format(fmt2);
+      }
+      return fecha;
+  }
+
+  public static dateToYyyymmdd(dt: Date, possibleFormat: string, value?: string): string {
     if (dt == null) {
       return null;
     }
@@ -64,14 +82,15 @@ export class GPUtil {
     }
   }
 
+  //deprecated ('use str2Date instead')
   public static yyyymmddToDate(s: string): Date {
-    let y: number;
-    let m: number;
-    let d: number;
-
     if (s == null || s == '') {
       return null;
     }
+
+    let y: number;
+    let m: number;
+    let d: number;
 
     if (GPUtil.ddmmyyyyRegex.test(s)) {
       y = parseInt(s.substr(6, 4));
@@ -88,6 +107,7 @@ export class GPUtil {
     return dt;
   }
 
+  //deprecated ("use str2DateString instead")
   public static yyyymmddToDateFormat(yyyymmdd: string, format: string): string {
     if (yyyymmdd == null || yyyymmdd == '') {
       return null;
@@ -122,13 +142,13 @@ export class GPUtil {
     throw "Formato de fecha invalido '" + format + "'";
   }
 
+  //depreacted ("use str2Date instead")
   public static hhmmToDate(time: string, format: string): Date {
     let date = new Date();
     if (time == null || time == '') {
       return null;
     }
 
-    console.log('formato: ' + format);
     if (format == 'hh:mm') {
       let h = parseInt(time.substr(0, 2));
       let m = parseInt(time.substr(3, 2));
@@ -188,14 +208,7 @@ export class GPUtil {
    * @param adicional  - Identificador atributo posibles datos adicionales
    * @return {SelectItem[]}
    */
-  public obtenerSelector(
-    datos: any[],
-    atributoValor: string,
-    atributoDesc: string[],
-    descripcionPorDefecto?: string,
-    separadorAtributosDesc?: string,
-    adicional?: string
-  ): GPSelectItem[] {
+  public obtenerSelector(datos: any[], atributoValor: string, atributoDesc: string[], descripcionPorDefecto?: string, separadorAtributosDesc?: string, adicional?: string): GPSelectItem[] {
     let selector: GPSelectItem[] = [];
     let separador = ' - ';
     if (separadorAtributosDesc) {
@@ -252,11 +265,48 @@ export class GPUtil {
     return 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(dni.substring(0, 8) % 23);
   }
 
-  public booleanToString(input: boolean, trueValue: string = 'S', falseValue: string = 'N'): string {
+  public static calculaDni(value): String {
+    if (value.length >= 8) {
+        let letraDni = this.letraDni(value);
+        value = (value.substring(0, 8) + letraDni);
+    }
+    return value;
+  }
+
+
+  public static booleanToString(input: boolean, trueValue?: string, falseValue?: string): string {
     if (input) {
-      return trueValue;
+        if (!isNullOrUndefined(trueValue)) {
+            return trueValue;
+        } else {
+            return 'S';
+        }
     } else {
-      return falseValue;
+        if (!isNullOrUndefined(falseValue)) {
+            return falseValue;
+        } else {
+            return 'N';
+        }
+    }
+  }
+
+  public triBooleanToString(input: boolean, trueValue?: string, falseValue?: string): string {
+    if (input === true) {
+        if (!isNullOrUndefined(trueValue)) {
+            return trueValue;
+        } else {
+            return 'S';
+        }
+    } else {
+        if (input === false) {
+            if (!isNullOrUndefined(falseValue)) {
+                return falseValue;
+            } else {
+                return 'N';
+            }
+        } else {
+            return null;
+        }
     }
   }
 
@@ -297,8 +347,9 @@ export class GPUtil {
    * Debido a un bug en primeng, no se pueden poner rangos relativos en el calendar
    * @return {string}
    */
-  public obtainCalendarYearRange(): string {
-    return '1900:' + new Date().getFullYear();
+  public obtainCalendarYearRange(offset: number = 0): string {
+    let year = (new Date).getFullYear() + offset;
+    return '1900:' + year;
   }
 
   /**
@@ -336,14 +387,8 @@ export class GPUtil {
    * @param atributoDesc nombre del atributo que continene la descripción
    * @return {any}
    */
-  public cargarMenuItemDesdePadre(
-    codigoItemPadre: string,
-    itemsMenu: MenuItem[],
-    datos: any[],
-    atributoCod: string,
-    atributoDesc: string,
-    hasChilds: boolean
-  ): any[] {
+  public cargarMenuItemDesdePadre(codigoItemPadre: string, itemsMenu: MenuItem[], datos: any[], atributoCod: string, atributoDesc: string, hasChilds: boolean): any[] {
+
     for (let itemPadre of itemsMenu) {
       //seleccionamos el item sobre el que actualizar su array de items a traves del codigoSeleccionado
       if (itemPadre.title == codigoItemPadre) {
@@ -353,4 +398,39 @@ export class GPUtil {
     }
     return itemsMenu;
   }
+
+    public limpiaSaltosLinea(s: string): string {
+        if (s == null || s == '') {
+            console.log(s);
+            return s;
+        } else {
+            return s.replace(/[\r\n]/g, '');
+        }
+    }
+
+    public getUserId(): string {
+        let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        if (userInfo != undefined && userInfo != null) {
+            return userInfo.userId;
+        } else {
+            return null;
+        }
+    }
+
+    public calculaEdad(birthday: Date): number {
+        let ageDifMs = Date.now() - birthday.getTime();
+        let ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+
+    public static base64ToBlob(string: string): Blob {
+        var byteCharacters = atob(string);
+        var byteNumbers = new Array(byteCharacters.length);
+        for (var i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(byteNumbers);
+        var blob = new Blob([byteArray], {type: 'application/pdf'});
+        return blob;
+    }
 }

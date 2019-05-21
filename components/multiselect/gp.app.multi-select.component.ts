@@ -16,6 +16,7 @@ export const CUSTOM_CONTROL_VALUE_ACCESSOR: any = {
   providers: [CUSTOM_CONTROL_VALUE_ACCESSOR]
 })
 export class GpAppMultiSelectComponent implements ControlValueAccessor {
+
   /**
    * Texto que se mostrará junto con el número de elementos seleccionados
    * @type {string}
@@ -43,6 +44,9 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor {
   styleClass: string = null;
 
   @Input()
+  filter: boolean = true;
+
+  @Input()
   scrollHeight: string = '200px';
 
   @Input()
@@ -65,7 +69,7 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor {
   //get accessor
   get valor(): any {
     return this.innerValue;
-  }
+  };
 
   //set accessor including call the onchange callback
   set valor(v: any) {
@@ -102,7 +106,7 @@ export class GpAppMultiSelectComponent implements ControlValueAccessor {
           label = this.defaultLabel;
           this.valuesAsString = label;
         }
-      };
+      }
     }
   }
 

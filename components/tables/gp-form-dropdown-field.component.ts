@@ -9,12 +9,11 @@ import { InfoCampoModificado } from '../../resources/data/infoCampoModificado';
   templateUrl: './gp-form-dropdown-field.component.html'
 })
 export class GpFormDropdownFieldComponent extends GpFormFieldControl {
+  
   @Input() formField: GpFormField;
 
   @Output()
   valueChanged = new EventEmitter<InfoCampoModificado>();
-
-  visible: boolean = true;
 
   // Drop down.
   currentValueDropDown: string;
@@ -51,11 +50,7 @@ export class GpFormDropdownFieldComponent extends GpFormFieldControl {
 
   inicializa() {
     this.listAllowedValuesOptions = [];
-    if (
-      this.formField.fieldMetadata.displayInfo &&
-      this.formField.fieldMetadata.displayInfo.options != null &&
-      this.formField.fieldMetadata.displayInfo.options.length > 0
-    ) {
+    if (this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo.options != null && this.formField.fieldMetadata.displayInfo.options.length > 0 ) {
       this.listAllowedValuesOptions.push({
         label: 'Seleccione ' + this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase() + ' ...',
         value: null
@@ -64,29 +59,22 @@ export class GpFormDropdownFieldComponent extends GpFormFieldControl {
         this.listAllowedValuesOptions.push({ label: i.description, value: i.value });
       }
       console.log('GpFormDropdownFieldComponent.Allowed value: ' + JSON.stringify(this.listAllowedValuesOptions));
-    } else if (
-      this.formField.fieldMetadata.displayInfo &&
-      this.formField.fieldMetadata.displayInfo.referencedTable != null &&
-      this.formField.fieldMetadata.displayInfo.referencedTable != ''
-    ) {
+    } 
+    else if (this.formField.fieldMetadata.displayInfo && this.formField.fieldMetadata.displayInfo.referencedTable != null && this.formField.fieldMetadata.displayInfo.referencedTable != '') {
       // Cargamos los datos de una tabla?
       console.log('GpFormDropdownFieldComponent.ngOnInit: loading from table ' + this.formField.fieldMetadata.displayInfo.referencedTable);
       this.listAllowedValuesOptions = [{ label: 'Cargando los datos del desplegable ...', value: null }];
       console.log(this.formField.fieldMetadata.displayInfo.referencedTable);
       let fieldToOrderBy = this.formField.fieldMetadata.displayInfo.fieldToOrderBy ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy] : null;
-      this._tableService
-        .list(this.formField.fieldMetadata.displayInfo.referencedTable, true, true, fieldToOrderBy, this.formField.fieldMetadata.displayInfo.filters)
-        .subscribe(
+      this._tableService.list(this.formField.fieldMetadata.displayInfo.referencedTable, true, true, fieldToOrderBy, this.formField.fieldMetadata.displayInfo.filters).subscribe(
           data => {
             if (data.ok) {
               // Recuperamos la lista.
               // TODO Hacer que busque automaticamente el id cuando no venga referencedField.
-              this.listAllowedValuesOptions = [
-                {
+              this.listAllowedValuesOptions = [{
                   label: 'Seleccione ' + this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase() + ' ...',
                   value: null
-                }
-              ];
+                }];
               for (let row of data.data) {
                 let optionLabel = '';
                 let separator = '';
@@ -99,14 +87,15 @@ export class GpFormDropdownFieldComponent extends GpFormFieldControl {
                   value: row[this.formField.fieldMetadata.displayInfo.referencedField]
                 });
               }
-            } else {
+              
+            } 
+            else {
               this.listAllowedValuesOptions = [{ label: 'Error recuperando datos.', value: null }];
             }
           },
           err => {
             this.listAllowedValuesOptions = [{ label: 'Error recuperando datos.', value: null }];
-          }
-        );
+          });
     }
   }
 

@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './gp.app.rating.component.html'
 })
 export class GpAppRatingComponent {
+  
   @Input()
   set stars(numStars: number) {
     let array = [];

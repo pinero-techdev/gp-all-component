@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { GlobalService } from '../../services/global.service';
-import { MenuRq } from './menuRq';
-import { AppMenuService } from '../../services/app-menu.service';
-import { AppMenuProviderService } from '../../services/app-menu-provider.service';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import {GlobalService} from '../../services/global.service';
+import {MenuRq} from './menuRq';
+import {AppMenuService} from '../../services/app-menu.service';
+import {AppMenuProviderService} from '../../services/app-menu-provider.service';
+import {Observable} from 'rxjs/Rx';
 
 /**
  * Guard para acciones que no vienen en el menu, sino que se crean al crear ventanas o al redirigir dentro de alguna
@@ -12,7 +12,11 @@ import { Observable } from 'rxjs/Rx';
  */
 @Injectable()
 export class RedirectAuthGuard implements CanActivate {
-  constructor(private _router: Router, private _menu: AppMenuService, private _menuAppMenuProviderService: AppMenuProviderService) {}
+
+  constructor(private _router: Router, 
+              private _menu: AppMenuService, 
+              private _menuAppMenuProviderService: AppMenuProviderService) {
+  }
 
   /**
    * Para poder utilizarlo, en el routes de la aplicación se tendrá que declarar la ruta de la siguiente manera:
@@ -26,6 +30,7 @@ export class RedirectAuthGuard implements CanActivate {
    * @return {any}
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  
     let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     let userId = null;
     if (userInfo != undefined && userInfo != null) {
@@ -40,28 +45,37 @@ export class RedirectAuthGuard implements CanActivate {
     console.log('RedirectGuard, canActivate, globalService: ' + sessionStorage.getItem('userInfo'));
 
     if (GlobalService.LOGGED || null != sessionStorage.getItem('userInfo')) {
+      
       if (menuOptions && menuOptions.length > 0) {
         let request: MenuRq = new MenuRq(GlobalService.SESSION_ID, GlobalService.PARAMS);
-        return this._menu.obtenMenu(request).map(menu => {
-          if (menu) {
-            // Check if one of the menu options that can be used to redirect is active
-            let accesoPermitido = this._menuAppMenuProviderService.tieneOpcionesMenuActivas(menu, menuOptions);
+        return this._menu.obtenMenu(request)
+        .map(
+          menu => {
 
-            if (!accesoPermitido) {
-              console.error('El usuario ' + userId + ' no tiene los permisos necesarios para acceder a ' + url);
+            if (menu) {
+              // Check if one of the menu options that can be used to redirect is active
+              let accesoPermitido = this._menuAppMenuProviderService.tieneOpcionesMenuActivas(menu, menuOptions);
+
+              if (!accesoPermitido) {
+                console.error('El usuario ' + userId + ' no tiene los permisos necesarios para acceder a ' + url);
+              }
+              return accesoPermitido;
+
+            } else {
+              console.error('El usuario ' + userId + ' no tiene menú asociado en la aplicación ' + GlobalService.APP);
+              return Observable.of(false);
+
             }
-            return accesoPermitido;
-          } else {
-            console.error('El usuario ' + userId + ' no tiene menú asociado en la aplicación ' + GlobalService.APP);
-            return Observable.of(false);
           }
-        });
+        );
       } else {
         console.error('No se han informado de opciones menu desde las que se pueda llamar a la url: ' + url);
         return Observable.of(false);
       }
+
     } else {
-      console.error('El usuario  no se encuentra logado');
+
+      console.error('El usuario  no se encuentra logeado');
       // not logged in so redirect to login page
       this._router.navigate(['/login']);
       return Observable.of(false);

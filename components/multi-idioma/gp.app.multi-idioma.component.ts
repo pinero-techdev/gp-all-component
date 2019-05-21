@@ -1,7 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Mensajes } from '../../resources/data/mensajes';
 import { Traduccion } from '../../resources/data/traduccion.model';
-import { MultiIdomaService, GetTraduccionesRq, UpdateTraduccionesRq } from '../../services/multi-idioma.service';
+import { 
+  MultiIdomaService,
+  GetTraduccionesRq,
+  UpdateTraduccionesRq
+} from '../../services/multi-idioma.service';
 import 'rxjs/add/operator/finally';
 
 export const orderLanguage = ['ES', 'EN', 'FR', 'DE', 'IT', 'PT'];
@@ -19,6 +23,9 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
   @Input() campoDescripcion: string;
   @Input() habilitarEdicionHTML: boolean;
   @Input() orderByLangCod: boolean = true;
+  // Vars control edicion
+  @Input() canEdit = true;
+
   visualizarTablaTraducciones: boolean;
   visualizarEdicionHTML: boolean;
   traduccionTextoHTML: string;
@@ -50,6 +57,7 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
       // the first argument is a function which runs on success
       data => {
         if (data.ok) {
+
           let traducciones = data.traducciones;
           if (!this.orderByLangCod) {
             traducciones = this.ordenarTraducciones(data.traducciones, orderLanguage);
@@ -85,20 +93,12 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
   guardarCambios() {
     this.working = true;
     for (let traduccionesInsertar of this.elementosTraducciones) {
-      let request = new UpdateTraduccionesRq(
-        this.pKey,
-        this.esquema,
-        this.tabla,
-        this.campo,
+      let request = new UpdateTraduccionesRq(this.pKey, this.esquema, this.tabla, this.campo,
         traduccionesInsertar.codigoIdioma,
-        traduccionesInsertar.idiomaPaisTraduccion
-      );
-      this._multiIdiomaService
-        .actualizaTraducciones(request)
-        .finally(() => {
+        traduccionesInsertar.idiomaPaisTraduccion);
+      this._multiIdiomaService.actualizaTraducciones(request).finally(() => {
           this.working = false;
-        })
-        .subscribe(
+        }).subscribe(
           // the first argument is a function which runs on success
           data => {
             if (data.ok) {
@@ -116,10 +116,7 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
   }
 
   contieneHtml(traduccion: string): boolean {
-    return (
-      traduccion != null &&
-      (traduccion.indexOf('</') != -1 || traduccion.indexOf('/>') != -1 || traduccion.indexOf('&lt;') != -1 || traduccion.indexOf('&gt;') != -1)
-    );
+    return traduccion != null && (traduccion.indexOf('</') != -1 || traduccion.indexOf('/>') != -1 || traduccion.indexOf('&lt;') != -1 || traduccion.indexOf('&gt;') != -1);
   }
 
   cerrarEdicionTraduccion() {
@@ -130,11 +127,7 @@ export class GpAppMultiIdiomaComponent extends Mensajes implements OnInit {
   }
 
   mostrarDialogoEdicionHTML(traduccion: Traduccion) {
-    this.textoHTML = new Traduccion(
-      traduccion.codigoIdioma,
-      traduccion.idiomaPais,
-      traduccion.idiomaPaisTraduccion != null ? traduccion.idiomaPaisTraduccion : ''
-    );
+    this.textoHTML = new Traduccion(traduccion.codigoIdioma, traduccion.idiomaPais, traduccion.idiomaPaisTraduccion != null ? traduccion.idiomaPaisTraduccion : '');
     if (this.habilitarEdicionHTML) {
       this.visualizarTablaTraducciones = false;
       this.visualizarEdicionHTML = true;

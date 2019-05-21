@@ -8,6 +8,7 @@ import { GpFormField, GpFormFieldControl } from './gp-app-table-crud-shared';
   templateUrl: './gp-form-calendar-field.component.html'
 })
 export class GpFormCalendarFieldComponent extends GpFormFieldControl implements OnInit {
+  
   @Input() formField: GpFormField;
 
   currentValueDate: Date = null;
@@ -31,18 +32,19 @@ export class GpFormCalendarFieldComponent extends GpFormFieldControl implements 
       dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
       monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
       monthNamesShort: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
-    };
+    }
   }
 
   public getFormField(): GpFormField {
     return this.formField;
   }
 
-  inicializa() {}
+  inicializa() {
+  }
 
-  copyValueFromControlToEditedRow(editedRow: any) {
+  copyValueFromControlToEditedRow( editedRow : any) {
     let value = editedRow[this.formField.fieldMetadata.fieldName];
-    console.log('GpFormCalendarFieldComponent.copyValueFromControlToEditedRow currentValueDate ' + JSON.stringify(this.currentValueDate));
+    console.log('GpFormCalendarFieldComponent.copyValueFromControlToEditedRow currentValueDate ' + JSON.stringify( this.currentValueDate ) );
     let newValue = GPUtil.dateToYyyymmdd(this.currentValueDate, this.dateFormat, value); // GPUtil.dateToYyyymmdd( this.currentValueDate, this.dateFormat );
     console.log("GpFormCalendarFieldComponent.copyValueFromControlToEditedRow currentValue '" + value + "' -> '" + newValue + "'");
     // console.log("GpFormFieldComponent.changeItemValue newValue '" + newValue + "'" );

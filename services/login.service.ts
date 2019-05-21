@@ -13,7 +13,9 @@ import { RequestOptions } from '../resources/data/RequestOptions';
 
 @Injectable()
 export class LoginService {
-  constructor(private http: HttpClient) {}
+  
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * Comprueba que el usuario tenga una sesión activa
@@ -38,15 +40,16 @@ export class LoginService {
       let options = new RequestOptions(headers);
       let url = `${GlobalService.LOGIN_SERVICE_URL}/sessionInfo`;
       return this.http.post<SessionInfoRs>(url, sessionInfoRq, options).map(sessionInfoRs => {
-        if (sessionInfoRs.ok) {
-          GlobalService.setSession(sessionInfoRs.userInfo);
-          GlobalService.setSessionId(sessionInfoRs.sessionId);
-          GlobalService.setLogged(true);
-          sessionStorage.setItem('userInfo', JSON.stringify(sessionInfoRs.userInfo));
-          sessionStorage.setItem('sessionId', sessionInfoRs.sessionId);
+          if (sessionInfoRs.ok) {
+            GlobalService.setSession(sessionInfoRs.userInfo);
+            GlobalService.setSessionId(sessionInfoRs.sessionId);
+            GlobalService.setLogged(true);
+            sessionStorage.setItem('userInfo', JSON.stringify(sessionInfoRs.userInfo));
+            sessionStorage.setItem('sessionId', sessionInfoRs.sessionId);
+          }
+          return sessionInfoRs;
         }
-        return sessionInfoRs;
-      });
+      );
     } else {
       let rs = new SessionInfoRs();
       rs.ok = false;
@@ -61,7 +64,7 @@ export class LoginService {
    * @returns Json con la sesión del usuario
    */
   login(request: LoginRq) {
-    this.cleanSessionInfo();
+    this.cleanSessionInfo(false);
 
     let body = JSON.stringify(request);
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -88,7 +91,7 @@ export class LoginService {
   logout(): Observable<CommonRs> {
     let logoutRq: any = {};
     logoutRq.sessionId = GlobalService.SESSION_ID;
-    this.cleanSessionInfo();
+    this.cleanSessionInfo(true);
 
     // request de logout.
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -97,12 +100,16 @@ export class LoginService {
     return this.http.post<CommonRs>(url, logoutRq, options);
   }
 
-  cleanSessionInfo() {
+  cleanSessionInfo(cleanPreloginUrl: boolean = true) {
     // Limpieza informacion de sesion.
     sessionStorage.clear();
     // Limpieza de los datos de usuario del global service.
     GlobalService.setLogged(false);
     GlobalService.setSession(new UserInfo());
     GlobalService.setSessionId(null);
+
+    if ( cleanPreloginUrl ) {
+      GlobalService.setPreLoginUrl(null);
+    }
   }
 }

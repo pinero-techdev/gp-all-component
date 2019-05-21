@@ -51,7 +51,9 @@ class CachedResponse {
 
 @Injectable()
 export class CommonService {
-  constructor(protected http: HttpClient) {}
+
+  constructor(protected http: HttpClient) {
+  }
 
   /*
    * dsteinsland: implementacion basica de cache.
@@ -65,13 +67,9 @@ export class CommonService {
 
   cachedServiceRequest<T>(url: string, body: any, ttl?: number): Observable<T> {
     let userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
-    let uintArray = new Uint8Array(
-      JSON.stringify({ userId, url, body })
-        .split('')
-        .map(function(char) {
+    let uintArray = new Uint8Array(JSON.stringify({ userId, url, body }).split('').map(function(char) {
           return char.charCodeAt(0);
-        })
-    );
+    }));
     let key = new Buffer(hash(uintArray)).toString('hex');
     if (sessionStorage.getItem(key) != null) {
       console.debug('cache hit: ' + key + ':' + url);

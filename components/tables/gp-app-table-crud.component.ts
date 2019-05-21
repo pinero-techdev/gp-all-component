@@ -1,20 +1,20 @@
-import { Component, Input, ViewChildren, QueryList, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
-import { Message } from 'primeng/primeng';
-import { TableService, TableMetadata, Filter, FilterOperationType } from '../../services/table.service';
-import { GpFormDropdownFieldComponent } from './gp-form-dropdown-field.component';
-import { GpFormTextFieldComponent } from './gp-form-text-field.component';
-import { GpFormSwitchFieldComponent } from './gp-form-switch-field.component';
-import { GpFormControl, GpFormField, GpFormFieldControl } from './gp-app-table-crud-shared';
-import { GpFormCheckboxFieldComponent } from './gp-form-checkbox-field.component';
-import { GpFormWysiwygFieldComponent } from './gp-form-wysiwyg-field.component';
-import { GpFormCalendarFieldComponent } from './gp-form-calendar-field.component';
-import { GpFormTextAreaFieldComponent } from './gp-form-textarea-field.component';
-import { GpFormTimeFieldComponent } from './gp-form-time-field.component';
-import { GpFormImgFieldComponent } from './gp-form-img-field.component';
-import { GpFormDropdownRelatedfieldComponent } from './gp-form-dropdown-related-field.component';
-import { InfoCampoModificado } from '../../resources/data/infoCampoModificado';
-import { GPUtil } from '../../resources/data/gpUtil';
+import {Component, Input, ViewChildren, QueryList, ViewEncapsulation, Output, EventEmitter} from '@angular/core';
+import {Router} from '@angular/router';
+import {Message} from 'primeng/primeng';
+import {TableService, TableMetadata, Filter, FilterOperationType} from '../../services/table.service';
+import {GpFormDropdownFieldComponent} from './gp-form-dropdown-field.component';
+import {GpFormTextFieldComponent} from './gp-form-text-field.component';
+import {GpFormSwitchFieldComponent} from './gp-form-switch-field.component';
+import {GpFormControl, GpFormField, GpFormFieldControl} from './gp-app-table-crud-shared';
+import {GpFormCheckboxFieldComponent} from './gp-form-checkbox-field.component';
+import {GpFormWysiwygFieldComponent} from './gp-form-wysiwyg-field.component';
+import {GpFormCalendarFieldComponent} from './gp-form-calendar-field.component';
+import {GpFormTextAreaFieldComponent} from './gp-form-textarea-field.component';
+import {GpFormTimeFieldComponent} from './gp-form-time-field.component';
+import {GpFormImgFieldComponent} from './gp-form-img-field.component';
+import {GpFormDropdownRelatedfieldComponent} from './gp-form-dropdown-related-field.component';
+import {InfoCampoModificado} from '../../resources/data/infoCampoModificado';
+import {GPUtil} from '../../resources/data/gpUtil';
 import 'rxjs/add/operator/finally';
 
 @Component({
@@ -32,9 +32,9 @@ export class GpAppTableCrudComponent {
   @Input() rowSelectedFilters: Filter[];
 
   // Vars control Insercion, edicion, borrado
-  @Input() canAdd: boolean = true;
-  @Input() canEdit: boolean = true;
-  @Input() canDelete: boolean = true;
+  @Input() canAdd = true;
+  @Input() canEdit = true;
+  @Input() canDelete = true;
 
   @Output() rowSelected = new EventEmitter<any>();
   @Output() closedDialog = new EventEmitter<boolean>();
@@ -80,7 +80,7 @@ export class GpAppTableCrudComponent {
   formControl: GpFormControl = new GpFormControl();
 
   // Campo que ha sido modificado por el usuario
-  fieldChanged: InfoCampoModificado = null;
+  fieldsChanged: any = {};
 
   @ViewChildren(GpFormTextFieldComponent) textFormFields: QueryList<GpFormTextFieldComponent>;
   @ViewChildren(GpFormImgFieldComponent) imgFormFields: QueryList<GpFormImgFieldComponent>;
@@ -115,23 +115,20 @@ export class GpAppTableCrudComponent {
 
     this.filters = filters;
 
-    this.tableService
-      .list(this.tableName, true, true, fieldsToOrderBy, filters)
-      .finally(() => (this.working = false))
-      .subscribe(
+    this.tableService.list(this.tableName, true, true, fieldsToOrderBy, filters).finally(() => (this.working = false)).subscribe(
         data => {
-          //console.log('getMetadata response:' + JSON.stringify(data));
-          if (data.ok) {
-            this.actualizaDefinicion(data.metadata);
-            this.elementos = data.data;
-          } else {
-            if (data.error != null && data.error.errorMessage != null) {
-              if (data.error.errorMessage == 'No se ha establecido sesion o se ha perdido.') {
-                this.router.navigate(['login']);
+            console.log('getMetadata response:' + JSON.stringify(data));
+            if (data.ok) {
+              this.actualizaDefinicion(data.metadata);
+              this.elementos = data.data;
+            } else {
+              if (data.error != null && data.error.errorMessage != null) {
+                if (data.error.errorMessage == 'No se ha establecido sesion o se ha perdido.') {
+                  this.router.navigate(['login']);
+                }
+                this.showError(data.error.errorMessage.toString());
               }
-              this.showError(data.error.errorMessage.toString());
             }
-          }
         },
         err => {
           console.error(err);
@@ -165,10 +162,7 @@ export class GpAppTableCrudComponent {
     if (this.rowSelectedFilters != null) {
       this.filters = this.rowSelectedFilters;
     }
-    this.tableService
-      .list(this.tableName, true, true, fieldsToOrderBy, this.filters)
-      .finally(() => (this.working = false))
-      .subscribe(
+    this.tableService.list(this.tableName, true, true, fieldsToOrderBy, this.filters).finally(() => (this.working = false)).subscribe(
         data => {
           //console.log('getMetadata response:' + JSON.stringify(data));
           if (data.ok) {
@@ -275,7 +269,6 @@ export class GpAppTableCrudComponent {
           this.formControl.originalRow = JSON.parse(JSON.stringify(data.data));
           let self = this;
           this.forEachFieldControl(function(col: GpFormFieldControl) {
-            console.log(col);
             col.copyValueFromEditedRowToControl(self.formControl.editedRow);
             col.clearValidations();
           });
@@ -290,8 +283,7 @@ export class GpAppTableCrudComponent {
       () => {
         this.formControl.lockFields = false;
         console.log('onRowSelect. end select.');
-      }
-    );
+      });
   }
 
   onDialogDelete() {
@@ -323,8 +315,7 @@ export class GpAppTableCrudComponent {
       () => {
         this.formControl.lockFields = false;
         console.log('onDialogDelete. end delete.');
-      }
-    );
+      });
   }
 
   validateEditRow() {
@@ -378,8 +369,7 @@ export class GpAppTableCrudComponent {
         () => {
           this.formControl.lockFields = false;
           console.log('onDialogSave. end update.');
-        }
-      );
+        });
     } else {
       this.tableService.insertRow(this.tableName, jsonModifiedRow).subscribe(
         data => {
@@ -397,8 +387,7 @@ export class GpAppTableCrudComponent {
         () => {
           this.formControl.lockFields = false;
           console.log('onDialogSave. end insert.');
-        }
-      );
+        });
     }
   }
 
@@ -498,7 +487,8 @@ export class GpAppTableCrudComponent {
   }
 
   changeEvent(info: InfoCampoModificado) {
-    this.fieldChanged = info;
+    this.fieldsChanged[info.field] = info.value;
+    this.fieldsChanged = Object.assign({}, this.fieldsChanged);
   }
 
   selectRowByIndex(atributeName: string, value: any) {

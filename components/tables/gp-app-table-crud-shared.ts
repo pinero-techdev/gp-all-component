@@ -3,11 +3,11 @@ import { Message } from 'primeng/components/common/api';
 
 export class GpFormControl {
   // Fila editada.
-  editedRow: any;
+  editedRow:any;
 
   // Fila en edicion (seleccionada con selectOneRow).
   // Contiene el valor original del registro que esta en edicion.
-  originalRow: any;
+  originalRow:any;
 
   // Operacion que estamos realizando.
   edicionEdit = false;
@@ -18,55 +18,43 @@ export class GpFormControl {
 }
 
 export class GpFormField {
-  tableName: string = null;
   /* Tipo de control usado.*/
-  formFieldType: string = null;
+  formFieldType:string = null;
   /* Indica si el campo es valido o no. */
-  validField: boolean = true;
+  validField:boolean = true;
   /* Mensajes de error asociados del campo. */
-  fieldMsgs: Message[] = null;
-  constructor(public formControl: GpFormControl, public fieldMetadata: FieldMetadata, public table?: string) {
-    this.tableName = table;
-  }
-}
+  fieldMsgs:Message[] = null;
 
-export class GpFormFieldDetail {
-  tableName: string = null;
-  /* Tipo de control usado.*/
-  formFieldType: string = null;
-  /* Indica si el campo es valido o no. */
-  validField: boolean = true;
-  /* Mensajes de error asociados del campo. */
-  fieldMsgs: Message[] = null;
-
-  constructor(public formControl: GpFormControl, public fieldMetadata: FieldMetadata, public table?: string) {
-    this.tableName = table;
+  constructor(public formControl:GpFormControl, public fieldMetadata:FieldMetadata) {
   }
+
 }
 
 export class GpFormFieldControl {
-  public getFormField(): GpFormField {
-    return null;
+  public getFormField():GpFormField {
+      return null;
   }
 
   /* Coge el valor del campo y lo pasa al registro indicado. */
-  copyValueFromControlToEditedRow(editedRow: any) {}
+  copyValueFromControlToEditedRow(editedRow:any) {
+  }
 
   /* Coge el valor de la fila y lo pasa al control. */
-  copyValueFromEditedRowToControl(editedRow: any) {}
+  copyValueFromEditedRowToControl(editedRow:any) {
+  }
 
   /* Valida el campo. */
-  validateField(editedRow: any): boolean {
+  validateField(editedRow:any):boolean {
     return false;
   }
 
   /* Añade un mensaje a la lista de mensajes del campo. */
-  validateFieldAddMsgs(msg: string) {
+  validateFieldAddMsgs(msg:string) {
     this.getFormField().validField = false;
     if (this.getFormField().fieldMsgs == null) {
       this.getFormField().fieldMsgs = [];
     }
-    this.getFormField().fieldMsgs.push({ severity: 'error', detail: msg });
+    this.getFormField().fieldMsgs.push({ severity:'error', detail:msg });
   }
 
   /* Limpia la lista de mensajes de validación del campo y marca
@@ -76,12 +64,8 @@ export class GpFormFieldControl {
     this.getFormField().validField = true;
   }
 
-  controlDisabled(): boolean {
-    return (
-      this.getFormField().formControl.lockFields ||
-      this.getFormField().fieldMetadata.readOnly ||
-      (this.getFormField().fieldMetadata.id && this.getFormField().formControl.edicionEdit)
-    );
+  controlDisabled():boolean {
+    return ( this.getFormField().formControl.lockFields || this.getFormField().fieldMetadata.readOnly || (this.getFormField().fieldMetadata.id && this.getFormField().formControl.edicionEdit) );
   }
 
   onFieldChange() {
@@ -89,5 +73,18 @@ export class GpFormFieldControl {
       return;
     }
     this.copyValueFromControlToEditedRow(this.getFormField().formControl.editedRow);
+  }
+}
+
+/* @autor 3digits*/
+export class GpFormFieldDetail {
+  /* Tipo de control usado.*/
+  formFieldType:string = null;
+  /* Indica si el campo es valido o no. */
+  validField:boolean = true;
+  /* Mensajes de error asociados del campo. */
+  fieldMsgs:Message[] = null;
+
+  constructor(public formControl:GpFormControl, public fieldMetadata:FieldMetadata) {
   }
 }

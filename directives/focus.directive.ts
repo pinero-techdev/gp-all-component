@@ -3,6 +3,7 @@ import { Directive, HostListener, Input } from '@angular/core';
 @Directive({
   selector: '[gp-focus]'
 })
+
 export class FocusDirective {
   @Input() elementToFocus: any;
 
@@ -12,6 +13,7 @@ export class FocusDirective {
       let input = this.elementToFocus.el.nativeElement.querySelector('input');
       if (input) el = input;
     }
-    if (el instanceof HTMLInputElement) el.focus();
+    if (el instanceof HTMLInputElement) 
+        el.focus();
   }
 }

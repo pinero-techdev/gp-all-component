@@ -4,6 +4,7 @@ import { Input, Output, EventEmitter } from '@angular/core';
  * Clase que implementa un item/servicio del menu de servicios
  */
 export class MenuItem {
+  
   /**
    *  Propiedades para mostrar/esconder los menuItems
    */

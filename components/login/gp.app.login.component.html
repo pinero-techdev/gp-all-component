@@ -1,27 +1,29 @@
 <div class="loginbodyblue">
   <div class="card login-panel ui-fluid">
-    <div class="ui-g">
-      <div class="ui-g-12">
-        <h1>{{ applicationTitle }}</h1>
-      </div>
-      <div class="ui-g-12">
-        <span class="md-inputfield">
-          <input type="text" pInputText autocomplete="off" [(ngModel)]="usuario" (keyup.enter)="login()" gp-uppercase /> <label>Usuario</label>
-        </span>
-      </div>
-      <div class="ui-g-12">
-        <span class="md-inputfield">
-          <input type="password" pInputText autocomplete="off" [(ngModel)]="password" (keyup.enter)="login()" /> <label>Password</label>
-        </span>
-      </div>
-      <div class="ui-g-12">
-        <button type="button" pButton label="Sign In" icon="material-icons ui-icon-person" (click)="login()" [disabled]="working"></button>
-      </div>
+      <div class="ui-g">
+          <div class="ui-g-12">
+              <h1 [innerHtml]="applicationTitle"></h1>
+          </div>
+          <div class="ui-g-12">
+          <span class="md-inputfield">
+              <input type="text" pInputText="" autocomplete="off" [(ngModel)]="usuario" (keyup.enter)="login()" gp-uppercase>
+              <label>Usuario</label>
+          </span>
+          </div>
+          <div class="ui-g-12">
+          <span class="md-inputfield">
+              <input type="password" pInputText="" autocomplete="off" [(ngModel)]="password" (keyup.enter)="login()">
+              <label>Password</label>
+          </span>
+          </div>
+          <div class="ui-g-12">
+              <button type="button" pButton label="Sign In" icon="ui-icon-person" (click)="login()" [disabled]="working"></button>
+          </div>
 
-      <p-messages [value]="msgs"></p-messages>
-      <div class="ui-g-12" *ngIf="btnModificaPwdVisible">
-        <button type="button" pButton label="Ir a modificar contraseña" icon="material-icons ui-icon-link" (click)="goModificaPwd()"></button>
+          <p-messages [value]="msgs"></p-messages>
+          <div class="ui-g-12" *ngIf="btnModificaPwdVisible">
+              <button type="button" pButton label="Ir a modificar contraseña" icon="ui-icon-link" (click)="goModificaPwd()"></button>
+          </div>
       </div>
-    </div>
   </div>
 </div>

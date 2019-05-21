@@ -9,7 +9,8 @@ import { isNullOrUndefined } from 'util';
 export class AppMenuService {
   temp: any[];
 
-  constructor(private _appMenuProvider: AppMenuProviderService) {}
+  constructor(private _appMenuProvider: AppMenuProviderService) {
+  }
 
   obtenMenu(rq: MenuRq): Observable<any> {
     return Observable.create(observer => {
@@ -21,7 +22,6 @@ export class AppMenuService {
               this.cargarOpciones(this.temp, data.menu.opciones);
             }
             GlobalService.setRoles(data.roles);
-            GlobalService.setOptionsMenu(data.menu.opciones);
           } else {
             console.error('No se recuperó un menú');
           }
@@ -49,7 +49,8 @@ export class AppMenuService {
           e.enabled = true;
         }
       }
-      if (!tieneOpciones && e.enabled) tieneOpciones = true;
+      if (!tieneOpciones && e.enabled) 
+          tieneOpciones = true;
     });
     return tieneOpciones;
   }

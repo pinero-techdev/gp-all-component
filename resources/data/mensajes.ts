@@ -1,52 +1,54 @@
-import { Message } from 'primeng/primeng';
+import {Message} from "primeng/primeng";
 
 /* Añadir a la template del componente que lo extiende
  <p-growl [value]="alerts"></p-growl>
  <p-messages [value]="msgs"></p-messages>
  */
 export class Mensajes {
-  msgs: Message[] = [];
-  alerts: Message[] = [];
 
-  constructor() {}
+    msgs:Message[] = [];
+    alerts:Message[] = [];
 
-  showInfoMessage(alert: string) {
-    this.msgs = [];
-    this.msgs.push({ severity: 'info', summary: 'Info', detail: alert });
-  }
+    constructor() {
+    }
 
-  showWarnMessage(alert: string) {
-    this.msgs = [];
-    this.msgs.push({ severity: 'warn', summary: 'Atención', detail: alert });
-  }
+    showInfoMessage(alert:string) {
+        this.msgs = [];
+        this.msgs.push({severity: 'info', summary: 'Info', detail: alert});
+    }
 
-  showErrorMessage(alert: string) {
-    this.msgs = [];
-    this.msgs.push({ severity: 'error', summary: 'Error', detail: alert });
-  }
+    showWarnMessage(alert:string) {
+        this.msgs = [];
+        this.msgs.push({severity: 'warn', summary: 'Atención', detail: alert});
+    }
 
-  showSuccessMessage(alert: string) {
-    this.msgs = [];
-    this.msgs.push({ severity: 'success', summary: 'Success', detail: alert });
-  }
+    showErrorMessage(alert:string) {
+        this.msgs = [];
+        this.msgs.push({severity: 'error', summary: 'Error', detail: alert});
+    }
 
-  showInfoAlert(alert: string) {
-    this.alerts = [];
-    this.alerts.push({ severity: 'info', summary: 'Info', detail: alert });
-  }
+    showSuccessMessage(alert: string) {
+        this.msgs = [];
+        this.msgs.push({severity: 'success', summary: 'Success', detail: alert});
+    }
 
-  showWarnAlert(alert: string) {
-    this.alerts = [];
-    this.alerts.push({ severity: 'warn', summary: 'Atención', detail: alert });
-  }
+    showInfoAlert(alert:string) {
+        this.alerts = [];
+        this.alerts.push({severity: 'info', summary: 'Info', detail: alert});
+    }
 
-  showErrorAlert(alert: string) {
-    this.alerts = [];
-    this.alerts.push({ severity: 'error', summary: 'Error', detail: alert });
-  }
+    showWarnAlert(alert:string) {
+        this.alerts = [];
+        this.alerts.push({severity: 'warn', summary: 'Atención', detail: alert});
+    }
 
-  showSuccessAlert(alert: string) {
-    this.alerts = [];
-    this.alerts.push({ severity: 'success', summary: 'Success', detail: alert });
-  }
+    showErrorAlert(alert:string) {
+        this.alerts = [];
+        this.alerts.push({severity: 'error', summary: 'Error', detail: alert});
+    }
+
+    showSuccessAlert(alert:string) {
+        this.alerts = [];
+        this.alerts.push({severity: 'success', summary: 'Success', detail: alert});
+    }
 }

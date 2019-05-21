@@ -1,8 +1,8 @@
-import { Component, OnInit, AfterViewInit, ApplicationRef, EventEmitter, Output } from '@angular/core';
-import { MenuRq } from '../../resources/data/menuRq';
-import { GlobalService } from '../../services/global.service';
-import { AppMenuService } from '../../services/app-menu.service';
-import { Observable } from 'rxjs/Rx';
+import {Component, OnInit, AfterViewInit, ApplicationRef, EventEmitter, Output} from '@angular/core';
+import {MenuRq} from '../../resources/data/menuRq';
+import {GlobalService} from '../../services/global.service';
+import {AppMenuService} from '../../services/app-menu.service';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'gp-app-main-menu',
@@ -16,7 +16,8 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
   menuItems: Observable<any>;
   @Output() menuCharged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private _appMenuProviderService: AppMenuService, private _applicationRef: ApplicationRef) {}
+  constructor(private _appMenuProviderService: AppMenuService, private _applicationRef: ApplicationRef) {
+  }
 
   ngOnInit() {
     this.initMenu();
@@ -39,12 +40,7 @@ export class GpAppMainMenuComponent implements OnInit, AfterViewInit {
   }
 
   initMenu() {
-    let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     let sessionId = sessionStorage.getItem('sessionId');
-    let userId = null;
-    if (userInfo != undefined && userInfo != null) {
-      userId = userInfo.userId;
-    }
     let request: MenuRq = new MenuRq(sessionId, GlobalService.PARAMS);
     this.menuItems = this._appMenuProviderService.obtenMenu(request);
   }
