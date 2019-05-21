@@ -29,7 +29,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
 import { TableWrapperModule } from './components/table-wrapper/table-wrapper.module';
 import { TopbarModule } from './components/topbar/topbar.module';
-import { UppercaseDirective } from './directives/uppercase.directive';
+import { UppercaseDirective } from './directives/uppercase-directive/uppercase.directive';
 
 @NgModule({
   declarations: [
