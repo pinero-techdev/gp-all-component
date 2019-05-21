@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
@@ -7,7 +7,7 @@ import { DataTableMetaDataField } from './../../../../resources/data/data-table/
   selector: 'gp-form-checkbox-field',
   templateUrl: './form-checkbox-field.component.html',
 })
-export class FormCheckboxFieldComponent extends GpFormFieldControl {
+export class FormCheckboxFieldComponent extends GpFormFieldControl implements OnInit {
   /**
    * The formField for this component
    */
@@ -15,6 +15,10 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl {
 
   constructor() {
     super();
+  }
+
+  ngOnInit() {
+    this.isDisabled = this.controlDisabled();
   }
 
   /**
