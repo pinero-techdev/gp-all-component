@@ -1,16 +1,197 @@
-// @import './../../resources/scss/theme-360/theme';
 @import './../../resources/scss/theme-360/theme';
 
-/* TOPBAR */
-.layout-container .topbar .topbar-left {
-  background-color: $whiteColor;
-  background-image: url('./../../resources/images/logo_gp.png');
-  background-position: center center;
-  background-repeat: no-repeat;
-}
+::ng-deep {
+  .topbar {
+    display: flex;
+    flex-wrap: nowrap;
+    z-index: 100;
+    width: 100%;
+    height: 71px;
+    background-color: $topbarBg;
+    @include shadow(0 0px 20px 0 rgba(0, 0, 0, 0.1));
+    position: fixed;
+    top: 0;
+    padding: 0;
 
-.application-title {
-  color: $whiteColor;
-  padding-top: 0.3em;
-  font-size: 2em;
+    &-action {
+      position: relative;
+      width: 77px;
+      height: 100%;
+      background-color: $topbarActionBg;
+      cursor: pointer;
+
+      .pi {
+        @include absolute-centered(all);
+        color: $textInvertedColor;
+        font-size: 38px;
+        text-align: center;
+      }
+    }
+
+    &-info {
+      padding: 0 1.2rem;
+      position: relative;
+    }
+
+    &-container {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: $textInvertedColor;
+      height: 100%;
+      background: url('./../../resources/images/logo360.svg') center left no-repeat;
+      background-size: 135px auto;
+
+      @media (max-width: map-get($breakpoints, 'sm')) {
+        justify-content: flex-end;
+      }
+    }
+
+    &-user-actions {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      right: 0;
+      padding-left: 15px;
+      background: $topbarBg;
+    }
+
+    &-user-name {
+      display: none;
+
+      @media (min-width: map-get($breakpoints, 'md')) {
+        font-size: 18px;
+        font-weight: bold;
+        padding: 0 1rem;
+        display: block;
+      }
+    }
+
+    &-user-icon {
+      border: 2px solid $whiteColor;
+      border-radius: 50%;
+      padding: 2px;
+
+      &.pi {
+        color: $whiteColor;
+        font-size: 38px;
+      }
+    }
+
+    &-settings {
+      .pi.pi-fw {
+        font-size: 18px;
+        margin-right: 1rem;
+        color: $textMutedColor;
+
+        &:before {
+          content: '\e971';
+        }
+      }
+    }
+
+    &-settings-modal.ui-menu {
+      box-shadow: 0px 10px 20px rgba(173, 182, 217, 0.17);
+
+      &.ui-corner-all {
+        border-radius: 4px;
+        border: 1px solid $borderColor;
+        position: absolute;
+        right: 1rem;
+        top: 4rem;
+      }
+
+      .ui-menuitem {
+        &-text {
+          font-size: 13.5px;
+          line-height: 1.4;
+          color: $textColor;
+          font-weight: bold;
+        }
+
+        &-link {
+          display: flex;
+          align-items: center;
+          padding: 10px;
+
+          &:active {
+            color: $textColor;
+          }
+        }
+
+        &-icon.pi {
+          font-size: $fontSizeSmall * 2;
+          margin-right: 1rem;
+          color: $textMutedColor;
+        }
+      }
+    }
+
+    &-toolbar {
+      background: none;
+      font-size: 16px;
+      color: rgba($textInvertedColor, 0.5);
+      width: auto;
+      margin-left: calc(135px + 4.5vw);
+      max-width: 60%;
+      overflow: hidden;
+
+      @media (max-width: map-get($breakpoints, 'md')) {
+        max-width: 70%;
+      }
+
+      @media (max-width: map-get($breakpoints, 'sm')) {
+        display: none;
+      }
+
+      .breadcrumb-wrapper,
+      .breadcrumb-wrapper span {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &-toolbar-active {
+      color: $textInvertedColor;
+    }
+
+    &-toolbar-icon {
+      font-weight: normal;
+      padding: 0 0.5rem;
+      font-size: 10px;
+    }
+
+    &-toolbar-action {
+      max-width: 10vw;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+      vertical-align: middle;
+
+      &:hover {
+        color: inherit;
+      }
+
+      @media (max-width: map-get($breakpoints, 'md')) {
+        max-width: 7vw;
+      }
+    }
+
+    &-toolbar-action,
+    &-toolbar-main {
+      cursor: pointer;
+    }
+
+    &-toolbar-main {
+      a {
+        color: $textInvertedMutedColor;
+
+        &:hover {
+          color: inherit;
+        }
+      }
+    }
+  }
 }
