@@ -18,6 +18,7 @@ export class GpFormControl {
 }
 
 export class GpFormField {
+  tableName: string = null;
   /* Tipo de control usado.*/
   formFieldType:string = null;
   /* Indica si el campo es valido o no. */
@@ -25,7 +26,8 @@ export class GpFormField {
   /* Mensajes de error asociados del campo. */
   fieldMsgs:Message[] = null;
 
-  constructor(public formControl:GpFormControl, public fieldMetadata:FieldMetadata) {
+  constructor(public formControl:GpFormControl, public fieldMetadata:FieldMetadata, public table?: string) {
+    this.tableName = table;
   }
 
 }
@@ -78,6 +80,7 @@ export class GpFormFieldControl {
 
 /* @autor 3digits*/
 export class GpFormFieldDetail {
+  tableName: string = null;
   /* Tipo de control usado.*/
   formFieldType:string = null;
   /* Indica si el campo es valido o no. */
@@ -85,6 +88,8 @@ export class GpFormFieldDetail {
   /* Mensajes de error asociados del campo. */
   fieldMsgs:Message[] = null;
 
-  constructor(public formControl:GpFormControl, public fieldMetadata:FieldMetadata) {
+  constructor(public formControl:GpFormControl, public fieldMetadata:FieldMetadata, public table?: string) {
+    this.tableName = table;
   }
+
 }
