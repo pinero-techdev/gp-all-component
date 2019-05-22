@@ -1,18 +1,19 @@
-import { AuthGuard } from '@lib/services/core/auth-guard.service';
+import { LoginComponent } from './login.component';
+import { AuthGuard } from './../../services/core/auth-guard.service';
+
 import { NgModule } from '@angular/core';
-import { HomeComponent } from './home.component';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    redirectTo: 'components',
+    path: '',
+    component: LoginComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
   {
-    path: 'components',
-    component: HomeComponent,
+    path: 'login',
+    component: LoginComponent,
     canActivate: [AuthGuard],
     data: { public: true },
   },
@@ -22,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomeRoutingModule {}
+export class LoginRoutingModule {}

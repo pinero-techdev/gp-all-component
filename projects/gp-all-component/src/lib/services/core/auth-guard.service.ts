@@ -15,7 +15,7 @@ import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.ser
 import { GlobalService } from './global.service';
 import { MenuRq, MainMenuService } from '../api/main-menu/main-menu.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
