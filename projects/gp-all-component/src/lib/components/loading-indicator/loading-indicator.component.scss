@@ -1,13 +1,18 @@
-:host {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@import './../../resources/scss/theme-360/theme';
 
-  .oculto {
-    display: none;
-  }
-
-  .visible {
+// ::ng-deep is deprecated but not removed.
+// Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
+::ng-deep {
+  :host {
     display: flex;
+    justify-content: center;
+
+    .oculto {
+      display: none;
+    }
+
+    .visible {
+      display: flex;
+    }
   }
 }
