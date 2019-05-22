@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from './services/core/core.module';
 import { DynamicModule } from './components/dynamic/dynamic.module';
 import { EmptyModule } from './components/empty/empty.module';
-import { FocusDirective } from './directives/focus.directive';
 import { ForgotPasswordModule } from './components/forgot-password/forgot-password.module';
 import { FormWrapperModule } from './components/form-wrapper/form-wrapper.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,11 +29,12 @@ import { TableWrapperModule } from './components/table-wrapper/table-wrapper.mod
 import { TopbarModule } from './components/topbar/topbar.module';
 import { LowercaseDirectiveModule } from './directives/lowercase-directive/lowercase-directive.module';
 import { UppercaseDirectiveModule } from './directives/uppercase-directive/uppercase-directive.module';
+import { FocusDirectiveModule } from './directives/focus-directive/focus-directive.module';
 
 @NgModule({
   declarations: [
     // Directives
-    FocusDirective,
+    FocusDirectiveModule,
     LowercaseDirectiveModule,
     UppercaseDirectiveModule,
   ],
@@ -81,7 +81,7 @@ import { UppercaseDirectiveModule } from './directives/uppercase-directive/upper
     RedirectModule,
 
     // Directives
-    FocusDirective,
+    FocusDirectiveModule,
     LowercaseDirectiveModule,
     UppercaseDirectiveModule,
   ],
