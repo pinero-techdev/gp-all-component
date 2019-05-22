@@ -1,0 +1,15 @@
+@import './../../../../resources/scss/theme-360/theme';
+
+::ng-deep {
+  .ui-editor-container.ui-widget {
+    .ui-editor-toolbar {
+      background-color: $editorToolbarBg;
+    }
+
+    .ql-picker.ql-expanded {
+      .ql-picker-label {
+        color: $pickerLabelColor;
+      }
+    }
+  }
+}
