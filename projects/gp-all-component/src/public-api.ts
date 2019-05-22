@@ -100,9 +100,8 @@ export * from './lib/shared/shared.module';
 
 // Directive Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
+export * from './lib/directives/lowercase-directive/lowercase-directive.module';
+export * from './lib/directives/focus-directive/focus-directive.module';
 
 // Util
 export * from './lib/util/sha256';
-
-// Module
-export * from './lib/gp-all-component.module';
