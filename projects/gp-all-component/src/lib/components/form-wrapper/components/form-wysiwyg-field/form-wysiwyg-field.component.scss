@@ -6,6 +6,10 @@
       background-color: $editorToolbarBg;
     }
 
+    .ui-editor-content {
+      box-sizing: content-box;
+    }
+
     .ql-picker.ql-expanded {
       .ql-picker-label {
         color: $pickerLabelColor;
