@@ -10,7 +10,7 @@ import { By } from '@angular/platform-browser';
 })
 class TestLowercaseComponent {}
 
-fdescribe('LowercaseDirective', () => {
+describe('LowercaseDirective', () => {
   let component: TestLowercaseComponent;
   let fixture: ComponentFixture<TestLowercaseComponent>;
   let inputEl: DebugElement;
