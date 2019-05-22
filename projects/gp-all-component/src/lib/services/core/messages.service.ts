@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Message } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MessagesService {
   msgs: Message[] = [];
 

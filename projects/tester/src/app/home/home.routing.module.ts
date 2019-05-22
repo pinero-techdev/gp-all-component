@@ -1,4 +1,4 @@
-import { AuthGuard } from './../../../../gp-all-component/src/lib/services/core/auth-guard.service';
+import { AuthGuard } from '@lib/services/core/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home.component';
 import { Routes, RouterModule } from '@angular/router';

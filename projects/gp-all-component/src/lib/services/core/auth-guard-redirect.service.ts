@@ -11,7 +11,7 @@ import { GlobalService } from './global.service';
  * crear ventanas o al redirigir dentro de alguna
  * de las acciones que si vienen en el menu.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthGuardRedirect implements CanActivate {
   /* tslint:disable:variable-name */
   constructor(

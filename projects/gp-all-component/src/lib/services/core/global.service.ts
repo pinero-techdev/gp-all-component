@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Param} from '../../resources/data/param.model';
-import {RolInfo} from '../../resources/data/rol-info.model';
-import {UserInfo} from '../../resources/data/user-info.model';
-import {GlobalSingletonService} from './global-singleton.service';
+import { Injectable } from '@angular/core';
+import { Param } from '../../resources/data/param.model';
+import { RolInfo } from '../../resources/data/rol-info.model';
+import { UserInfo } from '../../resources/data/user-info.model';
+import { GlobalSingletonService } from './global-singleton.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GlobalService {
-
   private static globalSingleton: GlobalSingletonService = new GlobalSingletonService();
 
   public static getBASE_URL(): string {

@@ -35,7 +35,7 @@ export class CommonRq {
   idioma: string;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CommonService {
   constructor(private http: HttpClient) {}
 
