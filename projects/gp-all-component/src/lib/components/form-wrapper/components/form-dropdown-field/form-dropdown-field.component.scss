@@ -36,7 +36,11 @@
       border-radius: 4px;
 
       &.ui-shadow {
-        @include content-shadow();
+        @include box-shadow(
+          0 1px 3px 0 rgba($blackColor, $inputShadowOpacity),
+          0 1px 1px 0 rgba($blackColor, $inputShadowOpacity),
+          0 2px 1px -1px rgba($blackColor, $inputShadowOpacity)
+        );
       }
 
       .ui-dropdown-filter-container {
