@@ -3,10 +3,10 @@
 // ::ng-deep is deprecated but not removed.
 // Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
 ::ng-deep {
-  .uploadImgContainer {
+  .upload-img-container {
     display: flex;
     height: 36px;
-    .uploadedImg {
+    .uploaded-img {
       max-height: 100%;
       width: auto;
     }
