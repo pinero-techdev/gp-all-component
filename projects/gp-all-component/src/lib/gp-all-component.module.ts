@@ -15,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoadingIndicatorModule } from './components/loading-indicator/loading-indicator.module';
 import { LoginModule } from './components/login/login.module';
 import { LoginService } from './services/api/login/login.service';
-import { LowercaseDirective } from './directives/lowercase.directive';
 import { MainMenuModule } from './components/main-menu/main-menu.module';
 import { MainMenuProviderService } from './services/api/main-menu/main-menu-provider.service';
 import { MainMenuService } from './services/api/main-menu/main-menu.service';
@@ -29,14 +28,15 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
 import { TableWrapperModule } from './components/table-wrapper/table-wrapper.module';
 import { TopbarModule } from './components/topbar/topbar.module';
-import { UppercaseDirective } from './directives/uppercase-directive/uppercase.directive';
+import { LowercaseDirectiveModule } from './directives/lowercase-directive/lowercase-directive.module';
+import { UppercaseDirectiveModule } from './directives/uppercase-directive/uppercase-directive.module';
 
 @NgModule({
   declarations: [
     // Directives
     FocusDirective,
-    LowercaseDirective,
-    UppercaseDirective,
+    LowercaseDirectiveModule,
+    UppercaseDirectiveModule,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -82,8 +82,8 @@ import { UppercaseDirective } from './directives/uppercase-directive/uppercase.d
 
     // Directives
     FocusDirective,
-    LowercaseDirective,
-    UppercaseDirective,
+    LowercaseDirectiveModule,
+    UppercaseDirectiveModule,
   ],
   providers: [
     CUSTOM_CONTROL_VALUE_ACCESSOR,
