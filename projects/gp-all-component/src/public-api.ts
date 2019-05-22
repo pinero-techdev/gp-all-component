@@ -52,8 +52,8 @@ export * from './lib/resources/data/menu/menu-opcion-propiedades.model';
 export * from './lib/resources/data/menu/menu-opcion-propiedades-propiedad.model';
 
 // Directives
-export * from './lib/directives/focus.directive';
-export * from './lib/directives/lowercase.directive';
+export * from './lib/directives/focus-directive/focus.directive';
+export * from './lib/directives/lowercase-directive/lowercase.directive';
 export * from './lib/directives/uppercase-directive/uppercase.directive';
 
 // Components
@@ -82,8 +82,7 @@ export * from './lib/components/topbar/topbar.component';
 export * from './lib/resources/data/gp-base.component';
 
 // Component Modules
-export * from './lib/services/api/api.module';
-export * from './lib/services/core/core.module';
+export * from './lib/directives/uppercase-directive/uppercase-directive.module';
 export * from './lib/components/dynamic/dynamic.module';
 export * from './lib/components/empty/empty.module';
 export * from './lib/components/forgot-password/forgot-password.module';
@@ -97,9 +96,6 @@ export * from './lib/components/rating/rating.module';
 export * from './lib/components/table-wrapper/table-wrapper.module';
 export * from './lib/components/topbar/topbar.module';
 export * from './lib/shared/shared.module';
-
-// Directive Modules
-export * from './lib/directives/uppercase-directive/uppercase-directive.module';
 
 // Util
 export * from './lib/util/sha256';
