@@ -4,7 +4,7 @@ import { LANGUAGE_ORDER } from './../../resources/constants/language-order.const
 import {
   MultiLanguageService,
   GetTranslationsRq,
-  UpdateTranslationsRq, //
+  UpdateTranslationsRq,
 } from './../../services/api/multi-language/multi-language.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Translation } from '../../resources/data/translation.model';
@@ -16,20 +16,39 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./multi-language.component.scss'],
 })
 export class MultiLanguageComponent implements OnInit {
+  /* Table reference only used for service */
   @Input() table: string;
+  /* Key reference  only used for service */
   @Input() pKey: string;
+  /* Schema reference only used for service  */
   @Input() schema: string;
+  /* Field reference only used for service */
   @Input() field: string;
+
+  /* Part of the title, usuarlly the section where the MultiLanguage is open  */
   @Input() description: string;
+  /* Depending if the user is editing some text input and buttons are shown. */
   @Input() isEditing: boolean;
+  /* Used for sorting */
   @Input() orderByLangCod = true;
 
-  showTranslations: boolean;
-  showHTMLEditor: boolean;
-  currentTextHTML: string;
+  /* Current target language edited */
   currentLanguageHTML: string;
+  /* Current target text edited */
+  currentTextHTML: string;
+  /* Localizations */
+  readonly localeES = LocaleES;
+  /* Set to true when is editing */
+  showHTMLEditor: boolean;
+  /* Set to true when the translations are returned from service */
+  showTranslations: boolean;
+  /* Current translation edited by the HTML Editor */
   text: Translation;
+  /* Component's HTML title */
+  title: string;
+  /* The translations retrieved by the service */
   translations: Translation[];
+  /* Show the spinner when is false */
   working = false;
 
   constructor(
@@ -40,8 +59,10 @@ export class MultiLanguageComponent implements OnInit {
   ngOnInit() {
     this.showTranslations = false;
     this.showHTMLEditor = false;
+    this.title = LocaleES.TRANSLATIONS_MANAGEMENT(this.description);
   }
 
+  /* Start the translations init; the component needs the pKey for the service. */
   initTranslations() {
     if (this.pKey) {
       this.getTranslations();
@@ -50,6 +71,9 @@ export class MultiLanguageComponent implements OnInit {
     }
   }
 
+  /**
+   * Getting translations
+   */
   getTranslations() {
     const request = new GetTranslationsRq(this.pKey, this.schema, this.table, this.field);
     this.multiLanguageService
@@ -63,7 +87,7 @@ export class MultiLanguageComponent implements OnInit {
               translations = this.sortTranslations(data.traducciones, LANGUAGE_ORDER);
             }
             this.translations = translations;
-          } else if (data.error !== null) {
+          } else if (data.error) {
             console.error(data.error.internalErrorMessage);
           }
         },
@@ -74,11 +98,16 @@ export class MultiLanguageComponent implements OnInit {
       );
   }
 
+  /**
+   * Sort by language code
+   * @param translations data from service
+   * @param ordenIds language codes
+   */
   sortTranslations(translations: Translation[], ordenIds: string[]): Translation[] {
     const sorted: Translation[] = [];
     for (const codIdioma of ordenIds) {
       for (const translation of translations) {
-        if (translation.langCode === codIdioma) {
+        if (translation.idiomaCodigo === codIdioma) {
           sorted.push(translation);
           break;
         }
@@ -87,6 +116,7 @@ export class MultiLanguageComponent implements OnInit {
     return sorted;
   }
 
+  /* When user clicks on submit button */
   save() {
     this.working = true;
     for (const item of this.translations) {
@@ -95,8 +125,8 @@ export class MultiLanguageComponent implements OnInit {
         this.schema,
         this.table,
         this.field,
-        item.langCode,
-        item.langCountryTranslation
+        item.idiomaCodigo,
+        item.idiomaPaisTraduccion
       );
       this.multiLanguageService
         .updateTranslations(request)
@@ -118,6 +148,7 @@ export class MultiLanguageComponent implements OnInit {
     this.hideTranslations();
   }
 
+  /* If the translations has HTML Code added in the editor */
   hasHTMLContent(traduccion: string): boolean {
     return (
       traduccion &&
@@ -128,33 +159,37 @@ export class MultiLanguageComponent implements OnInit {
     );
   }
 
+  /* After save or when the user clicks on cancel button */
   hideTranslations() {
     this.showTranslations = false;
   }
 
-  showEditorHTMLDialog(traduccion: Translation) {
+  /* There is a button to active another dialog for editing with p-editor  */
+  showEditorHTMLDialog(translation: Translation) {
     this.text = new Translation(
-      traduccion.langCode,
-      traduccion.langCountry,
-      traduccion.langCountryTranslation !== null ? traduccion.langCountryTranslation : ''
+      translation.idiomaCodigo,
+      translation.idiomaPais,
+      translation.idiomaPaisTraduccion !== null ? translation.idiomaPaisTraduccion : ''
     );
     if (this.isEditing) {
       this.showTranslations = false;
       this.showHTMLEditor = true;
-      this.currentTextHTML = this.text.langCountryTranslation;
-      this.currentLanguageHTML = this.text.langCountry;
+      this.currentTextHTML = this.text.idiomaPaisTraduccion;
+      this.currentLanguageHTML = this.text.idiomaPais;
     }
   }
 
+  /* After edit the HTML */
   saveHTML() {
     for (const item in this.translations) {
-      if (this.translations[item].langCountry === this.currentLanguageHTML) {
-        this.translations[item].langCountryTranslation = this.currentTextHTML;
+      if (this.translations[item].idiomaPais === this.currentLanguageHTML) {
+        this.translations[item].idiomaPaisTraduccion = this.currentTextHTML;
         this.closeHTMLEditor();
       }
     }
   }
 
+  /* Cancel the HTML Editor */
   closeHTMLEditor() {
     this.showHTMLEditor = false;
     this.showTranslations = true;

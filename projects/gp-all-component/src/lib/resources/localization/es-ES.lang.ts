@@ -1,9 +1,12 @@
 export const LocaleES = {
   ACCEPT: 'Aceptar',
+  CANCEL: 'Cancelar',
   ACCESS_URL_FORBIDDEN: (userId, url) =>
     `El username ${userId} no tiene los permisos necesarios para acceder a ${url}`,
   AN_ERROR_HAS_OCURRED: 'Ha ocurrido un error',
   CHANGE_PASSWORD: 'Cambiar clave',
+  LEAVE: 'Salir',
+  SAVE: 'Guardar',
   ENTER: 'Entrar',
   FIELDS_ARE_MANDATORY: 'Todos los campos son obligatorios',
   LOADING_DROPDOWN_DATA: 'Cargando los datos del desplegable ...',
@@ -14,7 +17,9 @@ export const LocaleES = {
   RETRIEVING_DATA: 'Recuperando datos ...',
   SELECT: 'Seleccione',
   USERNAME: 'Usuario',
+  MULTILANGUAGE_PLACEHOLDER: '*****     CONTIENE HTML -  PULSE BOTÓN PARA EDITAR     ****',
   USERNAME_PASS_SHOULD_CORRECT_VALUE: 'Los campos username y password deben tener un valor válido.',
+  TRANSLATIONS_MANAGEMENT: (description) => `Mantenimiento traducciones - ${description}`,
   USER_HAS_NOT_ASSOCIATED_A_MENU: (userId, app) =>
     `El username ${userId} no tiene menú asociado en la aplicación ${app}`,
   USER_IS_NOT_LOGGED: 'El username no se encuentra logado',

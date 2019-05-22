@@ -1,9 +1,38 @@
+::ng-deep .ui-button.ui-widget {
+  &.ui-button-text-only,
+  &.ui-button-text-icon-left {
+    .ui-button-text.ui-clickable {
+      padding: $buttonPaddingVertical $buttonPaddingHorizontal;
+    }
+  }
+
+  &:enabled:focus {
+    box-shadow: none;
+  }
+
+  &.ui-button-text-icon-left {
+    .ui-button-text.ui-clickable {
+      padding-left: $separationXLarge * 2;
+    }
+  }
+}
+
 .button {
   &-base {
     @include make-button-theme($buttonBg, $buttonBg);
+
+    &:enabled:hover {
+      background-color: $buttonBg;
+      border-color: $buttonBg;
+    }
   }
 
   &-danger {
     @include make-button-theme($buttonDangerBg, $buttonDangerBg);
+
+    &:enabled:hover {
+      background-color: $buttonDangerBg;
+      border-color: $buttonDangerBg;
+    }
   }
 }
