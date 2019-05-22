@@ -1,12 +1,14 @@
-<img [src]="currentValue" style="width: 100%; max-height: 50%;" *ngIf="currentValue" />
-<input
-  name="__field__{{ formField?.fieldMetadata.fieldName }}"
-  pInputText
-  type="text"
-  [(ngModel)]="currentValue"
-  [maxlength]="maxLength"
-  [class]="textboxClass"
-  (change)="onFieldChange()"
-  [disabled]="isDisabled"
-  class="full-width"
-/>
+<div class="uploadImgContainer full-width">
+  <img class="uploadedImg" [src]="currentValue" *ngIf="currentValue" />
+  <input
+    name="__field__{{ formField?.fieldMetadata.fieldName }}"
+    pInputText
+    type="text"
+    [(ngModel)]="currentValue"
+    [maxlength]="maxLength"
+    [class]="textboxClass"
+    (change)="onFieldChange()"
+    [disabled]="isDisabled"
+    class="full-width"
+  />
+</div>
