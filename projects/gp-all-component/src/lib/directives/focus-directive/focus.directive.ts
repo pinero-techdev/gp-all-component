@@ -6,9 +6,6 @@ import { Directive, HostListener } from '@angular/core';
 export class FocusDirective {
   @HostListener('keydown.enter', ['$event.target']) onEnterKey(el: any) {
     const isInput = el instanceof HTMLInputElement;
-
-    if (isInput) {
-      el.focus();
-    }
+    isInput ? el.focus() : el.querySelector('input').focus();
   }
 }
