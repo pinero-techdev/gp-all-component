@@ -53,7 +53,7 @@ export * from './lib/resources/data/menu/menu-opcion-propiedades-propiedad.model
 
 // Directives
 export * from './lib/directives/focus.directive';
-export * from './lib/directives/lowercase.directive';
+export * from './lib/directives/lowercase-directive/lowercase.directive';
 export * from './lib/directives/uppercase-directive/uppercase.directive';
 
 // Components
