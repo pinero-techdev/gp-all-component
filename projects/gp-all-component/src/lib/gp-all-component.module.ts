@@ -32,12 +32,6 @@ import { UppercaseDirectiveModule } from './directives/uppercase-directive/upper
 import { FocusDirectiveModule } from './directives/focus-directive/focus-directive.module';
 
 @NgModule({
-  declarations: [
-    // Directives
-    FocusDirectiveModule,
-    LowercaseDirectiveModule,
-    UppercaseDirectiveModule,
-  ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -49,6 +43,11 @@ import { FocusDirectiveModule } from './directives/focus-directive/focus-directi
     ReactiveFormsModule,
     RouterModule,
     SharedModule,
+
+    // Directives
+    FocusDirectiveModule,
+    LowercaseDirectiveModule,
+    UppercaseDirectiveModule,
 
     // Library Modules
     DynamicModule,
