@@ -1,0 +1,8 @@
+@import './../../../../resources/scss/theme-360/theme';
+// ::ng-deep is deprecated but not removed.
+// Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.:::
+::ng-deep {
+  .ui-widget {
+    font-family: $mainFont;
+  }
+}
