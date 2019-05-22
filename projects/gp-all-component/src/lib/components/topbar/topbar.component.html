@@ -1,46 +1,48 @@
-<div class="topbar360 clearfix">
-  <div class="topbar360-action" (click)="toggleIconUserMenu()" *ngIf="isHome">
-    <i *ngIf="!isOpen || !logged" class="fa fa-th"></i>
-    <i *ngIf="isOpen && logged" class="fa fa-times"></i>
-  </div>
-  <div class="topbar360-info full-width">
-    <div class="topbar360-container">
-      <div class="topbar360-toolbar">
-        <div *ngIf="breadCrumb.length > 0">
-          <span class="topbar360-toolbar-main">
-            <a (click)="resetMenu()">Inicio</a>
-          </span>
-          <span *ngFor="let m of breadCrumb; let indx = index">
-            <i class="topbar360-toolbar-icon fa fa-angle-right"></i>
-            <a
-              class="topbar360-toolbar-action"
-              (click)="getBreadCrumbMenu(breadCrumb, indx)"
-              [ngClass]="{ 'topbar360-toolbar-active': isLastMenu(indx) }"
-            >
-              {{ m.label }}
-            </a>
-          </span>
+<div class="p-grid">
+  <div class="topbar p-col-12">
+    <div class="topbar-action" (click)="toggleIconUserMenu()" *ngIf="isHome">
+      <i *ngIf="!isOpen || !logged" class="pi pi-th-large"></i>
+      <i *ngIf="isOpen && logged" class="pi pi-times"></i>
+    </div>
+    <div class="topbar-info full-width">
+      <div class="topbar-container">
+        <div class="topbar-toolbar">
+          <div class="breadcrumb-wrapper" *ngIf="breadCrumb.length > 0">
+            <span class="topbar-toolbar-main">
+              <a (click)="resetMenu()">Inicio</a>
+            </span>
+            <span *ngFor="let m of breadCrumb; let indx = index">
+              <i class="topbar-toolbar-icon pi pi-angle-right"></i>
+              <a
+                class="topbar-toolbar-action"
+                (click)="getBreadCrumbMenu(breadCrumb, indx)"
+                [ngClass]="{ 'topbar-toolbar-active': isLastMenu(indx) }"
+              >
+                {{ m.label }}
+              </a>
+            </span>
+          </div>
+        </div>
+        <div class="topbar-user-actions">
+          <span
+            *ngIf="logged"
+            class="topbar-user-name fadeInDown animated"
+            [innerHtml]="fullName"
+          ></span>
+          <a (click)="toggleUserMenu()" [hidden]="!logged">
+            <i class="topbar-user-icon pi pi-user"></i>
+          </a>
         </div>
       </div>
-      <div class="topbar360-user-actions">
-        <span
-          *ngIf="logged"
-          class="topbar360-user-name fadeInDown animated"
-          [innerHtml]="fullName"
-        ></span>
-        <a (click)="toggleUserMenu()" [hidden]="!logged">
-          <i class="topbar360-user-icon fa fa fa-user-circle"></i>
-        </a>
+      <div class="topbar-settings">
+        <p-menu
+          #logout
+          [model]="itemsUserMenu"
+          [hidden]="!userMenuVisible"
+          styleClass="topbar-settings-modal"
+        >
+        </p-menu>
       </div>
-    </div>
-    <div class="topbar360-settings">
-      <p-menu
-        #logout
-        [model]="itemsUserMenu"
-        [hidden]="!userMenuVisible"
-        styleClass="topbar360-settings-modal"
-      >
-      </p-menu>
     </div>
   </div>
 </div>

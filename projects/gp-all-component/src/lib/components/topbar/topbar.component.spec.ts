@@ -151,7 +151,7 @@ describe('TopbarComponent', () => {
       GlobalService.setLogged(false);
       router = TestBed.get(Router);
       fixture.detectChanges();
-      $buttonToggle = elementRef.querySelector('.topbar360-action');
+      $buttonToggle = elementRef.querySelector('.topbar-action');
       spyOn(component, 'toggleIconUserMenu').and.callThrough();
     });
 
@@ -182,15 +182,15 @@ describe('TopbarComponent', () => {
     });
 
     it('get breadcrumb info', () => {
-      // const $actionButton = elementRef.querySelector('.topbar360-toolbar-action');
+      // const $actionButton = elementRef.querySelector('.topbar-toolbar-action');
       spyOn(component, 'getBreadCrumbMenu').and.callThrough();
 
-      const breadcrumb = { label: 'Reservas360', isActive: true };
+      const breadcrumb = { label: 'Reservas', isActive: true };
 
       component.setBreadcrumb(breadcrumb);
       fixture.detectChanges();
 
-      const $actionButton = elementRef.querySelector('.topbar360-toolbar-action');
+      const $actionButton = elementRef.querySelector('.topbar-toolbar-action');
 
       TestingMockEvents.triggerClickOn($actionButton);
 
@@ -200,12 +200,12 @@ describe('TopbarComponent', () => {
     it('reset menu should be called', () => {
       spyOn(component, 'resetMenu').and.callThrough();
 
-      const breadcrumb = { label: 'Reservas360', isActive: true };
+      const breadcrumb = { label: 'Reservas', isActive: true };
 
       component.setBreadcrumb(breadcrumb);
       fixture.detectChanges();
 
-      const $actionButton = elementRef.querySelector('.topbar360-toolbar-main > a');
+      const $actionButton = elementRef.querySelector('.topbar-toolbar-main > a');
 
       TestingMockEvents.triggerClickOn($actionButton);
 

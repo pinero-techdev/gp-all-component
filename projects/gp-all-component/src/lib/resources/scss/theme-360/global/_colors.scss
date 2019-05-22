@@ -18,6 +18,8 @@ $colors: (
     base: #404c58,
     secondary: #516170,
     muted: #9aa6b1,
+    inverted: #fff,
+    invertedMuted: rgba(255, 255, 255, 0.6),
   ),
   white: (
     base: #fff,
@@ -32,11 +34,13 @@ $colors: (
     gray-13: #757575,
     gray-21: #444444,
   ),
-  red: (
-    red-1: #fc4e4e,
-  ),
   blue: (
     blue-1: #7ab6ff,
+    blue-7: #115191,
+    blue-11: #0c3f72,
+  ),
+  red: (
+    red-1: #fc4e4e,
   ),
   green: (
     green-6: #00695c,

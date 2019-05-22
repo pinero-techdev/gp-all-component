@@ -25,6 +25,8 @@ $accentTextColor: color(accent, text);
 $textColor: color(text, base);
 $textSecondaryColor: color(text, secondary);
 $textMutedColor: color(text, muted);
+$textInvertedColor: color(text, inverted);
+$textInvertedMutedColor: color(text, invertedMuted);
 
 /* breakpoints */
 $breakpoints: (
@@ -136,6 +138,11 @@ $ratingStars: color(gold);
 
 /* calendar */
 $calendarDaySelectedBg: color(blue, blue-1);
+
+/* topbar */
+$topbarBg: color(blue, blue-7);
+$topbarActionBg: color(blue, blue-11);
+$topbarSettingModalShadow: color(blue, blue-1);
 
 /* editor */
 $editorToolbarBg: color(white, white-2);
