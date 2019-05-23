@@ -1,4 +1,4 @@
-import { MultiLanguageComponent } from '@lib/components/multi-language/multi-language.component';
+import { MultiLanguageComponent } from 'gp-all-component';
 import { Component, ViewChild } from '@angular/core';
 
 @Component({
@@ -11,7 +11,7 @@ export class MultiLanguageTesterComponent {
   pKey = 'AALL';
   schema = 'HOTCAL';
   field = 'EDPT_DESC';
-  description: string;
+  description = 'Departamento';
   isEditing = false;
   orderByLangCod = true;
 }
