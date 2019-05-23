@@ -10,7 +10,7 @@
     "---- BUILD & PACK ----": "",
     "bundle:scss": "ts-node ./scripts/css-bundle.ts",
     "build": "ng build gp-all-component && npm run bundle:scss",
-    "build:watch": "concurrently 'ng build gp-all-component --watch' 'wait-on --delay 5000 file:dist/gp-all-component/lib/resources && npm run bundle:scss'",
+    "build:watch": "concurrently \"ng build gp-all-component --watch\" \"wait-on --delay 5000 file:dist/gp-all-component/lib/resources && npm run bundle:scss\"",
     "postbuild": "npm run npm:pack",
     "npm:pack": "cd dist/gp-all-component && npm pack",
     "deploy-component": "node deploy-gp-all-component.js",
