@@ -1,15 +1,13 @@
+import { ForgotPasswordModule } from './../../../../gp-all-component/src/lib/components/forgot-password/forgot-password.module';
 import { CalendarTesterComponent } from './calendar-tester/calendar-tester.component';
 import { CommonModule } from '@angular/common';
 import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
 import { DynamicTesterComponent } from './dynamic-tester/dynamic-tester.component';
 import { FormCheckboxFieldTesterComponent } from './form-checkbox-field-tester/form-checkbox-field-tester.component';
-import { GlobalServiceModule } from '@lib/services/core/global-service.module';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
 import { LoadingIndicatorTesterComponent } from './loading-indicator-tester/loading-indicator-tester.component';
-import { MainMenuProviderService } from '@lib/services/api/main-menu/main-menu-provider.service';
 import { MainMenuTesterComponent } from './main-menu-tester/main-menu-tester.component';
-import { MainMenuTesterService } from './main-menu-tester/main-menu-tester.service';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
 import { MultiSelectTesterComponent } from './multi-select-tester/multi-select-tester.component';
 import { NgModule } from '@angular/core';
@@ -28,6 +26,7 @@ import { environment } from '../../environments/environment.prod';
 import {
   DynamicModule,
   MainMenuModule,
+  GlobalServiceModule,
   MultiLanguageModule,
   MultiSelectModule,
   TableWrapperModule,
@@ -36,10 +35,12 @@ import {
   RatingModule,
   RedirectModule,
   TopbarModule,
+  LoginModule,
 } from 'gp-all-component';
 
 @NgModule({
   declarations: [
+    CalendarTesterComponent,
     DropdownRelatedTesterComponent,
     DropdownTesterComponent,
     DynamicTesterComponent,
@@ -54,26 +55,27 @@ import {
     SwitchFieldTesterComponent,
     TableCrudTesterComponent,
     TableFrameTesterComponent,
-    TextareaTesterComponent,
-    TopbarTesterComponent,
-    CalendarTesterComponent,
-    WysiwygTesterComponent,
-    TimeFieldTesterComponent,
     TextFieldTesterComponent,
+    TextareaTesterComponent,
+    TimeFieldTesterComponent,
+    TopbarTesterComponent,
+    WysiwygTesterComponent,
   ],
   imports: [
-    DynamicModule,
     CommonModule,
+    DynamicModule,
+    ForgotPasswordModule,
+    FormWrapperModule,
     GlobalServiceModule.forRoot(environment),
     LoadingIndicatorModule,
+    LoginModule,
     MainMenuModule,
-    MultiSelectModule,
     MultiLanguageModule,
-    SharedRoutingModule,
-    TableWrapperModule,
-    FormWrapperModule,
+    MultiSelectModule,
     RatingModule,
     RedirectModule,
+    SharedRoutingModule,
+    TableWrapperModule,
     TopbarModule,
   ],
   exports: [
@@ -95,6 +97,5 @@ import {
     TimeFieldTesterComponent,
     TextFieldTesterComponent,
   ],
-  providers: [{ provide: MainMenuProviderService, useClass: MainMenuTesterService }],
 })
 export class SharedModule {}

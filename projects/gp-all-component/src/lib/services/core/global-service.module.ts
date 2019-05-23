@@ -3,7 +3,7 @@ import { GlobalService } from './global.service';
 import { environmentBase } from '../../util/environment';
 import { NgModule } from '@angular/core';
 
-@NgModule({})
+@NgModule({ providers: [GlobalService] })
 export class GlobalServiceModule {
   public static forRoot(environment: any): ModuleWithProviders {
     this.setGlobal(environment);
@@ -20,6 +20,7 @@ export class GlobalServiceModule {
   }
 
   private static setGlobal(environment: any) {
+    console.info('env', environment);
     const env = { ...environmentBase, ...environment };
     GlobalService.setBaseUrl(env.baseUrl);
     GlobalService.setLoginServiceUrl(env.loginUrl);

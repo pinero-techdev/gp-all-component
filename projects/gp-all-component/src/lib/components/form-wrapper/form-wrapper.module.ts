@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormCalendarFieldComponent } from './components/form-calendar-field/form-calendar-field.component';
@@ -28,7 +29,7 @@ import {
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
   ],
-  imports: [CommonModule, FormWrapperSharedModules],
+  imports: [CommonModule, BrowserAnimationsModule, FormWrapperSharedModules],
   exports: [
     FormCalendarFieldComponent,
     FormCheckboxFieldComponent,
