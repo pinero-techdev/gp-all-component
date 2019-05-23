@@ -11,6 +11,7 @@ import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 @Component({
   selector: 'gp-form-text-field',
   templateUrl: './form-text-field.component.html',
+  styleUrls: ['./form-text-field.component.scss'],
 })
 export class FormTextFieldComponent extends GpFormFieldControl implements OnInit {
   /**

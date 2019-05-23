@@ -9,6 +9,7 @@ import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { finalize } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
+import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 
 // tslint:disable:variable-name
 @Component({
@@ -108,14 +109,12 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
         this.formField.fieldMetadata.displayInfo.referencedTable
       ) {
         // Gettingdata related to a table
-        this.listAllowedValuesOptions = [
-          { label: 'Cargando los datos del desplegable ...', value: null },
-        ];
+        this.listAllowedValuesOptions = [{ label: LocaleES.LOADING_DROPDOWN_DATA, value: null }];
         this.getList();
       } else {
-        const errorMessage =
-          'No se ha indicado tabla relacionada para obtener los valores del campo ' +
-          this.formField.fieldMetadata.fieldName;
+        const errorMessage = LocaleES.YOU_MUST_SET_RELATED_TABLE(
+          this.formField.fieldMetadata.fieldName
+        );
         this.handleError(errorMessage);
       }
     }
@@ -146,7 +145,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
       if (this.listAllowedValuesOptions.length === 1) {
         this.listAllowedValuesOptions = [
           {
-            label: 'No existen opciones para el valor seleccionado',
+            label: LocaleES.NO_OPTIONS_FOR_SELECTION,
             value: null,
           },
         ];
@@ -159,9 +158,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
         this.currentValue = null;
       }
     } else {
-      this.listAllowedValuesOptions = [
-        { label: 'No existen opciones para el valor seleccionado', value: null },
-      ];
+      this.listAllowedValuesOptions = [{ label: LocaleES.NO_OPTIONS_FOR_SELECTION, value: null }];
     }
   }
 
@@ -199,7 +196,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
       const fieldValue = editedRow[this.formField.fieldMetadata.fieldName];
       if (this.formField.fieldMetadata.notNull && !fieldValue) {
         this.formField.validField = false;
-        this.validateFieldAddMsgs('El valor es obligatorio.');
+        this.validateFieldAddMsgs(LocaleES.VALUE_IS_REQUIRED);
       }
       return this.formField.validField;
     }
@@ -216,7 +213,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
       )
       .map((item) => item.fieldDescription.toLowerCase());
 
-    let label = 'Primero debe seleccionar ';
+    let label = LocaleES.YOU_MUST_TO_MAKE_SELECTION;
     if (fields.length === 1) {
       label += fields.toString();
     } else {
@@ -251,10 +248,9 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
     } else {
       this.listAllowedValuesOptions = [
         {
-          label:
-            'Seleccione ' +
-            this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase() +
-            ' ...',
+          label: LocaleES.SELECT_WITH_PARAM(
+            this.formField.fieldMetadata.displayInfo.fieldLabel.toLowerCase()
+          ),
           value: null,
         },
       ];
@@ -317,7 +313,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    * Handling the error; show a message.
    * @param error Error message
    */
-  private handleError(error = 'error al cargar datos') {
+  private handleError(error = LocaleES.AN_ERROR_LOADING_DATA) {
     this.list = null;
     console.error(error);
   }

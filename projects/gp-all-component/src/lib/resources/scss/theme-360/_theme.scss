@@ -7,7 +7,7 @@
 
 /** GENERAL **/
 :root {
-  font-size: 16px;
+  font-size: $fontSizeLarge;
 }
 
 span:not(.ui-button-icon-left),
@@ -17,8 +17,12 @@ ul,
 li,
 a,
 button::ng-deep,
-input {
-  font-family: 'latolatinregular', sans-serif;
+input,
+textarea,
+p-multiselect ::ng-deep .ui-widget,
+p-dropdown ::ng-deep .ui-widget,
+p-calendar ::ng-deep .ui-widget {
+  font-family: $mainFont;
 }
 
 i,
@@ -41,6 +45,18 @@ a {
 .warn,
 .error {
   color: $errorColor;
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+
+.full-width {
+  width: 100%;
 }
 
 .control {
@@ -70,6 +86,10 @@ a {
 
 .bold {
   font-weight: bold;
+}
+
+.ui-corner-all {
+  border-radius: $borderRadius;
 }
 
 // /* CALENDAR - YEARS DIDN'T SHOW COMPLETE*/

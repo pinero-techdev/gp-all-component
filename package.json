@@ -3,7 +3,10 @@
   "version": "1.1.1",
   "scripts": {
     "ng": "ng",
-    "rebuild-gp": "npm run build && rm -rf node_modules/gp-all-component/ && npm i",
+    "dev": "ng serve tester --watch --port=4400",
+    "start": "ng serve tester --proxy-config proxy.conf.json",
+    "start:aot": "ng serve tester --proxy-config proxy.conf.json --aot",
+    "rebuild-gp": "npm run build && rm -rf node_modules/gp-all-component/ && npm i dist/gp-all-component/gp-all-component-1.1.1.tgz",
     "---- DOCUMENTATION ----": "",
     "compodoc:generate": "npx compodoc -p projects/gp-all-component/tsconfig.lib.json",
     "compodoc:serve": "npx compodoc -s projects/gp-all-component/tsconfig.lib.json",

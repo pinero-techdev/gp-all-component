@@ -1,24 +1,45 @@
 export const LocaleES = {
   ACCEPT: 'Aceptar',
+  CANCEL: 'Cancelar',
   ACCESS_URL_FORBIDDEN: (userId, url) =>
     `El username ${userId} no tiene los permisos necesarios para acceder a ${url}`,
   AN_ERROR_HAS_OCURRED: 'Ha ocurrido un error',
+  AN_ERROR_LOADING_DATA: 'Error al cargar datos',
   CHANGE_PASSWORD: 'Cambiar clave',
+  CHOOSE_AN_OPTION: 'Elige una opción',
+  LEAVE: 'Salir',
+  SAVE: 'Guardar',
   ENTER: 'Entrar',
+  ERROR: {
+    RETRIEVE_RECORD: 'Error interno recuperando el registro.',
+    REMOVE_RECORD: (message) => `Error borrando el registro ${message}`,
+    REMOVE_INTERNAL_RECORD: 'Error interno borrando el registro.',
+    UPDATING_INTERNAL_RECORD: 'Error interno actualizando el registro.',
+    UPDATING_RECORD: (message) => `Error actualizando el registro: ${message}`,
+    INSERTING_RECORD: 'Error interno insertando el registro.',
+  },
   FIELDS_ARE_MANDATORY: 'Todos los campos son obligatorios',
   LOADING_DROPDOWN_DATA: 'Cargando los datos del desplegable ...',
   LOGGED_USER: 'Usuario logado',
+  NO_OPTIONS_FOR_SELECTION: 'No existen opciones para el valor seleccionado',
   PASSWORD: 'Password',
   PASSWORD_CORRECTLY_MODIFIED: '¡Contraseña modificada correctamente!',
   PASSWORD_FIELDS_DO_NOT_MATCH: '¡Las contraseñas no coinciden!',
   RETRIEVING_DATA: 'Recuperando datos ...',
   SELECT: 'Seleccione',
+  SELECT_WITH_PARAM: (param) => `Seleccione ${param} ...`,
+  SELECTED_OPTIONS: 'Opciones seleccionadas',
   USERNAME: 'Usuario',
+  MULTILANGUAGE_PLACEHOLDER: '*****     CONTIENE HTML -  PULSE BOTÓN PARA EDITAR     ****',
   USERNAME_PASS_SHOULD_CORRECT_VALUE: 'Los campos username y password deben tener un valor válido.',
+  TRANSLATIONS_MANAGEMENT: (description) => `Mantenimiento traducciones - ${description}`,
   USER_HAS_NOT_ASSOCIATED_A_MENU: (userId, app) =>
     `El username ${userId} no tiene menú asociado en la aplicación ${app}`,
   USER_IS_NOT_LOGGED: 'El username no se encuentra logado',
   VALUE_IS_REQUIRED: 'El valor es obligatorio.',
+  YOU_MUST_TO_MAKE_SELECTION: 'Primero debe seleccionar ',
+  YOU_MUST_SET_RELATED_TABLE: (fieldname) =>
+    `No se ha indicado tabla relacionada para obtener los valores del campo ${fieldname}`,
   YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS:
     'Debe guardar primero el registro para poder insertar o visualizar las traducciones.',
   VALIDATION_VALUE_TOO_SHORT: (minLength) =>
@@ -28,62 +49,62 @@ export const LocaleES = {
   VALIDATION_SPACES: `El valor indicado no puede contener espacios. Han sido
                       eliminados. Seleccione guardar otra vez para aceptar los cambios.`,
   VALIDATION_CONTROL_SPACES: `El valor indicado contiene caracteres de control. Han sido
-  sustituidos por espacios. Seleccione guardar 
+  sustituidos por espacios. Seleccione guardar
   otra vez para aceptar los cambios.`,
-  VALIDATION_SPECIAL_CHARACTERS: `El valor indicado contiene caracteres no 
-  válidos (acentos, eñes ...). Han sido sustituidos por caracteres equivalentes o descartados. 
+  VALIDATION_SPECIAL_CHARACTERS: `El valor indicado contiene caracteres no
+  válidos (acentos, eñes ...). Han sido sustituidos por caracteres equivalentes o descartados.
   Seleccione guardar otra vez para aceptar los cambios.`,
-  VALIDATION_TIME_FORMAT: `El valor indicado no cumple con un formato 
+  VALIDATION_TIME_FORMAT: `El valor indicado no cumple con un formato
   válido: "hh:mm". Ejemplo  de hora válida: 01:45`,
   CALENDAR: {
     MONTH: {
       JAN: {
-        SHORT: 'ene',
-        LONG: 'enero',
+        SHORT: 'Ene',
+        LONG: 'Enero',
       },
       FEB: {
-        SHORT: 'feb',
-        LONG: 'febrero',
+        SHORT: 'Feb',
+        LONG: 'Febrero',
       },
       MAR: {
-        SHORT: 'mar',
-        LONG: 'marzo',
+        SHORT: 'Mar',
+        LONG: 'Marzo',
       },
       APR: {
-        SHORT: 'abr',
-        LONG: 'abril',
+        SHORT: 'Abr',
+        LONG: 'Abril',
       },
       MAY: {
-        SHORT: 'may',
-        LONG: 'mayo',
+        SHORT: 'May',
+        LONG: 'Mayo',
       },
       JUN: {
-        SHORT: 'jun',
-        LONG: 'junio',
+        SHORT: 'Jun',
+        LONG: 'Junio',
       },
       JUL: {
-        SHORT: 'jul',
-        LONG: 'julio',
+        SHORT: 'Jul',
+        LONG: 'Julio',
       },
       AGO: {
-        SHORT: 'ago',
-        LONG: 'agosto',
+        SHORT: 'Ago',
+        LONG: 'Agosto',
       },
       SEP: {
-        SHORT: 'sep',
-        LONG: 'septiembre',
+        SHORT: 'Sep',
+        LONG: 'Septiembre',
       },
       OCT: {
-        SHORT: 'oct',
-        LONG: 'octubre',
+        SHORT: 'Oct',
+        LONG: 'Octubre',
       },
       NOV: {
-        SHORT: 'nov',
-        LONG: 'noviembre',
+        SHORT: 'Nov',
+        LONG: 'Noviembre',
       },
       DEC: {
-        SHORT: 'dic',
-        LONG: 'diciembre',
+        SHORT: 'Dic',
+        LONG: 'Diciembre',
       },
     },
     DAY: {

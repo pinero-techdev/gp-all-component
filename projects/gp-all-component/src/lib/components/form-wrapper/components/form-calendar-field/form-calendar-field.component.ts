@@ -9,6 +9,7 @@ import { CalendarLocaleConfigES } from '../../../../resources/data/calendar/cale
 @Component({
   selector: 'gp-form-calendar-field',
   templateUrl: './form-calendar-field.component.html',
+  styleUrls: ['./form-calendar-field.component.scss'],
 })
 export class FormCalendarFieldComponent extends GpFormFieldControl {
   /**

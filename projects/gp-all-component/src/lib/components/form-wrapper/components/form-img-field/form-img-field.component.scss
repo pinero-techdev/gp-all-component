@@ -1,0 +1,19 @@
+@import './../../../../resources/scss/theme-360/theme';
+
+// ::ng-deep is deprecated but not removed.
+// Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
+::ng-deep {
+  .upload-img-container {
+    display: flex;
+    height: 36px;
+    .uploaded-img {
+      max-height: 100%;
+      width: auto;
+    }
+    input.ui-inputtext {
+      margin-left: 10px;
+      @include make-input();
+      box-shadow: none;
+    }
+  }
+}

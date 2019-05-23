@@ -1,3 +1,4 @@
+import { LocaleES } from './../../resources/localization/es-ES.lang';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,7 +15,6 @@ import {
   GetTranslationsRq, //
 } from './../../.../../services/api/multi-language/multi-language.service';
 import { MessagesService } from './../../.../../services/core/messages.service';
-import { Translation } from './../../.../../resources/data/translation.model';
 
 describe('MultiLanguageComponent', () => {
   const mockService = new MultiLanguageServiceMock();
@@ -138,9 +138,9 @@ describe('MultiLanguageComponent', () => {
         fixture.detectChanges();
         elementRef = fixture.debugElement.nativeElement;
         const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
-        const $grid: HTMLElement = elementRef.querySelector('.ui-grid-col-12');
+        const $grid: HTMLElement = elementRef.querySelector('.translations-wrapper');
         const $rows: HTMLElement[] = Array.from(
-          elementRef.querySelectorAll('.ui-grid-col-12 > .ui-grid-row')
+          elementRef.querySelectorAll('.translations-wrapper > .p-grid')
         );
         expect($spinner).toBeNull();
         expect($grid).not.toBeNull();
@@ -154,9 +154,9 @@ describe('MultiLanguageComponent', () => {
         fixture.detectChanges();
         elementRef = fixture.debugElement.nativeElement;
         const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
-        const $grid: HTMLElement = elementRef.querySelector('.ui-grid-col-12');
+        const $grid: HTMLElement = elementRef.querySelector('.translations-wrapper');
         const $rows: HTMLElement[] = Array.from(
-          elementRef.querySelectorAll('.ui-grid-col-12 > .ui-grid-row')
+          elementRef.querySelectorAll('.translations-wrapper > .p-grid')
         );
         const $buttons: HTMLButtonElement[] = Array.from(
           elementRef.querySelectorAll('p-dialog p-footer button:not([hidden]')
@@ -169,8 +169,8 @@ describe('MultiLanguageComponent', () => {
         expect($rows.length).toBe(component.translations.length);
         // Buttons
         expect($buttons.length).toBe(2);
-        expect($buttons[0].innerText).toEqual('Aceptar');
-        expect($buttons[1].innerText).toEqual('Salir');
+        expect($buttons[0].innerText).toEqual(LocaleES.CANCEL);
+        expect($buttons[1].innerText).toEqual(LocaleES.ACCEPT);
       });
 
       it('should show the correct flag per language', () => {
@@ -178,23 +178,23 @@ describe('MultiLanguageComponent', () => {
         component.showTranslations = true;
         fixture.detectChanges();
         elementRef = fixture.debugElement.nativeElement;
-        const $grid: HTMLElement = elementRef.querySelector('.ui-grid-col-12');
+        const $grid: HTMLElement = elementRef.querySelector('.translations-wrapper');
         const $rows: HTMLElement[] = Array.from(
-          elementRef.querySelectorAll('.ui-grid-col-12 > .ui-grid-row')
+          elementRef.querySelectorAll('.translations-wrapper > .p-grid')
         );
 
         let $flag: HTMLDivElement;
         let $button: HTMLButtonElement;
-        component.translations.map((item: Translation, index: number) => {
-          if (item.langCountry) {
-            $flag = elementRef.querySelector(`.flag.flag-${item.langCountry.toLowerCase()}`);
+        component.translations.map((item: any, index: number) => {
+          if (item.idiomaPais) {
+            $flag = elementRef.querySelector(`.flag.flag-${item.idiomaPais.toLowerCase()}`);
             expect($flag).not.toBeNull();
           } else {
-            $flag = elementRef.querySelector('.flag.sin-flag');
+            $flag = elementRef.querySelector('.flag.no-flag');
             expect($flag).not.toBeNull();
           }
 
-          $button = $rows[index].querySelector('.ui-grid-row button');
+          $button = $rows[index].querySelector('.p-grid button');
           expect($button).toBeNull();
         });
 
@@ -223,6 +223,55 @@ describe('MultiLanguageComponent', () => {
           expect($button).not.toBeNull();
         });
       });
+
+      it('should save when the user clicks on save button', () => {
+        spyOn(component, 'save').and.callThrough();
+        spyOn(component, 'hideTranslations').and.callThrough();
+        component.translations = mockService.translations;
+        component.showTranslations = true;
+        component.isEditing = true;
+        fixture.detectChanges();
+        elementRef = fixture.debugElement.nativeElement;
+        const $saveButton: HTMLButtonElement = elementRef.querySelector(
+          'p-dialog button.button-base'
+        );
+        $saveButton.click();
+        expect(component.save).toHaveBeenCalled();
+        expect(component.hideTranslations).toHaveBeenCalled();
+      });
+
+      it('should show an error when the saving fails', () => {
+        spyOn(component, 'save').and.callThrough();
+        spyOn(component, 'hideTranslations').and.callThrough();
+        component.pKey = 'ERROR';
+        component.translations = mockService.translations;
+        component.showTranslations = true;
+        component.isEditing = true;
+        fixture.detectChanges();
+        elementRef = fixture.debugElement.nativeElement;
+        const $saveButton: HTMLButtonElement = elementRef.querySelector(
+          'p-dialog button.button-base'
+        );
+        $saveButton.click();
+        expect(component.save).toHaveBeenCalled();
+        expect(component.hideTranslations).toHaveBeenCalled();
+      });
+      it('should show an error when the saving fails', () => {
+        spyOn(component, 'save').and.callThrough();
+        spyOn(component, 'hideTranslations').and.callThrough();
+        component.pKey = 'ERROR500';
+        component.translations = mockService.translations;
+        component.showTranslations = true;
+        component.isEditing = true;
+        fixture.detectChanges();
+        elementRef = fixture.debugElement.nativeElement;
+        const $saveButton: HTMLButtonElement = elementRef.querySelector(
+          'p-dialog button.button-base'
+        );
+        $saveButton.click();
+        expect(component.save).toHaveBeenCalled();
+        expect(component.hideTranslations).toHaveBeenCalled();
+      });
     });
 
     describe('and the HTML Editor Dialog is opened', () => {
@@ -248,8 +297,8 @@ describe('MultiLanguageComponent', () => {
         data = component.translations[0];
 
         // Get first row and its HTML Editor button.
-        const $row: HTMLElement = elementRef.querySelector('.ui-grid-col-12 > .ui-grid-row');
-        const $button: HTMLButtonElement = $row.querySelector('.ui-grid-row button');
+        const $row: HTMLElement = elementRef.querySelector('.translations-wrapper > .p-grid');
+        const $button: HTMLButtonElement = $row.querySelector('.p-grid button');
         expect($button).not.toBeNull();
 
         // Click on first HTML Editor button
@@ -262,9 +311,7 @@ describe('MultiLanguageComponent', () => {
       it('should be active', () => {
         const $editorDialog = elementRef.querySelectorAll('p-dialog')[1];
         const $header: HTMLSpanElement = $editorDialog.querySelector('span.ui-dialog-title');
-        const translation = data.langCountryTranslation
-          ? data.langCountryTranslation
-          : data.langCountry;
+        const translation = data.idiomaPaisTraduccion ? data.idiomaPaisTraduccion : data.idiomaPais;
 
         expect(component.showTranslations).toBe(false);
         expect(component.showHTMLEditor).toBe(true);
@@ -288,25 +335,25 @@ describe('MultiLanguageComponent', () => {
           elementRef.querySelectorAll('p-dialog p-footer button:not([hidden]')
         );
         expect($footerButtons.length).toBe(2);
-        expect($footerButtons[0].innerText).toEqual('Guardar');
-        expect($footerButtons[1].innerText).toEqual('Salir');
+        expect($footerButtons[0].innerText).toEqual(LocaleES.LEAVE);
+        expect($footerButtons[1].innerText).toEqual(LocaleES.SAVE);
       });
 
       it('should save', () => {
         spyOn(component, 'saveHTML').and.callThrough();
 
-        component.currentLanguageHTML = 'TEST';
+        component.currentLanguageHTML = component.translations[0].idiomaPais;
         component.currentTextHTML =
           '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
 
         const $saveButton: Element = elementRef.querySelector(
-          'p-dialog p-footer button:not([hidden]'
+          'p-dialog p-footer button.button-base'
         );
-
         TestingMockEvents.triggerClickOn($saveButton);
         fixture.detectChanges();
-        component.translations[0].langCountry = component.currentLanguageHTML;
-        component.translations[0].langCountryTranslation = component.currentTextHTML;
+        component.translations[0].idiomaPais = component.currentLanguageHTML;
+        component.translations[0].idiomaPaisTraduccion = component.currentTextHTML;
+        expect(component.saveHTML).toHaveBeenCalled();
       });
     });
   });

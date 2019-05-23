@@ -25,6 +25,8 @@ $accentTextColor: color(accent, text);
 $textColor: color(text, base);
 $textSecondaryColor: color(text, secondary);
 $textMutedColor: color(text, muted);
+$textInvertedColor: color(text, inverted);
+$textInvertedMutedColor: color(text, invertedMuted);
 
 /* breakpoints */
 $breakpoints: (
@@ -134,4 +136,22 @@ $multiselectHeaderBg: color(gray, gray-1);
 /* Rating stars*/
 $ratingStars: color(gold);
 
+/* overlay */
+$contentShadowOpacity: 0.2;
+
+/* calendar */
+$calendarDaySelectedBg: color(blue, blue-1);
+
+/* topbar */
+$topbarBg: color(blue, blue-7);
+$topbarActionBg: color(blue, blue-11);
+$topbarSettingModalShadow: color(blue, blue-1);
+
+/* editor */
+$editorToolbarBg: color(white, white-2);
+$pickerLabelColor: color(gray, gray-21);
+
 $tealBadge: color(green, green-6);
+
+/* Font Family */
+$mainFont: 'latolatinregular', sans-serif;

@@ -6,64 +6,64 @@ import { CommonRq } from '../../core/common.service';
 import { GlobalService } from '../../core/global.service';
 
 export class MenuRq extends CommonRq {
-    sessionId: string;
-    params: Param[];
+  sessionId: string;
+  params: Param[];
 
-    constructor(sessionId: string, params?: Param[]) {
-        super();
-        this.sessionId = sessionId;
-        this.params = params;
-    }
+  constructor(sessionId: string, params?: Param[]) {
+    super();
+    this.sessionId = sessionId;
+    this.params = params;
+  }
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MainMenuService {
-    temp: any[];
+  temp: any[];
 
-    constructor(private menuProvider: MainMenuProviderService) {}
+  constructor(private menuProvider: MainMenuProviderService) {}
 
-    obtenMenu(rq: MenuRq): Observable<any> {
-        return Observable.create((observer) => {
-            this.temp = this.menuProvider.getEstructuraMenu();
-            this.menuProvider.obtenOpcionesActivas(rq).subscribe(
-                (data) => {
-                    if (data.ok) {
-                        if (data.menu.opciones && data.menu.opciones.length) {
-                            this.cargarOpciones(this.temp, data.menu.opciones);
-                        }
-                        if (data.roles && data.roles.length) {
-                            GlobalService.setRoles(data.roles);
-                        }
-                    } else {
-                        console.error('No se recuperó un menú');
-                    }
-                },
-                (error) => console.error(error),
-                () => {
-                    observer.next(this.temp);
-                }
-            );
-        });
-    }
-
-    cargarOpciones(elementos: any[], options: any[]): boolean {
-        let tieneOpciones = false;
-        elementos.forEach((e) => {
-            if (e.submenus) {
-                e.enabled = this.cargarOpciones(e.submenus, options);
-            } else {
-                const aux = options.filter((v) => {
-                    return v.id === e.id;
-                });
-
-                if (aux && aux.length > 0) {
-                    e.enabled = true;
-                }
+  obtenMenu(rq: MenuRq): Observable<any> {
+    return Observable.create((observer) => {
+      this.temp = this.menuProvider.getEstructuraMenu();
+      this.menuProvider.obtenOpcionesActivas(rq).subscribe(
+        (data) => {
+          if (data.ok) {
+            if (data.menu.opciones && data.menu.opciones.length) {
+              this.cargarOpciones(this.temp, data.menu.opciones);
             }
-            if (!tieneOpciones && e.enabled) {
-                tieneOpciones = true;
+            if (data.roles && data.roles.length) {
+              GlobalService.setRoles(data.roles);
             }
+          } else {
+            console.error('No se recuperó un menú');
+          }
+        },
+        (error) => console.error(error),
+        () => {
+          observer.next(this.temp);
+        }
+      );
+    });
+  }
+
+  cargarOpciones(elementos: any[], options: any[]): boolean {
+    let tieneOpciones = false;
+    elementos.forEach((e) => {
+      if (e.submenus) {
+        e.enabled = this.cargarOpciones(e.submenus, options);
+      } else {
+        const aux = options.filter((v) => {
+          return v.id === e.id;
         });
-        return tieneOpciones;
-    }
+
+        if (aux && aux.length > 0) {
+          e.enabled = true;
+        }
+      }
+      if (!tieneOpciones && e.enabled) {
+        tieneOpciones = true;
+      }
+    });
+    return tieneOpciones;
+  }
 }

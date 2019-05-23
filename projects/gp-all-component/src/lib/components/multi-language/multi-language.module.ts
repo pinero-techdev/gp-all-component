@@ -1,3 +1,5 @@
+import { MessagesService } from './../../services/core/messages.service';
+import { MultiLanguageService } from './../../services/api/multi-language/multi-language.service';
 import { ButtonModule } from 'primeng/button';
 import { MultiLanguageComponent } from './multi-language.component';
 import { NgModule } from '@angular/core';
@@ -22,5 +24,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     TooltipModule,
   ],
   exports: [MultiLanguageComponent],
+  providers: [MultiLanguageService, MessagesService],
 })
 export class MultiLanguageModule {}

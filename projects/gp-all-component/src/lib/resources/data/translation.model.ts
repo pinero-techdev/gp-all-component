@@ -1,11 +1,11 @@
 export class Translation {
-  langCode: string;
-  langCountry: string;
-  langCountryTranslation: string;
+  idiomaCodigo: string;
+  idiomaPais: string;
+  idiomaPaisTraduccion: string;
 
   constructor(langCode: string, langCountry: string, langCountryTranslation: string) {
-    this.langCode = langCode;
-    this.langCountry = langCountry;
-    this.langCountryTranslation = langCountryTranslation;
+    this.idiomaCodigo = langCode;
+    this.idiomaPais = langCountry;
+    this.idiomaPaisTraduccion = langCountryTranslation;
   }
 }

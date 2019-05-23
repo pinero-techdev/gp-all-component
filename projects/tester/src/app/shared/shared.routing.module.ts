@@ -1,4 +1,4 @@
-import { RedirectComponent } from './../../../../gp-all-component/src/lib/components/redirect/redirect.component';
+import { RedirectTesterComponent } from './redirect-tester/redirect-tester.component';
 import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
@@ -13,12 +13,14 @@ import { TableFrameTesterComponent } from './table-frame-tester/table-frame-test
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
 import { DropdownTesterComponent } from './dropdown-tester/dropdown-tester.component';
+import { FormCheckboxFieldTesterComponent } from './form-checkbox-field-tester/form-checkbox-field-tester.component';
 import { ImgTesterComponent } from './img-tester/img-tester.component';
 import { CalendarTesterComponent } from './calendar-tester/calendar-tester.component';
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
 import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.component';
 import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.component';
+import { TextareaTesterComponent } from './textarea-tester/textarea-tester.component';
 
 export const appRoutes: Routes = [
   {
@@ -74,6 +76,10 @@ export const appRoutes: Routes = [
     component: DropdownRelatedTesterComponent,
   },
   {
+    path: 'checkbox-tester',
+    component: FormCheckboxFieldTesterComponent,
+  },
+  {
     path: 'img-tester',
     component: ImgTesterComponent,
   },
@@ -83,7 +89,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'redirect-tester/:new/:url',
-    component: RedirectComponent,
+    component: RedirectTesterComponent,
   },
   {
     path: 'switch-tester',
@@ -96,6 +102,10 @@ export const appRoutes: Routes = [
   {
     path: 'time-field-tester',
     component: TimeFieldTesterComponent,
+  },
+  {
+    path: 'textarea-field-tester',
+    component: TextareaTesterComponent,
   },
 ];
 

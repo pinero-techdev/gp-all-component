@@ -59,7 +59,7 @@ export class TopbarComponent implements OnInit, OnChanges {
     this.itemsUserMenu = [
       {
         label: 'Logout',
-        icon: 'fa fa-sign-out-alt',
+        icon: 'pi pi-sign-out',
         command: (click) => {
           this.toggleUserMenu(), this.toggleMenu(false), this.redirect('logout');
         },

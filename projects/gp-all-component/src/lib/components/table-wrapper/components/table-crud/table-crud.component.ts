@@ -33,6 +33,7 @@ import { GpFormControl } from './../../../../components/form-wrapper/resources/f
 import { GpFormFieldType } from './../../../../components/form-wrapper/resources/form-field-type.enum';
 import { GpFormFieldControl } from './../../../../components/form-wrapper/resources/form-field-control.class';
 import { isNullOrUndefined } from 'util';
+import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-app-table-crud',
@@ -446,7 +447,7 @@ export class TableCrudComponent implements AfterViewChecked {
       .subscribe(
         (data) => {
           if (!data.ok) {
-            this.messagesService.showErrorAlert('Error recuperando el registro.');
+            this.messagesService.showErrorAlert(LocaleES.ERROR.RETRIEVE_RECORD);
             return;
           }
 
@@ -461,7 +462,7 @@ export class TableCrudComponent implements AfterViewChecked {
           this.displayEdicion = true;
         },
 
-        (err) => this.messagesService.showErrorAlert('Error interno recuperando el registro.'),
+        (err) => this.messagesService.showErrorAlert(LocaleES.ERROR.RETRIEVE_RECORD),
 
         () => (this.formControl.lockFields = false)
       );
@@ -481,7 +482,7 @@ export class TableCrudComponent implements AfterViewChecked {
         (data) => {
           if (!data.ok) {
             this.messagesService.showErrorAlert(
-              'Error borrando el registro: ' + data.error.errorMessage
+              LocaleES.ERROR.REMOVE_RECORD(data.error.errorMessage)
             );
             return;
           }
@@ -496,7 +497,7 @@ export class TableCrudComponent implements AfterViewChecked {
           this.changes.emit(true);
         },
 
-        (err) => this.messagesService.showErrorAlert('Error interno borrando el registro.'),
+        (err) => this.messagesService.showErrorAlert(LocaleES.ERROR.REMOVE_INTERNAL_RECORD),
 
         () => (this.formControl.lockFields = false)
       );
@@ -675,7 +676,7 @@ export class TableCrudComponent implements AfterViewChecked {
         (data) => {
           if (!data.ok) {
             this.messagesService.showErrorAlert(
-              'Error actualizando el registro: ' + data.error.errorMessage
+              LocaleES.ERROR.UPDATING_RECORD(data.error.errorMessage)
             );
             return;
           }
@@ -689,7 +690,7 @@ export class TableCrudComponent implements AfterViewChecked {
           this.changes.emit(true);
         },
 
-        (err) => this.messagesService.showErrorAlert('Error interno actualizando el registro.'),
+        (err) => this.messagesService.showErrorAlert(LocaleES.ERROR.UPDATING_INTERNAL_RECORD),
 
         () => (this.formControl.lockFields = false)
       );
@@ -707,7 +708,7 @@ export class TableCrudComponent implements AfterViewChecked {
         (data) => {
           if (!data.ok) {
             this.messagesService.showErrorAlert(
-              'Error actualizando el registro: ' + data.error.errorMessage
+              LocaleES.ERROR.UPDATING_RECORD(data.error.errorMessage)
             );
             return;
           }
@@ -716,7 +717,7 @@ export class TableCrudComponent implements AfterViewChecked {
           this.closeDialog();
         },
 
-        (err) => this.messagesService.showErrorAlert('Error interno insertando el registro.'),
+        (err) => this.messagesService.showErrorAlert(LocaleES.ERROR.INSERTING_RECORD),
 
         () => (this.formControl.lockFields = false)
       );

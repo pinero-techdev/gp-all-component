@@ -49,7 +49,8 @@ export class UpdateTranslationsRq {
   }
 }
 /* tslint:enable:variable-name */
-@Injectable()
+
+@Injectable({ providedIn: 'root' })
 export class MultiLanguageService extends CommonService {
   getTranslations(request: GetTranslationsRq): Observable<GetTranslationsRs> {
     const urlServicio = `${GlobalService.getBASE_URL()}/multiidioma-svc/getTranslations`;

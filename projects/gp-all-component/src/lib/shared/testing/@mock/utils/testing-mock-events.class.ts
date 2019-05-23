@@ -15,6 +15,10 @@ export class TestingMockEvents {
     $element.dispatchEvent(this.createKeyboardEvent('keyup', char));
   }
 
+  static triggerChangeEvent($element: Element) {
+    $element.dispatchEvent(this.createEvent('change'));
+  }
+
   /**/
   private static createEvent(typeEvent: string): Event {
     const event = document.createEvent('HTMLEvents');

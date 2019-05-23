@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         )
         .subscribe(
           (data) => this.setLogin(data, urlToRedirect),
-          (err) => this.showError(LocaleES.AN_ERROR_HAS_OCURRED, err)
+          (err) => this.showError(null, err)
         );
     } else {
       this.showError(LocaleES.USERNAME_PASS_SHOULD_CORRECT_VALUE);
@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * @param message Error message
    * @param error Error information by the service only for the console
    */
-  showError(message: string, error: any = null) {
+  showError(message: string = null, error: any = null) {
     if (error) {
       console.error(error);
     }
