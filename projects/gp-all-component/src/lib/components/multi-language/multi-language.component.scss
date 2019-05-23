@@ -1,11 +1,59 @@
 // @import './../../resources/scss/theme-360/theme';
 @import './../../resources/scss/theme-360/theme';
 
+::ng-deep {
+  .multilanguage-button.ui-widget {
+    padding: 0 1.3em;
+
+    .pi {
+      font-size: 20px;
+    }
+  }
+
+  .ui-dialog.ui-widget {
+    border-radius: $borderRadius;
+    background-color: $whiteColor;
+
+    &.ui-shadow {
+      @include overlay-content-shadow();
+    }
+
+    .ui-dialog-titlebar {
+      padding: $separationXLarge;
+      background: $whiteColor;
+      border: none;
+    }
+
+    .ui-dialog-content.ui-widget-content {
+      @include make-scroll();
+      padding: $separationXLarge;
+      border: none;
+    }
+
+    .ui-inputtext {
+      @include make-input();
+
+      &:enabled:hover:not(.ui-state-error) {
+        border-color: $inputBorderColor;
+      }
+    }
+
+    .ui-dialog-footer {
+      padding: $separationXLarge;
+      border: none;
+      border-top: 1px solid $borderColor;
+    }
+  }
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
 /* FLAGS TRANSLATIONS */
 .flag {
   background-size: cover;
   background: center no-repeat;
-  width: 48px;
   height: 48px;
   &-ruso {
     background-image: url('./../../resources/images/flags/ruso.png');
