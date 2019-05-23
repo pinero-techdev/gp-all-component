@@ -72,6 +72,7 @@ export class TableService extends CommonService {
    * @returns Json con la sesión del username
    */
   metadata(tableName: string): Observable<MetadataRs> {
+    console.info(GlobalService.getBASE_URL());
     return this.post<MetadataRs>(
       `${GlobalService.getBASE_URL()}/table_svc/${tableName}/metadata`,
       {}
@@ -104,6 +105,7 @@ export class TableService extends CommonService {
       filtersRq = filters;
     }
 
+    console.info(GlobalService.getSESSION_ID());
     return this.post<ListRs>(`${GlobalService.getBASE_URL()}/table_svc/${tableName}/list`, {
       retrieveMetadata,
       ordered: order,

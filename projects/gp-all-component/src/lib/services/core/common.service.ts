@@ -86,6 +86,7 @@ export class CommonService {
       'Content-Type': 'application/json; charset=UTF-8',
       Authorization: GlobalService.getSESSION_ID(),
     });
+    console.info('ID', GlobalService.getSESSION_ID());
     const options = new RequestOptions(headers);
     return this.http.post<T>(url, body, options);
   }
