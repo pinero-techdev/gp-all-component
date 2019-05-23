@@ -3,6 +3,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { MultiSelect } from 'primeng/primeng';
 import { noop } from 'rxjs';
+import { LocaleES } from './../../resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-multi-select',
@@ -14,7 +15,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
    * Text shown near the number of selected elements
    */
   @Input()
-  selectionLabel = 'Opciones seleccionadas';
+  selectionLabel = LocaleES.SELECTED_OPTIONS;
 
   /**
    * Multiselect options
@@ -26,7 +27,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
   disabled = false;
 
   @Input()
-  defaultLabel = 'Elige una opción';
+  defaultLabel = LocaleES.CHOOSE_AN_OPTION;
 
   @Input()
   appendTo: any;

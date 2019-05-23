@@ -34,6 +34,7 @@ import { CommonRs } from './../../../../services/core/common.service';
 import { InfoCampoModificado } from './../../../../resources/data/info-campo-modificado.model';
 import { GpFormFieldType } from './../../../../components/form-wrapper/resources/form-field-type.enum';
 import { GpFormField } from './../../../../components/form-wrapper/resources/form-field.model';
+import { LocaleES } from './../../../../resources/localization';
 
 describe('TableCrudComponent', () => {
   let component: TableCrudComponent;
@@ -418,7 +419,7 @@ describe('TableCrudComponent', () => {
       component.onRowSelect();
 
       expect($tableServiceSpy).toHaveBeenCalled();
-      expect($messagesServiceSpy).toHaveBeenCalledWith('Error interno recuperando el registro.');
+      expect($messagesServiceSpy).toHaveBeenCalledWith(LocaleES.ERROR.RETRIEVE_RECORD);
     });
   });
 
@@ -449,7 +450,7 @@ describe('TableCrudComponent', () => {
       const tableName = 'TEST';
       const rows = ['TEST_ROW'];
       const selectedRow = rows[0];
-      const errorResponse = 'Error borrando el registro: ' + CommonRsErrorMock.error.errorMessage;
+      const errorResponse = LocaleES.ERROR.REMOVE_RECORD(CommonRsErrorMock.error.errorMessage);
 
       const responseMock = new Observable<CommonRs>((subscriber) =>
         subscriber.next(CommonRsErrorMock)
@@ -616,7 +617,7 @@ describe('TableCrudComponent', () => {
         component.onDialogSave();
 
         expect($tableServiceSpy).toHaveBeenCalled();
-        expect($messagesServiceSpy).toHaveBeenCalledWith('Error interno actualizando el registro.');
+        expect($messagesServiceSpy).toHaveBeenCalledWith(LocaleES.ERROR.UPDATING_INTERNAL_RECORD);
       });
     });
 
@@ -665,7 +666,7 @@ describe('TableCrudComponent', () => {
 
         expect($tableServiceSpy).toHaveBeenCalled();
         expect($messagesServiceSpy).toHaveBeenCalledWith(
-          'Error actualizando el registro: ' + CommonRsErrorMock.error.errorMessage
+          LocaleES.ERROR.UPDATING_RECORD(CommonRsErrorMock.error.errorMessage)
         );
       });
 
@@ -690,7 +691,7 @@ describe('TableCrudComponent', () => {
         component.onDialogSave();
 
         expect($tableServiceSpy).toHaveBeenCalled();
-        expect($messagesServiceSpy).toHaveBeenCalledWith('Error interno insertando el registro.');
+        expect($messagesServiceSpy).toHaveBeenCalledWith(LocaleES.ERROR.INSERTING_RECORD);
       });
     });
   });

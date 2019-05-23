@@ -20,7 +20,6 @@ export class GlobalServiceModule {
   }
 
   private static setGlobal(environment: any) {
-    console.info('env', environment);
     const env = { ...environmentBase, ...environment };
     GlobalService.setBaseUrl(env.baseUrl);
     GlobalService.setLoginServiceUrl(env.loginUrl);
