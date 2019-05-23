@@ -99,7 +99,6 @@ export * from './lib/components/table-wrapper/table-wrapper.module';
 export * from './lib/components/topbar/topbar.module';
 export * from './lib/components/redirect/redirect.module';
 export * from './lib/shared/shared.module';
-export * from './lib/components/redirect/redirect.module';
 
 // Directive Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';

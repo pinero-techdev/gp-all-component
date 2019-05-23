@@ -32,7 +32,7 @@ Follow steps below to setup the development environment for gp-all-component:
 
 ### Automatic Changes Preview
 
-0. For Windows users, you can skip to step 4
+0. For Windows users, you can skip up to step 5
 1. Only for Mac users, you may need to install [nvm](https://github.com/nvm-sh/nvm) if you don't have it already
 2. With nvm available, install node version 10.15.3 with `nvm install 10.15.3`
 3. Make it the default node version `nvm alias default 10.15.3`
