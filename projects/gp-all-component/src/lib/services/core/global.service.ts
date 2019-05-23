@@ -86,7 +86,11 @@ export class GlobalService {
 
   public static getSESSION(): UserInfo {
     if (!GlobalService.globalSingleton.session) {
-      return null;
+      const session = sessionStorage.getItem('userInfo');
+      if (!session) {
+        return null;
+      }
+      GlobalService.setSession(JSON.parse(session));
     }
     return GlobalService.globalSingleton.session;
   }
@@ -97,7 +101,11 @@ export class GlobalService {
 
   public static getSESSION_ID(): string {
     if (!GlobalService.globalSingleton.sessionId) {
-      return '';
+      const sessionId = sessionStorage.getItem('sessionId');
+      if (!sessionId) {
+        return '';
+      }
+      GlobalService.setSessionId(sessionId);
     }
     return GlobalService.globalSingleton.sessionId;
   }

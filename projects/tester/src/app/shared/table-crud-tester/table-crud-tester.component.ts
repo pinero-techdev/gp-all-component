@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TableCrudComponent } from 'gp-all-component';
 
 @Component({
   selector: 'app-table-crud-tester',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table-crud-tester.component.scss'],
 })
 export class TableCrudTesterComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
+  @ViewChild(TableCrudComponent) tableRef: TableCrudComponent;
+  ngOnInit() {
+    this.tableRef.cambiaTabla('BpgTeco');
+  }
 }
