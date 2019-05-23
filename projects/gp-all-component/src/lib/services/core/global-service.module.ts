@@ -1,7 +1,9 @@
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { GlobalService } from './global.service';
 import { environmentBase } from '../../util/environment';
+import { NgModule } from '@angular/core';
 
+@NgModule({})
 export class GlobalServiceModule {
   public static forRoot(environment: any): ModuleWithProviders {
     this.setGlobal(environment);

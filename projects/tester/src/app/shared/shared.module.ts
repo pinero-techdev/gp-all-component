@@ -18,13 +18,25 @@ import { SharedRoutingModule } from './shared.routing.module';
 import { SwitchFieldTesterComponent } from './switch-field-tester/switch-field-tester.component';
 import { TableCrudTesterComponent } from './table-crud-tester/table-crud-tester.component';
 import { TableFrameTesterComponent } from './table-frame-tester/table-frame-tester.component';
-import { TableWrapperModule } from '@lib/components/table-wrapper/table-wrapper.module';
 import { TextFieldTesterComponent } from './text-field-tester/text-field-tester.component';
 import { TextareaTesterComponent } from './textarea-tester/textarea-tester.component';
 import { TimeFieldTesterComponent } from './time-field-tester/time-field-tester.component';
 import { TopbarTesterComponent } from './topbar-tester/topbar-tester.component';
 import { WysiwygTesterComponent } from './wysiwyg-tester/wysiwyg-tester.component';
+import { RedirectTesterComponent } from './redirect-tester/redirect-tester.component';
 import { environment } from '../../environments/environment.prod';
+import {
+  DynamicModule,
+  MainMenuModule,
+  MultiLanguageModule,
+  MultiSelectModule,
+  TableWrapperModule,
+  FormWrapperModule,
+  LoadingIndicatorModule,
+  RatingModule,
+  RedirectModule,
+  TopbarModule,
+} from 'gp-all-component';
 
 @NgModule({
   declarations: [
@@ -38,6 +50,7 @@ import { environment } from '../../environments/environment.prod';
     MultiLanguageTesterComponent,
     MultiSelectTesterComponent,
     RatingTesterComponent,
+    RedirectTesterComponent,
     SwitchFieldTesterComponent,
     TableCrudTesterComponent,
     TableFrameTesterComponent,
@@ -49,10 +62,19 @@ import { environment } from '../../environments/environment.prod';
     TextFieldTesterComponent,
   ],
   imports: [
+    DynamicModule,
     CommonModule,
     GlobalServiceModule.forRoot(environment),
+    LoadingIndicatorModule,
+    MainMenuModule,
+    MultiSelectModule,
+    MultiLanguageModule,
     SharedRoutingModule,
     TableWrapperModule,
+    FormWrapperModule,
+    RatingModule,
+    RedirectModule,
+    TopbarModule,
   ],
   exports: [
     DropdownRelatedTesterComponent,

@@ -1,4 +1,4 @@
-import { RedirectComponent } from './../../../../gp-all-component/src/lib/components/redirect/redirect.component';
+import { RedirectTesterComponent } from './redirect-tester/redirect-tester.component';
 import { DropdownRelatedTesterComponent } from './dropdown-related-tester/dropdown-related-tester.component';
 import { FooTesterComponent } from './../foo-tester/foo-tester.component';
 import { MultiLanguageTesterComponent } from './multi-language-tester/multi-language-tester.component';
@@ -89,7 +89,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'redirect-tester/:new/:url',
-    component: RedirectComponent,
+    component: RedirectTesterComponent,
   },
   {
     path: 'switch-tester',

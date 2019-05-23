@@ -1,7 +1,6 @@
 import { GPUtil } from './../../../services/core/gp-util.service';
 import { RegexValidations } from './regex-validations.type';
 import { LocaleES } from './../../../resources/localization/es-ES.lang';
-import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
 import { Message } from 'primeng/api';
 import { isNullOrUndefined } from 'util';
 import { Input } from '@angular/core';
@@ -9,6 +8,7 @@ import { GpFormControl } from './form-control.model';
 import { GpFormField } from './form-field.model';
 import { GpFormFieldControlInterface } from './form-field-control.interface';
 import { TableService } from '../../../services/api/table/table.service';
+import { GpTableRestrictions } from '../../../components/table-wrapper/resources/gp-table-restrictions.enum';
 
 export abstract class GpFormFieldControl extends GpFormControl
   implements GpFormFieldControlInterface {
