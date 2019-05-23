@@ -8,7 +8,7 @@ import { GpFormControl } from './form-control.model';
 import { GpFormField } from './form-field.model';
 import { GpFormFieldControlInterface } from './form-field-control.interface';
 import { TableService } from '../../../services/api/table/table.service';
-import { GpTableRestrictions } from '../../../components/table-wrapper/resources/gp-table-restrictions.enum';
+import { GpTableRestrictions } from '../../table-wrapper/resources/gp-table-restrictions.enum';
 
 export abstract class GpFormFieldControl extends GpFormControl
   implements GpFormFieldControlInterface {

@@ -1,6 +1,6 @@
 {
-  "name": "gp-all-components",
-  "version": "0.0.0",
+  "name": "gp-all-component",
+  "version": "1.1.1",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve tester --watch --port=4400",
@@ -13,6 +13,7 @@
     "---- BUILD & PACK ----": "",
     "bundle:scss": "ts-node ./scripts/css-bundle.ts",
     "build": "ng build gp-all-component && npm run bundle:scss",
+    "build:watch": "concurrently \"ng build gp-all-component --watch\" \"wait-on --delay 5000 file:dist/gp-all-component/lib/resources && npm run bundle:scss\"",
     "postbuild": "npm run npm:pack",
     "npm:pack": "cd dist/gp-all-component && npm pack",
     "deploy-component": "node deploy-gp-all-component.js",
@@ -47,7 +48,6 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
-    "gp-all-component": "file:dist/gp-all-component/gp-all-component-1.1.1.tgz",
     "hammerjs": "^2.0.8",
     "npm": "^6.9.0",
     "primeflex": "^1.0.0-rc.1",
@@ -78,6 +78,8 @@
     "@types/karma": "^3.0.2",
     "@types/node": "~12.0.0",
     "@types/webpack": "4.4.26",
+    "concurrently": "^4.1.0",
+    "wait-on": "^3.2.0",
     "chance": "1.0.18",
     "cli-glob": "^0.1.0",
     "codelyzer": "~4.5.0",

@@ -1,6 +1,6 @@
 import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { GpTableRestrictions } from '@lib/components/table-wrapper/resources/gp-table-restrictions.enum';
+import { GpTableRestrictions } from '../../../table-wrapper/resources/gp-table-restrictions.enum';
 import { FormTimeFieldComponent } from './form-time-field.component';
 import {
   FormWrapperSharedModules,
