@@ -32,14 +32,15 @@ Follow steps below to setup the development environment for gp-all-component:
 
 ### Automatic Changes Preview
 
-0. You may need to install [nvm](https://github.com/nvm-sh/nvm) if you don't have it already
-1. With nvm available, install node version 10.15.3 with `nvm install 10.15.3`
-2. Make it the default node version `nvm alias default 10.15.3`
-3. Close the command line, and open it again to reload node path
-4. Start the build angular process in watch mode with `npm run build:watch`
-5. When build has finished and waiting for file changes, go into the dist/gp-all-component directory and run `npm link`
-6. The library is ready to consume with live preview by setting up in the external application you want to preview the changes with `npm link gp-all-component`
-7. In case you have any `critical dependency` errors, you may need to config your `tsconfig.json` file with the following paths in compiler options:
+0. For Windows users, you can skip to step 4
+1. Only for Mac users, you may need to install [nvm](https://github.com/nvm-sh/nvm) if you don't have it already
+2. With nvm available, install node version 10.15.3 with `nvm install 10.15.3`
+3. Make it the default node version `nvm alias default 10.15.3`
+4. Close the command line, and open it again to reload node path
+5. Start the build angular process in watch mode with `npm run build:watch`
+6. When build has finished and waiting for file changes, go into the dist/gp-all-component directory and run `npm link`
+7. The library is ready to consume with live preview by setting up in the external application you want to preview the changes with `npm link gp-all-component`
+8. In case you have any `critical dependency` errors, you may need to config your `tsconfig.json` file with the following paths in compiler options:
 
 ```json
 "paths": {
