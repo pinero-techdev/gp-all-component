@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TooltipModule, EditorModule } from 'primeng/primeng';
 import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MultiLanguageService } from '@lib/services/api/multi-language/multi-language.service';
 
 @NgModule({
   declarations: [MultiLanguageComponent],
@@ -22,5 +23,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     TooltipModule,
   ],
   exports: [MultiLanguageComponent],
+  providers: [MultiLanguageService],
 })
 export class MultiLanguageModule {}

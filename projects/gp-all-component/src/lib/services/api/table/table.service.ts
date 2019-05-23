@@ -41,7 +41,7 @@ export class SelectOneRowRs extends CommonRs {
   metadata: DataTableMetaData;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TableService extends CommonService {
   constructor(http: HttpClient) {
     super(http);

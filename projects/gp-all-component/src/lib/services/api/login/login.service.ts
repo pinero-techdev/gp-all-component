@@ -50,7 +50,7 @@ export class SessionInfoRs extends CommonRs {
   sessionId: string;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LoginService {
   constructor(private http: HttpClient) {}
 
