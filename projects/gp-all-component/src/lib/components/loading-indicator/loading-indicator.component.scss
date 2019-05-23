@@ -2,24 +2,8 @@
 
 // ::ng-deep is deprecated but not removed.
 // Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
-<<<<<<< HEAD
 
 :host {
   display: flex;
   justify-content: center;
-=======
-::ng-deep {
-  :host {
-    display: flex;
-    justify-content: center;
-
-    .oculto {
-      display: none;
-    }
-
-    .visible {
-      display: flex;
-    }
-  }
->>>>>>> 7976e2d7a81ce1bf03fbaf7fa83eef4e25318c9e
 }
