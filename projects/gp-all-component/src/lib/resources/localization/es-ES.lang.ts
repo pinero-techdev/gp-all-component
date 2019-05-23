@@ -3,22 +3,28 @@ export const LocaleES = {
   ACCESS_URL_FORBIDDEN: (userId, url) =>
     `El username ${userId} no tiene los permisos necesarios para acceder a ${url}`,
   AN_ERROR_HAS_OCURRED: 'Ha ocurrido un error',
+  AN_ERROR_LOADING_DATA: 'Error al cargar datos',
   CHANGE_PASSWORD: 'Cambiar clave',
   ENTER: 'Entrar',
   FIELDS_ARE_MANDATORY: 'Todos los campos son obligatorios',
   LOADING_DROPDOWN_DATA: 'Cargando los datos del desplegable ...',
   LOGGED_USER: 'Usuario logado',
+  NO_OPTIONS_FOR_SELECTION: 'No existen opciones para el valor seleccionado',
   PASSWORD: 'Password',
   PASSWORD_CORRECTLY_MODIFIED: '¡Contraseña modificada correctamente!',
   PASSWORD_FIELDS_DO_NOT_MATCH: '¡Las contraseñas no coinciden!',
   RETRIEVING_DATA: 'Recuperando datos ...',
   SELECT: 'Seleccione',
+  SELECT_WITH_PARAM: (param) => `Seleccione ${param} ...`,
   USERNAME: 'Usuario',
   USERNAME_PASS_SHOULD_CORRECT_VALUE: 'Los campos username y password deben tener un valor válido.',
   USER_HAS_NOT_ASSOCIATED_A_MENU: (userId, app) =>
     `El username ${userId} no tiene menú asociado en la aplicación ${app}`,
   USER_IS_NOT_LOGGED: 'El username no se encuentra logado',
   VALUE_IS_REQUIRED: 'El valor es obligatorio.',
+  YOU_MUST_TO_MAKE_SELECTION: 'Primero debe seleccionar ',
+  YOU_MUST_SET_RELATED_TABLE: (fieldname) =>
+    `No se ha indicado tabla relacionada para obtener los valores del campo ${fieldname}`,
   YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS:
     'Debe guardar primero el registro para poder insertar o visualizar las traducciones.',
   VALIDATION_VALUE_TOO_SHORT: (minLength) =>
