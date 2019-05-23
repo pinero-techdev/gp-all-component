@@ -5,6 +5,7 @@ export const LocaleES = {
   AN_ERROR_HAS_OCURRED: 'Ha ocurrido un error',
   AN_ERROR_LOADING_DATA: 'Error al cargar datos',
   CHANGE_PASSWORD: 'Cambiar clave',
+  CHOOSE_AN_OPTION: 'Elige una opción',
   ENTER: 'Entrar',
   FIELDS_ARE_MANDATORY: 'Todos los campos son obligatorios',
   LOADING_DROPDOWN_DATA: 'Cargando los datos del desplegable ...',
@@ -16,6 +17,7 @@ export const LocaleES = {
   RETRIEVING_DATA: 'Recuperando datos ...',
   SELECT: 'Seleccione',
   SELECT_WITH_PARAM: (param) => `Seleccione ${param} ...`,
+  SELECTED_OPTIONS: 'Opciones seleccionadas',
   USERNAME: 'Usuario',
   USERNAME_PASS_SHOULD_CORRECT_VALUE: 'Los campos username y password deben tener un valor válido.',
   USER_HAS_NOT_ASSOCIATED_A_MENU: (userId, app) =>
