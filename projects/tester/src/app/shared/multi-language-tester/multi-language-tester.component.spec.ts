@@ -1,8 +1,6 @@
-import { MultiLanguageService } from '@lib/services/api/multi-language/multi-language.service';
+import { MultiLanguageService } from 'gp-all-component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MultiLanguageTesterComponent } from './multi-language-tester.component';
-import { GpAllComponentModule } from '../../../../../gp-all-component/src/lib/gp-all-component.module';
 
 describe('MultiLanguageTesterComponent', () => {
   let component: MultiLanguageTesterComponent;
@@ -13,7 +11,7 @@ describe('MultiLanguageTesterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MultiLanguageTesterComponent],
-      imports: [GpAllComponentModule],
+      imports: [],
       providers: [MultiLanguageService],
     }).compileComponents();
   }));

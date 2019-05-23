@@ -47,6 +47,18 @@ a {
   color: $errorColor;
 }
 
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+
+.full-width {
+  width: 100%;
+}
+
 .control {
   &-valid {
     border-left: 5px solid $successColor !important;
@@ -74,6 +86,10 @@ a {
 
 .bold {
   font-weight: bold;
+}
+
+.ui-corner-all {
+  border-radius: $borderRadius;
 }
 
 // /* CALENDAR - YEARS DIDN'T SHOW COMPLETE*/

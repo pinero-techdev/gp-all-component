@@ -22,26 +22,6 @@
   transition: $transition;
 }
 
-@mixin make-button {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  overflow: hidden;
-  color: $primaryBg;
-  font-size: $buttonFontSize;
-  font-weight: $buttonFontWeight;
-  height: $buttonHeight;
-  line-height: $buttonLineHeight;
-  padding: $buttonPaddingVertical $buttonPaddingHorizontal;
-  border-width: $buttonBorderWidth;
-  border-style: $buttonBorderStyle;
-  border-color: $buttonBg;
-  border-radius: $buttonBorderRadius;
-  margin: 0;
-  box-shadow: 0 1px 4px 0 rgba($blackColor, $buttonShadowOpacity);
-  @include make-button-theme($buttonBg, $buttonBorderColor);
-}
-
 @mixin make-button-theme($color, $borderColor, $transition: 0.3s) {
   @include transition(background-color $transition);
   background-color: $color;
@@ -183,4 +163,9 @@
   }
 
   box-shadow: $params;
+}
+
+@mixin overlay-content-shadow() {
+  box-shadow: 0 10px 20px rgba($blackColor, $contentShadowOpacity),
+    0 6px 6px rgba($blackColor, $contentShadowOpacity);
 }

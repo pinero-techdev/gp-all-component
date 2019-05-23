@@ -1,12 +1,15 @@
+import { Observable } from 'rxjs/Observable';
+import { CommonRs } from './../../core/common.service';
 import {
   ErrorInformation, //
 } from './../../../resources/data/error-information/error-information.model';
 
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Translation } from './../../../resources/data/translation.model';
 import {
   GetTranslationsRs,
-  GetTranslationsRq, //
+  GetTranslationsRq,
+  UpdateTranslationsRq, //
 } from './../../../services/api/multi-language/multi-language.service';
 
 export class MultiLanguageServiceMock {
@@ -30,6 +33,21 @@ export class MultiLanguageServiceMock {
       response.error = new ErrorInformation();
       response.error.errorMessage = 'An error has occurred.';
       response.error.internalErrorMessage = 'An error has occurred.';
+    }
+    return of(response);
+  }
+
+  public updateTranslations(request: UpdateTranslationsRq): Observable<CommonRs> {
+    const response = new CommonRs();
+    response.ok = true;
+    if (request) {
+      if (request.pKey === 'ERROR') {
+        response.ok = false;
+        response.error = new ErrorInformation();
+        response.error.internalErrorMessage = 'Error API SERVICE';
+      } else if (request.pKey === 'ERROR500') {
+        return throwError('Error 500!');
+      }
     }
     return of(response);
   }

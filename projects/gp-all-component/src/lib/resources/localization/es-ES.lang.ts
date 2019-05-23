@@ -1,11 +1,14 @@
 export const LocaleES = {
   ACCEPT: 'Aceptar',
+  CANCEL: 'Cancelar',
   ACCESS_URL_FORBIDDEN: (userId, url) =>
     `El username ${userId} no tiene los permisos necesarios para acceder a ${url}`,
   AN_ERROR_HAS_OCURRED: 'Ha ocurrido un error',
   AN_ERROR_LOADING_DATA: 'Error al cargar datos',
   CHANGE_PASSWORD: 'Cambiar clave',
   CHOOSE_AN_OPTION: 'Elige una opción',
+  LEAVE: 'Salir',
+  SAVE: 'Guardar',
   ENTER: 'Entrar',
   ERROR: {
     RETRIEVE_RECORD: 'Error interno recuperando el registro.',
@@ -27,7 +30,9 @@ export const LocaleES = {
   SELECT_WITH_PARAM: (param) => `Seleccione ${param} ...`,
   SELECTED_OPTIONS: 'Opciones seleccionadas',
   USERNAME: 'Usuario',
+  MULTILANGUAGE_PLACEHOLDER: '*****     CONTIENE HTML -  PULSE BOTÓN PARA EDITAR     ****',
   USERNAME_PASS_SHOULD_CORRECT_VALUE: 'Los campos username y password deben tener un valor válido.',
+  TRANSLATIONS_MANAGEMENT: (description) => `Mantenimiento traducciones - ${description}`,
   USER_HAS_NOT_ASSOCIATED_A_MENU: (userId, app) =>
     `El username ${userId} no tiene menú asociado en la aplicación ${app}`,
   USER_IS_NOT_LOGGED: 'El username no se encuentra logado',
