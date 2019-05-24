@@ -7,10 +7,11 @@ import {
   TableWrapperSharedProviders,
 } from '../../shared/imports/table-wrapper-shared';
 import { HttpClientModule } from '@angular/common/http';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [TableCrudComponent, TableFrameComponent],
-  imports: [CommonModule, HttpClientModule, TableWrapperSharedModules],
+  imports: [CommonModule, HttpClientModule, TableWrapperSharedModules, ButtonModule],
   exports: [TableCrudComponent, TableFrameComponent],
   providers: [TableWrapperSharedProviders],
 })

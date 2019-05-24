@@ -1,4 +1,6 @@
 ::ng-deep .ui-button.ui-widget {
+  @include box-shadow(0 1px 4px 0 rgba($blackColor, $buttonShadowOpacity));
+
   &.ui-button-text-only,
   &.ui-button-text-icon-left {
     .ui-button-text.ui-clickable {
