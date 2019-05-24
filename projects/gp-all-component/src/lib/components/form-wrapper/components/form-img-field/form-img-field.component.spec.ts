@@ -55,7 +55,7 @@ describe('FormImgFieldComponent', () => {
     });
 
     it('shoud init with text-uppercase', () => {
-      expect(component.textboxClass).toEqual('text-uppercase');
+      expect(component.classes).toEqual('text-uppercase');
     });
   });
 

@@ -3,6 +3,7 @@ import { DataTableMetaDataField } from './../../../../resources/data/data-table/
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
 import { TableService } from './../../../../services/api/table/table.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'gp-form-img-field',
@@ -12,14 +13,8 @@ import { TableService } from './../../../../services/api/table/table.service';
 export class FormImgFieldComponent extends GpFormFieldControl implements OnInit {
   @Input() formField: GpFormField;
 
-  textboxClass: string;
-  minLength: number;
-  maxLength: number;
-
-  /**
-   * Translation keys for field
-   */
-  translationKeys = '';
+  /* Add classes to file input*/
+  classes: string;
 
   getFieldMetadata(): DataTableMetaDataField {
     return this.formField && this.formField.fieldMetadata ? this.formField.fieldMetadata : null;
@@ -31,13 +26,14 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
 
   ngOnInit() {
     this.init();
+    this.currentValue = 'https://picsum.photos/id/334/200/300';
     this.isDisabled = this.controlDisabled();
   }
 
   init() {
     const hasTextProperties =
-      this.formField.fieldMetadata.displayInfo &&
-      this.formField.fieldMetadata.displayInfo.textProperties !== null;
+      !isNullOrUndefined(this.formField.fieldMetadata.displayInfo) &&
+      !isNullOrUndefined(this.formField.fieldMetadata.displayInfo.textProperties);
 
     if (hasTextProperties) {
       const setUppercase =
@@ -46,7 +42,7 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
         ) !== -1;
 
       if (setUppercase) {
-        this.textboxClass = 'text-uppercase';
+        this.classes = 'text-uppercase';
       }
     }
 
@@ -80,24 +76,14 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
         this.currentValue = newValue;
       }
     }
-
-    editedRow[this.formField.fieldMetadata.fieldName] = newValue;
+    if (editedRow) {
+      editedRow[this.formField.fieldMetadata.fieldName] = newValue;
+    }
   }
 
   copyValueFromEditedRowToControl(editedRow: any) {
-    const hasTranslationKeyFields =
-      this.formField.fieldMetadata.displayInfo.translationInfo !== null &&
-      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields !== null;
-
-    this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
-
-    if (hasTranslationKeyFields) {
-      const keyFields = this.formField.fieldMetadata.displayInfo.translationInfo.keyFields;
-      this.translationKeys = '';
-
-      for (const keyField of keyFields) {
-        this.translationKeys += editedRow[keyField];
-      }
+    if (this.formField && this.formField.fieldMetadata) {
+      this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
     }
   }
 
