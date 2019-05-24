@@ -3,17 +3,22 @@
 // ::ng-deep is deprecated but not removed.
 // Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
 ::ng-deep {
-  .upload-img-container {
+  .upload-image-container {
     display: flex;
-    height: 36px;
-    .uploaded-img {
-      max-height: 100%;
-      width: auto;
+    flex-direction: column;
+  }
+
+  .ui-inputtext {
+    @include make-input();
+
+    &:not(.ui-state-disabled):hover {
+      border-color: $inputBorderColor;
     }
-    input.ui-inputtext {
-      margin-left: 10px;
-      @include make-input();
-      box-shadow: none;
-    }
+  }
+
+  .uploaded-image {
+    height: auto;
+    width: 100%;
+    margin-bottom: $separation;
   }
 }
