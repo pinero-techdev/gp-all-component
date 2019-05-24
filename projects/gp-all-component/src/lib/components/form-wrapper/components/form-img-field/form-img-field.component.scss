@@ -11,6 +11,8 @@
   .ui-inputtext {
     @include make-input();
 
+    line-height: 1.4;
+
     &:not(.ui-state-disabled):hover {
       border-color: $inputBorderColor;
     }

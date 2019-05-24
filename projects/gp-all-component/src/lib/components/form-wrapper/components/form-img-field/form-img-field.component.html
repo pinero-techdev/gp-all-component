@@ -6,9 +6,8 @@
     type="text"
     [(ngModel)]="currentValue"
     [maxlength]="maxLength"
-    [class]="classes"
     (change)="onFieldChange()"
     [disabled]="isDisabled"
-    class="full-width"
+    class="full-width {{ classes }}"
   />
 </div>
