@@ -1,5 +1,5 @@
-<div class="upload-img-container full-width">
-  <img class="uploaded-img" [src]="currentValue" *ngIf="currentValue" />
+<div class="upload-image-container">
+  <img [src]="currentValue" class="uploaded-image" *ngIf="currentValue" />
   <input
     name="__field__{{ formField?.fieldMetadata.fieldName }}"
     pInputText
