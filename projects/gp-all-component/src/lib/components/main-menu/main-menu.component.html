@@ -1,59 +1,96 @@
-<div id="main-menu" class="layout-menu">
-    <p-scrollPanel #scrollPanel [style]="{height: '100%'}">
-        <ul root="true" class="ultima-menu ultima-main-menu clearfix">
-            <li role="menuitem" *ngFor="let item1 of menuItems | async">
-                <a href="#" *ngIf="item1.action!=null && item1.enabled" [routerLink]="[item1.action]">
-                    <i class="material-icons">{{item1.icon}}</i>
-                    <span>{{item1.texto}}</span>
-                </a>
-                <a href="#" class="ripplelink" *ngIf="item1.action==null && item1.enabled">
-                    <i class="material-icons">{{item1.icon}}</i>
-                    <span>{{item1.texto}}</span>
-                    <i class="material-icons">keyboard_arrow_down</i>
-                </a>
-                <ul role="menu" *ngIf="item1.submenus!=null && item1.enabled" style="display: none;">
-                    <li role="menuitem" *ngFor="let item2 of item1.submenus">
-                        <a href="#" class="rippleLink" *ngIf="item2.action==null  && item2.enabled">
-                            <i class="material-icons">{{item2.icon}}</i>
-                            <span>{{item2.texto}}</span>
-                            <i class="material-icons">keyboard_arrow_down</i>
-                        </a>
-                        <a href="#" class="rippleLink" *ngIf="item2.action!=null  && item2.enabled"
-                           [routerLink]="[item2.action]">
-                            <i class="material-icons">{{item2.icon}}</i>
-                            <span>{{item2.texto}}</span>
-                        </a>
-                        <ul role="menu" *ngIf="item2.submenus!=null && item2.enabled" style="display: none;">
-                            <li role="menuitem" *ngFor="let item3 of item2.submenus">
-                                <a href="#" class="rippleLink" *ngIf="item3.action==null  && item3.enabled">
-                                    <i class="material-icons">{{item3.icon}}</i>
-                                    <span>{{item3.texto}}</span>
-                                    <i class="material-icons">keyboard_arrow_down</i>
-                                </a>
-                                <a href="#" class="rippleLink" *ngIf="item3.action!=null  && item3.enabled"
-                                   [routerLink]="[item3.action]">
-                                    <i class="material-icons">{{item3.icon}}</i>
-                                    <span>{{item3.texto}}</span>
-                                </a>
-                                <ul role="menu" *ngIf="item3.submenus!=null && item3.enabled" style="display: none;">
-                                    <li role="menuitem" *ngFor="let item4 of item3.submenus">
-                                        <a href="#" class="rippleLink" *ngIf="item4.action==null && item4.enabled">
-                                            <i class="material-icons">{{item4.icon}}</i>
-                                            <span>{{item4.texto}}</span>
-                                            <i class="material-icons">keyboard_arrow_down</i>
-                                        </a>
-                                        <a href="#" class="rippleLink" *ngIf="item4.action!=null && item4.enabled"
-                                           [routerLink]="[item4.action]">
-                                            <i class="material-icons">{{item4.icon}}</i>
-                                            <span>{{item4.texto}}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </p-scrollPanel>
+<div id="main-menu" class="menu" #launcher *ngIf="(isOpen || isHome()) && viewLoaded">
+  <div class="cs-card-padding" class="menu-card">
+    <div class="ui-row-fluid ui-row-fluid-top full-width">
+      <div class="ui-col-fluid menu-panel">
+        <div class="ui-row-fluid">
+          <div
+            role="list"
+            *ngFor="let menu of filterEnabledItems()"
+            class="ui-col-fluid ui-col-fluid-4 ui-col-fluid-xs-2 ui-col-fluid-md-3"
+          >
+            <a
+              class="menu-item"
+              (click)="onCloseMenu(menu)"
+              role="listitem"
+              *ngIf="menu.action != null"
+              [routerLink]="[menu.action]"
+              [pTooltip]="menu.texto"
+              [tooltipDisabled]="disableTooltip"
+            >
+              <div
+                class="{{ menu.icon ? 'menu-icon-' + menu.icon : '' }}"
+                [ngClass]="{ 'menu-icon': menu.icon }"
+              ></div>
+              <span class="menu-label">{{ menu.texto }}</span>
+            </a>
+            <a
+              class="menu-item"
+              (click)="menuChange(menu)"
+              role="listitem"
+              *ngIf="menu.action == null"
+              [pTooltip]="menu.texto"
+              [tooltipDisabled]="disableTooltip"
+            >
+              <div
+                class="{{ menu.icon ? 'menu-icon-' + menu.icon : 'menu-icon' }}"
+                [ngClass]="{ 'menu-icon': menu.icon }"
+                [ngStyle]="{ position: 'relative' }"
+              >
+                <div *ngIf="menu.parentList" class="menu-back"></div>
+              </div>
+              <span class="menu-label" [ngClass]="menu.parentList ? 'back-label' : ''">{{
+                menu.texto
+              }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="ui-col-fluid menu-overview">
+        <div class="ui-col-fluid center menu-action" (click)="toggleOverview()">
+          <svg
+            *ngIf="!isExpanded"
+            width="76px"
+            height="82px"
+            viewBox="0 0 76 82"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g id="arrow-left" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <path
+                d="M44.2677292,48.7303177 C44.7393999,49.2019884 45,49.8274287 45,50.4960938 C45,51.1647588 44.7393999,51.7901991 44.2677292,52.2618698 C44.0165434,52.5130556 43.7156471,52.7107875 43.3740279,52.8366472 C43.0970315,52.9386985 42.8039802,52.9941406 42.5019531,52.9941406 C42.2001589,52.9941406 41.9026592,52.9407433 41.6201127,52.8366472 C41.2784935,52.7107875 40.9775973,52.5130556 40.7264114,52.2618698 L31.7322708,43.2677292 C31.258117,42.7935754 31,42.1654907 31,41.4970703 C31,40.8286499 31.258117,40.2005653 31.7322708,39.7264114 L40.7264114,30.7322708 C41.2005653,30.258117 41.8286499,30 42.4970703,30 C43.1654907,30 43.7935754,30.258117 44.2677292,30.7322708 C44.7393999,31.2039415 45,31.8293818 45,32.4980469 C45,33.166712 44.7393999,33.7921522 44.2677292,34.2638229 L37.0303977,41.5011544 L44.2677292,48.7303177 Z"
+                id="chevron-left"
+                fill="#FFFFFF"
+                fill-rule="nonzero"
+              ></path>
+            </g>
+          </svg>
+          <svg
+            *ngIf="isExpanded"
+            width="76px"
+            height="82px"
+            viewBox="0 0 76 82"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g id="arrow-right" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <path
+                d="M44.2677292,48.7303177 C44.7393999,49.2019884 45,49.8274287 45,50.4960938 C45,51.1647588 44.7393999,51.7901991 44.2677292,52.2618698 C44.0165434,52.5130556 43.7156471,52.7107875 43.3740279,52.8366472 C43.0970315,52.9386985 42.8039802,52.9941406 42.5019531,52.9941406 C42.2001589,52.9941406 41.9026592,52.9407433 41.6201127,52.8366472 C41.2784935,52.7107875 40.9775973,52.5130556 40.7264114,52.2618698 L31.7322708,43.2677292 C31.258117,42.7935754 31,42.1654907 31,41.4970703 C31,40.8286499 31.258117,40.2005653 31.7322708,39.7264114 L40.7264114,30.7322708 C41.2005653,30.258117 41.8286499,30 42.4970703,30 C43.1654907,30 43.7935754,30.258117 44.2677292,30.7322708 C44.7393999,31.2039415 45,31.8293818 45,32.4980469 C45,33.166712 44.7393999,33.7921522 44.2677292,34.2638229 L37.0303977,41.5011544 L44.2677292,48.7303177 Z"
+                id="chevron-left"
+                fill="#FFFFFF"
+                fill-rule="nonzero"
+                transform="translate(38.000000, 41.497070) scale(-1, 1) translate(-38.000000, -41.497070) "
+              ></path>
+            </g>
+          </svg>
+        </div>
+
+        <ng-container
+          *ngTemplateOutlet="templateRef; context: { $implicit: overview, expanded: isExpanded }"
+        >
+        </ng-container>
+      </div>
+    </div>
+  </div>
 </div>
