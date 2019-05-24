@@ -36,11 +36,4 @@ describe('MainMenuComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should init the menu', () => {
-    spyOn(component, 'initMenu').and.callThrough();
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(component.initMenu).toHaveBeenCalled();
-  });
 });
