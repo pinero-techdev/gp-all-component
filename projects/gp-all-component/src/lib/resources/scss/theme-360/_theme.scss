@@ -12,6 +12,7 @@
 
 span:not(.ui-button-icon-left),
 p,
+h3,
 label,
 ul,
 li,
@@ -21,7 +22,8 @@ input,
 textarea,
 p-multiselect ::ng-deep .ui-widget,
 p-dropdown ::ng-deep .ui-widget,
-p-calendar ::ng-deep .ui-widget {
+p-calendar ::ng-deep .ui-widget,
+p-table ::ng-deep .ui-widget {
   font-family: $mainFont;
 }
 
@@ -32,9 +34,17 @@ i,
 
 .card {
   background: $whiteColor;
-  box-shadow: -2px 5px 6px 0 rgba(0, 0, 0, 0.15), -11px 9px 21px 0 rgba(0, 0, 0, 0.17);
+  @include box-shadow(
+    -2px 5px 6px 0 rgba($cardShadow, 0.29),
+    -11px 9px 21px 0 rgba($cardShadow, 0.17)
+  );
   border: 1px solid $borderColor;
   border-radius: $borderRadius;
+  margin-bottom: $separation;
+}
+
+.panel-content {
+  padding: $separationXLarge;
 }
 
 /** CLASSES **/

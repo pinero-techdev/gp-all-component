@@ -1,6 +1,6 @@
 <p-toast></p-toast>
-<div class="ui-row-fluid gp-table-wrapper" *ngIf="!working && columns.length > 0">
-  <div class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-lg-6">
+<div class="p-grid gp-table-wrapper" *ngIf="!working && columns.length > 0">
+  <div class="p-col-12 p-xl-6 table-section">
     <div class="card panel-content">
       <p-table
         #tc
@@ -18,18 +18,16 @@
         exportFilename="table_crud_export"
       >
         <ng-template pTemplate="caption">
-          <div class="ui-row-fluid">
-            <div class="ui-col-fluid ui-col-fluid-8 ui-col-fluid-sm-10"
-              >Mantenimiento de tabla {{ tableLabel }}</div
-            >
-            <div class="ui-col-fluid ui-col-fluid-4 ui-col-fluid-sm-2">
+          <div class="p-grid">
+            <div class="p-col-8 p-sm-10 table-header">Mantenimiento de tabla {{ tableLabel }}</div>
+            <div class="p-col-4 p-sm-2 table-header">
               <button
                 pButton
                 type="button"
                 *ngIf="canAdd"
-                icon="fa fa-plus"
+                icon="pi pi-plus"
                 label="Añadir"
-                class="full-width ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
+                class="button-base full-width"
                 (click)="onDialogAdd()"
                 [disabled]="formControl.lockFields"
               >
@@ -54,10 +52,10 @@
         <ng-template pTemplate="footer" let-columns>
           <div class="action-button-wrapper">
             <button
-              class="export-to-csv"
+              class="button-base export-to-csv"
               type="button"
               pButton
-              icon="fa fa-download"
+              icon="pi pi-download"
               (click)="tc.exportCSV()"
               label="Exportar a CSV"
             ></button>
@@ -66,17 +64,17 @@
       </p-table>
     </div>
   </div>
-  <div class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-lg-6">
+  <div class="p-col-12 p-xl-6 form-section">
     <div class="card panel-content" [hidden]="!displayEdicion">
-      <div class="ui-row-fluid">
-        <h2 class="ui-col-fluid ui-col-fluid-12 big-topic">Edición - {{ tableLabel }}</h2>
+      <div class="p-grid">
+        <h3 class="p-col-12 big-topic">Edición - {{ tableLabel }}</h3>
       </div>
-      <div class="ui-row-fluid input-group" *ngFor="let col of columns">
+      <div class="p-grid input-group" *ngFor="let col of columns">
         <div *ngFor="let msg of col.fieldMsgs" class="ui-messages-error">
-          <i class="fa fa-close"></i>&nbsp;{{ msg.detail }}
+          <i class="pi pi-close"></i>&nbsp;{{ msg.detail }}
         </div>
         <div
-          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-md-4"
+          class="p-col-12 p-md-4"
           *ngIf="
             (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
             (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
@@ -88,7 +86,7 @@
           >
         </div>
         <div
-          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-md-8"
+          class="p-col-12 p-md-8"
           *ngIf="
             (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
             (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
@@ -139,49 +137,43 @@
           </gp-form-img-field>
         </div>
       </div>
-      <div class="ui-row-fluid">
-        <div class="ui-col-fluid ui-col-fluid-12">
+      <div class="p-grid">
+        <span class="p-col-12 info-msg">
           * Campos obligatorios.
-        </div>
+        </span>
       </div>
-      <div class="ui-row-fluid ui-separation-xlg action-buttons">
-        <div
-          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-sm-3"
-          *ngIf="canDelete && selectedRow"
-        >
+      <div class="p-grid action-buttons">
+        <div class="p-col-12 p-sm-3" *ngIf="canDelete && selectedRow">
           <button
-            class="full-width ui-button-text-icon-left ui-button-danger"
+            class="full-width button-danger"
             label="Borrar"
             pButton
             type="button"
-            icon="fa fa-trash"
+            icon="pi pi-trash"
             (click)="onDialogDelete()"
             [disabled]="formControl.lockFields"
           >
           </button>
         </div>
-        <div
-          class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-sm-3"
-          *ngIf="canEdit || (canAdd && !selectedRow)"
-        >
+        <div class="p-col-12 p-sm-3" *ngIf="canEdit || (canAdd && !selectedRow)">
           <button
-            class="full-width ui-button-text-icon-left"
+            class="full-width button-base"
             label="Guardar"
             pButton
             type="button"
-            icon="fa fa-save"
+            icon="pi pi-save"
             (click)="onDialogSave()"
             [disabled]="formControl.lockFields"
           >
           </button>
         </div>
-        <div class="ui-col-fluid ui-col-fluid-12 ui-col-fluid-sm-3">
+        <div class="p-col-12 p-sm-3">
           <button
-            class="full-width ui-button-text-icon-left"
+            class="full-width"
             label="Cerrar"
             pButton
             type="button"
-            icon="fa fa-times"
+            icon="pi pi-times"
             (click)="closeDialog()"
             [disabled]="formControl.lockFields"
           >
