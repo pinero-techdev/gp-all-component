@@ -6,6 +6,7 @@ import { DataTableMetaDataField } from './../../../../resources/data/data-table/
 @Component({
   selector: 'gp-form-checkbox-field',
   templateUrl: './form-checkbox-field.component.html',
+  styleUrls: ['./form-checkbox-field.component.scss'],
 })
 export class FormCheckboxFieldComponent extends GpFormFieldControl implements OnInit {
   /**

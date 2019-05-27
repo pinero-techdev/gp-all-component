@@ -102,7 +102,7 @@ $inputBorderValidColor: $successColor;
 $inputLabelColor: color(gray, gra15);
 $inputLabelPrimaryColor: color(white);
 
-// /* checkbox */
+/* checkbox */
 $checkboxBorder: color(gray, gray-13);
 
 /* Buttons */
@@ -126,6 +126,9 @@ $buttonPaddingHorizontal: $inputPaddingHorizontal + 14px;
 $buttonDangerBg: $errorColor;
 $buttonDangerBgHover: $errorColor;
 $buttonShadowOpacity: 0.08;
+
+/* card */
+$cardShadow: color(gray, gray-13);
 
 /* backgrounds */
 $primaryBg: color(white);
@@ -152,6 +155,11 @@ $editorToolbarBg: color(white, white-2);
 $pickerLabelColor: color(gray, gray-21);
 
 $tealBadge: color(green, green-6);
+
+/* table */
+$tableInnerBorder: color(white, white-6);
+$tableOddBg: color(gray, gray-1);
+$highlightedRow: color(white, white-3);
 
 /* Font Family */
 $mainFont: 'latolatinregular', sans-serif;
