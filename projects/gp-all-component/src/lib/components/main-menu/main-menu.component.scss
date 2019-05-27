@@ -1,33 +1,24 @@
 @import './../../resources/scss/theme-360/theme';
 
-$menu-action-width: 76px;
-
 ::ng-deep {
-  .ui-row-fluid {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .ui-col-fluid-md-3 {
-    flex: 0 0 25%;
-    max-width: 25%;
-  }
-
   .menu {
+    background: radial-gradient(
+        ellipse at center,
+        rgba($blackColor, 0) 0%,
+        rgba($blackColor, 0.2) 100%
+      ),
+      linear-gradient(to bottom, $menuGradient1 0%, $menuGradient2 100%);
     background-image: url('./../../resources/images/bg-launcher.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    height: 100vh;
     z-index: 1;
-    padding: 20px 8px 2vh;
+    padding: 20px $separationXLarge 20px $separation;
     overflow: auto;
     margin-top: 0;
 
-    @media (max-width: map-get($breakpoints, 'md')) {
-      padding-right: 2vw;
-      padding-left: 2vw;
+    &-card {
+      display: flex;
     }
 
     &-item {
@@ -46,7 +37,7 @@ $menu-action-width: 76px;
       background-repeat: no-repeat;
       background-size: 80% auto;
       background-position: center;
-      filter: drop-shadow(0 2px 50px rgba(0, 0, 0, 0.4));
+      filter: drop-shadow(0 2px 50px rgba($blackColor, 0.4));
       position: relative;
       width: 8vw;
       height: 8vw;
@@ -133,7 +124,7 @@ $menu-action-width: 76px;
 
     &-label {
       display: block;
-      font-size: 16px;
+      font-size: $fontSizeLarge;
       min-height: 1em;
       line-height: 1;
       white-space: nowrap;
@@ -141,17 +132,23 @@ $menu-action-width: 76px;
       text-overflow: ellipsis;
       width: 100%;
       text-align: center;
-      color: white;
+      color: $whiteColor;
 
       &.back-label {
         visibility: hidden;
       }
     }
 
+    &-back-wrapper {
+      height: 8vh;
+    }
+
     &-back {
       @include absolute-centered(all);
+      top: 54%;
       border-radius: 30%;
-      box-shadow: 0 2px 50px 0 rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, $menuGradient3 0%, $menuGradient2 100%);
+      box-shadow: 0 2px 50px 0 rgba($blackColor, 0.2);
       width: 9vw;
       height: 9vw;
       margin: 0 auto;
@@ -226,7 +223,7 @@ $menu-action-width: 76px;
         flex: 0 0 1em;
         max-width: 10%;
 
-        .ui-col-fluid {
+        .item-wrapper {
           width: $menu-action-width;
           padding: 0;
           height: $menu-action-width;
