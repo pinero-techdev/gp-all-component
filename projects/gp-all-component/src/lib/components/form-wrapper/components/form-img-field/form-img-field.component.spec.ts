@@ -39,7 +39,7 @@ describe('FormImgFieldComponent', () => {
 
   it('should not have metadata', () => {
     expect(component.getFieldMetadata()).toBeNull();
-    expect(component.getFormField()).toBeUndefined();
+    expect(component.getFormField()).toBeNull();
   });
 
   describe('When the field has metadata uppercased', () => {
