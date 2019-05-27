@@ -26,7 +26,6 @@ import { FormCalendarFieldComponent } from '../../../form-wrapper/components/for
 import { FormWysiwygFieldComponent } from '../../../form-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
 import { FilterOperationType } from '../../../../resources/data/filter/filter-operation-type.enum';
 import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
-import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { DataTableMetaData } from '../../../../resources/data/data-table/meta-data/data-table-meta-data.model';
 import { GpFormField } from './../../../../components/form-wrapper/resources/form-field.model';
 import { GpFormControl } from './../../../../components/form-wrapper/resources/form-control.model';
@@ -385,31 +384,11 @@ export class TableCrudComponent implements AfterViewChecked {
   }
 
   /**
-   * Match field type for given form field
-   * @param formField Field to be matched
-   */
-  matchFieldType(formField: GpFormField): string {
-    const displayTypes: Map<string, string> = new Map([
-      [GpTableDisplayTypes.TEXT_AREA, GpFormFieldType.TEXT_AREA],
-      [GpTableDisplayTypes.DROPDOWN, GpFormFieldType.DROPDOWN],
-      [GpTableDisplayTypes.DROPDOWN_RELATED, GpFormFieldType.DROPDOWN_RELATED],
-      [GpTableDisplayTypes.CHECKBOX, GpFormFieldType.CHECKBOX],
-      [GpTableDisplayTypes.SWITCH, GpFormFieldType.SWITCH],
-      [GpTableDisplayTypes.CALENDAR, GpFormFieldType.CALENDAR],
-      [GpTableDisplayTypes.HOUR_MINUTE, GpFormFieldType.TIME],
-      [GpTableDisplayTypes.WYSIWYG, GpFormFieldType.WYSIWYG],
-      [GpTableDisplayTypes.IMG, GpFormFieldType.IMG],
-    ]);
-
-    return displayTypes.get(formField.fieldMetadata.displayInfo.displayType);
-  }
-
-  /**
    * Define component type for given control
    * @param formField The form field to determine
    */
   calcFieldType(formField: GpFormField): void {
-    const fieldType = this.matchFieldType(formField);
+    const fieldType = GpFormFieldType[formField.fieldMetadata.displayInfo.displayType];
 
     if (!isNullOrUndefined(fieldType)) {
       formField.formFieldType = fieldType;

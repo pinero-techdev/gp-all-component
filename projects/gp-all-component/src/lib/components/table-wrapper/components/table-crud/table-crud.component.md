@@ -81,3 +81,20 @@
    */
   @Input() canDelete = true
 ```
+### Deprecated methods ☢
+
+```
+matchFieldType(formField: GpFormField)
+```
+This method has been deleted, as result of GpFormField's  formFieldType property type change, from string to GpFormFieldType enum type.
+```formFieldType: string == null``` 
+to
+```formFieldType: GpFormFieldType;```
+
+
+Now, is not necesary to map the formFieldType with TableDisplayTypes, GpFormFieldType, do this stuff: 
+``` const fieldType = this.matchFieldType(formField); ```
+to
+```const fieldType = GpFormFieldType[formField.fieldMetadata.displayInfo.displayType];```
+
+
