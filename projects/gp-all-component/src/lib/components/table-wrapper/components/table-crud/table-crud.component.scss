@@ -46,12 +46,13 @@
 
         &-wrapper {
           padding-top: 75px;
+          overflow-y: auto;
         }
 
         &-wrapper.shadowSticky:before {
           display: inline-block;
           background: linear-gradient(90deg, rgba($blackColor, 0) 0%, rgba($blackColor, 0.1) 100%);
-          height: calc(100% - 220px);
+          height: calc(100% - 100px);
           right: 0;
           position: absolute;
           top: 100px;
@@ -157,6 +158,7 @@
               border: 1px solid $borderColor;
 
               &-label {
+                display: initial;
                 font-size: 12px;
                 font-weight: bold;
                 letter-spacing: 0.17px;
