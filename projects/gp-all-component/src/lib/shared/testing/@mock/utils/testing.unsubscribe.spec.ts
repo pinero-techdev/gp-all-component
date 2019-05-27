@@ -1,5 +1,5 @@
 import { interval, Subscription } from 'rxjs';
-import { fakeAsync, tick } from '@angular/core/testing';
+import { fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
 import { take, first } from 'rxjs/operators';
 
 class TestingUnsubscribeSpec {
@@ -55,7 +55,7 @@ describe('TestingUnsubscribe', () => {
     }));
   });
 
-  xdescribe('When nothing is used', () => {
+  describe('When nothing is used', () => {
     it('should unsubscribe', fakeAsync(() => {
       testing.init();
       spyOn(testing.subscription, 'unsubscribe');
@@ -63,6 +63,8 @@ describe('TestingUnsubscribe', () => {
       expect(testing.subscription.unsubscribe).not.toHaveBeenCalled();
       testing.subscription.unsubscribe();
       expect(testing.subscription.unsubscribe).toHaveBeenCalled();
+      // Discard all remaining periodic tasks
+      discardPeriodicTasks();
     }));
   });
 });
