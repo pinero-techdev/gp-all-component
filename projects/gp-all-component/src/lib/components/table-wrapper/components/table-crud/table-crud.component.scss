@@ -60,7 +60,7 @@
           z-index: 1;
           content: '';
 
-          @media (min-width: 768px) {
+          @media (max-width: map-get($breakpoints, 'md')) {
             height: calc(100% - 171px);
           }
         }

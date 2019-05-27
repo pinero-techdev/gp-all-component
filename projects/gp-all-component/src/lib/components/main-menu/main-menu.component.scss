@@ -1,308 +1,265 @@
-// @import './../../../../resources/scss/theme-360/global/base';
+@import './../../resources/scss/theme-360/theme';
 
-// $menu-action-width: 76px;
+::ng-deep {
+  .menu {
+    background: radial-gradient(
+        ellipse at center,
+        rgba($blackColor, 0) 0%,
+        rgba($blackColor, 0.2) 100%
+      ),
+      linear-gradient(to bottom, $menuGradient1 0%, $menuGradient2 100%);
+    background-image: url('./../../resources/images/bg-launcher.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    z-index: 1;
+    padding: 20px $separationXLarge 20px $separation;
+    overflow: auto;
+    margin-top: 0;
 
-// :host .theme-360::ng-deep {
-//     .menu-spinner {
-//         height: 100vh;
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-//         background-image: url("../../../../assets/images/bg-launcher.jpg");
-//         background-repeat: no-repeat;
-//         background-size: cover;
-//     }
+    &-card {
+      display: flex;
+    }
 
-//     .menu {
-//         background: radial-gradient(
-//                 ellipse at center,
-//                 rgba(0, 0, 0, 0) 0%,
-//                 rgba(0, 0, 0, 0.2) 100%
-//             ),
-//             linear-gradient(to bottom, $menuGradient1 0%, $menuGradient2 100%);
-//         background-image: url("../../../../assets/images/bg-launcher.jpg");
-//         background-color: $menu360Bg;
-//         background-repeat: no-repeat;
-//         background-size: cover;
-//         position: absolute;
-//         width: 100%;
-//         height: 100%;
-//         z-index: 1;
-//         padding: 20px 8px 2vh;
-//         overflow: auto;
-//         font-family: "Lato", sans-serif;
-//         margin-top: 71px;
-//         height: calc(100% - 71px);
+    &-item {
+      margin: 2em auto;
+      display: block;
+      text-align: center;
+      cursor: inherit;
 
-//         @media (max-width: map-get($breakpoints, "md")) {
-//             padding-right: 2vw;
-//             padding-left: 2vw;
-//         }
+      @media (max-width: map-get($breakpoints, 'sm')) {
+        margin: 1.5em auto;
+      }
+    }
 
-//         &-card {
-//             display: flex;
-//             flex-direction: row;
-//             flex-wrap: wrap;
-//             justify-content: flex-start;
-//             align-content: space-between;
-//             background: none;
-//             color: $textInvertedColor;
+    &-icon {
+      line-height: 0;
+      background-repeat: no-repeat;
+      background-size: 80% auto;
+      background-position: center;
+      filter: drop-shadow(0 2px 50px rgba($blackColor, 0.4));
+      position: relative;
+      width: 8vw;
+      height: 8vw;
+      margin: 0 auto;
+      cursor: pointer;
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 justify-content: center;
-//             }
-//         }
+      @media (max-width: map-get($breakpoints, 'md')) {
+        width: 12vw;
+        height: 12vw;
+      }
 
-//         &-item {
-//             margin: 2em auto;
-//             display: block;
-//             text-align: center;
-//             cursor: inherit;
+      &-assessment {
+        background-image: url('./../../resources/images/launcher/ico-overview.svg');
+      }
 
-//             @media (max-width: map-get($breakpoints, "sm")) {
-//                 margin: 1.5em auto;
-//             }
-//         }
+      &-search {
+        background-image: url('./../../resources/images/launcher/ico-consulta.svg');
+      }
 
-//         &-icon {
-//             line-height: 0;
-//             background-repeat: no-repeat;
-//             background-size: 80% auto;
-//             background-position: center;
-//             filter: drop-shadow(0 2px 50px rgba(0, 0, 0, 0.4));
-//             position: relative;
-//             width: 8vw;
-//             height: 8vw;
-//             margin: 0 auto;
-//             cursor: pointer;
+      &-concierge {
+        background-image: url('./../../resources/images/launcher/ico-concierge.svg');
+      }
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 width: 12vw;
-//                 height: 12vw;
-//             }
+      &-services {
+        background-image: url('./../../resources/images/launcher/ico-servicios.svg');
+      }
 
-//             &-assessment {
-//                 background-image: url("../../../../assets/images/launcher/ico-overview.svg");
-//             }
+      &-bpmkt {
+        background-image: url('./../../resources/images/launcher/ico-bpmkt.svg');
+      }
 
-//             &-search {
-//                 background-image: url("../../../../assets/images/launcher/ico-consulta.svg");
-//             }
+      &-config {
+        background-image: url('./../../resources/images/launcher/ico-config.svg');
+      }
 
-//             &-concierge {
-//                 background-image: url("../../../../assets/images/launcher/ico-concierge.svg");
-//             }
+      &-inhouse {
+        background-image: url('./../../resources/images/launcher/ico-inhouse.svg');
+      }
 
-//             &-services {
-//                 background-image: url("../../../../assets/images/launcher/ico-servicios.svg");
-//             }
+      &-securtiy {
+        background-image: url('./../../resources/images/launcher/ico-seguridad.svg');
+      }
 
-//             &-bpmkt {
-//                 background-image: url("../../../../assets/images/launcher/ico-bpmkt.svg");
-//             }
+      &-currency-exchange {
+        background-image: url('./../../resources/images/launcher/ico-divisa.svg');
+      }
 
-//             &-config {
-//                 background-image: url("../../../../assets/images/launcher/ico-config.svg");
-//             }
+      &-contacts {
+        background-image: url('./../../resources/images/launcher/ico-ods.svg');
+      }
 
-//             &-inhouse {
-//                 background-image: url("../../../../assets/images/launcher/ico-inhouse.svg");
-//             }
+      &-list {
+        background-image: url('./../../resources/images/launcher/ico-listados-2.png');
+      }
 
-//             &-securtiy {
-//                 background-image: url("../../../../assets/images/launcher/ico-seguridad.svg");
-//             }
+      &-maintenance {
+        background-image: url('./../../resources/images/launcher/ico-mantenimiento-2.png');
+      }
 
-//             &-currency-exchange {
-//                 background-image: url("../../../../assets/images/launcher/ico-divisa.svg");
-//             }
+      &-funcionality {
+        background-image: url('./../../resources/images/launcher/ico-funcionalidades-2.png');
+      }
 
-//             &-contacts {
-//                 background-image: url("../../../../assets/images/launcher/ico-ods.svg");
-//             }
+      &-maintenance-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-mantenimiento.png');
+      }
 
-//             &-list {
-//                 background-image: url("../../../../assets/images/launcher/ico-listados-2.png");
-//             }
+      &-list-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-listado.png');
+      }
 
-//             &-maintenance {
-//                 background-image: url("../../../../assets/images/launcher/ico-mantenimiento-2.png");
-//             }
+      &-funcionality-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-funcionalidades.png');
+      }
 
-//             &-funcionality {
-//                 background-image: url("../../../../assets/images/launcher/ico-funcionalidades-2.png");
-//             }
+      &-search-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-consulta.png');
+      }
 
-//             &-maintenance-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-mantenimiento.png");
-//             }
+      &-grafics-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-graficos.png');
+      }
+    }
 
-//             &-list-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-listado.png");
-//             }
+    &-label {
+      display: block;
+      font-size: $fontSizeLarge;
+      min-height: 1em;
+      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      text-align: center;
+      color: $whiteColor;
 
-//             &-funcionality-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-funcionalidades.png");
-//             }
+      &.back-label {
+        visibility: hidden;
+      }
+    }
 
-//             &-search-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-consulta.png");
-//             }
+    &-back-wrapper {
+      height: 8vh;
+    }
 
-//             &-grafics-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-graficos.png");
-//             }
-//         }
+    &-back {
+      @include absolute-centered(all);
+      top: 54%;
+      border-radius: 30%;
+      background: linear-gradient(135deg, $menuGradient3 0%, $menuGradient2 100%);
+      box-shadow: 0 2px 50px 0 rgba($blackColor, 0.2);
+      width: 9vw;
+      height: 9vw;
+      margin: 0 auto;
 
-//         &-label {
-//             display: block;
-//             font-size: 16px;
-//             min-height: 1em;
-//             line-height: 1;
-//             color: $textInvertedColor;
-//             white-space: nowrap;
-//             overflow: hidden;
-//             text-overflow: ellipsis;
-//             width: 100%;
-//             text-align: center;
+      @media (min-width: map-get($breakpoints, 'md')) {
+        width: 6.5vw;
+        height: 6.5vw;
+      }
 
-//             &.back-label {
-//                 visibility: hidden;
-//             }
-//         }
+      &:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        margin-top: 14%;
+        width: 100%;
+        height: 14px;
+        background: url('./../../resources/images/ico_back-folder.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transform: translateX(-50%);
+      }
+    }
 
-//         &-back {
-//             @include absolute-centered(all);
-//             border-radius: 30%;
-//             background: linear-gradient(
-//                 135deg,
-//                 $menuGradient3 0%,
-//                 $menuGradient2 100%
-//             );
-//             box-shadow: 0 2px 50px 0 rgba(0, 0, 0, 0.2);
-//             width: 9vw;
-//             height: 9vw;
-//             margin: 0 auto;
+    &-panel {
+      flex: 0 0 50%;
+      max-width: 50%;
+      margin-top: $menu-action-width;
+      min-width: $menu-action-width;
 
-//             @media (min-width: map-get($breakpoints, "md")) {
-//                 width: 6.5vw;
-//                 height: 6.5vw;
-//             }
+      @media (max-width: map-get($breakpoints, 'md')) {
+        margin-top: $menu-action-width / 2;
+      }
 
-//             &:after {
-//                 content: "";
-//                 position: absolute;
-//                 top: 100%;
-//                 margin-top: 14%;
-//                 width: 100%;
-//                 height: 14px;
-//                 background: url("../../../../assets/images/ico_back-folder.svg");
-//                 background-size: contain;
-//                 background-repeat: no-repeat;
-//                 background-position: center;
-//                 transform: translateX(-50%);
-//             }
-//         }
+      @media (max-width: map-get($breakpoints, 'md')) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
 
-//         bpg-dashboard,
-//         bpg-overview {
-//             .ui-widget-content {
-//                 background: transparent;
-//             }
+    &-overview {
+      flex: 0 0 100%;
+      max-width: 100%;
+      position: relative;
 
-//             .ui-datepicker {
-//                 min-width: 250px;
-//                 background-color: $primaryBg !important;
-//             }
-//         }
+      @media (min-width: map-get($breakpoints, 'md')) {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-left: 15px;
+      }
+    }
 
-//         &-panel {
-//             flex: 0 0 50%;
-//             max-width: 50%;
-//             margin-top: $menu-action-width;
-//             min-width: $menu-action-width;
+    &-action {
+      position: absolute;
+      top: 0;
+      left: -$menu-action-width;
+      width: $menu-action-width;
+      height: $menu-action-width - 30px;
+      cursor: pointer;
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 margin-top: $menu-action-width / 2;
-//             }
+      svg {
+        @include absolute-centered(all);
+      }
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 flex: 0 0 100%;
-//                 max-width: 100%;
-//             }
-//         }
+      @media (max-width: map-get($breakpoints, 'md')) {
+        display: none;
+      }
+    }
 
-//         &-overview {
-//             flex: 0 0 100%;
-//             max-width: 100%;
-//             position: relative;
+    &-expanded {
+      .menu-panel {
+        flex: 0 0 1em;
+        max-width: 10%;
 
-//             @media (min-width: map-get($breakpoints, "md")) {
-//                 flex: 0 0 50%;
-//                 max-width: 50%;
-//                 padding-left: 15px;
-//             }
-//         }
+        .item-wrapper {
+          width: $menu-action-width;
+          padding: 0;
+          height: $menu-action-width;
+          margin: 0.5rem auto 0;
+          max-width: 100%;
+        }
+      }
 
-//         &-action {
-//             position: absolute;
-//             top: 0;
-//             left: -$menu-action-width;
-//             width: $menu-action-width;
-//             height: $menu-action-width - 30px;
-//             cursor: pointer;
+      .menu-list {
+        margin: 0 auto;
+      }
 
-//             svg {
-//                 @include absolute-centered(all);
-//             }
+      .menu-overview {
+        flex: 0 0 100%;
+        max-width: calc(100% - #{$menu-action-width});
+      }
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 display: none;
-//             }
-//         }
+      .menu-icon {
+        width: $menu-action-width;
+        height: $menu-action-width;
+        background-size: 60% auto;
+      }
 
-//         &-expanded {
-//             .menu-panel {
-//                 flex: 0 0 1em;
-//                 max-width: 10%;
+      .menu-label {
+        display: none;
+      }
 
-//                 .ui-col-fluid {
-//                     width: $menu-action-width;
-//                     padding: 0;
-//                     height: $menu-action-width;
-//                     margin: 0.5rem auto 0;
-//                     max-width: 100%;
-//                 }
-//             }
+      .menu-back {
+        width: 50px;
+        height: 50px;
+        top: 38px;
 
-//             .menu-list {
-//                 margin: 0 auto;
-//             }
-
-//             .menu-overview {
-//                 flex: 0 0 100%;
-//                 max-width: calc(100% - #{$menu-action-width});
-//             }
-
-//             .menu-icon {
-//                 width: $menu-action-width;
-//                 height: $menu-action-width;
-//                 background-size: 60% auto;
-//             }
-
-//             .menu-label {
-//                 display: none;
-//             }
-
-//             .menu-back {
-//                 width: 50px;
-//                 height: 50px;
-//                 top: 38px;
-
-//                 &:after {
-//                     display: none;
-//                 }
-//             }
-//         }
-//     }
-// }
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+}
