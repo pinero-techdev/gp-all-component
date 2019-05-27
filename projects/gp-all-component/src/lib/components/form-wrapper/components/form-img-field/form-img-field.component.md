@@ -1,5 +1,2 @@
 # Img Field #
-The user selects a image in th filepath component and an image is shown on top of the component.
-
-## Migration to 1.1.1 ##
-textclass => classes
+The user types an URL in te text input and an image is shown on top of the component.
