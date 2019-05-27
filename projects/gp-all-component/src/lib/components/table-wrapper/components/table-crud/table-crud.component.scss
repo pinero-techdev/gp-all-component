@@ -207,22 +207,6 @@
       .input-group {
         margin-bottom: $separationLarge;
 
-        // > .ui-col-fluid:first-child {
-        //   padding-top: 0;
-        // }
-
-        // > .ui-col-fluid:last-child {
-        //   padding-top: 21px;
-
-        //   @media (min-width: 1280px) {
-        //     padding-top: 0;
-        //   }
-
-        //   .ui-col-fluid {
-        //     padding-top: 0;
-        //   }
-        // }
-
         label {
           font-size: 12px;
           color: $textMutedColor;
@@ -234,16 +218,6 @@
 
       .action-buttons {
         margin-top: $separationLarge;
-
-        .ui-col-fluid {
-          // margin-bottom: 10px;
-          // padding: 0;
-
-          // @media (min-width: 768px) {
-          //   padding: 0 8px;
-          //   margin-bottom: 0;
-          // }
-        }
       }
 
       .info-msg {

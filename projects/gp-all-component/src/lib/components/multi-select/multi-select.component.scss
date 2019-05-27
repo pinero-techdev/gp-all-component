@@ -1,7 +1,7 @@
 @import './../../resources/scss/theme-360/theme';
 
 // ::ng-deep is deprecated but not removed.
-// Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
+// More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
 ::ng-deep {
   .ui-inputwrapper-filled {
     .ui-multiselect {
