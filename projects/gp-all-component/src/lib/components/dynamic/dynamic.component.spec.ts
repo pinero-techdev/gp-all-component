@@ -11,7 +11,7 @@ class HostedComponent {
   content: string;
 }
 
-fdescribe('DynamicComponent', () => {
+describe('DynamicComponent', () => {
   let fixture: ComponentFixture<DynamicComponent>;
   let component: DynamicComponent;
 
