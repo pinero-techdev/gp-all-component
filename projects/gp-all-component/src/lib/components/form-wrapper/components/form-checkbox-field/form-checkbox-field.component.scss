@@ -1,7 +1,11 @@
 @import './../../../../resources/scss/theme-360/theme';
 
 // ::ng-deep is deprecated but not removed.
+<<<<<<< HEAD
 // More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
+=======
+// Alternatively we could have used ViewEncapsulation.None at component typescript declaration, but it goes against component encapsulation we finally want.
+>>>>>>> 7ef7a932d746c1ff0614fdbd5fdd19bb5e1b8788
 ::ng-deep {
   .ui-chkbox.ui-widget {
     &:enabled:hover:not(.ui-state-error) {
