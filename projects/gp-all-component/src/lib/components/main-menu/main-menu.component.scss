@@ -1,308 +1,268 @@
-// @import './../../../../resources/scss/theme-360/global/base';
+@import './../../resources/scss/theme-360/theme';
 
-// $menu-action-width: 76px;
+$menu-action-width: 76px;
 
-// :host .theme-360::ng-deep {
-//     .menu-spinner {
-//         height: 100vh;
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-//         background-image: url("../../../../assets/images/bg-launcher.jpg");
-//         background-repeat: no-repeat;
-//         background-size: cover;
-//     }
+::ng-deep {
+  .ui-row-fluid {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-//     .menu {
-//         background: radial-gradient(
-//                 ellipse at center,
-//                 rgba(0, 0, 0, 0) 0%,
-//                 rgba(0, 0, 0, 0.2) 100%
-//             ),
-//             linear-gradient(to bottom, $menuGradient1 0%, $menuGradient2 100%);
-//         background-image: url("../../../../assets/images/bg-launcher.jpg");
-//         background-color: $menu360Bg;
-//         background-repeat: no-repeat;
-//         background-size: cover;
-//         position: absolute;
-//         width: 100%;
-//         height: 100%;
-//         z-index: 1;
-//         padding: 20px 8px 2vh;
-//         overflow: auto;
-//         font-family: "Lato", sans-serif;
-//         margin-top: 71px;
-//         height: calc(100% - 71px);
+  .ui-col-fluid-md-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
 
-//         @media (max-width: map-get($breakpoints, "md")) {
-//             padding-right: 2vw;
-//             padding-left: 2vw;
-//         }
+  .menu {
+    background-image: url('./../../resources/images/bg-launcher.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    padding: 20px 8px 2vh;
+    overflow: auto;
+    margin-top: 0;
 
-//         &-card {
-//             display: flex;
-//             flex-direction: row;
-//             flex-wrap: wrap;
-//             justify-content: flex-start;
-//             align-content: space-between;
-//             background: none;
-//             color: $textInvertedColor;
+    @media (max-width: map-get($breakpoints, 'md')) {
+      padding-right: 2vw;
+      padding-left: 2vw;
+    }
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 justify-content: center;
-//             }
-//         }
+    &-item {
+      margin: 2em auto;
+      display: block;
+      text-align: center;
+      cursor: inherit;
 
-//         &-item {
-//             margin: 2em auto;
-//             display: block;
-//             text-align: center;
-//             cursor: inherit;
+      @media (max-width: map-get($breakpoints, 'sm')) {
+        margin: 1.5em auto;
+      }
+    }
 
-//             @media (max-width: map-get($breakpoints, "sm")) {
-//                 margin: 1.5em auto;
-//             }
-//         }
+    &-icon {
+      line-height: 0;
+      background-repeat: no-repeat;
+      background-size: 80% auto;
+      background-position: center;
+      filter: drop-shadow(0 2px 50px rgba(0, 0, 0, 0.4));
+      position: relative;
+      width: 8vw;
+      height: 8vw;
+      margin: 0 auto;
+      cursor: pointer;
 
-//         &-icon {
-//             line-height: 0;
-//             background-repeat: no-repeat;
-//             background-size: 80% auto;
-//             background-position: center;
-//             filter: drop-shadow(0 2px 50px rgba(0, 0, 0, 0.4));
-//             position: relative;
-//             width: 8vw;
-//             height: 8vw;
-//             margin: 0 auto;
-//             cursor: pointer;
+      @media (max-width: map-get($breakpoints, 'md')) {
+        width: 12vw;
+        height: 12vw;
+      }
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 width: 12vw;
-//                 height: 12vw;
-//             }
+      &-assessment {
+        background-image: url('./../../resources/images/launcher/ico-overview.svg');
+      }
 
-//             &-assessment {
-//                 background-image: url("../../../../assets/images/launcher/ico-overview.svg");
-//             }
+      &-search {
+        background-image: url('./../../resources/images/launcher/ico-consulta.svg');
+      }
 
-//             &-search {
-//                 background-image: url("../../../../assets/images/launcher/ico-consulta.svg");
-//             }
+      &-concierge {
+        background-image: url('./../../resources/images/launcher/ico-concierge.svg');
+      }
 
-//             &-concierge {
-//                 background-image: url("../../../../assets/images/launcher/ico-concierge.svg");
-//             }
+      &-services {
+        background-image: url('./../../resources/images/launcher/ico-servicios.svg');
+      }
 
-//             &-services {
-//                 background-image: url("../../../../assets/images/launcher/ico-servicios.svg");
-//             }
+      &-bpmkt {
+        background-image: url('./../../resources/images/launcher/ico-bpmkt.svg');
+      }
 
-//             &-bpmkt {
-//                 background-image: url("../../../../assets/images/launcher/ico-bpmkt.svg");
-//             }
+      &-config {
+        background-image: url('./../../resources/images/launcher/ico-config.svg');
+      }
 
-//             &-config {
-//                 background-image: url("../../../../assets/images/launcher/ico-config.svg");
-//             }
+      &-inhouse {
+        background-image: url('./../../resources/images/launcher/ico-inhouse.svg');
+      }
 
-//             &-inhouse {
-//                 background-image: url("../../../../assets/images/launcher/ico-inhouse.svg");
-//             }
+      &-securtiy {
+        background-image: url('./../../resources/images/launcher/ico-seguridad.svg');
+      }
 
-//             &-securtiy {
-//                 background-image: url("../../../../assets/images/launcher/ico-seguridad.svg");
-//             }
+      &-currency-exchange {
+        background-image: url('./../../resources/images/launcher/ico-divisa.svg');
+      }
 
-//             &-currency-exchange {
-//                 background-image: url("../../../../assets/images/launcher/ico-divisa.svg");
-//             }
+      &-contacts {
+        background-image: url('./../../resources/images/launcher/ico-ods.svg');
+      }
 
-//             &-contacts {
-//                 background-image: url("../../../../assets/images/launcher/ico-ods.svg");
-//             }
+      &-list {
+        background-image: url('./../../resources/images/launcher/ico-listados-2.png');
+      }
 
-//             &-list {
-//                 background-image: url("../../../../assets/images/launcher/ico-listados-2.png");
-//             }
+      &-maintenance {
+        background-image: url('./../../resources/images/launcher/ico-mantenimiento-2.png');
+      }
 
-//             &-maintenance {
-//                 background-image: url("../../../../assets/images/launcher/ico-mantenimiento-2.png");
-//             }
+      &-funcionality {
+        background-image: url('./../../resources/images/launcher/ico-funcionalidades-2.png');
+      }
 
-//             &-funcionality {
-//                 background-image: url("../../../../assets/images/launcher/ico-funcionalidades-2.png");
-//             }
+      &-maintenance-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-mantenimiento.png');
+      }
 
-//             &-maintenance-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-mantenimiento.png");
-//             }
+      &-list-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-listado.png');
+      }
 
-//             &-list-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-listado.png");
-//             }
+      &-funcionality-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-funcionalidades.png');
+      }
 
-//             &-funcionality-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-funcionalidades.png");
-//             }
+      &-search-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-consulta.png');
+      }
 
-//             &-search-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-consulta.png");
-//             }
+      &-grafics-folder {
+        background-image: url('./../../resources/images/launcher/ico-folder-graficos.png');
+      }
+    }
 
-//             &-grafics-folder {
-//                 background-image: url("../../../../assets/images/launcher/ico-folder-graficos.png");
-//             }
-//         }
+    &-label {
+      display: block;
+      font-size: 16px;
+      min-height: 1em;
+      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      text-align: center;
+      color: white;
 
-//         &-label {
-//             display: block;
-//             font-size: 16px;
-//             min-height: 1em;
-//             line-height: 1;
-//             color: $textInvertedColor;
-//             white-space: nowrap;
-//             overflow: hidden;
-//             text-overflow: ellipsis;
-//             width: 100%;
-//             text-align: center;
+      &.back-label {
+        visibility: hidden;
+      }
+    }
 
-//             &.back-label {
-//                 visibility: hidden;
-//             }
-//         }
+    &-back {
+      @include absolute-centered(all);
+      border-radius: 30%;
+      box-shadow: 0 2px 50px 0 rgba(0, 0, 0, 0.2);
+      width: 9vw;
+      height: 9vw;
+      margin: 0 auto;
 
-//         &-back {
-//             @include absolute-centered(all);
-//             border-radius: 30%;
-//             background: linear-gradient(
-//                 135deg,
-//                 $menuGradient3 0%,
-//                 $menuGradient2 100%
-//             );
-//             box-shadow: 0 2px 50px 0 rgba(0, 0, 0, 0.2);
-//             width: 9vw;
-//             height: 9vw;
-//             margin: 0 auto;
+      @media (min-width: map-get($breakpoints, 'md')) {
+        width: 6.5vw;
+        height: 6.5vw;
+      }
 
-//             @media (min-width: map-get($breakpoints, "md")) {
-//                 width: 6.5vw;
-//                 height: 6.5vw;
-//             }
+      &:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        margin-top: 14%;
+        width: 100%;
+        height: 14px;
+        background: url('./../../resources/images/ico_back-folder.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        transform: translateX(-50%);
+      }
+    }
 
-//             &:after {
-//                 content: "";
-//                 position: absolute;
-//                 top: 100%;
-//                 margin-top: 14%;
-//                 width: 100%;
-//                 height: 14px;
-//                 background: url("../../../../assets/images/ico_back-folder.svg");
-//                 background-size: contain;
-//                 background-repeat: no-repeat;
-//                 background-position: center;
-//                 transform: translateX(-50%);
-//             }
-//         }
+    &-panel {
+      flex: 0 0 50%;
+      max-width: 50%;
+      margin-top: $menu-action-width;
+      min-width: $menu-action-width;
 
-//         bpg-dashboard,
-//         bpg-overview {
-//             .ui-widget-content {
-//                 background: transparent;
-//             }
+      @media (max-width: map-get($breakpoints, 'md')) {
+        margin-top: $menu-action-width / 2;
+      }
 
-//             .ui-datepicker {
-//                 min-width: 250px;
-//                 background-color: $primaryBg !important;
-//             }
-//         }
+      @media (max-width: map-get($breakpoints, 'md')) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
 
-//         &-panel {
-//             flex: 0 0 50%;
-//             max-width: 50%;
-//             margin-top: $menu-action-width;
-//             min-width: $menu-action-width;
+    &-overview {
+      flex: 0 0 100%;
+      max-width: 100%;
+      position: relative;
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 margin-top: $menu-action-width / 2;
-//             }
+      @media (min-width: map-get($breakpoints, 'md')) {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-left: 15px;
+      }
+    }
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 flex: 0 0 100%;
-//                 max-width: 100%;
-//             }
-//         }
+    &-action {
+      position: absolute;
+      top: 0;
+      left: -$menu-action-width;
+      width: $menu-action-width;
+      height: $menu-action-width - 30px;
+      cursor: pointer;
 
-//         &-overview {
-//             flex: 0 0 100%;
-//             max-width: 100%;
-//             position: relative;
+      svg {
+        @include absolute-centered(all);
+      }
 
-//             @media (min-width: map-get($breakpoints, "md")) {
-//                 flex: 0 0 50%;
-//                 max-width: 50%;
-//                 padding-left: 15px;
-//             }
-//         }
+      @media (max-width: map-get($breakpoints, 'md')) {
+        display: none;
+      }
+    }
 
-//         &-action {
-//             position: absolute;
-//             top: 0;
-//             left: -$menu-action-width;
-//             width: $menu-action-width;
-//             height: $menu-action-width - 30px;
-//             cursor: pointer;
+    &-expanded {
+      .menu-panel {
+        flex: 0 0 1em;
+        max-width: 10%;
 
-//             svg {
-//                 @include absolute-centered(all);
-//             }
+        .ui-col-fluid {
+          width: $menu-action-width;
+          padding: 0;
+          height: $menu-action-width;
+          margin: 0.5rem auto 0;
+          max-width: 100%;
+        }
+      }
 
-//             @media (max-width: map-get($breakpoints, "md")) {
-//                 display: none;
-//             }
-//         }
+      .menu-list {
+        margin: 0 auto;
+      }
 
-//         &-expanded {
-//             .menu-panel {
-//                 flex: 0 0 1em;
-//                 max-width: 10%;
+      .menu-overview {
+        flex: 0 0 100%;
+        max-width: calc(100% - #{$menu-action-width});
+      }
 
-//                 .ui-col-fluid {
-//                     width: $menu-action-width;
-//                     padding: 0;
-//                     height: $menu-action-width;
-//                     margin: 0.5rem auto 0;
-//                     max-width: 100%;
-//                 }
-//             }
+      .menu-icon {
+        width: $menu-action-width;
+        height: $menu-action-width;
+        background-size: 60% auto;
+      }
 
-//             .menu-list {
-//                 margin: 0 auto;
-//             }
+      .menu-label {
+        display: none;
+      }
 
-//             .menu-overview {
-//                 flex: 0 0 100%;
-//                 max-width: calc(100% - #{$menu-action-width});
-//             }
+      .menu-back {
+        width: 50px;
+        height: 50px;
+        top: 38px;
 
-//             .menu-icon {
-//                 width: $menu-action-width;
-//                 height: $menu-action-width;
-//                 background-size: 60% auto;
-//             }
-
-//             .menu-label {
-//                 display: none;
-//             }
-
-//             .menu-back {
-//                 width: 50px;
-//                 height: 50px;
-//                 top: 38px;
-
-//                 &:after {
-//                     display: none;
-//                 }
-//             }
-//         }
-//     }
-// }
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+}
