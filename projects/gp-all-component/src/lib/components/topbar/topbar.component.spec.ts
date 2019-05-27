@@ -198,18 +198,14 @@ describe('TopbarComponent', () => {
     });
 
     it('reset menu should be called', () => {
-      spyOn(component, 'resetMenu').and.callThrough();
+      const toggleMenuSpy = spyOn(component, 'toggleMenu').and.callThrough();
 
-      const breadcrumb = { label: 'Reservas', isActive: true };
+      component.sendLauncher.subscribe((data) => expect(data).toEqual('init'));
 
-      component.setBreadcrumb(breadcrumb);
-      fixture.detectChanges();
+      component.resetMenu();
 
-      const $actionButton = elementRef.querySelector('.topbar-toolbar-main > a');
-
-      TestingMockEvents.triggerClickOn($actionButton);
-
-      expect(component.resetMenu).toHaveBeenCalled();
+      expect(component.breadCrumb).toEqual([]);
+      expect(toggleMenuSpy).toHaveBeenCalledWith(true);
     });
   });
 });
