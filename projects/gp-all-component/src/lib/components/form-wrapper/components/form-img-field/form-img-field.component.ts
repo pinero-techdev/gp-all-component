@@ -21,15 +21,15 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
   }
 
   public getFormField(): GpFormField {
-    return this.formField;
+    return this.formField ? this.formField : null;
   }
 
   ngOnInit() {
     this.init();
-    this.currentValue = 'https://picsum.photos/id/334/200/300';
     this.isDisabled = this.controlDisabled();
   }
 
+  /* Init method to setup  */
   init() {
     const hasTextProperties =
       !isNullOrUndefined(this.formField.fieldMetadata.displayInfo) &&
@@ -49,6 +49,7 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
     this.setRestrictions();
   }
 
+  /* Depending of the restrictions, the current value is formatted */
   copyValueFromControlToEditedRow(editedRow: any) {
     const hasTextProperties =
       this.formField.fieldMetadata.displayInfo &&
@@ -81,12 +82,14 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
     }
   }
 
+  /* After change in a table crud, the current value needs to be updated */
   copyValueFromEditedRowToControl(editedRow: any) {
     if (this.formField && this.formField.fieldMetadata) {
       this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
     }
   }
 
+  /* Check the validations when the current value is changed */
   validateField(editedRow: any) {
     return this.validateTextField(editedRow);
   }
