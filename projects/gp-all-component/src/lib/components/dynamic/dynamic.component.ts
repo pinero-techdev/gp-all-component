@@ -42,7 +42,7 @@ export class DynamicComponent implements OnInit {
   }
 
   destroy(): void {
-    if (this.currentComponent) {
+    if (this.currentComponent && this.currentComponent.destroy) {
       this.currentComponent.destroy();
     }
   }
@@ -52,14 +52,16 @@ export class DynamicComponent implements OnInit {
    * If everything is ok, the `currentComponent` is going to have the recent component loaded.
    */
   private loadComponent() {
-    const inputProviders = Object.keys(this.componentData.inputs).map((inputName) =>
-      Object.create({ provide: inputName, useValue: this.componentData.inputs[inputName] })
-    );
-
+    this.dynamicComponent.clear();
     const factory = this.resolver.resolveComponentFactory(this.componentData.component);
     const component: ComponentRef<any> = factory.create(this.injector);
 
-    inputProviders.forEach((input) => (component.instance[input.provide] = input.useValue));
+    if (this.componentData.inputs) {
+      const inputProviders = Object.keys(this.componentData.inputs).map((inputName) =>
+        Object.create({ provide: inputName, useValue: this.componentData.inputs[inputName] })
+      );
+      inputProviders.forEach((input) => (component.instance[input.provide] = input.useValue));
+    }
 
     if (this.componentData.outputs) {
       const outputProviders = Object.keys(this.componentData.outputs).map((outputName) =>
