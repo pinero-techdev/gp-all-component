@@ -13,8 +13,8 @@ import { isNullOrUndefined } from 'util';
 export class FormImgFieldComponent extends GpFormFieldControl implements OnInit {
   @Input() formField: GpFormField;
 
-  /* Add classes to file input*/
-  classes: string;
+  /* Add textboxClass to file input*/
+  textboxClass: string;
 
   getFieldMetadata(): DataTableMetaDataField {
     return this.formField && this.formField.fieldMetadata ? this.formField.fieldMetadata : null;
@@ -42,7 +42,7 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
         ) !== -1;
 
       if (setUppercase) {
-        this.classes = 'text-uppercase';
+        this.textboxClass = 'text-uppercase';
       }
     }
 

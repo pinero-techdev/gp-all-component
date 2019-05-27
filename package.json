@@ -17,7 +17,7 @@
     "npm:pack": "cd dist/gp-all-component && npm pack",
     "deploy-component": "node deploy-gp-all-component.js",
     "---- TESTING ----": "",
-    "test-lib": "ng t gp-all-component --watch=true",
+    "test:lib": "ng t gp-all-component --watch=true",
     "test:prod": "ng t gp-all-component --watch=false",
     "e2e": "cypress open",
     "---- LINTERS ----": "",
