@@ -1,0 +1,30 @@
+@import './../../../../resources/scss/theme-360/theme';
+
+// ::ng-deep is deprecated but not removed.
+// More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
+::ng-deep {
+  .ui-chkbox.ui-widget {
+    &:enabled:hover:not(.ui-state-error) {
+      border-color: $inputBorderColor;
+    }
+
+    .ui-chkbox-box {
+      border-color: $inputBorderColor;
+      box-shadow: 0 0 4px 0 rgba($blackColor, $inputShadowOpacity);
+
+      &.ui-state-active,
+      &.ui-state-active:not(.ui-state-disabled):hover {
+        border-color: $primaryColor;
+        background: $primaryColor;
+
+        .ui-chkbox-icon {
+          border-color: $primaryColor;
+        }
+      }
+
+      &:not(.ui-state-disabled):hover {
+        border-color: $inputBorderColor;
+      }
+    }
+  }
+}

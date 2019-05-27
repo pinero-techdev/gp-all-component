@@ -1,7 +1,7 @@
-<div class="p-grid">
+<div class="input-field-wrapper">
   <div
-    [class.p-col-12]="formField.fieldMetadata.displayInfo.translationInfo == null"
-    [class.p-col-10]="
+    [class.full-width]="formField.fieldMetadata.displayInfo.translationInfo == null"
+    [class.with-multilanguage]="
       formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''
     "
   >
@@ -19,7 +19,7 @@
   </div>
   <div
     *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''"
-    class="p-col-2"
+    class="multilanguage-wrapper"
   >
     <gp-multi-language
       [pKey]="translationKeys"
