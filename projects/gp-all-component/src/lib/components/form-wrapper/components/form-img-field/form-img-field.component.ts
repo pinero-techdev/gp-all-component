@@ -3,6 +3,7 @@ import { DataTableMetaDataField } from './../../../../resources/data/data-table/
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
 import { TableService } from './../../../../services/api/table/table.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'gp-form-img-field',
@@ -12,21 +13,15 @@ import { TableService } from './../../../../services/api/table/table.service';
 export class FormImgFieldComponent extends GpFormFieldControl implements OnInit {
   @Input() formField: GpFormField;
 
+  /* Add textboxClass to file input*/
   textboxClass: string;
-  minLength: number;
-  maxLength: number;
-
-  /**
-   * Translation keys for field
-   */
-  translationKeys = '';
 
   getFieldMetadata(): DataTableMetaDataField {
     return this.formField && this.formField.fieldMetadata ? this.formField.fieldMetadata : null;
   }
 
   public getFormField(): GpFormField {
-    return this.formField;
+    return this.formField ? this.formField : null;
   }
 
   ngOnInit() {
@@ -34,10 +29,11 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
     this.isDisabled = this.controlDisabled();
   }
 
+  /* Init method to setup  */
   init() {
     const hasTextProperties =
-      this.formField.fieldMetadata.displayInfo &&
-      this.formField.fieldMetadata.displayInfo.textProperties !== null;
+      !isNullOrUndefined(this.formField.fieldMetadata.displayInfo) &&
+      !isNullOrUndefined(this.formField.fieldMetadata.displayInfo.textProperties);
 
     if (hasTextProperties) {
       const setUppercase =
@@ -53,6 +49,7 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
     this.setRestrictions();
   }
 
+  /* Depending of the restrictions, the current value is formatted */
   copyValueFromControlToEditedRow(editedRow: any) {
     const hasTextProperties =
       this.formField.fieldMetadata.displayInfo &&
@@ -80,27 +77,19 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
         this.currentValue = newValue;
       }
     }
-
-    editedRow[this.formField.fieldMetadata.fieldName] = newValue;
-  }
-
-  copyValueFromEditedRowToControl(editedRow: any) {
-    const hasTranslationKeyFields =
-      this.formField.fieldMetadata.displayInfo.translationInfo !== null &&
-      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields !== null;
-
-    this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
-
-    if (hasTranslationKeyFields) {
-      const keyFields = this.formField.fieldMetadata.displayInfo.translationInfo.keyFields;
-      this.translationKeys = '';
-
-      for (const keyField of keyFields) {
-        this.translationKeys += editedRow[keyField];
-      }
+    if (editedRow) {
+      editedRow[this.formField.fieldMetadata.fieldName] = newValue;
     }
   }
 
+  /* After change in a table crud, the current value needs to be updated */
+  copyValueFromEditedRowToControl(editedRow: any) {
+    if (this.formField && this.formField.fieldMetadata) {
+      this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
+    }
+  }
+
+  /* Check the validations when the current value is changed */
   validateField(editedRow: any) {
     return this.validateTextField(editedRow);
   }
