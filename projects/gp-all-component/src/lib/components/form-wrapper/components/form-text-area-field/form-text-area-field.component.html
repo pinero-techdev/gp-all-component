@@ -1,5 +1,8 @@
-<div class="p-grid">
-  <div [class.p-col-12]="!translateInfo" [class.p-col-10]="translateInfo && translationKeys">
+<div class="input-field-wrapper">
+  <div
+    [class.full-width]="!translateInfo"
+    [class.with-multilanguage]="translateInfo && translationKeys"
+  >
     <textarea
       name="__field__{{ name }}"
       pInputTextarea
@@ -11,7 +14,7 @@
       [disabled]="isDisabled"
     ></textarea>
   </div>
-  <div class="p-col-2" *ngIf="translateInfo && translationKeys">
+  <div class="multilanguage-wrapper" *ngIf="translateInfo && translationKeys">
     <gp-multi-language
       [pKey]="translationKeys"
       [schema]="translateInfo.scheme"
