@@ -28,8 +28,6 @@ export * from './components/tables/gp-form-textarea-field.component';
 export * from './components/tables/gp-form-time-field.component';
 export * from './components/tables/gp-form-wysiwyg-field.component';
 export * from './components/dynamic/gp.dynamic.component';
-/** @author 3digits */
-export * from './components/tables/gp-treetable.component';
 
 //Resources (Classes)
 export * from './resources/data/gpBase';
@@ -68,5 +66,12 @@ export * from './services/remote-fsys.service';
 export * from './services/password.service';
 //Module
 // export * from './gp-all-module.module';
+
 /** @author 3digits */
+
+//Components
+export * from './components/tables/gp-treetable.component';
+
+//Services
 export * from './services/treetable.service';
+export * from './services/extendTable.service';

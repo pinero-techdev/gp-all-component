@@ -8,17 +8,15 @@ import { MenuRq } from './menuRq';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-
-  constructor(private _router: Router, 
-              private _menu: AppMenuService, 
-              private _menuAppMenuProviderService: AppMenuProviderService) {
-  }
+  constructor(private _router: Router, private _menu: AppMenuService, private _menuAppMenuProviderService: AppMenuProviderService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     /* @autor: 3digits*/
-    if (document.getElementById('bienvenida') != null) {
-      document.getElementById('bienvenida').style.display = 'none';
-    }
+    setTimeout(() => {
+      if (document.getElementById('bienvenida') != null) {
+        document.getElementById('bienvenida').style.display = 'none';
+      }
+    }, 50);
 
     let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     let userId = null;
@@ -36,26 +34,24 @@ export class AuthGuard implements CanActivate {
         return Observable.of(true);
       } else {
         let request: MenuRq = new MenuRq(GlobalService.SESSION_ID, GlobalService.PARAMS);
-        return this._menu.obtenMenu(request)
-             .map(
-               menu => {
-                  if (menu) {
-                    // Check if option menu is active
-                    let accesoPermitido = this._menuAppMenuProviderService.isOpcionMenuActivo(menu,
-                      url.substring(1), // Obtain action from url
-                      Object.getOwnPropertyNames(route.params).length);
-                    if (!accesoPermitido) {
-                      console.error('El usuario ' + userId + ' no tiene los permisos necesarios para acceder a ' + url);
-                    }
-                    return accesoPermitido;
-                  } else {
-                    console.error('El usuario ' + userId + ' no tiene menú asociado en la aplicación ' + GlobalService.APP);
-                    return Observable.of(false);
-                  }
-                }
+        return this._menu.obtenMenu(request).map(menu => {
+          if (menu) {
+            // Check if option menu is active
+            let accesoPermitido = this._menuAppMenuProviderService.isOpcionMenuActivo(
+              menu,
+              url.substring(1), // Obtain action from url
+              Object.getOwnPropertyNames(route.params).length
             );
+            if (!accesoPermitido) {
+              console.error('El usuario ' + userId + ' no tiene los permisos necesarios para acceder a ' + url);
+            }
+            return accesoPermitido;
+          } else {
+            console.error('El usuario ' + userId + ' no tiene menú asociado en la aplicación ' + GlobalService.APP);
+            return Observable.of(false);
+          }
+        });
       }
-
     } else {
       console.error('El usuario no se encuentra logado');
       // not logged in so redirect to login page.

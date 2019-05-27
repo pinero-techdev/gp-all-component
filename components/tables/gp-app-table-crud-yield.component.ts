@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Message, TreeNode } from 'primeng/primeng';
+import { Message, TreeNode, LazyLoadEvent } from 'primeng/primeng';
 import { GPUtil } from '../../resources/data/gpUtil';
 import { TreeTableService } from '../../services/treetable.service';
 import { InfoCampoModificado } from '../../resources/data/infoCampoModificado';
 import { Filter, FilterOperationType, TableMetadata, TableService } from '../../services/table.service';
+import { DataTableFilterType } from '../../resources/data/dataTableFilterType';
 import { GpFormControl, GpFormField, GpFormFieldControl, GpFormFieldDetail } from './gp-app-table-crud-shared';
 import { GpFormCalendarFieldComponent } from './gp-form-calendar-field.component';
 import { GpFormCheckboxFieldComponent } from './gp-form-checkbox-field.component';
@@ -18,7 +19,7 @@ import { GpFormTimeFieldComponent } from './gp-form-time-field.component';
 import { GpFormWysiwygFieldComponent } from './gp-form-wysiwyg-field.component';
 import { GpFormDropdownDynamicFieldComponent } from './gp-form-dropdown-dynamic-field.component';
 import { GPTreeTableComponent } from './gp-treetable.component';
-
+import { ExtendTableService, ColumnFilter, PageRender } from 'gp-all-component/services/extendTable.service';
 
 @Component({
   selector: 'gp-app-table-crud-yield',
@@ -42,11 +43,16 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   // Nombre de la tabla de detalle
   @Input()
   tableNameDetail: string;
-  
+
   // Identificador de la tabla detalle que tiene en común con la tabla principal
   @Input()
   filterField: string;
 
+  @Input()
+  lazyLoading: boolean = false;
+
+  @Input()
+  lazyLoadingDetail: boolean = false;
   // Vars control Insercion, edicion, borrado, exportado
   @Input()
   canAdd: boolean = true;
@@ -72,6 +78,12 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   @Input()
   cantRows: number = 10;
 
+  // Cantidad de caracteres por el cual se aplica el filtro del texto (se usa en la tabla lazyLoading)
+  @Input()
+  minLimitFilterColumnTableDetail: number = 3;
+
+  @Input()
+  minLimitFilterColumnTable: number = 3;
   // Exclusiones de las tablas y los formularios
   @Input()
   exclusionsFormMaster: string[] = [];
@@ -160,6 +172,8 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   selectedRowDetail: any;
   filter: Filter;
   filters: Filter[] = [];
+  columnFilters: ColumnFilter[] = [];
+  pageRender: PageRender;
   codes: string[] = [];
   treeTableElementos: TreeNode[];
   selectedTree: TreeNode;
@@ -170,6 +184,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   // Indica si se muestra la tabla maestro-detalle.
   showTableDetail: boolean = false;
 
+  filterCodeDetail: string = null;
   // Indica si se muestra el control de edicion.
   displayEdicion = false;
   displayEdicionDetail = false;
@@ -178,6 +193,8 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   dialogErrors = false;
 
   addSelectedCodes: any = [];
+
+  totalRecords: number;
 
   // Mensajes de edicion.
   msgsDialog: Message[] = [];
@@ -195,6 +212,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private extendTableService: ExtendTableService,
     private tableService: TableService,
     private treeTableService: TreeTableService,
     private _gpUtil: GPUtil
@@ -211,7 +229,8 @@ export class GpAppTableCrudYieldComponent implements OnInit {
     this.activeLoagingDetail = true;
   }
 
-  cambiaTablaDetail(filterCode: string, filterColumn: string) {
+  cambiaTablaDetail(filterCode: string, filterColumn: string, isLazyLoadingTable: boolean) {
+    this.filterCodeDetail = filterCode;
     if (this.tableNameDetail != undefined) {
       this.treeTableDetail = this.showTreeTable();
       this.workingDetail = true;
@@ -222,42 +241,103 @@ export class GpAppTableCrudYieldComponent implements OnInit {
       this.formControlDetail.originalRow = null;
 
       this.codes = [];
-      this.filters = [];
+      if (!isLazyLoadingTable) {
+        this.filters = [];
+      }
       this.codes.push(filterCode);
       this.filter = new Filter(FilterOperationType.EQUAL, filterColumn, this.codes);
       this.filters.push(this.filter);
       this.msgsDialog = [];
       this.msgsGlobal = [{ severity: 'info', detail: 'Cargando los datos de la tabla detalle.' }];
       this.dialogErrors = false;
-      this.tableService.list(this.tableNameDetail, true, false, null, this.filters).subscribe(
-        data => {
-          if (data.ok) {
-            this.actualizaDefinicionDetail(data.metadata);
-            if (this.treeTableDetail) {
-              this.elementosDetail = this.treeTableService.tratarTreeTable(data.data, this.columnasDetail);
-            } else {
-              this.elementosDetail = data.data;
-            }
-          } else {
-            if (data.error != null && data.error.errorMessage != null) {
-              if (data.error.errorMessage == 'No se ha establecido sesion o se ha perdido.') {
-                this.router.navigate(['login']);
+      this.extendTableService
+        .list(this.tableNameDetail, true, false, null, this.filters, this.lazyLoadingDetail, this.columnFilters, this.pageRender)
+        .subscribe(
+          data => {
+            if (data.ok) {
+              this.actualizaDefinicionDetail(data.metadata);
+              if (this.lazyLoadingDetail) {
+                this.totalRecords = data.countGlobalResult;
               }
-              this.showError(data.error.errorMessage.toString());
+
+              if (this.treeTableDetail) {
+                this.elementosDetail = this.treeTableService.tratarTreeTable(data.data, this.columnasDetail);
+              } else {
+                this.elementosDetail = data.data;
+              }
             } else {
-              this.showError(data.error.internalErrorMessage);
+              if (data.error != null && data.error.errorMessage != null) {
+                if (data.error.errorMessage == 'No se ha establecido sesion o se ha perdido.') {
+                  this.router.navigate(['login']);
+                }
+                this.showError(data.error.errorMessage.toString());
+              } else {
+                this.showError(data.error.internalErrorMessage);
+              }
             }
+          },
+          err => {
+            console.error(err);
+            this.showError('');
+          },
+          () => {
+            console.log('getMetadataDetail finalizado');
+            this.workingDetail = false;
           }
-        },
-        err => {
-          console.error(err);
-          this.showError('');
-        },
-        () => {
-          console.log('getMetadataDetail finalizado');
-          this.workingDetail = false;
-        }
-      );
+        );
+    }
+  }
+
+  cambiaTablaDetailLazyLoading(filterCode: string, filterColumn: string, ordered: boolean, fieldsToOrderBy: string[], orderResult: string) {
+    this.filterCodeDetail = filterCode;
+    if (this.tableNameDetail != undefined) {
+      this.selectedRowDetail = null;
+      this.formControlDetail.originalRow = null;
+
+      this.codes = [];
+      this.codes.push(filterCode);
+      this.filter = new Filter(FilterOperationType.EQUAL, filterColumn, this.codes);
+      this.filters.push(this.filter);
+      this.msgsDialog = [];
+      this.msgsGlobal = [{ severity: 'info', detail: 'Cargando los datos de la tabla detalle.' }];
+      this.dialogErrors = false;
+      this.extendTableService
+        .list(
+          this.tableNameDetail,
+          true,
+          ordered,
+          fieldsToOrderBy,
+          this.filters,
+          this.lazyLoadingDetail,
+          this.columnFilters,
+          this.pageRender,
+          orderResult
+        )
+        .subscribe(
+          data => {
+            if (data.ok) {
+              this.elementosDetail = data.data;
+              this.totalRecords = data.countGlobalResult;
+            } else {
+              if (data.error != null && data.error.errorMessage != null) {
+                if (data.error.errorMessage == 'No se ha establecido sesion o se ha perdido.') {
+                  this.router.navigate(['login']);
+                }
+                this.showError(data.error.errorMessage.toString());
+              } else {
+                this.showError(data.error.internalErrorMessage);
+              }
+            }
+          },
+          err => {
+            console.error(err);
+            this.showError('');
+          },
+          () => {
+            console.log('getMetadataDetail finalizado');
+            this.filters = [];
+          }
+        );
     }
   }
 
@@ -289,8 +369,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
     if (this.rowSelectedFilters != null) {
       this.filters = [];
       this.filters = this.rowSelectedFilters;
-
-      this.tableService.list(this.tableName, true, false, null, this.filters).subscribe(
+      this.extendTableService.list(this.tableName, true, false, null, this.filters, this.lazyLoading, this.columnFilters, this.pageRender).subscribe(
         data => {
           //console.log('getMetadata response:' + JSON.stringify(data));
           if (data.ok) {
@@ -317,7 +396,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
         }
       );
     } else {
-      this.tableService.list(this.tableName, true).subscribe(
+      this.extendTableService.list(this.tableName, true).subscribe(
         data => {
           //console.log('getMetadata response:' + JSON.stringify(data));
           if (data.ok) {
@@ -496,7 +575,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
         this.formControl.lockFields = false;
         this.formControlDetail.lockFields = false;
         console.log('onRowSelect. end select.');
-        this.cambiaTablaDetail(event.data[this.tableId], this.filterField);
+        this.cambiaTablaDetail(event.data[this.tableId], this.filterField, false);
       }
     );
   }
@@ -652,39 +731,39 @@ export class GpAppTableCrudYieldComponent implements OnInit {
         data => {
           if (data.ok) {
             // Actualizamos el registro.
-              if ((this.exclusionsTableMaster.length > 0) && !this.treeTableDetail && this.referenceTableOperationsDropdownDinamico != null) {
-                this.tableService.getValue(this.referenceTableOperationsDropdownDinamico, jsonModifiedRow).subscribe(data => {
-                  if (data.ok) {
-                    let jsonOriginalRow = data.data;
-                    self.formControl.editedRow = jsonOriginalRow;
+            if (this.exclusionsTableMaster.length > 0 && !this.treeTableDetail && this.referenceTableOperationsDropdownDinamico != null) {
+              this.extendTableService.getValue(this.referenceTableOperationsDropdownDinamico, jsonModifiedRow).subscribe(data => {
+                if (data.ok) {
+                  let jsonOriginalRow = data.data;
+                  self.formControl.editedRow = jsonOriginalRow;
 
-                    if(self.selectedRow == null) {
-                      self.selectedRow = self.elementos.find( item => item[self.tableId] == jsonOriginalRow[self.tableId])
-                    }
-
-                    this.forEachField(function(col: GpFormField) {
-                      self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
-                    });
+                  if (self.selectedRow == null) {
+                    self.selectedRow = self.elementos.find(item => item[self.tableId] == jsonOriginalRow[self.tableId]);
                   }
-                });
-              } else if (this.treeTableDetail) {
-                // TODO: hay que ajustar este método para el treeTable Master
-                this.selectedTree.children = this.treeTableService.eliminarNodo(this.elementosDetail, this.selectedTree.data, this.columnasDetail);
 
-                this.forEachDetailField(function(col: GpFormFieldDetail) {
-                  self.selectedTree.data[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
-                });
-                this.elementosDetail = this.treeTableService.insertarNodo(
-                  this.elementosDetail,
-                  this.selectedTree.data,
-                  this.columnasDetail,
-                  this.selectedTree.children
-                );
-              } else {
-                this.forEachField(function(col: GpFormField) {
-                  self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
-                });
-              }
+                  this.forEachField(function(col: GpFormField) {
+                    self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
+                  });
+                }
+              });
+            } else if (this.treeTableDetail) {
+              // TODO: hay que ajustar este método para el treeTable Master
+              this.selectedTree.children = this.treeTableService.eliminarNodo(this.elementosDetail, this.selectedTree.data, this.columnasDetail);
+
+              this.forEachDetailField(function(col: GpFormFieldDetail) {
+                self.selectedTree.data[col.fieldMetadata.fieldName] = self.formControlDetail.editedRow[col.fieldMetadata.fieldName];
+              });
+              this.elementosDetail = this.treeTableService.insertarNodo(
+                this.elementosDetail,
+                this.selectedTree.data,
+                this.columnasDetail,
+                this.selectedTree.children
+              );
+            } else {
+              this.forEachField(function(col: GpFormField) {
+                self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
+              });
+            }
 
             // Y cerramos el dialog.
             this.closeDialog();
@@ -724,7 +803,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
             data => {
               if (data.ok) {
                 if (this.exclusionsTableDetail.length > 0 && !this.treeTableDetail && this.referenceTableOperationsDropdownDinamico != null) {
-                  this.tableService.getValue(this.referenceTableOperationsDropdownDinamico, jsonModifiedRow).subscribe(data => {
+                  this.extendTableService.getValue(this.referenceTableOperationsDropdownDinamico, jsonModifiedRow).subscribe(data => {
                     if (data.ok) {
                       let jsonOriginalRow = data.data;
                       self.formControlDetail.editedRow = jsonOriginalRow;
@@ -971,7 +1050,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   changeEvent(info: InfoCampoModificado) {
     this.fieldChanged = info;
     let selectedRow = this.selectedRowDetail != null ? this.selectedRowDetail : this.selectedRow;
-    this.changesEventDropdown.emit( {info, selectedRow});
+    this.changesEventDropdown.emit({ info, selectedRow });
   }
 
   selectRowByIndex(atributeName: string, value: any) {
@@ -1023,6 +1102,92 @@ export class GpAppTableCrudYieldComponent implements OnInit {
       }
     }
     return showCol;
+  }
+
+  loadLazyEvent(event?: LazyLoadEvent) {
+    if (event) {
+      let ordered = false;
+      let orderResult = null;
+      let fieldsToOrderBy: string[] = [];
+
+      // 1.- obtenemos la página actual
+      let pageIndex = event.first / event.rows + 1;
+
+      // 2.- obtenemos el campo por el cual se ordena y seteamos el tipo de Orden que se le aplica
+      if (event.sortField != undefined && event.sortField != null) {
+        ordered = true;
+        fieldsToOrderBy.push(event.sortField);
+        orderResult = event.sortOrder == 1 ? TableService.ORDER_ASC : TableService.ORDER_DESC;
+      }
+
+      // 3.- comprobamos que hay fitros y los tratamos
+      if (event.filters && Object.keys(event.filters).length > 0) {
+        this.pageRender = new PageRender(event.rows, pageIndex, true);
+
+        // 3.1 obtenemos los nombres de los campos de tipo dropdown
+        let listTextFields: GpFormFieldDetail[] = this.columnasDetail.filter(
+          item => item.fieldMetadata.displayInfo.displayType == TableService.TEXT_DISPLAY_TYPE
+        );
+        let listTextFieldName: string[] = listTextFields.map(item => item.fieldMetadata.fieldName);
+
+        // 3.2 iteramos los filtros y los añadimos en el objecto Filter para enviarlos en la request
+        for (var property in event.filters) {
+          if (event.filters.hasOwnProperty(property)) {
+            let value = event.filters[property].value;
+            let op = null;
+            let field = null;
+
+            if (listTextFieldName.indexOf(property) > -1 && value.length >= this.minLimitFilterColumnTableDetail) {
+              op = this.getOperationByMatchMode(event.filters[property].matchMode);
+              field = property;
+            } else if (!(listTextFieldName.indexOf(property) > -1)) {
+              op = FilterOperationType.EQUAL;
+              field = property;
+            }
+
+            if (op != null && field != null) {
+              let filter = new Filter(op, field, [value]);
+              this.filters.push(filter);
+            }
+          }
+        }
+        this.cambiaTablaDetailLazyLoading(this.filterCodeDetail, this.filterField, ordered, fieldsToOrderBy, orderResult);
+      } else {
+        this.pageRender = new PageRender(event.rows, pageIndex, false);
+        this.cambiaTablaDetailLazyLoading(this.filterCodeDetail, this.filterField, ordered, fieldsToOrderBy, orderResult);
+      }
+    }
+  }
+
+  getOperationByMatchMode(matchMode: string): string {
+    let filterOperationType = null;
+
+    if (matchMode != null) {
+      switch (matchMode) {
+        case DataTableFilterType.STARTS_WITH:
+          filterOperationType = FilterOperationType.LIKE;
+          break;
+        case DataTableFilterType.CONTAINS:
+          filterOperationType = FilterOperationType.LIKE;
+          break;
+        case DataTableFilterType.ENDS_WITH:
+          filterOperationType = FilterOperationType.LIKE;
+          break;
+        case DataTableFilterType.EQUALS:
+          filterOperationType = FilterOperationType.EQUAL;
+          break;
+        case DataTableFilterType.NOT_EQUALS:
+          filterOperationType = FilterOperationType.NOT_EQUAL;
+          break;
+        case DataTableFilterType.IN:
+          filterOperationType = FilterOperationType.IN;
+          break;
+        default:
+          break;
+      }
+    }
+
+    return filterOperationType;
   }
 
   private showTreeTable(): boolean {

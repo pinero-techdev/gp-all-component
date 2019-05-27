@@ -4,6 +4,7 @@ import { SelectItem } from 'primeng/components/common/api';
 import { GpFormField, GpFormFieldControl } from 'gp-all-component/components/tables/gp-app-table-crud-shared';
 import { InfoCampoModificado } from 'gp-all-component/resources/data/infoCampoModificado';
 import { Dropdown } from 'primeng/primeng';
+import { ExtendTableService } from 'gp-all-component/services/extendTable.service';
 
 @Component({
   selector: 'gp-form-dropdown-dynamic-field',
@@ -28,7 +29,7 @@ export class GpFormDropdownDynamicFieldComponent extends GpFormFieldControl {
 
   public static FORM_FIELD_TYPE_DROPDOWN_DYNAMIC_FIELD: string = 'gp-form-dropdown-dynamic-field';
 
-  constructor(private _tableService: TableService) {
+  constructor(private _extendTableService: ExtendTableService) {
     super();
   }
 
@@ -78,7 +79,7 @@ export class GpFormDropdownDynamicFieldComponent extends GpFormFieldControl {
       console.log('GpFormDropdownFieldComponent.ngOnInit: loading from table ' + this.formField.fieldMetadata.displayInfo.referencedTable);
       this.listAllowedValuesOptions = [{ label: 'Cargando los datos del desplegable ...', value: null }];
       console.log(this.formField.fieldMetadata.displayInfo.referencedTable);
-      this._tableService
+      this._extendTableService
         .getValuesLimit(this.formField.fieldMetadata.displayInfo.referencedTable, this.formField.fieldMetadata.displayInfo.filters)
         .subscribe(
           data => {
