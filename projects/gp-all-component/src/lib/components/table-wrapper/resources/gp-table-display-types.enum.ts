@@ -9,4 +9,7 @@ export enum GpTableDisplayTypes {
   HOUR_MINUTE = 'HOUR_MINUTE',
   TEXT_AREA = 'TEXT_AREA',
   WYSIWYG = 'WYSIWYG',
+  DATE = 'DATE',
+  BOOLEAN = 'BOOLEAN',
+  GENERIC = 'GENERIC',
 }

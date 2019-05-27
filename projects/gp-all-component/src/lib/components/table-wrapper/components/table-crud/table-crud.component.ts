@@ -33,6 +33,7 @@ import { GpFormFieldType } from './../../../../components/form-wrapper/resources
 import { GpFormFieldControl } from './../../../../components/form-wrapper/resources/form-field-control.class';
 import { isNullOrUndefined } from 'util';
 import { LocaleES } from './../../../../resources/localization/es-ES.lang';
+import { GpTableDisplayTypes } from './../../resources/gp-table-display-types.enum';
 
 @Component({
   selector: 'gp-app-table-crud',
@@ -178,6 +179,9 @@ export class TableCrudComponent implements AfterViewChecked {
    */
   columnsToRender: any;
 
+  /* I18N */
+  readonly localeEs = LocaleES;
+
   @ViewChildren(FormTextFieldComponent)
   textFormFields: QueryList<FormTextFieldComponent>;
 
@@ -259,16 +263,13 @@ export class TableCrudComponent implements AfterViewChecked {
           const requestError = !data.ok && data.error !== null && data.error.errorMessage !== null;
 
           if (requestError) {
-            const expiredSession =
-              data.error.errorMessage === 'No se ha establecido sesion o se ha perdido.';
+            const expiredSession = data.error.errorMessage === LocaleES.ERROR.CONNECTION;
 
             if (expiredSession) {
               this.router.navigate(['login']);
             }
 
-            const msg =
-              data.error.errorMessage.toString() ||
-              'Se ha producido un error realizando la operación solicitada.';
+            const msg = data.error.errorMessage.toString() || LocaleES.ERROR.OPERATION;
             this.messagesService.showErrorAlert(msg);
 
             return;
@@ -322,16 +323,13 @@ export class TableCrudComponent implements AfterViewChecked {
           const requestError = !data.ok && data.error !== null && data.error.errorMessage !== null;
 
           if (requestError) {
-            const expiredSession =
-              data.error.errorMessage === 'No se ha establecido sesion o se ha perdido.';
+            const expiredSession = data.error.errorMessage === LocaleES.ERROR.CONNECTION;
 
             if (expiredSession) {
               this.router.navigate(['login']);
             }
 
-            const msg =
-              data.error.errorMessage.toString() ||
-              'Se ha producido un error realizando la operación solicitada.';
+            const msg = data.error.errorMessage.toString() || LocaleES.ERROR.OPERATION;
             this.messagesService.showErrorAlert(msg);
 
             return;
@@ -395,12 +393,12 @@ export class TableCrudComponent implements AfterViewChecked {
       return;
     }
 
-    if (formField.fieldMetadata.fieldType === 'DATE') {
+    if (formField.fieldMetadata.fieldType === GpTableDisplayTypes.DATE) {
       formField.formFieldType = GpFormFieldType.CALENDAR;
       return;
     }
 
-    if (formField.fieldMetadata.fieldType === 'BOOLEAN') {
+    if (formField.fieldMetadata.fieldType === GpTableDisplayTypes.BOOLEAN) {
       const hasFieldMetadata = formField.fieldMetadata.notNull;
 
       formField.formFieldType = hasFieldMetadata

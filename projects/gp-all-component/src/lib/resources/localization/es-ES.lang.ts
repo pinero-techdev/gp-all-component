@@ -17,6 +17,8 @@ export const LocaleES = {
     UPDATING_INTERNAL_RECORD: 'Error interno actualizando el registro.',
     UPDATING_RECORD: (message) => `Error actualizando el registro: ${message}`,
     INSERTING_RECORD: 'Error interno insertando el registro.',
+    CONNECTION: 'No se ha establecido sesion o se ha perdido.',
+    OPERATION: 'Se ha producido un error realizando la operación solicitada.',
   },
   FIELDS_ARE_MANDATORY: 'Todos los campos son obligatorios',
   LOADING_DROPDOWN_DATA: 'Cargando los datos del desplegable ...',
