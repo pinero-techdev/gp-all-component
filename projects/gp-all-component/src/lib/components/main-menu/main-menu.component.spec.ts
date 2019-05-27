@@ -75,14 +75,14 @@ describe('MainMenuComponent', () => {
 
     it('should be true', () => {
       router.navigate(['home']).then(() => {
-        const isHome = component.isHome();
+        const isHome = component.isHome;
         expect(isHome).toBeTruthy();
       });
     });
 
     it('should be false', () => {
       router.navigate(['non-home']).then(() => {
-        const isHome = component.isHome();
+        const isHome = component.isHome;
         expect(isHome).toBeFalsy();
       });
     });
