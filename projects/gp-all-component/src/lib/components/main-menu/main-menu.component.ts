@@ -11,7 +11,7 @@ import {
   ContentChild,
   OnDestroy,
 } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
@@ -88,11 +88,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    */
   private isAlive = true;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private menuProviderService: MainMenuService
-  ) {}
+  constructor(private router: Router, private menuProviderService: MainMenuService) {}
 
   /**
    * Angular OnInit lifecycle hook
