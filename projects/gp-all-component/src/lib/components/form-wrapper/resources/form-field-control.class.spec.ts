@@ -35,7 +35,11 @@ class FormFieldControlMock extends GpFormFieldControl {
 describe('FormFieldControl', () => {
   let returnedValue;
   const message = 'testing messages';
-  const formControl = new FormFieldControlMock();
+  let formControl: FormFieldControlMock;
+
+  beforeEach(() => {
+    formControl = new FormFieldControlMock();
+  });
 
   it('should create', () => {
     expect(formControl).toBeTruthy();
