@@ -66,28 +66,6 @@ describe('MainMenuComponent', () => {
     });
   });
 
-  describe('on isHome', () => {
-    let router: Router;
-
-    beforeEach(() => {
-      router = TestBed.get(Router);
-    });
-
-    it('should be true', () => {
-      router.navigate(['home']).then(() => {
-        const isHome = component.isHome;
-        expect(isHome).toBeTruthy();
-      });
-    });
-
-    it('should be false', () => {
-      router.navigate(['non-home']).then(() => {
-        const isHome = component.isHome;
-        expect(isHome).toBeFalsy();
-      });
-    });
-  });
-
   describe('on toggle menu, isOpen status:', () => {
     it('should be true', () => {
       component.onToggleMenu(true);

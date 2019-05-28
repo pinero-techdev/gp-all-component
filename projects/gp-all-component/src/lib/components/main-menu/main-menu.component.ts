@@ -105,13 +105,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Check if router is in home path
-   */
-  get isHome(): boolean {
-    return this.router.url === '/home';
-  }
-
-  /**
    * Start configuration for menu
    */
   initMenu(): void {
