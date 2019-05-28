@@ -278,7 +278,7 @@ describe('TableCrudComponent', () => {
         ...FormFieldMock,
         fieldMetadata: {
           displayInfo: {
-            displayType: 'GENERIC',
+            displayType: GpTableDisplayTypes.GENERIC,
           },
         },
       } as GpFormField;
@@ -309,7 +309,7 @@ describe('TableCrudComponent', () => {
         fieldMetadata: {
           fieldType: 'DATE',
           displayInfo: {
-            displayType: 'GENERIC',
+            displayType: GpTableDisplayTypes.GENERIC,
           },
         },
       } as GpFormField;
@@ -326,7 +326,7 @@ describe('TableCrudComponent', () => {
           fieldType: 'BOOLEAN',
           notNull: true,
           displayInfo: {
-            displayType: 'GENERIC',
+            displayType: GpTableDisplayTypes.GENERIC,
           },
         },
       } as GpFormField;
@@ -340,10 +340,10 @@ describe('TableCrudComponent', () => {
       const formField = {
         ...FormFieldMock,
         fieldMetadata: {
-          fieldType: 'BOOLEAN',
+          fieldType: GpTableDisplayTypes.BOOLEAN,
           notNull: false,
           displayInfo: {
-            displayType: 'GENERIC',
+            displayType: GpTableDisplayTypes.GENERIC,
           },
         },
       } as GpFormField;
@@ -364,7 +364,7 @@ describe('TableCrudComponent', () => {
 
       const mockedFormField = {
         ...FormFieldMock,
-        formFieldType: 'gp-form-text-field',
+        formFieldType: GpFormFieldType.TEXT,
       } as GpFormField;
 
       component.columns = [mockedFormField];
@@ -498,7 +498,7 @@ describe('TableCrudComponent', () => {
       const selectedRow = {};
       const mockedFormField = {
         ...FormFieldMock,
-        formFieldType: 'gp-form-text-field',
+        formFieldType: GpFormFieldType.TEXT,
         fieldMetadata: {
           ...FormFieldMock.fieldMetadata,
           hideInAddOperation: false,
@@ -546,7 +546,7 @@ describe('TableCrudComponent', () => {
 
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-text-field',
+          formFieldType: GpFormFieldType.TEXT,
         } as GpFormField;
 
         component.columns = [mockedFormField];
@@ -594,7 +594,7 @@ describe('TableCrudComponent', () => {
 
         expect($tableServiceSpy).toHaveBeenCalled();
         expect($messagesServiceSpy).toHaveBeenCalledWith(
-          'Error actualizando el registro: ' + CommonRsErrorMock.error.errorMessage
+          LocaleES.ERROR.UPDATING_RECORD(CommonRsErrorMock.error.errorMessage)
         );
       });
 
@@ -740,7 +740,7 @@ describe('TableCrudComponent', () => {
       const selectedRow = {};
       const mockedFormField = {
         ...FormFieldMock,
-        formFieldType: 'gp-form-text-field',
+        formFieldType: GpFormFieldType.TEXT,
       } as GpFormField;
 
       component.columns = [mockedFormField];
@@ -770,7 +770,7 @@ describe('TableCrudComponent', () => {
       const selectedRow = {};
       const mockedFormField = {
         ...FormFieldMock,
-        formFieldType: 'gp-form-text-field',
+        formFieldType: GpFormFieldType.TEXT,
       } as GpFormField;
 
       component.selectedRow = selectedRow;
@@ -800,7 +800,7 @@ describe('TableCrudComponent', () => {
         const selectedRow = {};
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-textarea-field',
+          formFieldType: GpFormFieldType.TEXT_AREA,
         } as GpFormField;
 
         component.selectedRow = selectedRow;
@@ -829,7 +829,7 @@ describe('TableCrudComponent', () => {
         const selectedRow = {};
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-time-field',
+          formFieldType: GpFormFieldType.TIME,
         } as GpFormField;
 
         component.selectedRow = selectedRow;
@@ -858,7 +858,7 @@ describe('TableCrudComponent', () => {
         const selectedRow = {};
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-switch-field',
+          formFieldType: GpFormFieldType.SWITCH,
         } as GpFormField;
 
         component.selectedRow = selectedRow;
@@ -887,7 +887,7 @@ describe('TableCrudComponent', () => {
         const selectedRow = {};
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-dropdown-field',
+          formFieldType: GpFormFieldType.DROPDOWN,
         } as GpFormField;
 
         component.selectedRow = selectedRow;
@@ -916,7 +916,7 @@ describe('TableCrudComponent', () => {
         const selectedRow = {};
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-dropdown-related-field',
+          formFieldType: GpFormFieldType.DROPDOWN_RELATED,
         } as GpFormField;
 
         component.selectedRow = selectedRow;
@@ -946,7 +946,7 @@ describe('TableCrudComponent', () => {
         const selectedRow = {};
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-checkbox-field',
+          formFieldType: GpFormFieldType.CHECKBOX,
         } as GpFormField;
 
         component.selectedRow = selectedRow;
@@ -975,7 +975,7 @@ describe('TableCrudComponent', () => {
         const selectedRow = {};
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-calendar-field',
+          formFieldType: GpFormFieldType.CALENDAR,
         } as GpFormField;
 
         component.selectedRow = selectedRow;
@@ -1004,7 +1004,7 @@ describe('TableCrudComponent', () => {
         const selectedRow = {};
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-wysiwyg-field',
+          formFieldType: GpFormFieldType.WYSIWYG,
         } as GpFormField;
 
         component.selectedRow = selectedRow;
@@ -1033,7 +1033,7 @@ describe('TableCrudComponent', () => {
         const selectedRow = {};
         const mockedFormField = {
           ...FormFieldMock,
-          formFieldType: 'gp-form-img-field',
+          formFieldType: GpFormFieldType.IMG,
         } as GpFormField;
 
         component.selectedRow = selectedRow;
