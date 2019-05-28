@@ -84,6 +84,7 @@ describe('LoginComponent', () => {
     GlobalService.setApplicationTitle(applicationName);
     GlobalService.setLoginServiceUrl(applicationLoginUrl);
     getFields();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -99,7 +100,7 @@ describe('LoginComponent', () => {
     expect(component.login).toHaveBeenCalled();
   });
 
-  xit('should have a title', () => {
+  it('should have a title', () => {
     const $title: HTMLElement = elementRef.querySelector('.login-panel-title');
     expect($title).toBeTruthy();
     expect($title.innerText).toEqual(applicationName.toUpperCase());
