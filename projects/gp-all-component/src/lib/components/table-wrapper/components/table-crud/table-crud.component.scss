@@ -32,6 +32,7 @@
             padding-bottom: 0;
 
             &:first-child {
+              color: $textMutedColor;
               text-align: left;
             }
 
@@ -46,7 +47,6 @@
 
         &-wrapper {
           padding-top: 75px;
-          overflow-y: auto;
         }
 
         &-wrapper.shadowSticky:before {
@@ -130,6 +130,7 @@
           }
 
           td {
+            color: $textColor;
             border: none;
             padding: 0 $separation;
             height: 40px;
@@ -167,6 +168,7 @@
           }
 
           .ui-paginator-bottom {
+            position: inherit;
             margin-top: $separationXLarge;
             background: $whiteColor;
             border: none;
