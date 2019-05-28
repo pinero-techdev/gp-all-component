@@ -21,6 +21,7 @@ export const LocaleES = {
     OPERATION: 'Se ha producido un error realizando la operación solicitada.',
   },
   FIELDS_ARE_MANDATORY: 'Todos los campos son obligatorios',
+  FIELDS_MANDATORY_ASTERISK: '* Campos obligatorios.',
   LOADING_DROPDOWN_DATA: 'Cargando los datos del desplegable ...',
   LOGGED_USER: 'Usuario logado',
   NO_OPTIONS_FOR_SELECTION: 'No existen opciones para el valor seleccionado',
