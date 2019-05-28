@@ -57,22 +57,21 @@ export class DynamicComponent implements OnInit {
     const component: ComponentRef<any> = factory.create(this.injector);
 
     if (this.componentData.inputs) {
-      const inputProviders = Object.keys(this.componentData.inputs).map((inputName) =>
-        Object.create({ provide: inputName, useValue: this.componentData.inputs[inputName] })
-      );
-      inputProviders.forEach((input) => (component.instance[input.provide] = input.useValue));
+      for (const key in this.componentData.inputs) {
+        if (this.componentData.inputs.hasOwnProperty(key)) {
+          component.instance[key] = this.componentData.inputs[key];
+        }
+      }
     }
 
     if (this.componentData.outputs) {
-      const outputProviders = Object.keys(this.componentData.outputs).map((outputName) =>
-        Object.create({
-          provide: outputName,
-          useValue: this.componentData.outputs[outputName],
-        })
-      );
-      outputProviders.forEach((output) =>
-        component.instance[output.provide].first().subscribe((value) => output.useValue(value))
-      );
+      for (const key in this.componentData.outputs) {
+        if (this.componentData.outputs.hasOwnProperty(key)) {
+          component.instance[key]
+            .first()
+            .subscribe((value) => this.componentData.outputs[key](value));
+        }
+      }
     }
 
     this.dynamicComponent.insert(component.hostView);
