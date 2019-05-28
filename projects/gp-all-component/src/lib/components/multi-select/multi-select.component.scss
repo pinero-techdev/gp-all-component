@@ -110,6 +110,7 @@
 
         > span {
           padding-left: $separationXLarge;
+          color: $textSecondaryColor;
         }
 
         .ui-chkbox {
@@ -129,6 +130,7 @@
             @include transition(background-color 0.3s);
 
             .ui-chkbox-icon {
+              color: $whiteColor;
               font-size: 1.25em;
               margin-left: -2px;
               margin-top: -2px;

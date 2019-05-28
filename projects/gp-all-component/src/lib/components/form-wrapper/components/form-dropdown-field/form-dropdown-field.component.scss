@@ -76,9 +76,16 @@
         padding: $inputOptionPadding;
         color: $textSecondaryColor;
 
+        span {
+          color: $textColor;
+        }
+
         &.ui-state-highlight {
           background-color: $accentColor;
-          color: $accentTextColor;
+
+          span {
+            color: $whiteColor;
+          }
         }
       }
     }

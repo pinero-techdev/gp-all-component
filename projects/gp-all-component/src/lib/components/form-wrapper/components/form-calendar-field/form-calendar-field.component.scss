@@ -57,7 +57,6 @@
       .ui-datepicker-header {
         padding: 8.5px 13.5px;
         background: $primaryDarkColor;
-        color: $whiteColor;
         border-top-right-radius: $borderRadius;
         border-top-left-radius: $borderRadius;
 
@@ -65,6 +64,10 @@
           margin: 0 2.3em;
           line-height: 1.8em;
           font-size: 1em;
+
+          span {
+            color: $whiteColor;
+          }
         }
       }
 
@@ -81,8 +84,10 @@
         color: $whiteColor;
         top: 20%;
 
-        &.ui-datepicker-prev,
-        &.ui-datepicker-next {
+        .ui-datepicker-prev-icon,
+        .ui-datepicker-next-icon {
+          color: $whiteColor;
+
           &:hover {
             color: $whiteColor;
           }
@@ -100,7 +105,12 @@
 
       thead {
         background: $primaryColor;
-        color: $whiteColor;
+
+        th {
+          span {
+            color: $whiteColor;
+          }
+        }
       }
 
       tbody {

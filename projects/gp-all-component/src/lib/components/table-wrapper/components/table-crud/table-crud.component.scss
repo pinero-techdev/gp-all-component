@@ -25,22 +25,22 @@
 
           .p-grid {
             align-items: center;
-          }
 
-          .table-header {
-            padding-top: 0;
-            padding-bottom: 0;
+            > div {
+              padding-top: 0;
+              padding-bottom: 0;
 
-            &:first-child {
-              color: $textMutedColor;
-              text-align: left;
-            }
+              &:first-child {
+                color: $textMutedColor;
+                text-align: left;
+              }
 
-            button {
-              max-width: 140px;
-              font-weight: 600;
-              letter-spacing: 0.19px;
-              font-size: 13.5px;
+              button {
+                max-width: 140px;
+                font-weight: 600;
+                letter-spacing: 0.19px;
+                font-size: 13.5px;
+              }
             }
           }
         }
@@ -141,7 +141,7 @@
 
         &-tfoot {
           position: absolute;
-          bottom: -60px;
+          bottom: -56px;
         }
 
         p-paginator {

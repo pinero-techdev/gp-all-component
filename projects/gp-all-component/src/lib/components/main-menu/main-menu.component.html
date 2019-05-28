@@ -1,47 +1,45 @@
 <div *ngIf="isOpen && viewLoaded" id="main-menu" class="menu" #launcher>
   <div class="menu-card full-width">
-    <div class="menu-panel">
-      <div class="p-grid">
-        <div
-          role="list"
-          *ngFor="let menu of filterEnabledItems()"
-          class="item-wrapper p-col-4 p-sm-2 p-md-3"
+    <div class="p-grid menu-panel">
+      <div
+        role="list"
+        *ngFor="let menu of filterEnabledItems()"
+        class="item-wrapper p-col-4 p-sm-2 p-md-3"
+      >
+        <a
+          class="menu-item"
+          (click)="onCloseMenu(menu)"
+          role="listitem"
+          *ngIf="menu.action != null"
+          [routerLink]="[menu.action]"
+          [pTooltip]="menu.texto"
+          [tooltipDisabled]="disableTooltip"
         >
-          <a
-            class="menu-item"
-            (click)="onCloseMenu(menu)"
-            role="listitem"
-            *ngIf="menu.action != null"
-            [routerLink]="[menu.action]"
-            [pTooltip]="menu.texto"
-            [tooltipDisabled]="disableTooltip"
+          <div
+            class="{{ menu.icon ? 'menu-icon-' + menu.icon : '' }}"
+            [ngClass]="{ 'menu-icon': menu.icon }"
+          ></div>
+          <span class="menu-label">{{ menu.texto }}</span>
+        </a>
+        <a
+          class="menu-item"
+          (click)="menuChange(menu)"
+          role="listitem"
+          *ngIf="menu.action == null"
+          [pTooltip]="menu.texto"
+          [tooltipDisabled]="disableTooltip"
+        >
+          <div
+            class="{{ menu.icon ? 'menu-icon-' + menu.icon : 'menu-icon menu-back-wrapper' }}"
+            [ngClass]="{ 'menu-icon': menu.icon }"
+            [ngStyle]="{ position: 'relative' }"
           >
-            <div
-              class="{{ menu.icon ? 'menu-icon-' + menu.icon : '' }}"
-              [ngClass]="{ 'menu-icon': menu.icon }"
-            ></div>
-            <span class="menu-label">{{ menu.texto }}</span>
-          </a>
-          <a
-            class="menu-item"
-            (click)="menuChange(menu)"
-            role="listitem"
-            *ngIf="menu.action == null"
-            [pTooltip]="menu.texto"
-            [tooltipDisabled]="disableTooltip"
-          >
-            <div
-              class="{{ menu.icon ? 'menu-icon-' + menu.icon : 'menu-icon menu-back-wrapper' }}"
-              [ngClass]="{ 'menu-icon': menu.icon }"
-              [ngStyle]="{ position: 'relative' }"
-            >
-              <div *ngIf="menu.parentList" class="menu-back"></div>
-            </div>
-            <span class="menu-label" [ngClass]="menu.parentList ? 'back-label' : ''">{{
-              menu.texto
-            }}</span>
-          </a>
-        </div>
+            <div *ngIf="menu.parentList" class="menu-back"></div>
+          </div>
+          <span class="menu-label" [ngClass]="menu.parentList ? 'back-label' : ''">{{
+            menu.texto
+          }}</span>
+        </a>
       </div>
     </div>
     <div class="menu-overview">

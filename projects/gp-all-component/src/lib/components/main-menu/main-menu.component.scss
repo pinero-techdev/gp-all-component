@@ -162,7 +162,7 @@
         content: '';
         position: absolute;
         top: 100%;
-        margin-top: 14%;
+        margin-top: 7%;
         width: 100%;
         height: 14px;
         background: url('./../../resources/images/ico_back-folder.svg');
@@ -176,6 +176,7 @@
     &-panel {
       flex: 0 0 50%;
       max-width: 50%;
+      align-items: center;
       margin-top: $menu-action-width;
       min-width: $menu-action-width;
 
