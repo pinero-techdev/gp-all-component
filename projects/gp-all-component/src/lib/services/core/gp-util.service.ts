@@ -66,12 +66,19 @@ export class GPUtil {
     if (dt === null) {
       return null;
     }
+
     if ('string' === typeof dt) {
       const s = '' + dt;
       if (s === '') {
         return null;
       }
     }
+
+    const y = '000' + dt.getFullYear();
+    const m = '0' + (dt.getMonth() + 1);
+    const d = '0' + dt.getDate();
+
+    return y.substr(y.length - 4) + '-' + m.substr(m.length - 2) + '-' + d.substr(d.length - 2);
   }
 
   // FIXME 17/12/2018 convertir con moment
