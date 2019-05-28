@@ -62,21 +62,21 @@ export class GPUtil {
     return fecha;
   }
 
-  public static dateToYyyymmdd(dt: Date): string {
-    if (dt === null) {
+  public static dateToYyyymmdd(date: Date): string {
+    if (date === null) {
       return null;
     }
 
-    if ('string' === typeof dt) {
-      const s = '' + dt;
+    if (typeof date === 'string') {
+      const s = '' + date;
       if (s === '') {
         return null;
       }
     }
 
-    const y = '000' + dt.getFullYear();
-    const m = '0' + (dt.getMonth() + 1);
-    const d = '0' + dt.getDate();
+    const y = '000' + date.getFullYear();
+    const m = '0' + (date.getMonth() + 1);
+    const d = '0' + date.getDate();
 
     return y.substr(y.length - 4) + '-' + m.substr(m.length - 2) + '-' + d.substr(d.length - 2);
   }
