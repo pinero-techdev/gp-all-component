@@ -62,12 +62,16 @@ export class GPUtil {
     return fecha;
   }
 
-  // FIXME 17/12/2018 convertir con moment
   public static dateToYyyymmdd(dt: Date): string {
-    const y = '000' + dt.getFullYear();
-    const m = '0' + (dt.getMonth() + 1);
-    const d = '0' + dt.getDate();
-    return y.substr(y.length - 4) + '-' + m.substr(m.length - 2) + '-' + d.substr(d.length - 2);
+    if (dt === null) {
+      return null;
+    }
+    if ('string' === typeof dt) {
+      const s = '' + dt;
+      if (s === '') {
+        return null;
+      }
+    }
   }
 
   // FIXME 17/12/2018 convertir con moment

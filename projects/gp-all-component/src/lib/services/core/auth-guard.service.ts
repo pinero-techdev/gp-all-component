@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
       userId = userInfo.userId;
     }
 
-    const url: string = state.url;
+    const url: string = state.url.split('?')[0];
     if (isPublic) {
       return of(true);
     } else if (this.hasPermissions(isPublic)) {
