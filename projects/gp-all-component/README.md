@@ -29,7 +29,7 @@ Run `npm run build` to execute the building and packing the app. Then to deploy 
 ## Dependencies ##
 You should have Node.js 10.15.3v or upgrade.
 
-Next dependencies are needed for the correct working of the library. The dependencies required are: PrimeNG, Quill, Moment.js. 
+Next dependencies are needed for the correct working of the library. The dependencies required are: PrimeNG, Quill, Moment.js.
 
 ### PrimeNG ###
 + Install PrimeNg, PrimeIcons and Angular animations.
@@ -46,7 +46,7 @@ Next dependencies are needed for the correct working of the library. The depende
   ]
 ```
 + You need to import BrowserAnimationsModule to your application. If you prefer to disable animations globally, _import NoopAnimationsModule_ instead.
-``` 
+```
     @NgModule({
         imports: [
             BrowserModule,
@@ -55,7 +55,7 @@ Next dependencies are needed for the correct working of the library. The depende
         ],
         //...
     })
-``` 
+```
 ### Quill Editor 1.0. ###
 Quill is a dependency of PrimeNG
 
@@ -74,7 +74,7 @@ Quill is a dependency of PrimeNG
 
 ```
 "styles": [
-    "node_modules/quill/dist/quill.core.css", 
+    "node_modules/quill/dist/quill.core.css",
     "node_modules/quill/dist/quill.snow.css"
 ]
 ```
@@ -82,23 +82,23 @@ Quill is a dependency of PrimeNG
 ### Moment.js ###
 
 + First you need to install the npm module:
-    
+
 ```
 npm install moment --save
 ```
-    
+
 
 + If you need more help check out the [Moment.js Documentation](https://momentjs.com/)
 
 
-And the theme for the library:
+And the styles for the library:
 
-### Theme 360 ###
-+ Add the theme's styles in your angular.json located in the root folder.
+### Main Scss ###
++ Add the main's styles in your angular.json located in the root folder.
 ```
 "styles": [
     ...
-    "node_modules/gp-all-component/lib/resources/scss/theme-360/theme.scss"
+    "node_modules/gp-all-component/lib/resources/scss/main.scss"
     ...
   ]
 ```
