@@ -29,11 +29,11 @@ async function bundleScss(entry = '', output = '', files = []) {
   }
 
   if (found) {
-    await writeFile(output + '/theme.scss', bundledContent);
+    await writeFile(output + '/main.scss', bundledContent);
   }
 }
 
 bundleScss(
-  './projects/gp-all-component/src/lib/resources/scss/theme-360/_theme.scss',
-  './dist/gp-all-component/lib/resources/scss/theme-360'
+  './projects/gp-all-component/src/lib/resources/scss/_main.scss',
+  './dist/gp-all-component/lib/resources/scss'
 );
