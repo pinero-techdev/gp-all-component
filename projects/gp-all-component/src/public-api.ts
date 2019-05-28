@@ -20,7 +20,6 @@ export * from './lib/services/core/messages.service';
 // Classes & Types
 export * from './lib/resources/constants/language-order.constant';
 export * from './lib/resources/constants/calendar.constants';
-export * from './lib/resources/constants/custom-control-value-accessor.constant';
 export * from './lib/shared/imports/form-wrapper-shared';
 export * from './lib/shared/imports/table-wrapper-shared';
 export * from './lib/components/form-wrapper/resources/regex-validations.type';
