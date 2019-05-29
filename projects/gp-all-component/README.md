@@ -125,7 +125,14 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## 8. Deploy ##
 
-Run `npm run build` to execute the building and packing the app. Then to deploy you should run the script `node ./scripts/deploy-gp-all-component.js`.
+### Versioned (Recommended)
+ Run prebuild commands to versioning the package. 
+ If you introduce fixes or similar use: `npm run prebuild:patch` 
+ If you introduce minor changes or simple features use: `npm run prebuild:minor` 
+ If you introduce a change that breaks a package dependency use: `npm run prebuild:major` 
+
+### Unversioned (not recommended)
+Run `npm run build` to execute the building and packing the app. Then to deploy you should run the script `npm run deploy-component`.
 
 ## 9. Dependencies ##
 You should have Node.js 10.15.3v or upgrade.

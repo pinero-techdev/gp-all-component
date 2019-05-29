@@ -9,6 +9,6 @@ import { TableCrudComponent } from 'gp-all-component';
 export class TableCrudTesterComponent implements OnInit {
   @ViewChild(TableCrudComponent) tableRef: TableCrudComponent;
   ngOnInit() {
-    this.tableRef.cambiaTabla('BpgTeco');
+    this.tableRef.changeTable('BpgTeco');
   }
 }

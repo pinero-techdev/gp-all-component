@@ -168,13 +168,14 @@ describe('LoginComponent', () => {
     });
 
     it('should try to login and redirect to getPRE_LOGIN_URL', () => {
-      spyOn(router, 'navigate').and.callThrough();
+      const $routerSpy = spyOn(router, 'navigate').and.callThrough();
       const testRoute = '/post-login';
       GlobalService.setPreLoginUrl(testRoute);
       fixture.detectChanges();
       spyOn(GlobalService, 'getPRE_LOGIN_URL').and.callThrough();
       component.login();
       getFields();
+      expect($routerSpy).toHaveBeenCalled();
     });
 
     it('should navigate to modifica-password', () => {

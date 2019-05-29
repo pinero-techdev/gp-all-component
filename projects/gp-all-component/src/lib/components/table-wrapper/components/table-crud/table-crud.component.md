@@ -97,4 +97,10 @@ Now, is not necesary to map the formFieldType with TableDisplayTypes, GpFormFiel
 to
 ```const fieldType = GpFormFieldType[formField.fieldMetadata.displayInfo.displayType];```
 
+Following methods had been renamed, there might be API implementation conflicts: 
 
+`cambiaTabla` -> `changeTable`
+
+`cambiaTablaDetalle` -> `changeTableDetail`
+
+`actualizaDefinicion` -> `updateDefinition`

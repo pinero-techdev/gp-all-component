@@ -37,7 +37,7 @@ export class TableFrameComponent implements OnInit, OnDestroy {
       this.tableName = params.tabla;
 
       this.viewChild.closeDialog();
-      this.viewChild.cambiaTabla(this.tableName);
+      this.viewChild.changeTable(this.tableName);
     });
   }
 
