@@ -7,6 +7,7 @@ import { GpTableRestrictions } from './../../../../components/table-wrapper/reso
 import { GPUtil } from './../../../../services/core/gp-util.service';
 import { RegexValidations } from '../../resources/regex-validations.type';
 import { LocaleES } from './../../../../resources/localization/es-ES.lang';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'gp-form-text-field',
@@ -117,12 +118,12 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
         0;
 
       if (markedAsUppercase) {
-        newValue = newValue === null ? null : newValue.toUpperCase();
+        newValue = isNullOrUndefined(newValue) ? null : newValue.toUpperCase();
         this.currentValue = newValue;
       }
 
       if (markedAsTrim) {
-        newValue = newValue === null ? null : newValue.trim();
+        newValue = isNullOrUndefined(newValue) ? null : newValue.trim();
         this.currentValue = newValue;
       }
     }

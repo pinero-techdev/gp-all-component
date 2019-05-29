@@ -494,7 +494,7 @@ describe('TableCrudComponent', () => {
   });
 
   describe('on dialog save action', () => {
-    xit('should return if edition is not allowed', () => {
+    it('should return if edition is not allowed', () => {
       const selectedRow = {};
       const mockedFormField = {
         ...FormFieldMock,
