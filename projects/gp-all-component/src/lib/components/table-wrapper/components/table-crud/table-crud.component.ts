@@ -240,7 +240,7 @@ export class TableCrudComponent implements AfterViewChecked {
    * @param filters List of filters
    * @param fieldsToOrderBy Optional list of fields to order by
    */
-  cambiaTablaDetail(filters: Filter[], fieldsToOrderBy?: string[]): void {
+  changeTableDetail(filters: Filter[], fieldsToOrderBy?: string[]): void {
     this.working = true;
 
     this.columns = [];
@@ -275,7 +275,7 @@ export class TableCrudComponent implements AfterViewChecked {
             return;
           }
 
-          this.actualizaDefinicion(data.metadata);
+          this.updateDefinition(data.metadata);
           this.data = data.data;
         },
 
@@ -288,7 +288,7 @@ export class TableCrudComponent implements AfterViewChecked {
    * @param tableName Table name
    * @param fieldsToOrderBy Optional list of fields to order by
    */
-  cambiaTabla(tableName: string, fieldsToOrderBy?: string[]): void {
+  changeTable(tableName: string, fieldsToOrderBy?: string[]): void {
     if (
       this.tableName !== null &&
       tableName === this.tableName &&
@@ -335,7 +335,7 @@ export class TableCrudComponent implements AfterViewChecked {
             return;
           }
 
-          this.actualizaDefinicion(data.metadata);
+          this.updateDefinition(data.metadata);
           this.data = data.data;
         },
 
@@ -347,7 +347,7 @@ export class TableCrudComponent implements AfterViewChecked {
    * Updates table metadata
    * @param tableMetadata Metadata for table
    */
-  actualizaDefinicion(tableMetadata: DataTableMetaData): void {
+  updateDefinition(tableMetadata: DataTableMetaData): void {
     const tempColumns: GpFormField[] = [];
     const tempTableColumns: GpFormField[] = [];
 
@@ -515,7 +515,7 @@ export class TableCrudComponent implements AfterViewChecked {
     this.formControl.edicionEdit = false;
     this.formControl.lockFields = false;
     if (this.dialogErrors) {
-      this.cambiaTabla(this.tableName);
+      this.changeTable(this.tableName);
     }
   }
 
