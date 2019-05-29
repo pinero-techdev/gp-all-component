@@ -103,7 +103,7 @@ export class GlobalService {
   public static getSESSION_ID(): string {
     if (!GlobalService.globalSingleton.sessionId) {
       const sessionId = sessionStorage.getItem('sessionId');
-      if (!sessionId) {
+      if (!sessionId || sessionId === 'undefined') {
         return '';
       }
       GlobalService.setSessionId(sessionId);
