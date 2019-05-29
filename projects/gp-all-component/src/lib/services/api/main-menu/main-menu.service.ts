@@ -25,24 +25,26 @@ export class MainMenuService {
   obtenMenu(rq: MenuRq): Observable<any> {
     return Observable.create((observer) => {
       this.temp = this.menuProvider.getEstructuraMenu();
-      this.menuProvider.obtenOpcionesActivas(rq).subscribe(
-        (data) => {
-          if (data.ok) {
-            if (data.menu.opciones && data.menu.opciones.length) {
-              this.cargarOpciones(this.temp, data.menu.opciones);
+      if (this.temp) {
+        this.menuProvider.obtenOpcionesActivas(rq).subscribe(
+          (data) => {
+            if (data.ok) {
+              if (data.menu.opciones && data.menu.opciones.length) {
+                this.cargarOpciones(this.temp, data.menu.opciones);
+              }
+              if (data.roles && data.roles.length) {
+                GlobalService.setRoles(data.roles);
+              }
+            } else {
+              console.error('No se recuperó un menú');
             }
-            if (data.roles && data.roles.length) {
-              GlobalService.setRoles(data.roles);
-            }
-          } else {
-            console.error('No se recuperó un menú');
+          },
+          (error) => console.error(error),
+          () => {
+            observer.next(this.temp);
           }
-        },
-        (error) => console.error(error),
-        () => {
-          observer.next(this.temp);
-        }
-      );
+        );
+      }
     });
   }
 
