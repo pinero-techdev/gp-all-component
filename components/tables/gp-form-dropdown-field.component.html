@@ -3,6 +3,7 @@
             [(ngModel)]="_currentValueDropDown"
             [autoWidth]="false"
 			filter="true"
+			styleClass="full-width"
             (onChange)="onFieldChange()"
             [disabled]="controlDisabled()"
             [ngClass]="{'ng-dirty ng-invalid': (formField.fieldMsgs != null && formField.fieldMsgs.length > 0) }"

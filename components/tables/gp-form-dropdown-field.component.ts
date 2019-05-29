@@ -118,7 +118,7 @@ export class GpFormDropdownFieldComponent extends GpFormFieldControl {
 
         // Validacion del campo.
         // a) Null?
-        if (this.formField.fieldMetadata.notNull && ( valorCampo == "" || valorCampo == null )) {
+        if (this.formField.fieldMetadata.notNull && ( valorCampo === "" || valorCampo == null )) {
             this.formField.validField = false;
             this.validateFieldAddMsgs('El valor es obligatorio.');
             return false;

@@ -6,5 +6,6 @@
             (onChange)="onFieldChange()"
             [disabled]="controlDisabled()"
             [ngClass]="{'ng-dirty ng-invalid': (formField.fieldMsgs != null && formField.fieldMsgs.length > 0) }"
-            class="ui-inputfield ui-selectonemenu-label full-width" >
+            class="ui-inputfield ui-selectonemenu-label"
+			styleClass="full-width">
 </p-dropdown>
