@@ -33,6 +33,7 @@ export class AuthGuard implements CanActivate {
       if (url == '/home' || url == '/' || url.indexOf('/terminal') != -1) {
         return Observable.of(true);
       } else {
+        this.removeLogoHomeIfExists();
         let request: MenuRq = new MenuRq(GlobalService.SESSION_ID, GlobalService.PARAMS);
         return this._menu.obtenMenu(request).map(menu => {
           if (menu) {
@@ -59,5 +60,14 @@ export class AuthGuard implements CanActivate {
       this._router.navigate(['/login']);
       return Observable.of(false);
     }
+  }
+
+  /* @author 3digits */
+  removeLogoHomeIfExists() {
+    setTimeout(() => {
+      if (document.getElementById('bienvenida') != null) {
+        document.getElementById('bienvenida').style.display = 'none';
+      }
+    }, 50);
   }
 }
