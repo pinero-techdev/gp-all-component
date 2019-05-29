@@ -732,17 +732,15 @@ export class GpAppTableCrudYieldComponent implements OnInit {
           if (data.ok) {
             // Actualizamos el registro.
             if (this.exclusionsTableMaster.length > 0 && !this.treeTableDetail && this.referenceTableOperationsDropdownDinamico != null) {
+              const selectedRow = self.selectedRow;
+
               this.extendTableService.getValue(this.referenceTableOperationsDropdownDinamico, jsonModifiedRow).subscribe(data => {
                 if (data.ok) {
                   let jsonOriginalRow = data.data;
                   self.formControl.editedRow = jsonOriginalRow;
 
-                  if (self.selectedRow == null) {
-                    self.selectedRow = self.elementos.find(item => item[self.tableId] == jsonOriginalRow[self.tableId]);
-                  }
-
                   this.forEachField(function(col: GpFormField) {
-                    self.selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
+                    selectedRow[col.fieldMetadata.fieldName] = self.formControl.editedRow[col.fieldMetadata.fieldName];
                   });
                 }
               });
