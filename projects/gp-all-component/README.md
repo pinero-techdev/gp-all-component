@@ -48,7 +48,23 @@ You can also setup the project to be able to live reload all the changes you mad
 
 7. The library is ready to consume with live preview by running the following command from the external application root directory: `npm link gp-all-component` 
 
-8. In case you have any `critical dependency` errors, you may need to config your `tsconfig.json` file with the following paths in compiler options: 
+#### Possible issues with NPM Link
+
+##### Library Styles
+
+To be able to see the library styles while working with npm link, you need to include the following import in the general `styles.scss` instead of doing it from the angular.json as specified in step 9:
+
+```scss
+@import '../node_modules/gp-all-component/lib/resources/scss/main.scss';
+```
+
+> ⚠️ Make sure you remember to revert the previous step whenever you are going to commit something!
+
+Currently there is not a better way to solve this, as seen in the following thread: https://github.com/angular/angular-cli/issues/3500
+
+##### Critical Dependency Error
+
+In case you have any `critical dependency` errors, you may need to config your `tsconfig.json` file with the following paths in compiler options: 
  
 
 ``` 
@@ -74,6 +90,8 @@ You can also setup the project to be able to live reload all the changes you mad
 } 
 
 ``` 
+
+##### Permission Access Error (Windows)
 
 For Windows users, if anytime you find an “EACCESS: Permission Access Error”, and you are unable to delete the dist folder, you can follow next steps to delete it: 
 
