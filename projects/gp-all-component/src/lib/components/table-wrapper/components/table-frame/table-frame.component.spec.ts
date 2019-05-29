@@ -50,28 +50,28 @@ describe('TableFrameComponent', () => {
       const testTableName = 'TestName';
 
       const $closeDialogSpy = spyOn(component.viewChild, 'closeDialog');
-      const $cambiaTablaSpy = spyOn(component.viewChild, 'cambiaTabla');
+      const $changeTableSpy = spyOn(component.viewChild, 'changeTable');
 
       TestBed.get(ActivatedRoute).params = of({ tabla: testTableName });
 
       component.ngOnInit();
 
       expect($closeDialogSpy).toHaveBeenCalled();
-      expect($cambiaTablaSpy).toHaveBeenCalled();
+      expect($changeTableSpy).toHaveBeenCalled();
     });
 
     it('should not call viewChild on params change if no "tabla" param was provided', () => {
       const testTableName = 'TestName';
 
       const $closeDialogSpy = spyOn(component.viewChild, 'closeDialog');
-      const $cambiaTablaSpy = spyOn(component.viewChild, 'cambiaTabla');
+      const $changeTableSpy = spyOn(component.viewChild, 'changeTable');
 
       TestBed.get(ActivatedRoute).params = of({ noTabla: testTableName });
 
       component.ngOnInit();
 
       expect($closeDialogSpy).not.toHaveBeenCalled();
-      expect($cambiaTablaSpy).not.toHaveBeenCalled();
+      expect($changeTableSpy).not.toHaveBeenCalled();
     });
   });
 });

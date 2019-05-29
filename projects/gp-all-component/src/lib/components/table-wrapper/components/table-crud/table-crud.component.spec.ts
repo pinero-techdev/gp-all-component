@@ -86,7 +86,7 @@ describe('TableCrudComponent', () => {
     });
 
     it('should reset properties and set filters', () => {
-      component.cambiaTablaDetail(mockFilters, mockFieldsToOrderBy);
+      component.changeTableDetail(mockFilters, mockFieldsToOrderBy);
 
       expect(component.working).toEqual(true);
       expect(component.columns.length).toEqual(0);
@@ -107,7 +107,7 @@ describe('TableCrudComponent', () => {
 
       const $tableServiceSpy = spyOn(tableService, 'list').and.returnValue(mockObservable);
 
-      component.cambiaTablaDetail(mockFilters, mockFieldsToOrderBy);
+      component.changeTableDetail(mockFilters, mockFieldsToOrderBy);
 
       expect($tableServiceSpy).toHaveBeenCalled();
       expect(component.data).toEqual(customData);
@@ -121,7 +121,7 @@ describe('TableCrudComponent', () => {
 
         const $tableServiceSpy = spyOn(tableService, 'list').and.returnValue(mockObservable);
 
-        component.cambiaTablaDetail(mockFilters, mockFieldsToOrderBy);
+        component.changeTableDetail(mockFilters, mockFieldsToOrderBy);
 
         expect($tableServiceSpy).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledWith(['login']);
@@ -135,7 +135,7 @@ describe('TableCrudComponent', () => {
         const $tableServiceSpy = spyOn(tableService, 'list').and.returnValue(mockObservable);
         const $messagesServiceSpy = spyOn(messagesService, 'showErrorAlert');
 
-        component.cambiaTablaDetail(mockFilters, mockFieldsToOrderBy);
+        component.changeTableDetail(mockFilters, mockFieldsToOrderBy);
 
         expect($tableServiceSpy).toHaveBeenCalled();
         expect($messagesServiceSpy).toHaveBeenCalled();
@@ -147,7 +147,7 @@ describe('TableCrudComponent', () => {
 
       const $tableServiceSpy = spyOn(tableService, 'list').and.returnValue(mockObservable);
 
-      component.cambiaTablaDetail(mockFilters, mockFieldsToOrderBy);
+      component.changeTableDetail(mockFilters, mockFieldsToOrderBy);
 
       expect($tableServiceSpy).toHaveBeenCalled();
     });
@@ -168,7 +168,7 @@ describe('TableCrudComponent', () => {
       component.working = true;
       component.rowSelectedFilters = null;
 
-      component.cambiaTabla(mockTableName, mockFieldsToOrderBy);
+      component.changeTable(mockTableName, mockFieldsToOrderBy);
 
       expect(component.working).toBeFalsy();
     });
@@ -180,7 +180,7 @@ describe('TableCrudComponent', () => {
 
       component.rowSelectedFilters = mockFilters;
 
-      component.cambiaTabla(mockTableName, mockFieldsToOrderBy);
+      component.changeTable(mockTableName, mockFieldsToOrderBy);
 
       expect(component.working).toEqual(true);
       expect(component.columns.length).toEqual(0);
@@ -208,7 +208,7 @@ describe('TableCrudComponent', () => {
 
       component.rowSelectedFilters = mockFilters;
 
-      component.cambiaTabla(mockTableName, mockFieldsToOrderBy);
+      component.changeTable(mockTableName, mockFieldsToOrderBy);
 
       expect($tableServiceSpy).toHaveBeenCalled();
       expect(component.data).toEqual(customData);
@@ -228,7 +228,7 @@ describe('TableCrudComponent', () => {
 
         component.rowSelectedFilters = mockFilters;
 
-        component.cambiaTabla(mockTableName, mockFieldsToOrderBy);
+        component.changeTable(mockTableName, mockFieldsToOrderBy);
 
         expect($tableServiceSpy).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledWith(['login']);
@@ -248,7 +248,7 @@ describe('TableCrudComponent', () => {
 
         component.rowSelectedFilters = mockFilters;
 
-        component.cambiaTabla(mockTableName, mockFieldsToOrderBy);
+        component.changeTable(mockTableName, mockFieldsToOrderBy);
 
         expect($tableServiceSpy).toHaveBeenCalled();
         expect($messagesServiceSpy).toHaveBeenCalled();
@@ -266,7 +266,7 @@ describe('TableCrudComponent', () => {
 
       component.rowSelectedFilters = mockFilters;
 
-      component.cambiaTabla(mockTableName, mockFieldsToOrderBy);
+      component.changeTable(mockTableName, mockFieldsToOrderBy);
 
       expect($tableServiceSpy).toHaveBeenCalled();
     });
@@ -720,7 +720,7 @@ describe('TableCrudComponent', () => {
 
       component.closedDialog.pipe(take(1)).subscribe((data) => expect(data).toBeTruthy());
 
-      const $componentSpy = spyOn(component, 'cambiaTabla');
+      const $componentSpy = spyOn(component, 'changeTable');
 
       component.closeDialog();
 
