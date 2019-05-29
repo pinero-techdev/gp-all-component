@@ -45,7 +45,13 @@
               "node_modules/primeng/resources/themes/nova-light/theme.css"
             ],
             "assets": [],
-            "scripts": ["node_modules/quill/dist/quill.js"]
+            "scripts": ["node_modules/quill/dist/quill.js"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/gp-all-component/src/lib/resources/css",
+                "projects/gp-all-component/src/lib/resources/scss"
+              ]
+            }
           }
         },
         "lint": {
