@@ -48,3 +48,6 @@ Thumbs.db
 /coverage
 /cypress/screenshots
 /cypress/videos
+
+# Guidelines
+/guidelines/.vuepress/dist
