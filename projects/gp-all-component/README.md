@@ -211,6 +211,8 @@ And the styles for the library:
   ]
 ```
 
+> ⚠️ If you are working with npm link, the import above won't work. Please review step 3 "Library Styles" for a solution for this. You can safely ignore this warning if you work with tgz or other alternatives, this issue only happens with npm link
+
 
 ## Errors fixes ##
 On version 6+ of Angular CLI the shim for global and other node built-ins is removed. You could have this error on your console log:
