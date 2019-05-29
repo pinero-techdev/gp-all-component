@@ -63,15 +63,10 @@ export class GPUtil {
   }
 
   public static dateToYyyymmdd(date: Date): string {
-    if (date === null) {
-      return null;
-    }
+    const shouldReturn = isNullOrUndefined(date) || (typeof date === 'string' && date === '');
 
-    if (typeof date === 'string') {
-      const s = '' + date;
-      if (s === '') {
-        return null;
-      }
+    if (shouldReturn) {
+      return null;
     }
 
     const y = '000' + date.getFullYear();
