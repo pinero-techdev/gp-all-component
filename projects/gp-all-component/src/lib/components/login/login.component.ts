@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {
     GlobalService.setLogged(false);
-    this.title = GlobalService.getAPPLICATION_TITLE();
   }
 
   ngOnInit() {
+    this.title = GlobalService.getAPPLICATION_TITLE();
     this.initLogin();
   }
 

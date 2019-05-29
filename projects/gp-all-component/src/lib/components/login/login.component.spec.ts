@@ -100,7 +100,9 @@ describe('LoginComponent', () => {
     expect(component.login).toHaveBeenCalled();
   });
 
-  it('should have a title', () => {
+  fit('should have a title', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
     const $title: HTMLElement = elementRef.querySelector('.login-panel-title');
     expect($title).toBeTruthy();
     expect($title.innerText).toEqual(applicationName.toUpperCase());
