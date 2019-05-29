@@ -48,7 +48,7 @@ You can also setup the project to be able to live reload all the changes you mad
 
 7. The library is ready to consume with live preview by running the following command from the external application root directory: `npm link gp-all-component` 
 
-#### Possible issues with NPM Link
+#### Common Issues with NPM Link
 
 ##### Library Styles
 
