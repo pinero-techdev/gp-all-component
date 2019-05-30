@@ -1,6 +1,6 @@
 # Form Time Field
 
-## Features a wrapper for time field component
+### Features a wrapper for time field component
 
 ## Example
 

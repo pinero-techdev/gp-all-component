@@ -1,6 +1,6 @@
 # TopBar 
 
-## Features information about logged user and the option to logout.
+### Features information about logged user and the option to logout.
 
 ## Example
 
