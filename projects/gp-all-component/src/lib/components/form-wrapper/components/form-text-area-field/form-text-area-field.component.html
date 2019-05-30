@@ -1,28 +1,23 @@
-<div class="input-field-wrapper">
-  <div
-    [class.full-width]="!translateInfo"
-    [class.with-multilanguage]="translateInfo && translationKeys"
-  >
-    <textarea
-      name="__field__{{ name }}"
-      pInputTextarea
-      autoResize="autoResize"
-      [(ngModel)]="currentValue"
-      rows="{{ rows }}"
-      (change)="onFieldChange()"
-      class="full-width {{ textboxClass }}"
-      [disabled]="isDisabled"
-    ></textarea>
-  </div>
-  <div class="multilanguage-wrapper" *ngIf="translateInfo && translationKeys">
-    <gp-multi-language
-      [pKey]="translationKeys"
-      [schema]="translateInfo.scheme"
-      [table]="translateInfo.table"
-      [field]="translateInfo.field"
-      [description]="translateInfo.description"
-      [isEditing]="translateInfo.allowEdition"
-      [orderByLangCod]="translateInfo.orderByLangCod"
-    ></gp-multi-language>
-  </div>
+<div class="input-field-wrapper" [class.with-multilanguage]="translateInfo && translationKeys">
+  <textarea
+    name="__field__{{ name }}"
+    pInputTextarea
+    autoResize="autoResize"
+    [(ngModel)]="currentValue"
+    rows="{{ rows }}"
+    (change)="onFieldChange()"
+    class="full-width {{ textboxClass }}"
+    [disabled]="isDisabled"
+  ></textarea>
+</div>
+<div class="multilanguage-wrapper" *ngIf="translateInfo && translationKeys">
+  <gp-multi-language
+    [pKey]="translationKeys"
+    [schema]="translateInfo.scheme"
+    [table]="translateInfo.table"
+    [field]="translateInfo.field"
+    [description]="translateInfo.description"
+    [isEditing]="translateInfo.allowEdition"
+    [orderByLangCod]="translateInfo.orderByLangCod"
+  ></gp-multi-language>
 </div>

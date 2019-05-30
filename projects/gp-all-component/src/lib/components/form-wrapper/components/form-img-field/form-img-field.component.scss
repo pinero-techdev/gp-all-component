@@ -9,11 +9,11 @@
     flex-direction: column;
   }
 
-  .ui-inputtext {
+  .ui-inputtext.ui-widget {
     @include make-input();
     line-height: 1.4;
 
-    &:not(.ui-state-disabled):hover {
+    &:enabled:hover:not(.ui-state-error) {
       border-color: $inputBorderColor;
     }
   }
