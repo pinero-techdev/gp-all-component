@@ -9,7 +9,7 @@ module.exports = {
       // { text: 'Vue', link: 'https://vuejs.org/' },
       // { text: 'Nuxt', link: 'https://nuxtjs.org/' },
     ],
-    sidebar: [['/', 'Introduction'], '/development'],
+    sidebar: [['/', 'Introduction'], '/bootstrap'],
     lastUpdated: 'Last Updated',
   },
 };
