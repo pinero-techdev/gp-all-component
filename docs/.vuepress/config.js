@@ -7,11 +7,21 @@ module.exports = {
     sidebar: {
       '/': [
         '',
+        '/deploy',
+        '/doc',
+        '/tests',
         {
           title: 'Library Components',
           children: [
+            '/components/form-wrapper/form-dropdown',
+            '/components/form-wrapper/form-switch',
+            '/components/form-wrapper/form-time',
+            '/components/forgot-password',
+            '/components/login',
             '/components/main-menu',
-            '/components/table-wrapper/table-crud'
+            '/components/multi-select',
+            '/components/table-wrapper/table-crud',
+            '/components/topbar',
           ],
         },
       ],

@@ -2,7 +2,7 @@
 
 ### Features an integral solution for data visualization and edition
 
-### Example component usage:
+## Example
 
 ```html
 <gp-app-table-crud
@@ -15,7 +15,7 @@
 </gp-app-table-crud>
 ```
 
-### Component Binding Fields
+## Component Binding Fields
 
 > ⚠️ Properties with an initialization corresponds with its default value
 
@@ -81,7 +81,7 @@
    */
   @Input() canDelete = true
 ```
-### Deprecated methods ☢
+## Deprecated methods ☢
 
 ```
 matchFieldType(formField: GpFormField)
