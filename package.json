@@ -9,6 +9,9 @@
     "---- DOCUMENTATION ----": "",
     "compodoc:generate": "npx compodoc -p projects/gp-all-component/tsconfig.lib.json",
     "compodoc:serve": "npx compodoc -s projects/gp-all-component/tsconfig.lib.json",
+    "---- GUIDELINES ----": "",
+    "guide:dev": "vuepress dev guidelines",
+    "guide:build": "vuepress build guidelines",
     "---- BUILD & PACK ----": "",
     "bundle:scss": "ts-node ./scripts/css-bundle.ts",
     "build": "ng build gp-all-component && npm run bundle:scss",
@@ -88,12 +91,11 @@
     "@types/karma": "^3.0.2",
     "@types/node": "~12.0.0",
     "@types/webpack": "4.4.26",
-    "concurrently": "^4.1.0",
-    "wait-on": "^3.2.0",
     "chance": "1.0.18",
     "cli-glob": "^0.1.0",
     "codelyzer": "~4.5.0",
     "concat": "^1.0.3",
+    "concurrently": "^4.1.0",
     "cpx": "^1.5.0",
     "css-loader": "^2.1.1",
     "cypress": "3.2.0",
@@ -132,6 +134,8 @@
     "tslint": "~5.11.0",
     "tslint-config-prettier": "1.18.0",
     "tslint-etc": "1.3.2",
-    "typescript": "3.2.4"
+    "typescript": "3.2.4",
+    "vuepress": "^0.14.11",
+    "wait-on": "^3.2.0"
   }
 }
