@@ -115,7 +115,7 @@ const fieldType = GpFormFieldType[formField.fieldMetadata.displayInfo.displayTyp
 // const fieldType = this.matchFieldType(formField)
 ```
 
-### Ranamed methods
+### Renamed methods
 
 Following methods had been renamed: 
 
