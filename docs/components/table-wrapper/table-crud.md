@@ -2,7 +2,7 @@
 
 ### Features an integral solution for data visualization and edition
 
-## Example component usage:
+## Example
 
 ```html
 <gp-app-table-crud
