@@ -1,15 +1,15 @@
-# Form Switch Field Component
+# Form Switch Field
 
 ### Features a wrapper for text field component
 
-### Example component usage:
+## Example
 
 ```html
 <gp-form-switch-field [formField]="formField">
 </gp-form-switch-field>
 ```
 
-### Component Binding Fields
+## Component Binding Fields
 
 ```typescript
   /**
@@ -17,7 +17,7 @@
    */
   @Input() formField: FormField
 ```
-### Validation
+## Validation
 
 1. Nullability
 2. Text Length (Min and Max)

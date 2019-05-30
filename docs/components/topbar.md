@@ -1,17 +1,14 @@
 # TopBar 
 
-## Features information about logged user and the option to logout. ##
+## Features information about logged user and the option to logout.
 
-## Component usage: ##
+## Example
 
-`app.component.html`
-
-```
+```html
 <gp-topbar></gp-topbar>
-
 ```
 
-### Component binding props ###
+## Component binding props
 
 > ⚠️ Properties with an initialization corresponds with its default value
 
@@ -34,7 +31,9 @@
 ```
 
 
-### Check elements dependent on the logic of the consuming application, for example Bsuite  ###
+## Application Cases
+
+Check elements dependent on the logic of the consuming application, for example Bsuite
 
 > ⚠️ Add temporarily at the end of ngOnInit
 

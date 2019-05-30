@@ -1,5 +1,5 @@
 # How to deploy a new version 
-There are two ways to build and package up the app. We strictly recommend to use de commands: 
+There are two ways to build and package up the app. We strictly recommend to use the commands: 
 
 
 ## Versioned

@@ -1,14 +1,14 @@
-# Form Time Field Component
+# Form Time Field
 
 ## Features a wrapper for time field component
 
-### Example component usage:
+## Example
 
 ```html
 <gp-form-time-field [formField]="formField"> </gp-form-time-field>
 ```
 
-### Component Binding Fields
+## Component Binding Fields
 
 ```typescript
   /**
@@ -17,7 +17,7 @@
   @Input() formField: FormField
 ```
 
-### Validation
+## Validation
 
 1. Nullability
 2. Text Length (Min and Max)

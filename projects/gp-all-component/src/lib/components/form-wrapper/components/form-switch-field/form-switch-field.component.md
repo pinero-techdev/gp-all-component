@@ -1,6 +1,6 @@
 # Form Switch Field Component
 
-## Features a wrapper for text field component
+## Features a wrapper for switch field component
 
 ### Example component usage:
 

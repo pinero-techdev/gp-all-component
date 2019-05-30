@@ -1,10 +1,8 @@
 # Multi-Select
 
-## Features input multi-selection for your forms
+### Features input multi-selection for your forms
 
-### Example component usage:
-
-`app.component.html`
+## Example
 
 ```html
 <gp-multi-select
@@ -18,9 +16,7 @@
 </gp-multi-select>
 ```
 
-### Example multi-select options:
-
-`app.component.ts`
+## Example multi-select options
 
 ```typescript
 selectionOptions: SelectItem[] = [
@@ -37,7 +33,7 @@ selectionOptions: SelectItem[] = [
 ];
 ```
 
-### Type definitions:
+## Type definitions
 
 `SelectItem`
 
@@ -50,7 +46,7 @@ selectionOptions: SelectItem[] = [
     disabled?: boolean;
 ```
 
-### Component Binding Fields
+## Component Binding Fields
 
 > ⚠️ Properties with an initialization corresponds with its default value
 

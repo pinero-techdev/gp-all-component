@@ -1,8 +1,12 @@
-### Dropdown
+# Dropdown
 
-tag element `<gp-form-dropdown-field></gp-form-dropdown-field>`
+## Example
 
-### Upgrade 1.1.0 -> 1.1.2
+```html
+<gp-form-dropdown-field> </gp-form-dropdown-field>
+```
+
+## Upgrade 1.1.0 -> 1.1.2
 
 <b>DropdownComponent</b>
 
