@@ -7,10 +7,20 @@ module.exports = {
     sidebar: {
       '/': [
         '',
+        '/structure',
+        '/building',
+        '/development',
         {
           title: 'Library Components',
           children: [
             '/components/main-menu',
+            '/components/empty',
+            '/components/loading-indicator',
+            '/components/multi-language',
+            '/components/redirect',
+            '/components/form-wrapper/checkbox-field',
+            '/components/form-wrapper/img-field',
+            '/components/form-wrapper/text-field',
             '/components/table-wrapper/table-crud'
           ],
         },

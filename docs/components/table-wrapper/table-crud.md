@@ -2,7 +2,7 @@
 
 ### Features an integral solution for data visualization and edition
 
-### Example component usage:
+## Example component usage:
 
 ```html
 <gp-app-table-crud
@@ -15,9 +15,15 @@
 </gp-app-table-crud>
 ```
 
-### Component Binding Fields
+## Component Binding Fields
 
-> ⚠️ Properties with an initialization corresponds with its default value
+These are the component input and output bindings
+
+::: warning 
+⚠️ Properties with an initialization corresponds with its default value 
+::: 
+
+### @Outputs
 
 ```typescript
   /**
@@ -39,6 +45,8 @@
    */
   @Output() changes: boolean
 ```
+
+### @Inputs
 
 ```typescript
   /**
@@ -81,26 +89,38 @@
    */
   @Input() canDelete = true
 ```
-### Deprecated methods ☢
+## Deprecation Warnings
 
-```
+### Deleted methods
+
+```ts
 matchFieldType(formField: GpFormField)
 ```
 This method has been deleted, as result of GpFormField's  formFieldType property type change, from string to GpFormFieldType enum type.
-```formFieldType: string == null``` 
-to
-```formFieldType: GpFormFieldType;```
+```ts
+// New
+formFieldType: GpFormFieldType
+
+// Old
+//formFieldType: string == null 
+```
 
 
 Now, is not necesary to map the formFieldType with TableDisplayTypes, GpFormFieldType, do this stuff: 
-``` const fieldType = this.matchFieldType(formField); ```
-to
-```const fieldType = GpFormFieldType[formField.fieldMetadata.displayInfo.displayType];```
+```ts
+// New
+const fieldType = GpFormFieldType[formField.fieldMetadata.displayInfo.displayType]
 
-Following methods had been renamed, there might be API implementation conflicts: 
+// Old
+// const fieldType = this.matchFieldType(formField)
+```
 
-`cambiaTabla` -> `changeTable`
+### Ranamed methods
 
-`cambiaTablaDetalle` -> `changeTableDetail`
+Following methods had been renamed: 
 
-`actualizaDefinicion` -> `updateDefinition`
+| Old Name | New Name |
+|-------------|------------|
+| cambiaTabla | changeTable |
+| cambiaTablaDetalle | changeTableDetail |
+| actualizaDefinicion | updateDefinitio |
