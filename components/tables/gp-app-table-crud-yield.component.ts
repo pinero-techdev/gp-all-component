@@ -194,6 +194,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
 
   addSelectedCodes: any = [];
 
+  totalRecordsDetail: number;
   totalRecords: number;
 
   // Mensajes de edicion.
@@ -257,7 +258,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
             if (data.ok) {
               this.actualizaDefinicionDetail(data.metadata);
               if (this.lazyLoadingDetail) {
-                this.totalRecords = data.countGlobalResult;
+                this.totalRecordsDetail = data.countGlobalResult;
               }
 
               if (this.treeTableDetail) {
@@ -286,6 +287,43 @@ export class GpAppTableCrudYieldComponent implements OnInit {
           }
         );
     }
+  }
+
+  cambiaTablaLazyLoading(lazyLoading: boolean, ordered: boolean, fieldsToOrderBy: string[], orderResult: string) {
+    this.selectedRow = null;
+    this.selectedRowDetail = null;
+    this.formControl.originalRow = null;
+    this.formControlDetail.originalRow = null;
+    this.msgsDialog = [];
+    this.msgsGlobal = [{ severity: 'info', detail: 'Cargando los datos de la tabla.' }];
+    this.dialogErrors = false;
+    this.extendTableService
+      .list(this.tableName, true, ordered, fieldsToOrderBy, this.filters, lazyLoading, this.columnFilters, this.pageRender, orderResult)
+      .subscribe(
+        data => {
+          if (data.ok) {
+            this.elementos = data.data;
+            this.totalRecords = data.countGlobalResult;
+          } else {
+            if (data.error != null && data.error.errorMessage != null) {
+              if (data.error.errorMessage == 'No se ha establecido sesion o se ha perdido.') {
+                this.router.navigate(['login']);
+              }
+              this.showError(data.error.errorMessage.toString());
+            } else {
+              this.showError('');
+            }
+          }
+        },
+        err => {
+          console.error(err);
+          this.showError('');
+        },
+        () => {
+          console.log('getMetadata finalizado');
+          this.filters = [];
+        }
+      );
   }
 
   cambiaTablaDetailLazyLoading(filterCode: string, filterColumn: string, ordered: boolean, fieldsToOrderBy: string[], orderResult: string) {
@@ -317,7 +355,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
           data => {
             if (data.ok) {
               this.elementosDetail = data.data;
-              this.totalRecords = data.countGlobalResult;
+              this.totalRecordsDetail = data.countGlobalResult;
             } else {
               if (data.error != null && data.error.errorMessage != null) {
                 if (data.error.errorMessage == 'No se ha establecido sesion o se ha perdido.') {
@@ -346,12 +384,14 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   }
 
   // Se llama cuando se selecciona una nueva tabla.
-  cambiaTabla(tableName: string) {
+  cambiaTabla(tableName: string, lazyLoading?: boolean) {
     //	TODO Chequear que no estemos en medio de una edicion.
     if (this.tableName != null && tableName == this.tableName && this.rowSelectedFilters == null) {
       this.working = false;
       return;
     }
+
+    let lazyLoadingTable: boolean = lazyLoading != undefined && lazyLoading ? true : false;
 
     this.working = true;
     this.columnas = [];
@@ -369,11 +409,14 @@ export class GpAppTableCrudYieldComponent implements OnInit {
     if (this.rowSelectedFilters != null) {
       this.filters = [];
       this.filters = this.rowSelectedFilters;
-      this.extendTableService.list(this.tableName, true, false, null, this.filters, this.lazyLoading, this.columnFilters, this.pageRender).subscribe(
+      this.extendTableService.list(this.tableName, true, false, null, this.filters, lazyLoadingTable, this.columnFilters, this.pageRender).subscribe(
         data => {
           //console.log('getMetadata response:' + JSON.stringify(data));
           if (data.ok) {
             this.actualizaDefinicion(data.metadata);
+            if (lazyLoadingTable) {
+              this.totalRecords = data.countGlobalResult;
+            }
             this.elementos = data.data;
           } else {
             if (data.error != null && data.error.errorMessage != null) {
@@ -396,11 +439,14 @@ export class GpAppTableCrudYieldComponent implements OnInit {
         }
       );
     } else {
-      this.extendTableService.list(this.tableName, true).subscribe(
+      this.extendTableService.list(this.tableName, true, false, null, null, lazyLoadingTable).subscribe(
         data => {
           //console.log('getMetadata response:' + JSON.stringify(data));
           if (data.ok) {
             this.actualizaDefinicion(data.metadata);
+            if (lazyLoadingTable) {
+              this.totalRecords = data.countGlobalResult;
+            }
             this.elementos = data.data;
           } else {
             if (data.error != null && data.error.errorMessage != null) {
@@ -1123,9 +1169,14 @@ export class GpAppTableCrudYieldComponent implements OnInit {
         this.pageRender = new PageRender(event.rows, pageIndex, true);
 
         // 3.1 obtenemos los nombres de los campos de tipo dropdown
-        let listTextFields: GpFormFieldDetail[] = this.columnasDetail.filter(
-          item => item.fieldMetadata.displayInfo.displayType == TableService.TEXT_DISPLAY_TYPE
-        );
+        let listTextFields: GpFormField[] | GpFormFieldDetail[] = [];
+
+        if (this.tableNameDetail != undefined) {
+          listTextFields = this.columnasDetail.filter(item => item.fieldMetadata.displayInfo.displayType == TableService.TEXT_DISPLAY_TYPE);
+        } else {
+          listTextFields = this.columnas.filter(item => item.fieldMetadata.displayInfo.displayType == TableService.TEXT_DISPLAY_TYPE);
+        }
+
         let listTextFieldName: string[] = listTextFields.map(item => item.fieldMetadata.fieldName);
 
         // 3.2 iteramos los filtros y los añadimos en el objecto Filter para enviarlos en la request
@@ -1135,7 +1186,14 @@ export class GpAppTableCrudYieldComponent implements OnInit {
             let op = null;
             let field = null;
 
-            if (listTextFieldName.indexOf(property) > -1 && value.length >= this.minLimitFilterColumnTableDetail) {
+            if (
+              this.tableNameDetail != undefined &&
+              listTextFieldName.indexOf(property) > -1 &&
+              value.length >= this.minLimitFilterColumnTableDetail
+            ) {
+              op = this.getOperationByMatchMode(event.filters[property].matchMode);
+              field = property;
+            } else if (this.tableName != undefined && listTextFieldName.indexOf(property) > -1 && value.length >= this.minLimitFilterColumnTable) {
               op = this.getOperationByMatchMode(event.filters[property].matchMode);
               field = property;
             } else if (!(listTextFieldName.indexOf(property) > -1)) {
@@ -1149,10 +1207,18 @@ export class GpAppTableCrudYieldComponent implements OnInit {
             }
           }
         }
-        this.cambiaTablaDetailLazyLoading(this.filterCodeDetail, this.filterField, ordered, fieldsToOrderBy, orderResult);
+        if (this.tableNameDetail != undefined) {
+          this.cambiaTablaDetailLazyLoading(this.filterCodeDetail, this.filterField, ordered, fieldsToOrderBy, orderResult);
+        } else {
+          this.cambiaTablaLazyLoading(true, ordered, fieldsToOrderBy, orderResult);
+        }
       } else {
         this.pageRender = new PageRender(event.rows, pageIndex, false);
-        this.cambiaTablaDetailLazyLoading(this.filterCodeDetail, this.filterField, ordered, fieldsToOrderBy, orderResult);
+        if (this.tableNameDetail != undefined) {
+          this.cambiaTablaDetailLazyLoading(this.filterCodeDetail, this.filterField, ordered, fieldsToOrderBy, orderResult);
+        } else {
+          this.cambiaTablaLazyLoading(true, ordered, fieldsToOrderBy, orderResult);
+        }
       }
     }
   }
