@@ -3,13 +3,17 @@ module.exports = {
   description: 'All the best practices you need to know to work on this project',
 
   themeConfig: {
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Getting Started', link: '/bootstrap' },
-      // { text: 'Vue', link: 'https://vuejs.org/' },
-      // { text: 'Nuxt', link: 'https://nuxtjs.org/' },
-    ],
-    sidebar: [['/', 'Introduction'], '/bootstrap'],
+    nav: [{ text: 'Home', link: '/' }, { text: 'Guide', link: '/guide/' }],
+    sidebar: {
+      '/guide/': [
+        '',
+        {
+          title: 'Angular Library',
+          children: ['library/introduction', 'library/create', 'library/structure'],
+        },
+      ],
+      '/': [''],
+    },
     lastUpdated: 'Last Updated',
   },
 };

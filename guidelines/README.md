@@ -3,7 +3,7 @@ home: true
 heroImage: #
 sidebar: auto
 actionText: Get Started →
-actionLink: /bootstrap
+actionLink: /guide/
 features:
   - title: Fancy Feature
     details: Fancy Description
