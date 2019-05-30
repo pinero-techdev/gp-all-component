@@ -9,6 +9,8 @@
     "---- DOCUMENTATION ----": "",
     "compodoc:generate": "npx compodoc -p projects/gp-all-component/tsconfig.lib.json",
     "compodoc:serve": "npx compodoc -s projects/gp-all-component/tsconfig.lib.json",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "---- GUIDELINES ----": "",
     "guide:dev": "vuepress dev guidelines",
     "guide:build": "vuepress build guidelines",
@@ -45,9 +47,7 @@
     "format:fix": "pretty-quick --staged",
     "fix:all": "npm run format:fix && npm run styles:fix",
     "cy:run": "cypress run",
-    "---- COMMIT HOOKS ----": "",
-    "precommit": "run-s fix:all lint:dev",
-    "prepush": "run-s lint:prod test:prod"
+    "---- COMMIT HOOKS ----": ""
   },
   "private": true,
   "dependencies": {
