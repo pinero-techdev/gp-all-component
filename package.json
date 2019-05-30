@@ -9,6 +9,8 @@
     "---- DOCUMENTATION ----": "",
     "compodoc:generate": "npx compodoc -p projects/gp-all-component/tsconfig.lib.json",
     "compodoc:serve": "npx compodoc -s projects/gp-all-component/tsconfig.lib.json",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "---- GUIDELINES ----": "",
     "guide:dev": "vuepress dev guidelines",
     "guide:build": "vuepress build guidelines",
