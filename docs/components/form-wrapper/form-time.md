@@ -1,12 +1,11 @@
-# Form Switch Field Component
+# Form Time Field Component
 
-## Features a wrapper for text field component
+## Features a wrapper for time field component
 
 ### Example component usage:
 
 ```html
-<gp-form-switch-field [formField]="formField">
-</gp-form-switch-field>
+<gp-form-time-field [formField]="formField"> </gp-form-time-field>
 ```
 
 ### Component Binding Fields
@@ -17,10 +16,9 @@
    */
   @Input() formField: FormField
 ```
+
 ### Validation
 
 1. Nullability
 2. Text Length (Min and Max)
-3. Space validation
-4. Control space validation
-5. Special characters validation
+3. Valid Time
