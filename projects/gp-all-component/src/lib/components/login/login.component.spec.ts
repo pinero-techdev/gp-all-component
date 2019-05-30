@@ -100,7 +100,7 @@ describe('LoginComponent', () => {
     expect(component.login).toHaveBeenCalled();
   });
 
-  fit('should have a title', () => {
+  it('should have a title', () => {
     component.ngOnInit();
     fixture.detectChanges();
     const $title: HTMLElement = elementRef.querySelector('.login-panel-title');
