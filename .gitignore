@@ -52,3 +52,4 @@ Thumbs.db
 
 # Guidelines
 /guidelines/.vuepress/dist
+/docs/.vuepress/dist
