@@ -1,18 +1,23 @@
-## Dropdown Related
+## Form Dropdown Related Field
 
-Tag element `<gp-form-dropdown-related-field></gp-form-dropdown-related-field>`
+## Example component usage:
+```
+<gp-form-dropdown-related-field></gp-form-dropdown-related-field>
+```
 
 ### Inputs & Outputs
 
-<p>@Input() <b>relatedField</b>: <i>any</i> Info setup when another field element was changed by the user.</p>
-<p>@Input() <b>formField</b>: <i>GpFormField</i> Current dropdown field info</p>
-<p>@Output() <b>valueChanged</b>: <i>InfoCampoModificado</i> Emit current value when is changed</p>
+@Input() **relatedField**: *any* Info setup when another field element was changed by the user.
 
-## Upgrade 1.1.0 -> 1.1.2
 
-<b>DropdownRelatedComponent</b>
+@Input() **formField**: *GpFormField* Current dropdown field info.
 
-#### Variables renaming
-+inicializa -> init
-+reinicia -> reset
-+_relatedFields -> relatedFields
+
+@Output() **valueChanged**: *InfoCampoModificado* Emit current value when is changed.
+
+## Breaking changes: renaming.
+
+**Variables renaming**
++ inicializa -> init
++ reinicia -> reset
++ _relatedFields -> relatedFields

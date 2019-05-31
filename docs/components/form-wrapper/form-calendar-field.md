@@ -1,4 +1,4 @@
-# Form Calendar Field Component
+# Form Calendar Field
 
 ## Features a wrapper for PrimeNg Calendar Component
 

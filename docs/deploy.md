@@ -5,7 +5,7 @@ There are two ways to build and package up the app. We strictly recommend to use
 ## Versioned
 1. **Prebuild:patch**, if changes are fixes or similar. 
 2. **Prebuild:minor**, for simple features or minor changes. 
-3. **Prebuild:major**, for dependency breaking changes. 
+3. **Prebuild:major**, for dependencyBreaking changes: renaming.. 
 
  
 These prebuilds commands updates the version of two package.json files ( root and project/gp-all-component ) and continues with the build and packaging procedure. 

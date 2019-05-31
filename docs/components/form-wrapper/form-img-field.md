@@ -1,12 +1,14 @@
-# Text Field
+# Form Img Field
 
-### Features a wrapper for text field component
+### Features an image loader field
+
+The user types an URL in the text input and an image is shown on top of the component
 
 ## Example
 
 ```html
-<gp-form-text-field [formField]="formField">
-</gp-form-text-field>
+<gp-form-img-field [formField]="formField">
+</gp-form-img-field>
 ```
 
 ## Component Binding Fields
