@@ -25,6 +25,7 @@ module.exports = {
             '/components/multi-language',
             '/components/redirect',
             '/components/topbar',
+            '/components/rating',
             '/components/form-wrapper/checkbox-field',
             '/components/form-wrapper/form-dropdown',
             '/components/form-wrapper/form-switch',

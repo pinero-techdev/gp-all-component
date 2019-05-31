@@ -17,7 +17,7 @@ describe('RatingComponent', () => {
     fixture = TestBed.createComponent(RatingComponent);
     component = fixture.componentInstance;
     starNumber = 3;
-    component.stars = starNumber;
+    component.value = starNumber;
     component.ngOnInit();
   });
 
@@ -25,8 +25,8 @@ describe('RatingComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('stars should be equal as value OnInit', () => {
-    expect(component.value).toEqual(component.stars);
+  it('value should be equal as value OnInit', () => {
+    expect(component.value).toEqual(component.value);
   });
 
   describe('on getRatingClass', () => {

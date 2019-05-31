@@ -1,4 +1,4 @@
-# Rating Component
+# Rating
 
 ### Features a customisable rating component
 
@@ -29,7 +29,9 @@ You can pass a custom icon for on/off status
 
 ## Component Binding Fields
 
-> ⚠️ Properties with an initialization corresponds with its default value
+::: warning
+⚠️ Properties with an initialization corresponds with its default value
+:::
 
 ### @Input
 
@@ -74,4 +76,3 @@ You can pass a custom icon for on/off status
      */
     @Input() styleOff = '';
 ```
-
