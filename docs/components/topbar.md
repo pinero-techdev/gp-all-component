@@ -1,4 +1,4 @@
-# TopBar 
+# Top Bar 
 
 ### Features information about logged user and the option to logout.
 
@@ -10,7 +10,9 @@
 
 ## Component binding props
 
-> ⚠️ Properties with an initialization corresponds with its default value
+::: warning
+⚠️ Properties with an initialization corresponds with its default value
+:::
 
 ```typescript
 @Input() homeUrl: string;
