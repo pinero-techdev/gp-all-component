@@ -8,7 +8,7 @@ Tag element `<gp-form-dropdown-related-field></gp-form-dropdown-related-field>`
 <p>@Input() <b>formField</b>: <i>GpFormField</i> Current dropdown field info</p>
 <p>@Output() <b>valueChanged</b>: <i>InfoCampoModificado</i> Emit current value when is changed</p>
 
-## Upgrade 1.1.0 -> 1.1.2
+## Breaking changes: renaming.
 
 <b>DropdownRelatedComponent</b>
 
