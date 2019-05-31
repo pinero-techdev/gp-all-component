@@ -1,15 +1,15 @@
 # Form Calendar Field
 
-## Features a wrapper for PrimeNg Calendar Component
+### Features a wrapper for PrimeNg Calendar Component
 
-### Example component usage:
+## Example:
 
 ```html
 <gp-calendar-field [formField]="formField">
 </gp-calendar-field>
 ```
 
-### Component Binding Fields
+## Component Binding Fields
 
 ```typescript
   /**
@@ -17,6 +17,6 @@
    */
   @Input() formField: FormField
 ```
-### Validation
+## Validation
 
 + Nullability

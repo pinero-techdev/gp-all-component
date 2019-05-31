@@ -1,4 +1,4 @@
-## Getting Started
+## Introduction
  
 GP All Component is a library of components for building projects in Grupo Piñero. The purpose of this library is joining the common components and in an easy way to pick up and integrate them in other projects. 
 

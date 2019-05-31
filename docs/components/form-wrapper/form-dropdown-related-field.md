@@ -1,11 +1,13 @@
 ## Form Dropdown Related Field
 
-## Example component usage:
+### Features a wrapper for PrimeNg Dropdown Related Component
+
+## Example:
 ```
 <gp-form-dropdown-related-field></gp-form-dropdown-related-field>
 ```
 
-### Inputs & Outputs
+## Inputs & Outputs
 
 @Input() **relatedField**: *any* Info setup when another field element was changed by the user.
 

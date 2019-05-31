@@ -12,7 +12,7 @@ You can use this component when you want to show a loading animation in your app
 
 ## Component Binding
 
-### @Inputs
+## @Inputs
 
 ```ts
 /**

@@ -1,6 +1,6 @@
 # Main Menu
 
-### Component Binding Fields
+## Component Binding Fields
 
   ```typescript
   /**
@@ -30,7 +30,7 @@
   @Output() sendBreadcrumb = new EventEmitter<any>();
   ```
 
-### Example component usage:
+## Example:
 
 Sample minimum usage:
 

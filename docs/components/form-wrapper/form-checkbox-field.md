@@ -2,7 +2,7 @@
 
 ### Features a wrapper for PrimeNG Checkbox Component
 
-## Example component usage:
+## Example:
 
 ```html
 <gp-checkbox-field [formField]="formField">

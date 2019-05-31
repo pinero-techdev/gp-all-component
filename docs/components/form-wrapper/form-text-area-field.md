@@ -1,6 +1,9 @@
 ## Form Textarea Field
 Defines a multi-line text input control.
-## Example component usage:
+
+### Features a wrapper for PrimeNg Textarea Component
+
+## Example:
 
 ```
  <gp-form-textarea-field></gp-form-textarea-field>
@@ -12,6 +15,6 @@ Textarea shows a multi-language box when in its translationInfo object is setup 
     formField.fieldMetadata.displayInfo.translationInfo.keyFields = ['EN', 'FR'];
 ```
 
-### Inputs 
+## Inputs 
 
 @Input() **formField**: *GpFormField* Current textarea field info

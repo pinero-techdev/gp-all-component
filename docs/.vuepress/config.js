@@ -29,6 +29,7 @@ module.exports = {
             '/components/table-wrapper/table-frame',
             '/components/topbar',
             '/components/form-wrapper/form-checkbox-field',
+            '/components/form-wrapper/form-calendar-field',
             '/components/form-wrapper/form-dropdown-field',
             '/components/form-wrapper/form-dropdown-related-field',
             '/components/form-wrapper/form-switch-field',

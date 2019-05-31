@@ -1,8 +1,8 @@
 # Form Text Field
 
-## Features a wrapper for text field component
+## Features a wrapper for PrimeNG Wysiwyg Component
 
-### Example component usage:
+## Example:
 
 ```html
 <gp-form-wysiwyg-field [formField]="formField">
@@ -17,7 +17,7 @@
    */
   @Input() formField: FormField
 ```
-### Validation
+## Validation
 
 1. Nullability
 2. Text Length (Min and Max)
