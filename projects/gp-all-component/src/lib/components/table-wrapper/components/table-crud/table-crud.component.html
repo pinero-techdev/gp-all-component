@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <div class="p-grid gp-table-wrapper" *ngIf="!working && columns.length > 0">
-  <div class="p-col-12 p-xl-6 table-section">
+  <div class="p-col-12 table-section" [class.p-xl-6]="displayEdicion">
     <div class="card panel-content">
       <p-table
         #tc
@@ -155,7 +155,7 @@
           >
           </button>
         </div>
-        <div class="p-col-12 p-sm-3" *ngIf="canEdit || (canAdd && !selectedRow)">
+        <div class="p-col-12 p-sm-4" *ngIf="canEdit || (canAdd && !selectedRow)">
           <button
             class="full-width button-base"
             label="Guardar"
@@ -167,7 +167,7 @@
           >
           </button>
         </div>
-        <div class="p-col-12 p-sm-3">
+        <div class="p-col-12 p-sm-4">
           <button
             class="full-width"
             label="Cerrar"

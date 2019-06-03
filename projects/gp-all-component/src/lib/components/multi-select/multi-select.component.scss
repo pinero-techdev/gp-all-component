@@ -1,3 +1,4 @@
+@import 'global/functions';
 @import 'global/variables';
 @import 'global/mixins';
 
@@ -112,6 +113,7 @@
         > span {
           padding-left: $separationXLarge;
           color: $textSecondaryColor;
+          line-height: $inputLineHeight;
         }
 
         .ui-chkbox {
