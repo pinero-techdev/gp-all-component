@@ -13,6 +13,7 @@ module.exports = {
         '/deploy',
         '/doc',
         '/tests',
+        '/styles',
         {
           title: 'General Components',
           children: [
@@ -26,7 +27,7 @@ module.exports = {
             '/components/loading-indicator',
             '/components/rating',
             '/components/redirect',
-            '/components/topbar'
+            '/components/topbar',
           ],
         },
         {
@@ -41,16 +42,16 @@ module.exports = {
             '/components/form-wrapper/form-text-field',
             '/components/form-wrapper/form-text-area-field',
             '/components/form-wrapper/form-time-field',
-            '/components/form-wrapper/form-wysiwyg-field'
-          ]
+            '/components/form-wrapper/form-wysiwyg-field',
+          ],
         },
         {
           title: 'Table Components',
           children: [
             '/components/table-wrapper/table-crud',
-            '/components/table-wrapper/table-frame'
-          ]
-        }
+            '/components/table-wrapper/table-frame',
+          ],
+        },
       ],
     },
     lastUpdated: 'Last Updated',
