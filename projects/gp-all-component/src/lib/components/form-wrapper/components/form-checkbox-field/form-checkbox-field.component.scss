@@ -11,7 +11,7 @@
 
     .ui-chkbox-box {
       border-color: $inputBorderColor;
-      box-shadow: 0 0 4px 0 rgba($blackColor, $inputShadowOpacity);
+      @include box-shadow(0 0 4px 0 rgba($blackColor, $inputShadowOpacity));
 
       &.ui-state-active,
       &.ui-state-active:not(.ui-state-disabled):hover {

@@ -25,7 +25,7 @@
       line-height: $inputLineHeight;
       padding: 0 10px;
       min-height: 36px;
-      box-shadow: 0 0 4px 0 rgba($blackColor, $inputShadowOpacity);
+      @include box-shadow(0 0 4px 0 rgba($blackColor, $inputShadowOpacity));
 
       .ui-button-icon-left {
         color: $textColor;
