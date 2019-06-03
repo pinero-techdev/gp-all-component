@@ -1,4 +1,4 @@
-## Introduction
+# Introduction
  
 GP All Component is a library of components for building projects in Grupo Piñero. The purpose of this library is joining the common components and in an easy way to pick up and integrate them in other projects. 
 
@@ -96,7 +96,7 @@ Include the main stylesheet for the gp-all-component library, add it in your ang
 ```
 
 ::: warning
-*If you are working with npm link, the import above won't work. Please review step 6 “Common Issues - Library Styles" for a solution for this. You can safely ignore this warning if you work with tgz or other alternatives, this issue only happens with npm link*
+*If you are working with npm link, the import above won't work. Please review [“Common Issues - Library Styles"](development.html#library-styles) for a solution for this. You can safely ignore this warning if you work with tgz or other alternatives, this issue only happens with npm link*
 :::
 
 ### Existing issues
