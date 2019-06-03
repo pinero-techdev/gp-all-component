@@ -1,7 +1,7 @@
 import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GpTableRestrictions } from '../../../table-wrapper/resources/gp-table-restrictions.enum';
-import { TableService } from '@lib/services/api/table/table.service';
+import { TableService } from '../../../../services/api/table/table.service';
 import { FormTextFieldComponent } from './form-text-field.component';
 import {
   FormWrapperSharedModules,
