@@ -1,5 +1,6 @@
 @import 'global/variables';
 @import 'global/mixins';
+@import 'global/buttons';
 
 ::ng-deep {
   .gp-table-wrapper {
@@ -34,6 +35,10 @@
               &:first-child {
                 color: $textMutedColor;
                 text-align: left;
+              }
+
+              &:last-child {
+                text-align: right;
               }
 
               button {
@@ -160,7 +165,6 @@
               border: 1px solid $borderColor;
 
               &-label {
-                display: initial;
                 font-size: 12px;
                 font-weight: bold;
                 letter-spacing: 0.17px;
