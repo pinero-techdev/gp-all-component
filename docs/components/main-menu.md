@@ -30,7 +30,7 @@
   @Output() sendBreadcrumb = new EventEmitter<any>();
   ```
 
-## Example:
+## Example
 
 Sample minimum usage:
 

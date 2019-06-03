@@ -1,4 +1,4 @@
-# Form Dropdown Field
+# Dropdown Field
 
 ### Features a wrapper for PrimeNg Dropdown Component
 
@@ -8,7 +8,7 @@
 <gp-form-dropdown-field> </gp-form-dropdown-field>
 ```
 
-## Breaking changes: renaming.
+## Breaking changes: renaming
 
 1. Variables / Attributes.
     + inicializa -> init

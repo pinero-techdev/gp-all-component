@@ -1,8 +1,8 @@
-# Form Calendar Field
+# Calendar Field
 
 ### Features a wrapper for PrimeNg Calendar Component
 
-## Example:
+## Example
 
 ```html
 <gp-calendar-field [formField]="formField">

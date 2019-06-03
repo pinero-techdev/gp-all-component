@@ -1,4 +1,4 @@
-# Table CRUD
+# CRUD
 
 ### Features an integral solution for data visualization and edition
 
