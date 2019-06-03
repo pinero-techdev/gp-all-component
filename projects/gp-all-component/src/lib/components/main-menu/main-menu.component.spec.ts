@@ -52,8 +52,8 @@ describe('MainMenuComponent', () => {
   });
 
   describe('on init menu', () => {
-    it('should subscribe to obtenMenu and router events', () => {
-      const mainMenuSpy = spyOn(mainMenuService, 'obtenMenu').and.callThrough();
+    it('should subscribe to getMenu and router events', () => {
+      const mainMenuSpy = spyOn(mainMenuService, 'getMenu').and.callThrough();
       const homeNav = new NavigationEnd(1, 'home', 'home');
       const router = TestBed.get(Router);
 

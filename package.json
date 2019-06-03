@@ -22,7 +22,7 @@
     "npm:pack": "cd dist/gp-all-component && npm pack",
     "deploy-component": "node ./scripts/deploy-gp-all-component.js",
     "---- BUILD RELEASES ----": "",
-    "release:patch": "npm version patch --git-tag-version=false",
+    "release:patch": "npm version patch",
     "release:minor": "npm version minor --git-tag-version=false",
     "release:major": "npm version major --git-tag-version=false",
     "release:patch:lib": "cd projects/gp-all-component/ && npm version patch --git-tag-version=false",

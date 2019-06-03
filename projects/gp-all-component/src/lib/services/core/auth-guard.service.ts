@@ -47,11 +47,11 @@ export class AuthGuard implements CanActivate {
           GlobalService.getSESSION_ID(),
           GlobalService.getPARAMS()
         );
-        return this.menu.obtenMenu(request).pipe(
+        return this.menu.getMenu(request).pipe(
           map((menu) => {
             if (menu) {
               // Check if option menu is active
-              const isAllowed = this.menuAppMenuProviderService.isOpcionMenuActivo(
+              const isAllowed = this.menuAppMenuProviderService.optionIsActive(
                 menu,
                 url.substring(1), // Obtain action from url
                 Object.getOwnPropertyNames(route.params).length

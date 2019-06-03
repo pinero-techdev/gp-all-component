@@ -22,76 +22,70 @@ describe('MainMenuProviderService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('Method: tieneOpcionesMenuActivas', () => {
+  describe('Method: hasActiveOptions', () => {
     it('should return false', () => {
-      let response = service.tieneOpcionesMenuActivas([], []);
+      let response = service.hasActiveOptions([], []);
       expect(response).toBeFalsy();
-      response = service.tieneOpcionesMenuActivas([], ['1', '2']);
+      response = service.hasActiveOptions([], ['1', '2']);
       expect(response).toBeFalsy();
-      response = service.tieneOpcionesMenuActivas([{}], ['1', '2']);
+      response = service.hasActiveOptions([{}], ['1', '2']);
       expect(response).toBeFalsy();
-      response = service.tieneOpcionesMenuActivas(['a'], undefined);
+      response = service.hasActiveOptions(['a'], undefined);
       expect(response).toBeFalsy();
-      response = service.tieneOpcionesMenuActivas(['undefined'], undefined);
+      response = service.hasActiveOptions(['undefined'], undefined);
       expect(response).toBeFalsy();
-      response = service.tieneOpcionesMenuActivas([undefined], undefined);
+      response = service.hasActiveOptions([undefined], undefined);
       expect(response).toBeFalsy();
-      response = service.tieneOpcionesMenuActivas([null], undefined);
+      response = service.hasActiveOptions([null], undefined);
       expect(response).toBeFalsy();
     });
 
     it('should return true', () => {
-      let response = service.tieneOpcionesMenuActivas(MAIN_MENU_TEMP_MOCK, [
-        'CLDFR029A',
-        'CLDFR029B',
-      ]);
+      let response = service.hasActiveOptions(MAIN_MENU_TEMP_MOCK, ['CLDFR029A', 'CLDFR029B']);
       expect(response).toBeTruthy();
-      response = service.tieneOpcionesMenuActivas(MAIN_MENU_TEMP_MOCK, [
-        'CRMFR050ATest',
-        'CRMFR050A',
-      ]);
+      response = service.hasActiveOptions(MAIN_MENU_TEMP_MOCK, ['CRMFR050ATest', 'CRMFR050A']);
       expect(response).toBeTruthy();
     });
   });
 
-  describe('Method: isOpcionMenuActivo', () => {
+  describe('Method: optionIsActive', () => {
     it('should returns false', () => {
-      let response = service.isOpcionMenuActivo([], '', -1);
+      let response = service.optionIsActive([], '', -1);
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo([], '', 0);
+      response = service.optionIsActive([], '', 0);
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo([], '', null);
+      response = service.optionIsActive([], '', null);
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo([], null, null);
+      response = service.optionIsActive([], null, null);
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo(null, null, null);
+      response = service.optionIsActive(null, null, null);
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo(undefined, undefined, undefined);
+      response = service.optionIsActive(undefined, undefined, undefined);
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo([undefined], undefined, undefined);
+      response = service.optionIsActive([undefined], undefined, undefined);
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'undefined', undefined);
+      response = service.optionIsActive(MAIN_MENU_TEMP_MOCK, 'undefined', undefined);
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'reservas', 0);
+      response = service.optionIsActive(MAIN_MENU_TEMP_MOCK, 'reservas', 0);
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo(
+      response = service.optionIsActive(
         MAIN_MENU_TEMP_MOCK,
         'concierge-service/movimientos-concierge',
         null
       );
       expect(response).toBeFalsy();
-      response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'movimientos-concierge360', null);
+      response = service.optionIsActive(MAIN_MENU_TEMP_MOCK, 'movimientos-concierge360', null);
       expect(response).toBeFalsy();
     });
 
     it('should returns true', () => {
-      let response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'reservas360', 1);
+      let response = service.optionIsActive(MAIN_MENU_TEMP_MOCK, 'reservas360', 1);
       expect(response).toBeTruthy();
-      response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'reservas360', -1);
+      response = service.optionIsActive(MAIN_MENU_TEMP_MOCK, 'reservas360', -1);
       expect(response).toBeTruthy();
-      response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'reservas360', 4);
+      response = service.optionIsActive(MAIN_MENU_TEMP_MOCK, 'reservas360', 4);
       expect(response).toBeTruthy();
-      response = service.isOpcionMenuActivo(MAIN_MENU_TEMP_MOCK, 'movimientos-concierge', 1);
+      response = service.optionIsActive(MAIN_MENU_TEMP_MOCK, 'movimientos-concierge', 1);
       expect(response).toBeTruthy();
     });
   });
