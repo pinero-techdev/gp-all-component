@@ -1,8 +1,8 @@
-## Form Dropdown Related Field
+# Dropdown Related Field
 
 ### Features a wrapper for PrimeNg Dropdown Related Component
 
-## Example:
+## Example
 ```
 <gp-form-dropdown-related-field></gp-form-dropdown-related-field>
 ```
@@ -17,7 +17,7 @@
 
 @Output() **valueChanged**: *InfoCampoModificado* Emit current value when is changed.
 
-## Breaking changes: renaming.
+## Breaking changes: renaming
 
 **Variables renaming**
 + inicializa -> init

@@ -1,3 +1,4 @@
+import { LocaleES } from '../../../resources/localization';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Param } from '../../../resources/data/param.model';
@@ -22,21 +23,25 @@ export class MainMenuService {
 
   constructor(private menuProvider: MainMenuProviderService) {}
 
-  obtenMenu(rq: MenuRq): Observable<any> {
+  /**
+   * Get menu options given by menu provider.
+   * @param rq MenuRequest
+   */
+  getMenu(rq: MenuRq): Observable<any> {
     return Observable.create((observer) => {
-      this.temp = this.menuProvider.getEstructuraMenu();
+      this.temp = this.menuProvider.getMenuStructure();
       if (this.temp) {
-        this.menuProvider.obtenOpcionesActivas(rq).subscribe(
+        this.menuProvider.getOptions(rq).subscribe(
           (data) => {
             if (data.ok) {
               if (data.menu.opciones && data.menu.opciones.length) {
-                this.cargarOpciones(this.temp, data.menu.opciones);
+                this.getOptions(this.temp, data.menu.opciones);
               }
               if (data.roles && data.roles.length) {
                 GlobalService.setRoles(data.roles);
               }
             } else {
-              console.error('No se recuperó un menú');
+              console.error(LocaleES.ERROR_RETRIEVING_THE_MENU);
             }
           },
           (error) => console.error(error),
@@ -48,11 +53,16 @@ export class MainMenuService {
     });
   }
 
-  cargarOpciones(elementos: any[], options: any[]): boolean {
-    let tieneOpciones = false;
-    elementos.forEach((e) => {
+  /**
+   * Get menu options
+   * @param elements Elements Menu
+   * @param options Options menu
+   */
+  getOptions(elements: any[], options: any[]): boolean {
+    let hasOptions = false;
+    elements.forEach((e) => {
       if (e.submenus) {
-        e.enabled = this.cargarOpciones(e.submenus, options);
+        e.enabled = this.getOptions(e.submenus, options);
       } else {
         const aux = options.filter((v) => {
           return v.id === e.id;
@@ -62,10 +72,10 @@ export class MainMenuService {
           e.enabled = true;
         }
       }
-      if (!tieneOpciones && e.enabled) {
-        tieneOpciones = true;
+      if (!hasOptions && e.enabled) {
+        hasOptions = true;
       }
     });
-    return tieneOpciones;
+    return hasOptions;
   }
 }

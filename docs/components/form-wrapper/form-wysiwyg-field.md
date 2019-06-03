@@ -1,15 +1,15 @@
-# Form Text Field
+# Text Field
 
-## Features a wrapper for PrimeNG Wysiwyg Component
+### Features a wrapper for PrimeNG TextField Component
 
-## Example:
+## Example
 
 ```html
-<gp-form-wysiwyg-field [formField]="formField">
-</gp-form-wysiwyg-field>
+<gp-form-text-field [formField]="formField">
+</gp-form-text-field>
 ```
 
-### Component Binding Fields
+## Component Binding Fields
 
 ```typescript
   /**

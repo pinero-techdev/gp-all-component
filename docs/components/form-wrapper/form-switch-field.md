@@ -1,4 +1,4 @@
-# Form Switch Field
+# Switch Field
 
 ### Features a wrapper for text field component
 

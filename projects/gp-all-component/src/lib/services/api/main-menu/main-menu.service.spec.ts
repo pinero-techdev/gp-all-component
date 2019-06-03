@@ -28,8 +28,8 @@ describe('MainMenuService', () => {
   beforeEach(() => {
     httpClient = TestBed.get(HttpClient);
     providerSpy = jasmine.createSpyObj('MainMenuProviderService', [
-      'obtenOpcionesActivas',
-      'getEstructuraMenu',
+      'getOptions',
+      'getMenuStructure',
     ]);
     service = new MainMenuService(providerSpy);
   });
@@ -42,17 +42,17 @@ describe('MainMenuService', () => {
     const mock = new MainMenuProviderServiceMock(httpClient);
 
     it('should get menu elements', () => {
-      providerSpy.getEstructuraMenu.and.returnValue(mock.getEstructuraMenu());
-      providerSpy.obtenOpcionesActivas.and.returnValue(mock.obtenOpcionesActivas());
-      spyOn(service, 'cargarOpciones').and.callThrough();
+      providerSpy.getMenuStructure.and.returnValue(mock.getMenuStructure());
+      providerSpy.getOptions.and.returnValue(mock.getOptions());
+      spyOn(service, 'getOptions').and.callThrough();
       spyOn(GlobalService, 'setRoles').and.callThrough();
 
-      service.obtenMenu(menuRequest).subscribe((data) => {
+      service.getMenu(menuRequest).subscribe((data) => {
         expect(data).toEqual(MAIN_MENU_TEMP_MOCK);
         expect(GlobalService.setRoles).toHaveBeenCalled();
         expect(GlobalService.getROLES()).toEqual(MAIN_MENU_ROLES_MOCK);
       });
-      expect(service.cargarOpciones).toHaveBeenCalled();
+      expect(service.getOptions).toHaveBeenCalled();
     });
   });
 
@@ -66,34 +66,34 @@ describe('MainMenuService', () => {
     });
 
     it('should get zero elements', () => {
-      providerSpy.getEstructuraMenu.and.returnValue([]);
-      providerSpy.obtenOpcionesActivas.and.returnValue(of(emptyResponse));
-      spyOn(service, 'cargarOpciones').and.callThrough();
+      providerSpy.getMenuStructure.and.returnValue([]);
+      providerSpy.getOptions.and.returnValue(of(emptyResponse));
+      spyOn(service, 'getOptions').and.callThrough();
       spyOn(GlobalService, 'setRoles').and.callThrough();
 
-      service.obtenMenu(menuRequest).subscribe((data) => {
+      service.getMenu(menuRequest).subscribe((data) => {
         expect(data).toEqual([]);
         expect(GlobalService.setRoles).not.toHaveBeenCalled();
       });
 
-      expect(service.cargarOpciones).not.toHaveBeenCalled();
+      expect(service.getOptions).not.toHaveBeenCalled();
     });
 
     it('should set roles although the menu is empty', () => {
       emptyResponse.roles = MAIN_MENU_ROLES_MOCK;
 
-      providerSpy.getEstructuraMenu.and.returnValue([]);
-      providerSpy.obtenOpcionesActivas.and.returnValue(of(emptyResponse));
+      providerSpy.getMenuStructure.and.returnValue([]);
+      providerSpy.getOptions.and.returnValue(of(emptyResponse));
 
-      spyOn(service, 'cargarOpciones').and.callThrough();
+      spyOn(service, 'getOptions').and.callThrough();
       spyOn(GlobalService, 'setRoles').and.callThrough();
 
-      service.obtenMenu(menuRequest).subscribe((data) => {
+      service.getMenu(menuRequest).subscribe((data) => {
         expect(data.length).toBe(0);
         expect(GlobalService.setRoles).toHaveBeenCalled();
       });
 
-      expect(service.cargarOpciones).not.toHaveBeenCalled();
+      expect(service.getOptions).not.toHaveBeenCalled();
     });
   });
 
@@ -107,18 +107,18 @@ describe('MainMenuService', () => {
     });
 
     it('should returns an empty menu', () => {
-      providerSpy.getEstructuraMenu.and.returnValue([]);
-      providerSpy.obtenOpcionesActivas.and.returnValue(of(emptyResponse));
+      providerSpy.getMenuStructure.and.returnValue([]);
+      providerSpy.getOptions.and.returnValue(of(emptyResponse));
 
-      spyOn(service, 'cargarOpciones').and.callThrough();
+      spyOn(service, 'getOptions').and.callThrough();
       spyOn(GlobalService, 'setRoles').and.callThrough();
 
-      service.obtenMenu(menuRequest).subscribe((data) => {
+      service.getMenu(menuRequest).subscribe((data) => {
         expect(data.length).toBe(0);
         expect(GlobalService.setRoles).not.toHaveBeenCalled();
       });
 
-      expect(service.cargarOpciones).not.toHaveBeenCalled();
+      expect(service.getOptions).not.toHaveBeenCalled();
     });
   });
 });
