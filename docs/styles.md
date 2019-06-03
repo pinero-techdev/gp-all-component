@@ -2,7 +2,7 @@
 
 The chosen strategy is the encapsulation of styles by component, indicating in its declaration the stylesheet to be applied.
 
-```
+```ts
 @Component({
   selector: 'gp-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -14,7 +14,7 @@ This stylesheet should only import mixins, variables and stylesheets of generic 
 
 After that, it is only necessary to generate style rules for all the elements of our component.
 
-```
+```scss
 @import 'global/variables';
 @import 'global/mixins';
 @import 'global/buttons';
