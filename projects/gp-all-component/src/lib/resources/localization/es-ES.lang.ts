@@ -10,6 +10,7 @@ export const LocaleES = {
   LEAVE: 'Salir',
   SAVE: 'Guardar',
   ENTER: 'Entrar',
+  ERROR_RETRIEVING_THE_MENU: 'No se recuperó un menú',
   ERROR: {
     RETRIEVE_RECORD: 'Error interno recuperando el registro.',
     REMOVE_RECORD: (message) => `Error borrando el registro ${message}`,
@@ -31,8 +32,15 @@ export const LocaleES = {
   RETRIEVING_DATA: 'Recuperando datos ...',
   SELECT: 'Seleccione',
   SELECT_WITH_PARAM: (param) => `Seleccione ${param} ...`,
+  THERE_IS_NOT_ANY_MENU_OPTION: (url) =>
+    `No se han informado de opciones menu desde las que se pueda llamar a la url: ${url}`,
   SELECTED_OPTIONS: 'Opciones seleccionadas',
   USERNAME: 'Usuario',
+  USERNAME_IS_NOT_REGISTERED: `El username  no se encuentra logado`,
+  USERNAME_IS_NOT_ALLOWED_TO_ACCESS: (userId, url) =>
+    `El username ${userId} no tiene los permisos necesarios para acceder a ${url}`,
+  USERNAME_HAS_NOT_A_REGISTERED_MENU: (userId, app) =>
+    `El username ${userId} no tiene menú asociado en la aplicación ${app}`,
   MULTILANGUAGE_PLACEHOLDER: '*****     CONTIENE HTML -  PULSE BOTÓN PARA EDITAR     ****',
   USERNAME_PASS_SHOULD_CORRECT_VALUE: 'Los campos username y password deben tener un valor válido.',
   TRANSLATIONS_MANAGEMENT: (description) => `Mantenimiento traducciones - ${description}`,

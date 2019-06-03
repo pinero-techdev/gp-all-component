@@ -5,22 +5,22 @@ import { CommonService } from '../../core/common.service';
 
 @Injectable({ providedIn: 'root' })
 export class MainMenuProviderService extends CommonService {
-  getEstructuraMenu(): any[] {
+  getMenuStructure(): any[] {
     return null;
   }
 
-  obtenOpcionesActivas(rq: MenuRq): Observable<any> {
+  getOptions(rq: MenuRq): Observable<any> {
     return null;
   }
 
-  isOpcionMenuActivo(menu: any[], accion: string, nroParams: number): boolean {
+  optionIsActive(menu: any[], accion: string, nroParams: number): boolean {
     if (menu && accion && nroParams) {
       for (const opcMenu of menu) {
         if (!opcMenu) {
           return false;
         }
         if (opcMenu.submenus) {
-          const opcion = this.isOpcionMenuActivo(opcMenu.submenus, accion, nroParams);
+          const opcion = this.optionIsActive(opcMenu.submenus, accion, nroParams);
           if (opcion) {
             return true;
           }
@@ -47,7 +47,7 @@ export class MainMenuProviderService extends CommonService {
     return false;
   }
 
-  tieneOpcionesMenuActivas(menu: any[], idsOpcionesMenu: string[]): boolean {
+  hasActiveOptions(menu: any[], idsOpcionesMenu: string[]): boolean {
     if (menu && idsOpcionesMenu) {
       for (const idOpcMenu of idsOpcionesMenu) {
         if (!idOpcMenu) {
@@ -59,7 +59,7 @@ export class MainMenuProviderService extends CommonService {
           }
 
           if (opcMenu.submenus) {
-            if (this.tieneOpcionesMenuActivas(opcMenu.submenus, idsOpcionesMenu)) {
+            if (this.hasActiveOptions(opcMenu.submenus, idsOpcionesMenu)) {
               return true;
             }
           } else if (opcMenu.id === idOpcMenu && opcMenu.enabled) {

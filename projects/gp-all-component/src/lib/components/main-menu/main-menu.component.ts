@@ -112,7 +112,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     const request = new MenuRq(sessionId, GlobalService.getPARAMS());
 
     this.menuProviderService
-      .obtenMenu(request)
+      .getMenu(request)
       .pipe(takeWhile(() => this.isAlive))
       .subscribe((menu) => {
         this.defaultMenu = menu;
