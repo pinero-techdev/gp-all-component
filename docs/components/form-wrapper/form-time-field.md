@@ -1,4 +1,4 @@
-# Form Time Field
+# Time Field
 
 ### Features a wrapper for time field component
 

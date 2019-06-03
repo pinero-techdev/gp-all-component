@@ -1,8 +1,8 @@
-# Form  Checkbox Field
+# Checkbox Field
 
 ### Features a wrapper for PrimeNG Checkbox Component
 
-## Example:
+## Example
 
 ```html
 <gp-checkbox-field [formField]="formField">

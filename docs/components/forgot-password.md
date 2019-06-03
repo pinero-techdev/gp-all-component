@@ -1,8 +1,8 @@
 # Forgot Password
 
-View to add a password reset functionality.
+### View to add a password reset functionality.
 
-## Breaking changes: renaming.
+## Breaking changes: renaming
 
 Routing:
 

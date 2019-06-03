@@ -1,4 +1,4 @@
-# Form Text Field
+# Text Field
 
 ### Features a wrapper for text field component
 

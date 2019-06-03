@@ -1,9 +1,9 @@
-## Form Textarea Field
-Defines a multi-line text input control.
+# Textarea Field
 
 ### Features a wrapper for PrimeNg Textarea Component
+Defines a multi-line text input control.
 
-## Example:
+## Example
 
 ```
  <gp-form-textarea-field></gp-form-textarea-field>

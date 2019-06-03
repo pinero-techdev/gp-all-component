@@ -1,4 +1,4 @@
-# Form Img Field
+# Img Field
 
 ### Features an image loader field
 
