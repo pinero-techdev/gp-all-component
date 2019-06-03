@@ -494,50 +494,6 @@ describe('TableCrudComponent', () => {
   });
 
   describe('on dialog save action', () => {
-    it('should return if edition is not allowed', () => {
-      const selectedRow = {};
-      const mockedFormField = {
-        ...FormFieldMock,
-        formFieldType: GpFormFieldType.TEXT,
-        fieldMetadata: {
-          ...FormFieldMock.fieldMetadata,
-          hideInAddOperation: false,
-          cansCodi: 'test',
-          notNull: true,
-          displayInfo: {
-            ...FormFieldMock.fieldMetadata.displayInfo,
-            fieldLabel: '',
-          },
-        },
-      } as GpFormField;
-
-      const tableName = 'TEST';
-      const rows = ['TEST_ROW'];
-
-      component.formControl.editedRow = {};
-      component.formControl.originalRow = {};
-
-      component.data = rows;
-      component.selectedRow = selectedRow;
-      component.formControl.originalRow = selectedRow;
-      component.tableName = tableName;
-
-      component.selectedRow = selectedRow;
-      component.addSelectedCodes = [{ key: 'cansCodi' }];
-      component.working = false;
-      component.displayEdicion = true;
-      component.formControl.edicionEdit = false;
-      component.formControl.edicionAdd = false;
-
-      component.columns = [mockedFormField];
-
-      fixture.detectChanges();
-
-      component.onDialogSave();
-
-      expect(component.formControl.lockFields).toBeTruthy();
-    });
-
     describe('on call to component update row method', () => {
       it('should success', () => {
         const tableName = 'TEST';
