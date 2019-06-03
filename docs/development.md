@@ -134,3 +134,17 @@ RD /S /Q "dist"
 ```bash
 npm run build:watch
 ```
+
+## Environment
+
+The file "environment.ts" has been created to set up some global variables, that, currently are setted within a project where gp-all-component is installed (app.component.ts), it shouldn't be there. This way, is better to maintain the config for whole app in one place.
+
+```
+export const environmentBase = {
+  production: false,
+  appName: '',
+  baseUrl: '',
+  loginUrl: '',
+  menuUrl: '',
+};
+```
