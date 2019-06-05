@@ -36,11 +36,6 @@
 
 ### Check elements dependent on the logic of the consuming application, for example Bsuite  ###
 
-> ⚠️ Add temporarily at the end of ngOnInit
-
-```typescript
-GlobalService.setLogged(true);
-```
 > ⚠️ Remove ngIf condition at "breadcrumb-wrapper" div to render the breadcrumb and replace temporarily whole "topbar-toolbar" div
 
 ```html
@@ -55,10 +50,4 @@ GlobalService.setLogged(true);
         </span>
     </div>
 </div>
-```
-
-> ⚠️ And replace get fullName function logic by
-
-```typescript
-return GlobalService.getSESSION() ? GlobalService.getSESSION().fullName : 'Patterson Test';
 ```

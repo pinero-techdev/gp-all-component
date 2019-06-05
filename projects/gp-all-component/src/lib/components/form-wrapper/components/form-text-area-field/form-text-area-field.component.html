@@ -1,10 +1,9 @@
-<div class="input-field-wrapper" [class.with-multilanguage]="translateInfo && translationKeys">
+<div class="textarea-field-wrapper" [class.with-multilanguage]="translateInfo && translationKeys">
   <textarea
     name="__field__{{ name }}"
     pInputTextarea
-    autoResize="autoResize"
     [(ngModel)]="currentValue"
-    rows="{{ rows }}"
+    [rows]="rows"
     (change)="onFieldChange()"
     class="full-width {{ textboxClass }}"
     [disabled]="isDisabled"

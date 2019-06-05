@@ -3,7 +3,7 @@
 @import 'global/mixins';
 
 ::ng-deep {
-  .input-field-wrapper {
+  .textarea-field-wrapper {
     display: flex;
     align-items: center;
     width: 100%;
@@ -14,6 +14,7 @@
 
     .ui-inputtext.ui-widget {
       @include make-input();
+      overflow-y: hidden;
 
       &:enabled:hover:not(.ui-state-error) {
         border-color: $inputBorderColor;
