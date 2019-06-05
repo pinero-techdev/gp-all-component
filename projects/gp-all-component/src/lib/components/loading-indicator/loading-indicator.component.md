@@ -1,3 +1,36 @@
-# Loading Indicator Component #
+# Loading Indicator
 
-<b>Description</b> <br>Showing a spinner. You have to include the tag: `<gp-loading-indicator></gp-loading-indicator>` in your HTML. <br>Optionally, you can add a message while the loading is working. <br> <br><b>Inputs</b> <br>_msg_ | Type: String <br>_h_ | Type: String <br>_w_ | Type: String
+### Features a spinner icon
+
+You can use this component when you want to show a loading animation in your application
+
+## Example
+
+```html
+<gp-loading-indicator></gp-loading-indicator>
+```
+
+## Component Binding
+
+## @Inputs
+
+```ts
+/**
+ * Add a custom message while active
+ */
+@Input() msg = LocaleES.RETRIEVING_DATA;
+```
+
+```ts
+/**
+ * Set custom width for component
+ */
+@Input() w = '40px';
+```
+
+```ts
+/**
+ * Set custom height for component
+ */
+@Input() h = '40px';
+```

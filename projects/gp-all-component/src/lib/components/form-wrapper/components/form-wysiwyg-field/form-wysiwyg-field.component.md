@@ -1,8 +1,8 @@
-# Form Text Field Component
+# Form Wysiwyg Field Component
 
-## Features a wrapper for text field component
+## Features a wrapper for text editor component
 
-### Example component usage:
+### Example:
 
 ```html
 <gp-form-wysiwyg-field [formField]="formField">
