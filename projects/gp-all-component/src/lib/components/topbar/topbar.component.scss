@@ -57,6 +57,12 @@
       right: 0;
       padding-left: 15px;
       background: $topbarBg;
+
+      .user-icon-wrapper {
+        &:hover {
+          background: transparent;
+        }
+      }
     }
 
     &-user-name {
