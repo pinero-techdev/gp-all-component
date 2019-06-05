@@ -11,7 +11,20 @@ To check node version, run `node -v`, in a terminal/console window.
 
 To check npm version, run `npm -v`, in a terminal/console window.
 
-## Installation
+## Getting started
+```javascript
+/* 1. Clone the repository: */
+http://teamdev.cen.intranet/angular-components/gp-all-component.git
+
+/* 2.Enter the cloned folder */
+cd gp-all-component
+
+/*  3. Install dependencies. Make sure node.js is intalled on your system.
+* For more info, see requisites below. */
+npm install 
+```
+
+## Dependencies installation
 
 In order to be able to use the library from your application, please consider there are some dependencies that need to be installed and properly configured, we’ll describe next what are those dependencies, and the necessary configurations for PrimeNg, Quill and Moment:
 

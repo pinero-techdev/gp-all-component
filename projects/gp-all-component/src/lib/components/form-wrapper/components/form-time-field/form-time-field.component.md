@@ -1,8 +1,8 @@
-# Form Time Field Component
+# Form Time Field 
 
-## Features a wrapper for time field component
+### Features a wrapper for time field component
 
-### Example component usage:
+### Example:
 
 ```html
 <gp-form-time-field [formField]="formField"> </gp-form-time-field>

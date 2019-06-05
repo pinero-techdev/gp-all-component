@@ -1,16 +1,16 @@
-### Forgot Password
+# Forgot Password
 
-View to add a password reset functionality.
+### View to add a password reset functionality.
 
-### Upgrading 1.1.0 => 1.1.2
+## Breaking changes: renaming
 
 Routing:
 
-- `modifica-password/:usuario` => `forgot-password/:username` <br>
+- `modifica-password/:usuario` => `forgot-password/:username`
 
 Provider
 
-- `PasswordService` -> `ForgotPasswordService` <br>
+- `PasswordService` -> `ForgotPasswordService`
 
 Component
 

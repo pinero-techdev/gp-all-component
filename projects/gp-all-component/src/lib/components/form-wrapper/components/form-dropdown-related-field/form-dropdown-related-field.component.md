@@ -1,24 +1,25 @@
-## Dropdown Related
+# Dropdown Related Field
 
-Tag element `<gp-form-dropdown-related-field></gp-form-dropdown-related-field>`
+### Features a wrapper for PrimeNg Dropdown Related Component
 
-### Inputs & Outputs
+## Example
+```
+<gp-form-dropdown-related-field></gp-form-dropdown-related-field>
+```
 
-<p>@Input() <b>relatedField</b>: <i>any</i> Info setup when another field element was changed by the user.</p>
-<p>@Input() <b>formField</b>: <i>GpFormField</i> Current dropdown field info</p>
-<p>@Output() <b>valueChanged</b>: <i>InfoCampoModificado</i> Emit current value when is changed</p>
+## Inputs & Outputs
 
-## Breaking changes: renaming.
+@Input() **relatedField**: *any* Info setup when another field element was changed by the user.
 
-<b>DropdownRelatedComponent</b>
 
-<ol>
-    <li>
-        <p>Variables renaming</p>
-        <ul>
-            <li>inicializa -> init</li>
-            <li>reinicia -> reset</li>
-            <li>_relatedFields -> relatedFields</li>
-        </ul>
-    </li>
-</ol>
+@Input() **formField**: *GpFormField* Current dropdown field info.
+
+
+@Output() **valueChanged**: *InfoCampoModificado* Emit current value when is changed.
+
+## Breaking changes: renaming
+
+**Variables renaming**
++ inicializa -> init
++ reinicia -> reset
++ _relatedFields -> relatedFields
