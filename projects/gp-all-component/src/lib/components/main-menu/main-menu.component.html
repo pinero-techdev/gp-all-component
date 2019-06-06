@@ -1,8 +1,7 @@
-<div *ngIf="isOpen && viewLoaded" class="menu">
+<div *ngIf="isOpen && viewLoaded" class="menu" [ngClass]="{ 'menu-expanded': isExpanded }">
   <div class="menu-card full-width">
     <div class="p-grid menu-panel">
       <ng-container *ngFor="let item of menu">
-        <p>{{ item | json }}</p>
         <div *ngIf="item.enabled" role="list" class="item-wrapper p-col-4 p-sm-2 p-md-3">
           <a
             *ngIf="item.action"
@@ -33,11 +32,13 @@
               [ngClass]="{ 'menu-icon': item.icon }"
               [ngStyle]="{ position: 'relative' }"
             >
-              <div *ngIf="item.parentList" class="menu-back"></div>
+              <div *ngIf="item.parentList && item.parentList.length > 0" class="menu-back"></div>
             </div>
-            <span class="menu-label" [ngClass]="item.parentList ? 'back-label' : ''">{{
-              item.text
-            }}</span>
+            <span
+              class="menu-label"
+              [ngClass]="item.parentList && item.parentList.length > 0 ? 'back-label' : ''"
+              >{{ item.text }}</span
+            >
           </a>
         </div>
       </ng-container>
