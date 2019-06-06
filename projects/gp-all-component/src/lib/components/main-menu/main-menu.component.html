@@ -1,92 +1,57 @@
-<div *ngIf="isOpen && viewLoaded" id="main-menu" class="menu" #launcher>
+<div *ngIf="isOpen && viewLoaded" class="menu" [ngClass]="{ 'menu-expanded': isExpanded }">
   <div class="menu-card full-width">
     <div class="p-grid menu-panel">
-      <div
-        role="list"
-        *ngFor="let menu of filterEnabledItems()"
-        class="item-wrapper p-col-4 p-sm-2 p-md-3"
-      >
-        <a
-          class="menu-item"
-          (click)="onCloseMenu(menu)"
-          role="listitem"
-          *ngIf="menu.action != null"
-          [routerLink]="[menu.action]"
-          [pTooltip]="menu.texto"
-          [tooltipDisabled]="disableTooltip"
-        >
-          <div
-            class="{{ menu.icon ? 'menu-icon-' + menu.icon : '' }}"
-            [ngClass]="{ 'menu-icon': menu.icon }"
-          ></div>
-          <span class="menu-label">{{ menu.texto }}</span>
-        </a>
-        <a
-          class="menu-item"
-          (click)="menuChange(menu)"
-          role="listitem"
-          *ngIf="menu.action == null"
-          [pTooltip]="menu.texto"
-          [tooltipDisabled]="disableTooltip"
-        >
-          <div
-            class="{{ menu.icon ? 'menu-icon-' + menu.icon : 'menu-icon menu-back-wrapper' }}"
-            [ngClass]="{ 'menu-icon': menu.icon }"
-            [ngStyle]="{ position: 'relative' }"
+      <ng-container *ngFor="let item of menu">
+        <div *ngIf="item.enabled" role="list" class="item-wrapper p-col-4 p-sm-2 p-md-3">
+          <a
+            *ngIf="item.action"
+            class="menu-item"
+            (click)="onCloseMenu(item)"
+            role="listitem"
+            routerLinkActive="is-active"
+            [routerLink]="[item.action]"
+            [pTooltip]="item.text"
+            [tooltipDisabled]="disableTooltip"
           >
-            <div *ngIf="menu.parentList" class="menu-back"></div>
-          </div>
-          <span class="menu-label" [ngClass]="menu.parentList ? 'back-label' : ''">{{
-            menu.texto
-          }}</span>
-        </a>
-      </div>
+            <div
+              class="{{ item.icon ? 'menu-icon-' + item.icon : '' }}"
+              [ngClass]="{ 'menu-icon': item.icon }"
+            ></div>
+            <span class="menu-label">{{ item.text }}</span>
+          </a>
+          <a
+            *ngIf="!item.action"
+            class="menu-item"
+            (click)="menuChange(item)"
+            role="listitem"
+            [pTooltip]="item.text"
+            [tooltipDisabled]="disableTooltip"
+          >
+            <div
+              class="{{ item.icon ? 'menu-icon-' + item.icon : 'menu-icon menu-back-wrapper' }}"
+              [ngClass]="{ 'menu-icon': item.icon }"
+              [ngStyle]="{ position: 'relative' }"
+            >
+              <div *ngIf="item.parentList && item.parentList.length > 0" class="menu-back"></div>
+            </div>
+            <span
+              class="menu-label"
+              [ngClass]="item.parentList && item.parentList.length > 0 ? 'back-label' : ''"
+              >{{ item.text }}</span
+            >
+          </a>
+        </div>
+      </ng-container>
     </div>
     <div class="menu-overview">
       <div class="center menu-action" (click)="toggleOverview()">
-        <svg
-          *ngIf="!isExpanded"
-          width="76px"
-          height="82px"
-          viewBox="0 0 76 82"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-        >
-          <g id="arrow-left" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <path
-              d="M44.2677292,48.7303177 C44.7393999,49.2019884 45,49.8274287 45,50.4960938 C45,51.1647588 44.7393999,51.7901991 44.2677292,52.2618698 C44.0165434,52.5130556 43.7156471,52.7107875 43.3740279,52.8366472 C43.0970315,52.9386985 42.8039802,52.9941406 42.5019531,52.9941406 C42.2001589,52.9941406 41.9026592,52.9407433 41.6201127,52.8366472 C41.2784935,52.7107875 40.9775973,52.5130556 40.7264114,52.2618698 L31.7322708,43.2677292 C31.258117,42.7935754 31,42.1654907 31,41.4970703 C31,40.8286499 31.258117,40.2005653 31.7322708,39.7264114 L40.7264114,30.7322708 C41.2005653,30.258117 41.8286499,30 42.4970703,30 C43.1654907,30 43.7935754,30.258117 44.2677292,30.7322708 C44.7393999,31.2039415 45,31.8293818 45,32.4980469 C45,33.166712 44.7393999,33.7921522 44.2677292,34.2638229 L37.0303977,41.5011544 L44.2677292,48.7303177 Z"
-              id="chevron-left"
-              fill="#FFFFFF"
-              fill-rule="nonzero"
-            ></path>
-          </g>
-        </svg>
-        <svg
-          *ngIf="isExpanded"
-          width="76px"
-          height="82px"
-          viewBox="0 0 76 82"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-        >
-          <g id="arrow-right" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <path
-              d="M44.2677292,48.7303177 C44.7393999,49.2019884 45,49.8274287 45,50.4960938 C45,51.1647588 44.7393999,51.7901991 44.2677292,52.2618698 C44.0165434,52.5130556 43.7156471,52.7107875 43.3740279,52.8366472 C43.0970315,52.9386985 42.8039802,52.9941406 42.5019531,52.9941406 C42.2001589,52.9941406 41.9026592,52.9407433 41.6201127,52.8366472 C41.2784935,52.7107875 40.9775973,52.5130556 40.7264114,52.2618698 L31.7322708,43.2677292 C31.258117,42.7935754 31,42.1654907 31,41.4970703 C31,40.8286499 31.258117,40.2005653 31.7322708,39.7264114 L40.7264114,30.7322708 C41.2005653,30.258117 41.8286499,30 42.4970703,30 C43.1654907,30 43.7935754,30.258117 44.2677292,30.7322708 C44.7393999,31.2039415 45,31.8293818 45,32.4980469 C45,33.166712 44.7393999,33.7921522 44.2677292,34.2638229 L37.0303977,41.5011544 L44.2677292,48.7303177 Z"
-              id="chevron-left"
-              fill="#FFFFFF"
-              fill-rule="nonzero"
-              transform="translate(38.000000, 41.497070) scale(-1, 1) translate(-38.000000, -41.497070) "
-            ></path>
-          </g>
-        </svg>
+        <i *ngIf="isExpanded" class="pi pi-chevron-right"></i>
+        <i *ngIf="!isExpanded" class="pi pi-chevron-left"></i>
       </div>
 
       <ng-container
         *ngTemplateOutlet="menuContentRef; context: { $implicit: overview, expanded: isExpanded }"
-      >
-      </ng-container>
+      ></ng-container>
     </div>
   </div>
 </div>

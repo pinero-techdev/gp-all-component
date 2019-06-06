@@ -9,6 +9,7 @@ export const LocaleES = {
   CHOOSE_AN_OPTION: 'Elige una opción',
   LEAVE: 'Salir',
   SAVE: 'Guardar',
+  BACK: 'Volver',
   ENTER: 'Entrar',
   ERROR_RETRIEVING_THE_MENU: 'No se recuperó un menú',
   ERROR: {

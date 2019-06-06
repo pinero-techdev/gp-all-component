@@ -66,28 +66,15 @@ describe('MainMenuComponent', () => {
     });
   });
 
-  describe('on toggle menu, isOpen status:', () => {
-    it('should be true', () => {
-      component.onToggleMenu(true);
-      expect(component.isOpen).toBeTruthy();
-    });
-
-    it('should be false', () => {
-      component.isOpen = true;
-      component.onToggleMenu('false');
-      expect(component.isOpen).toBeFalsy();
-    });
-  });
-
   it('should close menu', () => {
-    const menu = { texto: 'TEST' };
+    const menu = { text: 'TEST' };
 
     component.onCloseMenu(menu);
 
     component.closeMenu.subscribe((isOpen) => expect(isOpen).toEqual(component.isOpen));
 
     component.sendBreadcrumb.subscribe((menuResponse) =>
-      expect(menuResponse).toEqual({ label: menu.texto, isActive: true })
+      expect(menuResponse).toEqual({ label: menu.text, isActive: true })
     );
 
     expect(component.isExpanded).toBeFalsy();
@@ -100,13 +87,13 @@ describe('MainMenuComponent', () => {
       component.sendBreadcrumb.subscribe((data) =>
         expect(data).toEqual({
           label: 'label',
-          floatMenu: component.floatMenu,
+          menu: component.menu,
           isActive: true,
         })
       );
 
       component.initMenu();
-      component.menuChange({ ...component.defaultMenu[3], texto: 'label' });
+      component.menuChange({ ...component.menu[3], text: 'label' });
 
       expect(goBackSpy).toHaveBeenCalled();
     });
@@ -117,24 +104,16 @@ describe('MainMenuComponent', () => {
       component.sendBreadcrumb.subscribe((data) =>
         expect(data).toEqual({
           label: 'label',
-          parentList: component.floatMenu,
+          parentList: component.menu,
           isActive: false,
         })
       );
 
       component.initMenu();
-      component.menuChange({ parentList: component.defaultMenu[3].submenus, texto: 'label' });
+      component.menuChange({ parentList: component.menu[3].submenus, text: 'label' });
 
       expect(goBackSpy).toHaveBeenCalled();
     });
-  });
-
-  it('should filter enabled items', () => {
-    component.initMenu();
-
-    const enabledItems = component.filterEnabledItems();
-
-    expect(enabledItems.length).toBeGreaterThan(0);
   });
 
   it('should toggle overview', () => {
