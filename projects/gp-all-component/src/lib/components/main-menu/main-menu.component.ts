@@ -5,7 +5,6 @@ import {
   OnInit,
   EventEmitter,
   Output,
-  ViewChild,
   Input,
   TemplateRef,
   ContentChild,
@@ -13,7 +12,20 @@ import {
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
+import { LocaleES } from '../../resources/localization';
 
+class MenuItem {
+  action: string;
+  description: string;
+  enabled: boolean;
+  icon: string;
+  id: string;
+  overview: string;
+  parentList: MenuItem[];
+  submenus: MenuItem[];
+  text: string;
+  type: string;
+}
 @Component({
   selector: 'gp-main-menu',
   templateUrl: './main-menu.component.html',
@@ -24,44 +36,14 @@ import { takeWhile } from 'rxjs/operators';
  */
 export class MainMenuComponent implements OnInit, OnDestroy {
   /**
-   * Check for menu open
-   */
-  @Input() isOpen: boolean;
-
-  /**
-   * Check for new status launcher
-   */
-  @Input() newStatusLauncher: any;
-
-  /**
-   * Emmiter for close menu action
-   */
-  @Output() closeMenu = new EventEmitter<boolean>();
-
-  /**
-   * Emmiter for sendBreadcrumb action
-   */
-  @Output() sendBreadcrumb = new EventEmitter();
-
-  /**
-   * Holds the reference to launcher
-   */
-  @ViewChild('launcher') launcher;
-
-  /**
    * Holds the reference to menu content
    */
   @ContentChild(TemplateRef) menuContentRef: TemplateRef<any>;
 
   /**
-   * Holds the float menu instance
+   * Holds the component life status
    */
-  floatMenu = [];
-
-  /**
-   * Holds the default menu instance
-   */
-  defaultMenu = [];
+  private isAlive = true;
 
   /**
    * Holds the expanded check
@@ -84,9 +66,24 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   viewLoaded = false;
 
   /**
-   * Holds the component life status
+   * Check for menu open
    */
-  private isAlive = true;
+  @Input() isOpen: boolean;
+
+  /**
+   * Holds the menu's data
+   */
+  @Input() menu: MenuItem[];
+
+  /**
+   * Emmiter for close menu action
+   */
+  @Output() closeMenu = new EventEmitter<boolean>();
+
+  /**
+   * Emmiter for sendBreadcrumb action
+   */
+  @Output() sendBreadcrumb = new EventEmitter();
 
   constructor(private router: Router, private menuProviderService: MainMenuService) {}
 
@@ -113,11 +110,8 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
     this.menuProviderService
       .getMenu(request)
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe((menu) => {
-        this.defaultMenu = menu;
-        this.setMainMenu();
-      });
+      .first()
+      .subscribe((menu) => this.setMainMenu(menu));
 
     this.router.events.pipe(takeWhile(() => this.isAlive)).subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -129,36 +123,33 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   /**
    * Sets the menu
    */
-  setMainMenu(): void {
-    this.floatMenu = this.cloneArray(this.defaultMenu);
-    this.overview = 'dashboard';
+  setMainMenu(value: any): void {
+    this.menu = value.map((item) => {
+      const newItem = new MenuItem();
+      newItem.action = item.action ? item.action : null;
+      newItem.description = item.description ? item.description : null;
+      newItem.enabled = item.enabled ? item.enabled : null;
+      newItem.icon = item.icon ? item.icon : null;
+      newItem.id = item.id ? item.id : null;
+      newItem.overview = item.overview ? item.overview : null;
+      newItem.parentList = item.parentList ? item.parentList : [];
+      newItem.submenus = item.submenus ? item.submenus : [];
+      newItem.text = item.texto ? item.texto : null;
+      newItem.type = item.type ? item.type : null;
+      return newItem;
+    });
+
     this.viewLoaded = true;
   }
 
   /**
-   * Util to clone the passed array
-   * @param data The array
+   * Logic to execute on menu close
+   * @param item a menu's item
    */
-  cloneArray(data: any[]): any[] {
-    return data.map((element) => Object.assign({}, element));
-  }
-
-  /**
-   * Logic to execute on menu toggle
-   * @param isOpen Boolean condition
-   */
-  onToggleMenu(isOpen: any): void {
-    this.isOpen = typeof isOpen === 'boolean' ? isOpen : !this.isOpen;
-  }
-
-  /**
-   * Logic to execte on menu close
-   * @param menu The menu input
-   */
-  onCloseMenu(menu: any): void {
-    this.onToggleMenu(false);
+  onCloseMenu(item: any): void {
+    this.isOpen = false;
     this.closeMenu.emit(this.isOpen);
-    this.sendBreadcrumb.emit({ label: menu.texto, isActive: true });
+    this.sendBreadcrumb.emit({ label: item.text, isActive: true });
     this.isExpanded = false;
   }
 
@@ -170,9 +161,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     const submenus = menuChange.submenus;
 
     if (submenus && submenus.length > 0) {
-      this.getActionSubmenu(menuChange.submenus, menuChange.texto);
+      this.getActionSubmenu(menuChange.submenus, menuChange.text);
     } else if (menuChange.parentList) {
-      this.getActionGoBack(menuChange.parentList, menuChange.texto);
+      this.getActionGoBack(menuChange.parentList, menuChange.text);
     }
     this.getOverview();
   }
@@ -185,10 +176,10 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   getActionSubmenu(submenus: any, label: string): void {
     if (submenus && submenus.length > 0) {
       this.getGoBackOptionMenu(submenus);
-      this.floatMenu = submenus;
+      this.menu = submenus;
       this.sendBreadcrumb.emit({
         label,
-        floatMenu: submenus,
+        menu: submenus,
         isActive: true,
       });
     }
@@ -198,7 +189,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Gets the overview
    */
   getOverview(): void {
-    const item = this.floatMenu.filter((menu) => menu.overview);
+    const item = this.menu.filter((menu) => menu.overview);
 
     if (item.length > 0) {
       this.overview = item[0].overview;
@@ -211,7 +202,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * @param label The input label
    */
   getActionGoBack(parentList: any, label: string): void {
-    this.floatMenu = parentList;
+    this.menu = parentList;
     this.sendBreadcrumb.emit({
       label,
       parentList,
@@ -227,25 +218,17 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     if (list[0].id !== 'go_back') {
       list.unshift({
         enabled: true,
-        parentList: this.cloneArray(this.floatMenu),
+        parentList: [...[], ...this.menu],
         id: 'go_back',
-        texto: 'Volver',
+        text: LocaleES.BACK,
       });
     }
-  }
-
-  /**
-   * Filter that returns only enabled items
-   */
-  filterEnabledItems(): any[] {
-    return this.floatMenu.filter((x) => x.enabled);
   }
 
   /**
    * Toggles the overview status
    */
   toggleOverview(): void {
-    this.launcher.nativeElement.classList.toggle('menu-expanded');
     this.isExpanded = !this.isExpanded;
     this.disableTooltip = !this.disableTooltip;
   }
