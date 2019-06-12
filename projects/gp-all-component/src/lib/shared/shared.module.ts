@@ -6,6 +6,11 @@ import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditorModule } from 'primeng/editor';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 import { MessageService } from 'primeng/primeng';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { MessagesModule } from 'primeng/messages';
@@ -15,32 +20,42 @@ import { MenuModule } from 'primeng/menu';
 @NgModule({
   declarations: [],
   imports: [
-    ButtonModule,
-    DialogModule,
+    CalendarModule,
     EditorModule,
-    ToastModule,
-    ProgressSpinnerModule,
-    TooltipModule,
+    ButtonModule,
+    CheckboxModule,
+    DialogModule,
+    DropdownModule,
+    InputSwitchModule,
     InputTextModule,
-    ScrollPanelModule,
-    MessagesModule,
-    MessageModule,
-    MultiSelectModule,
+    InputTextareaModule,
     MenuModule,
+    MessageModule,
+    MessagesModule,
+    MultiSelectModule,
+    ProgressSpinnerModule,
+    ScrollPanelModule,
+    ToastModule,
+    TooltipModule,
   ],
   exports: [
-    ButtonModule,
-    DialogModule,
+    CalendarModule,
     EditorModule,
-    ToastModule,
-    MessagesModule,
-    MessageModule,
-    ProgressSpinnerModule,
-    TooltipModule,
-    ScrollPanelModule,
+    ButtonModule,
+    CheckboxModule,
+    DialogModule,
+    DropdownModule,
+    InputSwitchModule,
     InputTextModule,
-    MultiSelectModule,
+    InputTextareaModule,
     MenuModule,
+    MessageModule,
+    MessagesModule,
+    MultiSelectModule,
+    ProgressSpinnerModule,
+    ScrollPanelModule,
+    ToastModule,
+    TooltipModule,
   ],
   providers: [MessageService],
 })

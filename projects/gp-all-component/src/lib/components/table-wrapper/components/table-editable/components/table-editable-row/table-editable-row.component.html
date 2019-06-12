@@ -1,0 +1,303 @@
+<div class="ui-inputgroup nopad" *ngIf="column" [ngSwitch]="column.type">
+  <i
+    class="material-icons"
+    style="color: #ffba01;"
+    *ngIf="!isFilter && column.messages && column.messages.length > 0"
+    [pTooltip]="column.messages"
+    tooltipPosition="top"
+    >warning</i
+  >
+  <button
+    *ngSwitchCase="inputType.TEXT_AREA"
+    pButton
+    label="Abrir"
+    (click)="openTextareaModal()"
+    [disabled]="!isEditable()"
+  ></button>
+  <input
+    *ngSwitchCase="inputType.NUMBER"
+    type="number"
+    #numberInput
+    [ngModel]="value"
+    (ngModelChange)="isFilter ? onModelChange($event) : null"
+    [minlength]="column.minLength"
+    [maxlength]="column.maxLength"
+    [max]="column.maxValue"
+    [min]="column.minValue"
+    (focus)="onStartEditing()"
+    (change)="!isFilter ? onModelChange(numberInput.value) : null"
+    [disabled]="!isEditable()"
+  />
+  <p-checkbox
+    *ngSwitchCase="inputType.CHECKBOX"
+    binary="true"
+    [ngModel]="isCheckboxChecked()"
+    (ngModelChange)="onCheckboxChange($event)"
+    [disabled]="!isEditable()"
+  >
+  </p-checkbox>
+  <p-inputSwitch
+    *ngSwitchCase="inputType.SWITCH"
+    [ngModel]="isCheckboxChecked()"
+    (ngModelChange)="onCheckboxChange($event)"
+    [disabled]="!isEditable()"
+  >
+  </p-inputSwitch>
+  <ng-template [ngIf]="!isFilter">
+    <button
+      *ngSwitchCase="inputType.IMG"
+      pButton
+      label="Abrir"
+      (click)="openImgModal()"
+      [disabled]="!isEditable()"
+    ></button>
+    <button
+      *ngSwitchCase="inputType.WYSIWYG"
+      pButton
+      label="Abrir"
+      (click)="openWYSIWYGModal()"
+      [disabled]="!isEditable()"
+    ></button>
+    <ng-template [ngSwitchCase]="inputType.FILE">
+      <button
+        pButton
+        icon="ui-icon-file-upload"
+        (click)="openFileModal()"
+        [disabled]="!isEditable()"
+      ></button>
+      <button
+        pButton
+        *ngIf="hasFile() || (value && value['content'])"
+        icon="ui-icon-delete"
+        (click)="deleteFile()"
+        [disabled]="!isEditable()"
+      ></button>
+    </ng-template>
+  </ng-template>
+  <p-calendar
+    *ngSwitchCase="inputType.TIME"
+    showTime="showTime"
+    hourFormat="24"
+    styleClass="full-width"
+    appendTo="body"
+    [timeOnly]="true"
+    [ngModel]="value"
+    (ngModelChange)="setTimeValue($event)"
+    [disabled]="!isEditable()"
+  >
+  </p-calendar>
+  <p-calendar
+    *ngSwitchCase="inputType.CALENDAR"
+    styleClass="full-width"
+    appendTo="body"
+    [defaultDate]="value"
+    dataType="string"
+    [ngModel]="value"
+    [disabled]="!isEditable()"
+    [dateFormat]="dateFormat"
+    (ngModelChange)="startStop($event)"
+    [locale]="calendarLocale"
+  >
+  </p-calendar>
+  <p-dropdown
+    *ngSwitchCase="inputType.DROPDOWN"
+    [showClear]="true"
+    appendTo="body"
+    [options]="optionsList"
+    [ngModel]="value"
+    [autoWidth]="false"
+    [filter]="true"
+    (ngModelChange)="startStop($event)"
+    [disabled]="!isEditable()"
+    class="ui-inputfield ui-selectonemenu-label"
+  >
+  </p-dropdown>
+  <p-dropdown
+    *ngSwitchCase="inputType.DROPDOWN_RELATED"
+    [showClear]="true"
+    appendTo="body"
+    [options]="optionsList"
+    [ngModel]="value"
+    [autoWidth]="false"
+    [filter]="true"
+    (ngModelChange)="startStop($event)"
+    [disabled]="!isEditable()"
+    class="ui-inputfield ui-selectonemenu-label"
+  >
+  </p-dropdown>
+  <ng-template ngSwitchDefault>
+    <div
+      [class.ui-g-12]="column.translationInfo == null || translationKeys == ''"
+      [class.ui-g-10]="column.translationInfo != null && translationKeys != ''"
+      class="nopad"
+    >
+      <input
+        #textInput
+        pInputText
+        class="full-width"
+        type="text"
+        gpUppercase
+        [ngModel]="value"
+        (ngModelChange)="isFilter ? onModelChange($event) : null"
+        (change)="!isFilter ? onModelChange(textInput.value) : null"
+        [maxlength]="column.maxLength"
+        [minlength]="column.minLength"
+        (focus)="onStartEditing()"
+        [disabled]="!isEditable()"
+        [value]="column.uppercase"
+      />
+    </div>
+    <div class="ui-g-2 nopad" *ngIf="column.translationInfo != null && translationKeys != ''">
+      <gp-multi-language
+        [pKey]="translationKeys"
+        [schema]="column.translationInfo.scheme"
+        [table]="column.translationInfo.table"
+        [field]="column.translationInfo.field"
+        [description]="column.translationInfo.description"
+        [isEditing]="column.translationInfo.allowEdition"
+        [orderByLangCod]="column.translationInfo.orderByLangCod"
+      >
+      </gp-multi-language>
+    </div>
+  </ng-template>
+</div>
+
+<!--Image input modal-->
+<p-dialog
+  *ngIf="column.type == inputType.IMG"
+  [(visible)]="imgModalVisible"
+  header="Editor imagen (URL)"
+  [modal]="true"
+>
+  <img [src]="temporalValue" style="width: 100%; max-height: 50%;" *ngIf="temporalValue" />
+  <input
+    pInputText
+    type="text"
+    gpUppercase
+    [value]="column.uppercase"
+    [(ngModel)]="temporalValue"
+    [maxlength]="column.maxLength"
+    [minlength]="column.minLength"
+    [disabled]="!isEditable()"
+    class="full-width"
+  />
+  <p-footer>
+    <button
+      pButton
+      label="Aceptar"
+      class="ui-button-success"
+      (click)="startStop(temporalValue); imgModalVisible = false"
+    ></button>
+    <button
+      pButton
+      label="Cancelar"
+      class="ui-button-danger"
+      (click)="imgModalVisible = false"
+    ></button>
+  </p-footer>
+</p-dialog>
+
+<!--Textarea input modal-->
+<p-dialog
+  [(visible)]="textareaModalVisible"
+  *ngIf="column.type == inputType.TEXT_AREA"
+  header="Editor textarea"
+  [modal]="true"
+>
+  <div
+    [class.ui-g-12]="
+      column.translationInfo == null || (column.translationInfo != null && translationKeys == '')
+    "
+    [class.ui-g-10]="column.translationInfo != null && translationKeys != ''"
+    class="nopad"
+  >
+    <textarea
+      pInputTextarea
+      [(ngModel)]="temporalValue"
+      [rows]="column.rows"
+      class="full-width"
+      [maxlength]="column.maxLength"
+      [minlength]="column.minLength"
+      [disabled]="!isEditable()"
+    >
+    </textarea>
+  </div>
+  <div class="ui-g-2 nopad" *ngIf="column.translationInfo != null && translationKeys != ''">
+    <gp-multi-language
+      [pKey]="translationKeys"
+      [schema]="column.translationInfo.scheme"
+      [table]="column.translationInfo.table"
+      [field]="column.translationInfo.field"
+      [description]="column.translationInfo.description"
+      [isEditing]="column.translationInfo.allowEdition"
+      [orderByLangCod]="column.translationInfo.orderByLangCod"
+    >
+    </gp-multi-language>
+  </div>
+  <p-footer>
+    <button
+      pButton
+      label="Aceptar"
+      class="ui-button-success"
+      (click)="startStop(temporalValue); textareaModalVisible = false"
+    ></button>
+    <button
+      pButton
+      label="Cancelar"
+      class="ui-button-danger"
+      (click)="textareaModalVisible = false"
+    ></button>
+  </p-footer>
+</p-dialog>
+
+<!--WYSIWYG input modal-->
+<p-dialog
+  [(visible)]="wysiwygModalVisible"
+  *ngIf="column.type == inputType.WYSIWYG"
+  header="Editor WYSIWYG"
+  [modal]="true"
+>
+  <p-editor [(ngModel)]="temporalValue" [style]="{ height: '200px' }" [disabled]="!isEditable()">
+  </p-editor>
+  <p-footer>
+    <button
+      pButton
+      label="Aceptar"
+      class="ui-button-success"
+      (click)="startStop(temporalValue); wysiwygModalVisible = false"
+    ></button>
+    <button
+      pButton
+      label="Cancelar"
+      class="ui-button-danger"
+      (click)="wysiwygModalVisible = false"
+    ></button>
+  </p-footer>
+</p-dialog>
+-->
+
+<!--File input modal-->
+<p-dialog
+  [(visible)]="fileModalVisible"
+  *ngIf="column.type == inputType.FILE"
+  header="Seleccionar archivo"
+  [modal]="true"
+>
+  <input type="file" name="file" (change)="readFile($event)" [disabled]="!isEditable()" />
+  <p-footer>
+    <button
+      pButton
+      label="Aceptar"
+      type="button"
+      class="ui-button-success"
+      (click)="startStop(temoralFile); fileModalVisible = false"
+    ></button>
+    <button
+      pButton
+      label="Cancelar"
+      class="ui-button-danger"
+      type="button"
+      (click)="fileModalVisible = false"
+    ></button>
+  </p-footer>
+</p-dialog>

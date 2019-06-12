@@ -1,3 +1,4 @@
+// import { TableEditableComponent } from './components/table-editable/table-editable.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableCrudComponent } from './components/table-crud/table-crud.component';
@@ -7,12 +8,29 @@ import {
   TableWrapperSharedProviders,
 } from '../../shared/imports/table-wrapper-shared';
 import { HttpClientModule } from '@angular/common/http';
-import { ButtonModule } from 'primeng/button';
+import { TableEditableRowComponent } from './components/table-editable/components/table-editable-row/table-editable-row.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [TableCrudComponent, TableFrameComponent],
-  imports: [CommonModule, HttpClientModule, TableWrapperSharedModules, ButtonModule],
-  exports: [TableCrudComponent, TableFrameComponent],
+  declarations: [
+    TableCrudComponent,
+    // TableEditableComponent,
+    TableEditableRowComponent,
+    TableFrameComponent,
+  ],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TableWrapperSharedModules,
+  ],
   providers: [TableWrapperSharedProviders],
+  exports: [
+    TableCrudComponent,
+    // TableEditableComponent,
+    TableEditableRowComponent,
+    TableFrameComponent,
+  ],
 })
 export class TableWrapperModule {}

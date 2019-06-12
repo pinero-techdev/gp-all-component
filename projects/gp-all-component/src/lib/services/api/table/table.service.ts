@@ -1,11 +1,12 @@
+import { Filter } from './../../../resources/data/filter/filter.model';
+import { CommonRs, CommonService } from '../../core/common.service';
+import { DataTableMetaData } from './../../../resources/data/data-table/meta-data/data-table-meta-data.model';
+import { GlobalService } from '../../core/global.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DataTableMetaData } from './../../../resources/data/data-table/meta-data/data-table-meta-data.model';
-import { Filter } from '../../../resources/data/filter/filter.model';
-import { CommonRs, CommonService } from '../../core/common.service';
-import { GlobalService } from '../../core/global.service';
-
+import { RelatedField } from '../../../resources/data/data-table/filter/related-field.class';
+import { TranslationInfo } from './../../../resources/data/translation-info.model';
 export class ListRs extends CommonRs {
   data: any[];
   metadata: DataTableMetaData;
@@ -41,6 +42,120 @@ export class SelectOneRowRs extends CommonRs {
   metadata: DataTableMetaData;
 }
 
+export class GetAttachmentRq extends SelectOneRowRq {
+  fieldName: string;
+  asAttachment = true;
+}
+
+export class TableMetadata {
+  fields: FieldMetadata[];
+  tableLabel: string;
+}
+
+export class FieldMetadata {
+  fieldMaxLength: number;
+  fieldName: string;
+  fieldType: string;
+  id: boolean;
+  notNull: boolean;
+  readOnly: boolean;
+  allowAscii: boolean;
+  hideInAddOperation: boolean;
+  lengthInTable: number;
+  restrictions: FieldRestriction[];
+  displayInfo: FieldDisplayInfo;
+  referenceDescription: string;
+
+  constructor(
+    fieldMaxLength: number,
+    fieldName: string,
+    fieldType: string,
+    id: boolean,
+    notNull: boolean,
+    readOnly: boolean,
+    allowAscii: boolean,
+    lengthInTable: number,
+    restrictions: FieldRestriction[],
+    displayInfo: FieldDisplayInfo,
+    referenceDescription: string
+  ) {
+    this.fieldMaxLength = fieldMaxLength;
+    this.fieldName = fieldName;
+    this.fieldType = fieldType;
+    this.id = id;
+    this.notNull = notNull;
+    this.readOnly = readOnly;
+    this.allowAscii = allowAscii;
+    this.lengthInTable = lengthInTable;
+    this.restrictions = restrictions;
+    this.displayInfo = displayInfo;
+    this.referenceDescription = referenceDescription;
+  }
+}
+
+export class FieldRestriction {
+  restrictionType: string;
+  minLength: number;
+  maxLength: number;
+}
+
+export class FieldDisplayInfo {
+  fieldLabel: string;
+  order: number;
+  displayType: string;
+  checkedValue: string;
+  uncheckedValue: string;
+  options: FieldOption[];
+  referencedTable: string;
+  referencedField: string;
+  fieldToOrderBy: string;
+  filters: Filter[];
+  rowsTextArea: number;
+  fieldDescriptions: string[];
+  textProperties: string[];
+  relatedFields: RelatedField[];
+  translationInfo: TranslationInfo;
+
+  constructor(
+    fieldLabel: string,
+    order: number,
+    displayType: string,
+    checkedValue: string,
+    uncheckedValue: string,
+    options: FieldOption[],
+    referencedTable: string,
+    referencedField: string,
+    fieldToOrderBy: string,
+    filters: Filter[],
+    rowsTextArea: number,
+    fieldDescriptions: string[],
+    textProperties: string[],
+    relatedFields: RelatedField[],
+    translationInfo: TranslationInfo
+  ) {
+    this.fieldLabel = fieldLabel;
+    this.order = order;
+    this.displayType = displayType;
+    this.checkedValue = checkedValue;
+    this.uncheckedValue = uncheckedValue;
+    this.options = options;
+    this.referencedTable = referencedTable;
+    this.referencedField = referencedField;
+    this.fieldToOrderBy = fieldToOrderBy;
+    this.filters = filters;
+    this.rowsTextArea = rowsTextArea;
+    this.fieldDescriptions = fieldDescriptions;
+    this.textProperties = textProperties;
+    this.relatedFields = relatedFields;
+    this.translationInfo = translationInfo;
+  }
+}
+
+export class FieldOption {
+  value: string;
+  description: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class TableService extends CommonService {
   constructor(http: HttpClient) {
@@ -62,6 +177,14 @@ export class TableService extends CommonService {
   public static HOUR_MINUTE_DISPLAY_TYPE = 'HOUR_MINUTE';
   public static TEXT_AREA_DISPLAY_TYPE = 'TEXT_AREA';
   public static WYSIWYG_DISPLAY_TYPE = 'WYSIWYG';
+  public static FILE_DISPLAY_TYPE = 'FILE';
+
+  public static RESTRICTION_NOT_NULL = 'NOT_NULL';
+  public static RESTRICTION_MAX_LENGTH = 'MAX_LENGTH';
+  public static RESTRICTION_MIN_LENGTH = 'MIN_LENGTH';
+  public static RESTRICTION_MAX_VALUE = 'MAX_VALUE';
+  public static RESTRICTION_MIN_VALUE = 'MIN_VALUE';
+  public static RESTRICTION_LIST_ALLOWED_VALUES = 'LIST_ALLOWED_VALUES';
 
   public static TEXT_UPPERCASE = 'UPPERCASE';
   public static TEXT_TRIM = 'TRIM';
