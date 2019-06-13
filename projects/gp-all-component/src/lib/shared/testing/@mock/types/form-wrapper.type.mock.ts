@@ -4,7 +4,7 @@ import { DataTableMetaDataFieldDisplayInfo } from '../../../../resources/data/da
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../../../components/form-wrapper/resources/form-field.model';
 import { GpFormControl } from './../../../../components/form-wrapper/resources/form-control.model';
-import { TranslationInfo } from '@lib/resources/data/translation-info.model';
+import { TranslationInfo } from './../../../../resources/data/translation-info.model';
 
 const options = [
   new DataTableMetaDataFieldDisplayInfoOption(),

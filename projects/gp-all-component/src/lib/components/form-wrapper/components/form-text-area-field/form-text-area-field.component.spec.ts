@@ -9,7 +9,7 @@ import {
 } from '../../../../shared/imports/form-wrapper-shared';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
 import { MultiLanguageService } from './../../../../services/api/multi-language/multi-language.service';
-import { TableService } from '@lib/services/api/table/table.service';
+import { TableService } from './../../../../services/api/table/table.service';
 
 describe('FormTextAreaFieldComponent', () => {
   let component: FormTextAreaFieldComponent;

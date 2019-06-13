@@ -8,7 +8,7 @@ import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapp
 import { TableService } from './../../../../services/api/table/table.service';
 import { GpTableRestrictions } from '../../../table-wrapper/resources/gp-table-restrictions.enum';
 import { GpFormField } from '../../resources/form-field.model';
-import { TableServiceMock } from '@lib/services/api/table/table.service.mock';
+import { TableServiceMock } from './../../../../services/api/table/table.service.mock';
 
 describe('FormImgFieldComponent', () => {
   let component: FormImgFieldComponent;

@@ -5,6 +5,7 @@
 // Services
 export * from './lib/services/api/forgot-password/forgot-password.service';
 export * from './lib/services/api/login/login.service';
+export * from './lib/services/api/table/table-metadata.service';
 export * from './lib/services/api/main-menu/main-menu-provider.service';
 export * from './lib/services/api/main-menu/main-menu.service';
 export * from './lib/services/api/multi-language/multi-language.service';
@@ -26,30 +27,39 @@ export * from './lib/components/form-wrapper/resources/regex-validations.type';
 export * from './lib/resources/localization/es-ES.lang';
 
 // Resources (Classes)
+export * from './lib/components/table-wrapper/components/table-editable/resources/table-column-metadata.model';
+export * from './lib/components/table-wrapper/components/table-editable/resources/table-config.model';
+export * from './lib/components/table-wrapper/components/table-editable/resources/sort-direction.enum';
+export * from './lib/components/table-wrapper/components/table-editable/resources/selection-type.enum';
+export * from './lib/components/table-wrapper/components/table-editable/resources/custom-input.class';
+export * from './lib/components/table-wrapper/components/table-editable/resources/attachment.class';
+export * from './lib/components/table-wrapper/components/table-editable/resources/attachment-operation.enum';
+export * from './lib/components/table-wrapper/resources/gp-table-restrictions.enum';
 export * from './lib/resources/data/cached-element.model';
+export * from './lib/resources/data/data-table/filter/data-table-filter-type.enum';
+export * from './lib/resources/data/data-table/filter/data-table-filter.model';
+export * from './lib/resources/data/data-table/filter/related-field.class';
+export * from './lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
+export * from './lib/resources/data/data-table/meta-data/data-table-meta-data.model';
+export * from './lib/resources/data/data-table/sort/data-table-sort.model';
+export * from './lib/resources/data/error-information/error-information-field.model';
+export * from './lib/resources/data/error-information/error-information.model';
+export * from './lib/resources/data/filter/filter-operation-type.enum';
+export * from './lib/resources/data/filter/filter.model';
+export * from './lib/resources/data/gp-base.component';
 export * from './lib/resources/data/gp-select-item.model';
 export * from './lib/resources/data/gp-selector.model';
 export * from './lib/resources/data/info-campo-modificado.model';
+export * from './lib/resources/data/menu/menu-opcion-propiedades-propiedad.model';
+export * from './lib/resources/data/menu/menu-opcion-propiedades.model';
+export * from './lib/resources/data/menu/menu-opcion.model';
+export * from './lib/resources/data/menu/menu.model';
 export * from './lib/resources/data/param.model';
 export * from './lib/resources/data/request-options.model';
 export * from './lib/resources/data/rol-info.model';
-export * from './lib/resources/data/translation.model';
 export * from './lib/resources/data/translation-info.model';
+export * from './lib/resources/data/translation.model';
 export * from './lib/resources/data/user-info.model';
-export * from './lib/resources/data/data-table/filter/data-table-filter-type.enum';
-export * from './lib/resources/data/data-table/filter/data-table-filter.model';
-export * from './lib/resources/data/data-table/meta-data/data-table-meta-data.model';
-export * from './lib/resources/data/data-table/meta-data/data-table-meta-data-field.model';
-export * from './lib/resources/data/data-table/sort/data-table-sort.model';
-export * from './lib/resources/data/error-information/error-information.model';
-export * from './lib/resources/data/error-information/error-information-field.model';
-export * from './lib/resources/data/filter/filter.model';
-export * from './lib/resources/data/filter/filter-operation-type.enum';
-export * from './lib/components/table-wrapper/resources/gp-table-restrictions.enum';
-export * from './lib/resources/data/menu/menu.model';
-export * from './lib/resources/data/menu/menu-opcion.model';
-export * from './lib/resources/data/menu/menu-opcion-propiedades.model';
-export * from './lib/resources/data/menu/menu-opcion-propiedades-propiedad.model';
 
 // Directives
 export * from './lib/directives/focus-directive/focus.directive';
@@ -76,11 +86,12 @@ export * from './lib/components/main-menu/main-menu.component';
 export * from './lib/components/multi-language/multi-language.component';
 export * from './lib/components/multi-select/multi-select.component';
 export * from './lib/components/rating/rating.component';
+export * from './lib/components/redirect/redirect.component';
+export * from './lib/components/table-wrapper/components/table-editable/components/table-editable-row/table-editable-row.component';
+export * from './lib/components/table-wrapper/components/table-editable/table-editable.component';
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
 export * from './lib/components/topbar/topbar.component';
-export * from './lib/components/redirect/redirect.component';
-export * from './lib/resources/data/gp-base.component';
 
 // Component Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
