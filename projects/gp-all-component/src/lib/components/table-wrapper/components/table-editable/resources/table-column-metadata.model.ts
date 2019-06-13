@@ -35,7 +35,7 @@ export class TableColumnMetadata {
   sortable = true;
   translationInfo: TranslationInfo;
   trim = false;
-  readonly type: GpFormFieldType;
+  type: GpFormFieldType;
   uncheckedValue: string;
   uppercase = false;
   visible = true;
