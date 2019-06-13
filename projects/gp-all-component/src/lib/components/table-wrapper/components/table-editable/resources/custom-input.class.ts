@@ -1,5 +1,7 @@
 import { ControlValueAccessor } from '@angular/forms';
-const noop = () => {};
+const noop = () => {
+  //
+};
 
 export class CustomInput implements ControlValueAccessor {
   private innerValue: any = '';

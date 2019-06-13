@@ -97,6 +97,8 @@ export class FieldRestriction {
   restrictionType: string;
   minLength: number;
   maxLength: number;
+  maxValue: number;
+  minValue: number;
 }
 
 export class FieldDisplayInfo {

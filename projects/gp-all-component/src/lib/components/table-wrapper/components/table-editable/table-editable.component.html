@@ -22,7 +22,6 @@
       ></button>
     </div>
   </div>
-
   <table class="table-striped table-bordered">
     <thead class="ui-table-thead">
       <tr>
@@ -81,31 +80,6 @@
         </th>
       </tr>
     </thead>
-    <tfoot>
-      <tr>
-        <td [attr.colspan]="footerColspan">
-          <p-paginator
-            #pg
-            [rows]="config.itemsPerPage"
-            [totalRecords]="filteredData.length"
-            [pageLinkSize]="4"
-            (onPageChange)="changePage($event.first, $event.rows, $event.page, $event.pageCount)"
-            [rowsPerPageOptions]="config.itemsPerPageOptions"
-          ></p-paginator>
-        </td>
-      </tr>
-      <tr *ngIf="config.exportable" class="ui-table-caption">
-        <td [attr.colspan]="footerColspan" class="ui-widget-header ui-table-summary">
-          <button
-            pButton
-            label="Exportar a CSV"
-            icon="ui-icon-file-download"
-            (click)="exportToCsv()"
-            class="pull-left"
-          ></button>
-        </td>
-      </tr>
-    </tfoot>
     <tbody class="ui-table-tbody">
       <tr *ngIf="!sortedData || sortedData.length == 0">
         <td [attr.colspan]="footerColspan">
@@ -125,7 +99,6 @@
             [disabled]="!isSelectable(item)"
           />
         </td>
-        <!-- Edition -->
         <ng-template [ngIf]="item._editting && rowIndex" [ngIfElse]="normalRow">
           <ng-content
             *ngTemplateOutlet="
@@ -139,7 +112,6 @@
             "
           ></ng-content>
         </ng-template>
-        <!-- Visualization -->
         <ng-template #normalRow [ngIf]="rowIndex">
           <ng-content
             *ngTemplateOutlet="
@@ -259,7 +231,6 @@
       <ng-template [ngIf]="onCreation">
         <tr>
           <td *ngIf="config.selectable == SelectionType.MULTIPLE"></td>
-          <!-- index: rowIndex, -->
           <ng-content
             *ngTemplateOutlet="
               formTemplate ? formTemplate : defaultFormTemplate;
@@ -282,6 +253,32 @@
         </tr>
       </ng-template>
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td [attr.colspan]="footerColspan">
+          <p-paginator
+            #pg
+            [rows]="config.itemsPerPage"
+            [totalRecords]="filteredData.length"
+            [pageLinkSize]="4"
+            (onPageChange)="changePage($event.first, $event.rows, $event.page, $event.pageCount)"
+            [rowsPerPageOptions]="config.itemsPerPageOptions"
+          ></p-paginator>
+        </td>
+      </tr>
+      <tr *ngIf="config.exportable" class="ui-table-caption">
+        <td [attr.colspan]="footerColspan" class="ui-widget-header ui-table-summary">
+          <button
+            pButton
+            label="Exportar a CSV"
+            icon="ui-icon-file-download"
+            (click)="exportToCsv()"
+            class="pull-left"
+          ></button>
+        </td>
+      </tr>
+    </tfoot>
   </table>
 </div>
 <p-dialog [(visible)]="imgModalVisible.visible" [modal]="true">

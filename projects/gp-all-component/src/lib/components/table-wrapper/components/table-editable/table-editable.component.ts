@@ -40,10 +40,15 @@ export class TableEditableComponent {
   itemValid = true;
   onCreation = false;
   onEdition = false;
+
+  // tslint:disable-next-line: variable-name
   private _columns: TableColumnMetadata[] = [];
+
+  // tslint:disable-next-line: variable-name
   private _selectedData: any[] = [];
   readonly inputType = GpFormFieldType;
   textModalVisible: any = { visible: false };
+
   @ViewChild('pg') paginator: Paginator;
   /*
    * Context params
@@ -99,16 +104,19 @@ export class TableEditableComponent {
   @ViewChildren(TableEditableRowComponent) inputs: QueryList<TableEditableRowComponent>;
   @ViewChildren('formInput', { read: ElementRef }) formInputs: QueryList<ElementRef>;
   get filteredData() {
-    if (!isNullOrUndefined(this.data) && this.config.filterable) {
+    if (isNullOrUndefined(this.data)) {
+      return [];
+    }
+    if (this.config.filterable) {
       return this.data.filter((data) => {
         let valid = true;
-        for (let column of this.columns) {
+        for (const column of this.columns) {
           if (!column || !column.filter || !data[column.name]) {
             continue;
           }
-          let value = String(data[column.name]).toUpperCase();
-          let filter = String(column.filter).toUpperCase();
-          if (value.indexOf(filter) == -1) {
+          const value = String(data[column.name]).toUpperCase();
+          const filter = String(column.filter).toUpperCase();
+          if (value.indexOf(filter) === -1) {
             valid = false;
             break;
           }
@@ -124,17 +132,17 @@ export class TableEditableComponent {
       return this.filteredData;
     }
     return this.filteredData.sort((a, b) => {
-      let valueA = a[this.config.sortField];
-      let valueB = b[this.config.sortField];
+      const valueA = a[this.config.sortField];
+      const valueB = b[this.config.sortField];
       if (
-        (valueA < valueB && this.config.sortDirection == SortDirection.ASC) ||
-        (valueA > valueB && this.config.sortDirection == SortDirection.DESC)
+        (valueA < valueB && this.config.sortDirection === SortDirection.ASC) ||
+        (valueA > valueB && this.config.sortDirection === SortDirection.DESC)
       ) {
         return -1;
       }
       if (
-        (valueA > valueB && this.config.sortDirection == SortDirection.ASC) ||
-        (valueA < valueB && this.config.sortDirection == SortDirection.DESC)
+        (valueA > valueB && this.config.sortDirection === SortDirection.ASC) ||
+        (valueA < valueB && this.config.sortDirection === SortDirection.DESC)
       ) {
         return 1;
       }
@@ -153,7 +161,7 @@ export class TableEditableComponent {
       if (this.config && this.config.actionsColumn) {
         columnNumber += 1;
       }
-      if (this.config && this.config.selectable == SelectionType.MULTIPLE) {
+      if (this.config && this.config.selectable === SelectionType.MULTIPLE) {
         columnNumber += 1;
       }
       return columnNumber;
@@ -161,8 +169,8 @@ export class TableEditableComponent {
     return 0;
   }
   constructor(
-    private _confirmationService: ConfirmationService,
-    private _metadataService: TableMetadataService
+    private confirmationService: ConfirmationService,
+    private metadataService: TableMetadataService
   ) {}
   changeSort(column: TableColumnMetadata) {
     if (!this.config.sortable || !column.sortable) {
@@ -178,19 +186,17 @@ export class TableEditableComponent {
   }
   itemValueChanged(event: TableFieldEvent, item: any) {
     if (event && event.column) {
-      this.inputs.forEach(
-        (input: TableEditableRowComponent, index: number, inputs: TableEditableRowComponent[]) => {
-          if (
-            !input.isFilter &&
-            input.column.type === GpFormFieldType.DROPDOWN_RELATED &&
-            input.column.relatedFields.find((item) => {
-              return item.field === event.column.name;
-            })
-          ) {
-            input.getOptions();
-          }
+      this.inputs.forEach((input: TableEditableRowComponent) => {
+        if (
+          !input.isFilter &&
+          input.columnMetadata.type === GpFormFieldType.DROPDOWN_RELATED &&
+          input.columnMetadata.relatedFields.find((field) => {
+            return field.field === event.column.name;
+          })
+        ) {
+          input.getOptions();
         }
-      );
+      });
     }
     this.itemValid = this.isItemValid(item);
     this.stopEditingField.emit(event);
@@ -202,10 +208,10 @@ export class TableEditableComponent {
       this.inputs.forEach((input: TableEditableRowComponent) => {
         if (
           input.isFilter &&
-          input.column.type == GpFormFieldType.DROPDOWN_RELATED &&
-          input.column.relatedFields
+          input.columnMetadata.type === GpFormFieldType.DROPDOWN_RELATED &&
+          input.columnMetadata.relatedFields
         ) {
-          const related = input.column.relatedFields.find((item) => {
+          const related = input.columnMetadata.relatedFields.find((item) => {
             return item.field === column.name;
           });
           if (related) {
@@ -221,12 +227,12 @@ export class TableEditableComponent {
     this.config.itemsPerPage = rows;
   }
   clearFilters() {
-    for (let column of this.columns) {
+    for (const column of this.columns) {
       column.filter = null;
     }
   }
   isSelectable(item: any): boolean {
-    if (this.config.selectable == SelectionType.NONE) {
+    if (this.config.selectable === SelectionType.NONE) {
       return false;
     }
     return !(this.config.selectableFn && !this.config.selectableFn(item, null, this.selectedData));
@@ -235,19 +241,20 @@ export class TableEditableComponent {
     if (event) {
       event.stopPropagation();
     }
-    if (event && !event.target.tagName.startsWith('TR') && !event.target.tagName.startsWith('TD'))
+    if (event && !event.target.tagName.startsWith('TR') && !event.target.tagName.startsWith('TD')) {
       return;
+    }
     if (!this.isSelectable(item)) {
       return;
     }
-    if (this.config.selectable == SelectionType.SINGLE) {
+    if (this.config.selectable === SelectionType.SINGLE) {
       if (this.itemIsSelected(item)) {
         this.selectedData = [];
       } else {
         this.selectedData = [item];
       }
     }
-    if (this.config.selectable == SelectionType.MULTIPLE) {
+    if (this.config.selectable === SelectionType.MULTIPLE) {
       if (this.itemIsSelected(item)) {
         this.selectedData.splice(this.itemIndex(item), 1);
         this.selectedDataChange.emit(this.selectedData);
@@ -258,16 +265,16 @@ export class TableEditableComponent {
     }
   }
   itemIsSelected(item: any): boolean {
-    return this.itemIndex(item) != -1;
+    return this.itemIndex(item) !== -1;
   }
   itemIndex(item: any): number {
     return this.selectedData.findIndex((data) => {
       if (this.config.compareFn) {
         return this.config.compareFn(data, item);
       } else {
-        for (let column of this.columns) {
+        for (const column of this.columns) {
           if (column.isId) {
-            if (data[column.name] != item[column.name]) {
+            if (data[column.name] !== item[column.name]) {
               return false;
             }
           }
@@ -277,23 +284,23 @@ export class TableEditableComponent {
     });
   }
   allSelected(): boolean {
-    if (!this.selectedData || this.selectedData.length == 0) {
+    if (!this.selectedData || this.selectedData.length === 0) {
       return false;
     }
-    let selectableData = this.filteredData.filter((item, index, arr) => {
+    const selectableData = this.filteredData.filter((item, index, arr) => {
       if (this.config.selectableFn) {
         return this.config.selectableFn(item, index, arr);
       }
       return true;
     });
-    if (selectableData.length != this.selectedData.length) {
+    if (selectableData.length !== this.selectedData.length) {
       return false;
     }
     this.selectedData.forEach((item, index) => {
       if (this.config.compareFn && !this.config.compareFn(item, selectableData[index])) {
         return false;
       }
-      if (item != selectableData[index]) {
+      if (item !== selectableData[index]) {
         return false;
       }
     });
@@ -302,14 +309,14 @@ export class TableEditableComponent {
   // Select all filtered data
   toggleSelectAll() {
     if (
-      this.config.selectable == SelectionType.NONE ||
-      this.config.selectable == SelectionType.SINGLE
+      this.config.selectable === SelectionType.NONE ||
+      this.config.selectable === SelectionType.SINGLE
     ) {
       return;
     }
     if (!this.allSelected()) {
       this.selectedData = [];
-      for (let item of this.filteredData) {
+      for (const item of this.filteredData) {
         if (this.config.selectableFn && !this.config.selectableFn(item, null, this.selectedData)) {
           continue;
         }
@@ -321,44 +328,47 @@ export class TableEditableComponent {
     }
   }
   exportToCsv() {
-    let csvSeparator = ';';
+    const csvSeparator = ';';
     let data = this.filteredData;
     if (this.selectedData && this.selectedData.length > 0) {
       data = this.selectedData;
     }
     let csv = '\ufeff';
-    //headers
+    // headers
     for (let i = 0; i < this.columns.length; i++) {
-      let column = this.columns[i];
+      const column = this.columns[i];
       csv += '"' + (column.label || column.name) + '"';
       if (i < this.columns.length - 1) {
         csv += csvSeparator;
       }
     }
-    //body
+    // body
     data.forEach((row) => {
       csv += '\n';
-      for (let i_1 = 0; i_1 < this.columns.length; i_1++) {
-        let column = this.columns[i_1];
+      for (let k = 0; k < this.columns.length; k++) {
+        const column = this.columns[k];
         // TODO TypeService || TypePipe
         // var cellData = this.objectUtils.resolveFieldData(row, column.name);
         let cellData = row[column.name];
-        if (cellData != null) cellData = String(cellData).replace(/"/g, '""');
-        else cellData = '';
+        if (cellData !== null) {
+          cellData = String(cellData).replace(/"/g, '""');
+        } else {
+          cellData = '';
+        }
         csv += '"' + cellData + '"';
-        if (i_1 < this.columns.length - 1) {
+        if (k < this.columns.length - 1) {
           csv += csvSeparator;
         }
       }
     });
     // Export file
-    let blob = new Blob([csv], {
+    const blob = new Blob([csv], {
       type: 'text/csv;charset=utf-8;',
     });
     if (window.navigator.msSaveOrOpenBlob) {
       navigator.msSaveOrOpenBlob(blob, this.config.exportFilename + '.csv');
     } else {
-      let link = document.createElement('a');
+      const link = document.createElement('a');
       link.style.display = 'none';
       document.body.appendChild(link);
       if (link.download !== undefined) {
@@ -380,11 +390,11 @@ export class TableEditableComponent {
     this.itemValid = this.isItemValid(this.creationObject);
     this.onCreation = true;
     this.columns.forEach((column) => {
-      if (column.type == GpFormFieldType.CHECKBOX || column.type == GpFormFieldType.SWITCH) {
+      if (column.type === GpFormFieldType.CHECKBOX || column.type === GpFormFieldType.SWITCH) {
         if (!this.creationObject[column.name] && column.uncheckedValue) {
           this.creationObject[column.name] = column.uncheckedValue;
-          this.startEditingField.emit({ value: this.creationObject[column.name], column: column });
-          this.stopEditingField.emit({ value: this.creationObject[column.name], column: column });
+          this.startEditingField.emit({ value: this.creationObject[column.name], column });
+          this.stopEditingField.emit({ value: this.creationObject[column.name], column });
         }
       }
     });
@@ -393,7 +403,7 @@ export class TableEditableComponent {
   }
   // Arrow function to be used in external template without losing scope
   beforeDeleteItem = (item: any) => {
-    this._confirmationService.confirm({
+    this.confirmationService.confirm({
       message: 'Desea eliminar el registro?',
       accept: () => {
         this.deleteItem(item);
@@ -426,7 +436,7 @@ export class TableEditableComponent {
     if (this.onCreation || this.onEdition) {
       return;
     }
-    let editFn = (editItem: any) => {
+    const editFn = (editItem: any) => {
       this.editionObject = Object.assign({}, editItem);
       this.itemValid = this.isItemValid(this.editionObject);
       this.onEdition = true;
@@ -448,7 +458,7 @@ export class TableEditableComponent {
     setTimeout((_) => {
       const firstInput = this.formInputs.first;
       if (firstInput) {
-        let input = firstInput.nativeElement.querySelector('input');
+        const input = firstInput.nativeElement.querySelector('input');
         if (input) {
           input.focus();
         }
@@ -456,7 +466,7 @@ export class TableEditableComponent {
     }, 300);
   }
   beforeSaveItem(original: any, modified: any) {
-    let successSaved = (savedItem: any) => {
+    const successSaved = (savedItem: any) => {
       delete original._editting;
       this.onEdition = false;
       Object.assign(original, savedItem);
@@ -464,23 +474,23 @@ export class TableEditableComponent {
       this.stopEdition.emit({ item: savedItem, columns: this.columns });
     };
     if (this.config.beforeSaveFn) {
-      let modifiedItem = this.config.beforeSaveFn(original, modified);
+      const modifiedItem = this.config.beforeSaveFn(original, modified);
       this.save.emit({
-        original: original,
+        original,
         modified: modifiedItem,
         success: successSaved,
       });
     } else {
-      this.save.emit({ original: original, modified: modified, success: successSaved });
+      this.save.emit({ original, modified, success: successSaved });
     }
   }
   beforeCreateItem(item: any) {
-    let successCreated = (savedItem: any) => {
+    const successCreated = (savedItem: any) => {
       this.cancelCreate();
       this.createdItem.emit(savedItem);
     };
     if (this.config.beforeCreateFn) {
-      let modifiedItem = this.config.beforeCreateFn(item);
+      const modifiedItem = this.config.beforeCreateFn(item);
       this.create.emit({
         original: null,
         modified: modifiedItem,
@@ -492,8 +502,8 @@ export class TableEditableComponent {
   }
   cancel() {
     if (this.onEdition) {
-      let items = this.data.filter((item) => item._editting);
-      for (let item of items) {
+      const items = this.data.filter((item) => item._editting);
+      for (const item of items) {
         this.cancelEdit(item);
       }
     } else {
@@ -515,13 +525,13 @@ export class TableEditableComponent {
       return this.config.validateFn(item, this.columns);
     }
     let valid = true; // Use temp var instead direct return to check each column
-    for (let column of this.columns) {
+    for (const column of this.columns) {
       if (column.validateFn) {
         if (!column.validateFn(item[column.name], item, column)) {
           valid = false;
         }
       } else {
-        if (!this._metadataService.isValid(item[column.name], column, this.onCreation)) {
+        if (!this.metadataService.isValid(item[column.name], column, this.onCreation)) {
           valid = false;
         }
       }
@@ -532,6 +542,6 @@ export class TableEditableComponent {
     return item[`${column.name}Empty`] === false;
   }
   download(item: any, column: TableColumnMetadata) {
-    this.downloadFile.emit({ value: item, column: column });
+    this.downloadFile.emit({ value: item, column });
   }
 }

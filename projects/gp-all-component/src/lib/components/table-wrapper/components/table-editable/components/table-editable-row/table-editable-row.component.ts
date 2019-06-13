@@ -27,10 +27,10 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   form: FormGroup;
   editable: boolean;
   optionsList = [];
-  imgModalVisible: boolean = false;
-  textareaModalVisible: boolean = false;
-  wysiwygModalVisible: boolean = false;
-  fileModalVisible: boolean = false;
+  imgModalVisible = false;
+  textareaModalVisible = false;
+  wysiwygModalVisible = false;
+  fileModalVisible = false;
   calendarLocale = {
     firstDayOfWeek: 1,
     dayNames: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
@@ -65,12 +65,13 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
       'dic',
     ],
   };
-  dateFormat: string = 'yy-mm-dd';
-  translationKeys: string = '';
-  temporalValue: string = '';
+  dateFormat = 'yy-mm-dd';
+  translationKeys = '';
+  temporalValue = '';
   temoralFile = new Attachment();
   subject = new Subject();
-  @Input('columnMetadata') column = new TableColumnMetadata();
+
+  @Input() columnMetadata = new TableColumnMetadata();
   @Input() item: any; // item es el objeto row, con todos los campos
   @Input() isFilter: boolean;
   @Output() startEditing = new EventEmitter<TableFieldEvent>();
@@ -78,9 +79,9 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   @Output() downloadFile = new EventEmitter<TableFieldEvent>();
 
   constructor(
-    private _service: TableService,
+    private tableService: TableService,
     private messageService: MessageService,
-    private _metadataService: TableMetadataService,
+    private metadataService: TableMetadataService,
     private fb: FormBuilder
   ) {
     super();
@@ -96,41 +97,46 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
 
   ngAfterViewInit() {
     if (
-      this.column.type == GpFormFieldType.DROPDOWN ||
-      this.column.type == GpFormFieldType.DROPDOWN_RELATED
+      this.columnMetadata.type === GpFormFieldType.DROPDOWN ||
+      this.columnMetadata.type === GpFormFieldType.DROPDOWN_RELATED
     ) {
       this.getOptions();
     }
     if (
       !this.isFilter &&
-      (this.column.type == GpFormFieldType.CHECKBOX || this.column.type == GpFormFieldType.SWITCH)
+      (this.columnMetadata.type === GpFormFieldType.CHECKBOX ||
+        this.columnMetadata.type === GpFormFieldType.SWITCH)
     ) {
-      if (!this.value && this.column.uncheckedValue) {
-        this.startStop(this.column.uncheckedValue);
+      if (!this.value && this.columnMetadata.uncheckedValue) {
+        this.startStop(this.columnMetadata.uncheckedValue);
       }
     }
-    if (this.column.translationInfo && this.column.translationInfo.keyFields && this.item) {
+    if (
+      this.columnMetadata.translationInfo &&
+      this.columnMetadata.translationInfo.keyFields &&
+      this.item
+    ) {
       this.translationKeys = '';
-      for (let keyField of this.column.translationInfo.keyFields) {
+      for (const keyField of this.columnMetadata.translationInfo.keyFields) {
         this.translationKeys += this.item[keyField];
       }
     }
   }
 
   onModelChange(value: any) {
-    if (this.column.beforeChangeFn) {
-      let newValue = this.column.beforeChangeFn(this.item, value, this.column);
+    if (this.columnMetadata.beforeChangeFn) {
+      const newValue = this.columnMetadata.beforeChangeFn(this.item, value, this.columnMetadata);
       this.value = newValue;
-      this.stopEditing.emit({ value: this.value, column: this.column });
+      this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
     } else {
       this.value = value;
-      this.stopEditing.emit({ value: this.value, column: this.column });
+      this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
     }
   }
 
   isCheckboxChecked(): boolean {
-    if (this.column.checkedValue) {
-      return this.column.checkedValue === this.value;
+    if (this.columnMetadata.checkedValue) {
+      return this.columnMetadata.checkedValue === this.value;
     } else {
       return this.value;
     }
@@ -138,9 +144,9 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
 
   onCheckboxChange(value: any) {
     if (value) {
-      this.startStop(this.column.checkedValue || value);
+      this.startStop(this.columnMetadata.checkedValue || value);
     } else {
-      this.startStop(this.column.uncheckedValue || value);
+      this.startStop(this.columnMetadata.uncheckedValue || value);
     }
   }
 
@@ -150,20 +156,20 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   }
 
   setTimeValue(date: Date) {
-    let value = date.toLocaleTimeString().substr(0, 5);
+    const value = date.toLocaleTimeString().substr(0, 5);
     this.startStop(value);
   }
 
   isEditable() {
-    if (this.column.validateFn) {
-      return this.column.editableFn(this.value, this.item, this.column);
+    if (this.columnMetadata.validateFn) {
+      return this.columnMetadata.editableFn(this.value, this.item, this.columnMetadata);
     } else {
-      return this._metadataService.isEditable(this.value, this.item, this.column);
+      return this.metadataService.isEditable(this.value, this.item, this.columnMetadata);
     }
   }
 
   onStartEditing() {
-    this.startEditing.emit({ value: this.value, column: this.column });
+    this.startEditing.emit({ value: this.value, column: this.columnMetadata });
   }
 
   openImgModal() {
@@ -203,13 +209,13 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   }
 
   getOptions() {
-    if (this.column.referencedTable) {
+    if (this.columnMetadata.referencedTable) {
       this.getRelatedOptions();
     } else {
-      if (this.column.setOptionsFn) {
-        this.setCustomOptions(this.column.options || []);
+      if (this.columnMetadata.setOptionsFn) {
+        this.setCustomOptions(this.columnMetadata.options || []);
       } else {
-        this.setOptions(this.column.options || []);
+        this.setOptions(this.columnMetadata.options || []);
       }
     }
   }
@@ -219,11 +225,13 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
       this.subject
         .pipe(
           switchMap(() => {
-            let filters: Filter[] = [];
-            if (this.column && this.column.relatedFields) {
-              for (let related of this.column.relatedFields) {
-                // Validation disabled to prevent get All elements when related fields are not selected
-                // if (this.item[related.field] !== null && this.item[related.field] !== undefined) {
+            const filters: Filter[] = [];
+            if (this.columnMetadata && this.columnMetadata.relatedFields) {
+              for (const related of this.columnMetadata.relatedFields) {
+                // Validation disabled to prevent get All elements when related
+                // fields are not selected
+                // if (this.item[related.field] !== null &&
+                // this.item[related.field] !== undefined) {
                 filters.push(
                   new Filter(
                     FilterOperationType.EQUAL,
@@ -234,11 +242,11 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
                 // }
               }
             }
-            return this._service.list(
-              this.column.referencedTable,
-              this.column.retrieveMetadata,
+            return this.tableService.list(
+              this.columnMetadata.referencedTable,
+              this.columnMetadata.retrieveMetadata,
               false,
-              this.column.fieldToOrderBy || null,
+              this.columnMetadata.fieldToOrderBy || null,
               filters
             );
           })
@@ -246,14 +254,14 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
         .subscribe(
           (data) => {
             if (data.ok) {
-              if (this.column.setOptionsFn) {
+              if (this.columnMetadata.setOptionsFn) {
                 this.setCustomOptions(data.data);
               } else {
                 // caso no tenemos una setOptionsFn
                 this.setOptions(data.data);
               }
             } else {
-              if (this.column.setOptionsFn) {
+              if (this.columnMetadata.setOptionsFn) {
                 this.setCustomOptions([]);
               } else {
                 this.optionsList = [{ label: 'Error recuperando datos.', value: null }];
@@ -266,7 +274,7 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
             }
           },
           (err) => {
-            if (this.column.setOptionsFn) {
+            if (this.columnMetadata.setOptionsFn) {
               this.setCustomOptions([]);
             } else {
               this.optionsList = [{ label: 'Error recuperando datos.', value: null }];
@@ -285,7 +293,7 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
 
   setCustomOptions(customData: any[]) {
     // caso setOptionsFn es Observable
-    let opts = this.column.setOptionsFn(customData, this.item, this.column);
+    const opts = this.columnMetadata.setOptionsFn(customData, this.item, this.columnMetadata);
     if (opts instanceof Observable) {
       opts.subscribe(
         (data) => {
@@ -293,8 +301,7 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
         },
         (e) => {
           this.optionsList = [{ label: 'Error recuperando datos.', value: null }];
-        },
-        () => {}
+        }
       );
     } else {
       // caso setOptionsFn es any[]
@@ -310,7 +317,7 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
       const base64 = (reader.result as string).split(',');
       if (base64 && base64.length > 1) {
         this.temoralFile.operation = AttachmentOperationEnum.MODIFY;
-        this.temoralFile.fieldName = this.column.name;
+        this.temoralFile.fieldName = this.columnMetadata.name;
         this.temoralFile.fileName = file.name;
         this.temoralFile.mimeType = file.type;
         this.temoralFile.content = base64[1];
@@ -319,31 +326,31 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   }
 
   setOptions(options: any[]) {
-    let _options = [
+    const optionsFormatted = [
       {
-        label: 'Seleccione ' + this.column.name.toLowerCase() + ' ...',
+        label: 'Seleccione ' + this.columnMetadata.name.toLowerCase() + ' ...',
         value: null,
       },
     ];
-    for (let row of options) {
+    for (const row of options) {
       let optionLabel = '';
       let separator = '';
       // row._label = "";
-      for (let fieldDesc of this.column.optionsLabels) {
+      for (const fieldDesc of this.columnMetadata.optionsLabels) {
         optionLabel += separator + row[fieldDesc];
         separator = ' - ';
       }
-      _options.push({
+      optionsFormatted.push({
         label: optionLabel,
-        value: row[this.column.optionsValue],
+        value: row[this.columnMetadata.optionsValue],
       });
     }
-    this.optionsList = _options;
+    this.optionsList = optionsFormatted;
   }
 
   hasFile(): boolean {
     return (
-      (this.item[`${this.column.name}Empty`] === false && !this.value) ||
+      (this.item[`${this.columnMetadata.name}Empty`] === false && !this.value) ||
       (this.value && this.value.operation === AttachmentOperationEnum.MODIFY)
     );
   }
@@ -351,12 +358,12 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   deleteFile() {
     if (!this.value) {
       const deleteAttachment = new Attachment();
-      deleteAttachment.fieldName = this.column.name;
+      deleteAttachment.fieldName = this.columnMetadata.name;
       deleteAttachment.operation = AttachmentOperationEnum.DELETE;
       this.startStop(deleteAttachment);
     } else {
       this.value = null;
-      this.item[`${this.column.name}Empty`] = true;
+      this.item[`${this.columnMetadata.name}Empty`] = true;
       this.startStop(this.value);
     }
   }

@@ -7,15 +7,15 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class TableMetadataService {
   getTableColumnsFromMetadata(metadata: FieldMetadata[]): TableColumnMetadata[] {
-    let columns: TableColumnMetadata[] = [];
-    for (let field of metadata) {
+    const columns: TableColumnMetadata[] = [];
+    for (const field of metadata) {
       columns.push(this.getTableColumnFromFieldMetadata(field));
     }
     return columns;
   }
 
   getTableColumnFromFieldMetadata(metadata: FieldMetadata): TableColumnMetadata {
-    let column = new TableColumnMetadata();
+    const column = new TableColumnMetadata();
     column.name = metadata.fieldName;
     this.getRequired(metadata, column);
     column.editable = !metadata.readOnly;
@@ -56,8 +56,8 @@ export class TableMetadataService {
     if (metadata.id || metadata.notNull) {
       column.required = true;
     } else {
-      for (let restriction of metadata.restrictions) {
-        if (restriction.restrictionType == TableService.RESTRICTION_NOT_NULL) {
+      for (const restriction of metadata.restrictions) {
+        if (restriction.restrictionType === TableService.RESTRICTION_NOT_NULL) {
           column.required = true;
           break;
         }
@@ -151,7 +151,7 @@ export class TableMetadataService {
 
   getTextProperties(metadata: FieldMetadata, column: TableColumnMetadata) {
     if (metadata.displayInfo.textProperties) {
-      for (let property of metadata.displayInfo.textProperties) {
+      for (const property of metadata.displayInfo.textProperties) {
         switch (property) {
           case TableService.TEXT_UPPERCASE: {
             column.uppercase = true;
@@ -174,7 +174,7 @@ export class TableMetadataService {
     if (metadata.fieldMaxLength > 0) {
       column.maxLength = metadata.fieldMaxLength;
     }
-    for (let restriction of metadata.restrictions) {
+    for (const restriction of metadata.restrictions) {
       switch (restriction.restrictionType) {
         case TableService.RESTRICTION_MAX_LENGTH: {
           if (!column.maxLength) {
@@ -187,11 +187,11 @@ export class TableMetadataService {
           break;
         }
         case TableService.RESTRICTION_MAX_VALUE: {
-          column.maxValue = restriction['maxValue'];
+          column.maxValue = restriction.maxValue;
           break;
         }
         case TableService.RESTRICTION_MIN_VALUE: {
-          column.maxValue = restriction['minValue'];
+          column.maxValue = restriction.minValue;
           break;
         }
       }
@@ -204,7 +204,7 @@ export class TableMetadataService {
     if (column.type === GpFormFieldType.FILE || (onCreation && column.hideInAddOperation)) {
       return true;
     }
-    //Comprueba si el campo está vacío
+    // Comprueba si el campo está vacío
     if (column.required && (value === undefined || value === null || value === '')) {
       // 0 or false are valid values
       column.messages.push('El valor es obligatorio.');
@@ -212,14 +212,15 @@ export class TableMetadataService {
     }
     if (value !== undefined && value !== null) {
       if (column.noSpace && /\s/.test(value)) {
-        //Si tiene noSpace como una restricción y el texto contiene espacios no es válido
+        // Si tiene noSpace como una restricción y el texto contiene
+        // espacios no es válido
         column.messages.push('El valor indicado no puede contener espacios.');
         return false;
       } else if (
         column.allowAscii &&
         (/[\u0000-\u0019]/.test(value) || /[\u0080-\uFFFF]/.test(value))
       ) {
-        //Comprueba el texto en busca de caracteres no válidos
+        // Comprueba el texto en busca de caracteres no válidos
         column.messages.push(
           'El valor indicado contiene caracteres no válidos (acentos, eñes, c cedillas, ...)'
         );

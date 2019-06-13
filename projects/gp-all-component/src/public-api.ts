@@ -88,7 +88,7 @@ export * from './lib/components/multi-select/multi-select.component';
 export * from './lib/components/rating/rating.component';
 export * from './lib/components/redirect/redirect.component';
 export * from './lib/components/table-wrapper/components/table-editable/components/table-editable-row/table-editable-row.component';
-// export * from './lib/components/table-wrapper/components/table-editable/table-editable.component';
+export * from './lib/components/table-wrapper/components/table-editable/table-editable.component';
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
 export * from './lib/components/topbar/topbar.component';

@@ -5,8 +5,9 @@ import { SharedModule } from './../../../../shared/shared.module';
 import { MultiLanguageModule } from './../../../multi-language/multi-language.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableEditableComponent } from './table-editable.component';
+import { ConfirmationService } from 'primeng/api';
 
-fdescribe('TableEditableComponent', () => {
+describe('TableEditableComponent', () => {
   let component: TableEditableComponent;
   let fixture: ComponentFixture<TableEditableComponent>;
 
@@ -14,7 +15,7 @@ fdescribe('TableEditableComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TableEditableComponent, TableEditableRowComponent],
       imports: [SharedModule, MultiLanguageModule],
-      providers: [TableMetadataService, MessagesService],
+      providers: [TableMetadataService, MessagesService, ConfirmationService],
     }).compileComponents();
   }));
 
@@ -25,7 +26,6 @@ fdescribe('TableEditableComponent', () => {
   });
 
   it('should create', () => {
-    debugger;
     expect(component).toBeTruthy();
   });
 });
