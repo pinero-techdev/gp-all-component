@@ -75,3 +75,4 @@ export * from './components/tables/gp-treetable.component';
 //Services
 export * from './services/treetable.service';
 export * from './services/extendTable.service';
+export * from './services/extendlogin.service';
