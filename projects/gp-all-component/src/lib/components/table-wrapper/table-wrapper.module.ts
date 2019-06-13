@@ -1,4 +1,4 @@
-// import { TableEditableComponent } from './components/table-editable/table-editable.component';
+import { TableEditableComponent } from './components/table-editable/table-editable.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableCrudComponent } from './components/table-crud/table-crud.component';
@@ -10,11 +10,12 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 import { TableEditableRowComponent } from './components/table-editable/components/table-editable-row/table-editable-row.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TableMetadataService } from '../../services/api/table/table-metadata.service';
 
 @NgModule({
   declarations: [
     TableCrudComponent,
-    // TableEditableComponent,
+    TableEditableComponent,
     TableEditableRowComponent,
     TableFrameComponent,
   ],
@@ -25,10 +26,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     TableWrapperSharedModules,
   ],
-  providers: [TableWrapperSharedProviders],
+  providers: [TableWrapperSharedProviders, TableMetadataService],
   exports: [
     TableCrudComponent,
-    // TableEditableComponent,
+    TableEditableComponent,
     TableEditableRowComponent,
     TableFrameComponent,
   ],

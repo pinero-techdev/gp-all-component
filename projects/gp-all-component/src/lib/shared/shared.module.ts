@@ -12,15 +12,18 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessageService } from 'primeng/primeng';
+import { PaginatorModule } from 'primeng/paginator';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { MenuModule } from 'primeng/menu';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 @NgModule({
-  declarations: [],
   imports: [
     CalendarModule,
+    ConfirmDialogModule,
     EditorModule,
     ButtonModule,
     CheckboxModule,
@@ -33,6 +36,7 @@ import { MenuModule } from 'primeng/menu';
     MessageModule,
     MessagesModule,
     MultiSelectModule,
+    PaginatorModule,
     ProgressSpinnerModule,
     ScrollPanelModule,
     ToastModule,
@@ -40,6 +44,7 @@ import { MenuModule } from 'primeng/menu';
   ],
   exports: [
     CalendarModule,
+    ConfirmDialogModule,
     EditorModule,
     ButtonModule,
     CheckboxModule,
@@ -52,11 +57,12 @@ import { MenuModule } from 'primeng/menu';
     MessageModule,
     MessagesModule,
     MultiSelectModule,
+    PaginatorModule,
     ProgressSpinnerModule,
     ScrollPanelModule,
     ToastModule,
     TooltipModule,
   ],
-  providers: [MessageService],
+  providers: [ConfirmationService, MessageService],
 })
 export class SharedModule {}

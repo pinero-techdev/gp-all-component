@@ -1,5 +1,5 @@
 <p-confirmDialog></p-confirmDialog>
-<p-growl></p-growl>
+<p-toast></p-toast>
 <div class="ui-table ui-widget">
   <div class="ui-g table-header" style="text-align: left;">
     <div class="ui-g-10">{{ config.title }}</div>
@@ -67,13 +67,13 @@
         </th>
         <ng-template ngFor [ngForOf]="columns" let-column>
           <th *ngIf="column.visible">
-            <gp-app-input-with-metadata
+            <gp-table-editable-row
               [ngModel]="column.filter"
               (ngModelChange)="changeFilter(column, $event)"
               [columnMetadata]="column"
               [isFilter]="true"
               *ngIf="column.filterable"
-            ></gp-app-input-with-metadata>
+            ></gp-table-editable-row>
           </th>
         </ng-template>
         <th *ngIf="config.actionsColumn">
@@ -126,7 +126,7 @@
           />
         </td>
         <!-- Edition -->
-        <ng-template [ngIf]="item._editting" [ngIfElse]="normalRow">
+        <ng-template [ngIf]="item._editting && rowIndex" [ngIfElse]="normalRow">
           <ng-content
             *ngTemplateOutlet="
               formTemplate ? formTemplate : defaultFormTemplate;
@@ -140,7 +140,7 @@
           ></ng-content>
         </ng-template>
         <!-- Visualization -->
-        <ng-template #normalRow>
+        <ng-template #normalRow [ngIf]="rowIndex">
           <ng-content
             *ngTemplateOutlet="
               rowTemplate ? rowTemplate : defaultRowTemplate;
@@ -155,7 +155,7 @@
             <ng-template ngFor [ngForOf]="columns" let-column>
               <td *ngIf="column.visible" class="gp-grid-table-cell">
                 <ng-container [ngSwitch]="column.type">
-                  <ng-template [ngSwitchCase]="InputType.FILE_FIELD">
+                  <ng-template [ngSwitchCase]="inputType.FILE">
                     <button
                       pButton
                       icon="ui-icon-file-download"
@@ -164,7 +164,7 @@
                     ></button>
                   </ng-template>
                   <button
-                    *ngSwitchCase="InputType.IMG_FIELD"
+                    *ngSwitchCase="inputType.IMG"
                     pButton
                     icon="ui-icon-remove-red-eye"
                     (click)="
@@ -172,7 +172,7 @@
                     "
                   ></button>
                   <button
-                    *ngSwitchCase="InputType.WYSIWYG_FIELD"
+                    *ngSwitchCase="inputType.WYSIWYG"
                     icon="ui-icon-remove-red-eye"
                     pButton
                     (click)="
@@ -180,7 +180,7 @@
                     "
                   ></button>
                   <button
-                    *ngSwitchCase="InputType.TEXTAREA_FIELD"
+                    *ngSwitchCase="inputType.TEXT_AREA"
                     icon="ui-icon-remove-red-eye"
                     pButton
                     (click)="
@@ -206,7 +206,7 @@
           </ng-template>
         </ng-template>
         <td *ngIf="config.actionsColumn" class="actions-colum">
-          <ng-template [ngIf]="!item._editting">
+          <ng-template [ngIf]="!item._editting && rowIndex">
             <ng-content
               *ngTemplateOutlet="
                 actionsTemplate ? actionsTemplate : defaultActionsTemplate;
@@ -259,12 +259,12 @@
       <ng-template [ngIf]="onCreation">
         <tr>
           <td *ngIf="config.selectable == SelectionType.MULTIPLE"></td>
+          <!-- index: rowIndex, -->
           <ng-content
             *ngTemplateOutlet="
               formTemplate ? formTemplate : defaultFormTemplate;
               context: {
                 $implicit: creationObject,
-                index: rowIndex,
                 columns: columns
               }
             "
@@ -286,9 +286,9 @@
 </div>
 <p-dialog [(visible)]="imgModalVisible.visible" [modal]="true">
   <img
+    *ngIf="imgModalVisible.visible"
     [src]="imgModalVisible.img"
     style="width: 100%; max-height: 50%;"
-    *ngIf="imgModalVisible.visible"
   />
   <p-footer>
     <button
@@ -313,7 +313,7 @@
 <ng-template #defaultFormTemplate let-item let-columns="columns">
   <ng-template ngFor [ngForOf]="columns" let-column>
     <td *ngIf="column.visible">
-      <gp-app-input-with-metadata
+      <gp-table-editable-row
         [(ngModel)]="item[column.name]"
         [item]="item"
         *ngIf="!onCreation || !column.hideInAddOperation"
@@ -322,7 +322,7 @@
         (startEditing)="startEditingField.emit($event)"
         (stopEditing)="itemValueChanged($event, item)"
         (downloadFile)="download(item, column)"
-      ></gp-app-input-with-metadata>
+      ></gp-table-editable-row>
     </td>
   </ng-template>
 </ng-template>
