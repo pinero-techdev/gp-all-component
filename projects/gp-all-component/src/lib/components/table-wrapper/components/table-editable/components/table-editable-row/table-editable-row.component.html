@@ -1,9 +1,9 @@
-<div class="ui-inputgroup nopad" *ngIf="column" [ngSwitch]="column.type">
+<div class="ui-inputgroup nopad" *ngIf="columnMetadata" [ngSwitch]="columnMetadata.type">
   <i
     class="material-icons"
     style="color: #ffba01;"
-    *ngIf="!isFilter && column.messages && column.messages.length > 0"
-    [pTooltip]="column.messages"
+    *ngIf="!isFilter && columnMetadata.messages && columnMetadata.messages.length > 0"
+    [pTooltip]="columnMetadata.messages"
     tooltipPosition="top"
     >warning</i
   >
@@ -20,10 +20,10 @@
     #numberInput
     [ngModel]="value"
     (ngModelChange)="isFilter ? onModelChange($event) : null"
-    [minlength]="column.minLength"
-    [maxlength]="column.maxLength"
-    [max]="column.maxValue"
-    [min]="column.minValue"
+    [minlength]="columnMetadata.minLength"
+    [maxlength]="columnMetadata.maxLength"
+    [max]="columnMetadata.maxValue"
+    [min]="columnMetadata.minValue"
     (focus)="onStartEditing()"
     (change)="!isFilter ? onModelChange(numberInput.value) : null"
     [disabled]="!isEditable()"
@@ -127,8 +127,8 @@
   </p-dropdown>
   <ng-template ngSwitchDefault>
     <div
-      [class.ui-g-12]="column.translationInfo == null || translationKeys == ''"
-      [class.ui-g-10]="column.translationInfo != null && translationKeys != ''"
+      [class.ui-g-12]="columnMetadata.translationInfo == null || translationKeys == ''"
+      [class.ui-g-10]="columnMetadata.translationInfo != null && translationKeys != ''"
       class="nopad"
     >
       <input
@@ -140,22 +140,25 @@
         [ngModel]="value"
         (ngModelChange)="isFilter ? onModelChange($event) : null"
         (change)="!isFilter ? onModelChange(textInput.value) : null"
-        [maxlength]="column.maxLength"
-        [minlength]="column.minLength"
+        [maxlength]="columnMetadata.maxLength"
+        [minlength]="columnMetadata.minLength"
         (focus)="onStartEditing()"
         [disabled]="!isEditable()"
-        [value]="column.uppercase"
+        [value]="columnMetadata.uppercase"
       />
     </div>
-    <div class="ui-g-2 nopad" *ngIf="column.translationInfo != null && translationKeys != ''">
+    <div
+      class="ui-g-2 nopad"
+      *ngIf="columnMetadata.translationInfo != null && translationKeys != ''"
+    >
       <gp-multi-language
         [pKey]="translationKeys"
-        [schema]="column.translationInfo.scheme"
-        [table]="column.translationInfo.table"
-        [field]="column.translationInfo.field"
-        [description]="column.translationInfo.description"
-        [isEditing]="column.translationInfo.allowEdition"
-        [orderByLangCod]="column.translationInfo.orderByLangCod"
+        [schema]="columnMetadata.translationInfo.scheme"
+        [table]="columnMetadata.translationInfo.table"
+        [field]="columnMetadata.translationInfo.field"
+        [description]="columnMetadata.translationInfo.description"
+        [isEditing]="columnMetadata.translationInfo.allowEdition"
+        [orderByLangCod]="columnMetadata.translationInfo.orderByLangCod"
       >
       </gp-multi-language>
     </div>
@@ -164,7 +167,7 @@
 
 <!--Image input modal-->
 <p-dialog
-  *ngIf="column.type == inputType.IMG"
+  *ngIf="columnMetadata.type == inputType.IMG"
   [(visible)]="imgModalVisible"
   header="Editor imagen (URL)"
   [modal]="true"
@@ -174,10 +177,10 @@
     pInputText
     type="text"
     gpUppercase
-    [value]="column.uppercase"
+    [value]="columnMetadata.uppercase"
     [(ngModel)]="temporalValue"
-    [maxlength]="column.maxLength"
-    [minlength]="column.minLength"
+    [maxlength]="columnMetadata.maxLength"
+    [minlength]="columnMetadata.minLength"
     [disabled]="!isEditable()"
     class="full-width"
   />
@@ -200,37 +203,38 @@
 <!--Textarea input modal-->
 <p-dialog
   [(visible)]="textareaModalVisible"
-  *ngIf="column.type == inputType.TEXT_AREA"
+  *ngIf="columnMetadata.type == inputType.TEXT_AREA"
   header="Editor textarea"
   [modal]="true"
 >
   <div
     [class.ui-g-12]="
-      column.translationInfo == null || (column.translationInfo != null && translationKeys == '')
+      columnMetadata.translationInfo == null ||
+      (columnMetadata.translationInfo != null && translationKeys == '')
     "
-    [class.ui-g-10]="column.translationInfo != null && translationKeys != ''"
+    [class.ui-g-10]="columnMetadata.translationInfo != null && translationKeys != ''"
     class="nopad"
   >
     <textarea
       pInputTextarea
       [(ngModel)]="temporalValue"
-      [rows]="column.rows"
+      [rows]="columnMetadata.rows"
       class="full-width"
-      [maxlength]="column.maxLength"
-      [minlength]="column.minLength"
+      [maxlength]="columnMetadata.maxLength"
+      [minlength]="columnMetadata.minLength"
       [disabled]="!isEditable()"
     >
     </textarea>
   </div>
-  <div class="ui-g-2 nopad" *ngIf="column.translationInfo != null && translationKeys != ''">
+  <div class="ui-g-2 nopad" *ngIf="columnMetadata.translationInfo != null && translationKeys != ''">
     <gp-multi-language
       [pKey]="translationKeys"
-      [schema]="column.translationInfo.scheme"
-      [table]="column.translationInfo.table"
-      [field]="column.translationInfo.field"
-      [description]="column.translationInfo.description"
-      [isEditing]="column.translationInfo.allowEdition"
-      [orderByLangCod]="column.translationInfo.orderByLangCod"
+      [schema]="columnMetadata.translationInfo.scheme"
+      [table]="columnMetadata.translationInfo.table"
+      [field]="columnMetadata.translationInfo.field"
+      [description]="columnMetadata.translationInfo.description"
+      [isEditing]="columnMetadata.translationInfo.allowEdition"
+      [orderByLangCod]="columnMetadata.translationInfo.orderByLangCod"
     >
     </gp-multi-language>
   </div>
@@ -253,7 +257,7 @@
 <!--WYSIWYG input modal-->
 <p-dialog
   [(visible)]="wysiwygModalVisible"
-  *ngIf="column.type == inputType.WYSIWYG"
+  *ngIf="columnMetadata.type == inputType.WYSIWYG"
   header="Editor WYSIWYG"
   [modal]="true"
 >
@@ -279,7 +283,7 @@
 <!--File input modal-->
 <p-dialog
   [(visible)]="fileModalVisible"
-  *ngIf="column.type == inputType.FILE"
+  *ngIf="columnMetadata.type == inputType.FILE"
   header="Seleccionar archivo"
   [modal]="true"
 >
