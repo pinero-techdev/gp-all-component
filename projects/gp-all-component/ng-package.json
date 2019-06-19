@@ -6,7 +6,8 @@
     "externals": {
       "primeng/primeng": "primeng",
       "primeflex": "primeflex",
-      "primeicons": "primeicons"
+      "primeicons": "primeicons",
+      "file-saver": "file-saver"
     },
     "umdModuleIds": {
       "@angular/animations": "@angular/animations",

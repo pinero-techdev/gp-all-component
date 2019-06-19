@@ -12,7 +12,6 @@ import {
   SelectOneRowRs,
   InsertRowRs,
 } from './../../../../services/api/table/table.service';
-import { Observable } from 'rxjs';
 import { Filter } from './../../../../resources/data/filter/filter.model';
 import { FilterOperationType } from './../../../../resources/data/filter/filter-operation-type.enum';
 import {
@@ -35,6 +34,7 @@ import { InfoCampoModificado } from './../../../../resources/data/info-campo-mod
 import { GpFormFieldType } from './../../../../components/form-wrapper/resources/form-field-type.enum';
 import { GpFormField } from './../../../../components/form-wrapper/resources/form-field.model';
 import { LocaleES } from './../../../../resources/localization';
+import { Observable } from 'rxjs';
 
 describe('TableCrudComponent', () => {
   let component: TableCrudComponent;

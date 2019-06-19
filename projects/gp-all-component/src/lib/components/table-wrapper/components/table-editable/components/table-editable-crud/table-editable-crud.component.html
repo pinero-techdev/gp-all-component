@@ -1,0 +1,26 @@
+<div *ngIf="loading">
+  <gp-app-loading-indicator></gp-app-loading-indicator>
+</div>
+<gp-app-editable-table
+  *ngIf="!loading"
+  [columns]="columns"
+  [config]="tableConfig"
+  [data]="data"
+  [(selectedData)]="selectedData"
+  [rowTemplate]="rowTemplate"
+  [actionsTemplate]="actionsTemplate"
+  [formTemplate]="formTemplate"
+  (save)="saveItem($event)"
+  (edit)="getOne($event)"
+  (create)="createItem($event)"
+  (delete)="deleteItem($event)"
+  (downloadFile)="downloadFile($event)"
+  (startEditingField)="startEditingField.emit($event)"
+  (stopEditingField)="stopEditingField.emit($event)"
+  (startEdition)="startEdition.emit($event)"
+  (stopEdition)="stopEdition.emit($event)"
+  (cancelEdition)="cancelEdition.emit($event)"
+  (deletedItem)="loadTable(); deletedItem.emit($event)"
+  (createdItem)="loadTable(); createdItem.emit($event)"
+></gp-app-editable-table>
+<p-growl></p-growl>

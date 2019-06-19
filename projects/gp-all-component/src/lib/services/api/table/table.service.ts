@@ -2,11 +2,13 @@ import { Filter } from './../../../resources/data/filter/filter.model';
 import { CommonRs, CommonService } from '../../core/common.service';
 import { DataTableMetaData } from './../../../resources/data/data-table/meta-data/data-table-meta-data.model';
 import { GlobalService } from '../../core/global.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RelatedField } from '../../../resources/data/data-table/filter/related-field.class';
 import { TranslationInfo } from './../../../resources/data/translation-info.model';
+import { Attachment } from '../../../components/table-wrapper/components/table-editable/resources/attachment.class';
+import { map } from 'rxjs/operators';
 export class ListRs extends CommonRs {
   data: any[];
   metadata: DataTableMetaData;
@@ -19,6 +21,7 @@ export class MetadataRs extends CommonRs {
 export class UpdateRowRq {
   jsonModifiedRow: string;
   jsonOriginalRow: string;
+  attachments: any[];
 }
 
 export class DeleteRowRq {
@@ -27,6 +30,7 @@ export class DeleteRowRq {
 
 export class InsertRowRq {
   jsonNewRow: string;
+  attachments: any[];
 }
 
 export class InsertRowRs extends CommonRs {
@@ -50,6 +54,11 @@ export class GetAttachmentRq extends SelectOneRowRq {
 export class TableMetadata {
   fields: FieldMetadata[];
   tableLabel: string;
+}
+
+export class FileRs {
+  blob: Blob;
+  fileName: string;
 }
 
 export class FieldMetadata {
@@ -283,10 +292,16 @@ export class TableService extends CommonService {
   /**
    * Llamada para actualizar un registro.
    */
-  updateRow(tableName: string, original: any, modificado: any): Observable<CommonRs> {
+  updateRow(
+    tableName: string,
+    original: any,
+    modificado: any,
+    attachments?: Attachment[]
+  ): Observable<CommonRs> {
     const rq = new UpdateRowRq();
     rq.jsonOriginalRow = JSON.stringify(original);
     rq.jsonModifiedRow = JSON.stringify(modificado);
+    rq.attachments = attachments;
     return this.post<CommonRs>(
       `${GlobalService.getBASE_URL()}/table_svc/${tableName}/updateRow`,
       rq
@@ -308,12 +323,35 @@ export class TableService extends CommonService {
   /**
    * Llamada para insertar un registro.
    */
-  insertRow(tableName: string, original: any): Observable<InsertRowRs> {
+  insertRow(tableName: string, original: any, attachments?: Attachment[]): Observable<InsertRowRs> {
     const rq = new InsertRowRq();
     rq.jsonNewRow = JSON.stringify(original);
     return this.post<InsertRowRs>(
       `${GlobalService.getBASE_URL()}/table_svc/${tableName}/insertRow`,
       rq
+    );
+  }
+
+  downloadFile(tableName: string, item: any, field: string): Observable<FileRs> {
+    const rq = new GetAttachmentRq();
+    rq.jsonRowToSelect = JSON.stringify(item);
+    rq.fieldName = field;
+    return this.fileRequest(
+      `${GlobalService.getBASE_URL()}/table_svc/${tableName}/getAttachment`,
+      rq
+    ).pipe(
+      map((response: HttpResponse<any>) => {
+        const fileRs = new FileRs();
+        fileRs.blob = response.body;
+        const contentDisposition = response.headers.get('Content-Disposition');
+        if (contentDisposition && contentDisposition !== '') {
+          fileRs.fileName =
+            contentDisposition.split('"').length >= 2
+              ? contentDisposition.split('"')[1]
+              : 'documento.' + fileRs.blob.type.split('/').pop();
+        }
+        return fileRs;
+      })
     );
   }
 }

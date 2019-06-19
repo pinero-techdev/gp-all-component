@@ -7,7 +7,7 @@ import { InfoCampoModificado } from './../../../../resources/data/info-campo-mod
 import { SelectItem } from 'primeng/api';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
-import { finalize } from 'rxjs/operators';
+import { finalize, first } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 
@@ -294,10 +294,12 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
         fieldToOrderBy,
         this.formField.fieldMetadata.displayInfo.filters
       )
-      .pipe(finalize(() => (this.listCharged = true)))
-      .first()
+      .pipe(
+        first(),
+        finalize(() => (this.listCharged = true))
+      )
       .subscribe(
-        (data) => {
+        (data: any) => {
           if (data.ok) {
             this.list = data.data;
             this.processData();

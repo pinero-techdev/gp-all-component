@@ -8,7 +8,7 @@ import {
 } from './../../services/api/multi-language/multi-language.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Translation } from '../../resources/data/translation.model';
-import { finalize } from 'rxjs/operators';
+import { finalize, first } from 'rxjs/operators';
 
 @Component({
   selector: 'gp-multi-language',
@@ -78,7 +78,7 @@ export class MultiLanguageComponent implements OnInit {
     const request = new GetTranslationsRq(this.pKey, this.schema, this.table, this.field);
     this.multiLanguageService
       .getTranslations(request)
-      .first()
+      .pipe(first())
       .subscribe(
         (data: any) => {
           if (data.ok) {
@@ -130,8 +130,8 @@ export class MultiLanguageComponent implements OnInit {
       );
       this.multiLanguageService
         .updateTranslations(request)
-        .first()
         .pipe(
+          first(),
           finalize(() => {
             this.working = false;
           })
