@@ -128,7 +128,6 @@ export class CommonService {
   }
 
   fileRequest(url: string, body: any): Observable<HttpResponse<Blob>> {
-    console.log('serviceRequest(' + url + ')');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json; charset=UTF-8',
       Authorization: GlobalService.getSESSION_ID(),
