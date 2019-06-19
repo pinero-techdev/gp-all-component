@@ -18,7 +18,7 @@ import { Attachment } from '../../resources/attachment.class';
 
 @Component({
   selector: 'gp-table-editable-crud',
-  templateUrl: './table-editable-rud.component.html',
+  templateUrl: './table-editable-crud.component.html',
 })
 export class TableEditableCrudComponent {
   // tslint:disable-next-line: variable-name
@@ -271,6 +271,7 @@ export class TableEditableCrudComponent {
     );
   }
 
+  // TODO
   downloadFile(event: TableFieldEvent) {
     // this.tableService
     //   .downloadFile(this.tableName, event.value, event.column.name)
