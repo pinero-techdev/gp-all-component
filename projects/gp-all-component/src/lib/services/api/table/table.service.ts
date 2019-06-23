@@ -24,8 +24,14 @@ export class UpdateRowRq {
   attachments: any[];
 }
 
+export class UpdateRowRs extends CommonRs {
+}
+
 export class DeleteRowRq {
   jsonOriginalRow: string;
+}
+
+export class DeleteRowRs extends CommonRs {
 }
 
 export class InsertRowRq {
@@ -106,8 +112,8 @@ export class FieldRestriction {
   restrictionType: string;
   minLength: number;
   maxLength: number;
-  maxValue: number;
-  minValue: number;
+  maxValue?: number;
+  minValue?: number;
 }
 
 export class FieldDisplayInfo {
