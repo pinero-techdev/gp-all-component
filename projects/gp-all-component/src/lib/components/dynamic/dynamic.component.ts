@@ -9,7 +9,7 @@ import {
   Input,
   Type,
 } from '@angular/core';
-import 'rxjs/add/operator/first';
+import { first } from 'rxjs/operators';
 
 export class DynamicMetadata {
   component: Type<any>;
@@ -68,7 +68,7 @@ export class DynamicComponent implements OnInit {
       for (const key in this.componentData.outputs) {
         if (this.componentData.outputs.hasOwnProperty(key)) {
           component.instance[key]
-            .first()
+            .pipe(first())
             .subscribe((value) => this.componentData.outputs[key](value));
         }
       }
