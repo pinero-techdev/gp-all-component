@@ -1,3 +1,4 @@
+import { first } from 'rxjs/operators';
 import { TableServiceMockResponse } from './../../../../services/api/table/table.service.mock';
 import { TestingErrorCodeMock } from './../../../../shared/testing/@mock/utils/testing-mock-constants.class';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -215,7 +216,7 @@ describe('FormDropdownFieldComponent', () => {
       it('should trigger onchange event', () => {
         spyOn(component, 'onChange').and.callThrough();
         const field = new InfoCampoModificado(FormFieldMock.fieldMetadata.fieldName, '1');
-        component.valueChanged.first().subscribe((value) => expect(value).toEqual(field));
+        component.valueChanged.pipe(first()).subscribe((value) => expect(value).toEqual(field));
         component.currentValueDropDown = '1';
         expect(component.onChange).toHaveBeenCalledWith('1');
       });
