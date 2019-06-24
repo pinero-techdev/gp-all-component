@@ -12,10 +12,11 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "moment": "moment",
+    "rxjs": "rxjs",
     "primeflex": "primeflex",
     "primeicons": "primeicons",
+    "quill": "quill",
     "primeng": "primeng",
-    "rxjs": "rxjs",
     "file-saver": "^2.0.2"
   },
   "devDependencies": {

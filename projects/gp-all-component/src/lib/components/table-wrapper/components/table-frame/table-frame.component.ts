@@ -5,7 +5,7 @@ import { takeWhile } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
 @Component({
-  selector: 'gp-app-table-frame',
+  selector: 'gp-table-frame',
   templateUrl: './table-frame.component.html',
   styleUrls: ['./table-frame.component.scss'],
 })

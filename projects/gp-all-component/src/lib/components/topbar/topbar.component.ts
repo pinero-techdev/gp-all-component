@@ -175,10 +175,8 @@ export class TopbarComponent implements OnInit, OnChanges {
    * @param isOpen 'open boolean prop'
    */
   toggleMenu(isOpen: boolean) {
-    if (this.logged) {
-      this.isOpen = typeof isOpen === 'boolean' ? isOpen : !this.isOpen;
-      this.openMenu.emit(this.isOpen);
-    }
+    this.isOpen = typeof isOpen === 'boolean' ? isOpen : !this.isOpen;
+    this.openMenu.emit(this.isOpen);
   }
 
   toggleUserMenu() {
