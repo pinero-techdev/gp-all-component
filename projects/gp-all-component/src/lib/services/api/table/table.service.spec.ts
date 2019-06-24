@@ -53,6 +53,7 @@ describe('TableServiceSpec', () => {
     const url = `${applicationApiUrl}/table_svc/${tableName}/updateRow`;
     request.jsonOriginalRow = JSON.stringify(original);
     request.jsonModifiedRow = JSON.stringify(mod);
+    request.attachments = undefined;
 
     spyOn(service, 'post').and.callThrough();
     spyOn(GlobalService, 'getBASE_URL').and.callThrough();
