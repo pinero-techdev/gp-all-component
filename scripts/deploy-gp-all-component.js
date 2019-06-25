@@ -5,7 +5,7 @@
 //
 // Modificar las variables package y component con la version correspondiente del componente.
 //
-const package = require('./../../package.json');
+const package = require('../package.json');
 const server = 'apache.cen.intranet';
 const user = 'www';
 const packageName = package.name;
@@ -13,7 +13,7 @@ const packageVersion = package.version;
 const component = `${packageName}-${packageVersion}.tgz`;
 
 //
-const localFile = __dirname + '/dist/' + packageName + '/' + component;
+const localFile = __dirname + '/../dist/' + packageName + '/' + component;
 const remoteFolder = '/www/sites/software/www/angular/' + packageName + '/';
 //
 console.log(
