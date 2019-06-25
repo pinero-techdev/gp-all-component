@@ -6,15 +6,16 @@
     "externals": {
       "primeng/primeng": "primeng",
       "primeflex": "primeflex",
-      "primeicons": "primeicons"
+      "primeicons": "primeicons",
+      "file-saver": "file-saver",
+      "quill": "quill"
     },
     "umdModuleIds": {
       "@angular/animations": "@angular/animations",
       "@angular/common": "@angular/common",
       "@angular/core": "@angular/core",
       "@angular/cdk": "@angular/cdk",
-      "rxjs": "rxjs",
-      "rxjs-compat": "rxjs-compat"
+      "rxjs": "rxjs"
     },
     "cssUrl": "inline",
     "styleIncludePaths": ["./src/lib/resources/css", "./src/lib/resources/scss"]

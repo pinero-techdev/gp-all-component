@@ -10,7 +10,7 @@ import {
   Params,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError, first } from 'rxjs/operators';
 import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.service';
 import { GlobalService } from './global.service';
 import { MenuRq, MainMenuService } from '../api/main-menu/main-menu.service';
@@ -79,7 +79,7 @@ export class AuthGuard implements CanActivate {
         console.error(LocaleES.USER_IS_NOT_LOGGED);
         // not logged in so redirect to login page.
         GlobalService.setPreLoginUrl(url);
-        return this.checkSession(route.queryParams).first();
+        return this.checkSession(route.queryParams).pipe(first());
       }
     }
   }

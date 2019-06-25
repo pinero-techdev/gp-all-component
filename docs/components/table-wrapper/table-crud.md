@@ -5,14 +5,14 @@
 ## Example
 
 ```html
-<gp-app-table-crud
+<gp-table-crud
   tableName="TABLE_BPG_RMK"
   (changes)="onChanges($event)"
   [canEdit]="false"
   [canAdd]="true"
   [canDelete]="true"
 >
-</gp-app-table-crud>
+</gp-table-crud>
 ```
 
 ## Component Binding Fields

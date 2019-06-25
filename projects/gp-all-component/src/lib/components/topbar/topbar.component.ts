@@ -14,6 +14,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from './../../services/api/login/login.service';
 import { CommonRs } from './../../services/core/common.service';
 import { GlobalService } from './../../services/core/global.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'gp-topbar',
@@ -50,7 +51,7 @@ export class TopbarComponent implements OnInit, OnChanges {
     this.breadCrumb = [];
     this.isHome = this.router.url !== '/home';
 
-    this.router.events.first().subscribe((event) => {
+    this.router.events.pipe(first()).subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.toggleMenu(false);
       }
@@ -92,7 +93,7 @@ export class TopbarComponent implements OnInit, OnChanges {
     if (action === 'logout') {
       this.loginService
         .logout()
-        .first()
+        .pipe(first())
         .subscribe(
           (data) => {
             response = data;
@@ -174,10 +175,8 @@ export class TopbarComponent implements OnInit, OnChanges {
    * @param isOpen 'open boolean prop'
    */
   toggleMenu(isOpen: boolean) {
-    if (this.logged) {
-      this.isOpen = typeof isOpen === 'boolean' ? isOpen : !this.isOpen;
-      this.openMenu.emit(this.isOpen);
-    }
+    this.isOpen = typeof isOpen === 'boolean' ? isOpen : !this.isOpen;
+    this.openMenu.emit(this.isOpen);
   }
 
   toggleUserMenu() {

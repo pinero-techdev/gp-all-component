@@ -11,7 +11,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { takeWhile } from 'rxjs/operators';
+import { takeWhile, first } from 'rxjs/operators';
 import { LocaleES } from '../../resources/localization';
 
 class MenuItem {
@@ -110,7 +110,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
     this.menuProviderService
       .getMenu(request)
-      .first()
+      .pipe(first())
       .subscribe((menu) => this.setMainMenu(menu));
 
     this.router.events.pipe(takeWhile(() => this.isAlive)).subscribe((event) => {

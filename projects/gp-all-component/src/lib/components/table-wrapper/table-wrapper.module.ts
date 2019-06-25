@@ -1,3 +1,4 @@
+import { TableEditableCrudComponent } from './components/table-editable/components/table-editable-crud/table-editable-crud.component';
 import { TableEditableComponent } from './components/table-editable/table-editable.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,6 +17,7 @@ import { TableMetadataService } from '../../services/api/table/table-metadata.se
   declarations: [
     TableCrudComponent,
     TableEditableComponent,
+    TableEditableCrudComponent,
     TableEditableRowComponent,
     TableFrameComponent,
   ],
@@ -30,6 +32,7 @@ import { TableMetadataService } from '../../services/api/table/table-metadata.se
   exports: [
     TableCrudComponent,
     TableEditableComponent,
+    TableEditableCrudComponent,
     TableEditableRowComponent,
     TableFrameComponent,
   ],

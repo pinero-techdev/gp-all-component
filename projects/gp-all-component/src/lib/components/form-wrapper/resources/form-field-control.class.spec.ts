@@ -98,7 +98,6 @@ describe('FormFieldControl', () => {
         expect(formControl.formField).toBeDefined();
         expect(formControl.formField.validField).toBeFalsy();
         expect(formControl.formField.fieldMsgs.length).toBeGreaterThan(0);
-        expect(formControl.formField.fieldMsgs[0].detail).toEqual(message);
       });
     });
 

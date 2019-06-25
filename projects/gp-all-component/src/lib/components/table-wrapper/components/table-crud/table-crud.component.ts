@@ -36,7 +36,7 @@ import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 import { GpTableDisplayTypes } from './../../resources/gp-table-display-types.enum';
 
 @Component({
-  selector: 'gp-app-table-crud',
+  selector: 'gp-table-crud',
   templateUrl: './table-crud.component.html',
   styleUrls: ['./table-crud.component.scss'],
 })

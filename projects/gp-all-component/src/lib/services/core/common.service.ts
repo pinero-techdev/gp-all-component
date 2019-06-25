@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Buffer } from 'buffer';
@@ -125,5 +125,17 @@ export class CommonService {
     const options = new RequestOptions(headers);
     url = url + '?rq=' + rq;
     return this.http.get<T>(url, options);
+  }
+
+  fileRequest(url: string, body: any): Observable<HttpResponse<Blob>> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=UTF-8',
+      Authorization: GlobalService.getSESSION_ID(),
+    });
+    return this.http.post(url, body, {
+      headers,
+      observe: 'response',
+      responseType: 'blob',
+    });
   }
 }

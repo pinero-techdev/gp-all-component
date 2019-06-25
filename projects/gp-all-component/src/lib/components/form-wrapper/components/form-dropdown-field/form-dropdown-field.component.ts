@@ -8,6 +8,7 @@ import { TableService } from './../../../../services/api/table/table.service';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { isUndefined } from 'util';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'gp-form-dropdown-field',
@@ -148,7 +149,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
         fieldToOrderBy,
         this.formField.fieldMetadata.displayInfo.filters
       )
-      .first()
+      .pipe(first())
       .subscribe((data) => this.setTableValues(data), () => this.handleError());
   }
 
