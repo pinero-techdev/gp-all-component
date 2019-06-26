@@ -66,6 +66,18 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   @Input()
   canExport: boolean = true;
 
+  @Input()
+  canAddDetail: boolean = true;
+
+  @Input()
+  canEditDetail: boolean = true;
+
+  @Input()
+  canDeleteDetail: boolean = true;
+
+  @Input()
+  canExportDetail: boolean = true;
+
   // filtros a partir de la tabla principal
   @Input()
   rowSelectedFilters: Filter[];
@@ -111,6 +123,9 @@ export class GpAppTableCrudYieldComponent implements OnInit {
 
   @Output()
   rowSelected = new EventEmitter<any>();
+
+  @Output()
+  rowSelectedDetail = new EventEmitter<any>();
 
   @Output()
   closedDialog = new EventEmitter<boolean>();
@@ -392,7 +407,6 @@ export class GpAppTableCrudYieldComponent implements OnInit {
     }
 
     let lazyLoadingTable: boolean = lazyLoading != undefined && lazyLoading ? true : false;
-
     this.working = true;
     this.columnas = [];
     this.columnasTabla = [];
@@ -627,6 +641,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   }
 
   onRowSelectDetail(event: any) {
+    this.rowSelectedDetail.emit(this.selectedRowDetail);
     if (this.treeTableDetail) {
       this.selectedTree = event.node;
       this.selectedRowDetail = this.selectedTree.data;
@@ -954,6 +969,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
 
   closeDialog() {
     this.closedDialog.emit(true);
+    this.rowSelectedDetail.emit(null);
     this.rowSelected.emit(null);
     this.displayEdicion = false;
     this.formControl.lockFields = false;

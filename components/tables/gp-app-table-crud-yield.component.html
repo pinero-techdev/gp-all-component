@@ -205,7 +205,7 @@
             <div class="ui-grid-col-10">Mantenimiento de tabla {{ tableLabelDetail }}</div>
             <div class="ui-grid-col-2 mantenimientos">
               <button
-                *ngIf="canAdd"
+                *ngIf="canAddDetail"
                 type="button"
                 label="Añadir"
                 pButton
@@ -240,7 +240,7 @@
                 icon="material-icons ui-icon-file-download"
                 (click)="dtDetail.exportCSV()"
                 label="Exportar a CSV"
-                *ngIf="canExport"
+                *ngIf="canExportDetail"
                 pTooltip="Exportar a CSV el {{ tableLabelDetail }}"
               ></button>
             </div>
@@ -323,7 +323,7 @@
       <div class="ui-grid-row"><div class="ui-grid-col-12">* Campos obligatorios.</div></div>
 
       <div class="ui-grid-row">
-        <div class="ui-grid-col-3" *ngIf="canDelete">
+        <div class="ui-grid-col-3" *ngIf="canDeleteDetail">
           <button
             type="button"
             label="Borrar"
@@ -335,7 +335,7 @@
             aria-disabled="false"
           ></button>
         </div>
-        <div class="ui-grid-col-3" *ngIf="canEdit || (canAdd && !selectedRow)">
+        <div class="ui-grid-col-3" *ngIf="canEditDetail || (canAddDetail && !selectedRow)">
           <button
             type="button"
             label="Guardar"
@@ -359,8 +359,8 @@
             aria-disabled="false"
           ></button>
         </div>
-        <div class="ui-grid-col-3" *ngIf="!(canDelete && edicionEdit)"></div>
-        <div class="ui-grid-col-3" *ngIf="!canEdit"></div>
+        <div class="ui-grid-col-3" *ngIf="!(canDeleteDetail && edicionEdit)"></div>
+        <div class="ui-grid-col-3" *ngIf="!canEditDetail"></div>
       </div>
     </div>
   </div>
