@@ -54,7 +54,9 @@
       }
 
       .ui-multiselect-header {
-        padding: 0;
+        display: flex;
+        align-items: center;
+        padding: 1em;
         font-size: $fontSize;
         border-bottom: 1px solid $inputBorderColor;
         background-color: $multiselectHeaderBg;
@@ -63,7 +65,13 @@
         .ui-multiselect-filter {
           &-container {
             width: 100%;
-            padding: 1em 1em;
+            .ui-chkbox {
+              display: block;
+              margin-right: 1em;
+              &:hover {
+                cursor: pointer;
+              }
+            }
 
             .ui-inputtext {
               @include make-input();
@@ -85,7 +93,26 @@
         }
 
         .ui-chkbox {
-          display: none;
+          display: block;
+
+          .ui-chkbox-box {
+            border: 2px solid $checkboxBorder;
+            overflow: hidden;
+            border-radius: 3px;
+            @include transition(background-color 0.3s);
+            width: 1.3em;
+            height: 1.3em;
+            &.ui-state-active {
+              border-color: $primaryColor;
+              .ui-chkbox-icon {
+                margin-top: -2px;
+                margin-left: -1px;
+              }
+              &:hover {
+                background-color: $primaryColor;
+              }
+            }
+          }
         }
 
         .ui-multiselect-close {
@@ -124,7 +151,7 @@
           height: 1.25em;
           cursor: default;
 
-          &-box {
+          .ui-chkbox-box {
             border: 2px solid $checkboxBorder;
             width: 1.25em;
             height: 1.25em;
