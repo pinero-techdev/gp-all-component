@@ -55,7 +55,7 @@ export class TableMetadataService {
   getRequired(metadata: FieldMetadata, column: TableColumnMetadata) {
     if (metadata.id || metadata.notNull) {
       column.required = true;
-    } else {
+    } else if (metadata.restrictions) {
       for (const restriction of metadata.restrictions) {
         if (restriction.restrictionType === TableService.RESTRICTION_NOT_NULL) {
           column.required = true;
@@ -174,25 +174,27 @@ export class TableMetadataService {
     if (metadata.fieldMaxLength > 0) {
       column.maxLength = metadata.fieldMaxLength;
     }
-    for (const restriction of metadata.restrictions) {
-      switch (restriction.restrictionType) {
-        case TableService.RESTRICTION_MAX_LENGTH: {
-          if (!column.maxLength) {
-            column.maxLength = restriction.maxLength;
+    if (metadata.restrictions) {
+      for (const restriction of metadata.restrictions) {
+        switch (restriction.restrictionType) {
+          case TableService.RESTRICTION_MAX_LENGTH: {
+            if (!column.maxLength) {
+              column.maxLength = restriction.maxLength;
+            }
+            break;
           }
-          break;
-        }
-        case TableService.RESTRICTION_MIN_LENGTH: {
-          column.minLength = restriction.minLength;
-          break;
-        }
-        case TableService.RESTRICTION_MAX_VALUE: {
-          column.maxValue = restriction.maxValue;
-          break;
-        }
-        case TableService.RESTRICTION_MIN_VALUE: {
-          column.maxValue = restriction.minValue;
-          break;
+          case TableService.RESTRICTION_MIN_LENGTH: {
+            column.minLength = restriction.minLength;
+            break;
+          }
+          case TableService.RESTRICTION_MAX_VALUE: {
+            column.maxValue = restriction.maxValue;
+            break;
+          }
+          case TableService.RESTRICTION_MIN_VALUE: {
+            column.maxValue = restriction.minValue;
+            break;
+          }
         }
       }
     }

@@ -5,7 +5,6 @@ import { ItemChangeEvent } from './resources/table-events.interface';
 import { TableFieldEvent, TableRowEvent } from './resources/table-events.interface';
 import { TableConfig } from './resources/table-config.model';
 import { TableColumnMetadata } from './resources/table-column-metadata.model';
-import { GpFormFieldType } from './../../../form-wrapper/resources/form-field-type.enum';
 import {
   Component,
   ElementRef,
@@ -21,6 +20,7 @@ import { SortDirection } from './resources/sort-direction.enum';
 import { SelectionType } from './resources/selection-type.enum';
 import { Paginator } from 'primeng/paginator';
 import { isNullOrUndefined } from 'util';
+import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
 
 /*
  *  Data order: data -> filteredData -> sortedData -> currentPageData

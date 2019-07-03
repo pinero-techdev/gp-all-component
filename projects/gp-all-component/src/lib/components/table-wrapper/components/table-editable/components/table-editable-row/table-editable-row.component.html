@@ -15,6 +15,20 @@
     [disabled]="!isEditable()"
   ></button>
   <input
+    *ngSwitchCase="inputType.TEXT"
+    type="text"
+    #numberInput
+    [ngModel]="value"
+    (ngModelChange)="isFilter ? onModelChange($event) : null"
+    [minlength]="columnMetadata.minLength"
+    [maxlength]="columnMetadata.maxLength"
+    [max]="columnMetadata.maxValue"
+    [min]="columnMetadata.minValue"
+    (focus)="onStartEditing()"
+    (change)="!isFilter ? onModelChange(numberInput.value) : null"
+    [disabled]="!isEditable()"
+  />
+  <input
     *ngSwitchCase="inputType.NUMBER"
     type="number"
     #numberInput
@@ -278,7 +292,6 @@
     ></button>
   </p-footer>
 </p-dialog>
--->
 
 <!--File input modal-->
 <p-dialog

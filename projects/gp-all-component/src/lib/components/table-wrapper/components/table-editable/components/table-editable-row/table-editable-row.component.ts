@@ -1,3 +1,4 @@
+import { GpFormFieldType } from './../../../../../form-wrapper/resources/form-field-type.enum';
 import { AttachmentOperationEnum } from './../../resources/attachment-operation.enum';
 import { switchMap } from 'rxjs/operators';
 import { Attachment } from './../../resources/attachment.class';
@@ -7,7 +8,6 @@ import { Filter } from './../../../../../../resources/data/filter/filter.model';
 import { FilterOperationType } from './../../../../../../resources/data/filter/filter-operation-type.enum';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { GpFormFieldType } from './../../../../../form-wrapper/resources/form-field-type.enum';
 import { Input, AfterViewInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
@@ -121,6 +121,9 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
         this.translationKeys += this.item[keyField];
       }
     }
+
+    this.form.get('name').setValue(this.columnMetadata.name);
+    this.value = this.item[this.columnMetadata.name];
   }
 
   onModelChange(value: any) {

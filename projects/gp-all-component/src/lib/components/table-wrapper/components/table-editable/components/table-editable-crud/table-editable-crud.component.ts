@@ -1,6 +1,6 @@
+import { GpFormFieldType } from './../../../../../form-wrapper/resources/form-field-type.enum';
 import { finalize } from 'rxjs/operators';
 import { TableService, FieldMetadata } from './../../../../../../services/api/table/table.service';
-import { GpFormFieldType } from './../../../../../form-wrapper/resources/form-field-type.enum';
 import { AttachmentOperationEnum } from './../../resources/attachment-operation.enum';
 import { TableMetadataService } from './../../../../../../services/api/table/table-metadata.service';
 import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';

@@ -1,3 +1,4 @@
+import { FormNumberFieldComponent } from './components/form-number-field/form-number-field.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -23,6 +24,7 @@ import {
     FormDropdownFieldComponent,
     FormDropdownRelatedFieldComponent,
     FormImgFieldComponent,
+    FormNumberFieldComponent,
     FormSwitchFieldComponent,
     FormTextAreaFieldComponent,
     FormTextFieldComponent,
@@ -36,6 +38,7 @@ import {
     FormDropdownFieldComponent,
     FormDropdownRelatedFieldComponent,
     FormImgFieldComponent,
+    FormNumberFieldComponent,
     FormSwitchFieldComponent,
     FormTextAreaFieldComponent,
     FormTextFieldComponent,
