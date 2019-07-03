@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../resources/form-field.model';
-import { GpTableRestrictions } from '../../../table-wrapper/resources/gp-table-restrictions.enum';
 import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 
 @Component({
@@ -10,7 +9,7 @@ import { LocaleES } from '../../../../resources/localization/es-ES.lang';
   templateUrl: './form-number-field.component.html',
   styleUrls: ['./form-number-field.component.scss'],
 })
-export class FormNumberFieldComponent extends GpFormFieldControl implements OnInit {
+export class FormNumberFieldComponent extends GpFormFieldControl {
   /**
    * The formField for this component
    */
@@ -36,10 +35,6 @@ export class FormNumberFieldComponent extends GpFormFieldControl implements OnIn
    */
   translationKeys = '';
 
-  ngOnInit() {
-    this.init();
-  }
-
   /**
    * Returns current field metadata
    */
@@ -52,30 +47,6 @@ export class FormNumberFieldComponent extends GpFormFieldControl implements OnIn
    */
   getFormField(): GpFormField {
     return this.formField;
-  }
-
-  /**
-   * Initializes current component,
-   * and sets length validation properties
-   */
-  init() {
-    const restrictions = this.formField.fieldMetadata.restrictions;
-
-    // Setup restrictions
-    if (restrictions) {
-      for (const restriction of restrictions) {
-        const isMinLength = restriction.restrictionType === GpTableRestrictions.MIN_LENGTH;
-        const isMaxLength = restriction.restrictionType === GpTableRestrictions.MAX_LENGTH;
-
-        if (isMinLength) {
-          this.minLength = restriction.minLength;
-        }
-
-        if (isMaxLength) {
-          this.maxLength = restriction.maxLength;
-        }
-      }
-    }
   }
 
   /**
