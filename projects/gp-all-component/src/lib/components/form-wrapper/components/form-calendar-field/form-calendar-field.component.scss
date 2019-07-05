@@ -106,6 +106,22 @@
           font-size: $fontSize;
         }
       }
+
+      .ui-datepicker-buttonbar {
+        .ui-button {
+          background: $primaryColor;
+          border: 1px solid $primaryColor;
+
+          &:enabled:hover {
+            background: $primaryDarkColor;
+            border: 1px solid $primaryDarkColor;
+          }
+
+          .ui-button-text {
+            color: $whiteColor;
+          }
+        }
+      }
     }
 
     .ui-datepicker-calendar {
