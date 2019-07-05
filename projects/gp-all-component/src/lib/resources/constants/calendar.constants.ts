@@ -42,6 +42,10 @@ export class CalendarConstants {
         isRTL: false,
         showMonthAfterYear: false,
         yearSuffix: '',
+        showButtonBar: true,
+        clear: 'Borrar',
+        today: 'Hoy'
+
     };
 
     public static calendar_en = {
@@ -86,5 +90,8 @@ export class CalendarConstants {
         isRTL: false,
         showMonthAfterYear: false,
         yearSuffix: '',
+        showButtonBar: true,
+        clear: 'Clear',
+        today: 'Today'
     };
 }
