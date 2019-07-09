@@ -67,10 +67,13 @@
         </th>
         <ng-template ngFor [ngForOf]="columns" let-column>
           <th *ngIf="column.visible">
-            <!-- <gp-app-input-with-metadata [ngModel]="column.filter"
-                                                (ngModelChange)="changeFilter(column, $event)"
-                                                [columnMetadata]="column" [isFilter]="true"
-                                                *ngIf="column.filterable"></gp-app-input-with-metadata> -->
+            <!-- <gp-table-editable-row
+              *ngIf="column.filterable"
+              [ngModel]="column.filter"
+              (ngModelChange)="changeFilter(column, $event)"
+              [columnMetadata]="column"
+              [isFilter]="true"
+            ></gp-table-editable-row> -->
           </th>
         </ng-template>
         <th *ngIf="config.actionsColumn">

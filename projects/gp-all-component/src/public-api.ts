@@ -71,6 +71,7 @@ export * from './lib/directives/uppercase-directive/uppercase.directive';
 export * from './lib/components/dynamic/dynamic.component';
 export * from './lib/components/empty/empty.component';
 export * from './lib/components/forgot-password/forgot-password.component';
+export * from './lib/components/form-wrapper/components/form-number-field/form-number-field.component';
 export * from './lib/components/form-wrapper/components/form-calendar-field/form-calendar-field.component';
 export * from './lib/components/form-wrapper/components/form-checkbox-field/form-checkbox-field.component';
 export * from './lib/components/form-wrapper/components/form-dropdown-field/form-dropdown-field.component';

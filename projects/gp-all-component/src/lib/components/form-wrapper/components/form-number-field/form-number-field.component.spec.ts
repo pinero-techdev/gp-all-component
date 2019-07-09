@@ -8,7 +8,7 @@ import {
 import { GpFormField } from '../../resources/form-field.model';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
 
-fdescribe('FormNumberFieldComponent', () => {
+describe('FormNumberFieldComponent', () => {
   let component: FormNumberFieldComponent;
   let fixture: ComponentFixture<FormNumberFieldComponent>;
   let formField: GpFormField;

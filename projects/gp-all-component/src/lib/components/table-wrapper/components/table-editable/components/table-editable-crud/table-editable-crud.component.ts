@@ -4,7 +4,7 @@ import { TableService, FieldMetadata } from './../../../../../../services/api/ta
 import { AttachmentOperationEnum } from './../../resources/attachment-operation.enum';
 import { TableMetadataService } from './../../../../../../services/api/table/table-metadata.service';
 import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-
+import { saveAs } from 'file-saver';
 import { Message, MessageService } from 'primeng/api';
 import { TableConfig } from '../../resources/table-config.model';
 import { TableColumnMetadata } from '../../resources/table-column-metadata.model';
@@ -63,20 +63,16 @@ export class TableEditableCrudComponent {
     this._selectedData = value || [];
     this.selectedDataChange.emit(this._selectedData);
   }
-  @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
-  @Output() deletedItem: EventEmitter<any> = new EventEmitter<any>();
-  @Output() createdItem: EventEmitter<any> = new EventEmitter<any>();
-  @Output() setTableConfig: EventEmitter<DataChangeEvent<TableConfig>> = new EventEmitter<
-    DataChangeEvent<TableConfig>
-  >();
-  @Output() setTableColumns: EventEmitter<
-    DataChangeEvent<TableColumnMetadata[]>
-  > = new EventEmitter<DataChangeEvent<TableColumnMetadata[]>>();
-  @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-  @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-  @Output() startEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
-  @Output() stopEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
-  @Output() cancelEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
+  @Output() selectedDataChange = new EventEmitter<any[]>();
+  @Output() deletedItem = new EventEmitter<any>();
+  @Output() createdItem = new EventEmitter<any>();
+  @Output() setTableConfig = new EventEmitter<DataChangeEvent<TableConfig>>();
+  @Output() setTableColumns = new EventEmitter<DataChangeEvent<TableColumnMetadata[]>>();
+  @Output() startEditingField = new EventEmitter<TableFieldEvent>();
+  @Output() stopEditingField = new EventEmitter<TableFieldEvent>();
+  @Output() startEdition = new EventEmitter<TableRowEvent>();
+  @Output() stopEdition = new EventEmitter<TableRowEvent>();
+  @Output() cancelEdition = new EventEmitter<TableRowEvent>();
 
   constructor(
     private tableService: TableService,
@@ -271,16 +267,15 @@ export class TableEditableCrudComponent {
     );
   }
 
-  // TODO
   downloadFile(event: TableFieldEvent) {
-    // this.tableService
-    //   .downloadFile(this.tableName, event.value, event.column.name)
-    //   .subscribe((file) => {
-    //     saveAs(file.blob, file.fileName);
-    //   });
+    this.tableService
+      .downloadFile(this.tableName, event.value, event.column.name)
+      .subscribe((file) => {
+        saveAs(file.blob, file.fileName);
+      });
   }
 
-  showErrorDialogo(msg: string) {
+  showErrorDialog(msg: string) {
     this.msgsGlobal.push({ severity: 'error', summary: 'Error', detail: msg });
   }
 }
