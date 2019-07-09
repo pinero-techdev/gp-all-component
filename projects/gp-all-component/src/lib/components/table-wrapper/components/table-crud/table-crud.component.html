@@ -41,6 +41,15 @@
               {{ col.fieldMetadata.displayInfo.fieldLabel }}
             </th>
           </tr>
+          <tr>
+            <th *ngFor="let col of columns" class="column-filter">
+              <input
+                pInputText
+                type="text"
+                (input)="tc.filter($event.target.value, col.field, 'startsWith')"
+              />
+            </th>
+          </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr [pSelectableRow]="rowData">
