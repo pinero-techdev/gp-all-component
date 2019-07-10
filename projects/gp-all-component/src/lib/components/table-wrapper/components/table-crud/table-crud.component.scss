@@ -229,9 +229,26 @@
               border-bottom-right-radius: $borderRadius;
             }
 
-            .ui-paginator-page {
-              &.ui-state-active {
-                background: $primaryColor;
+            .ui-paginator-pages {
+              margin: 0;
+              .ui-paginator-page {
+                border: 1px solid $paginatorBorderColor;
+                &.ui-state-active {
+                  background: $primaryColor;
+                  border: none;
+                }
+              }
+            }
+            .ui-paginator-element {
+              .ui-paginator-icon {
+                color: $paginatorBGColor;
+              }
+              &:not(.ui-state-active):hover {
+                background: $paginatorBGColor;
+                color: $whiteColor;
+                .ui-paginator-icon {
+                  color: $whiteColor;
+                }
               }
             }
           }
