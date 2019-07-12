@@ -1,3 +1,10 @@
-:host::ng-deep .layout-main {
+@import './../../resources/scss/global/variables';
+
+:host::ng-deep {
+  .layout-main {
     padding: 0;
+  }
+  p {
+    color: $paragraphText;
+  }
 }

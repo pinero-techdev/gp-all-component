@@ -7,4 +7,8 @@
 :host {
   display: flex;
   justify-content: center;
+  p,
+  span {
+    color: $paragraphText;
+  }
 }

@@ -222,6 +222,7 @@
       i {
         @include absolute-centered(all);
 
+        color: $whiteColor;
         font-size: 2em;
       }
 

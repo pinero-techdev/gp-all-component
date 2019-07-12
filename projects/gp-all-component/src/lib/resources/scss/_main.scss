@@ -52,6 +52,14 @@ a {
   cursor: pointer;
 }
 
+body main p {
+  color: $paragraphText;
+}
+
+body .ui-message .ui-message-text {
+  color: $paragraphText;
+}
+
 .warn,
 .error {
   color: $errorColor;
