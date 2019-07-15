@@ -1,0 +1,49 @@
+@import 'global/variables';
+@import 'global/mixins';
+
+::ng-deep {
+  .ui-button.ui-widget.ui-state-default,
+  .ui-splitbutton.ui-widget.ui-buttonset {
+    background-color: $buttonBg;
+    border: 1px solid $buttonBg;
+    @include box-shadow(0 1px 4px 0 rgba($blackColor, $buttonShadowOpacity));
+
+    &:hover:enabled {
+      background-color: $buttonBg-hover;
+      border: 1px solid $buttonBg-hover;
+    }
+
+    &:hover:not(:enabled) {
+      cursor: inherit;
+    }
+
+    &.ui-button-danger {
+      background-color: $buttonDangerBg;
+      border: 1px solid $buttonDangerBg;
+
+      &:hover:enabled {
+        background-color: $buttonDangerBgHover;
+        border: 1px solid $buttonDangerBgHover;
+      }
+    }
+
+    &.ui-button-secondary {
+      background-color: $buttonSecondaryBg;
+      border-color: $buttonSecondaryBorderColor;
+
+      &:hover:enabled {
+        background: $buttonSecondaryBgHover;
+        border-color: $buttonSecondaryBorderColor;
+      }
+
+      .ui-button-text,
+      .ui-button-icon-left {
+        color: $textColor;
+      }
+    }
+
+    .ui-button-text {
+      color: $textInvertedColor;
+    }
+  }
+}

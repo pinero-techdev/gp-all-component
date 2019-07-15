@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { BUTTON_TYPES, BUTTON_SEVERITY } from './../../resources/constants/button.constants';
+import { ButtonType, ButtonSeverity } from './../../resources/constants/button.enum';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -9,7 +9,10 @@ import { MenuItem } from 'primeng/api';
 })
 export class ButtonComponent implements OnInit {
   @Input()
-  type = BUTTON_TYPES.BASIC;
+  type: ButtonType = ButtonType.Basic;
+
+  @Input()
+  severity: ButtonSeverity = ButtonSeverity.Primary;
 
   @Input()
   label: string;
@@ -21,37 +24,32 @@ export class ButtonComponent implements OnInit {
   items: MenuItem[];
 
   @Input()
-  disabled: boolean;
-
-  // @Input()
-  // clickEvent: () => any;
-
-  @Input()
-  severity: string;
+  disabled = false;
 
   @Output()
-  clicked = new EventEmitter<boolean>();
+  onClickEvent = new EventEmitter<boolean>();
 
-  readonly buttonType = BUTTON_TYPES;
-  readonly buttonSeverity = BUTTON_SEVERITY;
-  splitItems: any[];
+  splitItems: MenuItem[];
+  splitButtonSeverity: string;
 
   ngOnInit() {
-    if (this.type === BUTTON_TYPES.SPLIT) {
+    if (this.type === ButtonType.Split) {
       this.splitItems = [...this.items];
-      this.getSplitButtonSeverity();
+      this.splitButtonSeverity = this.getSplitButtonSeverity();
     }
   }
 
   event() {
-    return this.clicked.emit(true);
+    return this.onClickEvent.emit(true);
   }
 
   getSplitButtonSeverity() {
-    return this.severity === this.buttonSeverity.DANGER
-      ? 'ui-button-danger'
-      : this.severity === this.buttonSeverity.SECONDARY
-      ? 'ui-button-secondary'
-      : '';
+    const severityClassName =
+      this.severity === ButtonSeverity.Danger
+        ? 'ui-button-danger'
+        : this.severity === ButtonSeverity.Secondary
+        ? 'ui-button-secondary'
+        : '';
+    return severityClassName;
   }
 }
