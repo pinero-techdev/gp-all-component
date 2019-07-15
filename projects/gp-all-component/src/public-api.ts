@@ -94,6 +94,7 @@ export * from './lib/components/table-wrapper/components/table-editable/table-ed
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
 export * from './lib/components/topbar/topbar.component';
+export * from './lib/components/button/button.component';
 
 // Component Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
