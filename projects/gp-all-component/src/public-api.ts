@@ -92,6 +92,7 @@ export * from './lib/components/table-wrapper/components/table-editable/componen
 export * from './lib/components/table-wrapper/components/table-editable/table-editable.component';
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
+export * from './lib/components/table-wrapper/components/table/table.component';
 export * from './lib/components/topbar/topbar.component';
 
 // Component Modules
@@ -110,6 +111,7 @@ export * from './lib/components/table-wrapper/table-wrapper.module';
 export * from './lib/components/topbar/topbar.module';
 export * from './lib/components/redirect/redirect.module';
 export * from './lib/shared/shared.module';
+export * from './lib/components/table-wrapper/components/table/table.module';
 
 // Directive Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
