@@ -123,8 +123,11 @@ $buttonPaddingVertical: get-computed-padding(
   $buttonBorderWidth
 );
 $buttonPaddingHorizontal: $inputPaddingHorizontal + 14px;
-$buttonDangerBg: $errorColor;
-$buttonDangerBgHover: $errorColor;
+$buttonDangerBg: color(red, red-1);
+$buttonDangerBgHover: color(red, red-2);
+$buttonSecondaryBg: $whiteColor;
+$buttonSecondaryBgHover: color(white, white-1);
+$buttonSecondaryBorderColor: $borderColor;
 $buttonShadowOpacity: 0.08;
 
 /* card */
