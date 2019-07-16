@@ -1,3 +1,20 @@
-<p>
-  table works!
-</p>
+<p-table
+  [value]="data"
+  [columns]="builder.getColumns()"
+  [frozenColumns]="builder.getFrozenColumns()"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let column of builder.getColumns()">
+        {{ column.key }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td *ngFor="let column of builder.getColumns()">
+        {{ row[column.key] }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
