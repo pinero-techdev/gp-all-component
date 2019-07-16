@@ -82,6 +82,10 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   @Input()
   rowSelectedFilters: Filter[];
 
+  // filtros a partir de la tabla detalle
+  @Input()
+  rowSelectedFiltersDetail: Filter[];
+
   // Identificador de la tabla detalle que tiene en común con la tabla principal
   @Input()
   parentId: string;
@@ -129,6 +133,12 @@ export class GpAppTableCrudYieldComponent implements OnInit {
 
   @Output()
   closedDialog = new EventEmitter<boolean>();
+
+  @Output()
+  openDialog = new EventEmitter<boolean>();
+
+  @Output()
+  openDialogDetail = new EventEmitter<boolean>();
 
   @Output()
   changes = new EventEmitter<boolean>();
@@ -266,6 +276,11 @@ export class GpAppTableCrudYieldComponent implements OnInit {
       this.msgsDialog = [];
       this.msgsGlobal = [{ severity: 'info', detail: 'Cargando los datos de la tabla detalle.' }];
       this.dialogErrors = false;
+      if (this.rowSelectedFiltersDetail != null && this.rowSelectedFiltersDetail != undefined && this.rowSelectedFiltersDetail.length > 0) {
+        for (var filter of this.rowSelectedFiltersDetail) {
+          this.filters.push(filter);
+        }
+      }
       this.extendTableService
         .list(this.tableNameDetail, true, false, null, this.filters, this.lazyLoadingDetail, this.columnFilters, this.pageRender)
         .subscribe(
@@ -1005,6 +1020,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
 
   onDialogAdd() {
     console.log('onDialogAdd');
+    this.openDialog.emit();
     this.selectedRow = null;
     this.formControl.originalRow = null;
     this.formControl.editedRow = {};
@@ -1032,6 +1048,7 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   }
 
   onDialogAddDetail() {
+    this.openDialogDetail.emit();
     console.log('onDialogAddDetail');
     this.selectedRowDetail = null;
     this.formControlDetail.originalRow = null;
