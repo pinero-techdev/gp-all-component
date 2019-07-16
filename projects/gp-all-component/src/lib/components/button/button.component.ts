@@ -39,7 +39,7 @@ export class ButtonComponent implements OnInit {
     }
   }
 
-  event() {
+  onClick() {
     return this.onClickEvent.emit(true);
   }
 
