@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonComponent } from './button.component';
 
-fdescribe('ButtonComponent', () => {
+describe('ButtonComponent', () => {
   let component: ButtonComponent;
   let fixture: ComponentFixture<ButtonComponent>;
   let $button: HTMLButtonElement;
