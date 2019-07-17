@@ -5,7 +5,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableEditableComponent } from './table-editable.component';
 import { TableWrapperSharedProviders } from '../../../../shared/imports/table-wrapper-shared';
 
-describe('TableEditableComponent', () => {
+xdescribe('TableEditableComponent', () => {
   let component: TableEditableComponent;
   let fixture: ComponentFixture<TableEditableComponent>;
 
