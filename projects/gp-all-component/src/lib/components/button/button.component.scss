@@ -43,7 +43,59 @@
     }
 
     .ui-button-text {
+      border-radius: $buttonBorderRadius;
+      padding: $buttonPaddingVertical $buttonPaddingHorizontal;
       color: $textInvertedColor;
     }
+  }
+  .ui-button.ui-widget.ui-state-default.ui-corner-all {
+    border-radius: $buttonBorderRadius;
+  }
+  div.ui-splitbutton {
+    border-radius: $buttonBorderRadius;
+    &.ui-widget.ui-buttonset {
+      background-color: $buttonBg;
+      border: 1px solid $buttonBg;
+      &:hover {
+        background-color: $buttonBg-hover;
+        border: 1px solid $buttonBg-hover;
+      }
+    }
+    &.ui-widget.ui-buttonset.ui-button-danger {
+      background-color: $buttonDangerBg;
+      border: 1px solid $buttonDangerBg;
+      &:hover {
+        background-color: $buttonDangerBgHover;
+        border: 1px solid $buttonDangerBgHover;
+      }
+    }
+    &.ui-widget.ui-buttonset.ui-button-secondary {
+      background-color: $buttonSecondaryBg;
+      border: 1px solid $buttonSecondaryBg;
+      &:hover {
+        background-color: $buttonSecondaryBgHover;
+        border: 1px solid $buttonSecondaryBgHover;
+      }
+    }
+    .ui-button.ui-splitbutton-menubutton {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: transparent;
+    }
+    &.ui-widget.ui-buttonset .ui-button.ui-state-default,
+    &.ui-widget.ui-buttonset .ui-button.ui-state-default:hover {
+      background-color: transparent;
+      border-color: transparent;
+    }
+    .pi-chevron-down {
+      left: 85%;
+    }
+  }
+  body .ui-button:enabled:focus {
+    border-radius: 6px;
   }
 }
