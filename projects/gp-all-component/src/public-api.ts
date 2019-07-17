@@ -84,6 +84,7 @@ export * from './lib/components/form-wrapper/components/form-wysiwyg-field/form-
 export * from './lib/components/loading-indicator/loading-indicator.component';
 export * from './lib/components/login/login.component';
 export * from './lib/components/main-menu/main-menu.component';
+export * from './lib/components/menu/menu.component';
 export * from './lib/components/multi-language/multi-language.component';
 export * from './lib/components/multi-select/multi-select.component';
 export * from './lib/components/rating/rating.component';
@@ -105,6 +106,7 @@ export * from './lib/components/form-wrapper/form-wrapper.module';
 export * from './lib/components/loading-indicator/loading-indicator.module';
 export * from './lib/components/login/login.module';
 export * from './lib/components/main-menu/main-menu.module';
+export * from './lib/components/menu/menu.module';
 export * from './lib/components/multi-language/multi-language.module';
 export * from './lib/components/multi-select/multi-select.module';
 export * from './lib/components/rating/rating.module';
