@@ -22,7 +22,7 @@ export class TableColumnMetadata {
   name: string;
   noSpace = false;
   options: any[] = [];
-  optionsLabels: string[] = ['descripcion'];
+  optionsLabels: string[] = [];
   optionsOrdered: boolean;
   optionsValue: string;
   order = -1;

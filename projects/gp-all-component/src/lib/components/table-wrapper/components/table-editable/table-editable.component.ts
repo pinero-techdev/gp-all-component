@@ -19,7 +19,6 @@ import {
 import { SortDirection } from './resources/sort-direction.enum';
 import { SelectionType } from './resources/selection-type.enum';
 import { Paginator } from 'primeng/paginator';
-import { isNullOrUndefined } from 'util';
 import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
 
 /*
@@ -103,8 +102,9 @@ export class TableEditableComponent {
   @Output() downloadFile: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
   @ViewChildren(TableEditableRowComponent) inputs: QueryList<TableEditableRowComponent>;
   @ViewChildren('formInput', { read: ElementRef }) formInputs: QueryList<ElementRef>;
+
   get filteredData() {
-    if (isNullOrUndefined(this.data)) {
+    if (!this.data) {
       return [];
     }
     if (this.config.filterable) {

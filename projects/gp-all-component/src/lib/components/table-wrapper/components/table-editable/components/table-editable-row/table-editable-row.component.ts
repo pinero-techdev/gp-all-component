@@ -68,7 +68,7 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   dateFormat = 'yy-mm-dd';
   translationKeys = '';
   temporalValue = '';
-  temoralFile = new Attachment();
+  temporalFile = new Attachment();
   subject = new Subject();
 
   @Input() columnMetadata = new TableColumnMetadata();
@@ -102,6 +102,7 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
     ) {
       this.getOptions();
     }
+
     if (
       !this.isFilter &&
       (this.columnMetadata.type === GpFormFieldType.CHECKBOX ||
@@ -111,19 +112,18 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
         this.startStop(this.columnMetadata.uncheckedValue);
       }
     }
-    if (
-      this.columnMetadata.translationInfo &&
-      this.columnMetadata.translationInfo.keyFields &&
-      this.item
-    ) {
-      this.translationKeys = '';
-      for (const keyField of this.columnMetadata.translationInfo.keyFields) {
-        this.translationKeys += this.item[keyField];
-      }
-    }
 
-    this.form.get('name').setValue(this.columnMetadata.name);
-    this.value = this.item[this.columnMetadata.name];
+    if (this.item) {
+      if (this.columnMetadata.translationInfo && this.columnMetadata.translationInfo.keyFields) {
+        this.translationKeys = '';
+        for (const keyField of this.columnMetadata.translationInfo.keyFields) {
+          this.translationKeys += this.item[keyField];
+        }
+      }
+
+      this.form.get('name').setValue(this.columnMetadata.name);
+      this.value = this.item[this.columnMetadata.name];
+    }
   }
 
   onModelChange(value: any) {
@@ -204,9 +204,9 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
 
   openFileModal() {
     if (this.value) {
-      this.temoralFile = Object.assign(new Attachment(), this.value);
+      this.temporalFile = Object.assign(new Attachment(), this.value);
     } else {
-      this.temoralFile = new Attachment();
+      this.temporalFile = new Attachment();
     }
     this.fileModalVisible = true;
   }
@@ -256,6 +256,7 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
         )
         .subscribe(
           (data) => {
+            console.info('¡hodasmdasdnjasildgasudyasoi', data);
             if (data.ok) {
               if (this.columnMetadata.setOptionsFn) {
                 this.setCustomOptions(data.data);
@@ -319,11 +320,11 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
     reader.onload = () => {
       const base64 = (reader.result as string).split(',');
       if (base64 && base64.length > 1) {
-        this.temoralFile.operation = AttachmentOperationEnum.MODIFY;
-        this.temoralFile.fieldName = this.columnMetadata.name;
-        this.temoralFile.fileName = file.name;
-        this.temoralFile.mimeType = file.type;
-        this.temoralFile.content = base64[1];
+        this.temporalFile.operation = AttachmentOperationEnum.MODIFY;
+        this.temporalFile.fieldName = this.columnMetadata.name;
+        this.temporalFile.fileName = file.name;
+        this.temporalFile.mimeType = file.type;
+        this.temporalFile.content = base64[1];
       }
     };
   }
