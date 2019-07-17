@@ -32,13 +32,6 @@ describe('ButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have a click event', () => {
-    $button = fixture.nativeElement.querySelector('button');
-    spyOn(component, 'onClick').and.callThrough();
-    $button.click();
-    expect(component.onClick).toHaveBeenCalled();
-  });
-
   describe('Basic Type', () => {
     beforeEach(() => {
       component.type = ButtonType.Basic;
@@ -54,6 +47,14 @@ describe('ButtonComponent', () => {
     it('should have a label', () => {
       const $span = $button.querySelector('span');
       expect($span.innerText).toEqual(component.label);
+    });
+
+    it('should have a click event', () => {
+      component.type = ButtonType.Basic;
+      $button = fixture.nativeElement.querySelector('button');
+      spyOn(component, 'onClick').and.callThrough();
+      $button.click();
+      expect(component.onClick).toHaveBeenCalled();
     });
   });
 
@@ -108,6 +109,8 @@ describe('ButtonComponent', () => {
   });
 
   describe('Splitbutton Type', () => {
+    let $splitButtonMenuButton: HTMLButtonElement;
+
     beforeEach(() => {
       component.type = ButtonType.Split;
       component.icon = iconClassName;
@@ -122,6 +125,7 @@ describe('ButtonComponent', () => {
         },
       ];
       fixture.detectChanges();
+      $splitButtonMenuButton = fixture.nativeElement.querySelector('.ui-splitbutton-menubutton');
       $splitButton = fixture.nativeElement.querySelector('.ui-splitbutton');
       component.ngOnInit();
     });
@@ -186,6 +190,13 @@ describe('ButtonComponent', () => {
       component.splitItems.forEach((item) => {
         expect(item.command).toBeTruthy();
       });
+    });
+
+    it('should have a click event', () => {
+      component.type = ButtonType.Split;
+      spyOn(component, 'onClick').and.callThrough();
+      $splitButtonMenuButton.click();
+      expect(component.onClick).toHaveBeenCalled();
     });
   });
 });
