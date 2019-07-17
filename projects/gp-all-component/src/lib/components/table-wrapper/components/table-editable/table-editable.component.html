@@ -6,12 +6,12 @@
     <div class="ui-g-2">
       <button
         pButton
+        *ngIf="config.canAdd"
         label="Añadir"
         (click)="createItem()"
         [disabled]="onEdition || onCreation"
-        *ngIf="config.canAdd"
         class="cyan-btn"
-        icon="ui-icon-add"
+        icon="pi pi-plus"
       ></button>
       <button
         pButton
@@ -99,7 +99,7 @@
           <button
             pButton
             label="Exportar a CSV"
-            icon="ui-icon-file-download"
+            icon="pi pi-download"
             (click)="exportToCsv()"
             class="pull-left"
           ></button>
@@ -107,7 +107,7 @@
       </tr>
     </tfoot>
     <tbody class="ui-table-tbody">
-      <tr *ngIf="!sortedData || sortedData.length == 0">
+      <tr *ngIf="!sortedData || sortedData.length === 0">
         <td [attr.colspan]="footerColspan">
           No results
         </td>

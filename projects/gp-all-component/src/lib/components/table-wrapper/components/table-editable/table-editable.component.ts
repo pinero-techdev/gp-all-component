@@ -521,6 +521,7 @@ export class TableEditableComponent {
     this.cancelEdition.emit(item);
   }
   isItemValid(item: any): boolean {
+    console.info('IsVALID?', item);
     if (this.config.validateFn) {
       return this.config.validateFn(item, this.columns);
     }
@@ -536,6 +537,8 @@ export class TableEditableComponent {
         }
       }
     }
+    console.info('IsVALID?', valid);
+
     return valid;
   }
   hasFile(item: any, column: TableColumnMetadata): boolean {

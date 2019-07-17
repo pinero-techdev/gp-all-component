@@ -19,6 +19,7 @@ import { TableService } from './../../../../../../services/api/table/table.servi
 
 @Component({
   selector: 'gp-table-editable-row',
+  styleUrls: ['./table-editable-row.component.scss'],
   templateUrl: './table-editable-row.component.html',
 })
 export class TableEditableRowComponent extends CustomInput implements AfterViewInit {
@@ -102,7 +103,6 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
     ) {
       this.getOptions();
     }
-
     if (
       !this.isFilter &&
       (this.columnMetadata.type === GpFormFieldType.CHECKBOX ||

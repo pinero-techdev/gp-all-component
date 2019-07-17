@@ -1,5 +1,6 @@
 export const LocaleES = {
   ACCEPT: 'Aceptar',
+  ADD: 'Añadir',
   CANCEL: 'Cancelar',
   ACCESS_URL_FORBIDDEN: (userId, url) =>
     `El username ${userId} no tiene los permisos necesarios para acceder a ${url}`,
@@ -7,11 +8,16 @@ export const LocaleES = {
   AN_ERROR_LOADING_DATA: 'Error al cargar datos',
   CHANGE_PASSWORD: 'Cambiar clave',
   CHOOSE_AN_OPTION: 'Elige una opción',
+  CLOSE: 'Cerrar',
   LEAVE: 'Salir',
   SAVE: 'Guardar',
   BACK: 'Volver',
   ENTER: 'Entrar',
+  EXPORT_TO_CSV: 'Exportar a CSV',
+  CLEAR_FILTERS: 'Limpiar filtros',
+  NO_RESULTS: 'No hay resultados',
   ERROR_RETRIEVING_THE_MENU: 'No se recuperó un menú',
+  REMOVE: 'Borrar',
   ERROR: {
     RETRIEVE_RECORD: 'Error interno recuperando el registro.',
     REMOVE_RECORD: (message) => `Error borrando el registro ${message}`,

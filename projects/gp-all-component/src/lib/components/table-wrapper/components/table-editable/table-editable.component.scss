@@ -1,13 +1,21 @@
-gp-app-editable-table {
+$blue: #3f51b5;
+$white: white;
+
+:host {
   .pull-right {
     float: right;
   }
   .pull-left {
     float: left;
   }
+
   .table-header {
-    background-color: #3f51b5 !important;
-    color: white;
+    background-color: $blue;
+    color: $white;
+
+    div:last-child {
+      text-align: right;
+    }
   }
   .actions-colum {
     text-align: center;
@@ -37,5 +45,16 @@ gp-app-editable-table {
         border: 0;
       }
     }
+  }
+}
+
+.actions-colum {
+  display: flex;
+  flex-wrap: wrap;
+
+  button {
+    flex: 1 auto;
+    margin-left: 10px;
+    margin-top: 4px;
   }
 }

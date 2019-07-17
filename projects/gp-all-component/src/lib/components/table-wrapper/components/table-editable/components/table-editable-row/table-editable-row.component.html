@@ -1,12 +1,10 @@
 <div class="ui-inputgroup nopad" *ngIf="columnMetadata" [ngSwitch]="columnMetadata.type">
   <i
-    class="material-icons"
-    style="color: #ffba01;"
+    class="pi pi-exclamation-triangle"
     *ngIf="!isFilter && columnMetadata.messages && columnMetadata.messages.length > 0"
     [pTooltip]="columnMetadata.messages"
     tooltipPosition="top"
-    >warning</i
-  >
+  ></i>
   <button
     *ngSwitchCase="inputType.TEXT_AREA"
     pButton
@@ -15,10 +13,12 @@
     [disabled]="!isEditable()"
   ></button>
   <input
+    pInputText
     *ngSwitchCase="inputType.TEXT"
     type="text"
     #numberInput
     [ngModel]="value"
+    class="full-width"
     (ngModelChange)="isFilter ? onModelChange($event) : null"
     [minlength]="columnMetadata.minLength"
     [maxlength]="columnMetadata.maxLength"
@@ -31,8 +31,10 @@
   <input
     *ngSwitchCase="inputType.NUMBER"
     type="number"
+    pInputText
     #numberInput
     [ngModel]="value"
+    class="full-width"
     (ngModelChange)="isFilter ? onModelChange($event) : null"
     [minlength]="columnMetadata.minLength"
     [maxlength]="columnMetadata.maxLength"
@@ -91,8 +93,9 @@
   <p-calendar
     *ngSwitchCase="inputType.TIME"
     showTime="showTime"
-    hourFormat="24"
     styleClass="full-width"
+    inputStyleClass="full-width"
+    hourFormat="24"
     appendTo="body"
     [timeOnly]="true"
     [ngModel]="value"
@@ -102,7 +105,9 @@
   </p-calendar>
   <p-calendar
     *ngSwitchCase="inputType.CALENDAR"
+    class="full-width"
     styleClass="full-width"
+    inputStyleClass="full-width"
     appendTo="body"
     [defaultDate]="value"
     dataType="string"
@@ -119,11 +124,11 @@
     appendTo="body"
     [options]="optionsList"
     [ngModel]="value"
-    [autoWidth]="false"
+    styleClass="full-width"
     [filter]="true"
     (ngModelChange)="startStop($event)"
     [disabled]="!isEditable()"
-    class="ui-inputfield ui-selectonemenu-label"
+    class="full-width ui-inputfield ui-selectonemenu-label"
   >
   </p-dropdown>
   <p-dropdown
@@ -132,11 +137,11 @@
     appendTo="body"
     [options]="optionsList"
     [ngModel]="value"
-    [autoWidth]="false"
+    styleClass="full-width"
     [filter]="true"
     (ngModelChange)="startStop($event)"
     [disabled]="!isEditable()"
-    class="ui-inputfield ui-selectonemenu-label"
+    class="full-width ui-inputfield ui-selectonemenu-label"
   >
   </p-dropdown>
   <ng-template ngSwitchDefault>
