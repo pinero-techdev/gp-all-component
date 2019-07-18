@@ -65,6 +65,7 @@ export * from './lib/resources/data/user-info.model';
 export * from './lib/directives/focus-directive/focus.directive';
 export * from './lib/directives/lowercase-directive/lowercase.directive';
 export * from './lib/directives/uppercase-directive/uppercase.directive';
+export * from './lib/components/table-wrapper/components/table/column-template.directive';
 
 // Components
 export * from './lib/components/dynamic/dynamic.component';

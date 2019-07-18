@@ -1,19 +1,54 @@
+<ng-template #headerContent let-column>
+  {{ column.key }}
+</ng-template>
+
 <p-table
   [value]="data"
   [columns]="builder.getColumns()"
   [frozenColumns]="builder.getFrozenColumns()"
+  [paginator]="builder.native.paginator"
+  [rowsPerPageOptions]="builder.native.rowsPerPageOptions"
 >
   <ng-template pTemplate="header">
     <tr>
+      <ng-container *ngFor="let column of builder.getColumns()">
+        <th *ngIf="builder.isSortable(column); else headerBasic" [pSortableColumn]="column.key">
+          <ng-content
+            *ngTemplateOutlet="headerContent; context: { $implicit: column }"
+          ></ng-content>
+          <p-sortIcon [field]="column.key"></p-sortIcon>
+        </th>
+        <ng-template #headerBasic>
+          <th>
+            <ng-content
+              *ngTemplateOutlet="headerContent; context: { $implicit: column }"
+            ></ng-content>
+          </th>
+        </ng-template>
+      </ng-container>
+    </tr>
+    <tr *ngIf="builder.isFilterable()">
       <th *ngFor="let column of builder.getColumns()">
-        {{ column.key }}
+        <input
+          *ngIf="builder.isFilterable(column)"
+          type="text"
+          (input)="onFilter($event, column)"
+        />
       </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-row>
     <tr>
       <td *ngFor="let column of builder.getColumns()">
-        {{ row[column.key] }}
+        <ng-container *ngIf="builder.isCustomColumn(column.key); else defaultColumn">
+          <ng-container
+            [ngTemplateOutlet]="builder.getCustomColumn(column.key)"
+            [ngTemplateOutletContext]="{ $implicit: row }"
+          ></ng-container>
+        </ng-container>
+        <ng-template #defaultColumn>
+          {{ row[column.key] }}
+        </ng-template>
       </td>
     </tr>
   </ng-template>
