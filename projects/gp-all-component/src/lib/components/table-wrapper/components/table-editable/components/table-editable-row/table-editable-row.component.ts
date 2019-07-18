@@ -133,13 +133,14 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
       this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
     } else {
       this.value = value;
+      console.info('modelchange', this.value);
       this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
     }
   }
 
   isCheckboxChecked(): boolean {
     if (this.columnMetadata.checkedValue) {
-      return this.columnMetadata.checkedValue === this.value;
+      return Boolean(this.columnMetadata.checkedValue) === this.value;
     } else {
       return this.value;
     }
@@ -154,6 +155,7 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   }
 
   startStop(value: any) {
+    console.info(this.columnMetadata.name, 'MODELCHANGE');
     this.onStartEditing();
     this.onModelChange(value);
   }

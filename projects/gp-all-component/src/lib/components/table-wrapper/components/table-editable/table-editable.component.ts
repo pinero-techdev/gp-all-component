@@ -521,7 +521,6 @@ export class TableEditableComponent {
     this.cancelEdition.emit(item);
   }
   isItemValid(item: any): boolean {
-    console.info('IsVALID?', item);
     if (this.config.validateFn) {
       return this.config.validateFn(item, this.columns);
     }
@@ -532,7 +531,10 @@ export class TableEditableComponent {
           valid = false;
         }
       } else {
-        if (!this.metadataService.isValid(item[column.name], column, this.onCreation)) {
+        if (
+          item.hasOwnProperty(column.name) &&
+          !this.metadataService.isValid(item[column.name], column, this.onCreation)
+        ) {
           valid = false;
         }
       }

@@ -67,13 +67,13 @@
         </th>
         <ng-template ngFor [ngForOf]="columns" let-column>
           <th *ngIf="column.visible">
-            <!-- <gp-table-editable-row
-              *ngIf="column.filterable"
-              [ngModel]="column.filter"
-              (ngModelChange)="changeFilter(column, $event)"
-              [columnMetadata]="column"
-              [isFilter]="true"
-            ></gp-table-editable-row> -->
+            <!--<gp-table-editable-row-->
+            <!--*ngIf="column.filterable"-->
+            <!--[ngModel]="column.filter"-->
+            <!--(ngModelChange)="changeFilter(column, $event)"-->
+            <!--[columnMetadata]="column"-->
+            <!--[isFilter]="true"-->
+            <!--&gt;</gp-table-editable-row>-->
           </th>
         </ng-template>
         <th *ngIf="config.actionsColumn">
@@ -315,8 +315,8 @@
   <ng-template ngFor [ngForOf]="columns" let-column>
     <td *ngIf="column.visible">
       <gp-table-editable-row
-        [item]="item"
         *ngIf="!onCreation || !column.hideInAddOperation"
+        [item]="item"
         #formInput
         [columnMetadata]="column"
         (startEditing)="startEditingField.emit($event)"

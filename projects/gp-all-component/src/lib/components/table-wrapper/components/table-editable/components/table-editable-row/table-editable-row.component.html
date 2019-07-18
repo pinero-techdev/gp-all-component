@@ -17,7 +17,7 @@
     *ngSwitchCase="inputType.TEXT"
     type="text"
     #numberInput
-    [ngModel]="value"
+    [(ngModel)]="value"
     class="full-width"
     (ngModelChange)="isFilter ? onModelChange($event) : null"
     [minlength]="columnMetadata.minLength"
@@ -33,7 +33,7 @@
     type="number"
     pInputText
     #numberInput
-    [ngModel]="value"
+    [(ngModel)]="value"
     class="full-width"
     (ngModelChange)="isFilter ? onModelChange($event) : null"
     [minlength]="columnMetadata.minLength"
@@ -98,7 +98,7 @@
     hourFormat="24"
     appendTo="body"
     [timeOnly]="true"
-    [ngModel]="value"
+    [(ngModel)]="value"
     (ngModelChange)="setTimeValue($event)"
     [disabled]="!isEditable()"
   >
@@ -111,19 +111,20 @@
     appendTo="body"
     [defaultDate]="value"
     dataType="string"
-    [ngModel]="value"
+    [(ngModel)]="value"
     [disabled]="!isEditable()"
     [dateFormat]="dateFormat"
     (ngModelChange)="startStop($event)"
     [locale]="calendarLocale"
   >
   </p-calendar>
+  value {{ value }}
   <p-dropdown
     *ngSwitchCase="inputType.DROPDOWN"
     [showClear]="true"
     appendTo="body"
     [options]="optionsList"
-    [ngModel]="value"
+    [(ngModel)]="value"
     styleClass="full-width"
     [filter]="true"
     (ngModelChange)="startStop($event)"
@@ -136,7 +137,7 @@
     [showClear]="true"
     appendTo="body"
     [options]="optionsList"
-    [ngModel]="value"
+    [(ngModel)]="value"
     styleClass="full-width"
     [filter]="true"
     (ngModelChange)="startStop($event)"
@@ -156,7 +157,7 @@
         class="full-width"
         type="text"
         gpUppercase
-        [ngModel]="value"
+        [(ngModel)]="value"
         (ngModelChange)="isFilter ? onModelChange($event) : null"
         (change)="!isFilter ? onModelChange(textInput.value) : null"
         [maxlength]="columnMetadata.maxLength"
