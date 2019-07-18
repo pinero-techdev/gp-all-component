@@ -21,6 +21,7 @@ export * from './lib/services/core/messages.service';
 // Classes & Types
 export * from './lib/resources/constants/language-order.constant';
 export * from './lib/resources/constants/calendar.constants';
+export * from './lib/resources/constants/button.enum';
 export * from './lib/shared/imports/form-wrapper-shared';
 export * from './lib/shared/imports/table-wrapper-shared';
 export * from './lib/components/form-wrapper/resources/regex-validations.type';
@@ -93,6 +94,7 @@ export * from './lib/components/table-wrapper/components/table-editable/table-ed
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
 export * from './lib/components/topbar/topbar.component';
+export * from './lib/components/button/button.component';
 
 // Component Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
@@ -109,6 +111,7 @@ export * from './lib/components/rating/rating.module';
 export * from './lib/components/table-wrapper/table-wrapper.module';
 export * from './lib/components/topbar/topbar.module';
 export * from './lib/components/redirect/redirect.module';
+export * from './lib/components/button/button.module';
 export * from './lib/shared/shared.module';
 
 // Directive Modules

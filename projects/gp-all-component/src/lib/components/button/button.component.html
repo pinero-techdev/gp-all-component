@@ -1,0 +1,24 @@
+<button
+  pButton
+  *ngIf="type !== 'splitButton'"
+  [ngClass]="{
+    'ui-button-danger': severity === 'danger',
+    'ui-button-secondary': severity === 'secondary'
+  }"
+  type="button"
+  [label]="label"
+  [icon]="icon"
+  [disabled]="disabled"
+  (click)="onClick()"
+>
+</button>
+<p-splitButton
+  *ngIf="type === 'splitButton'"
+  [styleClass]="splitButtonSeverity"
+  [label]="label"
+  [icon]="icon"
+  [model]="splitItems"
+  [disabled]="disabled"
+  (onDropdownClick)="onClick()"
+>
+</p-splitButton>
