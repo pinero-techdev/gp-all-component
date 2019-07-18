@@ -34,7 +34,6 @@
       .ui-button-icon-left {
         color: $textColor;
         font-size: 18px;
-        background-color: $whiteColor;
       }
 
       .ui-button-text {
@@ -113,7 +112,7 @@
       }
 
       .ui-datepicker-buttonbar {
-        .ui-button {
+        .ui-button.ui-button-secondary {
           background: $primaryColor;
           border: 1px solid $primaryColor;
 
