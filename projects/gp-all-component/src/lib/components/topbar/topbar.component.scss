@@ -25,6 +25,7 @@
       .pi {
         @include absolute-centered(all);
         color: $textInvertedColor;
+        background-color: $topbarActionBg;
         font-size: 38px;
         text-align: center;
       }

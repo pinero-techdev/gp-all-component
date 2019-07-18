@@ -9,6 +9,9 @@
 
     .ui-editor-content {
       box-sizing: content-box;
+      p {
+        color: $textColor;
+      }
     }
 
     .ql-picker.ql-expanded {

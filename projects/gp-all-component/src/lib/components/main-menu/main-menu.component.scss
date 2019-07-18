@@ -222,7 +222,9 @@
       i {
         @include absolute-centered(all);
 
+        color: $whiteColor;
         font-size: 2em;
+        background: transparent;
       }
 
       @media (max-width: map-get($breakpoints, 'md')) {

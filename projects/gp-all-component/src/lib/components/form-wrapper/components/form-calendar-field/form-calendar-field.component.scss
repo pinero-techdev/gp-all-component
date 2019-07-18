@@ -27,9 +27,14 @@
       min-height: 36px;
       @include box-shadow(0 0 4px 0 rgba($blackColor, $inputShadowOpacity));
 
+      [class^='ui-button'] {
+        background: transparent;
+      }
+
       .ui-button-icon-left {
         color: $textColor;
         font-size: 18px;
+        background-color: $whiteColor;
       }
 
       .ui-button-text {
@@ -96,7 +101,7 @@
         .ui-datepicker-prev-icon,
         .ui-datepicker-next-icon {
           color: $whiteColor;
-
+          background: $primaryDarkColor;
           &:hover {
             color: $whiteColor;
           }
@@ -119,6 +124,7 @@
 
           .ui-button-text {
             color: $whiteColor;
+            background: transparent;
           }
         }
       }
