@@ -47,6 +47,10 @@
       padding: $buttonPaddingVertical $buttonPaddingHorizontal;
       color: $textInvertedColor;
     }
+
+    .pi {
+      color: $whiteColor;
+    }
   }
   .ui-button.ui-widget.ui-state-default.ui-corner-all {
     border-radius: $buttonBorderRadius;
@@ -96,6 +100,6 @@
     }
   }
   body .ui-button:enabled:focus {
-    border-radius: 6px;
+    border-radius: $buttonBorderRadius;
   }
 }
