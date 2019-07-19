@@ -17,9 +17,11 @@ $white: white;
       text-align: right;
     }
   }
+
   .actions-colum {
     text-align: center;
   }
+
   .gp-grid-table-cell {
     padding: 0;
     white-space: nowrap;
@@ -30,16 +32,20 @@ $white: white;
       padding: 0.25em 0.5em;
     }
   }
-  td,
-  th {
-    overflow: auto !important;
+
+  tbody td,
+  tbody th {
+    overflow: auto;
   }
+
   tfoot {
     padding: 0;
     border: 0;
+
     tr {
       padding: 0;
       border: 0;
+
       td {
         padding: 0;
         border: 0;
