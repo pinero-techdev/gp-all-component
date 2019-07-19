@@ -46,9 +46,9 @@
           >
             {{ column.label }}
             <i
+              *ngIf="column.sortable && config.sortable"
               class="table-sort-icon pull-right fa"
               aria-hidden="true"
-              *ngIf="column.sortable && config.sortable"
               [class.fa-sort]="config.sortField !== column.name"
               [class.fa-sort-asc]="
                 config.sortField == column.name && config.sortDirection == SortDirection.ASC
@@ -67,13 +67,13 @@
         </th>
         <ng-template ngFor [ngForOf]="columns" let-column>
           <th *ngIf="column.visible">
-            <!--<gp-table-editable-row-->
-            <!--*ngIf="column.filterable"-->
-            <!--[ngModel]="column.filter"-->
-            <!--(ngModelChange)="changeFilter(column, $event)"-->
-            <!--[columnMetadata]="column"-->
-            <!--[isFilter]="true"-->
-            <!--&gt;</gp-table-editable-row>-->
+            <gp-table-editable-row
+              *ngIf="column.filterable"
+              [ngModel]="column.filter"
+              (ngModelChange)="changeFilter(column, $event)"
+              [columnMetadata]="column"
+              [isFilter]="true"
+            ></gp-table-editable-row>
           </th>
         </ng-template>
         <th *ngIf="config.actionsColumn">
@@ -317,6 +317,7 @@
       <gp-table-editable-row
         *ngIf="!onCreation || !column.hideInAddOperation"
         [item]="item"
+        [(ngModel)]="item[column.name]"
         #formInput
         [columnMetadata]="column"
         (startEditing)="startEditingField.emit($event)"

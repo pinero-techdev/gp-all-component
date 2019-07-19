@@ -2,16 +2,13 @@ import { GpFormFieldType } from './../../../../../form-wrapper/resources/form-fi
 import { AttachmentOperationEnum } from './../../resources/attachment-operation.enum';
 import { switchMap } from 'rxjs/operators';
 import { Attachment } from './../../resources/attachment.class';
-import { Component, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CustomInput } from './../../resources/custom-input.class';
 import { Filter } from './../../../../../../resources/data/filter/filter.model';
 import { FilterOperationType } from './../../../../../../resources/data/filter/filter-operation-type.enum';
-import { FormBuilder, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
-import { Input, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
-import { Output } from '@angular/core';
 import { TableColumnMetadata } from './../../resources/table-column-metadata.model';
 import { TableFieldEvent } from '../../resources/table-events.interface';
 import { TableMetadataService } from './../../../../../../services/api/table/table-metadata.service';
@@ -21,6 +18,7 @@ import { TableService } from './../../../../../../services/api/table/table.servi
   selector: 'gp-table-editable-row',
   styleUrls: ['./table-editable-row.component.scss'],
   templateUrl: './table-editable-row.component.html',
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: TableEditableRowComponent, multi: true }],
 })
 export class TableEditableRowComponent extends CustomInput implements AfterViewInit {
   readonly inputType = GpFormFieldType;
@@ -127,15 +125,19 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   }
 
   onModelChange(value: any) {
+    const formatted = this.formatValueByFieldType(value, this.columnMetadata.type);
     if (this.columnMetadata.beforeChangeFn) {
-      const newValue = this.columnMetadata.beforeChangeFn(this.item, value, this.columnMetadata);
-      this.value = newValue;
-      this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
+      this.value = this.columnMetadata.beforeChangeFn(this.item, formatted, this.columnMetadata);
     } else {
-      this.value = value;
-      console.info('modelchange', this.value);
-      this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
+      this.value = formatted;
     }
+    if (this.item) {
+      if (!this.item.hasOwnProperty(this.columnMetadata.name)) {
+        this.item = Object.assign(this.columnMetadata.name, this.item);
+      }
+      this.item[this.columnMetadata.name] = this.value;
+    }
+    this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
   }
 
   isCheckboxChecked(): boolean {
@@ -258,7 +260,6 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
         )
         .subscribe(
           (data) => {
-            console.info('¡hodasmdasdnjasildgasudyasoi', data);
             if (data.ok) {
               if (this.columnMetadata.setOptionsFn) {
                 this.setCustomOptions(data.data);
@@ -372,5 +373,13 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
       this.item[`${this.columnMetadata.name}Empty`] = true;
       this.startStop(this.value);
     }
+  }
+
+  private formatValueByFieldType(value: any, type: GpFormFieldType) {
+    let formattedValue = value;
+    if (type === GpFormFieldType.CHECKBOX) {
+      formattedValue = Boolean(value);
+    }
+    return formattedValue;
   }
 }

@@ -72,6 +72,7 @@ describe('TableEditableRowComponent', () => {
       spyOn(component, 'getOptions').and.callThrough();
       spyOn(component, 'setOptions').and.callThrough();
       spyOn(component, 'isEditable').and.callThrough();
+      spyOn(component, 'isItemValue').and.callThrough();
 
       metadata.type = GpFormFieldType.DROPDOWN;
       metadata.optionsLabels = ['description'];
@@ -97,6 +98,16 @@ describe('TableEditableRowComponent', () => {
       fixture.detectChanges();
       component.ngAfterViewInit();
       expect(component.isEditable).toHaveBeenCalled();
+    });
+
+    fit('should save the new value', () => {
+      const value = 'D';
+      const colMetadata = component.columnMetadata;
+
+      component.startStop(value);
+      fixture.detectChanges();
+
+      expect(component.stopEditing.emit).toHaveBeenCalledWith({ value, item: colMetadata });
     });
   });
 
