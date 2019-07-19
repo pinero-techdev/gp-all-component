@@ -27,6 +27,9 @@ export class TableComponent implements AfterContentInit {
   // @Watch(model => this.builder = buildModel(model))
   model: TableModel;
 
+  @Input()
+  loading = false;
+
   @Output()
   filter = new EventEmitter<any>();
 

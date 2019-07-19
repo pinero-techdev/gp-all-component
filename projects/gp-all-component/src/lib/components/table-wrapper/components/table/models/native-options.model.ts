@@ -87,8 +87,6 @@ export class NativeOptions {
 
   reorderableColumns: boolean;
 
-  loading: boolean;
-
   loadingIcon = 'pi pi-spinner';
 
   showLoader = true;
