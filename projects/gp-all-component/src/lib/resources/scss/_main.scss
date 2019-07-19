@@ -9,21 +9,23 @@
   font-size: $fontSizeLarge;
 }
 
-span:not(.ui-button-icon-left),
-p,
-h3,
-label,
-ul,
-li,
-a,
-button::ng-deep,
-input,
-textarea,
-p-multiselect ::ng-deep .ui-widget,
-p-dropdown ::ng-deep .ui-widget,
-p-calendar ::ng-deep .ui-widget,
-p-table ::ng-deep .ui-widget {
-  font-family: $mainFont;
+body {
+  span:not(.ui-button-icon-left),
+  p,
+  h3,
+  label,
+  ul,
+  li,
+  a,
+  button::ng-deep,
+  input,
+  textarea,
+  p-multiselect ::ng-deep .ui-widget,
+  p-dropdown ::ng-deep .ui-widget,
+  p-calendar ::ng-deep .ui-widget,
+  p-table ::ng-deep .ui-widget {
+    font-family: $mainFont;
+  }
 }
 
 i,
@@ -50,6 +52,14 @@ i,
 /** CLASSES **/
 a {
   cursor: pointer;
+}
+
+body main p {
+  color: $textColor;
+}
+
+body .ui-message .ui-message-text {
+  color: $textColor;
 }
 
 .warn,

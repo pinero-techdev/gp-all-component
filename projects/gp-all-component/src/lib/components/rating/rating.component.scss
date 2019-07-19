@@ -5,6 +5,7 @@
   .rating {
     .pi-star {
       color: $accentColor;
+      background: transparent;
 
       &.gold {
         color: $ratingStars;

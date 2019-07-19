@@ -26,6 +26,7 @@
         .pi {
           color: $textSecondaryColor;
           margin-left: -25px;
+          background: transparent;
         }
       }
     }
@@ -61,6 +62,7 @@
             color: $textColor;
             font-size: $fontSizeLarge;
             margin-top: 0;
+            background: transparent;
           }
         }
       }

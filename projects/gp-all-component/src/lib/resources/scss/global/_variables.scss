@@ -49,6 +49,7 @@ $fontBold: 700;
 /* border */
 $borderRadius: 4px;
 $borderColor: color(gray, gray-5);
+$buttonBorderRadius: 6px;
 
 /* separation */
 $separation: 8px;
@@ -107,7 +108,7 @@ $checkboxBorder: color(gray, gray-13);
 
 /* Buttons */
 $buttonBg: $primaryColor;
-$buttonBg-hover: darken($primaryColor, 3%);
+$buttonBg-hover: darken($primaryColor, 10%);
 $buttonBorderColor: $buttonBg;
 $buttonHeight: 32px;
 $buttonLineHeight: 1;
@@ -116,15 +117,13 @@ $buttonFontSizeLarge: $inputFontSize;
 $buttonFontWeight: $fontSemiBold;
 $buttonBorderWidth: $inputBorderWidth;
 $buttonBorderStyle: $inputBorderStyle;
-$buttonBorderRadius: $inputBorderRadius;
-$buttonPaddingVertical: get-computed-padding(
-  $buttonHeight,
-  $buttonFontSize * $buttonLineHeight,
-  $buttonBorderWidth
-);
-$buttonPaddingHorizontal: $inputPaddingHorizontal + 14px;
-$buttonDangerBg: $errorColor;
-$buttonDangerBgHover: $errorColor;
+$buttonPaddingVertical: 10px;
+$buttonPaddingHorizontal: 45px;
+$buttonDangerBg: color(red, red-1);
+$buttonDangerBgHover: color(red, red-2);
+$buttonSecondaryBg: $whiteColor;
+$buttonSecondaryBgHover: color(white, white-1);
+$buttonSecondaryBorderColor: $borderColor;
 $buttonShadowOpacity: 0.08;
 
 /* card */
@@ -170,5 +169,3 @@ $paginatorBGColor: color(gray, gray-8);
 $paginatorBorderColor: color(gray, gray-5);
 /* Font Family */
 $mainFont: 'latolatinregular', sans-serif;
-
-$baseFontColor: red;
