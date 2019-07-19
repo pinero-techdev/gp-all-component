@@ -1,6 +1,6 @@
 import { SharedModule } from './../../../../../../shared/shared.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TableEditableRowComponent } from './table-editable-row.component';
+import { TableEditableCellComponent } from './table-editable-cell.component';
 import { MultiLanguageModule } from '../../../../../multi-language/multi-language.module';
 import { TableWrapperSharedProviders } from '../../../../../../shared/imports/table-wrapper-shared';
 import { TableServiceMock } from '../../../../../../services/api/table/table.service.mock';
@@ -14,8 +14,8 @@ import { TestingErrorCodeMock } from '../../../../../../shared/testing/@mock/uti
 import { of } from 'rxjs';
 
 describe('TableEditableRowComponent', () => {
-  let component: TableEditableRowComponent;
-  let fixture: ComponentFixture<TableEditableRowComponent>;
+  let component: TableEditableCellComponent;
+  let fixture: ComponentFixture<TableEditableCellComponent>;
   let tableService: TableService;
   let metadata;
   const tInfo = new TranslationInfo();
@@ -24,7 +24,7 @@ describe('TableEditableRowComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TableEditableRowComponent, TableEditableRowComponent],
+      declarations: [TableEditableCellComponent, TableEditableCellComponent],
       imports: [BrowserAnimationsModule, SharedModule, MultiLanguageModule],
       providers: [
         TableWrapperSharedProviders,
@@ -34,7 +34,7 @@ describe('TableEditableRowComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableEditableRowComponent);
+    fixture = TestBed.createComponent(TableEditableCellComponent);
     component = fixture.componentInstance;
     tableService = TestBed.get(TableService);
     fixture.detectChanges();

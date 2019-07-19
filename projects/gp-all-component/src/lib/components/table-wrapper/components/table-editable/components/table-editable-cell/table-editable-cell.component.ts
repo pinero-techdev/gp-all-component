@@ -15,14 +15,13 @@ import { TableMetadataService } from './../../../../../../services/api/table/tab
 import { TableService } from './../../../../../../services/api/table/table.service';
 
 @Component({
-  selector: 'gp-table-editable-row',
-  styleUrls: ['./table-editable-row.component.scss'],
-  templateUrl: './table-editable-row.component.html',
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: TableEditableRowComponent, multi: true }],
+  selector: 'gp-table-editable-cell',
+  styleUrls: ['./table-editable-cell.component.scss'],
+  templateUrl: './table-editable-cell.component.html',
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: TableEditableCellComponent, multi: true }],
 })
-export class TableEditableRowComponent extends CustomInput implements AfterViewInit {
+export class TableEditableCellComponent extends CustomInput implements AfterViewInit {
   readonly inputType = GpFormFieldType;
-  AttachmentOperationEnum = AttachmentOperationEnum;
   form: FormGroup;
   editable: boolean;
   optionsList = [];

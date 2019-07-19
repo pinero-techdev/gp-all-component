@@ -9,7 +9,7 @@ import {
   TableWrapperSharedProviders,
 } from '../../shared/imports/table-wrapper-shared';
 import { HttpClientModule } from '@angular/common/http';
-import { TableEditableRowComponent } from './components/table-editable/components/table-editable-row/table-editable-row.component';
+import { TableEditableCellComponent } from './components/table-editable/components/table-editable-cell/table-editable-cell.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableMetadataService } from '../../services/api/table/table-metadata.service';
 
@@ -18,7 +18,7 @@ import { TableMetadataService } from '../../services/api/table/table-metadata.se
     TableCrudComponent,
     TableEditableComponent,
     TableEditableCrudComponent,
-    TableEditableRowComponent,
+    TableEditableCellComponent,
     TableFrameComponent,
   ],
   imports: [
@@ -33,7 +33,7 @@ import { TableMetadataService } from '../../services/api/table/table-metadata.se
     TableCrudComponent,
     TableEditableComponent,
     TableEditableCrudComponent,
-    TableEditableRowComponent,
+    TableEditableCellComponent,
     TableFrameComponent,
   ],
 })

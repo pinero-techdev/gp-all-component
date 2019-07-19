@@ -1,6 +1,6 @@
 import { TableMetadataService } from '../../../../services/api/table/table-metadata.service';
 import { ConfirmationService } from 'primeng/api';
-import { TableEditableRowComponent } from './components/table-editable-row/table-editable-row.component';
+import { TableEditableCellComponent } from './components/table-editable-cell/table-editable-cell.component';
 import { ItemChangeEvent } from './resources/table-events.interface';
 import { TableFieldEvent, TableRowEvent } from './resources/table-events.interface';
 import { TableConfig } from './resources/table-config.model';
@@ -101,7 +101,7 @@ export class TableEditableComponent {
   @Output() create: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
   @Output() delete: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
   @Output() downloadFile: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-  @ViewChildren(TableEditableRowComponent) inputs: QueryList<TableEditableRowComponent>;
+  @ViewChildren(TableEditableCellComponent) inputs: QueryList<TableEditableCellComponent>;
   @ViewChildren('formInput', { read: ElementRef }) formInputs: QueryList<ElementRef>;
 
   get filteredData() {
@@ -188,7 +188,7 @@ export class TableEditableComponent {
   }
   itemValueChanged(event: TableFieldEvent, item: any) {
     if (event && event.column) {
-      this.inputs.forEach((input: TableEditableRowComponent) => {
+      this.inputs.forEach((input: TableEditableCellComponent) => {
         if (
           !input.isFilter &&
           input.columnMetadata.type === GpFormFieldType.DROPDOWN_RELATED &&
@@ -208,7 +208,7 @@ export class TableEditableComponent {
     console.info('change filter');
     if (column) {
       column.filter = filterValue;
-      this.inputs.forEach((input: TableEditableRowComponent) => {
+      this.inputs.forEach((input: TableEditableCellComponent) => {
         if (
           input.isFilter &&
           input.columnMetadata.type === GpFormFieldType.DROPDOWN_RELATED &&

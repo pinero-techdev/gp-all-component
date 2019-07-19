@@ -67,13 +67,13 @@
         </th>
         <ng-template ngFor [ngForOf]="columns" let-column>
           <th *ngIf="column.visible">
-            <gp-table-editable-row
+            <gp-table-editable-cell
               *ngIf="column.filterable"
               [ngModel]="column.filter"
               (ngModelChange)="changeFilter(column, $event)"
               [columnMetadata]="column"
               [isFilter]="true"
-            ></gp-table-editable-row>
+            ></gp-table-editable-cell>
           </th>
         </ng-template>
         <th *ngIf="config.actionsColumn">
@@ -314,7 +314,7 @@
 <ng-template #defaultFormTemplate let-item let-columns="columns">
   <ng-template ngFor [ngForOf]="columns" let-column>
     <td *ngIf="column.visible">
-      <gp-table-editable-row
+      <gp-table-editable-cell
         *ngIf="!onCreation || !column.hideInAddOperation"
         [item]="item"
         [(ngModel)]="item[column.name]"
@@ -323,7 +323,7 @@
         (startEditing)="startEditingField.emit($event)"
         (stopEditing)="itemValueChanged($event, item)"
         (downloadFile)="download(item, column)"
-      ></gp-table-editable-row>
+      ></gp-table-editable-cell>
     </td>
   </ng-template>
 </ng-template>
