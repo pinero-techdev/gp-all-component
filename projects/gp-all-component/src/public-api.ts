@@ -60,12 +60,15 @@ export * from './lib/resources/data/rol-info.model';
 export * from './lib/resources/data/translation-info.model';
 export * from './lib/resources/data/translation.model';
 export * from './lib/resources/data/user-info.model';
+export * from './lib/components/table-wrapper/components/table/models/table.model';
+export * from './lib/components/table-wrapper/components/table/models/table-column.model';
+export * from './lib/components/table-wrapper/components/table/models/native-options.model';
 
 // Directives
 export * from './lib/directives/focus-directive/focus.directive';
 export * from './lib/directives/lowercase-directive/lowercase.directive';
 export * from './lib/directives/uppercase-directive/uppercase.directive';
-export * from './lib/components/table-wrapper/components/table/column-template.directive';
+export * from './lib/components/table-wrapper/components/table/directives/column-template.directive';
 
 // Components
 export * from './lib/components/dynamic/dynamic.component';
