@@ -55,6 +55,7 @@ export * from './lib/resources/data/menu/menu-opcion-propiedades-propiedad.model
 export * from './lib/resources/data/menu/menu-opcion-propiedades.model';
 export * from './lib/resources/data/menu/menu-opcion.model';
 export * from './lib/resources/data/menu/menu.model';
+export * from './lib/resources/data/menu/menu-item.model';
 export * from './lib/resources/data/param.model';
 export * from './lib/resources/data/request-options.model';
 export * from './lib/resources/data/rol-info.model';

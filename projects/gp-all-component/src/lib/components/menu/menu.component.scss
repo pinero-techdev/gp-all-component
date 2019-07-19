@@ -1,0 +1,19 @@
+@import 'global/variables';
+@import 'global/mixins';
+
+::ng-deep {
+  .pi {
+    color: black;
+    cursor: pointer;
+  }
+
+  .menu {
+    &.menu-compressed {
+      //display: none;
+    }
+
+    .item {
+      cursor: pointer;
+    }
+  }
+}
