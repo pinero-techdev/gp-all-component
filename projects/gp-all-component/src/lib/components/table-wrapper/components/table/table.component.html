@@ -6,9 +6,15 @@
   [value]="data"
   [columns]="builder.getColumns()"
   [frozenColumns]="builder.getFrozenColumns()"
-  [paginator]="builder.native.paginator"
+  [paginator]="builder.getPaginator()"
   [rowsPerPageOptions]="builder.native.rowsPerPageOptions"
   [loading]="loading"
+  [lazy]="builder.getLazy()"
+  [rows]="pagination?.rows"
+  [totalRecords]="pagination?.totalRecords"
+  (onPage)="page.emit($event)"
+  (onSort)="sort.emit($event)"
+  (onLazyLoad)="lazy.emit($event)"
 >
   <ng-template pTemplate="header">
     <tr>

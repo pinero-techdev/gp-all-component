@@ -12,6 +12,7 @@ import { ColumnTemplateDirective } from './directives/column-template.directive'
 import { TableBuilder } from './table.builder';
 import { TableModel } from './models/table.model';
 import { TableColumn } from './models/table-column.model';
+import { PaginationOptions } from './models/pagination-options.model';
 
 @Component({
   selector: 'gp-table',
@@ -30,8 +31,16 @@ export class TableComponent implements AfterContentInit {
   @Input()
   loading = false;
 
-  @Output()
-  filter = new EventEmitter<any>();
+  @Input()
+  pagination: PaginationOptions;
+
+  @Output() filter: EventEmitter<any> = new EventEmitter();
+
+  @Output() page: EventEmitter<any> = new EventEmitter();
+
+  @Output() sort: EventEmitter<any> = new EventEmitter();
+
+  @Output() lazy: EventEmitter<any> = new EventEmitter();
 
   @ContentChildren(ColumnTemplateDirective)
   customColumns: QueryList<ColumnTemplateDirective>;
@@ -39,7 +48,7 @@ export class TableComponent implements AfterContentInit {
   builder: TableBuilder;
 
   ngAfterContentInit() {
-    this.builder = new TableBuilder(this.model, this.customColumns);
+    this.builder = new TableBuilder(this.model, this.customColumns, this.pagination);
   }
 
   onFilter(event: any, column: TableColumn) {

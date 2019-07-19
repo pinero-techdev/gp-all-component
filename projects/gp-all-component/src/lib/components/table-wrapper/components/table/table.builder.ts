@@ -3,6 +3,7 @@ import { QueryList } from '@angular/core';
 import { ColumnTemplateDirective } from './directives/column-template.directive';
 import { isNullOrUndefined } from 'util';
 import { TableColumn } from './models/table-column.model';
+import { PaginationOptions } from './models/pagination-options.model';
 
 export class TableBuilder {
   private model: TableModel;
@@ -10,7 +11,11 @@ export class TableBuilder {
   private customColumns: QueryList<ColumnTemplateDirective>;
 
   // Once we receive a model, we parse it
-  constructor(model = new TableModel(), customColumns?: QueryList<ColumnTemplateDirective>) {
+  constructor(
+    model = new TableModel(),
+    customColumns?: QueryList<ColumnTemplateDirective>,
+    pagination?: PaginationOptions
+  ) {
     // 1. Parsing model to standard model
     this.model = { ...new TableModel(), ...model };
 
@@ -23,6 +28,9 @@ export class TableBuilder {
       : this.parseCustomColumns(customColumns);
 
     this.customColumns = customColumns;
+
+    // 4. Setting pagination flag
+    this.model.pagination = !isNullOrUndefined(pagination);
   }
 
   get native() {
@@ -39,6 +47,14 @@ export class TableBuilder {
     return isNullOrUndefined(column)
       ? this.model.sortable
       : (isNullOrUndefined(column.sortable) || column.sortable) && this.model.sortable;
+  }
+
+  getLazy() {
+    return this.model.lazy;
+  }
+
+  getPaginator() {
+    return this.model.pagination;
   }
 
   getColumns() {

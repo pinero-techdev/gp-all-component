@@ -3,9 +3,10 @@ import { NativeOptions } from './native-options.model';
 
 export class TableModel {
   columns: TableColumn[] | string[] = [];
-  customColumns: { [key: string]: number };
+  customColumns?: { [key: string]: number };
   filterable = false;
   sortable = false;
-  pagination = false;
+  lazy = true;
+  pagination?: boolean;
   native = new NativeOptions();
 }
