@@ -15,10 +15,10 @@ export class TableBuilder {
     this.model = { ...new TableModel(), ...model };
 
     // 2. Converting all the columns to standard format
-    this.model.columns = this.toTableColumns(this.model.columns);
+    this.model.columns = this.toTableColumns(model.columns);
 
     // 3. Declaring all the custom columns
-    this.model.customColumns = isNullOrUndefined(this.customColumns)
+    this.model.customColumns = isNullOrUndefined(customColumns)
       ? []
       : this.parseCustomColumns(customColumns);
 
