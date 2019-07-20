@@ -96,7 +96,7 @@ export class TableEditableCellComponent extends CustomInput implements AfterView
   ngAfterViewInit() {
     this.form.get('name').setValue(this.columnMetadata.name);
     this.value =
-      this.item && this.item[this.columnMetadata.name] ? this.item[this.columnMetadata.name] : null;
+      this.item && this.item[this.columnMetadata.name] ? this.item[this.columnMetadata.name] : '';
 
     if (
       this.columnMetadata.type === GpFormFieldType.DROPDOWN ||

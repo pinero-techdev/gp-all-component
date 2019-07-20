@@ -15,7 +15,7 @@ import { of } from 'rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-fdescribe('TableEditableRowComponent', () => {
+describe('TableEditableCellComponent', () => {
   let component: TableEditableCellComponent;
   let fixture: ComponentFixture<TableEditableCellComponent>;
   let tableService: TableService;
