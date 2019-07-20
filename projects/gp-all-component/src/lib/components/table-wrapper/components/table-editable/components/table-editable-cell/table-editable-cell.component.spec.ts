@@ -13,8 +13,9 @@ import { RelatedField } from '../../../../../../resources/data/data-table/filter
 import { TestingErrorCodeMock } from '../../../../../../shared/testing/@mock/utils/testing-mock-constants.class';
 import { of } from 'rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
-describe('TableEditableRowComponent', () => {
+fdescribe('TableEditableRowComponent', () => {
   let component: TableEditableCellComponent;
   let fixture: ComponentFixture<TableEditableCellComponent>;
   let tableService: TableService;
@@ -47,9 +48,7 @@ describe('TableEditableRowComponent', () => {
       metadata = new TableColumnMetadata();
       metadata.name = 'naciCodi';
       metadata.translationInfo = translationInfo;
-      metadata.beforeChangeFn = () => {
-        //
-      };
+      metadata.beforeChangeFn = (itemData, value, col) => value;
       component.item = {};
       component.item.naciCodi = '1';
       component.item.code = '3';
@@ -60,6 +59,22 @@ describe('TableEditableRowComponent', () => {
       component.ngAfterViewInit();
     });
   });
+
+  function saveNewValue(value: any, expectedValue: any) {
+    const colMetadata = component.columnMetadata;
+    component.columnMetadata.beforeChangeFn = null;
+
+    fixture.detectChanges();
+    component.stopEditing.pipe(first()).subscribe((data) => {
+      expect(data.value).toEqual(expectedValue);
+      expect(component.item[colMetadata.name]).toEqual(expectedValue);
+    });
+
+    component.startStop(expectedValue);
+
+    expect(component.onModelChange).toHaveBeenCalled();
+    expect(component.stopEditing.emit).toHaveBeenCalled();
+  }
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -74,6 +89,8 @@ describe('TableEditableRowComponent', () => {
       spyOn(component, 'getOptions').and.callThrough();
       spyOn(component, 'setOptions').and.callThrough();
       spyOn(component, 'isEditable').and.callThrough();
+      spyOn(component, 'onModelChange').and.callThrough();
+      spyOn(component.stopEditing, 'emit').and.callThrough();
 
       metadata.type = GpFormFieldType.DROPDOWN;
       metadata.optionsLabels = ['description'];
@@ -101,14 +118,13 @@ describe('TableEditableRowComponent', () => {
       expect(component.isEditable).toHaveBeenCalled();
     });
 
-    xit('should save the new value', () => {
-      const value = 'D';
-      const colMetadata = component.columnMetadata;
+    it('should save the new value through before change fn', () => {
+      saveNewValue('D', 'D');
+    });
 
-      component.startStop(value);
-      fixture.detectChanges();
-
-      expect(component.stopEditing.emit).toHaveBeenCalledWith({ value, item: colMetadata });
+    it('should save the new value', () => {
+      component.columnMetadata.beforeChangeFn = null;
+      saveNewValue('D', 'D');
     });
   });
 
@@ -197,6 +213,8 @@ describe('TableEditableRowComponent', () => {
     beforeEach(() => {
       spyOn(component, 'startStop').and.callThrough();
       spyOn(component, 'onModelChange').and.callThrough();
+      spyOn(component.stopEditing, 'emit').and.callThrough();
+
       metadata.type = GpFormFieldType.CHECKBOX;
       component.columnMetadata = metadata;
       component.isFilter = false;
@@ -254,7 +272,6 @@ describe('TableEditableRowComponent', () => {
     });
 
     it('should trigger stopEditing event', () => {
-      spyOn(component.stopEditing, 'emit').and.callThrough();
       metadata.uncheckedValue = true;
       metadata.beforeChangeFn = null;
       component.value = null;
@@ -263,6 +280,17 @@ describe('TableEditableRowComponent', () => {
       expect(component.startStop).toHaveBeenCalled();
       expect(component.onModelChange).toHaveBeenCalled();
       expect(component.stopEditing.emit).toHaveBeenCalled();
+    });
+
+    it('should save the new value', () => {
+      saveNewValue('true', true);
+      saveNewValue('si', true);
+      saveNewValue('NO', true);
+      saveNewValue('N', false);
+      saveNewValue('S', true);
+      saveNewValue('false', false);
+      saveNewValue(true, true);
+      saveNewValue(false, false);
     });
   });
 

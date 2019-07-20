@@ -94,54 +94,66 @@ export class TableEditableCellComponent extends CustomInput implements AfterView
   }
 
   ngAfterViewInit() {
+    this.form.get('name').setValue(this.columnMetadata.name);
+    this.value =
+      this.item && this.item[this.columnMetadata.name] ? this.item[this.columnMetadata.name] : null;
+
     if (
       this.columnMetadata.type === GpFormFieldType.DROPDOWN ||
       this.columnMetadata.type === GpFormFieldType.DROPDOWN_RELATED
     ) {
       this.getOptions();
     }
+
     if (
       !this.isFilter &&
       (this.columnMetadata.type === GpFormFieldType.CHECKBOX ||
         this.columnMetadata.type === GpFormFieldType.SWITCH)
     ) {
-      if (!this.value && this.columnMetadata.uncheckedValue) {
+      if (
+        !this.value &&
+        this.columnMetadata.uncheckedValue !== null &&
+        this.columnMetadata.uncheckedValue !== undefined
+      ) {
         this.startStop(this.columnMetadata.uncheckedValue);
       }
     }
 
-    if (this.item) {
-      if (this.columnMetadata.translationInfo && this.columnMetadata.translationInfo.keyFields) {
-        this.translationKeys = '';
-        for (const keyField of this.columnMetadata.translationInfo.keyFields) {
-          this.translationKeys += this.item[keyField];
-        }
+    if (
+      this.item &&
+      this.columnMetadata.translationInfo &&
+      this.columnMetadata.translationInfo.keyFields
+    ) {
+      this.translationKeys = '';
+      for (const keyField of this.columnMetadata.translationInfo.keyFields) {
+        this.translationKeys += this.item[keyField];
       }
-
-      this.form.get('name').setValue(this.columnMetadata.name);
-      this.value = this.item[this.columnMetadata.name];
     }
   }
 
   onModelChange(value: any) {
-    const formatted = this.formatValueByFieldType(value, this.columnMetadata.type);
     if (this.columnMetadata.beforeChangeFn) {
-      this.value = this.columnMetadata.beforeChangeFn(this.item, formatted, this.columnMetadata);
+      this.value = this.columnMetadata.beforeChangeFn(this.item, value, this.columnMetadata);
     } else {
-      this.value = formatted;
+      this.value = value;
     }
     if (this.item) {
       if (!this.item.hasOwnProperty(this.columnMetadata.name)) {
         this.item = Object.assign(this.columnMetadata.name, this.item);
       }
       this.item[this.columnMetadata.name] = this.value;
+      this.item[this.columnMetadata.name] = this.value;
     }
+
     this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
   }
 
   isCheckboxChecked(): boolean {
-    if (this.columnMetadata.checkedValue) {
-      return Boolean(this.columnMetadata.checkedValue) === this.value;
+    if (
+      this.columnMetadata.checkedValue !== null &&
+      this.columnMetadata.checkedValue !== undefined
+    ) {
+      return this.columnMetadata.checkedValue === this.value;
     } else {
       return this.value;
     }
@@ -156,7 +168,6 @@ export class TableEditableCellComponent extends CustomInput implements AfterView
   }
 
   startStop(value: any) {
-    console.info(this.columnMetadata.name, 'MODELCHANGE');
     this.onStartEditing();
     this.onModelChange(value);
   }
@@ -372,13 +383,5 @@ export class TableEditableCellComponent extends CustomInput implements AfterView
       this.item[`${this.columnMetadata.name}Empty`] = true;
       this.startStop(this.value);
     }
-  }
-
-  private formatValueByFieldType(value: any, type: GpFormFieldType) {
-    let formattedValue = value;
-    if (type === GpFormFieldType.CHECKBOX) {
-      formattedValue = Boolean(value);
-    }
-    return formattedValue;
   }
 }

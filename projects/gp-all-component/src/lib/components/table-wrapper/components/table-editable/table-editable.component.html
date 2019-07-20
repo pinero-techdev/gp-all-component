@@ -196,7 +196,9 @@
                       }}</div>
                     </ng-template>
                     <ng-template #defaultColumnField>
-                      <div class="gp-grid-table-content">{{ item[column.name] }}</div>
+                      <div class="gp-grid-table-content">
+                        <p>{{ item[column.name] }}</p>
+                      </div>
                     </ng-template>
                   </ng-template>
                 </ng-container>

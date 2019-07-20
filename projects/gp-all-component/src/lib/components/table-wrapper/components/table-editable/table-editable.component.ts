@@ -6,7 +6,6 @@ import { TableFieldEvent, TableRowEvent } from './resources/table-events.interfa
 import { TableConfig } from './resources/table-config.model';
 import { TableColumnMetadata } from './resources/table-column-metadata.model';
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -171,8 +170,7 @@ export class TableEditableComponent {
   }
   constructor(
     private confirmationService: ConfirmationService,
-    private metadataService: TableMetadataService,
-    private cd: ChangeDetectorRef
+    private metadataService: TableMetadataService
   ) {}
   changeSort(column: TableColumnMetadata) {
     if (!this.config.sortable || !column.sortable) {
@@ -205,7 +203,6 @@ export class TableEditableComponent {
   }
   changeFilter(column: TableColumnMetadata, filterValue) {
     this.paginator.changePage(0);
-    console.info('change filter');
     if (column) {
       column.filter = filterValue;
       this.inputs.forEach((input: TableEditableCellComponent) => {
@@ -234,7 +231,6 @@ export class TableEditableComponent {
     for (const column of this.columns) {
       column.filter = null;
     }
-    console.info('clear', this.columns.filter((item) => !item.filter));
   }
   isSelectable(item: any): boolean {
     if (this.config.selectable === SelectionType.NONE) {
@@ -441,6 +437,7 @@ export class TableEditableComponent {
     if (this.onCreation || this.onEdition) {
       return;
     }
+
     const editFn = (editItem: any) => {
       this.editionObject = Object.assign({}, editItem);
       this.itemValid = this.isItemValid(this.editionObject);
@@ -544,7 +541,6 @@ export class TableEditableComponent {
         }
       }
     }
-    console.info('IsVALID?', valid);
 
     return valid;
   }

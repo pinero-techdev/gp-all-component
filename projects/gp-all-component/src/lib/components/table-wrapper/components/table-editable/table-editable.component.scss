@@ -36,6 +36,10 @@ $white: white;
   tbody td,
   tbody th {
     overflow: auto;
+
+    i.checkbox-icon {
+      color: $blue;
+    }
   }
 
   tfoot {
