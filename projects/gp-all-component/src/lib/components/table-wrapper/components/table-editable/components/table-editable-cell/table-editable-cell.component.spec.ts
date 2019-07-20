@@ -60,17 +60,19 @@ describe('TableEditableCellComponent', () => {
     });
   });
 
-  function saveNewValue(value: any, expectedValue: any) {
+  function saveNewValue(value: any) {
     const colMetadata = component.columnMetadata;
+    component.columnMetadata.uncheckedValue = 'N';
+    component.columnMetadata.checkedValue = 'S';
     component.columnMetadata.beforeChangeFn = null;
 
     fixture.detectChanges();
     component.stopEditing.pipe(first()).subscribe((data) => {
-      expect(data.value).toEqual(expectedValue);
-      expect(component.item[colMetadata.name]).toEqual(expectedValue);
+      expect(data.value).toEqual(value);
+      expect(component.item[colMetadata.name]).toEqual(value);
     });
 
-    component.startStop(expectedValue);
+    component.startStop(value);
 
     expect(component.onModelChange).toHaveBeenCalled();
     expect(component.stopEditing.emit).toHaveBeenCalled();
@@ -119,12 +121,12 @@ describe('TableEditableCellComponent', () => {
     });
 
     it('should save the new value through before change fn', () => {
-      saveNewValue('D', 'D');
+      saveNewValue('D');
     });
 
     it('should save the new value', () => {
       component.columnMetadata.beforeChangeFn = null;
-      saveNewValue('D', 'D');
+      saveNewValue('D');
     });
   });
 
@@ -262,35 +264,42 @@ describe('TableEditableCellComponent', () => {
       expect(component.value).toEqual('1');
     });
 
-    it('should call starStop method', () => {
-      metadata.uncheckedValue = true;
-      component.value = null;
+    it('should call startStop method', () => {
+      metadata.uncheckedValue = 'N';
+      component.value = '';
       fixture.detectChanges();
       component.ngAfterViewInit();
-      expect(component.startStop).toHaveBeenCalled();
-      expect(component.onModelChange).toHaveBeenCalled();
+      expect(component.startStop).not.toHaveBeenCalled();
+      expect(component.onModelChange).not.toHaveBeenCalled();
     });
 
     it('should trigger stopEditing event', () => {
-      metadata.uncheckedValue = true;
+      metadata.uncheckedValue = 'S';
       metadata.beforeChangeFn = null;
-      component.value = null;
+      component.value = '';
       fixture.detectChanges();
       component.ngAfterViewInit();
-      expect(component.startStop).toHaveBeenCalled();
-      expect(component.onModelChange).toHaveBeenCalled();
-      expect(component.stopEditing.emit).toHaveBeenCalled();
+      expect(component.startStop).not.toHaveBeenCalled();
+      expect(component.onModelChange).not.toHaveBeenCalled();
     });
 
     it('should save the new value', () => {
-      saveNewValue('true', true);
-      saveNewValue('si', true);
-      saveNewValue('NO', true);
-      saveNewValue('N', false);
-      saveNewValue('S', true);
-      saveNewValue('false', false);
-      saveNewValue(true, true);
-      saveNewValue(false, false);
+      saveNewValue('true');
+      expect(component.isCheckboxChecked()).toEqual(false);
+      saveNewValue('si');
+      expect(component.isCheckboxChecked()).toEqual(false);
+      saveNewValue('NO');
+      expect(component.isCheckboxChecked()).toEqual(false);
+      saveNewValue(component.columnMetadata.uncheckedValue);
+      expect(component.isCheckboxChecked()).toEqual(false);
+      saveNewValue(component.columnMetadata.checkedValue);
+      expect(component.isCheckboxChecked()).toEqual(true);
+      saveNewValue('false');
+      expect(component.isCheckboxChecked()).toEqual(false);
+      saveNewValue(true);
+      expect(component.isCheckboxChecked()).toEqual(false);
+      saveNewValue(false);
+      expect(component.isCheckboxChecked()).toEqual(false);
     });
   });
 
