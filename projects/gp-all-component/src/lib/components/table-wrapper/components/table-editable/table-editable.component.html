@@ -157,7 +157,7 @@
                   <ng-template [ngSwitchCase]="inputType.FILE">
                     <button
                       pButton
-                      icon="ui-icon-file-download"
+                      icon="pi pi-upload"
                       *ngIf="hasFile(item, column)"
                       (click)="download(item, column)"
                     ></button>
@@ -165,14 +165,14 @@
                   <button
                     *ngSwitchCase="inputType.IMG"
                     pButton
-                    icon="ui-icon-remove-red-eye"
+                    icon="pi pi-eye"
                     (click)="
                       imgModalVisible.visible = true; imgModalVisible.img = item[column.name]
                     "
                   ></button>
                   <button
                     *ngSwitchCase="inputType.WYSIWYG"
-                    icon="ui-icon-remove-red-eye"
+                    icon="pi pi-eye"
                     pButton
                     (click)="
                       textModalVisible.visible = true; textModalVisible.text = item[column.name]
@@ -180,7 +180,7 @@
                   ></button>
                   <button
                     *ngSwitchCase="inputType.TEXT_AREA"
-                    icon="ui-icon-remove-red-eye"
+                    icon="pi pi-eye"
                     pButton
                     (click)="
                       textModalVisible.visible = true; textModalVisible.text = item[column.name]

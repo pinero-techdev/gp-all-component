@@ -36,6 +36,7 @@ export * from './lib/components/table-wrapper/components/table-editable/resource
 export * from './lib/components/table-wrapper/components/table-editable/resources/attachment.class';
 export * from './lib/components/table-wrapper/components/table-editable/resources/attachment-operation.enum';
 export * from './lib/components/table-wrapper/resources/gp-table-restrictions.enum';
+export * from './lib/components/form-wrapper/resources/form-field-type.enum';
 export * from './lib/resources/data/cached-element.model';
 export * from './lib/resources/data/data-table/filter/data-table-filter-type.enum';
 export * from './lib/resources/data/data-table/filter/data-table-filter.model';

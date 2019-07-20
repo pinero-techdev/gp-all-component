@@ -63,6 +63,7 @@
     <button
       *ngSwitchCase="inputType.IMG"
       pButton
+      icon="pi pi-image"
       label="Abrir"
       (click)="openImgModal()"
       [disabled]="!isEditable()"
@@ -71,20 +72,21 @@
       *ngSwitchCase="inputType.WYSIWYG"
       pButton
       label="Abrir"
+      icon="pi pi-pencil"
       (click)="openWYSIWYGModal()"
       [disabled]="!isEditable()"
     ></button>
     <ng-template [ngSwitchCase]="inputType.FILE">
       <button
         pButton
-        icon="ui-icon-file-upload"
+        icon="pi pi-upload"
         (click)="openFileModal()"
         [disabled]="!isEditable()"
       ></button>
       <button
         pButton
         *ngIf="hasFile() || (value && value['content'])"
-        icon="ui-icon-delete"
+        icon="pi pi-trash"
         (click)="deleteFile()"
         [disabled]="!isEditable()"
       ></button>
@@ -168,7 +170,7 @@
     </div>
     <div
       class="ui-g-2 nopad"
-      *ngIf="columnMetadata.translationInfo != null && translationKeys != ''"
+      *ngIf="columnMetadata.translationInfo !== null && translationKeys !== ''"
     >
       <gp-multi-language
         [pKey]="translationKeys"
@@ -222,16 +224,16 @@
 <!--Textarea input modal-->
 <p-dialog
   [(visible)]="textareaModalVisible"
-  *ngIf="columnMetadata.type == inputType.TEXT_AREA"
+  *ngIf="columnMetadata.type === inputType.TEXT_AREA"
   header="Editor textarea"
   [modal]="true"
 >
   <div
     [class.ui-g-12]="
-      columnMetadata.translationInfo == null ||
-      (columnMetadata.translationInfo != null && translationKeys == '')
+      columnMetadata.translationInfo === null ||
+      (columnMetadata.translationInfo !== null && translationKeys === '')
     "
-    [class.ui-g-10]="columnMetadata.translationInfo != null && translationKeys != ''"
+    [class.ui-g-10]="columnMetadata.translationInfo !== null && translationKeys !== ''"
     class="nopad"
   >
     <textarea
@@ -245,7 +247,10 @@
     >
     </textarea>
   </div>
-  <div class="ui-g-2 nopad" *ngIf="columnMetadata.translationInfo != null && translationKeys != ''">
+  <div
+    class="ui-g-2 nopad"
+    *ngIf="columnMetadata.translationInfo !== null && translationKeys !== ''"
+  >
     <gp-multi-language
       [pKey]="translationKeys"
       [schema]="columnMetadata.translationInfo.scheme"
@@ -276,7 +281,7 @@
 <!--WYSIWYG input modal-->
 <p-dialog
   [(visible)]="wysiwygModalVisible"
-  *ngIf="columnMetadata.type == inputType.WYSIWYG"
+  *ngIf="columnMetadata.type === inputType.WYSIWYG"
   header="Editor WYSIWYG"
   [modal]="true"
 >
@@ -301,7 +306,7 @@
 <!--File input modal-->
 <p-dialog
   [(visible)]="fileModalVisible"
-  *ngIf="columnMetadata.type == inputType.FILE"
+  *ngIf="columnMetadata.type === inputType.FILE"
   header="Seleccionar archivo"
   [modal]="true"
 >
