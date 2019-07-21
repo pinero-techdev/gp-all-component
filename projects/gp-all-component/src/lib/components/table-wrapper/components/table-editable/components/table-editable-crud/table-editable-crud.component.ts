@@ -46,23 +46,28 @@ export class TableEditableCrudComponent {
    * $implicit, index
    * */
   @Input() actionsTemplate: TemplateRef<any>;
+
   // Nombre de la tabla a editar.
   @Input()
   get tableName(): string {
     return this._tableName;
   }
+
   set tableName(value: string) {
     this._tableName = value;
     this.loadTable();
   }
+
   @Input()
   get selectedData(): any[] {
     return this._selectedData;
   }
+
   set selectedData(value: any[]) {
     this._selectedData = value || [];
     this.selectedDataChange.emit(this._selectedData);
   }
+
   @Output() selectedDataChange = new EventEmitter<any[]>();
   @Output() deletedItem = new EventEmitter<any>();
   @Output() createdItem = new EventEmitter<any>();
@@ -169,7 +174,7 @@ export class TableEditableCrudComponent {
           item[column.name].operation === AttachmentOperationEnum.DELETE)
       ) {
         attachments.push(item[column.name]);
-        delete item[column.name];
+        item[column.name] = item[column.name].fileName;
       }
     }
     return attachments;

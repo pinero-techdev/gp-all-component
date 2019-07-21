@@ -155,10 +155,11 @@
               <td *ngIf="column.visible" class="gp-grid-table-cell">
                 <ng-container [ngSwitch]="column.type">
                   <ng-template [ngSwitchCase]="inputType.FILE">
+                    <p *ngIf="!hasFile(item, column)">{{ item[column.name] }}</p>
                     <button
+                      *ngIf="hasFile(item, column)"
                       pButton
                       icon="pi pi-upload"
-                      *ngIf="hasFile(item, column)"
                       (click)="download(item, column)"
                     ></button>
                   </ng-template>

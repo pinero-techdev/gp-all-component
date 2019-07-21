@@ -24,15 +24,13 @@ export class UpdateRowRq {
   attachments: any[];
 }
 
-export class UpdateRowRs extends CommonRs {
-}
+export class UpdateRowRs extends CommonRs {}
 
 export class DeleteRowRq {
   jsonOriginalRow: string;
 }
 
-export class DeleteRowRs extends CommonRs {
-}
+export class DeleteRowRs extends CommonRs {}
 
 export class InsertRowRq {
   jsonNewRow: string;
@@ -303,12 +301,12 @@ export class TableService extends CommonService {
     original: any,
     modificado: any,
     attachments?: Attachment[]
-  ): Observable<CommonRs> {
+  ): Observable<UpdateRowRs> {
     const rq = new UpdateRowRq();
     rq.jsonOriginalRow = JSON.stringify(original);
     rq.jsonModifiedRow = JSON.stringify(modificado);
     rq.attachments = attachments;
-    return this.post<CommonRs>(
+    return this.post<UpdateRowRs>(
       `${GlobalService.getBASE_URL()}/table_svc/${tableName}/updateRow`,
       rq
     );
