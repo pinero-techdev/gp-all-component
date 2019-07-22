@@ -1,6 +1,6 @@
 import { FieldMetadata } from './table.service';
 import { GpFormFieldType } from './../../../components/form-wrapper/resources/form-field-type.enum';
-import { TableColumnMetadata } from '../../../components/table-wrapper/components/table-editable/resources/table-column-metadata.model';
+import { TableColumnMetadata } from '../../../components/table-wrapper/components/table-editable-crud/resources/table-column-metadata.model';
 import { TableService } from './table.service';
 import { Injectable } from '@angular/core';
 

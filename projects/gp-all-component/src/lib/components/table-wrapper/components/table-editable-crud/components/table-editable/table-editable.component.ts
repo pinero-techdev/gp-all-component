@@ -1,10 +1,10 @@
-import { TableMetadataService } from '../../../../services/api/table/table-metadata.service';
+import { TableMetadataService } from '../../../../../../services/api/table/table-metadata.service';
 import { ConfirmationService } from 'primeng/api';
-import { TableEditableCellComponent } from './components/table-editable-cell/table-editable-cell.component';
-import { ItemChangeEvent } from './resources/table-events.interface';
-import { TableFieldEvent, TableRowEvent } from './resources/table-events.interface';
-import { TableConfig } from './resources/table-config.model';
-import { TableColumnMetadata } from './resources/table-column-metadata.model';
+import { TableEditableCellComponent } from '../table-editable-cell/table-editable-cell.component';
+import { ItemChangeEvent } from '../../resources/table-events.interface';
+import { TableFieldEvent, TableRowEvent } from '../../resources/table-events.interface';
+import { TableConfig } from '../../resources/table-config.model';
+import { TableColumnMetadata } from '../../resources/table-column-metadata.model';
 import {
   Component,
   ElementRef,
@@ -16,10 +16,10 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { SortDirection } from './resources/sort-direction.enum';
-import { SelectionType } from './resources/selection-type.enum';
+import { SortDirection } from '../../resources/sort-direction.enum';
+import { SelectionType } from '../../resources/selection-type.enum';
 import { Paginator } from 'primeng/paginator';
-import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
+import { GpFormFieldType } from '../../../../../form-wrapper/resources/form-field-type.enum';
 
 /*
  *  Data order: data -> filteredData -> sortedData -> currentPageData

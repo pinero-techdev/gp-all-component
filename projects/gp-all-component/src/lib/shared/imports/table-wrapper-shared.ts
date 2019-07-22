@@ -8,7 +8,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { MessagesService } from './../../services/core/messages.service';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Paginator } from 'primeng/paginator';
-import { TableEditableCellComponent } from '../../components/table-wrapper/components/table-editable/components/table-editable-cell/table-editable-cell.component';
+import { TableEditableCellComponent } from '../../components/table-wrapper/components/table-editable-crud/components/table-editable-cell/table-editable-cell.component';
 import { TableMetadataService } from '../../services/api/table/table-metadata.service';
 import { TableModule } from 'primeng/table';
 import { TableService } from './../../services/api/table/table.service';

@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RelatedField } from '../../../resources/data/data-table/filter/related-field.class';
 import { TranslationInfo } from './../../../resources/data/translation-info.model';
-import { Attachment } from '../../../components/table-wrapper/components/table-editable/resources/attachment.class';
+import { Attachment } from '../../../components/table-wrapper/components/table-editable-crud/resources/attachment.class';
 import { map } from 'rxjs/operators';
 export class ListRs extends CommonRs {
   data: any[];

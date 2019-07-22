@@ -1,9 +1,9 @@
-import { ItemChangeEvent } from './../../resources/table-events.interface';
-import { TableServiceMock } from './../../../../../../services/api/table/table.service.mock';
-import { TableWrapperModule } from './../../../../table-wrapper.module';
+import { ItemChangeEvent } from './resources/table-events.interface';
+import { TableServiceMock } from '../../../../services/api/table/table.service.mock';
+import { TableWrapperModule } from '../../table-wrapper.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableEditableCrudComponent } from './table-editable-crud.component';
-import { TableService } from './../../../../../../services/api/table/table.service';
+import { TableService } from '../../../../services/api/table/table.service';
 
 xdescribe('TableEditableCrudComponent', () => {
   let component: TableEditableCrudComponent;

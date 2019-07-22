@@ -1,9 +1,9 @@
-import { TableEditableCellComponent } from './components/table-editable-cell/table-editable-cell.component';
-import { SharedModule } from './../../../../shared/shared.module';
-import { MultiLanguageModule } from './../../../multi-language/multi-language.module';
+import { TableEditableCellComponent } from '../table-editable-cell/table-editable-cell.component';
+import { SharedModule } from '../../../../../../shared/shared.module';
+import { MultiLanguageModule } from '../../../../../multi-language/multi-language.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableEditableComponent } from './table-editable.component';
-import { TableWrapperSharedProviders } from '../../../../shared/imports/table-wrapper-shared';
+import { TableWrapperSharedProviders } from '../../../../../../shared/imports/table-wrapper-shared';
 
 xdescribe('TableEditableComponent', () => {
   let component: TableEditableComponent;
