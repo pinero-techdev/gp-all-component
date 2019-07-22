@@ -20,6 +20,7 @@ import { SortDirection } from '../../resources/sort-direction.enum';
 import { SelectionType } from '../../resources/selection-type.enum';
 import { Paginator } from 'primeng/paginator';
 import { GpFormFieldType } from '../../../../../form-wrapper/resources/form-field-type.enum';
+import { LocaleES } from '../../../../../../resources/localization';
 
 /*
  *  Data order: data -> filteredData -> sortedData -> currentPageData
@@ -39,6 +40,7 @@ export class TableEditableComponent {
   itemValid = true;
   onCreation = false;
   onEdition = false;
+  readonly translations = LocaleES;
 
   // tslint:disable-next-line: variable-name
   private _columns: TableColumnMetadata[] = [];

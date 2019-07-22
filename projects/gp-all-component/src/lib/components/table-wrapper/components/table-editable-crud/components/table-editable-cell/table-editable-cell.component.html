@@ -8,7 +8,7 @@
   <button
     *ngSwitchCase="inputType.TEXT_AREA"
     pButton
-    label="Abrir"
+    label="{{ translations.OPEN }}"
     (click)="openTextareaModal()"
     [disabled]="!isEditable()"
   ></button>
@@ -64,14 +64,14 @@
       *ngSwitchCase="inputType.IMG"
       pButton
       icon="pi pi-image"
-      label="Abrir"
+      label="{{ translations.OPEN }}"
       (click)="openImgModal()"
       [disabled]="!isEditable()"
     ></button>
     <button
       *ngSwitchCase="inputType.WYSIWYG"
       pButton
-      label="Abrir"
+      label="{{ translations.OPEN }}"
       icon="pi pi-pencil"
       (click)="openWYSIWYGModal()"
       [disabled]="!isEditable()"
@@ -190,7 +190,7 @@
 <p-dialog
   *ngIf="columnMetadata.type == inputType.IMG"
   [(visible)]="imgModalVisible"
-  header="Editor imagen (URL)"
+  header="{{ translations.IMG_EDITOR_URL }}"
   [modal]="true"
 >
   <img [src]="temporalValue" style="width: 100%; max-height: 50%;" *ngIf="temporalValue" />
@@ -208,13 +208,13 @@
   <p-footer>
     <button
       pButton
-      label="Aceptar"
+      label="{{ translations.ACCEPT }}"
       class="ui-button-success"
       (click)="startStop(temporalValue); imgModalVisible = false"
     ></button>
     <button
       pButton
-      label="Cancelar"
+      label="{{ translations.CANCEL }}"
       class="ui-button-danger"
       (click)="imgModalVisible = false"
     ></button>
@@ -265,13 +265,13 @@
   <p-footer>
     <button
       pButton
-      label="Aceptar"
+      label="{{ translations.ACCEPT }}"
       class="ui-button-success"
       (click)="startStop(temporalValue); textareaModalVisible = false"
     ></button>
     <button
       pButton
-      label="Cancelar"
+      label="{{ translations.CANCEL }}"
       class="ui-button-danger"
       (click)="textareaModalVisible = false"
     ></button>
@@ -290,13 +290,13 @@
   <p-footer>
     <button
       pButton
-      label="Aceptar"
+      label="{{ translations.ACCEPT }}"
       class="ui-button-success"
       (click)="startStop(temporalValue); wysiwygModalVisible = false"
     ></button>
     <button
       pButton
-      label="Cancelar"
+      label="{{ translations.CANCEL }}"
       class="ui-button-danger"
       (click)="wysiwygModalVisible = false"
     ></button>
@@ -314,14 +314,14 @@
   <p-footer>
     <button
       pButton
-      label="Aceptar"
+      label="{{ translations.ACCEPT }}"
       type="button"
       class="ui-button-success"
       (click)="startStop(temporalFile); fileModalVisible = false"
     ></button>
     <button
       pButton
-      label="Cancelar"
+      label="{{ translations.CANCEL }}"
       class="ui-button-danger"
       type="button"
       (click)="fileModalVisible = false"

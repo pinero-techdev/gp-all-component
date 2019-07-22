@@ -7,7 +7,7 @@
       <button
         pButton
         *ngIf="config.canAdd"
-        label="Añadir"
+        label="{{ translations.ADD }}"
         (click)="createItem()"
         [disabled]="onEdition || onCreation"
         class="cyan-btn"
@@ -15,7 +15,7 @@
       ></button>
       <button
         pButton
-        label="Cancelar"
+        label="{{ translations.CANCEL }}"
         (click)="cancel()"
         *ngIf="onEdition || onCreation"
         class="ui-button-danger"
@@ -77,7 +77,11 @@
           </th>
         </ng-template>
         <th *ngIf="config.actionsColumn">
-          <button pButton label="Clear filters" (click)="clearFilters()"></button>
+          <button
+            pButton
+            label="{{ translations.CLEAR_FILTERS }}"
+            (click)="clearFilters()"
+          ></button>
         </th>
       </tr>
     </thead>
@@ -98,7 +102,7 @@
         <td [attr.colspan]="footerColspan" class="ui-widget-header ui-table-summary">
           <button
             pButton
-            label="Exportar a CSV"
+            label="{{ translations.EXPORT_TO_CSV }}"
             icon="pi pi-download"
             (click)="exportToCsv()"
           ></button>
@@ -108,7 +112,7 @@
     <tbody class="ui-table-tbody">
       <tr *ngIf="!sortedData || sortedData.length === 0">
         <td [attr.colspan]="footerColspan">
-          No results
+          {{ translations.NO_RESULTS }}
         </td>
       </tr>
       <tr
@@ -280,7 +284,12 @@
               (click)="beforeCreateItem(creationObject)"
               class="ui-button-success"
             ></button>
-            <button pButton label="Cancelar" (click)="cancel()" class="ui-button-danger"></button>
+            <button
+              pButton
+              label="{{ translations.CANCEL }}"
+              (click)="cancel()"
+              class="ui-button-danger"
+            ></button>
           </td>
         </tr>
       </ng-template>
@@ -296,7 +305,7 @@
   <p-footer>
     <button
       pButton
-      label="Cerrar"
+      label="{{ translations.CLOSE }}"
       class="ui-button-success"
       (click)="imgModalVisible.visible = false"
     ></button>
@@ -307,7 +316,7 @@
   <p-footer>
     <button
       pButton
-      label="Cerrar"
+      label="{{ translations.CLOSE }}"
       class="ui-button-success"
       (click)="textModalVisible.visible = false"
     ></button>

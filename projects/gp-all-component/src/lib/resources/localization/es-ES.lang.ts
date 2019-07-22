@@ -13,6 +13,7 @@ export const LocaleES = {
   SAVE: 'Guardar',
   BACK: 'Volver',
   ENTER: 'Entrar',
+  IMG_EDITOR_URL: 'Editor imagen (URL)',
   EXPORT_TO_CSV: 'Exportar a CSV',
   CLEAR_FILTERS: 'Limpiar filtros',
   NO_RESULTS: 'No hay resultados',
@@ -167,4 +168,5 @@ export const LocaleES = {
   PREV_TEXT: '<Ant',
   NEXT_TEXT: 'Sig>',
   TODAY: 'Hoy',
+  OPEN: 'Abrir',
 };
