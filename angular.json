@@ -30,9 +30,9 @@
             "codeCoverage": true,
             "codeCoverageExclude": [
               "projects/gp-all-component/src/test.ts",
-              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable/components/table-editable-crud/**/*.ts",
-              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable/*.component.ts",
-              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable/resources/**/*.ts",
+              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable-crud/**/table-editable-crud/**/*.ts",
+              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable-crud/**/*.component.ts",
+              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable-crud/**/resources/**/*.ts",
               "projects/gp-all-component/src/lib/resources/**/*",
               "projects/gp-all-component/src/lib/shared/**/*",
               "projects/gp-all-component/src/lib/services/core/**/*",
