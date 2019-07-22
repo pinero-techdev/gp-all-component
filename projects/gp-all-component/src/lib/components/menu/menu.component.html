@@ -1,20 +1,10 @@
-<div class="pi" [ngClass]="isExpanded ? 'pi-angle-left' : 'pi-angle-right'" (click)="toggleMenu()">
-</div>
-<div *ngIf="isOpen" class="menu" [ngClass]="{ 'menu-compressed': !isExpanded }">
-  <ng-container *ngFor="let item of menu; i">
-    <div class="item">
-      <!-- (click)="selectItem(i)"-->
-      <div *ngIf="!isExpanded" class="pi {{ item.icon }}"></div>
-      <div *ngIf="isExpanded">{{ item.description }}</div>
-      <div class="submenuItems">
-        <!-- [ngClass]="toggleSubmenu ? 'show': ''"-->
-        <ng-container *ngFor="let subitem of item.submenus">
-          <div class="submenuItem">
-            <div class="pi {{ subitem.icon }}"></div>
-            <div>{{ subitem.description }}</div>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-  </ng-container>
+<div class="menu-wrapper">
+  <div
+    class="toggle-icon pi"
+    [ngClass]="isExpanded ? 'pi-angle-left' : 'pi-angle-right'"
+    (click)="toggleMenu()"
+  >
+  </div>
+  <p-panelMenu [model]="items" [ngClass]="isExpanded ? 'menu-expanded' : 'menu-collapsed'">
+  </p-panelMenu>
 </div>

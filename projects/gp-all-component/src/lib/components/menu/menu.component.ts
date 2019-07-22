@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MenuItem } from '../../resources/data/menu/menu-item.model';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'gp-menu',
@@ -7,35 +7,22 @@ import { MenuItem } from '../../resources/data/menu/menu-item.model';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-  @Input()
-  items: MenuItem[];
-
-  @Input()
-  open: boolean;
+  // tslint:disable-next-line: no-input-rename
+  @Input('items')
+  menuItems: MenuItem[];
 
   @Input()
   expanded: boolean;
 
-  menu: MenuItem[];
-  isOpen: boolean;
+  items: MenuItem[];
   isExpanded: boolean;
-  // idMenuSelected: string;
-  // toggleSubmenu = false;
 
   ngOnInit(): void {
-    this.isOpen = this.open;
     this.isExpanded = this.expanded;
-    this.menu = this.items;
+    this.items = this.menuItems;
   }
 
   toggleMenu() {
     this.isExpanded = !this.isExpanded;
   }
-
-  // selectItem(item) {
-  //   if(this.idMenuSelected === item.id) {
-
-  //     this.toggleSubmenu = !this.toggleSubmenu
-  //   }
-  // }
 }

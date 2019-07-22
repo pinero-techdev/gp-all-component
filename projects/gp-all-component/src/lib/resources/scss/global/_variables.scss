@@ -134,6 +134,10 @@ $primaryBg: color(white);
 
 /* menu */
 $menu-action-width: 76px;
+$menuBg: color(blue, blue-12);
+$menuBgHoverActive: color(blue, blue-13);
+$menuText: color(text, baseMenuText);
+$menuActionBg: color(blue, blue-11);
 $menuGradient1: color(blue, blue-10);
 $menuGradient2: color(blue, blue-7);
 $menuGradient3: color(blue, blue-6);
@@ -151,7 +155,7 @@ $contentShadowOpacity: 0.2;
 $calendarDaySelectedBg: color(blue, blue-1);
 
 /* topbar */
-$topbarBg: color(blue, blue-7);
+$topbarBg: color(blue, blue-12);
 $topbarActionBg: color(blue, blue-11);
 $topbarSettingModalShadow: color(blue, blue-1);
 
