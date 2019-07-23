@@ -37,6 +37,10 @@ export class TableBuilder {
     return this.model.native;
   }
 
+  getTitle() {
+    return this.model.title;
+  }
+
   isFilterable(column?: TableColumn) {
     return isNullOrUndefined(column)
       ? this.model.filterable

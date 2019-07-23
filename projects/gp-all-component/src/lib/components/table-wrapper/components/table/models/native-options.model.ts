@@ -1,17 +1,17 @@
 import { FilterMetadata } from 'primeng/api';
 
 export class NativeOptions {
-  style: any;
+  style?: any;
 
-  styleClass: string;
+  styleClass?: string;
 
-  tableStyle: any;
+  tableStyle?: any;
 
-  tableStyleClass: string;
+  tableStyleClass?: string;
 
   pageLinks = 5;
 
-  rowsPerPageOptions: any[];
+  rowsPerPageOptions?: any[];
 
   paginator = false;
 
@@ -19,13 +19,13 @@ export class NativeOptions {
 
   paginatorPosition = 'bottom';
 
-  paginatorDropdownAppendTo: any;
+  paginatorDropdownAppendTo?: any;
 
   paginatorDropdownScrollHeight = '200px';
 
   currentPageReportTemplate = '{currentPage} of {totalPages}';
 
-  showCurrentPageReport: boolean;
+  showCurrentPageReport?: boolean;
 
   defaultSortOrder = 1;
 
@@ -33,15 +33,15 @@ export class NativeOptions {
 
   resetPageOnSort = true;
 
-  selectionMode: string;
+  selectionMode?: string;
 
-  contextMenuSelection: any;
+  contextMenuSelection?: any;
 
   contextMenuSelectionMode = 'separate';
 
-  dataKey: string;
+  dataKey?: string;
 
-  metaKeySelection: boolean;
+  metaKeySelection?: boolean;
 
   lazy = false;
 
@@ -65,41 +65,41 @@ export class NativeOptions {
 
   rowExpandMode = 'multiple';
 
-  scrollable: boolean;
+  scrollable?: boolean;
 
-  scrollHeight: string;
+  scrollHeight?: string;
 
-  virtualScroll: boolean;
+  virtualScroll?: boolean;
 
   virtualScrollDelay = 150;
 
   virtualRowHeight = 28;
 
-  frozenWidth: string;
+  frozenWidth?: string;
 
-  responsive: boolean;
+  responsive?: boolean;
 
-  contextMenu: any;
+  contextMenu?: any;
 
-  resizableColumns: boolean;
+  resizableColumns?: boolean;
 
   columnResizeMode = 'fit';
 
-  reorderableColumns: boolean;
+  reorderableColumns?: boolean;
 
   loadingIcon = 'pi pi-spinner';
 
   showLoader = true;
 
-  rowHover: boolean;
+  rowHover?: boolean;
 
-  customSort: boolean;
+  customSort?: boolean;
 
-  autoLayout: boolean;
+  autoLayout?: boolean;
 
   exportFunction;
 
-  stateKey: string;
+  stateKey?: string;
 
   stateStorage = 'session';
 

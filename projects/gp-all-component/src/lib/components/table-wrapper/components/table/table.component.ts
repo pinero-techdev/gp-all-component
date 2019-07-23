@@ -7,6 +7,8 @@ import {
   AfterContentInit,
   Output,
   EventEmitter,
+  ContentChild,
+  TemplateRef,
 } from '@angular/core';
 import { ColumnTemplateDirective } from './directives/column-template.directive';
 import { TableBuilder } from './table.builder';
@@ -34,6 +36,9 @@ export class TableComponent implements AfterContentInit {
   @Input()
   pagination: PaginationOptions;
 
+  @Input()
+  selectedRows: any[];
+
   @Output() filter: EventEmitter<any> = new EventEmitter();
 
   @Output() page: EventEmitter<any> = new EventEmitter();
@@ -42,8 +47,20 @@ export class TableComponent implements AfterContentInit {
 
   @Output() lazy: EventEmitter<any> = new EventEmitter();
 
+  @Output() rowSelect: EventEmitter<any> = new EventEmitter();
+
+  @Output() rowUnselect: EventEmitter<any> = new EventEmitter();
+
+  @Output() selectedRowsChange: EventEmitter<any[]> = new EventEmitter();
+
   @ContentChildren(ColumnTemplateDirective)
   customColumns: QueryList<ColumnTemplateDirective>;
+
+  @ContentChild('caption')
+  captionContent: TemplateRef<any>;
+
+  @ContentChild('header')
+  headerContent: TemplateRef<any>;
 
   builder: TableBuilder;
 

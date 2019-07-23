@@ -1,7 +1,3 @@
-<ng-template #headerContent let-column>
-  {{ column.key }}
-</ng-template>
-
 <p-table
   [value]="data"
   [columns]="builder.getColumns()"
@@ -12,40 +8,59 @@
   [lazy]="builder.getLazy()"
   [rows]="pagination?.rows"
   [totalRecords]="pagination?.totalRecords"
+  [paginatorPosition]="builder.native.paginatorPosition"
+  [selectionMode]="builder.native.selectionMode"
+  [(selection)]="selectedRows"
+  [dataKey]="builder.native.dataKey"
   (onPage)="page.emit($event)"
   (onSort)="sort.emit($event)"
   (onLazyLoad)="lazy.emit($event)"
+  (onRowSelect)="rowSelect.emit($event)"
+  (onRowUnselect)="rowUnselect.emit($event)"
 >
+  <ng-template pTemplate="caption">
+    <ng-container *ngIf="captionContent">
+      <ng-content *ngTemplateOutlet="captionContent"></ng-content>
+    </ng-container>
+
+    <ng-container *ngIf="!captionContent">
+      {{ builder.getTitle() }}
+    </ng-container>
+  </ng-template>
   <ng-template pTemplate="header">
-    <tr>
-      <ng-container *ngFor="let column of builder.getColumns()">
-        <th *ngIf="builder.isSortable(column); else headerBasic" [pSortableColumn]="column.key">
-          <ng-content
-            *ngTemplateOutlet="headerContent; context: { $implicit: column }"
-          ></ng-content>
-          <p-sortIcon [field]="column.key"></p-sortIcon>
-        </th>
-        <ng-template #headerBasic>
-          <th>
-            <ng-content
-              *ngTemplateOutlet="headerContent; context: { $implicit: column }"
-            ></ng-content>
+    <ng-container *ngIf="headerContent">
+      <ng-content
+        *ngTemplateOutlet="headerContent; context: { $implicit: builder.getColumns() }"
+      ></ng-content>
+    </ng-container>
+
+    <ng-container *ngIf="!headerContent">
+      <tr>
+        <ng-container *ngFor="let column of builder.getColumns()">
+          <th *ngIf="builder.isSortable(column); else headerBasic" [pSortableColumn]="column.key">
+            {{ column.key }}
+            <p-sortIcon [field]="column.key"></p-sortIcon>
           </th>
-        </ng-template>
-      </ng-container>
-    </tr>
-    <tr *ngIf="builder.isFilterable()">
-      <th *ngFor="let column of builder.getColumns()">
-        <input
-          *ngIf="builder.isFilterable(column)"
-          type="text"
-          (input)="onFilter($event, column)"
-        />
-      </th>
-    </tr>
+          <ng-template #headerBasic>
+            <th>
+              {{ column.key }}
+            </th>
+          </ng-template>
+        </ng-container>
+      </tr>
+      <tr *ngIf="builder.isFilterable()">
+        <th *ngFor="let column of builder.getColumns()">
+          <input
+            *ngIf="builder.isFilterable(column)"
+            type="text"
+            (input)="onFilter($event, column)"
+          />
+        </th>
+      </tr>
+    </ng-container>
   </ng-template>
   <ng-template pTemplate="body" let-row>
-    <tr>
+    <tr [pSelectableRow]="row" [pSelectableRowDisabled]="!builder.native.selectionMode">
       <td *ngFor="let column of builder.getColumns()">
         <ng-container *ngIf="builder.isCustomColumn(column.key); else defaultColumn">
           <ng-container
