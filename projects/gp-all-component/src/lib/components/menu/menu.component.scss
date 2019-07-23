@@ -3,14 +3,13 @@
 
 ::ng-deep {
   .menu-wrapper {
-    position: fixed;
-    top: 0;
-    height: 100vh;
+    height: 100%;
     background: $menuBg;
     margin: 0;
     padding: 0;
 
-    .pi {
+    .pi,
+    .icon {
       color: $menuText;
       cursor: pointer;
     }
@@ -33,6 +32,7 @@
     .ui-panelmenu {
       width: auto;
       display: inline-block;
+      min-width: 260px;
 
       .ui-panelmenu-panel {
         .ui-panelmenu-header {
@@ -55,6 +55,14 @@
             background: transparent;
             width: 100%;
             font-weight: 500;
+
+            &:hover {
+              .ui-menuitem-icon {
+                &:before {
+                  color: $primaryColor;
+                }
+              }
+            }
 
             .ui-menuitem-text,
             .ui-menuitem-icon {
@@ -124,12 +132,9 @@
     .menu-collapsed {
       .ui-panelmenu {
         width: 64px;
+        min-width: auto;
 
         .ui-panelmenu-panel {
-          .ui-panelmenu-header-link {
-            pointer-events: none;
-          }
-
           .ui-menuitem-text,
           .ui-panelmenu-icon {
             display: none;
