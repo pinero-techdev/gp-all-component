@@ -13,6 +13,7 @@ import { TableColumnMetadata } from './../../resources/table-column-metadata.mod
 import { TableFieldEvent } from '../../resources/table-events.interface';
 import { TableMetadataService } from './../../../../../../services/api/table/table-metadata.service';
 import { TableService } from './../../../../../../services/api/table/table.service';
+import { LocaleES } from '../../../../../../resources/localization';
 
 @Component({
   selector: 'gp-table-editable-cell',
@@ -68,6 +69,7 @@ export class TableEditableCellComponent extends CustomInput implements AfterView
   temporalValue = '';
   temporalFile = new Attachment();
   subject = new Subject();
+  readonly translations = LocaleES;
 
   @Input() columnMetadata = new TableColumnMetadata();
   @Input() item: any; // item es el objeto row, con todos los campos

@@ -7,7 +7,7 @@
       <button
         pButton
         *ngIf="config.canAdd"
-        label="Añadir"
+        label="{{ translations.ADD }}"
         (click)="createItem()"
         [disabled]="onEdition || onCreation"
         class="cyan-btn"
@@ -15,7 +15,7 @@
       ></button>
       <button
         pButton
-        label="Cancelar"
+        label="{{ translations.CANCEL }}"
         (click)="cancel()"
         *ngIf="onEdition || onCreation"
         class="ui-button-danger"
@@ -306,7 +306,7 @@
   <p-footer>
     <button
       pButton
-      label="Cerrar"
+      label="{{ translations.CLOSE }}"
       class="ui-button-success"
       (click)="imgModalVisible.visible = false"
     ></button>
@@ -317,7 +317,7 @@
   <p-footer>
     <button
       pButton
-      label="Cerrar"
+      label="{{ translations.CLOSE }}"
       class="ui-button-success"
       (click)="textModalVisible.visible = false"
     ></button>
