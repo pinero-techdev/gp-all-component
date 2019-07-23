@@ -10,8 +10,10 @@
   [totalRecords]="pagination?.totalRecords"
   [paginatorPosition]="builder.native.paginatorPosition"
   [selectionMode]="builder.native.selectionMode"
-  [(selection)]="selectedRows"
   [dataKey]="builder.native.dataKey"
+  [sortField]="builder.native.defaultSortKey"
+  [sortOrder]="builder.native.defaultSortOrder"
+  [(selection)]="selectedRows"
   (onPage)="page.emit($event)"
   (onSort)="sort.emit($event)"
   (onLazyLoad)="lazy.emit($event)"
@@ -73,5 +75,8 @@
         </ng-template>
       </td>
     </tr>
+  </ng-template>
+  <ng-template *ngIf="footerContent" pTemplate="summary">
+    <ng-content *ngTemplateOutlet="footerContent"></ng-content>
   </ng-template>
 </p-table>

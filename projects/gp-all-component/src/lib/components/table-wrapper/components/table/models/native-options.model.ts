@@ -29,6 +29,8 @@ export class NativeOptions {
 
   defaultSortOrder = 1;
 
+  defaultSortKey: string;
+
   sortMode = 'single';
 
   resetPageOnSort = true;

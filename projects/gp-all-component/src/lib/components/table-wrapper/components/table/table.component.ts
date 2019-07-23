@@ -62,6 +62,9 @@ export class TableComponent implements AfterContentInit {
   @ContentChild('header')
   headerContent: TemplateRef<any>;
 
+  @ContentChild('footer')
+  footerContent: TemplateRef<any>;
+
   builder: TableBuilder;
 
   ngAfterContentInit() {

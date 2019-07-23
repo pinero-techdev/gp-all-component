@@ -3,7 +3,8 @@ export class TableColumn {
   translationKey: string;
   order: number;
 
-  frozen;
-  sortable;
-  filterable;
+  frozen: boolean;
+  sortable: boolean;
+  filterable: boolean;
+  defaultSort: boolean;
 }

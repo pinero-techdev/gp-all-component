@@ -9,5 +9,5 @@ export class TableModel {
   sortable = false;
   lazy = true;
   pagination?: boolean;
-  native? = new NativeOptions();
+  native = new NativeOptions();
 }
