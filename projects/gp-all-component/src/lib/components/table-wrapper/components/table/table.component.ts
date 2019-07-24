@@ -70,7 +70,7 @@ export class TableComponent {
   @ViewChild('table')
   table: Table;
 
-  builder: TableBuilder;
+  builder = new TableBuilder();
 
   onFilter(event: any, column: TableColumn) {
     this.table.filter(event.srcElement.value, column.key, 'contains');
