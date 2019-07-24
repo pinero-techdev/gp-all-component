@@ -4,6 +4,7 @@ import { ColumnTemplateDirective } from './directives/column-template.directive'
 import { isNullOrUndefined } from 'util';
 import { TableColumn } from './models/table-column.model';
 import { PaginationOptions } from './models/pagination-options.model';
+import { SelectionMode } from './models/selection-mode.type';
 
 export class TableBuilder {
   private model: TableModel;
@@ -63,6 +64,24 @@ export class TableBuilder {
 
   getPaginator() {
     return this.model.pagination;
+  }
+
+  getSelectionMode(mode?: SelectionMode) {
+    const modelSelection = this.model.selectable;
+
+    if (mode) {
+      return modelSelection === mode;
+    }
+
+    if (modelSelection === 'checkbox') {
+      return 'multiple';
+    }
+
+    if (modelSelection === 'radius') {
+      return 'single';
+    }
+
+    return modelSelection;
   }
 
   getColumns() {

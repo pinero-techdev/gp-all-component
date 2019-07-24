@@ -35,7 +35,7 @@ export class TableComponent {
   pagination: PaginationOptions;
 
   @Input()
-  selectedRows: any[];
+  selected = [];
 
   @Input()
   @OnChange<TableModel>('buildModel')
@@ -53,7 +53,7 @@ export class TableComponent {
 
   @Output() rowUnselect: EventEmitter<any> = new EventEmitter();
 
-  @Output() selectedRowsChange: EventEmitter<any[]> = new EventEmitter();
+  @Output() selectedChange: EventEmitter<any[]> = new EventEmitter();
 
   @ContentChildren(ColumnTemplateDirective)
   customColumns: QueryList<ColumnTemplateDirective>;

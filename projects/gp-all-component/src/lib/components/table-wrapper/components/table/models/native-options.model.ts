@@ -35,8 +35,6 @@ export class NativeOptions {
 
   resetPageOnSort = true;
 
-  selectionMode?: string;
-
   contextMenuSelection?: any;
 
   contextMenuSelectionMode = 'separate';
