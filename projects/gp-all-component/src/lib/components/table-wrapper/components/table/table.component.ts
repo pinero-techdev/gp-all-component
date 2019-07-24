@@ -9,6 +9,7 @@ import {
   ContentChild,
   TemplateRef,
   ViewChild,
+  AfterContentInit,
 } from '@angular/core';
 import { ColumnTemplateDirective } from './directives/column-template.directive';
 import { TableBuilder } from './table.builder';
@@ -24,7 +25,7 @@ import { Table } from 'primeng/table';
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableComponent {
+export class TableComponent implements AfterContentInit {
   @Input()
   data: any[];
 
@@ -71,6 +72,10 @@ export class TableComponent {
   table: Table;
 
   builder = new TableBuilder();
+
+  ngAfterContentInit() {
+    this.buildModel();
+  }
 
   onFilter(event: any, column: TableColumn) {
     this.table.filter(event.srcElement.value, column.key, 'contains');
