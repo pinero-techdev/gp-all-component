@@ -9,7 +9,7 @@ Menu component allows navigation across several submenu levels. It can be displa
 Minimum component usage
 
 ```html
-<gp-menu [items]="menuItems" [isExpanded]="true"></gp-menu>
+<gp-menu [items]="items" [isExpanded]="true"></gp-menu>
 ```
 
 ### Typescript
@@ -22,24 +22,24 @@ First of all, you have to import MenuModule from gp-all-component in your app ma
 import { MenuModule } from 'gp-all-component';
 ```
 
-Then, you have to import PanelMenuModule from primeNg in the typescript file of the component that is going to consume gp-menu.:
+Then, you have to import MenuItem from gp-all-component in the typescript file of the component that is going to consume gp-menu:
 
 ```ts
-import { PanelMenuModule } from 'primeng/panelmenu';
+import { MenuItem } from 'gp-all-component';
 ```
 
-Within your consumer component of the menu you have to declare the variable that in NgOnInit you will fill with your menu items. In this case it's called menuItems, and it's a PanelMenuModule array:
+Within your consumer component of the menu you have to declare the variable that in NgOnInit you will fill with your menu items. In this case it's called items, and it's a MenuItems array:
 
 ```ts
 export class <ConsumerComponentName> implements OnInit {
-    menuItems: PanelMenuModule[];
+    items: MenuItem[];
 ```
 
 You can create as much depth in the main menu as you choose. Just nest new item objects inside the main menu object:
 
 ```ts
 ngOnInit(): void {
-    this.menuItems = [
+    this.items = [
         {
             label: 'Home',
             icon: 'pi pi-home',
@@ -77,7 +77,7 @@ You can have a look to the PrimeNG official docs, specifically MenuModel and Ico
 Items: Array of Items of type MenuItem. You can create each menu item following the structure defined for MenuModel in PrimeNg. See the link mentioned above. In addition, you can create hierarchical levels of submenus by nesting menu-type objects.
 
 ```html
-[items]="menuItems"
+[items]="items"
 ```
 IsExpanded: boolean that controls the initial state of the menu, either expanded or collapsed.
 

@@ -61,6 +61,7 @@ export * from './lib/resources/data/rol-info.model';
 export * from './lib/resources/data/translation-info.model';
 export * from './lib/resources/data/translation.model';
 export * from './lib/resources/data/user-info.model';
+export { MenuItem } from 'primeng/api';
 
 // Directives
 export * from './lib/directives/focus-directive/focus.directive';
