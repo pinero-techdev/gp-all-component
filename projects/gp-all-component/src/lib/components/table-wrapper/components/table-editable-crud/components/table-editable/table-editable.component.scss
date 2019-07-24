@@ -1,0 +1,322 @@
+@import 'global/variables';
+@import 'global/mixins';
+@import 'global/buttons';
+
+::ng-deep {
+  .pull-right {
+    float: right;
+  }
+  .pull-left {
+    float: left;
+  }
+
+  .table-header {
+    background-color: $whiteColor;
+    color: $whiteColor;
+    padding: 15px;
+
+    div:last-child {
+      text-align: right;
+    }
+
+    .ui-button {
+      margin-left: 5px;
+    }
+  }
+
+  .actions-colum {
+    text-align: center;
+  }
+
+  .gp-grid-table-cell {
+    padding: 0;
+    white-space: nowrap;
+    .gp-grid-table-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      padding: 0.25em 0.5em;
+    }
+  }
+
+  .ui-table {
+    padding: 24px;
+    table {
+      width: 100%;
+      table-layout: auto;
+      border-collapse: initial;
+      @media (max-width: map-get($breakpoints, 'md')) {
+        table-layout: fixed;
+      }
+    }
+    .table-content {
+      @media (max-width: map-get($breakpoints, 'md')) {
+        overflow-x: auto;
+        @include make-scroll();
+      }
+    }
+    thead.ui-table-thead {
+      > tr {
+        border: none;
+
+        &:last-child {
+          border-bottom: 1px solid $borderColor;
+        }
+
+        th {
+          background-color: $whiteColor;
+          border: none;
+          padding: 0 $separation;
+          color: $textMutedColor;
+          font-size: 12px;
+          text-align: left;
+          height: 40px;
+          .ui-inputgroup {
+            .ui-inputtext {
+              color: $textColor;
+              min-height: 24px;
+              height: auto;
+              margin-bottom: 10px;
+              border: 0;
+              border-image-width: 1;
+              border-bottom: 1px solid $borderColor;
+              border-radius: 0;
+              box-shadow: 0 3px 3px -3px rgba(0, 0, 0, 0.05);
+              padding-left: 0;
+              padding-bottom: 5px;
+              font-size: 12px;
+              padding-top: 5px;
+              font-weight: 500;
+              margin-right: 0;
+              padding-right: 0;
+
+              &:focus {
+                border-color: $primaryColor;
+                background-color: transparent;
+              }
+            }
+          }
+
+          .ui-dropdown {
+            border: none;
+            padding-right: 30px;
+            box-shadow: none;
+            .pi-chevron-down {
+              top: 40%;
+            }
+            &-clear-icon {
+              background: white;
+              right: 6px;
+              top: 40%;
+              font-size: 18px;
+              z-index: 1;
+            }
+          }
+
+          .ui-button {
+            margin-top: -15px;
+          }
+        }
+      }
+    }
+    tbody.ui-table-tbody {
+      > tr {
+        border-bottom: 1px solid $tableInnerBorder;
+        color: $textColor;
+
+        &:nth-child(even):not(.ui-state-highlight) {
+          background: $primaryBg;
+
+          .conditionally-sticked {
+            background: $primaryBg;
+            border-bottom: 1px solid $tableInnerBorder;
+          }
+        }
+
+        &:nth-child(odd):not(.ui-state-highlight) {
+          background: $tableOddBg;
+
+          .conditionally-sticked {
+            background: $tableOddBg;
+            border-bottom: 1px solid $tableInnerBorder;
+          }
+        }
+
+        &:nth-child(even),
+        &:nth-child(odd) {
+          &.ui-state-highlight {
+            background: $highlightedRow;
+            color: $textColor;
+
+            &:focus {
+              outline: none;
+            }
+
+            .col-sticky {
+              background: $highlightedRow;
+            }
+          }
+        }
+
+        td {
+          color: $textColor;
+          border: none;
+          padding: 0 $separation;
+          height: 40px;
+          font-size: 12px;
+          font-weight: 500px;
+
+          &.gp-grid-table-cell {
+            .ui-button {
+              margin: 0 auto;
+              border: transparent;
+              background: transparent;
+              display: block;
+              box-shadow: none;
+              .ui-clickable {
+                color: $primaryColor;
+                font-size: 22px;
+              }
+            }
+          }
+        }
+      }
+    }
+    tfoot {
+      .ui-paginator,
+      .ui-table-summary {
+        background-color: white;
+        border: none;
+      }
+      tr {
+        border: none;
+        &.ui-table-caption {
+          border: none;
+        }
+      }
+    }
+  }
+  tbody td,
+  tbody th {
+    overflow: auto;
+
+    i.checkbox-icon {
+      color: $primaryColor;
+    }
+  }
+
+  tfoot {
+    padding: 0;
+    border: 0;
+
+    tr {
+      padding: 0;
+      border: 0;
+
+      td {
+        padding: 0;
+        border: 0;
+      }
+    }
+    p-paginator {
+      padding-top: 30px;
+      position: relative;
+      .ui-inputwrapper-filled {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .ui-dropdown {
+          width: 62px;
+          height: 32px;
+          padding: $separation 10px;
+          border: 1px solid $borderColor;
+
+          label.ui-dropdown-label {
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.17px;
+            line-height: 1;
+          }
+        }
+      }
+
+      .ui-paginator {
+        border: 0;
+        border-radius: 4px;
+        &-element {
+          border: 1px solid #d5e4f2;
+        }
+      }
+      .ui-paginator {
+        position: inherit;
+        margin-top: $separationXLarge;
+        background: $whiteColor;
+        border: none;
+        border-radius: $borderRadius;
+        display: inline;
+        float: right;
+        width: 100%;
+
+        > a.ui-paginator-element {
+          border: 1px solid $borderColor;
+        }
+
+        .ui-paginator-first,
+        .ui-paginator-last {
+          display: none;
+          &.ui-paginator-prev {
+            border-right: none;
+            border-top-left-radius: $borderRadius;
+            border-bottom-left-radius: $borderRadius;
+          }
+
+          &.ui-paginator-next {
+            border-left: none;
+            border-top-right-radius: $borderRadius;
+            border-bottom-right-radius: $borderRadius;
+          }
+        }
+
+        .ui-paginator-pages {
+          margin: 0;
+          .ui-paginator-page {
+            border: 1px solid $paginatorBorderColor;
+            &.ui-state-active {
+              background: $primaryColor;
+              border: none;
+            }
+          }
+        }
+        .ui-paginator-element {
+          .ui-paginator-icon {
+            color: $paginatorBGColor;
+            background: transparent;
+          }
+          &:not(.ui-state-active):hover {
+            background: $paginatorBGColor;
+            color: $whiteColor;
+            .ui-paginator-icon {
+              color: $whiteColor;
+            }
+          }
+        }
+      }
+    }
+  }
+  .ui-dialog {
+    div.ui-dialog-footer {
+      p-footer {
+        button.ui-button {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.actions-colum {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

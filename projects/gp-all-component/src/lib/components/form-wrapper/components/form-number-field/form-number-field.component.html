@@ -1,0 +1,15 @@
+<div class="text-field-wrapper">
+  <div class="full-width">
+    <input
+      name="__field__{{ formField?.fieldMetadata.fieldName }}"
+      pInputText
+      type="number"
+      [(ngModel)]="currentValue"
+      [maxlength]="maxLength"
+      [class]="textboxClass"
+      class="full-width"
+      (change)="onFieldChange()"
+      [disabled]="controlDisabled()"
+    />
+  </div>
+</div>

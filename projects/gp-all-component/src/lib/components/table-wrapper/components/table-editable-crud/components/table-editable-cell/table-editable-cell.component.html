@@ -1,24 +1,40 @@
 <div class="ui-inputgroup nopad" *ngIf="columnMetadata" [ngSwitch]="columnMetadata.type">
   <i
-    class="material-icons"
-    style="color: #ffba01;"
+    class="pi pi-exclamation-triangle"
     *ngIf="!isFilter && columnMetadata.messages && columnMetadata.messages.length > 0"
     [pTooltip]="columnMetadata.messages"
     tooltipPosition="top"
-    >warning</i
-  >
+  ></i>
   <button
     *ngSwitchCase="inputType.TEXT_AREA"
     pButton
-    label="Abrir"
+    label="{{ translations.OPEN }}"
     (click)="openTextareaModal()"
     [disabled]="!isEditable()"
   ></button>
   <input
+    pInputText
+    *ngSwitchCase="inputType.TEXT"
+    type="text"
+    #numberInput
+    [(ngModel)]="value"
+    class="full-width"
+    (ngModelChange)="isFilter ? onModelChange($event) : null"
+    [minlength]="columnMetadata.minLength"
+    [maxlength]="columnMetadata.maxLength"
+    [max]="columnMetadata.maxValue"
+    [min]="columnMetadata.minValue"
+    (focus)="onStartEditing()"
+    (change)="!isFilter ? onModelChange(numberInput.value) : null"
+    [disabled]="!isEditable()"
+  />
+  <input
     *ngSwitchCase="inputType.NUMBER"
     type="number"
+    pInputText
     #numberInput
-    [ngModel]="value"
+    [(ngModel)]="value"
+    class="full-width"
     (ngModelChange)="isFilter ? onModelChange($event) : null"
     [minlength]="columnMetadata.minLength"
     [maxlength]="columnMetadata.maxLength"
@@ -47,28 +63,30 @@
     <button
       *ngSwitchCase="inputType.IMG"
       pButton
-      label="Abrir"
+      icon="pi pi-image"
+      label="{{ translations.OPEN }}"
       (click)="openImgModal()"
       [disabled]="!isEditable()"
     ></button>
     <button
       *ngSwitchCase="inputType.WYSIWYG"
       pButton
-      label="Abrir"
+      label="{{ translations.OPEN }}"
+      icon="pi pi-pencil"
       (click)="openWYSIWYGModal()"
       [disabled]="!isEditable()"
     ></button>
     <ng-template [ngSwitchCase]="inputType.FILE">
       <button
         pButton
-        icon="ui-icon-file-upload"
+        icon="pi pi-upload"
         (click)="openFileModal()"
         [disabled]="!isEditable()"
       ></button>
       <button
         pButton
         *ngIf="hasFile() || (value && value['content'])"
-        icon="ui-icon-delete"
+        icon="pi pi-trash"
         (click)="deleteFile()"
         [disabled]="!isEditable()"
       ></button>
@@ -77,22 +95,25 @@
   <p-calendar
     *ngSwitchCase="inputType.TIME"
     showTime="showTime"
-    hourFormat="24"
     styleClass="full-width"
+    inputStyleClass="full-width"
+    hourFormat="24"
     appendTo="body"
     [timeOnly]="true"
-    [ngModel]="value"
+    [(ngModel)]="value"
     (ngModelChange)="setTimeValue($event)"
     [disabled]="!isEditable()"
   >
   </p-calendar>
   <p-calendar
     *ngSwitchCase="inputType.CALENDAR"
+    class="full-width"
     styleClass="full-width"
+    inputStyleClass="full-width"
     appendTo="body"
     [defaultDate]="value"
     dataType="string"
-    [ngModel]="value"
+    [(ngModel)]="value"
     [disabled]="!isEditable()"
     [dateFormat]="dateFormat"
     (ngModelChange)="startStop($event)"
@@ -104,12 +125,12 @@
     [showClear]="true"
     appendTo="body"
     [options]="optionsList"
-    [ngModel]="value"
-    [autoWidth]="false"
+    [(ngModel)]="value"
+    styleClass="full-width"
     [filter]="true"
     (ngModelChange)="startStop($event)"
     [disabled]="!isEditable()"
-    class="ui-inputfield ui-selectonemenu-label"
+    class="full-width ui-inputfield ui-selectonemenu-label"
   >
   </p-dropdown>
   <p-dropdown
@@ -117,12 +138,12 @@
     [showClear]="true"
     appendTo="body"
     [options]="optionsList"
-    [ngModel]="value"
-    [autoWidth]="false"
+    [(ngModel)]="value"
+    styleClass="full-width"
     [filter]="true"
     (ngModelChange)="startStop($event)"
     [disabled]="!isEditable()"
-    class="ui-inputfield ui-selectonemenu-label"
+    class="full-width ui-inputfield ui-selectonemenu-label"
   >
   </p-dropdown>
   <ng-template ngSwitchDefault>
@@ -137,7 +158,7 @@
         class="full-width"
         type="text"
         gpUppercase
-        [ngModel]="value"
+        [(ngModel)]="value"
         (ngModelChange)="isFilter ? onModelChange($event) : null"
         (change)="!isFilter ? onModelChange(textInput.value) : null"
         [maxlength]="columnMetadata.maxLength"
@@ -149,7 +170,7 @@
     </div>
     <div
       class="ui-g-2 nopad"
-      *ngIf="columnMetadata.translationInfo != null && translationKeys != ''"
+      *ngIf="columnMetadata.translationInfo !== null && translationKeys !== ''"
     >
       <gp-multi-language
         [pKey]="translationKeys"
@@ -169,7 +190,7 @@
 <p-dialog
   *ngIf="columnMetadata.type == inputType.IMG"
   [(visible)]="imgModalVisible"
-  header="Editor imagen (URL)"
+  header="{{ translations.IMG_EDITOR_URL }}"
   [modal]="true"
 >
   <img [src]="temporalValue" style="width: 100%; max-height: 50%;" *ngIf="temporalValue" />
@@ -187,13 +208,13 @@
   <p-footer>
     <button
       pButton
-      label="Aceptar"
+      label="{{ translations.ACCEPT }}"
       class="ui-button-success"
       (click)="startStop(temporalValue); imgModalVisible = false"
     ></button>
     <button
       pButton
-      label="Cancelar"
+      label="{{ translations.CANCEL }}"
       class="ui-button-danger"
       (click)="imgModalVisible = false"
     ></button>
@@ -203,16 +224,16 @@
 <!--Textarea input modal-->
 <p-dialog
   [(visible)]="textareaModalVisible"
-  *ngIf="columnMetadata.type == inputType.TEXT_AREA"
+  *ngIf="columnMetadata.type === inputType.TEXT_AREA"
   header="Editor textarea"
   [modal]="true"
 >
   <div
     [class.ui-g-12]="
-      columnMetadata.translationInfo == null ||
-      (columnMetadata.translationInfo != null && translationKeys == '')
+      columnMetadata.translationInfo === null ||
+      (columnMetadata.translationInfo !== null && translationKeys === '')
     "
-    [class.ui-g-10]="columnMetadata.translationInfo != null && translationKeys != ''"
+    [class.ui-g-10]="columnMetadata.translationInfo !== null && translationKeys !== ''"
     class="nopad"
   >
     <textarea
@@ -226,7 +247,10 @@
     >
     </textarea>
   </div>
-  <div class="ui-g-2 nopad" *ngIf="columnMetadata.translationInfo != null && translationKeys != ''">
+  <div
+    class="ui-g-2 nopad"
+    *ngIf="columnMetadata.translationInfo !== null && translationKeys !== ''"
+  >
     <gp-multi-language
       [pKey]="translationKeys"
       [schema]="columnMetadata.translationInfo.scheme"
@@ -241,13 +265,13 @@
   <p-footer>
     <button
       pButton
-      label="Aceptar"
+      label="{{ translations.ACCEPT }}"
       class="ui-button-success"
       (click)="startStop(temporalValue); textareaModalVisible = false"
     ></button>
     <button
       pButton
-      label="Cancelar"
+      label="{{ translations.CANCEL }}"
       class="ui-button-danger"
       (click)="textareaModalVisible = false"
     ></button>
@@ -257,7 +281,7 @@
 <!--WYSIWYG input modal-->
 <p-dialog
   [(visible)]="wysiwygModalVisible"
-  *ngIf="columnMetadata.type == inputType.WYSIWYG"
+  *ngIf="columnMetadata.type === inputType.WYSIWYG"
   header="Editor WYSIWYG"
   [modal]="true"
 >
@@ -266,24 +290,23 @@
   <p-footer>
     <button
       pButton
-      label="Aceptar"
+      label="{{ translations.ACCEPT }}"
       class="ui-button-success"
       (click)="startStop(temporalValue); wysiwygModalVisible = false"
     ></button>
     <button
       pButton
-      label="Cancelar"
+      label="{{ translations.CANCEL }}"
       class="ui-button-danger"
       (click)="wysiwygModalVisible = false"
     ></button>
   </p-footer>
 </p-dialog>
--->
 
 <!--File input modal-->
 <p-dialog
   [(visible)]="fileModalVisible"
-  *ngIf="columnMetadata.type == inputType.FILE"
+  *ngIf="columnMetadata.type === inputType.FILE"
   header="Seleccionar archivo"
   [modal]="true"
 >
@@ -291,14 +314,14 @@
   <p-footer>
     <button
       pButton
-      label="Aceptar"
+      label="{{ translations.ACCEPT }}"
       type="button"
       class="ui-button-success"
-      (click)="startStop(temoralFile); fileModalVisible = false"
+      (click)="startStop(temporalFile); fileModalVisible = false"
     ></button>
     <button
       pButton
-      label="Cancelar"
+      label="{{ translations.CANCEL }}"
       class="ui-button-danger"
       type="button"
       (click)="fileModalVisible = false"

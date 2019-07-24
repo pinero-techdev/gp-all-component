@@ -1,20 +1,20 @@
+import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
 import { finalize } from 'rxjs/operators';
-import { TableService, FieldMetadata } from './../../../../../../services/api/table/table.service';
-import { GpFormFieldType } from './../../../../../form-wrapper/resources/form-field-type.enum';
-import { AttachmentOperationEnum } from './../../resources/attachment-operation.enum';
-import { TableMetadataService } from './../../../../../../services/api/table/table-metadata.service';
+import { TableService, FieldMetadata } from '../../../../services/api/table/table.service';
+import { AttachmentOperationEnum } from './resources/attachment-operation.enum';
+import { TableMetadataService } from '../../../../services/api/table/table-metadata.service';
 import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-
+import { saveAs } from 'file-saver';
 import { Message, MessageService } from 'primeng/api';
-import { TableConfig } from '../../resources/table-config.model';
-import { TableColumnMetadata } from '../../resources/table-column-metadata.model';
+import { TableConfig } from './resources/table-config.model';
+import { TableColumnMetadata } from './resources/table-column-metadata.model';
 import {
   TableFieldEvent,
   DataChangeEvent,
   TableRowEvent,
   ItemChangeEvent,
-} from '../../resources/table-events.interface';
-import { Attachment } from '../../resources/attachment.class';
+} from './resources/table-events.interface';
+import { Attachment } from './resources/attachment.class';
 
 @Component({
   selector: 'gp-table-editable-crud',
@@ -46,37 +46,38 @@ export class TableEditableCrudComponent {
    * $implicit, index
    * */
   @Input() actionsTemplate: TemplateRef<any>;
+
   // Nombre de la tabla a editar.
   @Input()
   get tableName(): string {
     return this._tableName;
   }
+
   set tableName(value: string) {
     this._tableName = value;
     this.loadTable();
   }
+
   @Input()
   get selectedData(): any[] {
     return this._selectedData;
   }
+
   set selectedData(value: any[]) {
     this._selectedData = value || [];
     this.selectedDataChange.emit(this._selectedData);
   }
-  @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
-  @Output() deletedItem: EventEmitter<any> = new EventEmitter<any>();
-  @Output() createdItem: EventEmitter<any> = new EventEmitter<any>();
-  @Output() setTableConfig: EventEmitter<DataChangeEvent<TableConfig>> = new EventEmitter<
-    DataChangeEvent<TableConfig>
-  >();
-  @Output() setTableColumns: EventEmitter<
-    DataChangeEvent<TableColumnMetadata[]>
-  > = new EventEmitter<DataChangeEvent<TableColumnMetadata[]>>();
-  @Output() startEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-  @Output() stopEditingField: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-  @Output() startEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
-  @Output() stopEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
-  @Output() cancelEdition: EventEmitter<TableRowEvent> = new EventEmitter<TableRowEvent>();
+
+  @Output() selectedDataChange = new EventEmitter<any[]>();
+  @Output() deletedItem = new EventEmitter<any>();
+  @Output() createdItem = new EventEmitter<any>();
+  @Output() setTableConfig = new EventEmitter<DataChangeEvent<TableConfig>>();
+  @Output() setTableColumns = new EventEmitter<DataChangeEvent<TableColumnMetadata[]>>();
+  @Output() startEditingField = new EventEmitter<TableFieldEvent>();
+  @Output() stopEditingField = new EventEmitter<TableFieldEvent>();
+  @Output() startEdition = new EventEmitter<TableRowEvent>();
+  @Output() stopEdition = new EventEmitter<TableRowEvent>();
+  @Output() cancelEdition = new EventEmitter<TableRowEvent>();
 
   constructor(
     private tableService: TableService,
@@ -173,7 +174,7 @@ export class TableEditableCrudComponent {
           item[column.name].operation === AttachmentOperationEnum.DELETE)
       ) {
         attachments.push(item[column.name]);
-        delete item[column.name];
+        item[column.name] = item[column.name].fileName;
       }
     }
     return attachments;
@@ -271,16 +272,15 @@ export class TableEditableCrudComponent {
     );
   }
 
-  // TODO
   downloadFile(event: TableFieldEvent) {
-    // this.tableService
-    //   .downloadFile(this.tableName, event.value, event.column.name)
-    //   .subscribe((file) => {
-    //     saveAs(file.blob, file.fileName);
-    //   });
+    this.tableService
+      .downloadFile(this.tableName, event.value, event.column.name)
+      .subscribe((file) => {
+        saveAs(file.blob, file.fileName);
+      });
   }
 
-  showErrorDialogo(msg: string) {
+  showErrorDialog(msg: string) {
     this.msgsGlobal.push({ severity: 'error', summary: 'Error', detail: msg });
   }
 }
