@@ -111,6 +111,7 @@ export * from './lib/components/table-wrapper/components/table-editable-crud/com
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
 export * from './lib/components/table-wrapper/components/table/table.component';
+export * from './lib/components/tabview/tabview.component';
 export * from './lib/components/topbar/topbar.component';
 export * from './lib/components/button/button.component';
 export * from './lib/components/breadcrumb/breadcrumb.component';
@@ -131,6 +132,7 @@ export * from './lib/components/multi-language/multi-language.module';
 export * from './lib/components/multi-select/multi-select.module';
 export * from './lib/components/rating/rating.module';
 export * from './lib/components/table-wrapper/table-wrapper.module';
+export * from './lib/components/tabview/tabview.module';
 export * from './lib/components/topbar/topbar.module';
 export * from './lib/components/redirect/redirect.module';
 export * from './lib/components/button/button.module';
