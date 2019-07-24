@@ -9,61 +9,61 @@ export class NativeOptions {
 
   tableStyleClass?: string;
 
-  pageLinks = 5;
+  pageLinks? = 5;
 
   rowsPerPageOptions?: any[];
 
-  paginator = false;
+  paginator? = false;
 
-  alwaysShowPaginator = true;
+  alwaysShowPaginator? = true;
 
-  paginatorPosition = 'bottom';
+  paginatorPosition? = 'bottom';
 
   paginatorDropdownAppendTo?: any;
 
-  paginatorDropdownScrollHeight = '200px';
+  paginatorDropdownScrollHeight? = '200px';
 
-  currentPageReportTemplate = '{currentPage} of {totalPages}';
+  currentPageReportTemplate? = '{currentPage} of {totalPages}';
 
   showCurrentPageReport?: boolean;
 
-  defaultSortOrder = 1;
+  defaultSortOrder? = 1;
 
-  defaultSortKey: string;
+  defaultSortKey?: string;
 
-  sortMode = 'single';
+  sortMode? = 'single';
 
-  resetPageOnSort = true;
+  resetPageOnSort? = true;
 
   contextMenuSelection?: any;
 
-  contextMenuSelectionMode = 'separate';
+  contextMenuSelectionMode? = 'separate';
 
   dataKey?: string;
 
   metaKeySelection?: boolean;
 
-  lazy = false;
+  lazy? = false;
 
-  lazyLoadOnInit = true;
+  lazyLoadOnInit? = true;
 
-  compareSelectionBy = 'deepEquals';
+  compareSelectionBy? = 'deepEquals';
 
-  csvSeparator = ',';
+  csvSeparator? = ',';
 
-  exportFilename = 'download';
+  exportFilename? = 'download';
 
-  filters: { [s: string]: FilterMetadata } = {};
+  filters?: { [s: string]: FilterMetadata } = {};
 
-  globalFilterFields: string[] = ['name'];
+  globalFilterFields?: string[] = ['name'];
 
-  filterDelay = 300;
+  filterDelay? = 300;
 
-  expandedRowKeys: { [s: string]: boolean } = {};
+  expandedRowKeys?: { [s: string]: boolean } = {};
 
-  editingRowKeys: { [s: string]: boolean } = {};
+  editingRowKeys?: { [s: string]: boolean } = {};
 
-  rowExpandMode = 'multiple';
+  rowExpandMode? = 'multiple';
 
   scrollable?: boolean;
 
@@ -71,9 +71,9 @@ export class NativeOptions {
 
   virtualScroll?: boolean;
 
-  virtualScrollDelay = 150;
+  virtualScrollDelay? = 150;
 
-  virtualRowHeight = 28;
+  virtualRowHeight? = 28;
 
   frozenWidth?: string;
 
@@ -83,13 +83,13 @@ export class NativeOptions {
 
   resizableColumns?: boolean;
 
-  columnResizeMode = 'fit';
+  columnResizeMode? = 'fit';
 
   reorderableColumns?: boolean;
 
-  loadingIcon = 'pi pi-spinner';
+  loadingIcon? = 'pi pi-spinner';
 
-  showLoader = true;
+  showLoader? = true;
 
   rowHover?: boolean;
 
@@ -97,13 +97,13 @@ export class NativeOptions {
 
   autoLayout?: boolean;
 
-  exportFunction;
+  exportFunction?;
 
   stateKey?: string;
 
-  stateStorage = 'session';
+  stateStorage? = 'session';
 
-  editMode = 'cell';
+  editMode? = 'cell';
 
-  rowTrackBy = (index: number, item: any) => item;
+  rowTrackBy? = (index: number, item: any) => item;
 }

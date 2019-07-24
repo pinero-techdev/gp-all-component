@@ -6,11 +6,12 @@ export class TableModel {
   title?: string;
   columns: TableColumn[] | string[] = [];
   customColumns?: { [key: string]: number };
-  hasGlobalFilter = false;
-  filterable = false;
-  sortable = false;
+  globalFilter? = false;
+  editable? = false;
+  filterable? = false;
+  sortable? = false;
   selectable?: SelectionMode;
-  lazy = true;
+  lazy? = true;
   pagination?: boolean;
-  native = new NativeOptions();
+  native? = new NativeOptions();
 }
