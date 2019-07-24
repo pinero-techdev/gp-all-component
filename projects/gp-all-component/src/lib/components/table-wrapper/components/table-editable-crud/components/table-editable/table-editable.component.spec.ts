@@ -7,7 +7,7 @@ import { TableWrapperSharedProviders } from '../../../../../../shared/imports/ta
 import { FieldMetadataMock } from '../../../../../../shared/testing/@mock/types/list-rs.type.mock';
 import { TableMetadataService } from '../../../../../../services/api/table/table-metadata.service';
 
-describe('TableEditableComponent', () => {
+xdescribe('TableEditableComponent', () => {
   let component: TableEditableComponent;
   let fixture: ComponentFixture<TableEditableComponent>;
   let elementRef: HTMLElement;
