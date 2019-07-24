@@ -4,17 +4,19 @@ import {
   ChangeDetectionStrategy,
   ContentChildren,
   QueryList,
-  AfterContentInit,
   Output,
   EventEmitter,
   ContentChild,
   TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { ColumnTemplateDirective } from './directives/column-template.directive';
 import { TableBuilder } from './table.builder';
 import { TableModel } from './models/table.model';
 import { TableColumn } from './models/table-column.model';
 import { PaginationOptions } from './models/pagination-options.model';
+import { OnChange } from 'property-watch-decorator';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'gp-table',
@@ -22,13 +24,9 @@ import { PaginationOptions } from './models/pagination-options.model';
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableComponent implements AfterContentInit {
+export class TableComponent {
   @Input()
   data: any[];
-
-  @Input()
-  // @Watch(model => this.builder = buildModel(model))
-  model: TableModel;
 
   @Input()
   loading = false;
@@ -38,6 +36,10 @@ export class TableComponent implements AfterContentInit {
 
   @Input()
   selectedRows: any[];
+
+  @Input()
+  @OnChange<TableModel>('buildModel')
+  model: TableModel;
 
   @Output() filter: EventEmitter<any> = new EventEmitter();
 
@@ -65,13 +67,17 @@ export class TableComponent implements AfterContentInit {
   @ContentChild('footer')
   footerContent: TemplateRef<any>;
 
+  @ViewChild('table')
+  table: Table;
+
   builder: TableBuilder;
 
-  ngAfterContentInit() {
-    this.builder = new TableBuilder(this.model, this.customColumns, this.pagination);
+  onFilter(event: any, column: TableColumn) {
+    this.table.filter(event.srcElement.value, column.key, 'contains');
+    this.filter.emit({ column: column.key, value: event.srcElement.value });
   }
 
-  onFilter(event: any, column: TableColumn) {
-    this.filter.emit({ column: column.key, value: event.srcElement.value });
+  private buildModel() {
+    this.builder = new TableBuilder(this.model, this.customColumns, this.pagination);
   }
 }

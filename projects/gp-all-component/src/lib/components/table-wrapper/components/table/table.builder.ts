@@ -41,6 +41,10 @@ export class TableBuilder {
     return this.model.title;
   }
 
+  hasGlobalFilter() {
+    return this.model.hasGlobalFilter;
+  }
+
   isFilterable(column?: TableColumn) {
     return isNullOrUndefined(column)
       ? this.model.filterable

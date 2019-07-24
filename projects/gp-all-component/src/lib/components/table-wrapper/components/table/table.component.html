@@ -1,4 +1,5 @@
 <p-table
+  #table
   [value]="data"
   [columns]="builder.getColumns()"
   [frozenColumns]="builder.getFrozenColumns()"
@@ -14,6 +15,7 @@
   [sortField]="builder.native.defaultSortKey"
   [sortOrder]="builder.native.defaultSortOrder"
   [(selection)]="selectedRows"
+  [globalFilterFields]="builder.native.globalFilterFields"
   (onPage)="page.emit($event)"
   (onSort)="sort.emit($event)"
   (onLazyLoad)="lazy.emit($event)"
@@ -28,6 +30,17 @@
     <ng-container *ngIf="!captionContent">
       {{ builder.getTitle() }}
     </ng-container>
+
+    <div *ngIf="builder.hasGlobalFilter()">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        pInputText
+        size="50"
+        placeholder="Global Filter"
+        (input)="table.filterGlobal($event.target.value, 'contains')"
+      />
+    </div>
   </ng-template>
   <ng-template pTemplate="header">
     <ng-container *ngIf="headerContent">

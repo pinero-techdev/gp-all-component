@@ -5,6 +5,7 @@ export class TableModel {
   title?: string;
   columns: TableColumn[] | string[] = [];
   customColumns?: { [key: string]: number };
+  hasGlobalFilter = false;
   filterable = false;
   sortable = false;
   lazy = true;

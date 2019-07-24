@@ -57,7 +57,7 @@ export class NativeOptions {
 
   filters: { [s: string]: FilterMetadata } = {};
 
-  globalFilterFields: string[];
+  globalFilterFields: string[] = ['name'];
 
   filterDelay = 300;
 
