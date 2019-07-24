@@ -9,7 +9,7 @@ Menu component allows navigation across several submenu levels. It can be displa
 Minimum component usage
 
 ```html
-<gp-menu [items]="menuItems" [expanded]="true"></gp-menu>
+<gp-menu [items]="menuItems" [isExpanded]="true"></gp-menu>
 ```
 
 ### Typescript
@@ -79,8 +79,8 @@ Items: Array of Items of type MenuItem. You can create each menu item following 
 ```html
 [items]="menuItems"
 ```
-Expanded: boolean that controls the initial state of the menu, either expanded or collapsed.
+IsExpanded: boolean that controls the initial state of the menu, either expanded or collapsed.
 
 ```html
-[expanded]="true"
+[isExpanded]="true"
 ```
