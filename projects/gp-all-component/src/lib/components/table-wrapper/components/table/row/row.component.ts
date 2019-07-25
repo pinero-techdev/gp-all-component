@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TableBuilder } from '../table.builder';
 
 @Component({
@@ -6,6 +6,7 @@ import { TableBuilder } from '../table.builder';
   selector: '[gpRow]',
   templateUrl: './row.component.html',
   styleUrls: ['./row.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RowComponent {
   @Input()
