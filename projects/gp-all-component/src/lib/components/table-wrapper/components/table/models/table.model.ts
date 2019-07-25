@@ -10,6 +10,7 @@ export class TableModel {
   globalFilter? = false;
   editable? = false;
   filterable? = false;
+  enableFilterRow? = false;
   sortable? = false;
   selectable?: SelectionMode;
   lazy? = true;

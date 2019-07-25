@@ -43,6 +43,11 @@ export class TableBuilder {
 
     // 5. Setting pagination flag
     this.model.pagination = !isNullOrUndefined(pagination);
+
+    // 5. Setting enable filter row flag
+    this.model.enableFilterRow =
+      this.model.filterable ||
+      !isNullOrUndefined((this.model.columns as TableColumn[]).find((column) => column.filterable));
   }
 
   get native() {
@@ -57,16 +62,24 @@ export class TableBuilder {
     return this.model.globalFilter;
   }
 
+  enableFilterRow() {
+    return this.model.enableFilterRow;
+  }
+
   isFilterable(column?: TableColumn) {
     return isNullOrUndefined(column)
       ? this.model.filterable
-      : (isNullOrUndefined(column.filterable) || column.filterable) && this.model.filterable;
+      : isNullOrUndefined(column.filterable)
+      ? this.model.filterable
+      : column.filterable;
   }
 
   isSortable(column?: TableColumn) {
     return isNullOrUndefined(column)
       ? this.model.sortable
-      : (isNullOrUndefined(column.sortable) || column.sortable) && this.model.sortable;
+      : isNullOrUndefined(column.sortable)
+      ? this.model.sortable
+      : column.sortable;
   }
 
   isEditable() {

@@ -73,7 +73,7 @@
           Edit Actions
         </th>
       </tr>
-      <tr *ngIf="builder.isFilterable()">
+      <tr *ngIf="builder.enableFilterRow()">
         <th *ngIf="builder.getSelectionMode('radius') || builder.getSelectionMode('checkbox')"></th>
         <th *ngFor="let column of builder.getColumns()">
           <input
