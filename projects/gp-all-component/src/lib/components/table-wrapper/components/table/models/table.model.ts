@@ -6,6 +6,7 @@ export class TableModel {
   title?: string;
   columns: TableColumn[] | string[] = [];
   customColumns?: { [key: string]: number };
+  editableColumns?: { [key: string]: number };
   globalFilter? = false;
   editable? = false;
   filterable? = false;

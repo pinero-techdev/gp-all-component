@@ -64,6 +64,7 @@ export * from './lib/resources/data/user-info.model';
 export * from './lib/components/table-wrapper/components/table/models/table.model';
 export * from './lib/components/table-wrapper/components/table/models/table-column.model';
 export * from './lib/components/table-wrapper/components/table/models/native-options.model';
+export * from './lib/components/table-wrapper/components/table/models/pagination-options.model';
 
 // Directives
 export * from './lib/directives/focus-directive/focus.directive';

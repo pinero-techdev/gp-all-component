@@ -12,6 +12,7 @@ import {
   AfterContentInit,
 } from '@angular/core';
 import { ColumnTemplateDirective } from './directives/column-template.directive';
+import { EditableColumnTemplateDirective } from './directives/editable-column-template.directive';
 import { TableBuilder } from './table.builder';
 import { TableModel } from './models/table.model';
 import { TableColumn } from './models/table-column.model';
@@ -56,8 +57,15 @@ export class TableComponent implements AfterContentInit {
 
   @Output() selectedChange: EventEmitter<any[]> = new EventEmitter();
 
+  @Output() saveRow: EventEmitter<any> = new EventEmitter();
+
+  @Output() deleteRow: EventEmitter<any> = new EventEmitter();
+
   @ContentChildren(ColumnTemplateDirective)
   customColumns: QueryList<ColumnTemplateDirective>;
+
+  @ContentChildren(EditableColumnTemplateDirective)
+  editableColumns: QueryList<EditableColumnTemplateDirective>;
 
   @ContentChild('caption')
   captionContent: TemplateRef<any>;
@@ -73,6 +81,8 @@ export class TableComponent implements AfterContentInit {
 
   builder = new TableBuilder();
 
+  tableEditing = false;
+
   ngAfterContentInit() {
     this.buildModel();
   }
@@ -83,6 +93,11 @@ export class TableComponent implements AfterContentInit {
   }
 
   private buildModel() {
-    this.builder = new TableBuilder(this.model, this.customColumns, this.pagination);
+    this.builder = new TableBuilder(
+      this.model,
+      this.customColumns,
+      this.editableColumns,
+      this.pagination
+    );
   }
 }

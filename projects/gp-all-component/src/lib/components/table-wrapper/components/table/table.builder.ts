@@ -5,16 +5,20 @@ import { isNullOrUndefined } from 'util';
 import { TableColumn } from './models/table-column.model';
 import { PaginationOptions } from './models/pagination-options.model';
 import { SelectionMode } from './models/selection-mode.type';
+import { EditableColumnTemplateDirective } from './directives/editable-column-template.directive';
 
 export class TableBuilder {
   private model: TableModel;
 
   private customColumns: QueryList<ColumnTemplateDirective>;
 
+  private editableColumns: QueryList<EditableColumnTemplateDirective>;
+
   // Once we receive a model, we parse it
   constructor(
     model = new TableModel(),
     customColumns?: QueryList<ColumnTemplateDirective>,
+    editableColumns?: QueryList<EditableColumnTemplateDirective>,
     pagination?: PaginationOptions
   ) {
     // 1. Parsing model to standard model
@@ -26,11 +30,18 @@ export class TableBuilder {
     // 3. Declaring all the custom columns
     this.model.customColumns = isNullOrUndefined(customColumns)
       ? []
-      : this.parseCustomColumns(customColumns);
+      : this.parseColumns(customColumns);
 
     this.customColumns = customColumns;
 
-    // 4. Setting pagination flag
+    // 4. Declaring all the editable columns
+    this.model.editableColumns = isNullOrUndefined(editableColumns)
+      ? []
+      : this.parseColumns(editableColumns);
+
+    this.editableColumns = editableColumns;
+
+    // 5. Setting pagination flag
     this.model.pagination = !isNullOrUndefined(pagination);
   }
 
@@ -43,7 +54,7 @@ export class TableBuilder {
   }
 
   hasGlobalFilter() {
-    return this.model.hasGlobalFilter;
+    return this.model.globalFilter;
   }
 
   isFilterable(column?: TableColumn) {
@@ -56,6 +67,10 @@ export class TableBuilder {
     return isNullOrUndefined(column)
       ? this.model.sortable
       : (isNullOrUndefined(column.sortable) || column.sortable) && this.model.sortable;
+  }
+
+  isEditable() {
+    return this.model.editable;
   }
 
   getLazy() {
@@ -104,6 +119,14 @@ export class TableBuilder {
     return this.customColumns.toArray()[this.model.customColumns[key]].template;
   }
 
+  isEditableColumn(key: string) {
+    return !isNullOrUndefined(this.model.editableColumns[key]);
+  }
+
+  getEditableColumn(key: string) {
+    return this.editableColumns.toArray()[this.model.editableColumns[key]].template;
+  }
+
   /**
    * Batch convert a list of columns to default TableColumn format
    * @param columns The column list to be converted
@@ -128,8 +151,10 @@ export class TableBuilder {
     return { ...new TableColumn(), ...column };
   }
 
-  // Create the custom columns model from the received elements
-  private parseCustomColumns(columns: QueryList<ColumnTemplateDirective>) {
+  // Create the columns model from the received elements
+  private parseColumns(
+    columns: QueryList<ColumnTemplateDirective> | QueryList<EditableColumnTemplateDirective>
+  ) {
     const columnsList = {};
     columns.forEach((column, index) => (columnsList[column.getKey()] = index));
     return columnsList;
