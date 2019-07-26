@@ -8,14 +8,43 @@
     &.vertical-orientation {
       flex-direction: column;
       display: inline-block;
+      height: 100%;
+      border-right: 1px solid $borderColor;
 
       + .tab-panel {
         display: inline-block;
+        border-top: none;
+        padding-top: 0;
+        padding-left: $separationXLarge;
+        vertical-align: top;
+      }
+
+      li {
+        &.active {
+          border-bottom: none;
+          border-right: 2px solid $primaryColor;
+        }
+      }
+    }
+
+    li {
+      cursor: pointer;
+      padding: 12px $separationLarge;
+      padding-bottom: $separationXLarge;
+      color: $tabNavText;
+      font-size: $fontSizeSmall;
+      line-height: 18px;
+      font-weight: 600;
+
+      &.active {
+        color: $primaryColor;
+        border-bottom: 2px solid $primaryColor;
       }
     }
   }
 
   .tab-panel {
-    background: yellowgreen;
+    border-top: 1px solid $borderColor;
+    padding-top: $separation;
   }
 }
