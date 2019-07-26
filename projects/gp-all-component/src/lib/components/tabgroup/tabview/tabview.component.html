@@ -1,0 +1,6 @@
+<ul>
+  <li #li *ngFor="let tab of tabs.toArray(); let i = index" (click)="selectTab(i)">
+    {{ tab.tabTitle }}
+  </li>
+</ul>
+<ng-container [ngTemplateOutlet]="getTemplate()"> </ng-container>
