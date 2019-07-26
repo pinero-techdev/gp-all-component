@@ -1,0 +1,21 @@
+@import 'global/variables';
+@import 'global/mixins';
+
+::ng-deep {
+  .tab-nav {
+    display: flex;
+
+    &.vertical-orientation {
+      flex-direction: column;
+      display: inline-block;
+
+      + .tab-panel {
+        display: inline-block;
+      }
+    }
+  }
+
+  .tab-panel {
+    background: yellowgreen;
+  }
+}
