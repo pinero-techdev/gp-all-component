@@ -1,4 +1,4 @@
-import { Component, ContentChildren, QueryList } from '@angular/core';
+import { Component, ContentChildren, QueryList, Input, OnInit } from '@angular/core';
 import { TabDirective } from '../tab.directive';
 
 @Component({
@@ -6,10 +6,18 @@ import { TabDirective } from '../tab.directive';
   templateUrl: './tabview.component.html',
   styleUrls: ['./tabview.component.scss'],
 })
-export class TabViewComponent {
+export class TabViewComponent implements OnInit {
   @ContentChildren(TabDirective) tabs: QueryList<TabDirective>;
 
+  @Input()
+  orientation: string;
+
   activePosition = 0;
+  orientationLeft = false;
+
+  ngOnInit() {
+    this.orientationLeft = this.orientation === 'left' ? true : false;
+  }
 
   selectTab(i) {
     this.activePosition = i;
