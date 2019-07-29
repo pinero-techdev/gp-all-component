@@ -28,17 +28,13 @@ import { Table } from 'primeng/table';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements AfterContentInit {
-  @Input()
-  data: any[];
+  @Input() data: any[];
 
-  @Input()
-  loading = false;
+  @Input() loading = false;
 
-  @Input()
-  pagination: PaginationOptions;
+  @Input() pagination: PaginationOptions;
 
-  @Input()
-  selected = [];
+  @Input() selected = [];
 
   @Input()
   @OnChange<TableModel>('buildModel')
@@ -68,17 +64,13 @@ export class TableComponent implements AfterContentInit {
   @ContentChildren(EditableColumnTemplateDirective)
   editableColumns: QueryList<EditableColumnTemplateDirective>;
 
-  @ContentChild('caption')
-  captionContent: TemplateRef<any>;
+  @ContentChild('caption') captionContent: TemplateRef<any>;
 
-  @ContentChild('header')
-  headerContent: TemplateRef<any>;
+  @ContentChild('header') headerContent: TemplateRef<any>;
 
-  @ContentChild('footer')
-  footerContent: TemplateRef<any>;
+  @ContentChild('footer') footerContent: TemplateRef<any>;
 
-  @ViewChild('table')
-  table: Table;
+  @ViewChild('table') table: Table;
 
   builder = new TableBuilder();
 
@@ -90,11 +82,19 @@ export class TableComponent implements AfterContentInit {
     this.buildModel();
   }
 
+  /**
+   * Emit an event when any filter receives an input
+   * @param event The filter input event
+   * @param column The filter column
+   */
   onFilter(event: any, column: TableColumn): void {
     this.table.filter(event.srcElement.value, column.key, 'contains');
     this.filter.emit({ column: column.key, value: event.srcElement.value });
   }
 
+  /**
+   * Builds the table model
+   */
   private buildModel(): void {
     this.coreModel = new TableBuilder().createModel(
       this.model,
@@ -102,6 +102,5 @@ export class TableComponent implements AfterContentInit {
       this.editableColumns,
       this.pagination
     );
-    this.builder = new TableBuilder();
   }
 }
