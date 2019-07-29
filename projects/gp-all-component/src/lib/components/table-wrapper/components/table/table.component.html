@@ -24,7 +24,10 @@
   (onRowSelect)="rowSelect.emit($event)"
   (onRowUnselect)="rowUnselect.emit($event)"
 >
-  <ng-template pTemplate="caption">
+  <ng-template
+    *ngIf="(builder.enableCaptionRow | memo: coreModel:captionContent)"
+    pTemplate="caption"
+  >
     <ng-container *ngIf="captionContent">
       <ng-content *ngTemplateOutlet="captionContent"></ng-content>
     </ng-container>

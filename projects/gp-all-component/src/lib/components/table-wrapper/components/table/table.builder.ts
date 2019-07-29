@@ -54,6 +54,10 @@ export class TableBuilder {
     return model.title;
   }
 
+  enableCaptionRow(model: CoreTableModel, captionContent: TemplateRef<any>): boolean {
+    return !isNullOrUndefined(model.title) || !isNullOrUndefined(captionContent);
+  }
+
   hasGlobalFilter(model: CoreTableModel): boolean {
     return model.globalFilter;
   }
