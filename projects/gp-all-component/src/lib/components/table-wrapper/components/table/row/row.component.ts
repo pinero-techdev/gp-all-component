@@ -14,7 +14,7 @@ export class RowComponent {
   row: any;
 
   @Input()
-  model: CoreTableModel;
+  model = new CoreTableModel();
 
   @Input()
   index: any;

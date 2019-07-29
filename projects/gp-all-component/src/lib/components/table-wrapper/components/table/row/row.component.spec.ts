@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RowComponent } from './row.component';
 import { TableModule } from 'primeng/table';
 import { TableBuilder } from '../table.builder';
+import { MemoPipeModule } from '../../../../../pipes/memo-pipe/memo.pipe.module';
 
 describe('RowComponent', () => {
   let component: RowComponent;
@@ -11,7 +12,7 @@ describe('RowComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RowComponent],
-      imports: [TableModule],
+      imports: [TableModule, MemoPipeModule],
     }).compileComponents();
   }));
 
