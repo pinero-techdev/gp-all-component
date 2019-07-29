@@ -7,8 +7,6 @@ import { TableColumn } from './table-column.model';
 export class CoreTableModel extends TableModel {
   columns: TableColumn[] = [];
 
-  enableFilterRow? = false;
-
   customColumns?: { [key: string]: number };
   editableColumns?: { [key: string]: number };
 

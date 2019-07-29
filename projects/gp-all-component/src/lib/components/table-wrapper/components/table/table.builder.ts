@@ -24,20 +24,13 @@ export class TableBuilder {
     model.columns = this.toTableColumns(model.columns);
 
     // 3. Declaring all the custom columns
-    model.customColumns = isNullOrUndefined(customColumns) ? {} : this.parseColumns(customColumns);
+    model.customColumns = this.parseColumns(customColumns);
 
     // 4. Declaring all the editable columns
-    model.editableColumns = isNullOrUndefined(editableColumns)
-      ? {}
-      : this.parseColumns(editableColumns);
+    model.editableColumns = this.parseColumns(editableColumns);
 
     // 5. Setting pagination flag
     model.pagination = !isNullOrUndefined(pagination);
-
-    // 5. Setting enable filter row flag
-    model.enableFilterRow =
-      model.filterable ||
-      !isNullOrUndefined((model.columns as TableColumn[]).find((column) => column.filterable));
 
     // 6. Set custom and editable columns
     model.customColumnsList = customColumns;
@@ -58,12 +51,15 @@ export class TableBuilder {
     return !isNullOrUndefined(model.title) || !isNullOrUndefined(captionContent);
   }
 
-  hasGlobalFilter(model: CoreTableModel): boolean {
-    return model.globalFilter;
+  enableFilterRow(model: CoreTableModel) {
+    return (
+      model.filterable ||
+      !isNullOrUndefined((model.columns as TableColumn[]).find((column) => column.filterable))
+    );
   }
 
-  enableFilterRow(model: CoreTableModel): boolean {
-    return model.enableFilterRow;
+  hasGlobalFilter(model: CoreTableModel): boolean {
+    return model.globalFilter;
   }
 
   isFilterable(model: CoreTableModel, column?: TableColumn): boolean {
@@ -175,6 +171,10 @@ export class TableBuilder {
   private parseColumns(
     columns: QueryList<ColumnTemplateDirective> | QueryList<EditableColumnTemplateDirective>
   ): { [key: string]: number } {
+    if (isNullOrUndefined(columns)) {
+      return {};
+    }
+
     const columnsList = {};
     columns.forEach((column, index) => (columnsList[column.getKey()] = index));
     return columnsList;
