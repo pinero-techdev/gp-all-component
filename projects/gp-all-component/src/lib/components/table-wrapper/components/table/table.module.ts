@@ -4,6 +4,7 @@ import { TableComponent } from './table.component';
 import { TableModule as PrimeTableModule } from 'primeng/table';
 import { ColumnTemplateDirective } from './directives/column-template.directive';
 import { IsNilPipe } from './pipes/is-nil.pipe';
+import { MemoPipe } from './pipes/memo.pipe';
 import { RowComponent } from './row/row.component';
 import { EditableColumnTemplateDirective } from './directives/editable-column-template.directive';
 
@@ -12,6 +13,7 @@ import { EditableColumnTemplateDirective } from './directives/editable-column-te
     TableComponent,
     ColumnTemplateDirective,
     IsNilPipe,
+    MemoPipe,
     RowComponent,
     EditableColumnTemplateDirective,
   ],
