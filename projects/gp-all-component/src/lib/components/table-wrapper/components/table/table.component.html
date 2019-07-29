@@ -58,12 +58,12 @@
       <tr>
         <th
           *ngIf="
-            (builder.getSelectionMode | memo: coreModel:'radius') ||
-            (builder.getSelectionMode | memo: coreModel:'checkbox')
+            (builder.isSelectionMode | memo: coreModel:'radius') ||
+            (builder.isSelectionMode | memo: coreModel:'checkbox')
           "
         >
           <p-tableHeaderCheckbox
-            *ngIf="(builder.getSelectionMode | memo: coreModel:'checkbox')"
+            *ngIf="(builder.isSelectionMode | memo: coreModel:'checkbox')"
           ></p-tableHeaderCheckbox>
           <span *ngIf="selected && selected.length > 0">({{ selected.length }})</span>
         </th>
@@ -88,8 +88,8 @@
       <tr *ngIf="(builder.enableFilterRow | memo: coreModel)">
         <th
           *ngIf="
-            (builder.getSelectionMode | memo: coreModel:'radius') ||
-            (builder.getSelectionMode | memo: coreModel:'checkbox')
+            (builder.isSelectionMode | memo: coreModel:'radius') ||
+            (builder.isSelectionMode | memo: coreModel:'checkbox')
           "
         ></th>
         <th *ngFor="let column of (builder.getColumns | memo: coreModel)">
@@ -110,7 +110,7 @@
       [model]="coreModel"
       [index]="index"
       [pSelectableRow]="row"
-      [pSelectableRowDisabled]="builder.getSelectionMode | memo: coreModel"
+      [pSelectableRowDisabled]="builder.getSelectionMode | memo: coreModel | isNil"
       [tableEditing]="tableEditing"
       (editing)="tableEditing = $event"
       (save)="saveRow.emit($event)"

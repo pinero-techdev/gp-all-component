@@ -86,16 +86,16 @@ export class TableComponent implements AfterContentInit {
 
   coreModel: CoreTableModel;
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this.buildModel();
   }
 
-  onFilter(event: any, column: TableColumn) {
+  onFilter(event: any, column: TableColumn): void {
     this.table.filter(event.srcElement.value, column.key, 'contains');
     this.filter.emit({ column: column.key, value: event.srcElement.value });
   }
 
-  private buildModel() {
+  private buildModel(): void {
     this.coreModel = new TableBuilder().createModel(
       this.model,
       this.customColumns,

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MemoPipe implements PipeTransform {
   // tslint:disable-next-line
-  transform(fn: Function, ...args: unknown[]): unknown {
+  transform(fn: Function, ...args: any[]): any {
     return fn(...args);
   }
 }

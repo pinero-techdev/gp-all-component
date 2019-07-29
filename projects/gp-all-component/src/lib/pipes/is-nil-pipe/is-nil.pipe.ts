@@ -5,7 +5,7 @@ import { isNullOrUndefined } from 'util';
   name: 'isNil',
 })
 export class IsNilPipe implements PipeTransform {
-  transform(value: unknown, condition = false): unknown {
+  transform(value: any, condition = false): any {
     return condition ? !isNullOrUndefined(value) : isNullOrUndefined(value);
   }
 }

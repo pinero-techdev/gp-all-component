@@ -1,6 +1,8 @@
 import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TableBuilder } from '../table.builder';
 import { CoreTableModel } from '../models/core-table.model';
+import { TableColumn } from '../models/table-column.model';
+import { SaveEvent } from '../models/save-event.model';
 
 @Component({
   // tslint:disable-next-line
@@ -17,7 +19,7 @@ export class RowComponent {
   model = new CoreTableModel();
 
   @Input()
-  index: any;
+  index: number;
 
   @Input()
   tableEditing: boolean;
@@ -26,10 +28,10 @@ export class RowComponent {
   editing: EventEmitter<boolean> = new EventEmitter();
 
   @Output()
-  delete: EventEmitter<any> = new EventEmitter();
+  delete: EventEmitter<TableColumn> = new EventEmitter();
 
   @Output()
-  save: any = new EventEmitter();
+  save: EventEmitter<SaveEvent> = new EventEmitter();
 
   builder = new TableBuilder();
 
@@ -42,31 +44,33 @@ export class RowComponent {
     return this._isEditing;
   }
 
-  get disableAction() {
+  get disableAction(): boolean {
     return !this.isEditing && this.tableEditing;
   }
 
   // tslint:disable-next-line
   private _isEditing = false;
 
-  startEdition() {
+  startEdition(): void {
     this.isEditing = true;
   }
 
-  persistEdition() {
-    this.save.emit({
+  persistEdition(): void {
+    const saveEvent = {
       row: this.row,
       index: this.index,
       save: () => this.cancelEdition(),
       error: (error: string) => console.error(error),
-    });
+    } as SaveEvent;
+
+    this.save.emit(saveEvent);
   }
 
-  cancelEdition() {
+  cancelEdition(): void {
     this.isEditing = false;
   }
 
-  deleteRow() {
+  deleteRow(): void {
     this.delete.emit(this.row);
   }
 }
