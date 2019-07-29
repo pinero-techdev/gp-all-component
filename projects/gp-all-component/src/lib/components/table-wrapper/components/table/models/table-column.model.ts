@@ -1,6 +1,6 @@
 export class TableColumn {
   key: string;
-  translationKey: string;
+  name: string;
   order: number;
 
   frozen: boolean;

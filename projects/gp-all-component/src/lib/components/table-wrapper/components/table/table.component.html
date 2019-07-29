@@ -75,12 +75,12 @@
             *ngIf="(builder.isSortable | memo: coreModel:column); else headerBasic"
             [pSortableColumn]="column.key"
           >
-            {{ column.key }}
+            {{ column.name || column.key }}
             <p-sortIcon [field]="column.key"></p-sortIcon>
           </th>
           <ng-template #headerBasic>
             <th>
-              {{ column.key }}
+              {{ column.name || column.key }}
             </th>
           </ng-template>
         </ng-container>
