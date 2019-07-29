@@ -47,7 +47,7 @@ export class TableBuilder {
     return model.title;
   }
 
-  enableCaptionRow(model: CoreTableModel, captionContent: TemplateRef<any>): boolean {
+  enableCaptionRow(model: CoreTableModel, captionContent?: TemplateRef<any>): boolean {
     return !isNullOrUndefined(model.title) || !isNullOrUndefined(captionContent);
   }
 
@@ -113,10 +113,6 @@ export class TableBuilder {
   }
 
   getColumns(model: CoreTableModel): TableColumn[] {
-    return model.columns;
-  }
-
-  getFrozenColumns(model: CoreTableModel): TableColumn[] {
     return model.columns;
   }
 
