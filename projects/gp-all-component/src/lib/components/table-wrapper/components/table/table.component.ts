@@ -15,6 +15,7 @@ import { ColumnTemplateDirective } from './directives/column-template.directive'
 import { EditableColumnTemplateDirective } from './directives/editable-column-template.directive';
 import { TableBuilder } from './table.builder';
 import { TableModel } from './models/table.model';
+import { CoreTableModel } from './models/core-table.model';
 import { TableColumn } from './models/table-column.model';
 import { PaginationOptions } from './models/pagination-options.model';
 import { OnChange } from 'property-watch-decorator';
@@ -83,6 +84,8 @@ export class TableComponent implements AfterContentInit {
 
   tableEditing = false;
 
+  coreModel: CoreTableModel;
+
   ngAfterContentInit() {
     this.buildModel();
   }
@@ -93,11 +96,12 @@ export class TableComponent implements AfterContentInit {
   }
 
   private buildModel() {
-    this.builder = new TableBuilder(
+    this.coreModel = new TableBuilder().createModel(
       this.model,
       this.customColumns,
       this.editableColumns,
       this.pagination
     );
+    this.builder = new TableBuilder();
   }
 }

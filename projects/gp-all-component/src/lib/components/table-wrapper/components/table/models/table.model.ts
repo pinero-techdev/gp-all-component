@@ -5,12 +5,9 @@ import { SelectionMode } from './selection-mode.type';
 export class TableModel {
   title?: string;
   columns: TableColumn[] | string[] = [];
-  customColumns?: { [key: string]: number };
-  editableColumns?: { [key: string]: number };
   globalFilter? = false;
   editable? = false;
   filterable? = false;
-  enableFilterRow? = false;
   sortable? = false;
   selectable?: SelectionMode;
   lazy? = true;

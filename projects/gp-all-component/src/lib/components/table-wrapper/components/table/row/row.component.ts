@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TableBuilder } from '../table.builder';
+import { CoreTableModel } from '../models/core-table.model';
 
 @Component({
   // tslint:disable-next-line
@@ -13,10 +14,10 @@ export class RowComponent {
   row: any;
 
   @Input()
-  index: any;
+  model: CoreTableModel;
 
   @Input()
-  builder: TableBuilder;
+  index: any;
 
   @Input()
   tableEditing: boolean;
@@ -29,6 +30,8 @@ export class RowComponent {
 
   @Output()
   save: any = new EventEmitter();
+
+  builder = new TableBuilder();
 
   set isEditing(status: boolean) {
     this.editing.emit(status);

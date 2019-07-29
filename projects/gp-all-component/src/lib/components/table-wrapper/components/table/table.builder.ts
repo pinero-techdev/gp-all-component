@@ -6,96 +6,95 @@ import { TableColumn } from './models/table-column.model';
 import { PaginationOptions } from './models/pagination-options.model';
 import { SelectionMode } from './models/selection-mode.type';
 import { EditableColumnTemplateDirective } from './directives/editable-column-template.directive';
+import { CoreTableModel } from './models/core-table.model';
 
 export class TableBuilder {
-  private model: TableModel;
-
-  private customColumns: QueryList<ColumnTemplateDirective>;
-
-  private editableColumns: QueryList<EditableColumnTemplateDirective>;
-
   // Once we receive a model, we parse it
-  constructor(
-    model = new TableModel(),
+  createModel(
+    incomingModel: TableModel,
     customColumns?: QueryList<ColumnTemplateDirective>,
     editableColumns?: QueryList<EditableColumnTemplateDirective>,
     pagination?: PaginationOptions
-  ) {
+  ): CoreTableModel {
     // 1. Parsing model to standard model
-    this.model = { ...new TableModel(), ...model };
+    const model = { ...new CoreTableModel(), ...incomingModel };
 
     // 2. Converting all the columns to standard format
-    this.model.columns = this.toTableColumns(model.columns);
+    model.columns = this.toTableColumns(model.columns);
 
     // 3. Declaring all the custom columns
-    this.model.customColumns = isNullOrUndefined(customColumns)
-      ? []
-      : this.parseColumns(customColumns);
-
-    this.customColumns = customColumns;
+    model.customColumns = isNullOrUndefined(customColumns) ? [] : this.parseColumns(customColumns);
 
     // 4. Declaring all the editable columns
-    this.model.editableColumns = isNullOrUndefined(editableColumns)
+    model.editableColumns = isNullOrUndefined(editableColumns)
       ? []
       : this.parseColumns(editableColumns);
 
-    this.editableColumns = editableColumns;
-
     // 5. Setting pagination flag
-    this.model.pagination = !isNullOrUndefined(pagination);
+    model.pagination = !isNullOrUndefined(pagination);
 
     // 5. Setting enable filter row flag
-    this.model.enableFilterRow =
-      this.model.filterable ||
-      !isNullOrUndefined((this.model.columns as TableColumn[]).find((column) => column.filterable));
+    model.enableFilterRow =
+      model.filterable ||
+      !isNullOrUndefined((model.columns as TableColumn[]).find((column) => column.filterable));
+
+    // 6. Set custom and editable columns
+    model.customColumnsList = customColumns;
+    model.editableColumnsList = editableColumns;
+
+    return model;
   }
 
-  get native() {
-    return this.model.native;
+  getNative(model: CoreTableModel) {
+    return model.native;
   }
 
-  getTitle() {
-    return this.model.title;
+  getTitle(model: CoreTableModel) {
+    return model.title;
   }
 
-  hasGlobalFilter() {
-    return this.model.globalFilter;
+  hasGlobalFilter(model: CoreTableModel) {
+    return model.globalFilter;
   }
 
-  enableFilterRow() {
-    return this.model.enableFilterRow;
+  enableFilterRow(model: CoreTableModel) {
+    return model.enableFilterRow;
   }
 
-  isFilterable(column?: TableColumn) {
+  isFilterable(model: CoreTableModel, column?: TableColumn) {
     return isNullOrUndefined(column)
-      ? this.model.filterable
+      ? model.filterable
       : isNullOrUndefined(column.filterable)
-      ? this.model.filterable
+      ? model.filterable
       : column.filterable;
   }
 
-  isSortable(column?: TableColumn) {
+  isSortable(model: CoreTableModel, column?: TableColumn) {
     return isNullOrUndefined(column)
-      ? this.model.sortable
+      ? model.sortable
       : isNullOrUndefined(column.sortable)
-      ? this.model.sortable
+      ? model.sortable
       : column.sortable;
   }
 
-  isEditable() {
-    return this.model.editable;
+  isEditable(model: CoreTableModel) {
+    return model.editable;
   }
 
-  getLazy() {
-    return this.model.lazy;
+  getLazy(model: CoreTableModel) {
+    return model.lazy;
   }
 
-  getPaginator() {
-    return this.model.pagination;
+  getPaginator(model: CoreTableModel) {
+    return model.pagination;
   }
 
-  getSelectionMode(mode?: SelectionMode) {
-    const modelSelection = this.model.selectable;
+  getSelectionMode(model: CoreTableModel, mode?: SelectionMode) {
+    if (!model) {
+      return;
+    }
+
+    const modelSelection = model.selectable;
 
     if (mode) {
       return modelSelection === mode;
@@ -112,32 +111,32 @@ export class TableBuilder {
     return modelSelection;
   }
 
-  getColumns() {
-    return this.model.columns;
+  getColumns(model: CoreTableModel) {
+    return model.columns;
   }
 
-  getFrozenColumns() {
-    return this.model.columns;
+  getFrozenColumns(model: CoreTableModel) {
+    return model.columns;
   }
 
-  getColumn(index: number) {
-    return this.getColumns()[index];
+  getColumn(model: CoreTableModel, index: number) {
+    return this.getColumns(model)[index];
   }
 
-  isCustomColumn(key: string) {
-    return !isNullOrUndefined(this.model.customColumns[key]);
+  isCustomColumn(model: CoreTableModel, key: string) {
+    return !isNullOrUndefined(model.customColumns[key]);
   }
 
-  getCustomColumn(key: string) {
-    return this.customColumns.toArray()[this.model.customColumns[key]].template;
+  getCustomColumn(model: CoreTableModel, key: string) {
+    return model.customColumnsList.toArray()[model.customColumns[key]].template;
   }
 
-  isEditableColumn(key: string) {
-    return !isNullOrUndefined(this.model.editableColumns[key]);
+  isEditableColumn(model: CoreTableModel, key: string) {
+    return !isNullOrUndefined(model.editableColumns[key]);
   }
 
-  getEditableColumn(key: string) {
-    return this.editableColumns.toArray()[this.model.editableColumns[key]].template;
+  getEditableColumn(model: CoreTableModel, key: string) {
+    return model.editableColumnsList.toArray()[model.editableColumns[key]].template;
   }
 
   /**

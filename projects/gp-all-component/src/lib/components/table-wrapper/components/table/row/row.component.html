@@ -1,23 +1,23 @@
 <!-- Start cells for checkbox or radius selection -->
 
-<td *ngIf="builder.getSelectionMode('checkbox')">
+<td *ngIf="(builder.getSelectionMode | memo: model:'checkbox')">
   <p-tableCheckbox [value]="row"></p-tableCheckbox>
 </td>
 
-<td *ngIf="builder.getSelectionMode('radius')">
+<td *ngIf="(builder.getSelectionMode | memo: model:'radius')">
   <p-tableRadioButton [value]="row"></p-tableRadioButton>
 </td>
 
 <!-- End cells for checkbox or radius selection -->
 
 <!-- Start main cell body -->
-<td *ngFor="let column of builder.getColumns()">
+<td *ngFor="let column of (builder.getColumns | memo: model)">
   <!-- Render main cell template depending on logic -->
   <ng-container
     [ngTemplateOutlet]="
-      builder.isEditableColumn(column.key) && isEditing
+      (builder.isEditableColumn | memo: model:column.key) && isEditing
         ? editableCell
-        : builder.isCustomColumn(column.key)
+        : (builder.isCustomColumn | memo: model:column.key)
         ? customCell
         : defaultCell
     "
@@ -28,7 +28,7 @@
 <!-- Template for custom cell -->
 <ng-template #customCell let-column>
   <ng-container
-    [ngTemplateOutlet]="builder.getCustomColumn(column.key)"
+    [ngTemplateOutlet]="builder.getCustomColumn | memo: model:column.key"
     [ngTemplateOutletContext]="{ $implicit: row, editing: isEditing }"
   ></ng-container>
 </ng-template>
@@ -41,8 +41,8 @@
 <!-- Template for editable cell -->
 <ng-template #editableCell let-column>
   <ng-container
-    *ngIf="builder.isEditableColumn(column.key)"
-    [ngTemplateOutlet]="builder.getEditableColumn(column.key)"
+    *ngIf="(builder.isEditableColumn | memo: model:column.key)"
+    [ngTemplateOutlet]="builder.getEditableColumn | memo: model:column.key"
     [ngTemplateOutletContext]="{ $implicit: row }"
   ></ng-container>
 </ng-template>
@@ -52,7 +52,7 @@
 <!-- Start edition action cells -->
 
 <!-- Render edition action cell template depending on logic -->
-<td *ngIf="builder.isEditable()">
+<td *ngIf="(builder.isEditable | memo: model)">
   <ng-container
     [ngTemplateOutlet]="isEditing ? editing : editable"
     [ngTemplateOutletContext]="{ $implicit: row }"
