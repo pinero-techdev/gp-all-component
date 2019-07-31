@@ -72,6 +72,9 @@ export * from './services/password.service';
 //Components
 export * from './components/tables/gp-treetable.component';
 
+//Resources (Classes)
+export * from './resources/data/extendAuthGuard';
+
 //Services
 export * from './services/treetable.service';
 export * from './services/extendTable.service';
