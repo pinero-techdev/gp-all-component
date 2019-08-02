@@ -27,6 +27,7 @@ $textSecondaryColor: color(text, secondary);
 $textMutedColor: color(text, muted);
 $textInvertedColor: color(text, inverted);
 $textInvertedMutedColor: color(text, invertedMuted);
+$breadcrumbItemColor: color(text, mutedSecondary);
 
 /* breakpoints */
 $breakpoints: (
@@ -171,5 +172,9 @@ $tableOddBg: color(gray, gray-1);
 $highlightedRow: color(white, white-3);
 $paginatorBGColor: color(gray, gray-8);
 $paginatorBorderColor: color(gray, gray-5);
+
+/* breadcrumb */
+$chevronBreadcrumbColor: color(gray, gray-5);
+
 /* Font Family */
 $mainFont: 'latolatinregular', sans-serif;

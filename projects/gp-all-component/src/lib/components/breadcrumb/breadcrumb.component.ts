@@ -9,4 +9,7 @@ import { MenuItem } from 'primeng/api';
 export class BreadcrumbComponent {
   @Input()
   items: MenuItem[];
+
+  @Input()
+  home: MenuItem;
 }
