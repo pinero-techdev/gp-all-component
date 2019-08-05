@@ -110,6 +110,7 @@ describe('ButtonComponent', () => {
 
   describe('Splitbutton Type', () => {
     let $splitButtonMenuButton: HTMLButtonElement;
+    const itemId = '1';
 
     beforeEach(() => {
       component.type = ButtonType.Split;
@@ -117,6 +118,7 @@ describe('ButtonComponent', () => {
       component.label = textLabel;
       component.items = [
         {
+          id: itemId,
           label: textLabel,
           icon: iconClassName,
           command: () => {

@@ -62,10 +62,10 @@ ngOnInit(): void {
 
 To navigate to the selected page it is only necessary to add the property 'routerLink' and the path to the object of the menu item in question.
 
-Gp-breadcrumb can be customized to show a Home icon as a first element. To do that you just need to declare a 'home' variable and assign (into ngOnInit) it to an object containing key 'icon' and value 'pi pi-home'.
+Gp-breadcrumb can be customized to show a Home icon as a first element. To do that you just need to declare a type GpMenuItem 'home' variable and assign (into ngOnInit) it to an object containing id, and property key 'icon' and value 'pi pi-home'.
 
 ```ts
-this.home = {icon: 'pi pi-home' };
+this.home = { id: '1', icon: 'pi pi-home' };
 ```
 
 Each breadcrumb element can also be accompanied by an icon. To do that you just need to insert a new property in its items object definition. This property should have 'icon' as key, and a class icon name such as 'pi pi-briefcase' for this breadcrumb example. And example of this can be seen in the items definition code above.
