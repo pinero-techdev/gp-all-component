@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { GpMenuItem } from './../../resources/data/gp-menu-item.model';
 
 @Component({
   selector: 'gp-breadcrumb',
@@ -8,8 +8,8 @@ import { MenuItem } from 'primeng/api';
 })
 export class BreadcrumbComponent {
   @Input()
-  items: MenuItem[];
+  items: GpMenuItem[];
 
   @Input()
-  home: MenuItem;
+  home: GpMenuItem;
 }
