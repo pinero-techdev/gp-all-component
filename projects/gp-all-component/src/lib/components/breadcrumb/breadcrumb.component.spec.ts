@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BreadcrumbComponent } from './breadcrumb.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 
-fdescribe('BreadcrumbComponent', () => {
+describe('BreadcrumbComponent', () => {
   let component: BreadcrumbComponent;
   let fixture: ComponentFixture<BreadcrumbComponent>;
   let $breadcrumb: HTMLDivElement;
