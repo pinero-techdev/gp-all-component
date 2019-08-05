@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { GpMenuItem } from './../../resources/data/gp-menu-item.model';
 
 @Component({
   selector: 'gp-menu',
@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class MenuComponent {
   @Input()
-  items: MenuItem[];
+  items: GpMenuItem[];
 
   @Input()
   isExpanded = true;

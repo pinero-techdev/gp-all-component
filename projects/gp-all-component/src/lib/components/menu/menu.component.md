@@ -25,14 +25,14 @@ import { MenuModule } from 'gp-all-component';
 Then, you have to import MenuItem from gp-all-component in the typescript file of the component that is going to consume gp-menu:
 
 ```ts
-import { MenuItem } from 'gp-all-component';
+import { GpMenuItem } from 'gp-all-component';
 ```
 
-Within your consumer component of the menu you have to declare the variable that in NgOnInit you will fill with your menu items. In this case it's called items, and it's a MenuItems array:
+Within your consumer component of the menu you have to declare the variable that in NgOnInit you will fill with your menu items. In this case it's called items, and it's a GpMenuItems array:
 
 ```ts
 export class <ConsumerComponentName> implements OnInit {
-    items: MenuItem[];
+    items: GpMenuItem[];
 ```
 
 You can create as much depth in the main menu as you choose. Just nest new item objects inside the main menu object:
@@ -41,12 +41,14 @@ You can create as much depth in the main menu as you choose. Just nest new item 
 ngOnInit(): void {
     this.items = [
         {
+            id: '1',
             label: 'Home',
             icon: 'pi pi-home',
             routerLink: '/components',
             title: 'Home',
         },
         {
+            id: '2',
             label: 'Gestión de propiedades',
             icon: 'pi pi-key',
             title: 'Gestión de propiedades',
@@ -74,7 +76,7 @@ You can have a look to the PrimeNG official docs, specifically MenuModel and Ico
 
 ### Template
 
-Items: Array of Items of type MenuItem. You can create each menu item following the structure defined for MenuModel in PrimeNg. See the link mentioned above. In addition, you can create hierarchical levels of submenus by nesting menu-type objects.
+Items: Array of Items of type GpMenuItem. You can create each menu item following the structure defined for MenuModel in PrimeNg. See the link mentioned above. In addition, you can create hierarchical levels of submenus by nesting menu-type objects.
 
 ```html
 [items]="items"

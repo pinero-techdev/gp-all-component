@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ButtonType, ButtonSeverity } from './../../resources/constants/button.enum';
-import { MenuItem } from 'primeng/api';
+import { GpMenuItem } from './../../resources/data/gp-menu-item.model';
 
 @Component({
   selector: 'gp-button',
@@ -36,7 +36,7 @@ export class ButtonComponent implements OnInit {
    * Item buttons to show in overlaypanel in case of splitbutton
    */
   @Input()
-  items: MenuItem[];
+  items: GpMenuItem[];
 
   /**
    * Button accesibility. Every button is enabled by default
@@ -53,7 +53,7 @@ export class ButtonComponent implements OnInit {
   /**
    * Items to show if button is type splitbutton
    */
-  splitItems: MenuItem[];
+  splitItems: GpMenuItem[];
 
   /**
    * Severity for splitbutton to bind in template
