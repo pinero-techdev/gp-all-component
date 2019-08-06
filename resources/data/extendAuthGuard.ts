@@ -7,7 +7,7 @@ import { GlobalService } from '../../services/global.service';
 import { MenuRq } from './menuRq';
 
 @Injectable()
-export class ExtendExtendAuthGuard implements CanActivate {
+export class ExtendAuthGuard implements CanActivate {
   constructor(private _router: Router, private _menu: AppMenuService, private _menuAppMenuProviderService: AppMenuProviderService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
