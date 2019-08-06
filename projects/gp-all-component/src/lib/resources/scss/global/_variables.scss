@@ -134,7 +134,9 @@ $cardShadow: color(gray, gray-13);
 $primaryBg: color(white);
 
 /* menu */
-$menu-action-width: 76px;
+$main-menu-action-width: 76px;
+$menu-action-width: 30px;
+$menu-submenu-width: 200px;
 $menuBg: color(blue, blue-12);
 $menuBgHoverActive: color(blue, blue-13);
 $menuText: color(text, baseMenuText);

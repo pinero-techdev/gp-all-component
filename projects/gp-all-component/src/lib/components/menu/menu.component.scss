@@ -16,27 +16,41 @@
 
     .toggle-icon.pi {
       background: $menuActionBg;
-      display: block;
-      width: 100%;
-      height: 60px;
       color: $whiteColor;
-      font-size: 2em;
+      font-size: 18px;
+      width: $menu-action-width;
+      height: 42px;
+      position: absolute;
+      right: 0;
+      top: 7px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      z-index: 1;
 
       &:before {
-        transform: translate(16px, -50%);
+        transform: translate(-50%, -50%);
         position: absolute;
         top: 50%;
+        left: 50%;
+      }
+
+      &.pi-chevron-right {
+        right: -$menu-action-width;
+        border-radius: 0;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
       }
     }
 
     .ui-panelmenu {
       width: auto;
       display: inline-block;
-      min-width: 260px;
+      min-width: 268px;
+      top: 7px;
 
       .ui-panelmenu-panel {
         .ui-panelmenu-header {
-          &:not(.ui-active-state) > a:hover,
+          &:not(.ui-state-active) > a:hover,
           &.ui-state-active > a {
             background-color: $menuBgHoverActive;
             border: none;
@@ -46,23 +60,24 @@
             .ui-menuitem-text,
             .ui-panelmenu-icon {
               color: $whiteColor;
+              opacity: 1;
+            }
+          }
+
+          &.ui-state-active,
+          .ui-panelmenu-header-link:hover {
+            .ui-menuitem-icon:before {
+              color: $primaryColor;
             }
           }
 
           .ui-panelmenu-header-link {
             display: flex;
+            align-items: center;
             border: none;
             background: transparent;
             width: 100%;
             font-weight: 500;
-
-            &:hover {
-              .ui-menuitem-icon {
-                &:before {
-                  color: $primaryColor;
-                }
-              }
-            }
 
             .ui-menuitem-text,
             .ui-menuitem-icon {
@@ -77,15 +92,17 @@
 
             .ui-menuitem-text {
               margin: 0 12px;
+              letter-spacing: 0.3px;
             }
 
             .ui-panelmenu-icon {
               order: 3;
               align-items: stretch;
               color: $menuText;
+              opacity: 0.3;
 
               &:before {
-                line-height: 24px;
+                line-height: 20px;
                 font-size: 10px;
               }
             }
@@ -103,11 +120,11 @@
               border-radius: 0;
 
               .ui-menuitem-link {
-                height: 44px;
                 background-color: $menuBg;
                 border: none;
                 border-radius: 0;
-                padding: 14px;
+                padding: 13px;
+                padding-left: 28px;
 
                 &:hover,
                 &:focus {
@@ -143,18 +160,34 @@
           .ui-panelmenu-header {
             &.ui-state-active {
               .ui-panelmenu-header-link {
-                border-radius: 14px;
-                width: 70%;
                 min-width: auto;
                 justify-content: center;
-                margin: 6px auto;
-                padding: 6px 12px;
+              }
+
+              .ui-panelmenu-icon {
+                display: inline;
+                position: absolute;
+                right: 0;
+
+                &:before {
+                  content: '\e901';
+                }
               }
             }
           }
 
           .ui-panelmenu-content-wrapper {
-            display: none;
+            position: absolute;
+            width: $menu-submenu-width;
+            right: -$menu-submenu-width;
+            top: 0;
+            display: block;
+
+            .ui-menuitem-link {
+              .ui-menuitem-text {
+                display: contents;
+              }
+            }
           }
         }
       }

@@ -54,11 +54,13 @@ ngOnInit(): void {
             title: 'Gestión de propiedades',
             items: [
                 {
+                    id: '21',
                     label: 'Tipo de propiedades',
                     routerLink: 'navigate_to_tipopropiedades',
                     title: 'Tipo de propiedades',
                 },
                 {
+                    id: '22',
                     label: 'Tipo de gasto',
                     routerLink: 'navigate_to_tipogasto',
                     title: 'Tipo de gasto',
