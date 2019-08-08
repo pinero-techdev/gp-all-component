@@ -1,1 +1,22 @@
-<p-slider [(ngModel)]="val" [orientation]="orientation"></p-slider>
+<div [ngClass]="orientation === 'vertical' ? 'vertical-orientation' : ''">
+  <div *ngIf="showLabel" class="label">{{ label }}</div>
+  <div class="slider-input">
+    <p-slider
+      [(ngModel)]="val"
+      [min]="min"
+      [max]="max"
+      [orientation]="orientation"
+      [step]="step"
+      [range]="range"
+    >
+    </p-slider>
+    <input
+      *ngIf="showInput && !rangeValues"
+      [(ngModel)]="val"
+      type="text"
+      pInputText
+      class="value"
+    />
+    <span *ngIf="rangeValues" class="value">{{ val[0] + ' - ' + val[1] }}</span>
+  </div>
+</div>

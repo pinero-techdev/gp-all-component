@@ -1,0 +1,77 @@
+@import 'global/variables';
+@import 'global/mixins';
+
+::ng-deep {
+  .label {
+    font-size: $fontSize;
+    color: $textMutedColor;
+    margin-bottom: $separationLarge;
+    display: inline-block;
+    letter-spacing: 0.15px;
+    white-space: nowrap;
+    text-transform: capitalize;
+  }
+
+  .slider-input {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    min-height: $separationXLarge;
+
+    p-slider {
+      width: 80%;
+    }
+
+    .value {
+      width: 20%;
+      border: none;
+      padding: 0;
+      margin-left: $separationLarge;
+      font-size: $fontSize;
+      color: $textMutedColor;
+      letter-spacing: 0.15px;
+      white-space: nowrap;
+    }
+  }
+
+  .ui-slider {
+    &.ui-slider-horizontal,
+    &.ui-slider-vertical {
+      background-color: $sliderBarColor;
+
+      .ui-slider-handle {
+        background-color: $primaryColor;
+        border-color: $primaryColor;
+      }
+    }
+
+    &.ui-slider-vertical {
+      .ui-slider-handle.ui-clickable {
+        margin-left: -6px;
+      }
+    }
+  }
+
+  .vertical-orientation {
+    .slider-input {
+      flex-direction: column;
+      width: inherit;
+      justify-content: center;
+    }
+
+    .label {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    p-slider,
+    .value {
+      width: inherit;
+    }
+
+    .value {
+      margin-left: inherit;
+      margin-top: $separationLarge;
+    }
+  }
+}
