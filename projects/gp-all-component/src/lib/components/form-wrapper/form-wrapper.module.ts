@@ -9,6 +9,7 @@ import { FormDropdownRelatedFieldComponent } from './components/form-dropdown-re
 import { FormImgFieldComponent } from './components/form-img-field/form-img-field.component';
 import { FormTextAreaFieldComponent } from './components/form-text-area-field/form-text-area-field.component';
 import { FormWysiwygFieldComponent } from './components/form-wysiwyg-field/form-wysiwyg-field.component';
+import { FormSliderFieldComponent } from './components/form-slider-field/form-slider-field.component';
 import { FormSwitchFieldComponent } from './components/form-switch-field/form-switch-field.component';
 import { FormTextFieldComponent } from './components/form-text-field/form-text-field.component';
 import { FormTimeFieldComponent } from './components/form-time-field/form-time-field.component';
@@ -16,6 +17,7 @@ import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
 } from './../../shared/imports/form-wrapper-shared';
+import { SliderModule } from 'primeng/slider';
 
 @NgModule({
   declarations: [
@@ -25,13 +27,14 @@ import {
     FormDropdownRelatedFieldComponent,
     FormImgFieldComponent,
     FormNumberFieldComponent,
+    FormSliderFieldComponent,
     FormSwitchFieldComponent,
     FormTextAreaFieldComponent,
     FormTextFieldComponent,
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
   ],
-  imports: [CommonModule, BrowserAnimationsModule, FormWrapperSharedModules],
+  imports: [CommonModule, BrowserAnimationsModule, FormWrapperSharedModules, SliderModule],
   exports: [
     FormCalendarFieldComponent,
     FormCheckboxFieldComponent,
@@ -39,6 +42,7 @@ import {
     FormDropdownRelatedFieldComponent,
     FormImgFieldComponent,
     FormNumberFieldComponent,
+    FormSliderFieldComponent,
     FormSwitchFieldComponent,
     FormTextAreaFieldComponent,
     FormTextFieldComponent,

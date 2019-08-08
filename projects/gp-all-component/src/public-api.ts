@@ -100,6 +100,7 @@ export * from './lib/components/table-wrapper/components/table-frame/table-frame
 export * from './lib/components/topbar/topbar.component';
 export * from './lib/components/button/button.component';
 export * from './lib/components/breadcrumb/breadcrumb.component';
+export * from './lib/components/form-wrapper/components/form-slider-field/form-slider-field.component';
 
 // Component Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
