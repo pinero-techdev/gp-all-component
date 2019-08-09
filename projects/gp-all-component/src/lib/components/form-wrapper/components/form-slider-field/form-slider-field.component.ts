@@ -34,7 +34,7 @@ export class FormSliderFieldComponent implements OnInit {
   showLabel = false;
 
   ngOnInit() {
-    this.showLabel = this.label === '' ? false : true;
+    this.showLabel = this.label === '' || this.label === null ? false : true;
     if (this.rangeValues) {
       this.range = true;
       this.val = this.rangeValues.split(',').map(Number);
