@@ -3,7 +3,6 @@
   #table
   [value]="data"
   [columns]="builder.getColumns | memo: coreModel"
-  [frozenColumns]="builder.getFrozenColumns | memo: coreModel"
   [paginator]="builder.getPaginator | memo: coreModel"
   [rowsPerPageOptions]="(builder.getNative | memo: coreModel).rowsPerPageOptions"
   [loading]="loading"
@@ -29,7 +28,12 @@
     pTemplate="caption"
   >
     <ng-container *ngIf="captionContent">
-      <ng-content *ngTemplateOutlet="captionContent"></ng-content>
+      <ng-content
+        *ngTemplateOutlet="
+          captionContent;
+          context: { $implicit: builder.getTitle | memo: coreModel }
+        "
+      ></ng-content>
     </ng-container>
 
     <ng-container *ngIf="!captionContent">

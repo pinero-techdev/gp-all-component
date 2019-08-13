@@ -4,7 +4,7 @@ import { CoreTableModel } from './models/core-table.model';
 import { TemplateRef } from '@angular/core';
 import { TableColumn } from './models/table-column.model';
 
-fdescribe('TableBuilder', () => {
+describe('TableBuilder', () => {
   let builder: TableBuilder;
   let model: CoreTableModel;
 
