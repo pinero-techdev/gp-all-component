@@ -1,8 +1,9 @@
 import { TestingErrorCodeMock } from './../../../shared/testing/@mock/utils/testing-mock-constants.class';
 import { Observable, of, throwError } from 'rxjs';
-import { ListRs } from './table.service';
+import { ListRs, MetadataRs, SelectOneRowRq, SelectOneRowRs } from './table.service';
 import { Filter } from './../../../resources/data/filter/filter.model';
 import { ErrorInformation } from './../../../resources/data/error-information/error-information.model';
+
 export const TableServiceMockResponse: ListRs = {
   ok: true,
   data: [
@@ -167,5 +168,16 @@ export class TableServiceMock {
       response.error = error;
     }
     return of(response);
+  }
+
+  selectOneRow(tableName: string, reg: any) {
+    const rq = new SelectOneRowRq();
+    const response = new SelectOneRowRs();
+    rq.jsonRowToSelect = JSON.stringify(reg);
+    return of(response);
+  }
+
+  metadata(tableName: string): Observable<MetadataRs> {
+    return of({ metadata: TableServiceMockResponse.metadata } as MetadataRs);
   }
 }

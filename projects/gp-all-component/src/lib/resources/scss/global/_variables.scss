@@ -27,6 +27,7 @@ $textSecondaryColor: color(text, secondary);
 $textMutedColor: color(text, muted);
 $textInvertedColor: color(text, inverted);
 $textInvertedMutedColor: color(text, invertedMuted);
+$breadcrumbItemColor: color(text, mutedSecondary);
 
 /* breakpoints */
 $breakpoints: (
@@ -134,6 +135,10 @@ $primaryBg: color(white);
 
 /* menu */
 $menu-action-width: 76px;
+$menuBg: color(blue, blue-12);
+$menuBgHoverActive: color(blue, blue-13);
+$menuText: color(text, baseMenuText);
+$menuActionBg: color(blue, blue-11);
 $menuGradient1: color(blue, blue-10);
 $menuGradient2: color(blue, blue-7);
 $menuGradient3: color(blue, blue-6);
@@ -151,7 +156,7 @@ $contentShadowOpacity: 0.2;
 $calendarDaySelectedBg: color(blue, blue-1);
 
 /* topbar */
-$topbarBg: color(blue, blue-7);
+$topbarBg: color(blue, blue-12);
 $topbarActionBg: color(blue, blue-11);
 $topbarSettingModalShadow: color(blue, blue-1);
 
@@ -167,5 +172,9 @@ $tableOddBg: color(gray, gray-1);
 $highlightedRow: color(white, white-3);
 $paginatorBGColor: color(gray, gray-8);
 $paginatorBorderColor: color(gray, gray-5);
+
+/* breadcrumb */
+$chevronBreadcrumbColor: color(gray, gray-5);
+
 /* Font Family */
 $mainFont: 'latolatinregular', sans-serif;

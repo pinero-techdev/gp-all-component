@@ -1,29 +1,28 @@
+import { GpFormFieldType } from './../../../../../form-wrapper/resources/form-field-type.enum';
 import { AttachmentOperationEnum } from './../../resources/attachment-operation.enum';
 import { switchMap } from 'rxjs/operators';
 import { Attachment } from './../../resources/attachment.class';
-import { Component, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CustomInput } from './../../resources/custom-input.class';
 import { Filter } from './../../../../../../resources/data/filter/filter.model';
 import { FilterOperationType } from './../../../../../../resources/data/filter/filter-operation-type.enum';
-import { FormBuilder, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
-import { GpFormFieldType } from './../../../../../form-wrapper/resources/form-field-type.enum';
-import { Input, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
-import { Output } from '@angular/core';
 import { TableColumnMetadata } from './../../resources/table-column-metadata.model';
 import { TableFieldEvent } from '../../resources/table-events.interface';
 import { TableMetadataService } from './../../../../../../services/api/table/table-metadata.service';
 import { TableService } from './../../../../../../services/api/table/table.service';
+import { LocaleES } from '../../../../../../resources/localization';
 
 @Component({
-  selector: 'gp-table-editable-row',
-  templateUrl: './table-editable-row.component.html',
+  selector: 'gp-table-editable-cell',
+  styleUrls: ['./table-editable-cell.component.scss'],
+  templateUrl: './table-editable-cell.component.html',
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: TableEditableCellComponent, multi: true }],
 })
-export class TableEditableRowComponent extends CustomInput implements AfterViewInit {
+export class TableEditableCellComponent extends CustomInput implements AfterViewInit {
   readonly inputType = GpFormFieldType;
-  AttachmentOperationEnum = AttachmentOperationEnum;
   form: FormGroup;
   editable: boolean;
   optionsList = [];
@@ -68,8 +67,9 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   dateFormat = 'yy-mm-dd';
   translationKeys = '';
   temporalValue = '';
-  temoralFile = new Attachment();
+  temporalFile = new Attachment();
   subject = new Subject();
+  readonly translations = LocaleES;
 
   @Input() columnMetadata = new TableColumnMetadata();
   @Input() item: any; // item es el objeto row, con todos los campos
@@ -96,25 +96,35 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
   }
 
   ngAfterViewInit() {
+    this.form.get('name').setValue(this.columnMetadata.name);
+    this.value =
+      this.item && this.item[this.columnMetadata.name] ? this.item[this.columnMetadata.name] : '';
+
     if (
       this.columnMetadata.type === GpFormFieldType.DROPDOWN ||
       this.columnMetadata.type === GpFormFieldType.DROPDOWN_RELATED
     ) {
       this.getOptions();
     }
+
     if (
       !this.isFilter &&
       (this.columnMetadata.type === GpFormFieldType.CHECKBOX ||
         this.columnMetadata.type === GpFormFieldType.SWITCH)
     ) {
-      if (!this.value && this.columnMetadata.uncheckedValue) {
+      if (
+        !this.value &&
+        this.columnMetadata.uncheckedValue !== null &&
+        this.columnMetadata.uncheckedValue !== undefined
+      ) {
         this.startStop(this.columnMetadata.uncheckedValue);
       }
     }
+
     if (
+      this.item &&
       this.columnMetadata.translationInfo &&
-      this.columnMetadata.translationInfo.keyFields &&
-      this.item
+      this.columnMetadata.translationInfo.keyFields
     ) {
       this.translationKeys = '';
       for (const keyField of this.columnMetadata.translationInfo.keyFields) {
@@ -125,17 +135,26 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
 
   onModelChange(value: any) {
     if (this.columnMetadata.beforeChangeFn) {
-      const newValue = this.columnMetadata.beforeChangeFn(this.item, value, this.columnMetadata);
-      this.value = newValue;
-      this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
+      this.value = this.columnMetadata.beforeChangeFn(this.item, value, this.columnMetadata);
     } else {
       this.value = value;
-      this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
     }
+    if (this.item) {
+      if (!this.item.hasOwnProperty(this.columnMetadata.name)) {
+        this.item = Object.assign(this.columnMetadata.name, this.item);
+      }
+      this.item[this.columnMetadata.name] = this.value;
+      this.item[this.columnMetadata.name] = this.value;
+    }
+
+    this.stopEditing.emit({ value: this.value, column: this.columnMetadata });
   }
 
   isCheckboxChecked(): boolean {
-    if (this.columnMetadata.checkedValue) {
+    if (
+      this.columnMetadata.checkedValue !== null &&
+      this.columnMetadata.checkedValue !== undefined
+    ) {
       return this.columnMetadata.checkedValue === this.value;
     } else {
       return this.value;
@@ -201,9 +220,9 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
 
   openFileModal() {
     if (this.value) {
-      this.temoralFile = Object.assign(new Attachment(), this.value);
+      this.temporalFile = Object.assign(new Attachment(), this.value);
     } else {
-      this.temoralFile = new Attachment();
+      this.temporalFile = new Attachment();
     }
     this.fileModalVisible = true;
   }
@@ -316,11 +335,11 @@ export class TableEditableRowComponent extends CustomInput implements AfterViewI
     reader.onload = () => {
       const base64 = (reader.result as string).split(',');
       if (base64 && base64.length > 1) {
-        this.temoralFile.operation = AttachmentOperationEnum.MODIFY;
-        this.temoralFile.fieldName = this.columnMetadata.name;
-        this.temoralFile.fileName = file.name;
-        this.temoralFile.mimeType = file.type;
-        this.temoralFile.content = base64[1];
+        this.temporalFile.operation = AttachmentOperationEnum.MODIFY;
+        this.temporalFile.fieldName = this.columnMetadata.name;
+        this.temporalFile.fileName = file.name;
+        this.temporalFile.mimeType = file.type;
+        this.temporalFile.content = base64[1];
       }
     };
   }

@@ -29,9 +29,14 @@
             "karmaConfig": "projects/gp-all-component/karma.conf.js",
             "codeCoverage": true,
             "codeCoverageExclude": [
+              "projects/gp-all-component/src/test.ts",
+              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable-crud/**/table-editable-crud/**/*.ts",
+              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable-crud/**/*.component.ts",
+              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable-crud/**/resources/**/*.ts",
               "projects/gp-all-component/src/lib/resources/**/*",
               "projects/gp-all-component/src/lib/shared/**/*",
-              "projects/gp-all-component/src/lib/services/core**/*",
+              "projects/gp-all-component/src/lib/services/core/**/*",
+              "projects/gp-all-component/src/lib/services/api/**/*",
               "projects/gp-all-component/src/lib/util/**/*",
               "projects/gp-all-component/src/lib/**/*.mock.*ts",
               "projects/gp-all-component/src/lib/**/*.module.ts"

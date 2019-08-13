@@ -1,11 +1,10 @@
-import { TableMetadataService } from '../../../../services/api/table/table-metadata.service';
+import { TableMetadataService } from '../../../../../../services/api/table/table-metadata.service';
 import { ConfirmationService } from 'primeng/api';
-import { TableEditableRowComponent } from './components/table-editable-row/table-editable-row.component';
-import { ItemChangeEvent } from './resources/table-events.interface';
-import { TableFieldEvent, TableRowEvent } from './resources/table-events.interface';
-import { TableConfig } from './resources/table-config.model';
-import { TableColumnMetadata } from './resources/table-column-metadata.model';
-import { GpFormFieldType } from './../../../form-wrapper/resources/form-field-type.enum';
+import { TableEditableCellComponent } from '../table-editable-cell/table-editable-cell.component';
+import { ItemChangeEvent } from '../../resources/table-events.interface';
+import { TableFieldEvent, TableRowEvent } from '../../resources/table-events.interface';
+import { TableConfig } from '../../resources/table-config.model';
+import { TableColumnMetadata } from '../../resources/table-column-metadata.model';
 import {
   Component,
   ElementRef,
@@ -17,10 +16,11 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { SortDirection } from './resources/sort-direction.enum';
-import { SelectionType } from './resources/selection-type.enum';
+import { SortDirection } from '../../resources/sort-direction.enum';
+import { SelectionType } from '../../resources/selection-type.enum';
 import { Paginator } from 'primeng/paginator';
-import { isNullOrUndefined } from 'util';
+import { GpFormFieldType } from '../../../../../form-wrapper/resources/form-field-type.enum';
+import { LocaleES } from '../../../../../../resources/localization';
 
 /*
  *  Data order: data -> filteredData -> sortedData -> currentPageData
@@ -40,6 +40,7 @@ export class TableEditableComponent {
   itemValid = true;
   onCreation = false;
   onEdition = false;
+  readonly translations = LocaleES;
 
   // tslint:disable-next-line: variable-name
   private _columns: TableColumnMetadata[] = [];
@@ -65,10 +66,12 @@ export class TableEditableComponent {
    * $implicit, index
    * */
   @Input() actionsTemplate: TemplateRef<any>;
+
   @Input()
   get columns(): TableColumnMetadata[] {
     return this._columns;
   }
+
   set columns(value: TableColumnMetadata[]) {
     if (!value) {
       this._columns = [];
@@ -78,16 +81,20 @@ export class TableEditableComponent {
       });
     }
   }
+
   @Input() config = new TableConfig();
   @Input() data: any[];
+
   @Input()
   get selectedData(): any[] {
     return this._selectedData;
   }
+
   set selectedData(value: any[]) {
     this._selectedData = value || [];
     this.selectedDataChange.emit(this._selectedData);
   }
+
   @Output() selectedDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
   @Output() deletedItem: EventEmitter<any> = new EventEmitter<any>();
   @Output() createdItem: EventEmitter<any> = new EventEmitter<any>();
@@ -101,10 +108,11 @@ export class TableEditableComponent {
   @Output() create: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
   @Output() delete: EventEmitter<ItemChangeEvent> = new EventEmitter<ItemChangeEvent>();
   @Output() downloadFile: EventEmitter<TableFieldEvent> = new EventEmitter<TableFieldEvent>();
-  @ViewChildren(TableEditableRowComponent) inputs: QueryList<TableEditableRowComponent>;
+  @ViewChildren(TableEditableCellComponent) inputs: QueryList<TableEditableCellComponent>;
   @ViewChildren('formInput', { read: ElementRef }) formInputs: QueryList<ElementRef>;
+
   get filteredData() {
-    if (isNullOrUndefined(this.data)) {
+    if (!this.data) {
       return [];
     }
     if (this.config.filterable) {
@@ -127,6 +135,7 @@ export class TableEditableComponent {
       return this.data;
     }
   }
+
   get sortedData() {
     if (!this.config.sortable || !this.config.sortField) {
       return this.filteredData;
@@ -149,12 +158,14 @@ export class TableEditableComponent {
       return 0;
     });
   }
+
   get currentPageData() {
     return this.sortedData.slice(
       this.config.currentPage * this.config.itemsPerPage,
       this.config.currentPage * this.config.itemsPerPage + this.config.itemsPerPage
     );
   }
+
   get footerColspan() {
     if (this.columns) {
       let columnNumber = this.columns.filter((column) => column.visible).length;
@@ -168,10 +179,12 @@ export class TableEditableComponent {
     }
     return 0;
   }
+
   constructor(
     private confirmationService: ConfirmationService,
     private metadataService: TableMetadataService
   ) {}
+
   changeSort(column: TableColumnMetadata) {
     if (!this.config.sortable || !column.sortable) {
       return;
@@ -184,9 +197,10 @@ export class TableEditableComponent {
         this.config.sortDirection === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC;
     }
   }
+
   itemValueChanged(event: TableFieldEvent, item: any) {
     if (event && event.column) {
-      this.inputs.forEach((input: TableEditableRowComponent) => {
+      this.inputs.forEach((input: TableEditableCellComponent) => {
         if (
           !input.isFilter &&
           input.columnMetadata.type === GpFormFieldType.DROPDOWN_RELATED &&
@@ -201,11 +215,12 @@ export class TableEditableComponent {
     this.itemValid = this.isItemValid(item);
     this.stopEditingField.emit(event);
   }
+
   changeFilter(column: TableColumnMetadata, filterValue) {
     this.paginator.changePage(0);
-    if (column) {
+    if (column && this.inputs) {
       column.filter = filterValue;
-      this.inputs.forEach((input: TableEditableRowComponent) => {
+      this.inputs.forEach((input: TableEditableCellComponent) => {
         if (
           input.isFilter &&
           input.columnMetadata.type === GpFormFieldType.DROPDOWN_RELATED &&
@@ -222,21 +237,25 @@ export class TableEditableComponent {
       });
     }
   }
+
   changePage(first: number, rows: number, page: number, pageCount: number) {
     this.config.currentPage = page;
     this.config.itemsPerPage = rows;
   }
+
   clearFilters() {
     for (const column of this.columns) {
       column.filter = null;
     }
   }
+
   isSelectable(item: any): boolean {
     if (this.config.selectable === SelectionType.NONE) {
       return false;
     }
     return !(this.config.selectableFn && !this.config.selectableFn(item, null, this.selectedData));
   }
+
   toggleItemSelection(item: any, event?) {
     if (event) {
       event.stopPropagation();
@@ -264,9 +283,11 @@ export class TableEditableComponent {
       }
     }
   }
+
   itemIsSelected(item: any): boolean {
     return this.itemIndex(item) !== -1;
   }
+
   itemIndex(item: any): number {
     return this.selectedData.findIndex((data) => {
       if (this.config.compareFn) {
@@ -283,6 +304,7 @@ export class TableEditableComponent {
       }
     });
   }
+
   allSelected(): boolean {
     if (!this.selectedData || this.selectedData.length === 0) {
       return false;
@@ -306,6 +328,7 @@ export class TableEditableComponent {
     });
     return true;
   }
+
   // Select all filtered data
   toggleSelectAll() {
     if (
@@ -327,6 +350,7 @@ export class TableEditableComponent {
       this.selectedData = [];
     }
   }
+
   exportToCsv() {
     const csvSeparator = ';';
     let data = this.filteredData;
@@ -342,6 +366,7 @@ export class TableEditableComponent {
         csv += csvSeparator;
       }
     }
+
     // body
     data.forEach((row) => {
       csv += '\n';
@@ -382,13 +407,16 @@ export class TableEditableComponent {
       document.body.removeChild(link);
     }
   }
+
   createItem() {
     if (this.onCreation || this.onEdition) {
       return;
     }
+
     this.creationObject = {};
     this.itemValid = this.isItemValid(this.creationObject);
     this.onCreation = true;
+
     this.columns.forEach((column) => {
       if (column.type === GpFormFieldType.CHECKBOX || column.type === GpFormFieldType.SWITCH) {
         if (!this.creationObject[column.name] && column.uncheckedValue) {
@@ -401,6 +429,7 @@ export class TableEditableComponent {
     this.startEdition.emit({ item: this.creationObject, columns: this.columns });
     this.startFocus();
   }
+
   // Arrow function to be used in external template without losing scope
   beforeDeleteItem = (item: any) => {
     this.confirmationService.confirm({
@@ -419,23 +448,27 @@ export class TableEditableComponent {
       },
     });
   };
+
   isEditable(item: any): boolean {
     if (this.config.editableFn) {
       return this.config.editableFn(item, this.columns);
     }
     return true;
   }
+
   isDeletable(item: any): boolean {
     if (this.config.deletableFn) {
       return this.config.deletableFn(item, this.columns);
     }
     return true;
   }
+
   // Arrow function to be used in external template without losing scope
   editItem = (item: any) => {
     if (this.onCreation || this.onEdition) {
       return;
     }
+
     const editFn = (editItem: any) => {
       this.editionObject = Object.assign({}, editItem);
       this.itemValid = this.isItemValid(this.editionObject);
@@ -454,6 +487,7 @@ export class TableEditableComponent {
       editFn(item);
     }
   };
+
   startFocus() {
     setTimeout((_) => {
       const firstInput = this.formInputs.first;
@@ -465,6 +499,7 @@ export class TableEditableComponent {
       }
     }, 300);
   }
+
   beforeSaveItem(original: any, modified: any) {
     const successSaved = (savedItem: any) => {
       delete original._editting;
@@ -484,6 +519,7 @@ export class TableEditableComponent {
       this.save.emit({ original, modified, success: successSaved });
     }
   }
+
   beforeCreateItem(item: any) {
     const successCreated = (savedItem: any) => {
       this.cancelCreate();
@@ -500,6 +536,7 @@ export class TableEditableComponent {
       this.create.emit({ original: null, modified: item, success: successCreated });
     }
   }
+
   cancel() {
     if (this.onEdition) {
       const items = this.data.filter((item) => item._editting);
@@ -510,16 +547,19 @@ export class TableEditableComponent {
       this.cancelCreate();
     }
   }
+
   cancelCreate() {
     this.creationObject = null;
     this.onCreation = false;
   }
+
   cancelEdit(item: any) {
     delete item._editting;
     this.onEdition = false;
     this.editionObject = null;
     this.cancelEdition.emit(item);
   }
+
   isItemValid(item: any): boolean {
     if (this.config.validateFn) {
       return this.config.validateFn(item, this.columns);
@@ -531,16 +571,22 @@ export class TableEditableComponent {
           valid = false;
         }
       } else {
-        if (!this.metadataService.isValid(item[column.name], column, this.onCreation)) {
+        if (
+          item.hasOwnProperty(column.name) &&
+          !this.metadataService.isValid(item[column.name], column, this.onCreation)
+        ) {
           valid = false;
         }
       }
     }
+
     return valid;
   }
+
   hasFile(item: any, column: TableColumnMetadata): boolean {
     return item[`${column.name}Empty`] === false;
   }
+
   download(item: any, column: TableColumnMetadata) {
     this.downloadFile.emit({ value: item, column });
   }

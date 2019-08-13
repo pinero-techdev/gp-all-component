@@ -9,6 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TooltipModule, EditorModule } from 'primeng/primeng';
 import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [MultiLanguageComponent],
@@ -18,6 +19,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     DialogModule,
     EditorModule,
     FormsModule,
+    HttpClientModule,
     LoadingIndicatorModule,
     ReactiveFormsModule,
     ToastModule,

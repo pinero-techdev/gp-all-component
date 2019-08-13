@@ -28,14 +28,15 @@ export * from './lib/components/form-wrapper/resources/regex-validations.type';
 export * from './lib/resources/localization/es-ES.lang';
 
 // Resources (Classes)
-export * from './lib/components/table-wrapper/components/table-editable/resources/table-column-metadata.model';
-export * from './lib/components/table-wrapper/components/table-editable/resources/table-config.model';
-export * from './lib/components/table-wrapper/components/table-editable/resources/sort-direction.enum';
-export * from './lib/components/table-wrapper/components/table-editable/resources/selection-type.enum';
-export * from './lib/components/table-wrapper/components/table-editable/resources/custom-input.class';
-export * from './lib/components/table-wrapper/components/table-editable/resources/attachment.class';
-export * from './lib/components/table-wrapper/components/table-editable/resources/attachment-operation.enum';
+export * from './lib/components/table-wrapper/components/table-editable-crud/resources/table-column-metadata.model';
+export * from './lib/components/table-wrapper/components/table-editable-crud/resources/table-config.model';
+export * from './lib/components/table-wrapper/components/table-editable-crud/resources/sort-direction.enum';
+export * from './lib/components/table-wrapper/components/table-editable-crud/resources/selection-type.enum';
+export * from './lib/components/table-wrapper/components/table-editable-crud/resources/custom-input.class';
+export * from './lib/components/table-wrapper/components/table-editable-crud/resources/attachment.class';
+export * from './lib/components/table-wrapper/components/table-editable-crud/resources/attachment-operation.enum';
 export * from './lib/components/table-wrapper/resources/gp-table-restrictions.enum';
+export * from './lib/components/form-wrapper/resources/form-field-type.enum';
 export * from './lib/resources/data/cached-element.model';
 export * from './lib/resources/data/data-table/filter/data-table-filter-type.enum';
 export * from './lib/resources/data/data-table/filter/data-table-filter.model';
@@ -65,6 +66,7 @@ export * from './lib/components/table-wrapper/components/table/models/table.mode
 export * from './lib/components/table-wrapper/components/table/models/table-column.model';
 export * from './lib/components/table-wrapper/components/table/models/native-options.model';
 export * from './lib/components/table-wrapper/components/table/models/pagination-options.model';
+export * from './lib/resources/data/gp-menu-item.model';
 
 // Directives
 export * from './lib/directives/focus-directive/focus.directive';
@@ -76,6 +78,7 @@ export * from './lib/components/table-wrapper/components/table/directives/column
 export * from './lib/components/dynamic/dynamic.component';
 export * from './lib/components/empty/empty.component';
 export * from './lib/components/forgot-password/forgot-password.component';
+export * from './lib/components/form-wrapper/components/form-number-field/form-number-field.component';
 export * from './lib/components/form-wrapper/components/form-calendar-field/form-calendar-field.component';
 export * from './lib/components/form-wrapper/components/form-checkbox-field/form-checkbox-field.component';
 export * from './lib/components/form-wrapper/components/form-dropdown-field/form-dropdown-field.component';
@@ -89,18 +92,20 @@ export * from './lib/components/form-wrapper/components/form-wysiwyg-field/form-
 export * from './lib/components/loading-indicator/loading-indicator.component';
 export * from './lib/components/login/login.component';
 export * from './lib/components/main-menu/main-menu.component';
+export * from './lib/components/menu/menu.component';
 export * from './lib/components/multi-language/multi-language.component';
 export * from './lib/components/multi-select/multi-select.component';
 export * from './lib/components/rating/rating.component';
 export * from './lib/components/redirect/redirect.component';
-export * from './lib/components/table-wrapper/components/table-editable/components/table-editable-row/table-editable-row.component';
-export * from './lib/components/table-wrapper/components/table-editable/components/table-editable-crud/table-editable-crud.component';
-export * from './lib/components/table-wrapper/components/table-editable/table-editable.component';
+export * from './lib/components/table-wrapper/components/table-editable-crud/components/table-editable-cell/table-editable-cell.component';
+export * from './lib/components/table-wrapper/components/table-editable-crud/table-editable-crud.component';
+export * from './lib/components/table-wrapper/components/table-editable-crud/components/table-editable/table-editable.component';
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
 export * from './lib/components/table-wrapper/components/table/table.component';
 export * from './lib/components/topbar/topbar.component';
 export * from './lib/components/button/button.component';
+export * from './lib/components/breadcrumb/breadcrumb.component';
 
 // Component Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
@@ -111,6 +116,7 @@ export * from './lib/components/form-wrapper/form-wrapper.module';
 export * from './lib/components/loading-indicator/loading-indicator.module';
 export * from './lib/components/login/login.module';
 export * from './lib/components/main-menu/main-menu.module';
+export * from './lib/components/menu/menu.module';
 export * from './lib/components/multi-language/multi-language.module';
 export * from './lib/components/multi-select/multi-select.module';
 export * from './lib/components/rating/rating.module';
@@ -120,6 +126,7 @@ export * from './lib/components/redirect/redirect.module';
 export * from './lib/components/button/button.module';
 export * from './lib/shared/shared.module';
 export * from './lib/components/table-wrapper/components/table/table.module';
+export * from './lib/components/breadcrumb/breadcrumb.module';
 
 // Directive Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';

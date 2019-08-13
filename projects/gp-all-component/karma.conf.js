@@ -20,12 +20,14 @@ module.exports = function(config) {
       reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true,
       skipFilesWithNoCoverage: true,
-      // thresholds: {
-      //   statements: 90,
-      //   lines: 90,
-      //   branches: 80,
-      //   functions: 90,
-      // },
+      thresholds: {
+        global: {
+          statements: 90,
+          lines: 90,
+          branches: 80,
+          functions: 90,
+        },
+      },
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
