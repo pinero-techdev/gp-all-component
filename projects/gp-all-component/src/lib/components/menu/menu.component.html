@@ -1,10 +1,14 @@
 <div class="menu-wrapper">
   <div
     class="toggle-icon pi"
-    [ngClass]="isExpanded ? 'pi-angle-left' : 'pi-angle-right'"
+    [ngClass]="isExpanded ? 'pi-chevron-left' : 'pi-chevron-right'"
     (click)="toggleMenu()"
   >
   </div>
-  <p-panelMenu [model]="items" [ngClass]="isExpanded ? 'menu-expanded' : 'menu-collapsed'">
+  <p-panelMenu
+    [model]="items"
+    [multiple]="false"
+    [ngClass]="isExpanded ? 'menu-expanded' : 'menu-collapsed'"
+  >
   </p-panelMenu>
 </div>

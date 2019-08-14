@@ -41,14 +41,12 @@ You can create as much depth in the main menu as you choose. Just nest new item 
 ngOnInit(): void {
     this.items = [
         {
-            id: '1',
             label: 'Home',
             icon: 'pi pi-home',
             routerLink: '/components',
             title: 'Home',
         },
         {
-            id: '2',
             label: 'Gestión de propiedades',
             icon: 'pi pi-key',
             title: 'Gestión de propiedades',

@@ -55,14 +55,12 @@ describe('MenuComponent', () => {
     beforeEach(() => {
       component.items = [
         {
-          id: '1',
           label: 'Home',
           icon: 'pi pi-home',
           routerLink: '/components',
           title: 'Home',
         },
         {
-          id: '2',
           label: 'Gestión de propiedades',
           icon: 'pi pi-key',
           title: 'Gestión de propiedades',
