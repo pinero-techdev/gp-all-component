@@ -7,6 +7,7 @@
     background: $menuBg;
     margin: 0;
     padding: 0;
+    position: relative;
 
     .pi,
     .icon {
@@ -45,10 +46,12 @@
     .ui-panelmenu {
       width: auto;
       display: inline-block;
-      min-width: 268px;
-      top: 7px;
+      min-width: 275px;
+      padding-top: 7px;
 
       .ui-panelmenu-panel {
+        position: relative;
+
         .ui-panelmenu-header {
           &:not(.ui-state-active) > a:hover,
           &.ui-state-active > a {
