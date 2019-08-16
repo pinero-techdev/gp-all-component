@@ -136,8 +136,8 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
    */
   copyValueFromEditedRowToControl(editedRow: any) {
     const hasTranslationKeyFields =
-      this.formField.fieldMetadata.displayInfo.translationInfo !== null &&
-      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields !== null;
+      this.formField.fieldMetadata.displayInfo.translationInfo &&
+      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields;
 
     this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
 

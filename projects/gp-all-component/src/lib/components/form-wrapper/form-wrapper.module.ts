@@ -1,5 +1,4 @@
 import { FormNumberFieldComponent } from './components/form-number-field/form-number-field.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormCalendarFieldComponent } from './components/form-calendar-field/form-calendar-field.component';
@@ -31,7 +30,7 @@ import {
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
   ],
-  imports: [CommonModule, BrowserAnimationsModule, FormWrapperSharedModules],
+  imports: [CommonModule, FormWrapperSharedModules],
   exports: [
     FormCalendarFieldComponent,
     FormCheckboxFieldComponent,
