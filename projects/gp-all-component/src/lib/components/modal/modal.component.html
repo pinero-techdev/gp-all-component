@@ -1,1 +1,16 @@
-<h1>Modal component works!</h1>
+<p-dialog
+  [header]="header"
+  [(visible)]="visible"
+  modal="true"
+  [responsive]="true"
+  dismissableMask="true"
+  (onHide)="onHide()"
+  [style]="{ width: '500px', height: 'auto' }"
+>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit a illo consequuntur maxime
+  commodi temporibus. Vero ad, veniam sapiente, ullam recusandae aliquam dolor quasi ratione
+  exercitationem dolorem repellat laborum nesciunt.
+  <p-footer>
+    Footer content here
+  </p-footer>
+</p-dialog>
