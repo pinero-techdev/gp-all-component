@@ -12,6 +12,9 @@ export class ModalComponent {
   @Input()
   visible;
 
+  @Input()
+  customStyle;
+
   @Output()
   onHideEvent = new EventEmitter<boolean>();
 

@@ -5,12 +5,10 @@
   [responsive]="true"
   dismissableMask="true"
   (onHide)="onHide()"
-  [style]="{ width: '500px', height: 'auto' }"
+  [style]="customStyle"
 >
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit a illo consequuntur maxime
-  commodi temporibus. Vero ad, veniam sapiente, ullam recusandae aliquam dolor quasi ratione
-  exercitationem dolorem repellat laborum nesciunt.
+  <ng-content select="[content]"></ng-content>
   <p-footer>
-    Footer content here
+    <ng-content select="[footer]"></ng-content>
   </p-footer>
 </p-dialog>
