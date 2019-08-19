@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Orientation } from './../../../../resources/constants/slider.enum';
 
 @Component({
   selector: 'gp-form-slider-field',
@@ -13,7 +14,7 @@ export class FormSliderFieldComponent implements OnInit {
   showInput = false;
 
   @Input()
-  orientation = 'horizontal';
+  orientation = Orientation.Horizontal;
 
   @Input()
   step = 1;
@@ -30,8 +31,9 @@ export class FormSliderFieldComponent implements OnInit {
   @Input()
   max = 100;
 
-  val: any;
+  val: number | number[];
   showLabel = false;
+  verticalOrientation = Orientation.Vertical;
 
   ngOnInit() {
     this.showLabel = this.label === '' || this.label === null ? false : true;

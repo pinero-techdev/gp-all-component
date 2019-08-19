@@ -1,4 +1,4 @@
-<div [ngClass]="orientation === 'vertical' ? 'vertical-orientation' : ''">
+<div [ngClass]="orientation === verticalOrientation ? 'vertical-orientation' : ''">
   <div *ngIf="showLabel" class="label">{{ label }}</div>
   <div class="slider-input">
     <p-slider

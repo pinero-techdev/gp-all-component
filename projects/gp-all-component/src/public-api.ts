@@ -22,6 +22,7 @@ export * from './lib/services/core/messages.service';
 export * from './lib/resources/constants/language-order.constant';
 export * from './lib/resources/constants/calendar.constants';
 export * from './lib/resources/constants/button.enum';
+export * from './lib/resources/constants/slider.enum';
 export * from './lib/shared/imports/form-wrapper-shared';
 export * from './lib/shared/imports/table-wrapper-shared';
 export * from './lib/components/form-wrapper/resources/regex-validations.type';
