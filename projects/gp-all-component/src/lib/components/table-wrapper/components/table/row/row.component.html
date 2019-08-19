@@ -1,0 +1,74 @@
+<!-- Start cells for checkbox or radius selection -->
+
+<td *ngIf="(builder.isSelectionMode | memo: model:'checkbox')">
+  <p-tableCheckbox [value]="row"></p-tableCheckbox>
+</td>
+
+<td *ngIf="(builder.isSelectionMode | memo: model:'radius')">
+  <p-tableRadioButton [value]="row"></p-tableRadioButton>
+</td>
+
+<!-- End cells for checkbox or radius selection -->
+
+<!-- Start main cell body -->
+<td *ngFor="let column of (builder.getColumns | memo: model)">
+  <!-- Render main cell template depending on logic -->
+  <ng-container
+    [ngTemplateOutlet]="
+      (builder.isEditableColumn | memo: model:column.key) && isEditing
+        ? editableCell
+        : (builder.isCustomColumn | memo: model:column.key)
+        ? customCell
+        : defaultCell
+    "
+    [ngTemplateOutletContext]="{ $implicit: column }"
+  ></ng-container>
+</td>
+
+<!-- Template for custom cell -->
+<ng-template #customCell let-column>
+  <ng-container
+    [ngTemplateOutlet]="builder.getCustomColumn | memo: model:column.key"
+    [ngTemplateOutletContext]="{ $implicit: row, editing: isEditing }"
+  ></ng-container>
+</ng-template>
+
+<!-- Template for default cell -->
+<ng-template #defaultCell let-column>
+  {{ row[column.key] }}
+</ng-template>
+
+<!-- Template for editable cell -->
+<ng-template #editableCell let-column>
+  <ng-container
+    *ngIf="(builder.isEditableColumn | memo: model:column.key)"
+    [ngTemplateOutlet]="builder.getEditableColumn | memo: model:column.key"
+    [ngTemplateOutletContext]="{ $implicit: row }"
+  ></ng-container>
+</ng-template>
+
+<!-- End main cell body -->
+
+<!-- Start edition action cells -->
+
+<!-- Render edition action cell template depending on logic -->
+<td *ngIf="(builder.isEditable | memo: model)">
+  <ng-container
+    [ngTemplateOutlet]="isEditing ? editing : editable"
+    [ngTemplateOutletContext]="{ $implicit: row }"
+  ></ng-container>
+</td>
+
+<!-- Template for actions while not editing -->
+<ng-template #editable>
+  <button [disabled]="disableAction" (click)="startEdition()">Edit</button>
+  <button [disabled]="disableAction" (click)="deleteRow()">Delete</button>
+</ng-template>
+
+<!-- Template for actions while editing -->
+<ng-template #editing let-row>
+  <button (click)="persistEdition()">Confirm</button>
+  <button (click)="cancelEdition()">Cancel</button>
+</ng-template>
+
+<!-- End edition action cells -->

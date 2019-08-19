@@ -1,0 +1,132 @@
+<div #inputRef></div>
+<p-table
+  #table
+  [value]="data"
+  [columns]="builder.getColumns | memo: coreModel"
+  [paginator]="builder.getPaginator | memo: coreModel"
+  [rowsPerPageOptions]="(builder.getNative | memo: coreModel).rowsPerPageOptions"
+  [loading]="loading"
+  [lazy]="builder.getLazy | memo: coreModel"
+  [rows]="pagination?.rows"
+  [totalRecords]="pagination?.totalRecords"
+  [paginatorPosition]="(builder.getNative | memo: coreModel).paginatorPosition"
+  [selectionMode]="builder.getSelectionMode | memo: coreModel"
+  [dataKey]="(builder.getNative | memo: coreModel).dataKey"
+  [sortField]="(builder.getNative | memo: coreModel).defaultSortKey"
+  [sortOrder]="(builder.getNative | memo: coreModel).defaultSortOrder"
+  (selectionChange)="selectedChange.emit($event)"
+  [selection]="selected"
+  [globalFilterFields]="(builder.getNative | memo: coreModel).globalFilterFields"
+  (onPage)="page.emit($event)"
+  (onSort)="sort.emit($event)"
+  (onLazyLoad)="lazy.emit($event)"
+  (onRowSelect)="rowSelect.emit($event)"
+  (onRowUnselect)="rowUnselect.emit($event)"
+>
+  <ng-template
+    *ngIf="(builder.enableCaptionRow | memo: coreModel:captionContent)"
+    pTemplate="caption"
+  >
+    <ng-container *ngIf="captionContent">
+      <ng-content
+        *ngTemplateOutlet="
+          captionContent;
+          context: { $implicit: builder.getTitle | memo: coreModel }
+        "
+      ></ng-content>
+    </ng-container>
+
+    <ng-container *ngIf="!captionContent">
+      {{ builder.getTitle | memo: coreModel }}
+    </ng-container>
+
+    <div *ngIf="(builder.hasGlobalFilter | memo: coreModel)">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        pInputText
+        size="50"
+        placeholder="Global Filter"
+        (input)="table.filterGlobal($event.target.value, 'contains')"
+      />
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <ng-container *ngIf="headerContent">
+      <ng-content
+        *ngTemplateOutlet="
+          headerContent;
+          context: { $implicit: builder.getColumns | memo: coreModel }
+        "
+      ></ng-content>
+    </ng-container>
+
+    <ng-container *ngIf="!headerContent">
+      <tr>
+        <th
+          *ngIf="
+            (builder.isSelectionMode | memo: coreModel:'radius') ||
+            (builder.isSelectionMode | memo: coreModel:'checkbox')
+          "
+        >
+          <p-tableHeaderCheckbox
+            *ngIf="(builder.isSelectionMode | memo: coreModel:'checkbox')"
+          ></p-tableHeaderCheckbox>
+          <span *ngIf="selected && selected.length > 0">({{ selected.length }})</span>
+        </th>
+        <ng-container *ngFor="let column of (builder.getColumns | memo: coreModel)">
+          <th
+            *ngIf="(builder.isSortable | memo: coreModel:column); else headerBasic"
+            [pSortableColumn]="column.key"
+          >
+            {{ column.name || column.key }}
+            <p-sortIcon [field]="column.key"></p-sortIcon>
+          </th>
+          <ng-template #headerBasic>
+            <th>
+              {{ column.name || column.key }}
+            </th>
+          </ng-template>
+        </ng-container>
+        <th *ngIf="(builder.isEditable | memo: coreModel)">
+          Edit Actions
+        </th>
+      </tr>
+      <tr *ngIf="(builder.enableFilterRow | memo: coreModel)">
+        <th
+          *ngIf="
+            (builder.isSelectionMode | memo: coreModel:'radius') ||
+            (builder.isSelectionMode | memo: coreModel:'checkbox')
+          "
+        ></th>
+        <th *ngFor="let column of (builder.getColumns | memo: coreModel)">
+          <input
+            *ngIf="(builder.isFilterable | memo: coreModel:column)"
+            type="text"
+            (input)="onFilter($event, column)"
+          />
+        </th>
+        <th *ngIf="(builder.isEditable | memo: coreModel)"></th>
+      </tr>
+    </ng-container>
+  </ng-template>
+  <ng-template pTemplate="body" let-row let-index="rowIndex">
+    <tr
+      gpRow
+      [row]="row"
+      [model]="coreModel"
+      [index]="index"
+      [pSelectableRow]="row"
+      [pSelectableRowDisabled]="builder.getSelectionMode | memo: coreModel | isNil"
+      [tableEditing]="tableEditing"
+      (editing)="tableEditing = $event"
+      (save)="saveRow.emit($event)"
+      (delete)="deleteRow.emit($event)"
+    >
+    </tr
+  ></ng-template>
+
+  <ng-template *ngIf="footerContent" pTemplate="summary">
+    <ng-content *ngTemplateOutlet="footerContent"></ng-content>
+  </ng-template>
+</p-table>

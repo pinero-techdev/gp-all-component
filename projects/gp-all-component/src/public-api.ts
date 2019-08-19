@@ -62,12 +62,17 @@ export * from './lib/resources/data/rol-info.model';
 export * from './lib/resources/data/translation-info.model';
 export * from './lib/resources/data/translation.model';
 export * from './lib/resources/data/user-info.model';
+export * from './lib/components/table-wrapper/components/table/models/table.model';
+export * from './lib/components/table-wrapper/components/table/models/table-column.model';
+export * from './lib/components/table-wrapper/components/table/models/native-options.model';
+export * from './lib/components/table-wrapper/components/table/models/pagination-options.model';
 export * from './lib/resources/data/gp-menu-item.model';
 
 // Directives
 export * from './lib/directives/focus-directive/focus.directive';
 export * from './lib/directives/lowercase-directive/lowercase.directive';
 export * from './lib/directives/uppercase-directive/uppercase.directive';
+export * from './lib/components/table-wrapper/components/table/directives/column-template.directive';
 
 // Components
 export * from './lib/components/dynamic/dynamic.component';
@@ -97,6 +102,7 @@ export * from './lib/components/table-wrapper/components/table-editable-crud/tab
 export * from './lib/components/table-wrapper/components/table-editable-crud/components/table-editable/table-editable.component';
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
+export * from './lib/components/table-wrapper/components/table/table.component';
 export * from './lib/components/topbar/topbar.component';
 export * from './lib/components/button/button.component';
 export * from './lib/components/breadcrumb/breadcrumb.component';
@@ -119,6 +125,7 @@ export * from './lib/components/topbar/topbar.module';
 export * from './lib/components/redirect/redirect.module';
 export * from './lib/components/button/button.module';
 export * from './lib/shared/shared.module';
+export * from './lib/components/table-wrapper/components/table/table.module';
 export * from './lib/components/breadcrumb/breadcrumb.module';
 
 // Directive Modules
