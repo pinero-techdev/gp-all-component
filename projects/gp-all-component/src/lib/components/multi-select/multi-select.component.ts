@@ -30,6 +30,12 @@ export class MultiSelectComponent implements ControlValueAccessor {
   defaultLabel = LocaleES.CHOOSE_AN_OPTION;
 
   @Input()
+  optionLabel = 'label';
+
+  @Input()
+  dataKey = 'value';
+
+  @Input()
   appendTo: any;
 
   @Input()
@@ -49,6 +55,12 @@ export class MultiSelectComponent implements ControlValueAccessor {
 
   @Input()
   tabindex: number = null;
+
+  @Input()
+  selectModel: string;
+
+  @Output()
+  selectModelChange: EventEmitter<any> = new EventEmitter();
 
   @Output()
   onChange: EventEmitter<any> = new EventEmitter();
@@ -117,6 +129,15 @@ export class MultiSelectComponent implements ControlValueAccessor {
         }
       };
     }
+  }
+
+  /**
+   * Emit event when value changes
+   * @param event The event to dispatch
+   */
+  updateSelectModel(event: string) {
+    this.selectModelChange.emit(event);
+    this.onChange.emit(event);
   }
 
   /**
