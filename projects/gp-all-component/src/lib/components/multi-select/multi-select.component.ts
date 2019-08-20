@@ -120,7 +120,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
     const selectionLabel = this.selectionLabel;
     if (!(this.multi === null || this.multi === undefined)) {
       this.multi.updateLabel = function() {
-        if (this.value !== null && this.value.length > 0) {
+        if (this.value !== null && this.value !== undefined && this.value.length > 0) {
           label = this.value.length.toString() + ' ' + selectionLabel;
           this.valuesAsString = label;
         } else {
