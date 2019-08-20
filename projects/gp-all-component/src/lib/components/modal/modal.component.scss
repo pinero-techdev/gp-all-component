@@ -1,0 +1,53 @@
+@import 'global/variables';
+@import 'global/mixins';
+
+::ng-deep {
+  .ui-dialog.ui-widget {
+    background: $whiteColor;
+    max-height: 90vh;
+    border-radius: $separation / 2;
+
+    @media (min-width: map-get($breakpoints, 'sm')) {
+      width: 500px;
+    }
+
+    .ui-dialog-titlebar {
+      background: $whiteColor;
+      padding: $separationXLarge;
+      border-radius: inherit;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      &-icon:hover {
+        background: transparent;
+      }
+    }
+
+    .ui-dialog-content {
+      border-top: none;
+      padding: $separationXLarge;
+      padding-top: $separationLarge;
+      overflow: auto;
+      max-height: calc(90vh - 150px);
+      @include make-scroll();
+    }
+
+    .ui-dialog-footer {
+      border-bottom: none;
+      padding: $separationXLarge;
+      border-radius: inherit;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+
+      button {
+        margin-right: $separationXLarge;
+      }
+
+      gp-button:last-child {
+        button {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

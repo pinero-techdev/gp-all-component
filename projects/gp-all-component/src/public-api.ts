@@ -108,6 +108,7 @@ export * from './lib/components/topbar/topbar.component';
 export * from './lib/components/button/button.component';
 export * from './lib/components/breadcrumb/breadcrumb.component';
 export * from './lib/components/form-wrapper/components/form-slider-field/form-slider-field.component';
+export * from './lib/components/modal/modal.component';
 
 // Component Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
@@ -129,6 +130,7 @@ export * from './lib/components/button/button.module';
 export * from './lib/shared/shared.module';
 export * from './lib/components/table-wrapper/components/table/table.module';
 export * from './lib/components/breadcrumb/breadcrumb.module';
+export * from './lib/components/modal/modal.module';
 
 // Directive Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
