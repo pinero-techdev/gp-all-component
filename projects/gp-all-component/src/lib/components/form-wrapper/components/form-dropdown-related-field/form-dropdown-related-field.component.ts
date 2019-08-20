@@ -6,7 +6,7 @@ import { DataTableMetaDataFieldDisplayInfoRelatedField } from './../../../../res
 import { InfoCampoModificado } from './../../../../resources/data/info-campo-modificado.model';
 import { SelectItem } from 'primeng/api';
 import { GpFormField } from '../../resources/form-field.model';
-import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { finalize, first } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 import { LocaleES } from './../../../../resources/localization/es-ES.lang';

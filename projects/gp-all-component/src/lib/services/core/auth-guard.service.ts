@@ -1,6 +1,5 @@
 import { LocaleES } from './../../resources/localization/es-ES.lang';
 import { LoginService, SessionInfoRs } from './../api/login/login.service';
-import { isNull, isNullOrUndefined } from 'util';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -29,7 +28,7 @@ export class AuthGuard implements CanActivate {
     const isPublic = route.data.hasOwnProperty('public') ? route.data.public : false;
     let userId = null;
 
-    if (!isNullOrUndefined(userInfo)) {
+    if (userInfo && userInfo.hasOwnProperty('userId')) {
       userId = userInfo.userId;
     }
 
@@ -92,7 +91,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private hasPermissions(isPublic: boolean) {
-    return !isPublic && (GlobalService.getLOGGED() || !isNull(sessionStorage.getItem('userInfo')));
+    return !isPublic && (GlobalService.getLOGGED() || sessionStorage.getItem('userInfo') !== null);
   }
 
   private checkSessionResponse(data: SessionInfoRs, queryParams: Params): Observable<boolean> {
