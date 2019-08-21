@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 export class ListRs extends CommonRs {
   data: any[];
   metadata: DataTableMetaData;
+  countGlobalResult?: number; // atributo para las tablas con cargas parciales y paginación
 }
 
 export class MetadataRs extends CommonRs {
