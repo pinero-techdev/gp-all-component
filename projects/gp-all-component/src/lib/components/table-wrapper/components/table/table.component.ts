@@ -20,6 +20,7 @@ import { TableColumn } from './models/table-column.model';
 import { PaginationOptions } from './models/pagination-options.model';
 import { OnChange } from 'property-watch-decorator';
 import { Table } from 'primeng/table';
+import { LocaleES } from './../../../../resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-table',
@@ -35,6 +36,8 @@ export class TableComponent implements AfterContentInit {
   @Input() pagination: PaginationOptions;
 
   @Input() selected = [];
+
+  @Input() emptyMessage = LocaleES.NO_RECORDS_FOUND;
 
   @Input()
   @OnChange<TableModel>('buildModel')

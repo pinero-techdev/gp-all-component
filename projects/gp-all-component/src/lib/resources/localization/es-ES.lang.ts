@@ -169,4 +169,5 @@ export const LocaleES = {
   NEXT_TEXT: 'Sig>',
   TODAY: 'Hoy',
   OPEN: 'Abrir',
+  NO_RECORDS_FOUND: 'No se encontraron items',
 };
