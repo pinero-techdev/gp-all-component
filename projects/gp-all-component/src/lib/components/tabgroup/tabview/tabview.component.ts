@@ -1,5 +1,6 @@
 import { Component, ContentChildren, QueryList, Input, OnInit } from '@angular/core';
 import { TabDirective } from '../tab.directive';
+import { TabOrientation } from '../../../resources/constants/tabview.enum';
 
 @Component({
   selector: 'gp-tabgroup',
@@ -16,7 +17,7 @@ export class TabViewComponent implements OnInit {
   orientationLeft = false;
 
   ngOnInit() {
-    this.orientationLeft = this.orientation === 'left' ? true : false;
+    this.orientationLeft = this.orientation === TabOrientation.Left ? true : false;
   }
 
   selectTab(i) {
