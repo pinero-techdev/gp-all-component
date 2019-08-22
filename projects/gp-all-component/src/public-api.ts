@@ -23,6 +23,7 @@ export * from './lib/resources/constants/language-order.constant';
 export * from './lib/resources/constants/calendar.constants';
 export * from './lib/resources/constants/button.enum';
 export * from './lib/resources/constants/slider.enum';
+export * from './lib/resources/constants/tabview.enum';
 export * from './lib/shared/imports/form-wrapper-shared';
 export * from './lib/shared/imports/table-wrapper-shared';
 export * from './lib/components/form-wrapper/resources/regex-validations.type';
@@ -81,6 +82,7 @@ export * from './lib/directives/focus-directive/focus.directive';
 export * from './lib/directives/lowercase-directive/lowercase.directive';
 export * from './lib/directives/uppercase-directive/uppercase.directive';
 export * from './lib/components/table-wrapper/components/table/directives/column-template.directive';
+export * from './lib/components/tabgroup/tab.directive';
 
 // Components
 export * from './lib/components/dynamic/dynamic.component';
@@ -111,6 +113,8 @@ export * from './lib/components/table-wrapper/components/table-editable-crud/com
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
 export * from './lib/components/table-wrapper/components/table/table.component';
+export * from './lib/components/tabgroup/tabview/tabview.component';
+export * from './lib/components/tabgroup/tabview/tabview.component';
 export * from './lib/components/topbar/topbar.component';
 export * from './lib/components/button/button.component';
 export * from './lib/components/breadcrumb/breadcrumb.component';
@@ -131,6 +135,7 @@ export * from './lib/components/multi-language/multi-language.module';
 export * from './lib/components/multi-select/multi-select.module';
 export * from './lib/components/rating/rating.module';
 export * from './lib/components/table-wrapper/table-wrapper.module';
+export * from './lib/components/tabgroup/tabgroup.module';
 export * from './lib/components/topbar/topbar.module';
 export * from './lib/components/redirect/redirect.module';
 export * from './lib/components/button/button.module';

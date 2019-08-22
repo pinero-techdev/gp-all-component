@@ -1,0 +1,10 @@
+<ul class="tab-nav" [ngClass]="orientationLeft ? 'vertical-orientation' : ''">
+  <li
+    *ngFor="let tab of tabs.toArray(); let i = index"
+    (click)="selectTab(i)"
+    [class.active]="i === activePosition"
+  >
+    {{ tab.tabTitle }}
+  </li>
+</ul>
+<ng-container [ngTemplateOutlet]="getTemplate()"> </ng-container>
