@@ -31,6 +31,7 @@ export class TopbarComponent implements OnInit, OnChanges {
   itemsUserMenu: MenuItem[];
 
   @Input() homeUrl: string;
+  @Input() showMenu = true;
   @Input() logoUrl: string;
   @Input() title: string;
   @Input() isOpen: boolean;
@@ -40,12 +41,19 @@ export class TopbarComponent implements OnInit, OnChanges {
   @Output() sendLauncher = new EventEmitter();
 
   display = false;
-  showMenu = false;
   userMenuVisible = false;
   breadCrumb: any = [];
   isHome = false;
 
   constructor(private router: Router, private loginService: LoginService) {}
+
+  get logged() {
+    return GlobalService.getSESSION();
+  }
+
+  get fullName() {
+    return GlobalService.getSESSION() ? GlobalService.getSESSION().fullName : null;
+  }
 
   ngOnInit() {
     this.breadCrumb = [];
@@ -191,13 +199,5 @@ export class TopbarComponent implements OnInit, OnChanges {
 
   isLastMenu(index) {
     return index === this.breadCrumb.length - 1;
-  }
-
-  get logged() {
-    return GlobalService.getLOGGED();
-  }
-
-  get fullName() {
-    return GlobalService.getSESSION() ? GlobalService.getSESSION().fullName : null;
   }
 }

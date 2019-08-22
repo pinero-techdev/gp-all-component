@@ -3,7 +3,6 @@ import { Param } from '../../resources/data/param.model';
 import { RolInfo } from '../../resources/data/rol-info.model';
 import { UserInfo } from '../../resources/data/user-info.model';
 import { GlobalSingletonService } from './global-singleton.service';
-import { isNullOrUndefined } from 'util';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
@@ -88,7 +87,7 @@ export class GlobalService {
   public static getSESSION(): UserInfo {
     if (!GlobalService.globalSingleton.session) {
       const session = sessionStorage.getItem('userInfo');
-      if (isNullOrUndefined(session) || session === 'undefined') {
+      if (!session || session === 'undefined') {
         return null;
       }
       GlobalService.setSession(JSON.parse(session));
