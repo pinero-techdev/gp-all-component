@@ -36,6 +36,8 @@ export class TableComponent implements AfterContentInit {
 
   @Input() selected = [];
 
+  @Input() emptyMessage: string;
+
   @Input()
   @OnChange<TableModel>('buildModel')
   model: TableModel;

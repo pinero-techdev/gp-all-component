@@ -1,0 +1,8 @@
+@import 'global/variables';
+@import 'global/mixins';
+
+::ng-deep {
+  .empty-message {
+    font-style: italic;
+  }
+}
