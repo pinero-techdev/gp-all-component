@@ -6,6 +6,8 @@ export enum ButtonType {
 }
 export enum ButtonSeverity {
   Primary,
+  Ghost = 'ghost',
   Danger = 'danger',
+  DangerGhost = 'dangerGhost',
   Secondary = 'secondary',
 }
