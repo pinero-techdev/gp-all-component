@@ -46,6 +46,9 @@
       border-radius: $buttonBorderRadius;
       padding: $buttonPaddingVertical $buttonPaddingHorizontal;
       color: $textInvertedColor;
+      height: $buttonHeight;
+      font-size: $buttonFontSize;
+      line-height: $buttonLineHeight;
     }
 
     .pi {
