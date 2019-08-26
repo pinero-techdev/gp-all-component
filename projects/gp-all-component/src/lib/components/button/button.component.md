@@ -52,7 +52,7 @@ or
 [type]="'splitButton'"
 ```
 
-Severity (write the button severity inside simple quotes). There are three possible values: primary (this one doesn`t need to be specified), danger, and secondary.
+Severity (write the button severity inside simple quotes). There are five possible values: primary (this one doesn`t need to be specified), danger, secondary, ghost, dangerGhost.
 
 ```html
 [severity]="'danger'"
@@ -60,6 +60,14 @@ Severity (write the button severity inside simple quotes). There are three possi
 or
 ```html
 [severity]="'secondary'"
+```
+or
+```html
+[severity]="'ghost'"
+```
+or
+```html
+[severity]="'dangerGhost'"
 ```
 
 Icon (write the button icon inside simple quotes).

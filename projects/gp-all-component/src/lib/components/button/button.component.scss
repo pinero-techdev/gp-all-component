@@ -42,6 +42,37 @@
       }
     }
 
+    &.ui-button-ghost,
+    &.ui-button-danger-ghost {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+
+      &:hover:enabled {
+        border: none;
+      }
+    }
+
+    &.ui-button-ghost {
+      .ui-button-text {
+        color: $primaryColor;
+      }
+
+      &:hover:enabled {
+        background-color: #f4f8ff;
+      }
+    }
+
+    &.ui-button-danger-ghost {
+      .ui-button-text {
+        color: $errorColor;
+      }
+
+      &:hover:enabled {
+        background-color: #fff6f6;
+      }
+    }
+
     .ui-button-text {
       border-radius: $buttonBorderRadius;
       padding: $buttonPaddingVertical $buttonPaddingHorizontal;
