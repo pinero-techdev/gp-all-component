@@ -46,14 +46,7 @@
       <span *ngIf="msg.detail">:&nbsp;{{ msg.detail }}</span>
     </div>
     <div class="input-group">
-      <button
-        class="button-base login-panel-action"
-        type="submit"
-        pButton
-        label="{{ locale.ENTER }}"
-        (click)="login()"
-        [disabled]="working"
-      ></button>
+      <gp-button [label]="locale.ENTER" (onClickEvent)="login()" [disabled]="working"></gp-button>
     </div>
   </div>
 </div>
