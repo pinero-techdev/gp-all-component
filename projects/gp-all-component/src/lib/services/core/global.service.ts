@@ -92,7 +92,7 @@ export class GlobalService {
       if (!session) {
         return null;
       }
-      GlobalService.setSession(JSON.parse(session));
+      GlobalService.setSession(session);
     }
     return GlobalService.globalSingleton.session;
   }
