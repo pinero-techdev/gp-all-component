@@ -27,6 +27,9 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   /** If something wrong occurs an error message is shown in the HTML */
   errors: Message;
 
+  /** Localization strings */
+  readonly locale = LocaleES;
+
   private isDestroyed: Subject<boolean> = new Subject<boolean>();
   /** Next route which is took after change the password. */
   private nextRoute = 'login';
