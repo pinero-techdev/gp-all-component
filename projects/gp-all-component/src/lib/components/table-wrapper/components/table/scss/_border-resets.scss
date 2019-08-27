@@ -3,10 +3,12 @@
   html {
     body {
       .ui-table {
-        .ui-paginator {
+        .ui-paginator,
+        .ui-table-summary {
           border-width: 0;
         }
 
+        .ui-table-caption,
         .ui-table-thead > tr > th,
         .ui-table-tbody > tr > td {
           border-left-width: 0;

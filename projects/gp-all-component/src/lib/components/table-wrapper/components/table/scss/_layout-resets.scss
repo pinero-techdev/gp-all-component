@@ -4,13 +4,18 @@
   html {
     body {
       .ui-table {
+        min-width: 640px;
+
         table {
           table-layout: initial;
         }
 
-        .ui-table-thead > tr > th,
-        .ui-table-tbody > tr > td {
+        .ui-table-thead > tr > th {
           padding: #{$tablePaddingRatio / 2} $tablePaddingRatio;
+        }
+
+        .ui-table-tbody > tr > td {
+          padding: 0 $tablePaddingRatio;
         }
 
         &.ui-widget {

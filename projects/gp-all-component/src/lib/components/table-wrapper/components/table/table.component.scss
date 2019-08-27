@@ -18,22 +18,6 @@
         /* Heads */
         .ui-table-thead {
           > tr {
-            &:first-child {
-              > th {
-                color: $tableHeadColor;
-                padding-bottom: 30px;
-
-                &::before {
-                  content: '';
-                  position: absolute;
-                  left: $tablePaddingRatio;
-                  bottom: $tablePaddingRatio;
-                  width: calc(100% - #{$tablePaddingRatio * 2});
-                  border-bottom: 1px solid $tableBorderColor;
-                }
-              }
-            }
-
             > th {
               color: $tableTextColor;
               font-weight: normal;
@@ -66,11 +50,26 @@
               }
 
               input.ng-star-inserted {
-                border-radius: $tableBorderRadius;
-                border: 1px solid $tableBorderColor;
-                line-height: #{$tablePaddingRatio * 4};
+                font-size: 12px;
+                border-width: 0 0 1px 0;
+                border-color: $tableBorderColor;
+                border-style: solid;
+                line-height: #{$tablePaddingRatio * 3};
                 padding: 0 $tablePaddingRatio;
+                width: 100%;
+                transition: 0.25s ease-in-out border;
+
+                &:focus,
+                &:hover {
+                  border-color: $tableActiveColor;
+                }
               }
+            }
+          }
+
+          > tr + tr {
+            th {
+              border-top-width: 0;
             }
           }
         }
@@ -92,6 +91,7 @@
         .ui-table-tbody > tr > td {
           text-transform: uppercase;
           border-color: $tableBorderColor;
+          line-height: 40px;
 
           button.ng-star-inserted {
             cursor: pointer;
