@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Message } from 'primeng/primeng';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
+import { SessionStorageService } from '../../services/session-storage/session-storage.service';
 
 @Component({
   selector: 'gp-login',
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private isDestroyed: Subject<boolean> = new Subject<boolean>();
 
   constructor(
+    private sessionStorageService: SessionStorageService,
     private router: Router,
     private loginService: LoginService,
     private route: ActivatedRoute
@@ -120,7 +122,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       GlobalService.setLogged(true);
       // store user details and jwt token in local storage to keep
       // user logged in between page refreshes
-      sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+      this.sessionStorageService.setItem('userInfo', data.userInfo);
       if (this.url) {
         GlobalService.setPreLoginUrl(this.url);
       }
