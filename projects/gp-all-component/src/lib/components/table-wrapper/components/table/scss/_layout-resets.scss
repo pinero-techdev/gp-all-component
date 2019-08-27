@@ -1,0 +1,26 @@
+/* Layout resets */
+::ng-deep {
+  /* Layout resets */
+  html {
+    body {
+      .ui-table {
+        table {
+          table-layout: initial;
+        }
+
+        .ui-table-thead > tr > th,
+        .ui-table-tbody > tr > td {
+          padding: #{$tablePaddingRatio / 2} $tablePaddingRatio;
+        }
+
+        &.ui-widget {
+          font-size: 12px;
+        }
+
+        .ui-paginator {
+          font-size: 13px; /* consultar con Edu. */
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+/* Border resets */
+::ng-deep {
+  html {
+    body {
+      .ui-table {
+        .ui-paginator {
+          border-width: 0;
+        }
+
+        .ui-table-thead > tr > th,
+        .ui-table-tbody > tr > td {
+          border-left-width: 0;
+          border-right-width: 0;
+        }
+      }
+    }
+  }
+}
