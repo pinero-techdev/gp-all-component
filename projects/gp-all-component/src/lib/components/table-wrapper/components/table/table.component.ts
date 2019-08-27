@@ -68,7 +68,6 @@ export class TableComponent implements AfterContentInit {
   editableColumns: QueryList<EditableColumnTemplateDirective>;
 
   @ContentChild('caption') captionContent: TemplateRef<any>;
-
   @ContentChild('header') headerContent: TemplateRef<any>;
 
   @ContentChild('footer') footerContent: TemplateRef<any>;
