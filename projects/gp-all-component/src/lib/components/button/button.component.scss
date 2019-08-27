@@ -6,6 +6,7 @@
   .ui-splitbutton.ui-widget.ui-buttonset {
     background-color: $buttonBg;
     border: 1px solid $buttonBg;
+    height: $buttonHeight;
     @include box-shadow(0 1px 4px 0 rgba($blackColor, $buttonShadowOpacity));
 
     &:hover:enabled {
@@ -42,10 +43,43 @@
       }
     }
 
+    &.ui-button-ghost,
+    &.ui-button-danger-ghost {
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+
+      &:hover:enabled {
+        border: none;
+      }
+    }
+
+    &.ui-button-ghost {
+      .ui-button-text {
+        color: $primaryColor;
+      }
+
+      &:hover:enabled {
+        background-color: #f4f8ff;
+      }
+    }
+
+    &.ui-button-danger-ghost {
+      .ui-button-text {
+        color: $errorColor;
+      }
+
+      &:hover:enabled {
+        background-color: #fff6f6;
+      }
+    }
+
     .ui-button-text {
       border-radius: $buttonBorderRadius;
       padding: $buttonPaddingVertical $buttonPaddingHorizontal;
       color: $textInvertedColor;
+      font-size: $buttonFontSize;
+      line-height: $buttonLineHeight;
     }
 
     .pi {

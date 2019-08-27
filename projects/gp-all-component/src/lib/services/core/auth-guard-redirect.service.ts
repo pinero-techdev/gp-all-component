@@ -6,6 +6,7 @@ import { MainMenuProviderService } from './../api/main-menu/main-menu-provider.s
 import { MainMenuService, MenuRq } from './../api/main-menu/main-menu.service';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SessionStorageService } from '../session-storage/session-storage.service';
 
 /**
  * Service Guard for adding actions non-defined; they are used by modals or
@@ -16,7 +17,8 @@ export class AuthGuardRedirect implements CanActivate {
   constructor(
     private router: Router,
     private menu: MainMenuService,
-    private menuAppMenuProviderService: MainMenuProviderService
+    private menuAppMenuProviderService: MainMenuProviderService,
+    private sessionStorageService: SessionStorageService
   ) {}
 
   /**
@@ -37,13 +39,13 @@ export class AuthGuardRedirect implements CanActivate {
    * 'MenuOptionsIds' are the menu options' id where you can access from the menu.
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    const userInfo = this.sessionStorageService.getItem('userInfo');
     const userId = userInfo ? userInfo.userId : null;
     const url: string = state.url;
     /* IDs of the menu options from where the redirection was done */
     const menuOptionIds = 'menuOptionIds';
     const menuOptions = route.data[menuOptionIds];
-    if (GlobalService.getLOGGED() || null !== sessionStorage.getItem('userInfo')) {
+    if (GlobalService.getLOGGED() || null !== this.sessionStorageService.getItem('userInfo')) {
       if (menuOptions && menuOptions.length > 0) {
         const request: MenuRq = new MenuRq(
           GlobalService.getSESSION_ID(),

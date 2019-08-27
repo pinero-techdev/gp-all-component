@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { GPSelectItem } from '../../resources/data/gp-select-item.model';
 import { CalendarConstants } from '../../resources/constants/calendar.constants';
 import { isNull, isNullOrUndefined } from 'util';
+import { SessionStorageService } from '../session-storage/session-storage.service';
 /* tslint:disable:variable-name */
 export class GPUtil {
   public static readonly odd_reA = new RegExp('\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5', 'g');
@@ -22,6 +23,8 @@ export class GPUtil {
   public static readonly odd_reC = new RegExp('\u00C7', 'g');
   public static readonly odd_rec = new RegExp('\u00E7', 'g');
   public static readonly odd_reOthers = new RegExp('[\u0080-\uFFFF]', 'g');
+
+  private sessionStorageService = new SessionStorageService();
 
   public static normalize(s: string): string {
     s = s.replace(GPUtil.odd_reA, 'A');
@@ -334,8 +337,7 @@ export class GPUtil {
   }
 
   public getUserId(): string {
-    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
-    return isNullOrUndefined(userInfo) ? null : userInfo.userId;
+    return this.sessionStorageService.getItem('userInfo');
   }
 
   public calculaEdad(birthday: Date): number {

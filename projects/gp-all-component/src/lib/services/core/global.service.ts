@@ -3,10 +3,12 @@ import { Param } from '../../resources/data/param.model';
 import { RolInfo } from '../../resources/data/rol-info.model';
 import { UserInfo } from '../../resources/data/user-info.model';
 import { GlobalSingletonService } from './global-singleton.service';
+import { SessionStorageService } from '../session-storage/session-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
   private static globalSingleton: GlobalSingletonService = new GlobalSingletonService();
+  private static sessionStorageService = new SessionStorageService();
 
   public static getBASE_URL(): string {
     return GlobalService.globalSingleton.baseUrl;
@@ -86,8 +88,8 @@ export class GlobalService {
 
   public static getSESSION(): UserInfo {
     if (!GlobalService.globalSingleton.session) {
-      const session = sessionStorage.getItem('userInfo');
-      if (!session || session === 'undefined') {
+      const session = this.sessionStorageService.getItem('userInfo');
+      if (!session) {
         return null;
       }
       GlobalService.setSession(session);
@@ -101,8 +103,8 @@ export class GlobalService {
 
   public static getSESSION_ID(): string {
     if (!GlobalService.globalSingleton.sessionId) {
-      const sessionId = sessionStorage.getItem('sessionId');
-      if (!sessionId || sessionId === 'undefined') {
+      const sessionId = this.sessionStorageService.getItem('sessionId');
+      if (!sessionId) {
         return '';
       }
       GlobalService.setSessionId(sessionId);

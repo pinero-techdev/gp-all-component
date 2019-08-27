@@ -13,10 +13,12 @@ import { map, switchMap, catchError, first } from 'rxjs/operators';
 import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.service';
 import { GlobalService } from './global.service';
 import { MenuRq, MainMenuService } from '../api/main-menu/main-menu.service';
+import { SessionStorageService } from '../session-storage/session-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(
+    private sessionStorageService: SessionStorageService,
     private router: Router,
     private loginService: LoginService,
     private menu: MainMenuService,
@@ -24,7 +26,7 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    const userInfo = this.sessionStorageService.getItem('userInfo');
     const isPublic = route.data.hasOwnProperty('public') ? route.data.public : false;
     let userId = null;
 
@@ -91,14 +93,17 @@ export class AuthGuard implements CanActivate {
   }
 
   private hasPermissions(isPublic: boolean) {
-    return !isPublic && (GlobalService.getLOGGED() || sessionStorage.getItem('userInfo') !== null);
+    return (
+      !isPublic &&
+      (GlobalService.getLOGGED() || this.sessionStorageService.getItem('userInfo') !== null)
+    );
   }
 
   private checkSessionResponse(data: SessionInfoRs, queryParams: Params): Observable<boolean> {
     if (data && data.ok) {
       GlobalService.setSession(data.userInfo);
       GlobalService.setLogged(true);
-      sessionStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+      this.sessionStorageService.setItem('userInfo', data.userInfo);
       return of(true);
     } else {
       this.navigateTo(queryParams);

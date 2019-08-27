@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TabViewComponent } from './tabview.component';
 
-fdescribe('TabViewComponent', () => {
+describe('TabViewComponent', () => {
   let component: TabViewComponent;
   let fixture: ComponentFixture<TabViewComponent>;
   let $tabgroup: HTMLElement;
