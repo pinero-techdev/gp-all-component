@@ -17,6 +17,7 @@ export * from './lib/services/core/common.service';
 export * from './lib/services/core/global-singleton.service';
 export * from './lib/services/core/global.service';
 export * from './lib/services/core/messages.service';
+export * from './lib/services/session-storage/session-storage.service';
 
 // Classes & Types
 export * from './lib/resources/constants/language-order.constant';
@@ -113,7 +114,6 @@ export * from './lib/components/table-wrapper/components/table-editable-crud/com
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
 export * from './lib/components/table-wrapper/components/table/table.component';
-export * from './lib/components/tabgroup/tabview/tabview.component';
 export * from './lib/components/tabgroup/tabview/tabview.component';
 export * from './lib/components/topbar/topbar.component';
 export * from './lib/components/button/button.component';

@@ -42,9 +42,6 @@
     font-weight: 600;
     letter-spacing: 0.19px;
     font-size: 13.5px;
-    &.button-base::ng-deep [class^='ui-button'] {
-      background-color: $primaryColor;
-    }
   }
 
   &-change-password {
@@ -110,6 +107,10 @@
     &.ui-inputtext:not(label) {
       border-color: $errorColor;
     }
+  }
+
+  ::ng-deep .ui-button {
+    width: auto;
   }
 }
 

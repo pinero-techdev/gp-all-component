@@ -5,10 +5,11 @@ import { ForgotPasswordRoutingModule } from './forgot-password.routing.module';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { SharedModule } from './../../shared/shared.module';
+import { ButtonModule } from '../button/button.module';
 
 @NgModule({
   declarations: [ForgotPasswordComponent],
-  imports: [CommonModule, FormsModule, ForgotPasswordRoutingModule, SharedModule],
+  imports: [ButtonModule, CommonModule, FormsModule, ForgotPasswordRoutingModule, SharedModule],
   exports: [ForgotPasswordComponent],
   providers: [ForgotPasswordService],
 })

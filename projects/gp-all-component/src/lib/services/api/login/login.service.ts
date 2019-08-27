@@ -7,6 +7,7 @@ import { RequestOptions } from '../../../resources/data/request-options.model';
 import { UserInfo } from '../../../resources/data/user-info.model';
 import { CommonRs } from '../../core/common.service';
 import { GlobalService } from '../../core/global.service';
+import { SessionStorageService } from '../../session-storage/session-storage.service';
 
 export class LoginRq {
   usuario: string;
@@ -52,6 +53,7 @@ export class SessionInfoRs extends CommonRs {
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
+  private sessionStorageService = new SessionStorageService();
   constructor(private http: HttpClient) {}
 
   /**
@@ -61,11 +63,11 @@ export class LoginService {
   sessionInfo(): Observable<SessionInfoRs> {
     const sessionInfoRq: any = {};
     if (!GlobalService.getSESSION_ID()) {
-      if (sessionStorage.getItem('userInfo') !== null) {
-        GlobalService.setSession(JSON.parse(sessionStorage.getItem('userInfo')));
+      if (this.sessionStorageService.getItem('userInfo') !== null) {
+        GlobalService.setSession(this.sessionStorageService.getItem('userInfo'));
       }
-      if (sessionStorage.getItem('sessionId') !== null) {
-        GlobalService.setSessionId(sessionStorage.getItem('sessionId'));
+      if (this.sessionStorageService.getItem('sessionId') !== null) {
+        GlobalService.setSessionId(this.sessionStorageService.getItem('sessionId'));
       }
     }
 
@@ -83,8 +85,8 @@ export class LoginService {
             GlobalService.setSession(sessionInfoRs.userInfo);
             GlobalService.setSessionId(sessionInfoRs.sessionId);
             GlobalService.setLogged(true);
-            sessionStorage.setItem('userInfo', JSON.stringify(sessionInfoRs.userInfo));
-            sessionStorage.setItem('sessionId', sessionInfoRs.sessionId);
+            this.sessionStorageService.setItem('userInfo', sessionInfoRs.userInfo);
+            this.sessionStorageService.setItem('sessionId', sessionInfoRs.sessionId);
           }
           return sessionInfoRs;
         })
@@ -108,7 +110,7 @@ export class LoginService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(headers);
     const url = `${GlobalService.getLOGIN_SERVICE_URL()}/login`;
-    sessionStorage.setItem('language', 'ES');
+    this.sessionStorageService.setItem('language', 'ES');
     return this.http.post<SessionInfoRs>(url, body, options).pipe(
       map((loginResponse) => {
         if (loginResponse.ok) {
@@ -119,8 +121,8 @@ export class LoginService {
            * to keep user logged in between page refreshes
            */
 
-          sessionStorage.setItem('userInfo', JSON.stringify(loginResponse.userInfo));
-          sessionStorage.setItem('sessionId', loginResponse.sessionId);
+          this.sessionStorageService.setItem('userInfo', loginResponse.userInfo);
+          this.sessionStorageService.setItem('sessionId', loginResponse.sessionId);
           GlobalService.setLogged(true);
         }
         return loginResponse;
@@ -146,7 +148,7 @@ export class LoginService {
 
   cleanSessionInfo() {
     // Limpieza informacion de sesion.
-    sessionStorage.clear();
+    this.sessionStorageService.clear();
     // Limpieza de los datos de username del global service.
     GlobalService.setLogged(false);
     GlobalService.setSession(new UserInfo());
