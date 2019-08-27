@@ -13,6 +13,7 @@ import {
 import { Router, NavigationEnd } from '@angular/router';
 import { takeWhile, first } from 'rxjs/operators';
 import { LocaleES } from '../../resources/localization';
+import { SessionStorageService } from '../../services/session-storage/session-storage.service';
 
 class MenuItem {
   action: string;
@@ -85,7 +86,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    */
   @Output() sendBreadcrumb = new EventEmitter();
 
-  constructor(private router: Router, private menuProviderService: MainMenuService) {}
+  constructor(
+    private router: Router,
+    private menuProviderService: MainMenuService,
+    private sessionStorageService: SessionStorageService
+  ) {}
 
   /**
    * Angular OnInit lifecycle hook
@@ -105,7 +110,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Start configuration for menu
    */
   initMenu(): void {
-    const sessionId = sessionStorage.getItem('sessionId');
+    const sessionId = this.sessionStorageService.getItem('sessionId');
     const request = new MenuRq(sessionId, GlobalService.getPARAMS());
 
     this.menuProviderService

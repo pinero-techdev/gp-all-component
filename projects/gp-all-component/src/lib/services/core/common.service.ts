@@ -15,6 +15,7 @@ import { RequestOptions } from '../../resources/data/request-options.model';
 import { hash } from '../../util/sha256';
 
 import { GlobalService } from './global.service';
+import { SessionStorageService } from '../session-storage/session-storage.service';
 
 export class CommonRs {
   ok: boolean;
@@ -37,10 +38,12 @@ export class CommonRq {
 
 @Injectable({ providedIn: 'root' })
 export class CommonService {
+  private sessionStorageService = new SessionStorageService();
+
   constructor(private http: HttpClient) {}
 
   fromCache<T>(url: string, body: any, ttl?: number): Observable<T> {
-    const userId = JSON.parse(sessionStorage.getItem('userInfo')).userId;
+    const userId = this.sessionStorageService.getItem('userInfo').userId;
     const uintArray = new Uint8Array(
       JSON.stringify({ userId, url, body })
         .toString()
@@ -50,10 +53,10 @@ export class CommonService {
         })
     );
     const key = new Buffer(hash(uintArray)).toString('hex');
-    if (sessionStorage.getItem(key) !== null) {
-      const cachedElement = JSON.parse(sessionStorage.getItem(key));
+    if (this.sessionStorageService.getItem(key) !== null) {
+      const cachedElement = JSON.parse(this.sessionStorageService.getItem(key));
       if (cachedElement.ttl !== null && Date.now() > cachedElement.ttl) {
-        sessionStorage.removeItem(key);
+        this.sessionStorageService.removeItem(key);
       } else {
         return Observable.create((observer) => {
           observer.next(cachedElement.data);
@@ -70,9 +73,9 @@ export class CommonService {
       map((response) => {
         if (response[ok] && response[error] === null && response[errorMessage] === null) {
           response[cacheKey] = key;
-          sessionStorage.setItem(
+          this.sessionStorageService.setItem(
             key,
-            JSON.stringify(new CachedElement(response, ttl !== null ? Date.now() + ttl : null))
+            new CachedElement(response, ttl !== null ? Date.now() + ttl : null)
           );
         }
         return response;
