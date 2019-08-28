@@ -13,6 +13,7 @@ import { SharedModule } from './../../shared/shared.module';
 import { TestingMockEvents } from '../../shared/testing/@mock/utils/testing-mock-events.class';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { ButtonModule } from '../button/button.module';
 
 class TestComponent {}
 const testRoutes: Routes = [
@@ -61,6 +62,7 @@ describe('LoginComponent', () => {
         RouterTestingModule.withRoutes(testRoutes),
         HttpClientTestingModule,
         SharedModule,
+        ButtonModule,
       ],
       providers: [
         { provide: LoginService, useClass: LoginServiceMock },

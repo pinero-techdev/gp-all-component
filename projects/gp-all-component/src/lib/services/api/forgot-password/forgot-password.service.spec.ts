@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { GlobalService } from '../../core/global.service';
 import { TestBed, async } from '@angular/core/testing';
 import { ForgotPasswordService, ForgotPasswordRq } from './forgot-password.service';
+import { ButtonModule } from '../../../components/button/button.module';
 
 describe('ForgotPasswordServiceSpec', () => {
   let service: ForgotPasswordService;
@@ -9,7 +10,7 @@ describe('ForgotPasswordServiceSpec', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, ButtonModule],
       providers: [GlobalService, ForgotPasswordService],
     }).compileComponents();
   }));

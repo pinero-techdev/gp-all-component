@@ -48,7 +48,7 @@ export class TopbarComponent implements OnInit, OnChanges {
   constructor(private router: Router, private loginService: LoginService) {}
 
   get logged() {
-    return GlobalService.getSESSION();
+    return GlobalService.getSESSION_ID();
   }
 
   get fullName() {

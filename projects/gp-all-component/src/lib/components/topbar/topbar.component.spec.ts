@@ -90,6 +90,7 @@ describe('TopbarComponent', () => {
       userInfo.fullName = 'Pinero';
 
       GlobalService.setSession(userInfo);
+      GlobalService.setSessionId('abd');
       expect(component.logged).toBeTruthy();
       expect(component.fullName).toEqual(userInfo.fullName);
     });
