@@ -1,3 +1,4 @@
+import { ButtonModule } from './../button/button.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgotPasswordRq } from './../../services/api/forgot-password/forgot-password.service';
 import { TestingMockEvents } from './../../shared/testing/@mock/utils/testing-mock-events.class';
@@ -83,6 +84,7 @@ describe('ForgotPasswordComponent', () => {
         SharedModule,
         RouterTestingModule.withRoutes(testRoutes),
         HttpClientTestingModule,
+        ButtonModule,
       ],
       providers: [
         { provide: ForgotPasswordService, useClass: ForgotPasswordServiceMock },
@@ -109,8 +111,8 @@ describe('ForgotPasswordComponent', () => {
     component.ngOnInit();
     getFields();
 
-    $submit = elementRef.querySelector('button[type="submit"]');
-    $cancel = elementRef.querySelector('button[type="button"]');
+    $submit = elementRef.querySelector('.ui-button:not(.ui-button-danger)');
+    $cancel = elementRef.querySelector('.ui-button-danger');
 
     spyOn(messageService, 'showInfoAlert').and.callThrough();
     spyOn(service, 'updatePassword').and.callThrough();
