@@ -19,7 +19,7 @@
         .ui-table-thead {
           > tr {
             > th {
-              color: $tableTextColor;
+              color: $tableHeadColor;
               font-weight: normal;
               text-align: left;
               border-color: $tableBorderColor;
@@ -30,6 +30,7 @@
                 position: relative;
                 padding-right: 30px;
                 text-align: left;
+                border-bottom: 0;
 
                 &.ui-state-highlight,
                 &:hover {
@@ -43,33 +44,42 @@
 
                 i {
                   position: absolute;
-                  right: $tablePaddingRatio;
+                  right: 0;
                   top: $tablePaddingRatio;
                   color: $tableHeadColor;
-                }
-              }
-
-              input.ng-star-inserted {
-                font-size: 12px;
-                border-width: 0 0 1px 0;
-                border-color: $tableBorderColor;
-                border-style: solid;
-                line-height: #{$tablePaddingRatio * 3};
-                padding: 0 $tablePaddingRatio;
-                width: 100%;
-                transition: 0.25s ease-in-out border;
-
-                &:focus,
-                &:hover {
-                  border-color: $tableActiveColor;
+                  z-index: 100;
                 }
               }
             }
-          }
 
-          > tr + tr {
-            th {
-              border-top-width: 0;
+            + tr {
+              th {
+                border-top-width: 0;
+                position: relative;
+                height: 30px;
+
+                input.ng-star-inserted {
+                  font-size: 12px;
+                  font-family: inherit;
+                  border-width: 0 0 1px 0;
+                  border-color: $tableBorderColor;
+                  border-style: solid;
+                  line-height: #{$tablePaddingRatio * 3};
+                  padding: #{$tablePaddingRatio * 2} 0 0;
+                  width: calc(100% - #{$tablePaddingRatio * 2});
+                  background: 0 0;
+                  transition: border 0.25s ease-in-out;
+                  position: absolute;
+                  bottom: $tablePaddingRatio;
+                  left: #{$tablePaddingRatio * 2};
+                  height: 40px;
+
+                  &:focus,
+                  &:hover {
+                    border-color: $tableActiveColor;
+                  }
+                }
+              }
             }
           }
         }

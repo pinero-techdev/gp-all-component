@@ -6,16 +6,12 @@
       .ui-table {
         min-width: 640px;
 
-        table {
-          table-layout: initial;
-        }
-
         .ui-table-thead > tr > th {
-          padding: #{$tablePaddingRatio / 2} $tablePaddingRatio;
+          padding: #{$tablePaddingRatio / 2} #{$tablePaddingRatio * 2};
         }
 
         .ui-table-tbody > tr > td {
-          padding: 0 $tablePaddingRatio;
+          padding: 0 #{$tablePaddingRatio * 2};
         }
 
         &.ui-widget {
