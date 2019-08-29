@@ -15,6 +15,8 @@ import { LoginService } from './../../services/api/login/login.service';
 import { CommonRs } from './../../services/core/common.service';
 import { GlobalService } from './../../services/core/global.service';
 import { first } from 'rxjs/operators';
+import { LocaleES } from '../../resources/localization';
+import { UserInfo } from '../../resources/data/user-info.model';
 
 @Component({
   selector: 'gp-topbar',
@@ -28,7 +30,13 @@ export class TopbarComponent implements OnInit, OnChanges {
   @ViewChild('menuUser') menuUser: ElementRef;
   @ViewChild('userMobileButton') userMobileButton: ElementRef;
 
+  breadCrumb: any = [];
+  display = false;
+  isHome = false;
   itemsUserMenu: MenuItem[];
+  readonly locale = LocaleES;
+  session: UserInfo;
+  userMenuVisible = false;
 
   @Input() homeUrl: string;
   @Input() showMenu = true;
@@ -40,15 +48,10 @@ export class TopbarComponent implements OnInit, OnChanges {
   @Output() openMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() sendLauncher = new EventEmitter();
 
-  display = false;
-  userMenuVisible = false;
-  breadCrumb: any = [];
-  isHome = false;
-
   constructor(private router: Router, private loginService: LoginService) {}
 
   get logged() {
-    return GlobalService.getSESSION_ID();
+    return !!GlobalService.getSESSION_ID();
   }
 
   get fullName() {
@@ -74,6 +77,8 @@ export class TopbarComponent implements OnInit, OnChanges {
         },
       },
     ];
+
+    this.session = GlobalService.getSESSION();
   }
 
   /**
