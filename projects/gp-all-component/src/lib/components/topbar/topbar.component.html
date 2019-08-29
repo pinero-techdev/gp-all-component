@@ -9,7 +9,7 @@
         <div class="topbar-toolbar">
           <div class="breadcrumb-wrapper" *ngIf="breadCrumb.length > 0">
             <span class="topbar-toolbar-main">
-              <a (click)="resetMenu()">Inicio</a>
+              <a (click)="resetMenu()">{{ locale.HOME }}</a>
             </span>
             <span *ngFor="let m of breadCrumb; let indx = index">
               <i class="topbar-toolbar-icon pi pi-angle-right"></i>
@@ -23,13 +23,9 @@
             </span>
           </div>
         </div>
-        <div class="topbar-user-actions">
-          <span
-            *ngIf="logged"
-            class="topbar-user-name fadeInDown animated"
-            [innerHtml]="fullName"
-          ></span>
-          <a class="user-icon-wrapper" (click)="toggleUserMenu()" [hidden]="!logged">
+        <div *ngIf="logged" class="topbar-user-actions">
+          <span class="topbar-user-name fadeInDown animated" [innerText]="fullName"></span>
+          <a class="user-icon-wrapper" (click)="toggleUserMenu()">
             <i class="topbar-user-icon pi pi-user"></i>
           </a>
         </div>

@@ -15,6 +15,7 @@ export const LocaleES = {
   LEAVE: 'Salir',
   SAVE: 'Guardar',
   BACK: 'Volver',
+  HOME: 'Inicio',
   ENTER: 'Entrar',
   IMG_EDITOR_URL: 'Editor imagen (URL)',
   EXPORT_TO_CSV: 'Exportar a CSV',
