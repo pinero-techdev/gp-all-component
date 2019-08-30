@@ -9,6 +9,11 @@ import { GpMenuItem } from './../../resources/data/gp-menu-item.model';
 })
 export class ButtonComponent implements OnInit {
   /**
+   * Button type, submit, button
+   */
+  @Input() type = 'button';
+
+  /**
    * Button type, basic by default
    */
   @Input()
