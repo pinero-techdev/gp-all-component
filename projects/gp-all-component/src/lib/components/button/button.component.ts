@@ -11,7 +11,7 @@ export class ButtonComponent implements OnInit {
   /**
    * Button type, submit, button
    */
-  @Input() type = 'button';
+  @Input() buttonType = 'button';
 
   /**
    * Button type, basic by default
