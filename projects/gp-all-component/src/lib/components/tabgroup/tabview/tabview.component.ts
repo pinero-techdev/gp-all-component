@@ -1,4 +1,12 @@
-import { Component, ContentChildren, QueryList, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ContentChildren,
+  QueryList,
+  Input,
+  OnInit,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { TabDirective } from '../tab.directive';
 import { TabOrientation } from '../../../resources/constants/tabview.enum';
 
@@ -12,6 +20,7 @@ export class TabViewComponent implements OnInit {
 
   @Input()
   orientation: string;
+  @Output() onClick = new EventEmitter<number>();
 
   activePosition = 0;
   orientationLeft = false;
@@ -22,6 +31,7 @@ export class TabViewComponent implements OnInit {
 
   selectTab(i) {
     this.activePosition = i;
+    this.onClick.emit(i);
   }
 
   getTemplate() {
