@@ -4,6 +4,7 @@
 ::ng-deep {
   .ui-breadcrumb.ui-widget {
     border: none;
+    padding: 0;
 
     ul {
       display: flex;
@@ -14,9 +15,8 @@
       @include truncate();
     }
 
-    li:first-child {
+    li:last-child {
       .ui-menuitem-text {
-        font-size: 16px;
         color: $textColor;
       }
     }
@@ -35,13 +35,13 @@
 
     .ui-menuitem-text {
       color: $breadcrumbItemColor;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
       line-height: 16px;
     }
 
     .ui-breadcrumb-chevron {
-      font-size: 14px;
+      font-size: 10px;
       margin: 0 0.4em 0 0.4em;
       color: $chevronBreadcrumbColor;
     }
