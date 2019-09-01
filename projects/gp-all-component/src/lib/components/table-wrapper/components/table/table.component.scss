@@ -15,6 +15,9 @@
   html {
     body {
       .ui-table {
+        display: flex;
+        flex-wrap: wrap;
+
         /* Heads */
         .ui-table-thead {
           > tr {
@@ -117,6 +120,29 @@
           }
         }
 
+        .ui-table-wrapper {
+          width: 100%;
+          flex-grow: 2;
+          order: 1;
+          display: block;
+        }
+
+        // Footer
+        .ui-table-summary {
+          flex: 1 50%;
+          flex-grow: 0;
+          display: inline-block;
+          order: 2;
+        }
+
+        p-paginator {
+          flex: 1 50%;
+          flex-grow: 0;
+          display: inline-block;
+          width: 50%;
+          order: 3;
+        }
+
         /* Pagination */
         .ui-paginator {
           margin: 25px auto;
@@ -162,11 +188,15 @@
           /* Bottom paginator */
           &.ui-paginator-bottom {
             text-align: right;
+            float: none;
+            width: 100%;
           }
 
           /* Top paginator */
           &.ui-paginator-top {
             text-align: left;
+            float: none;
+            width: 100%;
           }
         }
 
