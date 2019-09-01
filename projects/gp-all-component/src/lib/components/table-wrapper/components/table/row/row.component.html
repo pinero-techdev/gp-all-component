@@ -35,7 +35,7 @@
 
 <!-- Template for default cell -->
 <ng-template #defaultCell let-column>
-  {{ row[column.key] }}
+  {{ builder.getRowValue(column, row) }}
 </ng-template>
 
 <!-- Template for editable cell -->

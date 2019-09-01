@@ -1,5 +1,5 @@
 export class TableColumn {
-  key: any;
+  key: any | any[];
   name: string;
   order: number;
   frozen: boolean;

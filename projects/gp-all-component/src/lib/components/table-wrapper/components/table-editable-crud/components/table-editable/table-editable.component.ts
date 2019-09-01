@@ -257,7 +257,6 @@ export class TableEditableComponent {
   }
 
   toggleItemSelection(item: any, event?) {
-    console.info('hello');
     if (event) {
       event.stopPropagation();
     }

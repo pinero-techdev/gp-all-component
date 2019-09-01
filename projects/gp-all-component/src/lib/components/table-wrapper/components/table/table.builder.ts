@@ -112,6 +112,15 @@ export class TableBuilder {
     return modelSelection;
   }
 
+  getRowValue(column: TableColumn, row: any): string {
+    if (column.key instanceof Array && column.key.length) {
+      const keys = [...[], ...column.key];
+      const initValue = row[keys.shift()];
+      return keys.reduce((accumulator, currentValue) => accumulator[currentValue], initValue);
+    }
+    return row[column.key];
+  }
+
   getColumns(model: CoreTableModel): TableColumn[] {
     return model.columns;
   }

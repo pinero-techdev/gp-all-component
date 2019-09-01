@@ -48,9 +48,7 @@ xdescribe('TableEditableComponent', () => {
     });
 
     it('should clear filters', () => {
-      console.info(component.columns.length);
       component.changeFilter(component.columns[0], '1');
-      console.info(component.columns.length);
       const buttonClearFilters: HTMLButtonElement = elementRef.querySelector('table thead button');
       buttonClearFilters.click();
       expect(component.clearFilters).toHaveBeenCalled();
