@@ -26,4 +26,18 @@ describe('RowComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should editing to true', () => {
+    spyOn(component.editing, 'emit').and.callThrough();
+    component.startEdition();
+    expect(component.editing.emit).toHaveBeenCalled();
+    expect(component.isEditing).toBeTruthy();
+  });
+
+  it('should save', () => {
+    spyOn(component.save, 'emit').and.callThrough();
+    component.persistEdition();
+    expect(component.save.emit).toHaveBeenCalled();
+    expect(component.isEditing).toBeTruthy();
+  });
 });
