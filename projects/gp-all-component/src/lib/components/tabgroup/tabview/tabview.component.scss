@@ -4,6 +4,9 @@
 ::ng-deep {
   .tab-nav {
     display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
     li {
       cursor: pointer;
@@ -27,6 +30,7 @@
       display: inline-block;
       border-right: 1px solid $borderColor;
       width: 200px;
+      margin-top: $separationLarge;
 
       + .tab-panel {
         display: inline-block;

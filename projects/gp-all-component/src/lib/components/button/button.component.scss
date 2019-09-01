@@ -86,6 +86,12 @@
       line-height: $buttonLineHeight;
     }
 
+    &.ui-button-text-icon-left {
+      .ui-button-text {
+        padding-left: $separationLarge * 2;
+      }
+    }
+
     .pi {
       color: $whiteColor;
     }
