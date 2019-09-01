@@ -43,6 +43,10 @@
       }
     }
 
+    .ui-button-icon-left {
+      font-size: 1em;
+    }
+
     &.ui-button-ghost,
     &.ui-button-danger-ghost {
       background-color: transparent;
@@ -76,7 +80,7 @@
 
     .ui-button-text {
       border-radius: $buttonBorderRadius;
-      padding: $buttonPaddingVertical $buttonPaddingHorizontal;
+      padding: $buttonPadVertical $buttonPadHorizontal;
       color: $textInvertedColor;
       font-size: $buttonFontSize;
       line-height: $buttonLineHeight;
@@ -86,9 +90,11 @@
       color: $whiteColor;
     }
   }
+
   .ui-button.ui-widget.ui-state-default.ui-corner-all {
     border-radius: $buttonBorderRadius;
   }
+
   div.ui-splitbutton {
     border-radius: $buttonBorderRadius;
     &.ui-widget.ui-buttonset {
@@ -133,7 +139,16 @@
       left: 85%;
     }
   }
+
   body .ui-button:enabled:focus {
     border-radius: $buttonBorderRadius;
+  }
+
+  .ui-widget.ui-button.ui-button-text-icon-left .ui-button-text {
+    padding: $buttonPadVertical $buttonPadLeft $buttonPadVertical $buttonPadRight;
+  }
+
+  .ui-splitbutton .ui-widget.ui-button.ui-button-text-icon-left .ui-button-text {
+    padding: $buttonPadVertical $buttonPadHorizontal;
   }
 }
