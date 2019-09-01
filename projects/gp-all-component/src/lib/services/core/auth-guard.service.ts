@@ -35,7 +35,11 @@ export class AuthGuard implements CanActivate {
     }
     const url: string = state.url.split('?')[0];
     if (isPublic) {
-      return of(true);
+      if (this.canGetLogin(url)) {
+        return of(true);
+      } else {
+        this.router.navigate(['home']);
+      }
     } else if (this.hasPermissions(isPublic)) {
       /** The view is private and the user has permissions
        *  then the user can access to the app
@@ -70,17 +74,10 @@ export class AuthGuard implements CanActivate {
         );
       }
     } else {
-      /** The view is private and there is not any session registered
-       *  then the user goes to /login
-       */
-      if (url.includes('/login')) {
-        return of(true);
-      } else {
-        console.error(LocaleES.USER_IS_NOT_LOGGED);
-        // not logged in so redirect to login page.
-        GlobalService.setPreLoginUrl(url);
-        return this.checkSession(route.queryParams).pipe(first());
-      }
+      console.error(LocaleES.USER_IS_NOT_LOGGED);
+      // not logged in so redirect to login page.
+      GlobalService.setPreLoginUrl(url);
+      return this.checkSession(route.queryParams).pipe(first());
     }
   }
 
@@ -92,10 +89,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private hasPermissions(isPublic: boolean) {
-    return (
-      !isPublic &&
-      (GlobalService.getLOGGED() || this.sessionStorageService.getItem('userInfo') !== null)
-    );
+    return !isPublic && !!GlobalService.getSESSION_ID();
   }
 
   private checkSessionResponse(data: SessionInfoRs, queryParams: Params): Observable<boolean> {
@@ -117,5 +111,12 @@ export class AuthGuard implements CanActivate {
 
   private navigateTo(queryParams, state = '/login') {
     this.router.navigate([state], queryParams);
+  }
+
+  private canGetLogin(url: string) {
+    const isLogin = url.includes('/login');
+    const isLogged = !!GlobalService.getSESSION_ID();
+
+    return !isLogin || (isLogin && !isLogged);
   }
 }

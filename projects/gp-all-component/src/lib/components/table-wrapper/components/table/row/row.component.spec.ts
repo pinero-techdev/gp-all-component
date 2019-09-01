@@ -38,6 +38,5 @@ describe('RowComponent', () => {
     spyOn(component.save, 'emit').and.callThrough();
     component.persistEdition();
     expect(component.save.emit).toHaveBeenCalled();
-    expect(component.isEditing).toBeTruthy();
   });
 });

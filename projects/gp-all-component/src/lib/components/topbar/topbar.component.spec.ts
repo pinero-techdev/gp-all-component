@@ -65,7 +65,7 @@ describe('TopbarComponent', () => {
   describe('TopbarComponent: Logged out', () => {
     beforeEach(() => {
       GlobalService.setLogged(false);
-      GlobalService.setSessionId(null);
+      GlobalService.setSessionId('');
       fixture.detectChanges();
     });
 
