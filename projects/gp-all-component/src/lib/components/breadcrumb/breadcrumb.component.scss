@@ -16,6 +16,8 @@
     }
 
     li:last-child {
+      pointer-events: none;
+
       .ui-menuitem-text {
         color: $textColor;
       }
@@ -38,6 +40,11 @@
       font-size: 12px;
       font-weight: 500;
       line-height: 16px;
+
+      &:hover {
+        color: $primaryColor;
+        border-bottom: 1px solid $primaryColor;
+      }
     }
 
     .ui-breadcrumb-chevron {
