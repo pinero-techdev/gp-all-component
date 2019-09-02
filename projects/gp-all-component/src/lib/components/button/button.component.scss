@@ -95,6 +95,10 @@
     .pi {
       color: $whiteColor;
     }
+
+    &.button-large {
+      min-width: 160px;
+    }
   }
 
   .ui-button.ui-widget.ui-state-default.ui-corner-all {

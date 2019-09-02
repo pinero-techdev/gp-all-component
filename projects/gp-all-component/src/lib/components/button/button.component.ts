@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ButtonType, ButtonSeverity } from './../../resources/constants/button.enum';
+import { ButtonType, ButtonSeverity, ButtonWidth } from './../../resources/constants/button.enum';
 import { GpMenuItem } from './../../resources/data/gp-menu-item.model';
 
 @Component({
@@ -24,6 +24,12 @@ export class ButtonComponent implements OnInit {
    */
   @Input()
   severity: ButtonSeverity = ButtonSeverity.Primary;
+
+  /**
+   * Button width, default by default
+   */
+  @Input()
+  width: ButtonWidth = ButtonWidth.Default;
 
   /**
    * Button label

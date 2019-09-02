@@ -11,3 +11,7 @@ export enum ButtonSeverity {
   DangerGhost = 'dangerGhost',
   Secondary = 'secondary',
 }
+export enum ButtonWidth {
+  Default,
+  Large = 'buttonLarge',
+}

@@ -17,12 +17,13 @@
       .ui-table {
         display: flex;
         flex-wrap: wrap;
+        min-width: auto;
 
         /* Heads */
         .ui-table-thead {
           > tr {
             > th {
-              color: $tableHeadColor;
+              color: $textMutedColor;
               font-weight: normal;
               text-align: left;
               border-color: $tableBorderColor;
@@ -49,7 +50,7 @@
                   position: absolute;
                   right: 0;
                   top: $tablePaddingRatio;
-                  color: $tableHeadColor;
+                  color: $textMutedColor;
                   z-index: 100;
                 }
               }
@@ -76,6 +77,7 @@
                   bottom: $tablePaddingRatio;
                   left: #{$tablePaddingRatio * 2};
                   height: 40px;
+                  box-shadow: 0 3px 3px -3px rgba(0, 0, 0, 0.05);
 
                   &:focus,
                   &:hover {
@@ -90,6 +92,9 @@
         /* Rows - even that those are cell styles those are depending of the row parity */
         .ui-table-tbody > tr {
           td {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             background-color: white;
           }
 

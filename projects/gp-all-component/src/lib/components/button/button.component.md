@@ -75,6 +75,12 @@ Icon (write the button icon inside simple quotes).
 [icon]="'pi pi-save'"
 ```
 
+Width (write the button width inside simple quotes). There are two possible values: default (this one doesn`t need to be specified), and buttonLarge.
+
+```html
+[width]="'buttonLarge'"
+```
+
 Disabled (DO NOT write the disabled value inside simple quotes). There are two possible values: true and false. Write this parameter just in case of true value.
 
 ```html
