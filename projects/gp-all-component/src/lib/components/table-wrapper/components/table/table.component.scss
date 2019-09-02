@@ -19,6 +19,11 @@
         flex-wrap: wrap;
         min-width: auto;
 
+        // Loading overlay
+        .ui-table-loading.ui-widget-overlay {
+          background: white;
+        }
+
         /* Heads */
         .ui-table-thead {
           > tr {
