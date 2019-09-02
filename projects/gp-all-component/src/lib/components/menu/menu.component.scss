@@ -130,7 +130,8 @@
                 padding-left: 28px;
 
                 &:hover,
-                &:focus {
+                &:focus,
+                &.ui-state-active {
                   background: $menuBgHoverActive;
 
                   .ui-menuitem-text {
