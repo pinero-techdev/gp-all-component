@@ -21,7 +21,11 @@
 
         // Loading overlay
         .ui-table-loading.ui-widget-overlay {
-          background: white;
+          background: $overlayColor;
+        }
+
+        .ui-table-loading-content .pi-spinner {
+          color: $spinnerColor;
         }
 
         /* Heads */

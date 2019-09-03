@@ -28,6 +28,8 @@ $textMutedColor: color(text, muted);
 $textInvertedColor: color(text, inverted);
 $textInvertedMutedColor: color(text, invertedMuted);
 $breadcrumbItemColor: color(text, mutedSecondary);
+$overlayColor: rgba(0, 0, 0, 0.7);
+$spinnerColor: color(text, base);
 
 /* breakpoints */
 $breakpoints: (
