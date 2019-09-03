@@ -116,7 +116,17 @@ export class TableBuilder {
     if (column.key instanceof Array && column.key.length) {
       const keys = [...[], ...column.key];
       const initValue = row[keys.shift()];
-      return keys.reduce((accumulator, currentValue) => accumulator[currentValue], initValue);
+      if (initValue) {
+        return keys.reduce((accumulator, currentValue) => {
+          if (accumulator[currentValue]) {
+            return accumulator[currentValue];
+          } else {
+            return '';
+          }
+        }, initValue);
+      } else {
+        return '';
+      }
     }
     return row[column.key];
   }
