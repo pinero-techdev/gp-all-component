@@ -18,14 +18,16 @@ import { TabOrientation } from '../../../resources/constants/tabview.enum';
 export class TabViewComponent implements OnInit {
   @ContentChildren(TabDirective) tabs: QueryList<TabDirective>;
 
-  @Input()
-  orientation: string;
+  @Input() orientation: string;
+  @Input() selected: string;
+
   @Output() onClick = new EventEmitter<number>();
 
   activePosition = 0;
   orientationLeft = false;
 
   ngOnInit() {
+    this.activePosition = +this.selected || this.activePosition;
     this.orientationLeft = this.orientation === TabOrientation.Left ? true : false;
   }
 
