@@ -2,9 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MenuRq } from './main-menu.service';
 import { CommonService } from '../../core/common.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class MainMenuProviderService extends CommonService {
+  constructor(http: HttpClient) {
+    super(http);
+  }
+
   getMenuStructure(): any[] {
     return null;
   }

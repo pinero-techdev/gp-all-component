@@ -40,7 +40,9 @@ export class CommonRq {
 export class CommonService {
   private sessionStorageService = new SessionStorageService();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    //
+  }
 
   fromCache<T>(url: string, body: any, ttl?: number): Observable<T> {
     const userId = this.sessionStorageService.getItem('userInfo').userId;

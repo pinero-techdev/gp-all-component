@@ -31,25 +31,29 @@ export class MainMenuService {
     return Observable.create((observer) => {
       this.temp = this.menuProvider.getMenuStructure();
       if (this.temp) {
-        this.menuProvider.getOptions(rq).subscribe(
-          (data) => {
-            if (data.ok) {
-              if (data.menu.opciones && data.menu.opciones.length) {
-                this.getOptions(this.temp, data.menu.opciones);
+        if (this.menuProvider.getOptions) {
+          this.menuProvider.getOptions(rq).subscribe(
+            (data) => {
+              if (data.ok) {
+                if (data.menu.opciones && data.menu.opciones.length) {
+                  this.getOptions(this.temp, data.menu.opciones);
+                }
+                if (data.roles && data.roles.length) {
+                  GlobalService.setRoles(data.roles);
+                }
+              } else {
+                console.error(LocaleES.ERROR_RETRIEVING_THE_MENU);
               }
-              if (data.roles && data.roles.length) {
-                GlobalService.setRoles(data.roles);
-              }
-            } else {
-              console.error(LocaleES.ERROR_RETRIEVING_THE_MENU);
+            },
+            (error) => console.error(error),
+            () => {
+              observer.next(this.temp);
             }
-          },
-          (error) => console.error(error),
-          () => {
-            observer.next(this.temp);
-          }
-        );
+          );
+        }
       }
+
+      observer.next(this.temp);
     });
   }
 

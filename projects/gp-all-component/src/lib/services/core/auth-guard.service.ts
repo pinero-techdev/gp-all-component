@@ -9,7 +9,7 @@ import {
   Params,
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, catchError, first } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.service';
 import { GlobalService } from './global.service';
 import { MenuRq, MainMenuService } from '../api/main-menu/main-menu.service';
@@ -27,9 +27,8 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const userInfo = this.sessionStorageService.getItem('userInfo');
-    const isPublic = route.data.hasOwnProperty('public') ? route.data.public : false;
+    const isPublic = route.data && route.data.hasOwnProperty('public') ? route.data.public : false;
     let userId = null;
-
     if (userInfo && userInfo.hasOwnProperty('userId')) {
       userId = userInfo.userId;
     }
@@ -44,7 +43,7 @@ export class AuthGuard implements CanActivate {
       /** The view is private and the user has permissions
        *  then the user can access to the app
        */
-      if (url === '/home' || url === '/' || url.indexOf('/terminal') !== -1) {
+      if (url.indexOf('/terminal') !== -1) {
         return of(true);
       } else {
         const request: MenuRq = new MenuRq(
@@ -77,7 +76,9 @@ export class AuthGuard implements CanActivate {
       console.error(LocaleES.USER_IS_NOT_LOGGED);
       // not logged in so redirect to login page.
       GlobalService.setPreLoginUrl(url);
-      return this.checkSession(route.queryParams).pipe(first());
+      this.router.navigateByUrl('/login');
+      return of(false);
+      // return this.checkSession(route.queryParams).pipe(first());
     }
   }
 
