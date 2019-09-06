@@ -1,6 +1,9 @@
 @import 'global/variables';
 @import 'global/mixins';
 
+.full-width {
+  width: 100%;
+}
 ::ng-deep {
   .topbar {
     display: flex;
