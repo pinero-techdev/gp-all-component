@@ -1,6 +1,6 @@
 <div class="p-grid">
   <div class="topbar p-col-12">
-    <div *ngIf="showMenu && isHome" class="topbar-action" (click)="toggleIconUserMenu()">
+    <div *ngIf="showMenu && !isHome" class="topbar-action" (click)="toggleIconUserMenu()">
       <i *ngIf="!isOpen || !logged" class="pi pi-th-large"></i>
       <i *ngIf="isOpen && logged" class="pi pi-times"></i>
     </div>
