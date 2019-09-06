@@ -23,7 +23,7 @@
     }
 
     &-item {
-      margin: 2em auto;
+      margin: 0;
       display: block;
       text-align: center;
       cursor: inherit;
@@ -235,6 +235,7 @@
     &-expanded {
       .menu-panel {
         flex: 0 0 1em;
+        flex-direction: column;
         max-width: 10%;
 
         .item-wrapper {

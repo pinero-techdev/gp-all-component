@@ -40,7 +40,7 @@ export class AuthGuardRedirect implements CanActivate {
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const userInfo = this.sessionStorageService.getItem('userInfo');
-    const userId = userInfo ? userInfo.userId : null;
+    const userId = userInfo && userInfo.hasOwnProperty('userId') ? userInfo.userId : null;
     const url: string = state.url;
     /* IDs of the menu options from where the redirection was done */
     const menuOptionIds = 'menuOptionIds';

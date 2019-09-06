@@ -129,24 +129,33 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Sets the menu
    */
   setMainMenu(value: any): void {
-    this.menu = value.map((item) => {
-      const newItem = new MenuItem();
-      newItem.action = item.action ? item.action : null;
-      newItem.description = item.description ? item.description : null;
-      newItem.enabled = item.enabled ? item.enabled : null;
-      newItem.icon = item.icon ? item.icon : null;
-      newItem.id = item.id ? item.id : null;
-      newItem.overview = item.overview ? item.overview : null;
-      newItem.parentList = item.parentList ? item.parentList : [];
-      newItem.submenus = item.submenus ? item.submenus : [];
-      newItem.text = item.texto ? item.texto : null;
-      newItem.type = item.type ? item.type : null;
-      return newItem;
-    });
-
+    this.menu = value.map((item) => this.createMenuItem(item));
     this.viewLoaded = true;
   }
 
+  createMenuItem(item: any): MenuItem {
+    const newItem = new MenuItem();
+    newItem.action = item.action ? item.action : null;
+    newItem.description = item.description ? item.description : null;
+    newItem.enabled = item.enabled ? item.enabled : null;
+    newItem.icon = item.icon ? item.icon : null;
+    newItem.id = item.id ? item.id : null;
+    newItem.overview = item.overview ? item.overview : null;
+    newItem.parentList = item.parentList ? item.parentList : [];
+    newItem.submenus = item.submenus ? this.setSubMenu(item.submenus) : [];
+    newItem.text = item.hasOwnProperty('text')
+      ? item.text
+      : item.hasOwnProperty('texto')
+      ? item.texto
+      : null;
+    newItem.type = item.type ? item.type : null;
+
+    return newItem;
+  }
+
+  setSubMenu(submenu: MenuItem[]): MenuItem[] {
+    return submenu.map((item) => this.createMenuItem(item));
+  }
   /**
    * Logic to execute on menu close
    * @param item a menu's item

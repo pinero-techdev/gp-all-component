@@ -8,13 +8,14 @@ import {
   Output,
   SimpleChanges,
   ViewChild,
+  OnDestroy,
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from './../../services/api/login/login.service';
 import { CommonRs } from './../../services/core/common.service';
 import { GlobalService } from './../../services/core/global.service';
-import { first } from 'rxjs/operators';
+import { filter, first, takeWhile } from 'rxjs/operators';
 import { LocaleES } from '../../resources/localization';
 import { UserInfo } from '../../resources/data/user-info.model';
 
@@ -23,7 +24,7 @@ import { UserInfo } from '../../resources/data/user-info.model';
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss'],
 })
-export class TopbarComponent implements OnInit, OnChanges {
+export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Get some DOM elements to check clicking on them.
    */
@@ -37,6 +38,7 @@ export class TopbarComponent implements OnInit, OnChanges {
   readonly locale = LocaleES;
   session: UserInfo;
   userMenuVisible = false;
+  private isAlive = true;
 
   @Input() homeUrl: string;
   @Input() showMenu = true;
@@ -55,18 +57,29 @@ export class TopbarComponent implements OnInit, OnChanges {
   }
 
   get fullName() {
-    return GlobalService.getSESSION() ? GlobalService.getSESSION().fullName : null;
+    return GlobalService.getSESSION() && GlobalService.getSESSION().hasOwnProperty('fullName')
+      ? GlobalService.getSESSION().fullName
+      : '';
+  }
+
+  ngOnDestroy() {
+    this.isAlive = false;
   }
 
   ngOnInit() {
     this.breadCrumb = [];
-    this.isHome = this.router.url !== '/home';
+    this.isHome = this.router.url === '/home';
+    this.isOpen = false;
 
-    this.router.events.pipe(first()).subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.toggleMenu(false);
-      }
-    });
+    this.router.events
+      .pipe(
+        takeWhile(() => this.isAlive),
+        filter((event) => event instanceof NavigationEnd)
+      )
+      .subscribe((event: NavigationEnd) => {
+        this.isHome = event.url === '/home';
+        this.toggleMenu(this.isHome);
+      });
 
     this.itemsUserMenu = [
       {
