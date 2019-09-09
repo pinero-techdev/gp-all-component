@@ -4,6 +4,10 @@
 .full-width {
   width: 100%;
 }
+:host {
+  height: 70px;
+}
+
 ::ng-deep {
   .topbar {
     display: flex;
