@@ -5,10 +5,13 @@
   width: 100%;
 }
 :host {
-  height: 70px;
+  height: $topbarHeight;
 }
 
 ::ng-deep {
+  .p-grid {
+    margin: 0;
+  }
   .topbar {
     display: flex;
     flex-wrap: nowrap;
