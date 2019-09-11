@@ -48,7 +48,7 @@ describe('MainMenuProviderService', () => {
     });
   });
 
-  describe('Method: optionIsActive', () => {
+  xdescribe('Method: optionIsActive', () => {
     it('should returns false', () => {
       let response = service.optionIsActive([], '', -1);
       expect(response).toBeFalsy();
