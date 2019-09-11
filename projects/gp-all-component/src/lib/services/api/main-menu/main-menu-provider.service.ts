@@ -10,16 +10,19 @@ export class MainMenuProviderService extends CommonService {
     super(http);
   }
 
+  /** Get the menu structure as the main menu component requires */
   getMenuStructure(): any[] {
     return null;
   }
 
+  /** Get the permissions for any menu option, usually it's calling obtenMenu(). */
   getOptions(rq: MenuRq): Observable<any> {
     return null;
   }
 
-  optionIsActive(menu: any[], accion: string, nroParams: number): boolean {
-    if (menu && accion && nroParams) {
+  /** Once the options and permissions are returned, this method check which options are enabled */
+  optionIsActive(menu: any[] = null, accion: string = null, nroParams: number = null): boolean {
+    if (menu && accion && nroParams !== null) {
       for (const opcMenu of menu) {
         if (!opcMenu) {
           return false;
