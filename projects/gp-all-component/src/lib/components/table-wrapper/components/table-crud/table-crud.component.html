@@ -16,6 +16,7 @@
         (onRowUnselect)="closeDialog()"
         csvSeparator=";"
         exportFilename="table_crud_export"
+        sortMode="multiple"
       >
         <ng-template pTemplate="caption">
           <div class="p-grid">
@@ -37,8 +38,9 @@
         </ng-template>
         <ng-template pTemplate="header" let-columns>
           <tr>
-            <th *ngFor="let col of columns">
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
               {{ col.fieldMetadata.displayInfo.fieldLabel }}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
           </tr>
           <tr>
@@ -46,6 +48,7 @@
               <input
                 pInputText
                 type="text"
+                class="full-width"
                 (input)="tc.filter($event.target.value, col.field, 'startsWith')"
               />
             </th>
@@ -152,7 +155,7 @@
         </span>
       </div>
       <div class="p-grid action-buttons">
-        <div class="p-col-12 p-sm-3" *ngIf="canDelete && selectedRow">
+        <div class="p-col-12 p-sm-4" *ngIf="canDelete && selectedRow">
           <button
             class="full-width button-danger"
             label="Borrar"
