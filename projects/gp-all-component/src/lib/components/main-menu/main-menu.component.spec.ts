@@ -92,7 +92,7 @@ describe('MainMenuComponent', () => {
         })
       );
 
-      component.initMenu();
+      component.ngOnInit();
       component.menuChange({ ...component.menu[3], text: 'label' });
 
       expect(goBackSpy).toHaveBeenCalled();
@@ -109,7 +109,7 @@ describe('MainMenuComponent', () => {
         })
       );
 
-      component.initMenu();
+      component.ngOnInit();
       component.menuChange({ parentList: component.menu[3].submenus, text: 'label' });
 
       expect(goBackSpy).toHaveBeenCalled();
