@@ -21,17 +21,15 @@
           <div class="p-grid">
             <div class="p-col-8">Mantenimiento de tabla {{ tableLabel }}</div>
             <div class="p-col-4">
-              <button
-                pButton
-                type="button"
+              <gp-button
                 *ngIf="canAdd"
+                [type]="'icon'"
                 icon="pi pi-plus"
                 label="Añadir"
-                class="button-base full-width"
                 (click)="onDialogAdd()"
                 [disabled]="formControl.lockFields"
               >
-              </button>
+              </gp-button>
             </div>
           </div>
         </ng-template>
@@ -60,14 +58,12 @@
         </ng-template>
         <ng-template pTemplate="footer" let-columns>
           <div class="action-button-wrapper">
-            <button
-              class="button-base export-to-csv"
-              type="button"
-              pButton
+            <gp-button
+              [type]="'icon'"
               icon="pi pi-download"
               (click)="tc.exportCSV()"
               label="Exportar a CSV"
-            ></button>
+            ></gp-button>
           </div>
         </ng-template>
       </p-table>
@@ -153,40 +149,35 @@
       </div>
       <div class="p-grid action-buttons">
         <div class="p-col-12 p-sm-3" *ngIf="canDelete && selectedRow">
-          <button
-            class="full-width button-danger"
+          <gp-button
+            [severity]="'danger'"
             label="Borrar"
-            pButton
-            type="button"
+            [type]="'icon'"
             icon="pi pi-trash"
             (click)="onDialogDelete()"
             [disabled]="formControl.lockFields"
           >
-          </button>
+          </gp-button>
         </div>
-        <div class="p-col-12 p-sm-4" *ngIf="canEdit || (canAdd && !selectedRow)">
-          <button
-            class="full-width button-base"
+        <div class="p-col-12 p-sm-6" *ngIf="canEdit || (canAdd && !selectedRow)">
+          <gp-button
             label="Guardar"
-            pButton
-            type="button"
+            [type]="'icon'"
             icon="pi pi-save"
             (click)="onDialogSave()"
             [disabled]="formControl.lockFields"
           >
-          </button>
+          </gp-button>
         </div>
-        <div class="p-col-12 p-sm-4">
-          <button
-            class="full-width"
+        <div class="p-col-12 p-sm-6">
+          <gp-button
             label="Cerrar"
-            pButton
-            type="button"
+            [type]="'icon'"
             icon="pi pi-times"
             (click)="closeDialog()"
             [disabled]="formControl.lockFields"
           >
-          </button>
+          </gp-button>
         </div>
       </div>
     </div>

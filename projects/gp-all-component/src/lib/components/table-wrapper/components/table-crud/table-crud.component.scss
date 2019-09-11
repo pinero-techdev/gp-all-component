@@ -23,6 +23,7 @@
           font-size: 12px;
           border: none;
           padding: 0.25em 0.5em;
+          width: 100%;
 
           .p-grid {
             align-items: center;
@@ -38,16 +39,6 @@
 
               &:last-child {
                 text-align: right;
-              }
-
-              button {
-                max-width: 140px;
-                font-weight: 600;
-                letter-spacing: 0.19px;
-                font-size: 13.5px;
-                [class^='ui-button'] {
-                  background: transparent;
-                }
               }
             }
           }
@@ -181,9 +172,6 @@
         &-tfoot {
           position: absolute;
           bottom: -56px;
-          [class^='ui-button'] {
-            background: transparent;
-          }
         }
 
         p-paginator {
@@ -279,8 +267,9 @@
 
       .action-buttons {
         margin-top: $separationLarge;
-        [class^='ui-button'] {
-          background: transparent;
+
+        div:last-child {
+          text-align: right;
         }
       }
 
