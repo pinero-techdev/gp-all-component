@@ -1,19 +1,19 @@
 import { GlobalService } from './../../services/core/global.service';
 import { MainMenuService, MenuRq } from '../../services/api/main-menu/main-menu.service';
 import {
+  ChangeDetectorRef,
   Component,
-  OnInit,
-  EventEmitter,
-  Output,
-  Input,
-  TemplateRef,
   ContentChild,
+  EventEmitter,
+  Input,
   OnDestroy,
+  OnInit,
+  Output,
+  TemplateRef,
 } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { takeWhile, first } from 'rxjs/operators';
+import { NavigationEnd, Router } from '@angular/router';
+import { first, takeWhile } from 'rxjs/operators';
 import { LocaleES } from '../../resources/localization';
-import { SessionStorageService } from '../../services/session-storage/session-storage.service';
 
 class MenuItem {
   action: string;
@@ -45,7 +45,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Holds the component life status
    */
   private isAlive = true;
-
+  // tslint:disable
+  private _isOpen = false;
+  // tslint:enable
   /**
    * Holds the expanded check
    */
@@ -69,7 +71,13 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   /**
    * Check for menu open
    */
-  @Input() isOpen: boolean;
+  @Input() set isOpen(value: boolean) {
+    this._isOpen = value;
+    this.changeDetector.detectChanges();
+  }
+  get isOpen(): boolean {
+    return this._isOpen;
+  }
 
   /**
    * Holds the menu's data
@@ -89,28 +97,14 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private menuProviderService: MainMenuService,
-    private sessionStorageService: SessionStorageService
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   /**
    * Angular OnInit lifecycle hook
    */
-  ngOnInit(): void {
-    this.initMenu();
-  }
-
-  /**
-   * Angular OnDestroy lifecycle hook
-   */
-  ngOnDestroy(): void {
-    this.isAlive = false;
-  }
-
-  /**
-   * Start configuration for menu
-   */
-  initMenu(): void {
-    const sessionId = this.sessionStorageService.getItem('sessionId');
+  ngOnInit() {
+    const sessionId = GlobalService.getSESSION_ID();
     const request = new MenuRq(sessionId, GlobalService.getPARAMS());
 
     this.menuProviderService
@@ -123,6 +117,13 @@ export class MainMenuComponent implements OnInit, OnDestroy {
         this.reset();
       }
     });
+  }
+
+  /**
+   * Angular OnDestroy lifecycle hook
+   */
+  ngOnDestroy(): void {
+    this.isAlive = false;
   }
 
   /**
@@ -165,6 +166,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     this.closeMenu.emit(this.isOpen);
     this.sendBreadcrumb.emit({ label: item.text, isActive: true });
     this.isExpanded = false;
+    this.changeDetector.detectChanges();
   }
 
   /**
@@ -180,6 +182,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
       this.getActionGoBack(menuChange.parentList, menuChange.text);
     }
     this.getOverview();
+    this.changeDetector.detectChanges();
   }
 
   /**
@@ -196,6 +199,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
         menu: submenus,
         isActive: true,
       });
+      this.changeDetector.detectChanges();
     }
   }
 
@@ -208,6 +212,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     if (item.length > 0) {
       this.overview = item[0].overview;
     }
+    this.changeDetector.detectChanges();
   }
 
   /**
@@ -245,6 +250,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   toggleOverview(): void {
     this.isExpanded = !this.isExpanded;
     this.disableTooltip = !this.disableTooltip;
+    this.changeDetector.detectChanges();
   }
 
   /**
