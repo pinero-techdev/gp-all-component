@@ -72,8 +72,10 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Check for menu open
    */
   @Input() set isOpen(value: boolean) {
-    this._isOpen = value;
-    this.changeDetector.detectChanges();
+    if (this.isOpen !== value) {
+      this._isOpen = value;
+      this.changeDetector.detectChanges();
+    }
   }
   get isOpen(): boolean {
     return this._isOpen;

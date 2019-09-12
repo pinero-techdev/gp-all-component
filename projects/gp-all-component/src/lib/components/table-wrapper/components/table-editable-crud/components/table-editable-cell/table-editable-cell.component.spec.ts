@@ -356,8 +356,6 @@ describe('TableEditableCellComponent', () => {
         'p-footer gp-button > button'
       );
 
-      console.info('BUTTON', $save);
-      console.info('-----', fixture.nativeElement);
       expect($save).toBeTruthy();
       $save.click();
 

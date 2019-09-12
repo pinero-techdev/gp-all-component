@@ -9,6 +9,7 @@ import {
   SimpleChanges,
   ViewChild,
   OnDestroy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { NavigationEnd, Router } from '@angular/router';
@@ -31,6 +32,9 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('menuUser') menuUser: ElementRef;
   @ViewChild('userMobileButton') userMobileButton: ElementRef;
 
+  // tslint:disable
+  private _isOpen = false;
+  // tslint:enable
   breadCrumb: any = [];
   display = false;
   isHome = false;
@@ -44,13 +48,29 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @Input() showMenu = true;
   @Input() logoUrl: string;
   @Input() title: string;
-  @Input() isOpen: boolean;
+
+  /**
+   * Check for menu open
+   */
+  @Input() set isOpen(value: boolean) {
+    this._isOpen = value;
+    this.changeDetector.detectChanges();
+  }
+
+  get isOpen(): boolean {
+    return this._isOpen;
+  }
+
   @Input() newStatusBreadcrumb: any;
   @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() openMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() sendLauncher = new EventEmitter();
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   get logged() {
     return !!GlobalService.getSESSION_ID();
