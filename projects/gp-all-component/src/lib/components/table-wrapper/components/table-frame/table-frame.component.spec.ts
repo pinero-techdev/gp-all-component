@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { ButtonModule } from '../../../button/button.module';
 
 describe('TableFrameComponent', () => {
   let component: TableFrameComponent;
@@ -18,7 +19,12 @@ describe('TableFrameComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TableFrameComponent, TableCrudComponent],
-      imports: [TableWrapperSharedModules, RouterTestingModule, HttpClientTestingModule],
+      imports: [
+        TableWrapperSharedModules,
+        RouterTestingModule,
+        ButtonModule,
+        HttpClientTestingModule,
+      ],
       providers: [
         TableWrapperSharedProviders,
         {

@@ -35,8 +35,9 @@
         </ng-template>
         <ng-template pTemplate="header" let-columns>
           <tr>
-            <th *ngFor="let col of columns">
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
               {{ col.fieldMetadata.displayInfo.fieldLabel }}
+              <p-sortIcon [field]="col.field" class="sort-icon" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
             </th>
           </tr>
           <tr>
