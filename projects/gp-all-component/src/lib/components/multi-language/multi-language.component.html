@@ -1,12 +1,5 @@
 <p-toast life="5000"></p-toast>
-<button
-  pButton
-  type="button"
-  icon="pi pi-globe"
-  class="multilanguage-button button-base ui-corner-all"
-  (click)="initTranslations()"
->
-</button>
+<gp-button [type]="'icon'" icon="pi pi-globe" (click)="initTranslations()"> </gp-button>
 <p-dialog
   [(visible)]="showTranslations"
   modal="modal"
@@ -43,40 +36,36 @@
         </span>
       </div>
       <div class="p-col-3 p-md-2" *ngIf="isEditing">
-        <button
-          pButton
-          type="button"
+        <gp-button
+          [type]="'icon'"
           label="HTML"
-          class="ui-button-raised ui-button-success full-width"
+          class="full-width"
           [class.html]="hasHTMLContent(t.idiomaPaisTraduccion)"
           (click)="showEditorHTMLDialog(t)"
           icon="pi pi-pencil"
         >
-        </button>
+        </gp-button>
       </div>
     </div>
   </div>
   <gp-loading-indicator *ngIf="!translations" class="full-width"></gp-loading-indicator>
   <p-footer *ngIf="translations && showTranslations">
-    <button
-      pButton
-      type="button"
+    <gp-button
+      [type]="'icon'"
       label="{{ localeES.CANCEL }}"
-      class="button-danger"
+      [severity]="'danger'"
       (click)="hideTranslations()"
       icon="pi pi-times"
     >
-    </button>
-    <button
-      pButton
-      type="button"
+    </gp-button>
+    <gp-button
+      [type]="'icon'"
       label="{{ localeES.ACCEPT }}"
-      class="button-base"
       (click)="save()"
       icon="pi pi-check"
       [disabled]="working"
     >
-    </button>
+    </gp-button>
   </p-footer>
 </p-dialog>
 
@@ -112,22 +101,19 @@
     </div>
   </div>
   <p-footer>
-    <button
-      pButton
-      type="button"
+    <gp-button
+      [type]="'icon'"
       label="{{ localeES.LEAVE }}"
       icon="pi pi-times"
-      class="button-danger"
+      [severity]="'danger'"
       (click)="closeHTMLEditor()"
-    ></button>
-    <button
-      pButton
-      type="button"
+    ></gp-button>
+    <gp-button
+      [type]="'icon'"
       label="{{ localeES.SAVE }}"
       icon="pi pi-check"
-      class="button-base"
       (click)="saveHTML()"
       [disabled]="working"
-    ></button>
+    ></gp-button>
   </p-footer>
 </p-dialog>

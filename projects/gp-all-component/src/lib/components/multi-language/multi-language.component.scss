@@ -2,22 +2,6 @@
 @import 'global/mixins';
 @import 'global/dialogs';
 
-::ng-deep {
-  .multilanguage-button.ui-widget {
-    padding: 0 1.3em;
-
-    .pi {
-      color: $whiteColor;
-      font-size: 20px;
-      background: transparent;
-    }
-
-    [class^='ui-button'] {
-      background: transparent;
-    }
-  }
-}
-
 .input-group {
   margin-bottom: 20px;
 }

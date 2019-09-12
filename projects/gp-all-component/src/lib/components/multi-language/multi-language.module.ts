@@ -1,6 +1,5 @@
 import { MessagesService } from './../../services/core/messages.service';
 import { MultiLanguageService } from './../../services/api/multi-language/multi-language.service';
-import { ButtonModule } from 'primeng/button';
 import { MultiLanguageComponent } from './multi-language.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,6 +9,7 @@ import { TooltipModule, EditorModule } from 'primeng/primeng';
 import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ButtonModule } from '../button/button.module';
 
 @NgModule({
   declarations: [MultiLanguageComponent],
