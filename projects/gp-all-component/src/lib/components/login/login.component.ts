@@ -109,7 +109,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /** Navigate to forgot password view */
   goForgotPwd() {
-    this.router.navigate(['forgot-password/' + this.username]);
+    if (this.username) {
+      this.router.navigate(['forgot-password/' + this.username]);
+    } else {
+      this.router.navigate(['forgot-password/']);
+    }
   }
 
   /** If everything is ok, set login data (user recently logged, prelogin url ...)
@@ -137,7 +141,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigate(['login']);
       let errorMessage = LocaleES.AN_ERROR_HAS_OCURRED;
       if (data.error !== null && data.error.errorMessage !== null) {
-        errorMessage = data.error.errorMessage.toString();
+        errorMessage = data.error.errorMessage;
       }
       this.showError(errorMessage);
     }
