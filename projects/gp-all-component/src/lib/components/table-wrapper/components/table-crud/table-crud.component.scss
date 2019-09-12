@@ -273,9 +273,11 @@
 
       .action-buttons {
         margin-top: $separationLarge;
+        margin-left: 0;
+        margin-right: 0;
 
-        div:last-child {
-          text-align: right;
+        div {
+          text-align: left;
         }
       }
 

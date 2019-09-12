@@ -157,10 +157,11 @@
         </span>
       </div>
       <div class="p-grid action-buttons">
-        <div class="p-col-12 p-sm-3" *ngIf="canDelete && selectedRow">
+        <div *ngIf="canDelete && selectedRow" class="p-col-12 p-sm-3">
           <gp-button
             [severity]="'danger'"
             label="Borrar"
+            class="full-width"
             [type]="'icon'"
             icon="pi pi-trash"
             (click)="onDialogDelete()"
@@ -168,9 +169,10 @@
           >
           </gp-button>
         </div>
-        <div class="p-col-12 p-sm-6" *ngIf="canEdit || (canAdd && !selectedRow)">
+        <div *ngIf="canEdit || (canAdd && !selectedRow)" class="p-col-12 p-sm-3">
           <gp-button
             label="Guardar"
+            class="full-width"
             [type]="'icon'"
             icon="pi pi-save"
             (click)="onDialogSave()"
@@ -178,10 +180,11 @@
           >
           </gp-button>
         </div>
-        <div class="p-col-12 p-sm-6">
+        <div class="p-col-12 p-sm-3">
           <gp-button
             label="Cerrar"
             [type]="'icon'"
+            class="full-width"
             icon="pi pi-times"
             (click)="closeDialog()"
             [disabled]="formControl.lockFields"
