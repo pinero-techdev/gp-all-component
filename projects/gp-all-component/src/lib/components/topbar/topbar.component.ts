@@ -32,9 +32,6 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('menuUser') menuUser: ElementRef;
   @ViewChild('userMobileButton') userMobileButton: ElementRef;
 
-  // tslint:disable
-  private _isOpen = false;
-  // tslint:enable
   breadCrumb: any = [];
   display = false;
   isHome = false;
@@ -42,12 +39,27 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   readonly locale = LocaleES;
   session: UserInfo;
   userMenuVisible = false;
-  private isAlive = true;
 
-  @Input() homeUrl: string;
+  private isAlive = true;
+  // tslint:disable
+  private _isOpen = false;
+  // tslint:enable
+
+  @Input() homeUrl = '/home';
   @Input() showMenu = true;
   @Input() logoUrl: string;
   @Input() title: string;
+
+  @Input() newStatusBreadcrumb: any;
+  @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+  @Output() openMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() sendLauncher = new EventEmitter();
+
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   /**
    * Check for menu open
@@ -60,17 +72,6 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   get isOpen(): boolean {
     return this._isOpen;
   }
-
-  @Input() newStatusBreadcrumb: any;
-  @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
-  @Output() openMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() sendLauncher = new EventEmitter();
-
-  constructor(
-    private router: Router,
-    private loginService: LoginService,
-    private changeDetector: ChangeDetectorRef
-  ) {}
 
   get logged() {
     return !!GlobalService.getSESSION_ID();
@@ -88,18 +89,13 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.breadCrumb = [];
-    this.isHome = this.router.url === '/home';
-    this.isOpen = false;
-
+    this.setIsHome(this.router.url);
     this.router.events
       .pipe(
         takeWhile(() => this.isAlive),
         filter((event) => event instanceof NavigationEnd)
       )
-      .subscribe((event: NavigationEnd) => {
-        this.isHome = event.url === '/home';
-        this.toggleMenu(this.isHome);
-      });
+      .subscribe((event: NavigationEnd) => this.setIsHome(event.url));
 
     this.itemsUserMenu = [
       {
@@ -221,8 +217,10 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    * @param isOpen 'open boolean prop'
    */
   toggleMenu(isOpen: boolean) {
-    this.isOpen = typeof isOpen === 'boolean' ? isOpen : !this.isOpen;
-    this.openMenu.emit(this.isOpen);
+    if (this.isOpen !== isOpen) {
+      this.isOpen = Boolean(isOpen);
+      this.openMenu.emit(this.isOpen);
+    }
   }
 
   toggleUserMenu() {
@@ -237,5 +235,11 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   isLastMenu(index) {
     return index === this.breadCrumb.length - 1;
+  }
+
+  private setIsHome(url: string) {
+    this.isHome = url === this.homeUrl;
+    this.toggleMenu(this.isHome);
+    this.changeDetector.detectChanges();
   }
 }

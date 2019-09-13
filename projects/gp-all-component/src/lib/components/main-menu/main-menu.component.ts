@@ -45,6 +45,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Holds the component life status
    */
   private isAlive = true;
+
   // tslint:disable
   private _isOpen = false;
   // tslint:enable
@@ -67,6 +68,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Holds the loaded view check
    */
   viewLoaded = false;
+
+  /**
+   * When home is active the menu should be opened
+   */
+  @Input() homeUrl = '/home';
 
   /**
    * Check for menu open
@@ -164,11 +170,13 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * @param item a menu's item
    */
   onCloseMenu(item: any): void {
-    this.isOpen = false;
-    this.closeMenu.emit(this.isOpen);
-    this.sendBreadcrumb.emit({ label: item.text, isActive: true });
-    this.isExpanded = false;
-    this.changeDetector.detectChanges();
+    if (this.router.url !== this.homeUrl) {
+      this.isOpen = false;
+      this.closeMenu.emit(this.isOpen);
+      this.sendBreadcrumb.emit({ label: item.text, isActive: true });
+      this.isExpanded = false;
+      this.changeDetector.detectChanges();
+    }
   }
 
   /**
