@@ -22,8 +22,10 @@ export class DynamicMetadata {
   styleUrls: ['./dynamic.component.scss'],
 })
 export class DynamicComponent implements OnInit {
-  /** Component data which is dynamically loading */
-  @Input() componentData: DynamicMetadata = null;
+  // tslint:disable
+  private _componentData: DynamicMetadata;
+  // tslint:enable
+
   /** HTML Element where the component is loading */
   @ViewChild('gpdynamic', { read: ViewContainerRef }) dynamicComponent: ViewContainerRef;
   /** Component's instance once is loaded */
@@ -33,18 +35,32 @@ export class DynamicComponent implements OnInit {
     /* Empty */
   }
 
+  /** Component data which is dynamically loading */
+  @Input() set componentData(value: DynamicMetadata) {
+    this._componentData = value;
+    this.initLoad();
+  }
+
+  get componentData() {
+    return this._componentData;
+  }
+
   ngOnInit() {
-    if (!this.componentData) {
-      this.destroy();
-      return;
-    }
-    this.loadComponent();
+    this.initLoad();
   }
 
   destroy(): void {
     if (this.currentComponent && this.currentComponent.destroy) {
       this.currentComponent.destroy();
     }
+  }
+
+  private initLoad() {
+    if (!this.componentData) {
+      this.destroy();
+      return;
+    }
+    this.loadComponent();
   }
 
   /**
