@@ -19,7 +19,7 @@ export class MenuRq extends CommonRq {
 
 @Injectable({ providedIn: 'root' })
 export class MainMenuService {
-  temp: any[];
+  temp: any[] = [];
 
   constructor(private menuProvider: MainMenuProviderService) {}
 
@@ -44,6 +44,7 @@ export class MainMenuService {
               } else {
                 console.error(LocaleES.ERROR_RETRIEVING_THE_MENU);
               }
+              observer.next(this.temp);
             },
             (error) => console.error(error),
             () => {
@@ -51,9 +52,9 @@ export class MainMenuService {
             }
           );
         }
+      } else {
+        observer.next(this.temp);
       }
-
-      observer.next(this.temp);
     });
   }
 
