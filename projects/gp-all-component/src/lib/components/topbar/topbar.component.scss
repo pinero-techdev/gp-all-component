@@ -4,6 +4,7 @@
 .full-width {
   width: 100%;
 }
+
 :host {
   height: $topbarHeight;
 }
@@ -22,6 +23,7 @@
     height: $topbarHeight;
     background-color: $topbarBg;
     padding: 0;
+    font-family: $mainFont;
 
     &-action {
       position: relative;

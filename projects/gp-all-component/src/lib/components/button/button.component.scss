@@ -183,4 +183,19 @@
   .ui-splitbutton .ui-widget.ui-button.ui-button-text-icon-left .ui-button-text {
     padding: $buttonPadVertical $buttonPadHorizontal;
   }
+
+  .ui-splitbutton > .ui-menu.ui-menu-dynamic {
+    display: block;
+    .ui-menuitem > .ui-menuitem-link {
+      width: 100%;
+    }
+  }
+
+  .ui-button.ui-widget.ui-state-default .ui-menuitem-icon,
+  .ui-splitbutton.ui-widget.ui-buttonset .ui-menuitem-icon {
+    color: $textColor;
+    &.fa {
+      font-size: 1.1em;
+    }
+  }
 }
