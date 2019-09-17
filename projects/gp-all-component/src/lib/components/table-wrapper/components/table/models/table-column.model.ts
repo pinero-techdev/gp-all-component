@@ -1,5 +1,6 @@
 export class TableColumn {
-  key: any | any[];
+  field: any | any[];
+  header: string;
   name: string;
   order: number;
   frozen: boolean;

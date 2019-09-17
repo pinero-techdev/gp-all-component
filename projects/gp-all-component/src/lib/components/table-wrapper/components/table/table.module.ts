@@ -7,6 +7,7 @@ import { RowComponent } from './row/row.component';
 import { EditableColumnTemplateDirective } from './directives/editable-column-template.directive';
 import { MemoPipeModule } from '../../../../pipes/memo-pipe/memo.pipe.module';
 import { IsNilPipeModule } from '../../../../pipes/is-nil-pipe/is-nil.pipe.module';
+import { ButtonModule } from '../../../button/button.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { IsNilPipeModule } from '../../../../pipes/is-nil-pipe/is-nil.pipe.modul
     ColumnTemplateDirective,
     EditableColumnTemplateDirective,
   ],
-  imports: [CommonModule, PrimeTableModule, MemoPipeModule, IsNilPipeModule],
+  imports: [CommonModule, PrimeTableModule, MemoPipeModule, IsNilPipeModule, ButtonModule],
   exports: [TableComponent, ColumnTemplateDirective, EditableColumnTemplateDirective],
 })
 export class TableModule {}

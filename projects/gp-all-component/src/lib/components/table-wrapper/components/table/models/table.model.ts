@@ -10,6 +10,8 @@ export class TableModel {
   filterable? = false;
   sortable? = false;
   selectable?: SelectionMode;
+  exportFilename?: string;
+  csvSeparator = ';';
   lazy? = true;
   pagination?: boolean;
   native? = new NativeOptions();

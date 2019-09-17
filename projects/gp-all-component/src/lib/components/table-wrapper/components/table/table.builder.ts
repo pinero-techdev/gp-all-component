@@ -90,6 +90,14 @@ export class TableBuilder {
     return model.pagination;
   }
 
+  getExportFile(model: CoreTableModel): string {
+    return model.exportFilename;
+  }
+
+  getCSVSeparator(model: CoreTableModel): string {
+    return model.csvSeparator;
+  }
+
   isSelectionMode(model: CoreTableModel, mode: SelectionMode): boolean {
     return model.selectable === mode;
   }
@@ -113,8 +121,8 @@ export class TableBuilder {
   }
 
   getRowValue(column: TableColumn, row: any): string {
-    if (column.key instanceof Array && column.key.length) {
-      const keys = [...[], ...column.key];
+    if (column.field instanceof Array && column.field.length) {
+      const keys = [...[], ...column.field];
       const initValue = row[keys.shift()];
       if (initValue) {
         return keys.reduce((accumulator, currentValue) => {
@@ -128,7 +136,7 @@ export class TableBuilder {
         return '';
       }
     }
-    return row[column.key];
+    return row[column.field];
   }
 
   getColumns(model: CoreTableModel): TableColumn[] {
@@ -176,9 +184,8 @@ export class TableBuilder {
    */
   private toTableColumn(column: string | TableColumn): TableColumn {
     if (typeof column === 'string') {
-      return { ...new TableColumn(), key: column };
+      return { ...new TableColumn(), field: column, header: column };
     }
-
     return { ...new TableColumn(), ...column };
   }
 

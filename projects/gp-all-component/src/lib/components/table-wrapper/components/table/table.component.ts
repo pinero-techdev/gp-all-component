@@ -1,15 +1,15 @@
 import {
-  Component,
-  Input,
+  AfterContentInit,
   ChangeDetectionStrategy,
-  ContentChildren,
-  QueryList,
-  Output,
-  EventEmitter,
+  Component,
   ContentChild,
+  ContentChildren,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
   TemplateRef,
   ViewChild,
-  AfterContentInit,
 } from '@angular/core';
 import { ColumnTemplateDirective } from './directives/column-template.directive';
 import { EditableColumnTemplateDirective } from './directives/editable-column-template.directive';
@@ -69,7 +69,6 @@ export class TableComponent implements AfterContentInit {
 
   @ContentChild('caption') captionContent: TemplateRef<any>;
   @ContentChild('header') headerContent: TemplateRef<any>;
-
   @ContentChild('footer') footerContent: TemplateRef<any>;
 
   @ViewChild('table') table: Table;
@@ -90,19 +89,21 @@ export class TableComponent implements AfterContentInit {
    * @param column The filter column
    */
   onFilter(event: any, column: TableColumn): void {
-    this.table.filter(event.srcElement.value, column.key, 'contains');
-    this.filter.emit({ column: column.key, value: event.srcElement.value });
+    this.table.filter(event.srcElement.value, column.field, 'contains');
+    this.filter.emit({ column: column.field, value: event.srcElement.value });
   }
 
   /**
    * Builds the table model
    */
   private buildModel(): void {
-    this.coreModel = new TableBuilder().createModel(
-      this.model,
-      this.customColumns,
-      this.editableColumns,
-      this.pagination
-    );
+    if (this.model) {
+      this.coreModel = new TableBuilder().createModel(
+        this.model,
+        this.customColumns,
+        this.editableColumns,
+        this.pagination
+      );
+    }
   }
 }
