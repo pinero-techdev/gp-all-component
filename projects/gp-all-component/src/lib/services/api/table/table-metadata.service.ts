@@ -122,15 +122,19 @@ export class TableMetadataService {
           column.type = GpFormFieldType.FILE;
           break;
         }
+        case TableService.NULLABLE_CHECKBOX_DISPLAY_TYPE: {
+          column.type = GpFormFieldType.NULLABLE_CHECKBOX;
+          break;
+        }
+        case TableService.NUMBER_FIELD_TYPE: {
+          column.type = GpFormFieldType.NUMBER;
+          break;
+        }
       }
     } else {
       switch (metadata.fieldType) {
         case 'DATE': {
           column.type = GpFormFieldType.CALENDAR;
-          break;
-        }
-        case 'NUMBER': {
-          column.type = GpFormFieldType.NUMBER;
           break;
         }
         case 'BOOLEAN': {

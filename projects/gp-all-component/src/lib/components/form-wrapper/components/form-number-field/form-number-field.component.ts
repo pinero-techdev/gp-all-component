@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../resources/form-field.model';
-import { LocaleES } from '../../../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../../../resources/localization';
 
 @Component({
   selector: 'gp-form-number-field',

@@ -20,6 +20,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { MenuModule } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { SessionStorageService } from '../services/session-storage/session-storage.service';
+import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
+
 @NgModule({
   imports: [
     CalendarModule,
@@ -41,6 +45,7 @@ import { ConfirmationService } from 'primeng/api';
     ScrollPanelModule,
     ToastModule,
     TooltipModule,
+    TriStateCheckboxModule,
   ],
   exports: [
     CalendarModule,
@@ -60,9 +65,17 @@ import { ConfirmationService } from 'primeng/api';
     PaginatorModule,
     ProgressSpinnerModule,
     ScrollPanelModule,
+    TriStateCheckboxModule,
     ToastModule,
     TooltipModule,
   ],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, SessionStorageService],
 })
-export class SharedModule {}
+export class SharedModule {
+  public static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [ConfirmationService, MessageService, SessionStorageService],
+    };
+  }
+}

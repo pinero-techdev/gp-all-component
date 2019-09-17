@@ -193,6 +193,7 @@ export class TableService extends CommonService {
   public static TEXT_AREA_DISPLAY_TYPE = 'TEXT_AREA';
   public static WYSIWYG_DISPLAY_TYPE = 'WYSIWYG';
   public static FILE_DISPLAY_TYPE = 'FILE';
+  public static NULLABLE_CHECKBOX_DISPLAY_TYPE = 'NULLABLE_CHECKBOX';
 
   public static RESTRICTION_NOT_NULL = 'NOT_NULL';
   public static RESTRICTION_MAX_LENGTH = 'MAX_LENGTH';
