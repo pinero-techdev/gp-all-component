@@ -4,7 +4,7 @@ import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
-import { FormFieldMock } from './../../../../shared/testing/@mock/types/form-wrapper.type.mock';
+import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
 
 describe('FormCheckboxFieldComponent', () => {
   let component: FormCheckboxFieldComponent;

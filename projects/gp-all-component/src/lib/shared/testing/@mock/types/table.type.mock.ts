@@ -7,6 +7,6 @@ export const mockFilterEvent = {
 };
 
 export const mockTableColumn = {
-  key: 'name',
-  name: 'Name',
+  field: 'name',
+  header: 'Name',
 } as TableColumn;

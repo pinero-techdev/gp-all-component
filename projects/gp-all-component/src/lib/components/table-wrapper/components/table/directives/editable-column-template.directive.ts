@@ -4,11 +4,11 @@ import { Directive, Input, TemplateRef } from '@angular/core';
   selector: '[gpEditableColumn]',
 })
 export class EditableColumnTemplateDirective {
-  @Input('gpEditableColumn') key: string;
+  @Input('gpEditableColumn') field: string;
 
   constructor(public template: TemplateRef<any>) {}
 
   getKey(): string {
-    return this.key;
+    return this.field;
   }
 }

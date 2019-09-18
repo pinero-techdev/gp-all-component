@@ -1,6 +1,10 @@
 @import 'global/variables';
 @import 'global/mixins';
 
+:host {
+  overflow-y: auto;
+}
+
 ::ng-deep {
   .menu {
     background: radial-gradient(

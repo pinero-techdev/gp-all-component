@@ -10,6 +10,7 @@ import {
   mockTableColumn,
   mockFilterEvent,
 } from '../../../../shared/testing/@mock/types/table.type.mock';
+import { ButtonModule } from '../../../button/button.module';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -18,7 +19,7 @@ describe('TableComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TableComponent, RowComponent],
-      imports: [TableModule, MemoPipeModule, IsNilPipeModule],
+      imports: [TableModule, MemoPipeModule, ButtonModule, IsNilPipeModule],
     }).compileComponents();
   }));
 

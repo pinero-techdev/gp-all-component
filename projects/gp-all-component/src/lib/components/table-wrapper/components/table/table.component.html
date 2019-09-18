@@ -16,6 +16,8 @@
   [sortOrder]="(builder.getNative | memo: coreModel).defaultSortOrder"
   (selectionChange)="selectedChange.emit($event)"
   [selection]="selected"
+  [exportFilename]="builder.getExportFile | memo: coreModel"
+  [csvSeparator]="builder.getCSVSeparator | memo: coreModel"
   [globalFilterFields]="(builder.getNative | memo: coreModel).globalFilterFields"
   (onPage)="page.emit($event)"
   (onSort)="sort.emit($event)"
@@ -41,7 +43,7 @@
     </ng-container>
 
     <div *ngIf="(builder.hasGlobalFilter | memo: coreModel)">
-      <i class="fa fa-search"></i>
+      <i class="pi pi-search"></i>
       <input
         type="text"
         pInputText
@@ -77,14 +79,16 @@
         <ng-container *ngFor="let column of (builder.getColumns | memo: coreModel)">
           <th
             *ngIf="(builder.isSortable | memo: coreModel:column); else headerBasic"
-            [pSortableColumn]="column.key"
+            [pSortableColumn]="column.field"
           >
-            {{ column.name || column.key }}
-            <p-sortIcon [field]="column.key"></p-sortIcon>
+            {{
+              column.header === null || column.header === undefined ? column.field : column.header
+            }}
+            <p-sortIcon [field]="column.field"></p-sortIcon>
           </th>
           <ng-template #headerBasic>
             <th>
-              {{ column.name || column.key }}
+              {{ column.header || column.field }}
             </th>
           </ng-template>
         </ng-container>
@@ -125,9 +129,16 @@
     >
     </tr
   ></ng-template>
-
   <ng-template *ngIf="footerContent" pTemplate="summary">
     <ng-content *ngTemplateOutlet="footerContent"></ng-content>
+  </ng-template>
+  <ng-template *ngIf="(builder.getExportFile | memo: coreModel)" pTemplate="summary">
+    <gp-button
+      [type]="'textIcon'"
+      icon="pi pi-download"
+      label="Exportar a CSV"
+      (click)="table.exportCSV()"
+    ></gp-button>
   </ng-template>
 
   <ng-template pTemplate="emptymessage" let-columns>

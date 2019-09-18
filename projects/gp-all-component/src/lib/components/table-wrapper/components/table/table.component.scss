@@ -146,15 +146,28 @@
           width: 100%;
           flex-grow: 2;
           order: 2;
+          position: relative;
           display: block;
+          padding: 0;
         }
 
         // Footer
+        .ui-table-tfoot {
+          position: relative;
+          display: block;
+          bottom: inherit;
+          top: inherit;
+        }
+
         .ui-table-summary {
-          flex: 1 50%;
-          flex-grow: 0;
           display: inline-block;
+          flex-grow: 0;
+          flex: 1 50%;
           order: 3;
+          padding-left: 0;
+          padding-right: 0;
+          position: relative;
+          text-align: left;
         }
 
         p-paginator {
