@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormCheckboxFieldComponent } from './form-checkbox-field.component';
+import { FormNullableCheckboxComponent } from './form-nullable-checkbox.component';
 import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
@@ -7,19 +7,19 @@ import {
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
 
 describe('FormCheckboxFieldComponent', () => {
-  let component: FormCheckboxFieldComponent;
-  let fixture: ComponentFixture<FormCheckboxFieldComponent>;
+  let component: FormNullableCheckboxComponent;
+  let fixture: ComponentFixture<FormNullableCheckboxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FormCheckboxFieldComponent],
+      declarations: [FormNullableCheckboxComponent],
       imports: [FormWrapperSharedModules],
       providers: [FormWrapperSharedProviders],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormCheckboxFieldComponent);
+    fixture = TestBed.createComponent(FormNullableCheckboxComponent);
     component = fixture.componentInstance;
     component.formField = {
       ...FormFieldMock,
@@ -58,6 +58,17 @@ describe('FormCheckboxFieldComponent', () => {
     expect(metadata).toEqual(formField.fieldMetadata);
   });
 
+  it('should copy null value from control to edited row', () => {
+    const editedFormField = {
+      ...FormFieldMock,
+      cansCodi: null,
+    };
+
+    component.copyValueFromControlToEditedRow(editedFormField);
+
+    expect(editedFormField[component.formField.fieldMetadata.fieldName]).toBeNull();
+  });
+
   it('should copy value from control to edited row', () => {
     const editedFormField = {
       ...FormFieldMock,
@@ -66,7 +77,18 @@ describe('FormCheckboxFieldComponent', () => {
 
     component.copyValueFromControlToEditedRow(editedFormField);
 
-    expect(editedFormField[component.formField.fieldMetadata.fieldName]).toBeTruthy();
+    expect(editedFormField[component.formField.fieldMetadata.fieldName]).toBeFalsy();
+  });
+
+  it('should copy null value from edited row to control', () => {
+    const editedFormField = {
+      ...FormFieldMock,
+      cansCodi: null,
+    };
+
+    component.copyValueFromEditedRowToControl(editedFormField);
+
+    expect(component.currentValue).toBeNull();
   });
 
   it('should copy value from edited row to control', () => {

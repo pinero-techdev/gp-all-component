@@ -2,13 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { isNullOrUndefined } from 'util';
 
 @Component({
-  selector: 'gp-form-checkbox-field',
-  templateUrl: './form-checkbox-field.component.html',
-  styleUrls: ['./form-checkbox-field.component.scss'],
+  selector: 'gp-form-nullable-checkbox-field',
+  templateUrl: './form-nullable-checkbox-field.component.html',
+  styleUrls: ['./form-nullable-checkbox-field.component.scss'],
 })
-export class FormCheckboxFieldComponent extends GpFormFieldControl implements OnInit {
+export class FormNullableCheckboxComponent extends GpFormFieldControl implements OnInit {
   /**
    * The formField for this component
    */
@@ -41,9 +42,19 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl implements On
    * @param editedRow The editing row
    */
   copyValueFromControlToEditedRow(editedRow: any): void {
-    editedRow[this.formField.fieldMetadata.fieldName] = this.currentValue
-      ? this.formField.fieldMetadata.displayInfo.checkedValue
-      : this.formField.fieldMetadata.displayInfo.uncheckedValue;
+    if (isNullOrUndefined(this.currentValue)) {
+      editedRow[this.formField.fieldMetadata.fieldName] = null;
+    } else {
+      if (this.currentValue) {
+        editedRow[
+          this.formField.fieldMetadata.fieldName
+        ] = this.formField.fieldMetadata.displayInfo.checkedValue;
+      } else {
+        editedRow[
+          this.formField.fieldMetadata.fieldName
+        ] = this.formField.fieldMetadata.displayInfo.uncheckedValue;
+      }
+    }
   }
 
   /**
@@ -51,14 +62,17 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl implements On
    * @param editedRow The editing row
    */
   copyValueFromEditedRowToControl(editedRow: any): void {
-    this.currentValue =
-      this.formField.fieldMetadata.displayInfo.checkedValue ===
-      editedRow[this.formField.fieldMetadata.fieldName];
+    if (isNullOrUndefined(editedRow[this.formField.fieldMetadata.fieldName])) {
+      this.currentValue = null;
+    } else {
+      this.currentValue =
+        this.formField.fieldMetadata.displayInfo.checkedValue ===
+        editedRow[this.formField.fieldMetadata.fieldName];
+    }
   }
 
   /**
    * Starts validation for editing row
-   * @param editedRow The editing row
    */
   validateField(): boolean {
     // A checkbox is always valid.
