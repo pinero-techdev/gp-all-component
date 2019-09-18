@@ -58,6 +58,17 @@ describe('FormCheckboxFieldComponent', () => {
     expect(metadata).toEqual(formField.fieldMetadata);
   });
 
+  it('should copy null value from control to edited row', () => {
+    const editedFormField = {
+      ...FormFieldMock,
+      cansCodi: null,
+    };
+
+    component.copyValueFromControlToEditedRow(editedFormField);
+
+    expect(editedFormField[component.formField.fieldMetadata.fieldName]).toBeNull();
+  });
+
   it('should copy value from control to edited row', () => {
     const editedFormField = {
       ...FormFieldMock,
@@ -66,7 +77,18 @@ describe('FormCheckboxFieldComponent', () => {
 
     component.copyValueFromControlToEditedRow(editedFormField);
 
-    expect(editedFormField[component.formField.fieldMetadata.fieldName]).toBeTruthy();
+    expect(editedFormField[component.formField.fieldMetadata.fieldName]).toBeFalsy();
+  });
+
+  it('should copy null value from edited row to control', () => {
+    const editedFormField = {
+      ...FormFieldMock,
+      cansCodi: null,
+    };
+
+    component.copyValueFromEditedRowToControl(editedFormField);
+
+    expect(component.currentValue).toBeNull();
   });
 
   it('should copy value from edited row to control', () => {
