@@ -1,6 +1,20 @@
 @import 'global/variables';
 @import 'global/mixins';
 
+:host button {
+  padding: 0 0;
+  position: relative;
+}
+
+:host.full-width {
+  width: 100%;
+  > button {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
 ::ng-deep {
   .ui-button.ui-widget.ui-state-default,
   .ui-splitbutton.ui-widget.ui-buttonset {
@@ -43,8 +57,12 @@
       }
     }
 
-    .ui-button-icon-left {
+    &:not(.ui-button-icon-only) .ui-button-icon-right,
+    &:not(.ui-button-icon-only) .ui-button-icon-left {
+      @include absolute-centered('vertical');
+
       font-size: 1em;
+      margin: 0;
     }
 
     &.ui-button-ghost,
@@ -59,6 +77,8 @@
     }
 
     &.ui-button-ghost {
+      .ui-button-icon-left,
+      .ui-button-icon-right,
       .ui-button-text {
         color: $primaryColor;
       }
@@ -69,6 +89,8 @@
     }
 
     &.ui-button-danger-ghost {
+      .ui-button-icon-left,
+      .ui-button-icon-right,
       .ui-button-text {
         color: $errorColor;
       }
@@ -160,5 +182,20 @@
 
   .ui-splitbutton .ui-widget.ui-button.ui-button-text-icon-left .ui-button-text {
     padding: $buttonPadVertical $buttonPadHorizontal;
+  }
+
+  .ui-splitbutton > .ui-menu.ui-menu-dynamic {
+    display: block;
+    .ui-menuitem > .ui-menuitem-link {
+      width: 100%;
+    }
+  }
+
+  .ui-button.ui-widget.ui-state-default .ui-menuitem-icon,
+  .ui-splitbutton.ui-widget.ui-buttonset .ui-menuitem-icon {
+    color: $textColor;
+    &.fa {
+      font-size: 1.1em;
+    }
   }
 }

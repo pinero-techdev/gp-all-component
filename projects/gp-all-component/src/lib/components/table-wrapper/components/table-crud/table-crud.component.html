@@ -16,29 +16,35 @@
         (onRowUnselect)="closeDialog()"
         csvSeparator=";"
         exportFilename="table_crud_export"
+        sortMode="multiple"
       >
         <ng-template pTemplate="caption">
           <div class="p-grid">
             <div class="p-col-8">Mantenimiento de tabla {{ tableLabel }}</div>
             <div class="p-col-4">
-              <button
-                pButton
-                type="button"
+              <gp-button
                 *ngIf="canAdd"
+                [type]="'icon'"
                 icon="pi pi-plus"
                 label="Añadir"
-                class="button-base full-width"
                 (click)="onDialogAdd()"
                 [disabled]="formControl.lockFields"
               >
-              </button>
+              </gp-button>
             </div>
           </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
           <tr>
-            <th *ngFor="let col of columns">
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
               {{ col.fieldMetadata.displayInfo.fieldLabel }}
+              <p-sortIcon
+                [field]="col.field"
+                class="sort-icon"
+                ariaLabel="Activate to sort"
+                ariaLabelDesc="Activate to sort in descending order"
+                ariaLabelAsc="Activate to sort in ascending order"
+              ></p-sortIcon>
             </th>
           </tr>
           <tr>
@@ -46,6 +52,7 @@
               <input
                 pInputText
                 type="text"
+                class="full-width"
                 (input)="tc.filter($event.target.value, col.field, 'startsWith')"
               />
             </th>
@@ -60,14 +67,12 @@
         </ng-template>
         <ng-template pTemplate="footer" let-columns>
           <div class="action-button-wrapper">
-            <button
-              class="button-base export-to-csv"
-              type="button"
-              pButton
+            <gp-button
+              [type]="'icon'"
               icon="pi pi-download"
               (click)="tc.exportCSV()"
               label="Exportar a CSV"
-            ></button>
+            ></gp-button>
           </div>
         </ng-template>
       </p-table>
@@ -105,6 +110,10 @@
           </gp-form-time-field>
           <gp-form-text-field *ngIf="col.formFieldType == 'gp-form-text-field'" [formField]="col">
           </gp-form-text-field>
+          <gp-form-number-field
+            *ngIf="col.formFieldType == 'gp-form-number-field'"
+            [formField]="col"
+          ></gp-form-number-field>
           <gp-form-textarea-field
             *ngIf="col.formFieldType == 'gp-form-textarea-field'"
             [formField]="col"
@@ -144,6 +153,10 @@
           </gp-form-wysiwyg-field>
           <gp-form-img-field *ngIf="col.formFieldType == 'gp-form-img-field'" [formField]="col">
           </gp-form-img-field>
+          <gp-form-nullable-checkbox-field
+            *ngIf="col.formFieldType == 'gp-form-nullable-checkbox-field'"
+            [formField]="col"
+          ></gp-form-nullable-checkbox-field>
         </div>
       </div>
       <div class="p-grid">
@@ -152,41 +165,39 @@
         </span>
       </div>
       <div class="p-grid action-buttons">
-        <div class="p-col-12 p-sm-3" *ngIf="canDelete && selectedRow">
-          <button
-            class="full-width button-danger"
+        <div *ngIf="canDelete && selectedRow" class="p-col-12 p-sm-3">
+          <gp-button
+            [severity]="'danger'"
             label="Borrar"
-            pButton
-            type="button"
+            class="full-width"
+            [type]="'icon'"
             icon="pi pi-trash"
             (click)="onDialogDelete()"
             [disabled]="formControl.lockFields"
           >
-          </button>
+          </gp-button>
         </div>
-        <div class="p-col-12 p-sm-4" *ngIf="canEdit || (canAdd && !selectedRow)">
-          <button
-            class="full-width button-base"
+        <div *ngIf="canEdit || (canAdd && !selectedRow)" class="p-col-12 p-sm-3">
+          <gp-button
             label="Guardar"
-            pButton
-            type="button"
+            class="full-width"
+            [type]="'icon'"
             icon="pi pi-save"
             (click)="onDialogSave()"
             [disabled]="formControl.lockFields"
           >
-          </button>
+          </gp-button>
         </div>
-        <div class="p-col-12 p-sm-4">
-          <button
-            class="full-width"
+        <div class="p-col-12 p-sm-3">
+          <gp-button
             label="Cerrar"
-            pButton
-            type="button"
+            [type]="'icon'"
+            class="full-width"
             icon="pi pi-times"
             (click)="closeDialog()"
             [disabled]="formControl.lockFields"
           >
-          </button>
+          </gp-button>
         </div>
       </div>
     </div>

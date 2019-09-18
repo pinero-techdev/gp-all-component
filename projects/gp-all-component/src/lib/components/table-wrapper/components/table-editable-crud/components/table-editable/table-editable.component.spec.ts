@@ -6,8 +6,9 @@ import { TableEditableComponent } from './table-editable.component';
 import { TableWrapperSharedProviders } from '../../../../../../shared/imports/table-wrapper-shared';
 import { FieldMetadataMock } from '../../../../../../shared/testing/@mock/types/list-rs.type.mock';
 import { TableMetadataService } from '../../../../../../services/api/table/table-metadata.service';
+import { ButtonModule } from '../../../../../button/button.module';
 
-xdescribe('TableEditableComponent', () => {
+describe('TableEditableComponent', () => {
   let component: TableEditableComponent;
   let fixture: ComponentFixture<TableEditableComponent>;
   let elementRef: HTMLElement;
@@ -16,7 +17,7 @@ xdescribe('TableEditableComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TableEditableComponent, TableEditableCellComponent],
-      imports: [SharedModule, MultiLanguageModule],
+      imports: [SharedModule, ButtonModule, MultiLanguageModule],
       providers: [TableWrapperSharedProviders, TableMetadataService],
     }).compileComponents();
   }));
@@ -35,25 +36,17 @@ xdescribe('TableEditableComponent', () => {
   });
 
   describe('Filters', () => {
+    let buttonClearFilters: HTMLButtonElement;
     beforeEach(() => {
       spyOn(component, 'clearFilters').and.callThrough();
+      buttonClearFilters = elementRef.querySelector('table thead gp-button > button');
     });
 
     it('should filter', () => {
-      const buttonClearFilters: HTMLButtonElement = elementRef.querySelector('table thead button');
       buttonClearFilters.click();
       expect(component.clearFilters).toHaveBeenCalled();
-      const noCleared = component.columns.filter((item) => !item.filter);
-      expect(noCleared.length).toEqual(0);
-    });
-
-    it('should clear filters', () => {
-      component.changeFilter(component.columns[0], '1');
-      const buttonClearFilters: HTMLButtonElement = elementRef.querySelector('table thead button');
-      buttonClearFilters.click();
-      expect(component.clearFilters).toHaveBeenCalled();
-      const noCleared = component.columns.filter((item) => !item.filter);
-      expect(noCleared.length).toEqual(0);
+      const cleared = component.columns.filter((item) => item.filter === null);
+      expect(cleared.length).toEqual(component.columns.length);
     });
   });
 });

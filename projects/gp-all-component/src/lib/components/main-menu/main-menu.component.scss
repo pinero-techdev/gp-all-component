@@ -27,6 +27,7 @@
       display: block;
       text-align: center;
       cursor: inherit;
+      position: relative;
 
       &:hover {
         background: transparent;
@@ -151,12 +152,12 @@
     }
 
     &-back-wrapper {
-      height: 8vh;
+      //height: 8vh;
     }
 
     &-back {
       @include absolute-centered(all);
-      top: 54%;
+      //top: 54%;
       border-radius: 30%;
       background: linear-gradient(135deg, $menuGradient3 0%, $menuGradient2 100%);
       box-shadow: 0 2px 50px 0 rgba($blackColor, 0.2);
@@ -188,6 +189,7 @@
       flex: 0 0 50%;
       max-width: 50%;
       align-items: center;
+      align-content: flex-start;
       margin-top: $main-menu-action-width;
       min-width: $main-menu-action-width;
 
@@ -209,7 +211,6 @@
       @media (min-width: map-get($breakpoints, 'md')) {
         flex: 0 0 50%;
         max-width: 50%;
-        padding-left: 15px;
       }
     }
 
@@ -237,6 +238,7 @@
     &-expanded {
       .menu-panel {
         flex: 0 0 1em;
+        align-content: flex-start;
         flex-direction: column;
         max-width: 10%;
 

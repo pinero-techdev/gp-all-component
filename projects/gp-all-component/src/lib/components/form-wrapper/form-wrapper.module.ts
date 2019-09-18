@@ -13,10 +13,11 @@ import { FormSliderFieldComponent } from './components/form-slider-field/form-sl
 import { FormSwitchFieldComponent } from './components/form-switch-field/form-switch-field.component';
 import { FormTextFieldComponent } from './components/form-text-field/form-text-field.component';
 import { FormTimeFieldComponent } from './components/form-time-field/form-time-field.component';
+import { FormNullableCheckboxComponent } from './components/form-nullable-checkbox-field/form-nullable-checkbox.component';
 import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
-} from './../../shared/imports/form-wrapper-shared';
+} from '../../shared/imports/form-wrapper-shared';
 import { SliderModule } from 'primeng/slider';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { SliderModule } from 'primeng/slider';
     FormDropdownFieldComponent,
     FormDropdownRelatedFieldComponent,
     FormImgFieldComponent,
+    FormNullableCheckboxComponent,
     FormNumberFieldComponent,
     FormSliderFieldComponent,
     FormSwitchFieldComponent,
@@ -41,6 +43,7 @@ import { SliderModule } from 'primeng/slider';
     FormDropdownFieldComponent,
     FormDropdownRelatedFieldComponent,
     FormImgFieldComponent,
+    FormNullableCheckboxComponent,
     FormNumberFieldComponent,
     FormSliderFieldComponent,
     FormSwitchFieldComponent,

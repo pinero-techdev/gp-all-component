@@ -27,13 +27,14 @@ import { FormWysiwygFieldComponent } from '../../../form-wrapper/components/form
 import { FilterOperationType } from '../../../../resources/data/filter/filter-operation-type.enum';
 import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
 import { DataTableMetaData } from '../../../../resources/data/data-table/meta-data/data-table-meta-data.model';
-import { GpFormField } from './../../../../components/form-wrapper/resources/form-field.model';
-import { GpFormControl } from './../../../../components/form-wrapper/resources/form-control.model';
-import { GpFormFieldType } from './../../../../components/form-wrapper/resources/form-field-type.enum';
-import { GpFormFieldControl } from './../../../../components/form-wrapper/resources/form-field-control.class';
+import { GpFormField } from '../../../form-wrapper/resources/form-field.model';
+import { GpFormControl } from '../../../form-wrapper/resources/form-control.model';
+import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
+import { GpFormFieldControl } from '../../../form-wrapper/resources/form-field-control.class';
 import { isNullOrUndefined } from 'util';
-import { LocaleES } from './../../../../resources/localization/es-ES.lang';
-import { GpTableDisplayTypes } from './../../resources/gp-table-display-types.enum';
+import { LocaleES } from '../../../../resources/localization';
+import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
+import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
 
 @Component({
   selector: 'gp-table-crud',
@@ -211,6 +212,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
   @ViewChildren(FormWysiwygFieldComponent)
   wysiwygFormFields: QueryList<FormWysiwygFieldComponent>;
+
+  @ViewChildren(FormNullableCheckboxComponent)
+  nullableCheckboxFormFields: QueryList<FormNullableCheckboxComponent>;
 
   constructor(
     private readonly router: Router,
@@ -607,6 +611,9 @@ export class TableCrudComponent implements AfterViewChecked {
       f(col);
     });
     this.imgFormFields.forEach((col) => {
+      f(col);
+    });
+    this.nullableCheckboxFormFields.forEach((col) => {
       f(col);
     });
   }

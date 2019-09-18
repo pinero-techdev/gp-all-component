@@ -5,13 +5,12 @@
     [pTooltip]="columnMetadata.messages"
     tooltipPosition="top"
   ></i>
-  <button
+  <gp-button
     *ngSwitchCase="inputType.TEXT_AREA"
-    pButton
     label="{{ translations.OPEN }}"
     (click)="openTextareaModal()"
     [disabled]="!isEditable()"
-  ></button>
+  ></gp-button>
   <input
     pInputText
     *ngSwitchCase="inputType.TEXT"
@@ -60,36 +59,36 @@
   >
   </p-inputSwitch>
   <ng-template [ngIf]="!isFilter">
-    <button
+    <gp-button
       *ngSwitchCase="inputType.IMG"
-      pButton
+      [type]="'icon'"
       icon="pi pi-image"
       label="{{ translations.OPEN }}"
       (click)="openImgModal()"
       [disabled]="!isEditable()"
-    ></button>
-    <button
+    ></gp-button>
+    <gp-button
       *ngSwitchCase="inputType.WYSIWYG"
-      pButton
+      [type]="'icon'"
       label="{{ translations.OPEN }}"
       icon="pi pi-pencil"
       (click)="openWYSIWYGModal()"
       [disabled]="!isEditable()"
-    ></button>
+    ></gp-button>
     <ng-template [ngSwitchCase]="inputType.FILE">
-      <button
-        pButton
+      <gp-button
+        [type]="'icon'"
         icon="pi pi-upload"
         (click)="openFileModal()"
         [disabled]="!isEditable()"
-      ></button>
-      <button
-        pButton
+      ></gp-button>
+      <gp-button
+        [type]="'icon'"
         *ngIf="hasFile() || (value && value['content'])"
         icon="pi pi-trash"
         (click)="deleteFile()"
         [disabled]="!isEditable()"
-      ></button>
+      ></gp-button>
     </ng-template>
   </ng-template>
   <p-calendar
@@ -206,18 +205,15 @@
     class="full-width"
   />
   <p-footer>
-    <button
-      pButton
+    <gp-button
       label="{{ translations.ACCEPT }}"
-      class="ui-button-success"
       (click)="startStop(temporalValue); imgModalVisible = false"
-    ></button>
-    <button
-      pButton
+    ></gp-button>
+    <gp-button
       label="{{ translations.CANCEL }}"
-      class="ui-button-danger"
+      [severity]="'danger'"
       (click)="imgModalVisible = false"
-    ></button>
+    ></gp-button>
   </p-footer>
 </p-dialog>
 
@@ -263,18 +259,15 @@
     </gp-multi-language>
   </div>
   <p-footer>
-    <button
-      pButton
+    <gp-button
       label="{{ translations.ACCEPT }}"
-      class="ui-button-success"
       (click)="startStop(temporalValue); textareaModalVisible = false"
-    ></button>
-    <button
-      pButton
+    ></gp-button>
+    <gp-button
       label="{{ translations.CANCEL }}"
-      class="ui-button-danger"
+      [severity]="'danger'"
       (click)="textareaModalVisible = false"
-    ></button>
+    ></gp-button>
   </p-footer>
 </p-dialog>
 
@@ -288,18 +281,15 @@
   <p-editor [(ngModel)]="temporalValue" [style]="{ height: '200px' }" [disabled]="!isEditable()">
   </p-editor>
   <p-footer>
-    <button
-      pButton
+    <gp-button
       label="{{ translations.ACCEPT }}"
-      class="ui-button-success"
       (click)="startStop(temporalValue); wysiwygModalVisible = false"
-    ></button>
-    <button
-      pButton
+    ></gp-button>
+    <gp-button
       label="{{ translations.CANCEL }}"
-      class="ui-button-danger"
+      [severity]="'danger'"
       (click)="wysiwygModalVisible = false"
-    ></button>
+    ></gp-button>
   </p-footer>
 </p-dialog>
 
@@ -312,19 +302,14 @@
 >
   <input type="file" name="file" (change)="readFile($event)" [disabled]="!isEditable()" />
   <p-footer>
-    <button
-      pButton
+    <gp-button
       label="{{ translations.ACCEPT }}"
-      type="button"
-      class="ui-button-success"
       (click)="startStop(temporalFile); fileModalVisible = false"
-    ></button>
-    <button
-      pButton
+    ></gp-button>
+    <gp-button
+      [severity]="'danger'"
       label="{{ translations.CANCEL }}"
-      class="ui-button-danger"
-      type="button"
       (click)="fileModalVisible = false"
-    ></button>
+    ></gp-button>
   </p-footer>
 </p-dialog>

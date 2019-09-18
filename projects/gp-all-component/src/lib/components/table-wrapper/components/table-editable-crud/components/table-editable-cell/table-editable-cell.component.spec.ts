@@ -14,6 +14,7 @@ import { TestingErrorCodeMock } from '../../../../../../shared/testing/@mock/uti
 import { of } from 'rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { ButtonModule } from '../../../../../button/button.module';
 
 describe('TableEditableCellComponent', () => {
   let component: TableEditableCellComponent;
@@ -27,7 +28,7 @@ describe('TableEditableCellComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TableEditableCellComponent, TableEditableCellComponent],
-      imports: [BrowserAnimationsModule, SharedModule, MultiLanguageModule],
+      imports: [BrowserAnimationsModule, ButtonModule, SharedModule, MultiLanguageModule],
       providers: [
         TableWrapperSharedProviders,
         { provide: NG_VALUE_ACCESSOR, useExisting: TableEditableCellComponent, multi: true },
@@ -319,8 +320,8 @@ describe('TableEditableCellComponent', () => {
       metadata.type = GpFormFieldType.FILE;
       component.columnMetadata = metadata;
       fixture.detectChanges();
-      $uploadFileButton = fixture.nativeElement.querySelector('button');
-      $deleteFileButton = fixture.nativeElement.querySelector('button:last-child');
+      $uploadFileButton = fixture.nativeElement.querySelector('gp-button > button');
+      $deleteFileButton = fixture.nativeElement.querySelector('gp-button:last-child > button');
     });
 
     it('should create', () => {
@@ -352,8 +353,9 @@ describe('TableEditableCellComponent', () => {
       component.readFile(newEventFileInput);
       expect(component.temporalFile).toBeTruthy();
       const $save: HTMLButtonElement = fixture.nativeElement.querySelector(
-        'button.ui-button-success'
+        'p-footer gp-button > button'
       );
+
       expect($save).toBeTruthy();
       $save.click();
 
@@ -365,7 +367,7 @@ describe('TableEditableCellComponent', () => {
       $uploadFileButton.click();
       fixture.detectChanges();
       const $cancelButton: HTMLButtonElement = fixture.nativeElement.querySelector(
-        'button.ui-button-danger'
+        'p-footer gp-button:last-child > button'
       );
       $cancelButton.click();
       fixture.detectChanges();

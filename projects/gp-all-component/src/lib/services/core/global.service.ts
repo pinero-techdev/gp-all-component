@@ -4,11 +4,24 @@ import { RolInfo } from '../../resources/data/rol-info.model';
 import { UserInfo } from '../../resources/data/user-info.model';
 import { GlobalSingletonService } from './global-singleton.service';
 import { SessionStorageService } from '../session-storage/session-storage.service';
+import { environmentBase, IEnvironment } from '../../util/environment';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
   private static globalSingleton: GlobalSingletonService = new GlobalSingletonService();
+
   private static sessionStorageService = new SessionStorageService();
+
+  public static setEnvironment(environment: IEnvironment) {
+    const env = { ...environmentBase, ...environment };
+    GlobalService.setBaseUrl(env.baseUrl);
+    GlobalService.setLoginServiceUrl(env.loginUrl);
+    GlobalService.setMenuServiceUrl(env.menuUrl);
+    GlobalService.setApp(env.appName);
+    GlobalService.setAplicacionLogin(env.appName);
+    GlobalService.setLogged(false);
+    GlobalService.setApplicationTitle(env.appTitle);
+  }
 
   public static getBASE_URL(): string {
     return GlobalService.globalSingleton.baseUrl;

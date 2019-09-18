@@ -13,10 +13,7 @@
             [pTooltip]="item.text"
             [tooltipDisabled]="disableTooltip"
           >
-            <div
-              class="{{ item.icon ? 'menu-icon-' + item.icon : '' }}"
-              [ngClass]="{ 'menu-icon': item.icon }"
-            ></div>
+            <div class="{{ item.icon ? 'menu-icon menu-icon-' + item.icon : 'menu-icon' }}"></div>
             <span class="menu-label">{{ item.text }}</span>
           </a>
           <a
@@ -27,11 +24,7 @@
             [pTooltip]="item.text"
             [tooltipDisabled]="disableTooltip"
           >
-            <div
-              class="{{ item.icon ? 'menu-icon-' + item.icon : 'menu-icon menu-back-wrapper' }}"
-              [ngClass]="{ 'menu-icon': item.icon }"
-              [ngStyle]="{ position: 'relative' }"
-            >
+            <div class="{{ item.icon ? 'menu-icon menu-icon-' + item.icon : 'menu-icon' }}">
               <div *ngIf="item.parentList && item.parentList.length > 0" class="menu-back"></div>
             </div>
             <span

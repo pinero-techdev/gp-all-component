@@ -4,6 +4,7 @@
 @import './global/box-model';
 @import './fonts/fonts';
 @import './fonts/icons';
+@import './theme/theme';
 
 /** GENERAL **/
 :root {
@@ -32,7 +33,7 @@ body {
 i,
 .pi {
   font-family: 'primeicons';
-  color: $whiteColor;
+  color: $textColor;
 }
 
 .card {

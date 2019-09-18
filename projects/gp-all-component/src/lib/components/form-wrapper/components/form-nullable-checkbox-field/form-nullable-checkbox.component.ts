@@ -4,11 +4,11 @@ import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 
 @Component({
-  selector: 'gp-form-checkbox-field',
-  templateUrl: './form-checkbox-field.component.html',
-  styleUrls: ['./form-checkbox-field.component.scss'],
+  selector: 'gp-form-nullable-checkbox-field',
+  templateUrl: './form-nullable-checkbox-field.component.html',
+  styleUrls: ['./form-nullable-checkbox-field.component.scss'],
 })
-export class FormCheckboxFieldComponent extends GpFormFieldControl implements OnInit {
+export class FormNullableCheckboxComponent extends GpFormFieldControl implements OnInit {
   /**
    * The formField for this component
    */

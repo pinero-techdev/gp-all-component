@@ -4,23 +4,22 @@
   <div class="p-grid p-justify-between table-header" style="text-align: left;">
     <div>{{ config.title }}</div>
     <div>
-      <button
-        pButton
+      <gp-button
         *ngIf="config.canAdd"
         label="{{ translations.ADD }}"
         (click)="createItem()"
         [disabled]="onEdition || onCreation"
-        class="cyan-btn"
+        [type]="'icon'"
         icon="pi pi-plus"
-      ></button>
-      <button
-        pButton
+      ></gp-button>
+      <gp-button
+        *ngIf="onEdition || onCreation"
         label="{{ translations.CANCEL }}"
         (click)="cancel()"
-        *ngIf="onEdition || onCreation"
-        class="ui-button-danger"
+        [type]="'icon'"
         icon="pi pi-times"
-      ></button>
+        [severity]="'danger'"
+      ></gp-button>
     </div>
   </div>
 
@@ -81,7 +80,12 @@
             </th>
           </ng-template>
           <th *ngIf="config.actionsColumn">
-            <button pButton label="Clear" (click)="clearFilters()" icon="pi pi-times"></button>
+            <gp-button
+              [type]="'icon'"
+              label="Clear"
+              (click)="clearFilters()"
+              icon="pi pi-times"
+            ></gp-button>
           </th>
         </tr>
       </thead>
@@ -100,12 +104,12 @@
         </tr>
         <tr *ngIf="config.exportable" class="ui-table-caption">
           <td [attr.colspan]="footerColspan" class="ui-widget-header ui-table-summary">
-            <button
-              pButton
+            <gp-button
+              [type]="'icon'"
               label="Exportar a CSV"
               icon="pi pi-download"
               (click)="exportToCsv()"
-            ></button>
+            ></gp-button>
           </td>
         </tr>
       </tfoot>
@@ -160,37 +164,37 @@
                   <ng-container [ngSwitch]="column.type">
                     <ng-template [ngSwitchCase]="inputType.FILE">
                       <p *ngIf="!hasFile(item, column)">{{ item[column.name] }}</p>
-                      <button
+                      <gp-button
                         *ngIf="hasFile(item, column)"
-                        pButton
+                        [type]="'icon'"
                         icon="pi pi-upload"
                         (click)="download(item, column)"
-                      ></button>
+                      ></gp-button>
                     </ng-template>
-                    <button
+                    <gp-button
                       *ngSwitchCase="inputType.IMG"
-                      pButton
+                      [type]="'icon'"
                       icon="pi pi-eye"
                       (click)="
                         imgModalVisible.visible = true; imgModalVisible.img = item[column.name]
                       "
-                    ></button>
-                    <button
+                    ></gp-button>
+                    <gp-button
                       *ngSwitchCase="inputType.WYSIWYG"
                       icon="pi pi-eye"
-                      pButton
+                      [type]="'icon'"
                       (click)="
                         textModalVisible.visible = true; textModalVisible.text = item[column.name]
                       "
-                    ></button>
-                    <button
+                    ></gp-button>
+                    <gp-button
                       *ngSwitchCase="inputType.TEXT_AREA"
                       icon="pi pi-eye"
-                      pButton
+                      [type]="'icon'"
                       (click)="
                         textModalVisible.visible = true; textModalVisible.text = item[column.name]
                       "
-                    ></button>
+                    ></gp-button>
                     <ng-template ngSwitchDefault>
                       <ng-template
                         [ngIf]="column.referenceDescription"
@@ -225,42 +229,41 @@
                 "
               ></ng-content>
               <ng-template #defaultActionsTemplate let-item let-columns="columns">
-                <button
-                  pButton
+                <gp-button
+                  [type]="'icon'"
                   icon="pi pi-pencil"
                   [disabled]="onEdition || onCreation || !isEditable(item)"
                   *ngIf="config.canEdit"
                   (click)="editItem(item)"
-                ></button>
-                <button
-                  pButton
+                ></gp-button>
+                <gp-button
+                  [type]="'icon'"
                   icon="pi pi-trash"
                   [disabled]="onEdition || onCreation || !isDeletable(item)"
                   *ngIf="config.canDelete"
                   (click)="beforeDeleteItem(item)"
-                  class="ui-button-danger"
-                ></button>
+                  [severity]="'danger'"
+                ></gp-button>
               </ng-template>
             </ng-template>
 
-            <button
-              pButton
+            <gp-button
+              [type]="'icon'"
               icon="pi pi-save"
               [disabled]="
                 ((onEdition || onCreation) && !item._editting) || (item._editting && !itemValid)
               "
               *ngIf="item._editting"
               (click)="beforeSaveItem(item, editionObject)"
-              class="ui-button-success"
-            ></button>
-            <button
-              pButton
+            ></gp-button>
+            <gp-button
+              [type]="'icon'"
               icon="pi pi-trash"
               [disabled]="(onEdition || onCreation) && !item._editting"
               *ngIf="item._editting"
               (click)="cancelEdit(item)"
-              class="ui-button-danger"
-            ></button>
+              [severity]="'danger'"
+            ></gp-button>
           </td>
         </tr>
         <ng-template [ngIf]="onCreation">
@@ -277,19 +280,18 @@
               "
             ></ng-content>
             <td *ngIf="config.actionsColumn" class="actions-colum">
-              <button
-                pButton
+              <gp-button
+                [type]="'icon'"
                 icon="pi pi-save"
                 [disabled]="!itemValid"
                 (click)="beforeCreateItem(creationObject)"
-                class="ui-button-success"
-              ></button>
-              <button
-                pButton
+              ></gp-button>
+              <gp-button
+                [type]="'icon'"
                 icon="pi pi-trash"
                 (click)="cancel()"
-                class="ui-button-danger"
-              ></button>
+                [severity]="'danger'"
+              ></gp-button>
             </td>
           </tr>
         </ng-template>
@@ -304,23 +306,21 @@
     *ngIf="imgModalVisible.visible"
   />
   <p-footer>
-    <button
-      pButton
+    <gp-button
+      [type]="'icon'"
       label="{{ translations.CLOSE }}"
-      class="ui-button-success"
       (click)="imgModalVisible.visible = false"
-    ></button>
+    ></gp-button>
   </p-footer>
 </p-dialog>
 <p-dialog [(visible)]="textModalVisible.visible" [modal]="true">
   <p>{{ textModalVisible.text }}</p>
   <p-footer>
-    <button
-      pButton
+    <gp-button
+      [type]="'icon'"
       label="{{ translations.CLOSE }}"
-      class="ui-button-success"
       (click)="textModalVisible.visible = false"
-    ></button>
+    ></gp-button>
   </p-footer>
 </p-dialog>
 <ng-template #defaultFormTemplate let-item let-columns="columns">

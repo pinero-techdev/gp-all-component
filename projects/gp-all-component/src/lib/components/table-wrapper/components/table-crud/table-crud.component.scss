@@ -1,6 +1,5 @@
 @import 'global/variables';
 @import 'global/mixins';
-@import 'global/buttons';
 
 ::ng-deep {
   .gp-table-wrapper {
@@ -24,6 +23,7 @@
           font-size: 12px;
           border: none;
           padding: 0.25em 0.5em;
+          width: 100%;
 
           .p-grid {
             align-items: center;
@@ -39,16 +39,6 @@
 
               &:last-child {
                 text-align: right;
-              }
-
-              button {
-                max-width: 140px;
-                font-weight: 600;
-                letter-spacing: 0.19px;
-                font-size: 13.5px;
-                [class^='ui-button'] {
-                  background: transparent;
-                }
               }
             }
           }
@@ -98,6 +88,12 @@
               font-size: 12px;
               text-align: left;
               height: 40px;
+
+              &.ui-sortable-column.ui-state-highlight {
+                p-sorticon.sort-icon > .ui-sortable-column-icon {
+                  color: $textMutedColor;
+                }
+              }
             }
 
             .column-filter {
@@ -182,9 +178,6 @@
         &-tfoot {
           position: absolute;
           bottom: -56px;
-          [class^='ui-button'] {
-            background: transparent;
-          }
         }
 
         p-paginator {
@@ -280,8 +273,11 @@
 
       .action-buttons {
         margin-top: $separationLarge;
-        [class^='ui-button'] {
-          background: transparent;
+        margin-left: 0;
+        margin-right: 0;
+
+        div {
+          text-align: left;
         }
       }
 

@@ -1,0 +1,9 @@
+@import '../global/variables';
+/* Put your custom styles here for the PrimeNG Input Text */
+body .ui-inputtext {
+  &:enabled:not(.ui-state-error):focus,
+  &:enabled:not(.ui-state-error):hover,
+  &:enabled:not(.ui-state-error):active {
+    border-color: $borderColor;
+  }
+}

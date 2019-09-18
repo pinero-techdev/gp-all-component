@@ -107,7 +107,7 @@ export class MultiLanguageComponent implements OnInit {
     const sorted: Translation[] = [];
     for (const codIdioma of ordenIds) {
       for (const translation of translations) {
-        if (translation.idiomaCodigo === codIdioma) {
+        if (translation.codigoIdioma === codIdioma) {
           sorted.push(translation);
           break;
         }
@@ -125,7 +125,7 @@ export class MultiLanguageComponent implements OnInit {
         this.schema,
         this.table,
         this.field,
-        item.idiomaCodigo,
+        item.codigoIdioma,
         item.idiomaPaisTraduccion
       );
       this.multiLanguageService
@@ -167,7 +167,7 @@ export class MultiLanguageComponent implements OnInit {
   /* There is a button to active another dialog for editing with p-editor  */
   showEditorHTMLDialog(translation: Translation) {
     this.text = new Translation(
-      translation.idiomaCodigo,
+      translation.codigoIdioma,
       translation.idiomaPais,
       translation.idiomaPaisTraduccion !== null ? translation.idiomaPaisTraduccion : ''
     );
