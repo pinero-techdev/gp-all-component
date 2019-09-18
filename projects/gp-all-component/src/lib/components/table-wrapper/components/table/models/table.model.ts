@@ -10,9 +10,9 @@ export class TableModel {
   filterable? = false;
   sortable? = false;
   selectable?: SelectionMode;
-  exportFilename?: string;
+  exportFilename = 'summary-csv';
   csvSeparator = ';';
   lazy? = true;
-  pagination?: boolean;
+  pagination = false;
   native? = new NativeOptions();
 }

@@ -97,13 +97,11 @@ export class TableComponent implements AfterContentInit {
    * Builds the table model
    */
   private buildModel(): void {
-    if (this.model) {
-      this.coreModel = new TableBuilder().createModel(
-        this.model,
-        this.customColumns,
-        this.editableColumns,
-        this.pagination
-      );
-    }
+    this.coreModel = new TableBuilder().createModel(
+      this.model,
+      this.customColumns,
+      this.editableColumns,
+      this.pagination
+    );
   }
 }
