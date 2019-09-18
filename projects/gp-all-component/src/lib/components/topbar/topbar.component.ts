@@ -175,6 +175,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    * closes the menu.
    */
   goToLogin() {
+    GlobalService.setPreLoginUrl(null);
     this.router.navigate(['login']);
     this.toggleMenu(false);
   }

@@ -9,6 +9,7 @@ import {
   TemplateRef,
   ContentChild,
   OnDestroy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { takeWhile, first } from 'rxjs/operators';
@@ -44,6 +45,10 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Holds the component life status
    */
   private isAlive = true;
+
+  // tslint:disable
+  private _isOpen = false;
+  // tslint:enable
 
   /**
    * Holds the expanded check
@@ -98,25 +103,32 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    */
   @Output() sendBreadcrumb = new EventEmitter();
 
-  constructor(private router: Router, private menuProviderService: MainMenuService) {}
+  constructor(
+    private router: Router,
+    private menuProviderService: MainMenuService,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   /**
    * Angular OnInit lifecycle hook
    */
   ngOnInit() {
     const sessionId = GlobalService.getSESSION_ID();
-    const request = new MenuRq(sessionId, GlobalService.getPARAMS());
 
-    this.menuProviderService
-      .getMenu(request)
-      .pipe(first())
-      .subscribe((menu) => this.setMainMenu(menu));
+    if (sessionId) {
+      const request = new MenuRq(sessionId, GlobalService.getPARAMS());
 
-    this.router.events.pipe(takeWhile(() => this.isAlive)).subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.reset();
-      }
-    });
+      this.menuProviderService
+        .getMenu(request)
+        .pipe(first())
+        .subscribe((menu) => this.setMainMenu(menu));
+
+      this.router.events.pipe(takeWhile(() => this.isAlive)).subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.reset();
+        }
+      });
+    }
   }
 
   /**
