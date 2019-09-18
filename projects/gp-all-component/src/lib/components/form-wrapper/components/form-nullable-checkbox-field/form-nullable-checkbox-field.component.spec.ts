@@ -58,28 +58,6 @@ describe('FormCheckboxFieldComponent', () => {
     expect(metadata).toEqual(formField.fieldMetadata);
   });
 
-  it('should copy value from control to edited row', () => {
-    const editedFormField = {
-      ...FormFieldMock,
-      cansCodi: false,
-    };
-
-    component.copyValueFromControlToEditedRow(editedFormField);
-
-    expect(editedFormField[component.formField.fieldMetadata.fieldName]).toBeTruthy();
-  });
-
-  it('should copy value from edited row to control', () => {
-    const editedFormField = {
-      ...FormFieldMock,
-      cansCodi: false,
-    };
-
-    component.copyValueFromEditedRowToControl(editedFormField);
-
-    expect(component.currentValue).toBeFalsy();
-  });
-
   describe('on validate', () => {
     it('should pass', () => {
       const validation = component.validateField();
