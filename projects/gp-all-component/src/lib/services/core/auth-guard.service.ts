@@ -5,6 +5,7 @@ import { MainMenuService, MenuRq } from '../api/main-menu/main-menu.service';
 import { Observable } from 'rxjs';
 import { LoginService } from '../api/login/login.service';
 import { GlobalService } from './global.service';
+import { first } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -24,40 +25,46 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     const url = route.routeConfig.path;
     return Observable.create((observer) => {
-      this.loginService.sessionInfo().subscribe(
-        (data) => {
-          const isLogged = data.ok;
-          let isAllowed = false;
-          const isPublic = this.isPublic(route);
-          let hasPermission = false;
-          if (url !== this.appUrl && url !== this.homeUrl) {
-            const params = Object.keys(route.params).length;
-            if (isLogged) {
-              const rq = new MenuRq(data.sessionId, GlobalService.getPARAMS());
-              this.menuService.getMenu(rq).subscribe(
-                (menu) => {
-                  hasPermission = this.menuProvider.optionIsActive(menu, url, params);
-                  isAllowed = this.isAllowed(isLogged, isPublic, hasPermission, url);
-                  observer.next(isAllowed);
-                },
-                () => {
-                  isAllowed = this.isAllowed(isLogged, isPublic, false, url);
-                  observer.next(isAllowed);
-                }
-              );
+      this.loginService
+        .sessionInfo()
+        .pipe(first())
+        .subscribe(
+          (data) => {
+            const isLogged = data.ok;
+            let isAllowed = false;
+            const isPublic = this.isPublic(route);
+            let hasPermission = false;
+            if (url !== this.appUrl && url !== this.homeUrl) {
+              const params = Object.keys(route.params).length;
+              if (isLogged) {
+                const rq = new MenuRq(data.sessionId, GlobalService.getPARAMS());
+                this.menuService
+                  .getMenu(rq)
+                  .pipe(first())
+                  .subscribe(
+                    (menu) => {
+                      hasPermission = this.menuProvider.optionIsActive(menu, url, params);
+                      isAllowed = this.isAllowed(isLogged, isPublic, hasPermission, url);
+                      observer.next(isAllowed);
+                    },
+                    () => {
+                      isAllowed = this.isAllowed(isLogged, isPublic, false, url);
+                      observer.next(isAllowed);
+                    }
+                  );
+              } else {
+                isAllowed = this.isAllowed(isLogged, isPublic, false, url);
+                observer.next(isAllowed);
+              }
             } else {
-              isAllowed = this.isAllowed(isLogged, isPublic, false, url);
+              isAllowed = this.isAllowed(isLogged, isPublic, true, url);
               observer.next(isAllowed);
             }
-          } else {
-            isAllowed = this.isAllowed(isLogged, isPublic, true, url);
-            observer.next(isAllowed);
+          },
+          () => {
+            observer.next(false);
           }
-        },
-        () => {
-          observer.next(false);
-        }
-      );
+        );
     });
   }
 
@@ -80,7 +87,7 @@ export class AuthGuard implements CanActivate {
       // User is logged and has permission to visit next url --> allowed
       isAllowed = true;
     } else if (!isLogged && isPublic) {
-      // User is not logged but next url to visit is public => allowed
+      // User is not logged but next url to visit is public --> allowed
       isAllowed = true;
     } else if (!isLogged && !isPublic) {
       // User is not logged, has not permission to visit next url that is not public --> go to login
