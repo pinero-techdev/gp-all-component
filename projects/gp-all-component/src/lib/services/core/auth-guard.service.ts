@@ -1,8 +1,11 @@
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { GlobalService } from './global.service';
 import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.service';
-import { MainMenuService } from '../api/main-menu/main-menu.service';
+import { MainMenuService, MenuRq } from '../api/main-menu/main-menu.service';
+import { Observable } from 'rxjs';
+import { LoginService } from '../api/login/login.service';
+import { GlobalService } from './global.service';
+import { first } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -13,38 +16,56 @@ export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private menuProvider: MainMenuProviderService,
-    private menuService: MainMenuService
+    private menuService: MainMenuService,
+    private loginService: LoginService
   ) {
     //
   }
 
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-    const isLogged = this.isLogged();
-    const isPublic = this.isPublic(route);
-    const isLogin = this.nextIsEqualTo(route, this.loginUrl);
-    let isAllowed = true;
-
-    if (isLogged && (isLogin || !this.hasPermissions(route))) {
-      // User is logged and next url to visit is Login or
-      // the user has NOT permissions => not allowed
-      isAllowed = false;
-      this.router.navigateByUrl(this.appUrl).then();
-    } else if (!isLogged && !isPublic) {
-      // User is NOT logged and next url to visit is private => not allowed
-      isAllowed = false;
-      this.router.navigateByUrl(this.loginUrl).then();
-    }
-
-    return isAllowed;
-  }
-
-  /**
-   * Compare the next url to visit with a url passed by param
-   * @param route
-   * @param stateUrl
-   */
-  private nextIsEqualTo(route: ActivatedRouteSnapshot, stateUrl: string): boolean {
-    return route.routeConfig.path === stateUrl;
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
+    const url = route.routeConfig.path;
+    return Observable.create((observer) => {
+      this.loginService
+        .sessionInfo()
+        .pipe(first())
+        .subscribe(
+          (data) => {
+            const isLogged = data.ok;
+            let isAllowed = false;
+            const isPublic = this.isPublic(route);
+            let hasPermission = false;
+            if (url !== this.appUrl && url !== this.homeUrl) {
+              const params = Object.keys(route.params).length;
+              if (isLogged) {
+                const rq = new MenuRq(data.sessionId, GlobalService.getPARAMS());
+                this.menuService
+                  .getMenu(rq)
+                  .pipe(first())
+                  .subscribe(
+                    (menu) => {
+                      hasPermission = this.menuProvider.optionIsActive(menu, url, params);
+                      isAllowed = this.isAllowed(isLogged, isPublic, hasPermission, url);
+                      observer.next(isAllowed);
+                    },
+                    () => {
+                      isAllowed = this.isAllowed(isLogged, isPublic, false, url);
+                      observer.next(isAllowed);
+                    }
+                  );
+              } else {
+                isAllowed = this.isAllowed(isLogged, isPublic, false, url);
+                observer.next(isAllowed);
+              }
+            } else {
+              isAllowed = this.isAllowed(isLogged, isPublic, true, url);
+              observer.next(isAllowed);
+            }
+          },
+          () => {
+            observer.next(false);
+          }
+        );
+    });
   }
 
   /**
@@ -55,25 +76,26 @@ export class AuthGuard implements CanActivate {
     return route.data && route.data.hasOwnProperty('public') ? route.data.public : false;
   }
 
-  /**
-   * Returns if the user is logged
-   */
-  private isLogged(): boolean {
-    return !!GlobalService.getSESSION_ID();
-  }
-
-  /**
-   * Some users are allow to visit some urls and others users are not.
-   * So, menu provider decides if the user can visit it or not.
-   * @param route
-   */
-  private hasPermissions(route: ActivatedRouteSnapshot): boolean {
-    let isAllowed = true;
-    const url = route.routeConfig.path;
-    if (url !== this.appUrl && url !== this.homeUrl) {
-      const params = Object.keys(route.params).length;
-      const menu = this.menuService.temp;
-      isAllowed = this.menuProvider.optionIsActive(menu, url, params);
+  private isAllowed(
+    isLogged: boolean,
+    isPublic: boolean,
+    hasPermission: boolean,
+    url: string
+  ): boolean {
+    let isAllowed = false;
+    if (isLogged && hasPermission) {
+      // User is logged and has permission to visit next url --> allowed
+      isAllowed = true;
+    } else if (!isLogged && isPublic) {
+      // User is not logged but next url to visit is public --> allowed
+      isAllowed = true;
+    } else if (!isLogged && !isPublic) {
+      // User is not logged, has not permission to visit next url that is not public --> go to login
+      this.router.navigateByUrl(this.loginUrl).then();
+    }
+    if (!isAllowed) {
+      // If not allowed save url, to jump when logged
+      GlobalService.setPreLoginUrl(url);
     }
     return isAllowed;
   }

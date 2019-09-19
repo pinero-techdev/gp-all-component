@@ -1,18 +1,18 @@
 import { GlobalService } from './../../services/core/global.service';
 import { MainMenuService, MenuRq } from '../../services/api/main-menu/main-menu.service';
 import {
-  ChangeDetectorRef,
   Component,
-  ContentChild,
-  EventEmitter,
-  Input,
-  OnDestroy,
   OnInit,
+  EventEmitter,
   Output,
+  Input,
   TemplateRef,
+  ContentChild,
+  OnDestroy,
+  ChangeDetectorRef,
 } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { first, takeWhile } from 'rxjs/operators';
+import { Router, NavigationEnd } from '@angular/router';
+import { takeWhile, first } from 'rxjs/operators';
 import { LocaleES } from '../../resources/localization';
 
 class MenuItem {
@@ -49,6 +49,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   // tslint:disable
   private _isOpen = false;
   // tslint:enable
+
   /**
    * Holds the expanded check
    */
@@ -113,18 +114,21 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     const sessionId = GlobalService.getSESSION_ID();
-    const request = new MenuRq(sessionId, GlobalService.getPARAMS());
 
-    this.menuProviderService
-      .getMenu(request)
-      .pipe(first())
-      .subscribe((menu) => this.setMainMenu(menu));
+    if (sessionId) {
+      const request = new MenuRq(sessionId, GlobalService.getPARAMS());
 
-    this.router.events.pipe(takeWhile(() => this.isAlive)).subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.reset();
-      }
-    });
+      this.menuProviderService
+        .getMenu(request)
+        .pipe(first())
+        .subscribe((menu) => this.setMainMenu(menu));
+
+      this.router.events.pipe(takeWhile(() => this.isAlive)).subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.reset();
+        }
+      });
+    }
   }
 
   /**
@@ -152,11 +156,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     newItem.overview = item.overview ? item.overview : null;
     newItem.parentList = item.parentList ? item.parentList : [];
     newItem.submenus = item.submenus ? this.setSubMenu(item.submenus) : [];
-    newItem.text = item.hasOwnProperty('text')
-      ? item.text
-      : item.hasOwnProperty('texto')
-      ? item.texto
-      : null;
+    newItem.text = item.hasOwnProperty('text') ? item.text : null;
     newItem.type = item.type ? item.type : null;
 
     return newItem;

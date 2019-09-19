@@ -8,6 +8,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MainMenuComponent } from './main-menu.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from '../../shared/shared.module';
+import { GlobalService } from '../../services/core/global.service';
 
 @Component({ template: '' })
 class DummyComponent {}
@@ -56,6 +57,8 @@ describe('MainMenuComponent', () => {
       const mainMenuSpy = spyOn(mainMenuService, 'getMenu').and.callThrough();
       const homeNav = new NavigationEnd(1, 'home', 'home');
       const router = TestBed.get(Router);
+
+      GlobalService.setSessionId('SessionIdPrueba');
 
       component.ngOnInit();
 
