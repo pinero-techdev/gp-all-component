@@ -8,10 +8,6 @@
     align-items: center;
     width: 100%;
 
-    &.with-multilanguage {
-      width: calc(100% * 2 / 3);
-    }
-
     .ui-inputtext.ui-widget {
       @include make-input();
       overflow-y: hidden;
@@ -21,9 +17,7 @@
       }
     }
   }
-
   .multilanguage-wrapper {
-    width: calc(100% * 1 / 3);
     margin-left: $separation;
   }
 }

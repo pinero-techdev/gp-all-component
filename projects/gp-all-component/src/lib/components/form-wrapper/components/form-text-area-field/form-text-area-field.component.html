@@ -8,15 +8,15 @@
     class="full-width {{ textboxClass }}"
     [disabled]="isDisabled"
   ></textarea>
-</div>
-<div class="multilanguage-wrapper" *ngIf="translateInfo && translationKeys">
-  <gp-multi-language
-    [pKey]="translationKeys"
-    [schema]="translateInfo.scheme"
-    [table]="translateInfo.table"
-    [field]="translateInfo.field"
-    [description]="translateInfo.description"
-    [isEditing]="translateInfo.allowEdition"
-    [orderByLangCod]="translateInfo.orderByLangCod"
-  ></gp-multi-language>
+  <div class="multilanguage-wrapper" *ngIf="translateInfo && translationKeys">
+    <gp-multi-language
+      [pKey]="translationKeys"
+      [schema]="translateInfo.scheme"
+      [table]="translateInfo.table"
+      [field]="translateInfo.field"
+      [description]="translateInfo.description"
+      [isEditing]="translateInfo.allowEdition"
+      [orderByLangCod]="translateInfo.orderByLangCod"
+    ></gp-multi-language>
+  </div>
 </div>
