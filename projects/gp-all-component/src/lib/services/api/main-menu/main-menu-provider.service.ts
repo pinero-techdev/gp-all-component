@@ -45,7 +45,7 @@ export class MainMenuProviderService extends CommonService {
               exit = opcMenuParams[index].toLowerCase() !== accionParams[index].toLowerCase();
               index++;
             }
-            if (!exit) {
+            if (exit) {
               return opcMenu.enabled;
             }
           }
