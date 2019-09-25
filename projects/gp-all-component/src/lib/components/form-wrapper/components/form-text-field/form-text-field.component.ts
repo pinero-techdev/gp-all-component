@@ -135,10 +135,11 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
    * @param editedRow The editing row
    */
   copyValueFromEditedRowToControl(editedRow: any) {
+    // tslint:disable
     const hasTranslationKeyFields =
-      this.formField.fieldMetadata.displayInfo.translationInfo !== null &&
-      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields !== null;
-
+      this.formField.fieldMetadata.displayInfo.translationInfo != null &&
+      this.formField.fieldMetadata.displayInfo.translationInfo.keyFields != null;
+    // tslint:enable
     this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
 
     if (hasTranslationKeyFields) {

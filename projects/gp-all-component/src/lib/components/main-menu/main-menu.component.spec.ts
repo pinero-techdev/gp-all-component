@@ -104,6 +104,7 @@ describe('MainMenuComponent', () => {
     it('should getActionGoBack', () => {
       const goBackSpy = spyOn(component, 'getActionGoBack').and.callThrough();
 
+      GlobalService.setSessionId('SessionIdPrueba');
       component.sendBreadcrumb.subscribe((data) =>
         expect(data).toEqual({
           label: 'label',
