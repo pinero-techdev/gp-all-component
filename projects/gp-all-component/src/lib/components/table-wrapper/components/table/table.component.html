@@ -24,6 +24,7 @@
   (onLazyLoad)="lazy.emit($event)"
   (onRowSelect)="rowSelect.emit($event)"
   (onRowUnselect)="rowUnselect.emit($event)"
+  styleClass="table-flex"
 >
   <ng-template
     *ngIf="(builder.enableCaptionRow | memo: coreModel:captionContent)"

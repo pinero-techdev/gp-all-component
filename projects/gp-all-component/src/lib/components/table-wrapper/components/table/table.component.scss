@@ -2,7 +2,6 @@
 @import 'global/mixins';
 
 @import './scss/variables.scss';
-@import './scss/layout-resets.scss';
 @import './scss/color-resets.scss';
 @import './scss/border-resets.scss';
 
@@ -12,281 +11,306 @@
   }
 
   /* customisation */
-  html {
-    body {
-      .ui-table {
-        display: flex;
-        flex-wrap: wrap;
-        min-width: auto;
+  .ui-table {
+    &.table-flex {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      min-width: auto;
 
-        // Loading overlay
-        .ui-table-loading.ui-widget-overlay {
-          background: $overlayColor;
-        }
+      .ui-table-wrapper {
+        order: 2;
+      }
 
-        .ui-table-loading-content .pi-spinner {
-          color: $spinnerColor;
-        }
+      p-paginator {
+        flex: 1 50%;
+        flex-grow: 0;
+        width: 50%;
+        order: 4;
+      }
 
-        /* Heads */
-        .ui-table-thead {
-          > tr {
-            > th {
-              color: $textMutedColor;
-              font-weight: normal;
-              text-align: left;
-              border-color: $tableBorderColor;
-              border-top-width: 0;
+      .ui-table-caption + p-paginator {
+        order: 1;
+        flex-grow: 2;
+      }
+
+      .ui-table-summary {
+        flex-grow: 0;
+        flex: 1 50%;
+        order: 3;
+        text-align: left;
+      }
+    }
+
+    // Loading overlay
+    .ui-table-loading.ui-widget-overlay {
+      background: $whiteColor;
+      opacity: 1;
+    }
+
+    .ui-table-loading-content .pi-spinner {
+      color: $spinnerColor;
+    }
+
+    /* Caption */
+    .ui-table-caption.ui-widget-header {
+      width: 100%;
+      border: none;
+    }
+
+    .ui-table-wrapper {
+      /* Heads */
+      .ui-table-thead {
+        > tr {
+          > th {
+            padding: #{$tablePaddingRatio / 2} #{$tablePaddingRatio * 2};
+            color: $textMutedColor;
+            font-weight: normal;
+            text-align: left;
+            border: none;
+            position: relative;
+            font-size: $fontSizeSmall;
+
+            &:focus {
+              outline: none;
+            }
+
+            &.ui-sortable-column {
               position: relative;
+              padding-right: 30px;
+              text-align: left;
+              border-bottom: 0;
+              font-size: $fontSizeSmall;
 
-              &:focus {
-                outline: none;
-              }
-
-              &.ui-sortable-column {
-                position: relative;
-                padding-right: 30px;
-                text-align: left;
-                border-bottom: 0;
-
-                &.ui-state-highlight,
-                &:hover {
-                  background: white;
-                  color: inherit;
-
-                  i {
-                    color: inherit;
-                  }
-                }
+              &.ui-state-highlight,
+              &:hover {
+                background: $whiteColor;
+                color: inherit;
 
                 i {
-                  position: absolute;
-                  right: 0;
-                  top: $tablePaddingRatio;
-                  color: $textMutedColor;
-                  z-index: 100;
+                  color: inherit;
                 }
+              }
+
+              i {
+                position: absolute;
+                right: 0;
+                color: $textMutedColor;
+                z-index: 100;
               }
             }
 
-            + tr {
-              th {
-                border-top-width: 0;
-                position: relative;
-                height: 30px;
+            &:not(.ui-sortable-column) {
+              &:last-child {
+                text-align: center;
+              }
+            }
+          }
 
-                input.ng-star-inserted {
-                  font-size: 12px;
-                  font-family: inherit;
-                  border-width: 0 0 1px 0;
-                  border-color: $tableBorderColor;
-                  border-style: solid;
-                  line-height: #{$tablePaddingRatio * 3};
-                  padding: #{$tablePaddingRatio * 2} 0 0;
-                  width: calc(100% - #{$tablePaddingRatio * 2});
-                  background: 0 0;
-                  transition: border 0.25s ease-in-out;
-                  position: absolute;
-                  bottom: $tablePaddingRatio;
-                  left: #{$tablePaddingRatio * 2};
-                  height: 40px;
-                  box-shadow: 0 3px 3px -3px rgba(0, 0, 0, 0.05);
+          + tr {
+            th {
+              border-top-width: 0;
+              position: relative;
+              height: 30px;
 
-                  &:focus,
-                  &:hover {
-                    border-color: $tableActiveColor;
-                  }
+              input.ng-star-inserted {
+                font-size: 12px;
+                font-family: inherit;
+                border-width: 0 0 1px 0;
+                border-color: $tableBorderColor;
+                border-style: solid;
+                line-height: #{$tablePaddingRatio * 3};
+                padding: #{$tablePaddingRatio * 2} 0 0;
+                width: calc(100% - #{$tablePaddingRatio * 2});
+                background: 0 0;
+                transition: border 0.25s ease-in-out;
+                position: absolute;
+                bottom: $tablePaddingRatio;
+                left: #{$tablePaddingRatio * 2};
+                height: 40px;
+                box-shadow: 0 3px 3px -3px rgba(0, 0, 0, 0.05);
 
-                  &:focus {
-                    outline: none;
-                  }
+                &:focus,
+                &:hover {
+                  border-color: $tableActiveColor;
+                }
+
+                &:focus {
+                  outline: none;
                 }
               }
             }
           }
         }
+      }
 
-        /* Rows - even that those are cell styles those are depending of the row parity */
-        .ui-table-tbody > tr {
-          td {
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            background-color: white;
-          }
+      /* Rows - even that those are cell styles those are depending of the row parity */
+      .ui-table-tbody > tr {
+        background: transparent;
+        outline: none;
 
-          &:nth-child(even) {
-            td {
-              background-color: $tableNeutralColor;
-            }
+        &:nth-child(even) {
+          background: $tableNeutralColor;
+        }
+
+        &:nth-child(even),
+        &:nth-child(odd) {
+          &.ui-state-highlight {
+            background: $highlightedRow;
           }
         }
 
-        /* Cells */
-        .ui-table-tbody > tr > td {
-          text-transform: uppercase;
-          border-color: $tableBorderColor;
-          line-height: 40px;
-
-          button.ng-star-inserted {
-            cursor: pointer;
-            color: white;
-            background: $tableActiveColor;
-            border-width: 0;
-            border-radius: $tableBorderRadius;
-            padding: $tablePaddingRatio #{$tablePaddingRatio * 4};
-          }
-
-          button.ng-star-inserted ~ button.ng-star-inserted {
-            margin-left: $tablePaddingRatio;
-          }
+        > td {
+          padding: 0 #{$tablePaddingRatio * 2};
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
+      }
 
-        .ui-table-wrapper {
-          width: 100%;
-          flex-grow: 2;
-          order: 2;
-          position: relative;
-          display: block;
-          padding: 0;
-        }
+      /* Cells */
+      .ui-table-tbody > tr > td {
+        text-transform: uppercase;
+        border-color: $tableBorderColor;
+        line-height: 40px;
 
-        // Footer
-        .ui-table-tfoot {
-          position: relative;
-          display: block;
-          bottom: inherit;
-          top: inherit;
-        }
-
-        .ui-table-summary {
-          display: inline-block;
-          flex-grow: 0;
-          flex: 1 50%;
-          order: 3;
-          padding-left: 0;
-          padding-right: 0;
-          position: relative;
-          text-align: left;
-        }
-
-        p-paginator {
-          flex: 1 50%;
-          flex-grow: 0;
-          display: inline-block;
-          width: 50%;
-          order: 4;
-        }
-
-        .ui-table-caption + p-paginator {
-          order: 1;
-          flex-grow: 2;
-        }
-
-        /* Pagination */
-        .ui-paginator {
-          margin: 25px auto;
-          text-align: right;
-
-          .ui-paginator-first,
-          .ui-paginator-last {
-            border: 1px solid $tableBorderColor;
-          }
-
-          .ui-paginator-first {
-            border-radius: $tableBorderRadius 0 0 $tableBorderRadius;
-            border-right: none;
-          }
-
-          .ui-paginator-last {
-            border-radius: 0px $tableBorderRadius $tableBorderRadius 0;
-          }
-
-          .ui-paginator-element {
-            border-top: 1px solid $tableBorderColor;
-            border-bottom: 1px solid $tableBorderColor;
-            border-left: 1px solid $tableBorderColor;
-            color: $tableTextColor;
-
-            &:not(.ui-state-active):hover {
-              background: lighten($tableActiveColor, 40%);
-              border-color: lighten($tableActiveColor, 40%);
-            }
-          }
-
-          .ui-paginator-pages {
-            .ui-paginator-page.ui-state-active {
-              background: $tableActiveColor;
-              border-color: $tableActiveColor;
-            }
-          }
-
-          .ui-paginator-icon {
-            color: currentColor;
-            color: inherit;
-          }
-
-          /* Bottom paginator */
-          &.ui-paginator-bottom {
-            float: none;
-            width: 100%;
-          }
-
-          /* Top paginator */
-          &.ui-paginator-top {
-            float: none;
-            width: 100%;
-          }
-        }
-
-        .ui-paginator-icon,
-        .ui-dropdown .ui-dropdown-trigger {
-          .ui-dropdown-trigger-icon {
-            color: $tableTextColor;
-          }
-        }
-
-        /* dropwdown */
-        .ui-dropdown {
-          color: $tableTextColor;
-          border: 1px solid $tableBorderColor;
+        button.ng-star-inserted {
+          cursor: pointer;
+          color: $whiteColor;
+          background: $tableActiveColor;
+          border-width: 0;
           border-radius: $tableBorderRadius;
-          margin-left: #{$tablePaddingRatio * 3};
+          padding: $tablePaddingRatio #{$tablePaddingRatio * 4};
+        }
 
+        button.ng-star-inserted ~ button.ng-star-inserted {
+          margin-left: $tablePaddingRatio;
+        }
+      }
+
+      // Footer
+      .ui-table-tfoot {
+        position: relative;
+        display: block;
+        bottom: inherit;
+        top: inherit;
+      }
+    }
+
+    /* Pagination */
+    .ui-paginator {
+      margin: 25px auto;
+      text-align: right;
+
+      .ui-paginator-first,
+      .ui-paginator-last {
+        border: 1px solid $tableBorderColor;
+      }
+
+      .ui-paginator-first {
+        border-radius: $tableBorderRadius 0 0 $tableBorderRadius;
+        border-right: none;
+      }
+
+      .ui-paginator-last {
+        border-radius: 0px $tableBorderRadius $tableBorderRadius 0;
+      }
+
+      .ui-paginator-element {
+        border-top: 1px solid $tableBorderColor;
+        border-bottom: 1px solid $tableBorderColor;
+        border-left: 1px solid $tableBorderColor;
+        color: $tableTextColor;
+
+        &:not(.ui-state-active):hover {
+          background: lighten($tableActiveColor, 40%);
+          border-color: lighten($tableActiveColor, 40%);
+        }
+      }
+
+      .ui-paginator-pages {
+        margin: 0;
+
+        .ui-paginator-page {
+          border: 1px solid $borderColor;
+
+          &.ui-state-active {
+            background: $tableActiveColor;
+            border-color: $tableActiveColor;
+          }
+        }
+      }
+
+      .ui-paginator-icon {
+        color: currentColor;
+        color: inherit;
+      }
+
+      /* dropwdown */
+      .ui-dropdown {
+        color: $tableTextColor;
+        border: 1px solid $tableBorderColor;
+        border-radius: $tableBorderRadius;
+        margin-left: #{$tablePaddingRatio * 3};
+
+        &:hover {
+          border-color: $tableBorderColor;
+          background: lighten($tableActiveColor, 40%);
+        }
+
+        .ui-dropdown-trigger,
+        .ui-inputtext {
+          background: transparent;
+        }
+
+        label.ui-dropdown-label {
+          line-height: 1.5;
+          height: 100%;
+          padding-right: #{$tablePaddingRatio * 4};
+        }
+      }
+
+      .ui-dropdown-panel {
+        .ui-dropdown-item.ui-state-highlight {
+          span {
+            color: $whiteColor;
+          }
+        }
+      }
+    }
+
+    .ui-paginator-icon,
+    .ui-dropdown .ui-dropdown-trigger {
+      .ui-dropdown-trigger-icon {
+        color: $tableTextColor;
+      }
+    }
+
+    /* Others */
+    p-tableheadercheckbox {
+      + span {
+        display: none;
+      }
+    }
+
+    .ui-chkbox {
+      .ui-chkbox-box {
+        &.ui-state-active {
+          background: $tableActiveColor;
+
+          .ui-chkbox-icon {
+            color: $whiteColor;
+          }
+
+          &,
           &:hover {
-            border-color: $tableBorderColor;
-            background: lighten($tableActiveColor, 40%);
-          }
-
-          .ui-dropdown-trigger,
-          .ui-inputtext {
-            background: transparent;
-          }
-
-          label.ui-dropdown-label {
-            line-height: 1.2;
-            height: 100%;
-            padding-right: #{$tablePaddingRatio * 4};
+            border-color: $tableActiveColor;
           }
         }
 
-        /* Others */
-        .ui-chkbox {
-          .ui-chkbox-box {
-            &.ui-state-active {
-              background: $tableActiveColor;
-
-              &,
-              &:hover {
-                border-color: $tableActiveColor;
-              }
-            }
-
-            .ui-chkbox-icon {
-              width: 100%;
-              height: 100%;
-            }
-          }
+        .ui-chkbox-icon {
+          width: 100%;
+          height: 100%;
         }
       }
     }
