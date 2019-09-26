@@ -1,11 +1,10 @@
-import { LocaleES } from './../../../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../../../resources/localization';
 import { Component, Input } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
-import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../resources/form-field.model';
-import { GPUtil } from './../../../../services/core/gp-util.service';
-import { TableService } from './../../../../services/api/table/table.service';
-import { GpTableRestrictions } from './../../../../components/table-wrapper/resources/gp-table-restrictions.enum';
+import { TableService } from '../../../../services/api/table/table.service';
+import { GpTableRestrictions } from '../../../table-wrapper/resources/gp-table-restrictions.enum';
 import { RegexValidations } from '../../resources/regex-validations.type';
 
 @Component({
@@ -18,11 +17,6 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
    * The formField for this component
    */
   @Input() formField: GpFormField;
-
-  /**
-   * Time default format
-   */
-  timeFormat = 'hh:mm';
 
   /**
    * Returns current field metadata
@@ -43,7 +37,7 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
    * @param editedRow The editing row
    */
   copyValueFromControlToEditedRow(editedRow: any) {
-    editedRow[this.formField.fieldMetadata.fieldName] = GPUtil.dateTohhmm(this.currentValue);
+    editedRow[this.formField.fieldMetadata.fieldName] = this.currentValue;
   }
 
   /**
@@ -51,8 +45,7 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
    * @param editedRow The editing row
    */
   copyValueFromEditedRowToControl(editedRow: any) {
-    const value = editedRow[this.formField.fieldMetadata.fieldName];
-    this.currentValue = GPUtil.str2Date(value, this.timeFormat);
+    this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
   }
 
   /**
@@ -87,24 +80,26 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
     const restrictions = this.formField.fieldMetadata.restrictions;
     if (restrictions) {
       for (const restriction of restrictions) {
-        const invalidMinLength =
+        const hasMinLength =
           restriction.restrictionType === GpTableRestrictions.MIN_LENGTH &&
-          typeof fieldValue === 'string' &&
-          fieldValue.length < restriction.minLength;
+          typeof fieldValue === 'string';
 
-        if (invalidMinLength) {
-          this.formField.validField = false;
-          this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_SHORT(restriction.minLength));
+        const hasMaxLength =
+          restriction.restrictionType === GpTableRestrictions.MAX_LENGTH &&
+          typeof fieldValue === 'string';
+
+        if (hasMinLength) {
+          if (fieldValue.length < restriction.minLength) {
+            this.formField.validField = false;
+            this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_SHORT(restriction.minLength));
+          }
         }
 
-        const invalidMaxLength =
-          restriction.restrictionType === GpTableRestrictions.MAX_LENGTH &&
-          typeof fieldValue === 'string' &&
-          fieldValue.length > restriction.maxLength;
-
-        if (invalidMaxLength) {
-          this.formField.validField = false;
-          this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_LONG(restriction.maxLength));
+        if (hasMaxLength) {
+          if (fieldValue.length > restriction.maxLength) {
+            this.formField.validField = false;
+            this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_LONG(restriction.maxLength));
+          }
         }
       }
     }
