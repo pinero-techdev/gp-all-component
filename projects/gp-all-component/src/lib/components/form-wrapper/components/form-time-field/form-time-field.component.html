@@ -1,11 +1,12 @@
 <p-calendar
   styleClass="full-width"
   name="__field__{{ formField?.fieldMetadata.fieldName }}"
-  showTime="showTime"
   hourFormat="24"
   [timeOnly]="true"
+  dataType="string"
   [(ngModel)]="currentValue"
   (change)="onFieldChange()"
   [disabled]="controlDisabled()"
+  [utc]="false"
 >
 </p-calendar>
