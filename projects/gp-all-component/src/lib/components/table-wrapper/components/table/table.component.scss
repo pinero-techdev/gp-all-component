@@ -121,6 +121,7 @@
                 border-style: solid;
                 line-height: #{$tablePaddingRatio * 3};
                 padding: #{$tablePaddingRatio * 2} 0 0;
+                margin-bottom: 0;
                 width: calc(100% - #{$tablePaddingRatio * 2});
                 background: 0 0;
                 transition: border 0.25s ease-in-out;
@@ -181,6 +182,22 @@
           border-width: 0;
           border-radius: $tableBorderRadius;
           padding: $tablePaddingRatio #{$tablePaddingRatio * 4};
+
+          &:hover {
+            border-width: 0;
+          }
+
+          &.ui-button-secondary {
+            background: $whiteColor;
+          }
+
+          &.ui-button-danger {
+            background: $errorColor;
+          }
+
+          &.ui-button-icon-only {
+            padding: $tablePaddingRatio #{$tablePaddingRatio};
+          }
         }
 
         button.ng-star-inserted ~ button.ng-star-inserted {
