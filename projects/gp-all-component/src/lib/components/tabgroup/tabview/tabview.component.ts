@@ -28,7 +28,7 @@ export class TabViewComponent implements OnInit {
 
   ngOnInit() {
     this.activePosition = +this.selected || this.activePosition;
-    this.orientationLeft = this.orientation === TabOrientation.Left ? true : false;
+    this.orientationLeft = this.orientation === TabOrientation.Left;
   }
 
   selectTab(i) {
