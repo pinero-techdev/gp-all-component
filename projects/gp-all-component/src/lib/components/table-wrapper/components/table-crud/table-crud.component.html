@@ -164,41 +164,34 @@
           {{ localeEs.FIELDS_MANDATORY_ASTERISK }}
         </span>
       </div>
-      <div class="p-grid action-buttons">
-        <div *ngIf="canDelete && selectedRow" class="p-col-12 p-sm-3">
-          <gp-button
-            [severity]="'danger'"
-            label="Borrar"
-            class="full-width"
-            [type]="'icon'"
-            icon="pi pi-trash"
-            (click)="onDialogDelete()"
-            [disabled]="formControl.lockFields"
-          >
-          </gp-button>
-        </div>
-        <div *ngIf="canEdit || (canAdd && !selectedRow)" class="p-col-12 p-sm-3">
-          <gp-button
-            label="Guardar"
-            class="full-width"
-            [type]="'icon'"
-            icon="pi pi-save"
-            (click)="onDialogSave()"
-            [disabled]="formControl.lockFields"
-          >
-          </gp-button>
-        </div>
-        <div class="p-col-12 p-sm-3">
-          <gp-button
-            label="Cerrar"
-            [type]="'icon'"
-            class="full-width"
-            icon="pi pi-times"
-            (click)="closeDialog()"
-            [disabled]="formControl.lockFields"
-          >
-          </gp-button>
-        </div>
+      <div class="ui-buttonpane">
+        <gp-button
+          *ngIf="canDelete && selectedRow"
+          [severity]="'danger'"
+          label="Borrar"
+          [type]="'textIcon'"
+          icon="pi pi-trash"
+          (click)="onDialogDelete()"
+          [disabled]="formControl.lockFields"
+        >
+        </gp-button>
+        <gp-button
+          *ngIf="canEdit || (canAdd && !selectedRow)"
+          label="Guardar"
+          [type]="'textIcon'"
+          icon="pi pi-save"
+          (click)="onDialogSave()"
+          [disabled]="formControl.lockFields"
+        >
+        </gp-button>
+        <gp-button
+          label="Cerrar"
+          [type]="'textIcon'"
+          icon="pi pi-times"
+          (click)="closeDialog()"
+          [disabled]="formControl.lockFields"
+        >
+        </gp-button>
       </div>
     </div>
   </div>

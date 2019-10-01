@@ -1,0 +1,18 @@
+@import '../global/variables';
+
+.ui-buttonpane {
+  display: flex;
+
+  .ui-button,
+  gp-button {
+    margin: 0;
+  }
+
+  gp-button {
+    margin-left: $separationXLarge;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}

@@ -48,7 +48,7 @@
 @mixin make-input() {
   @include make-input-text;
 
-  background: $inputBg;
+  background: transparent;
   border-width: $inputBorderWidth;
   padding: $inputPaddingVertical $inputPaddingHorizontal;
   border-color: $inputBorderColor;

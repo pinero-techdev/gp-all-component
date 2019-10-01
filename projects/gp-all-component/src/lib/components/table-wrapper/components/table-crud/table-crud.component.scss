@@ -55,7 +55,7 @@
         &-wrapper.shadowSticky:before {
           display: inline-block;
           background: linear-gradient(90deg, rgba($blackColor, 0) 0%, rgba($blackColor, 0.1) 100%);
-          height: calc(100% - 100px);
+          height: calc(100% - 196px);
           right: 0;
           position: absolute;
           top: 100px;
@@ -63,7 +63,7 @@
           z-index: 1;
           content: '';
 
-          @media (max-width: map-get($breakpoints, 'md')) {
+          @media (min-width: map-get($breakpoints, 'sm')) {
             height: calc(100% - 171px);
           }
         }
@@ -187,19 +187,6 @@
             position: absolute;
             top: 50px;
             left: 0;
-
-            .ui-dropdown {
-              width: 62px;
-              height: 32px;
-              padding: $separation 10px;
-              border: 1px solid $borderColor;
-
-              &-label {
-                font-size: 12px;
-                font-weight: bold;
-                letter-spacing: 0.17px;
-              }
-            }
           }
 
           .ui-paginator-bottom {

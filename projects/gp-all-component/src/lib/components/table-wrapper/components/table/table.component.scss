@@ -175,32 +175,7 @@
         border-color: $tableBorderColor;
         line-height: 40px;
 
-        button.ng-star-inserted {
-          cursor: pointer;
-          color: $whiteColor;
-          background: $tableActiveColor;
-          border-width: 0;
-          border-radius: $tableBorderRadius;
-          padding: $tablePaddingRatio #{$tablePaddingRatio * 4};
-
-          &:hover {
-            border-width: 0;
-          }
-
-          &.ui-button-secondary {
-            background: $whiteColor;
-          }
-
-          &.ui-button-danger {
-            background: $errorColor;
-          }
-
-          &.ui-button-icon-only {
-            padding: $tablePaddingRatio #{$tablePaddingRatio};
-          }
-        }
-
-        button.ng-star-inserted ~ button.ng-star-inserted {
+        gp-button ~ gp-button {
           margin-left: $tablePaddingRatio;
         }
       }
