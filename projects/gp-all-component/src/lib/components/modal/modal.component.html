@@ -1,11 +1,14 @@
 <p-dialog
   [header]="header"
   [(visible)]="visible"
-  modal="true"
+  [modal]="true"
   [responsive]="true"
-  dismissableMask="true"
+  [blockScroll]="true"
+  [dismissableMask]="true"
   (onHide)="onHide()"
   [style]="customStyle"
+  [styleClass]="styleClass"
+  [appendTo]="appendTo"
 >
   <ng-content select="[content]"></ng-content>
   <p-footer>

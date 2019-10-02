@@ -3,12 +3,17 @@
 
 ::ng-deep {
   .ui-dialog.ui-widget {
+    font-family: 'Lato', sans-serif;
     background: $whiteColor;
-    max-height: 90vh;
     border-radius: $separation / 2;
+    width: 100vw;
+    height: 100vh;
 
     @media (min-width: map-get($breakpoints, 'sm')) {
-      width: 500px;
+      width: auto;
+      height: auto;
+      max-width: 90vw;
+      max-height: 90vh;
     }
 
     .ui-dialog-titlebar {
@@ -17,6 +22,10 @@
       border-radius: inherit;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+      font-size: $fontSizeLarge;
+      font-weight: bold;
+      letter-spacing: 0.005em;
+      line-height: 2em;
 
       &-icon:hover {
         background: transparent;
@@ -25,11 +34,16 @@
 
     .ui-dialog-content {
       border-top: none;
-      padding: $separationXLarge;
-      padding-top: $separationLarge;
+      padding: 0;
       overflow: auto;
       max-height: calc(90vh - 150px);
       @include make-scroll();
+
+      > div {
+        padding: $separationXLarge;
+        padding-top: $separationLarge;
+        background: $whiteColor;
+      }
     }
 
     .ui-dialog-footer {
@@ -47,6 +61,19 @@
         button {
           margin-right: 0;
         }
+      }
+    }
+
+    &.no-footer {
+      .ui-dialog-content {
+        height: calc(100% - 81px);
+        max-height: calc(100% - 81px);
+        border-bottom-left-radius: $borderRadius;
+        border-bottom-right-radius: $borderRadius;
+      }
+
+      .ui-dialog-footer {
+        display: none;
       }
     }
   }

@@ -153,6 +153,11 @@
         border: 1px solid $buttonSecondaryBgHover;
       }
     }
+    .ui-button.ui-button-text-icon-left {
+      padding-right: $separationLarge;
+      box-shadow: none;
+      border: none;
+    }
     .ui-button.ui-splitbutton-menubutton {
       width: 100%;
       position: absolute;
@@ -161,6 +166,8 @@
       bottom: 0;
       left: 0;
       background: transparent;
+      box-shadow: none;
+      border: none;
     }
     &.ui-widget.ui-buttonset .ui-button.ui-state-default,
     &.ui-widget.ui-buttonset .ui-button.ui-state-default:hover {
@@ -168,7 +175,7 @@
       border-color: transparent;
     }
     .pi-chevron-down {
-      left: 85%;
+      left: 80%;
     }
   }
 
