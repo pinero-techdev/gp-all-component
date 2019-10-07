@@ -43,11 +43,16 @@ export class ButtonComponent implements OnInit {
   @Input()
   icon: string;
 
+  itemsValue: GpMenuItem[];
+
   /**
    * Item buttons to show in overlaypanel in case of splitbutton
    */
   @Input()
-  items: GpMenuItem[];
+  set items(items: GpMenuItem[]) {
+    this.itemsValue = items;
+    this.initSplitItems();
+  }
 
   /**
    * Button accesibility. Every button is enabled by default
@@ -75,10 +80,7 @@ export class ButtonComponent implements OnInit {
    * When component is initialized splitItems array and splitButtonSeverity must be asigned
    */
   ngOnInit() {
-    if (this.type === ButtonType.Split) {
-      this.splitItems = [...this.items];
-      this.splitButtonSeverity = this.getSplitButtonSeverity();
-    }
+    this.initSplitItems();
   }
 
   /**
@@ -86,6 +88,13 @@ export class ButtonComponent implements OnInit {
    */
   onClick() {
     return this.onClickEvent.emit(true);
+  }
+
+  initSplitItems() {
+    if (this.type === ButtonType.Split) {
+      this.splitItems = [...this.itemsValue];
+      this.splitButtonSeverity = this.getSplitButtonSeverity();
+    }
   }
 
   /**
