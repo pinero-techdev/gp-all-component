@@ -23,7 +23,7 @@ import {
   CommonRsErrorMock,
   InsertRowRsMock,
 } from '../../../../shared/testing/@mock/types/list-rs.type.mock';
-import moment = require('moment');
+import moment from 'moment';
 import { MessagesService } from './../../../../services/core/messages.service';
 import { Router } from '@angular/router';
 import { FormFieldMock } from './../../../../shared/testing/@mock/types/form-wrapper.type.mock';
