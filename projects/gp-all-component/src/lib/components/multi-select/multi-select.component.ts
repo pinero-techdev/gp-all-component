@@ -68,7 +68,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
   @ViewChild(MultiSelect) multi: MultiSelect;
 
   // Inner model data mandatory for ngModel
-  private innerValue = '';
+  public innerValue = '';
 
   // Placeholders for the callbacks which are later provided
   // by the Control Value Accessor
@@ -135,9 +135,17 @@ export class MultiSelectComponent implements ControlValueAccessor {
    * Emit event when value changes
    * @param event The event to dispatch
    */
-  updateSelectModel(event: string) {
-    this.selectModelChange.emit(event);
-    this.onChange.emit(event);
+  updateSelectModel(event: any) {
+    this.selectModelChange.emit(
+      event.map((item) => {
+        return item.value;
+      })
+    );
+    this.onChange.emit(
+      event.map((item) => {
+        return item.value;
+      })
+    );
   }
 
   /**

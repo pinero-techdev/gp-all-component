@@ -35,6 +35,7 @@ describe('FormCheckboxFieldComponent', () => {
   });
 
   it('should create', () => {
+    component.ngOnInit();
     expect(component).toBeTruthy();
   });
 
