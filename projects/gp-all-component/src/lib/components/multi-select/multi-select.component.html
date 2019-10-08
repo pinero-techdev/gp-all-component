@@ -1,6 +1,6 @@
 <p-multiSelect
   (blur)="onBlur()"
-  [ngModel]="selectModel"
+  [(ngModel)]="innerValue"
   (ngModelChange)="updateSelectModel($event)"
   [appendTo]="appendTo"
   [defaultLabel]="defaultLabel"

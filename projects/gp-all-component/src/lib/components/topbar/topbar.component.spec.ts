@@ -8,11 +8,12 @@ import { LoginService } from './../../services/api/login/login.service';
 import { LoginServiceMock } from './../../services/api/login/login.service.mock';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TestingMockEvents } from './../../shared/testing/@mock/utils/testing-mock-events.class';
-import { throwError, of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Router, Routes } from '@angular/router';
 import { UserInfo } from './../../resources/data/user-info.model';
 import { CommonRs } from './../../services/core/common.service';
 import { SimpleChange } from '@angular/core';
+import { Error } from 'tslint/lib/error';
 
 class TestComponent {}
 
