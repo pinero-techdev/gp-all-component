@@ -1,10 +1,10 @@
 import { MenuItem, SelectItem } from 'primeng/primeng';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { GPSelectItem } from '../../resources/data/gp-select-item.model';
 import { CalendarConstants } from '../../resources/constants/calendar.constants';
-import { isNull, isNullOrUndefined } from 'util';
+import { isNullOrUndefined } from 'util';
 import { SessionStorageService } from '../session-storage/session-storage.service';
 /* tslint:disable:variable-name */
 export class GPUtil {
@@ -52,7 +52,7 @@ export class GPUtil {
       if (!fmt) {
         fmt = 'YYYY-MM-DD';
       }
-      fecha = moment.parseZone(str, fmt).toDate();
+      fecha = moment(str, fmt).toDate();
     }
     return fecha;
   }
@@ -60,33 +60,27 @@ export class GPUtil {
   public static str2DateString(str: string, fmt1: string, fmt2: string): string {
     let fecha = null;
     if (str) {
-      fecha = moment.parseZone(str, fmt1).format(fmt2);
+      fecha = moment(str, fmt1).format(fmt2);
     }
     return fecha;
   }
 
   public static dateToYyyymmdd(date: Date): string {
-    const shouldReturn = isNullOrUndefined(date) || (typeof date === 'string' && date === '');
+    const shouldReturn = !date || (typeof date === 'string' && date === '');
 
     if (shouldReturn) {
       return null;
     }
 
-    const y = '000' + date.getFullYear();
-    const m = '0' + (date.getMonth() + 1);
-    const d = '0' + date.getDate();
-
-    return y.substr(y.length - 4) + '-' + m.substr(m.length - 2) + '-' + d.substr(d.length - 2);
+    return moment(date).format('YYYY-MM-DD');
   }
 
-  // FIXME 17/12/2018 convertir con moment
   public static dateTohhmm(date: Date) {
-    if (isNull(date)) {
+    if (date) {
+      return moment(date).format('HH:mm');
+    } else {
       return null;
     }
-    const h = '0' + date.getHours();
-    const m = '0' + date.getMinutes();
-    return h.substr(h.length - 2) + ':' + m.substr(m.length - 2);
   }
 
   public static letraDni(dni) {
@@ -150,7 +144,7 @@ export class GPUtil {
    * @param valor ''
    */
   public obtenerEtiqueta(selector: SelectItem[], value: any): string {
-    if (!isNull(selector) && !isNull(value)) {
+    if (selector !== null && value !== null) {
       for (const item of selector) {
         if (item.value === value) {
           return item.label;
@@ -186,7 +180,7 @@ export class GPUtil {
     if (descripcionPorDefecto) {
       selector.push({ label: descripcionPorDefecto, value: null, additional: null });
     }
-    if (!isNull(datos)) {
+    if (datos) {
       for (const dato of datos) {
         let label = '';
         for (const descripcion of atributoDesc) {
@@ -292,7 +286,7 @@ export class GPUtil {
     if (!hasChilds) {
       items = null;
     }
-    if (!isNull(datos)) {
+    if (datos) {
       for (const dato of datos) {
         const newItem = {
           title: dato[atributoCod],

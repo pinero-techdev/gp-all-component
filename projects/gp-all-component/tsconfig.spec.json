@@ -1,8 +1,10 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "outDir": "../../out-tsc/spec"
-    },
-    "files": ["src/test.ts"],
-    "include": ["**/*.spec.ts", "**/*.d.ts"]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "es2015",
+    "outDir": "../../out-tsc/spec",
+    "allowSyntheticDefaultImports": true
+  },
+  "files": ["src/test.ts"],
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
