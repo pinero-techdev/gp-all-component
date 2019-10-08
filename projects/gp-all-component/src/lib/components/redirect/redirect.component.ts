@@ -33,4 +33,12 @@ export class RedirectComponent implements OnInit {
   changeLocation(location: string) {
     window.location.href = location;
   }
+
+  setUrl(url: string) {
+    this.url = url;
+  }
+
+  getUrl() {
+    return this.url;
+  }
 }

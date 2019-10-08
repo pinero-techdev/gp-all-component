@@ -38,7 +38,11 @@ xdescribe('TabDirective', () => {
     expect(component).toBeTruthy();
   });
 
-  it('dgagdfga', () => {
+  it('Tab Title', () => {
     expect(component.tab.tabTitle).toEqual('Tab1');
+  });
+
+  it('should get ElementRef', () => {
+    expect(component.tab.getElementRef()).toEqual(component.tab.template);
   });
 });
