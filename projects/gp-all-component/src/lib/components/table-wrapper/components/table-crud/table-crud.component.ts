@@ -35,6 +35,7 @@ import { isNullOrUndefined } from 'util';
 import { LocaleES } from '../../../../resources/localization';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
+import { FormNumberFieldComponent } from '../../../form-wrapper/components/form-number-field/form-number-field.component';
 
 @Component({
   selector: 'gp-table-crud',
@@ -215,6 +216,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
   @ViewChildren(FormNullableCheckboxComponent)
   nullableCheckboxFormFields: QueryList<FormNullableCheckboxComponent>;
+
+  @ViewChildren(FormNumberFieldComponent)
+  numberFormFields: QueryList<FormNumberFieldComponent>;
 
   constructor(
     private readonly router: Router,
@@ -614,6 +618,9 @@ export class TableCrudComponent implements AfterViewChecked {
       f(col);
     });
     this.nullableCheckboxFormFields.forEach((col) => {
+      f(col);
+    });
+    this.numberFormFields.forEach((col) => {
       f(col);
     });
   }
