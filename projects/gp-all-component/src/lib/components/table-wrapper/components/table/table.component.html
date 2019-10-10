@@ -130,8 +130,11 @@
     >
     </tr
   ></ng-template>
-  <ng-template *ngIf="footerContent" pTemplate="summary">
+  <ng-template *ngIf="footerContent" pTemplate="footer">
     <ng-content *ngTemplateOutlet="footerContent"></ng-content>
+  </ng-template>
+  <ng-template *ngIf="summaryContent" pTemplate="summary">
+    <ng-content *ngTemplateOutlet="summaryContent"></ng-content>
   </ng-template>
   <ng-template *ngIf="(builder.getExportFile | memo: coreModel)" pTemplate="summary">
     <gp-button

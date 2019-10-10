@@ -70,6 +70,7 @@ export class TableComponent implements AfterContentInit {
   @ContentChild('caption') captionContent: TemplateRef<any>;
   @ContentChild('header') headerContent: TemplateRef<any>;
   @ContentChild('footer') footerContent: TemplateRef<any>;
+  @ContentChild('summary') summaryContent: TemplateRef<any>;
 
   @ViewChild('table') table: Table;
 
