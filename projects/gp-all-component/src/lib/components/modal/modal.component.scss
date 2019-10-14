@@ -16,7 +16,6 @@
     }
 
     .ui-dialog-titlebar {
-      background: $whiteColor;
       padding: $separationXLarge;
       border-radius: inherit;
       border-bottom-left-radius: 0;
@@ -33,7 +32,7 @@
 
     .ui-dialog-content {
       border-top: none;
-      padding: 0;
+      padding: 1em;
       overflow: auto;
       max-height: calc(90vh - 150px);
       @include make-scroll();
