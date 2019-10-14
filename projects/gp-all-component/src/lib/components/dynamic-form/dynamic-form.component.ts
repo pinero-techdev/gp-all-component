@@ -36,6 +36,7 @@ export class DynamicFormComponent {
   errors: any = {};
   locale = LocaleES;
   relatedFields: any;
+  readonly displayType = DisplayType;
 
   @Input() set metadata(value: FieldMetadata) {
     this.buildForm(value);
