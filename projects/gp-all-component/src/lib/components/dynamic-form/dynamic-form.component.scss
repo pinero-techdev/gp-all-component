@@ -1,0 +1,224 @@
+@import 'global/variables';
+@import 'global/mixins';
+
+/*** MAIN  ***/
+$whiteColor: color(white);
+$mainBG: color(blue, blue-1);
+$textColor: color(text);
+$textSecondary: color(text, secondary);
+$errorColor: color(red);
+$containerPadding: 24px;
+$mutedSecondary: color(text, mutedSecondary);
+
+// FONTS
+$smallFont: 12px;
+$mediumFont: 14px;
+$fontSize: 16px;
+$mainFont: 'latolatinregular', sans-serif;
+
+/*  BREAKPOINTS */
+$breakpoints: (
+  'xs': 480px,
+  'sm': 768px,
+  'md': 992px,
+  'lg': 1280px,
+  'xl': 1440px,
+);
+
+/* SEPARATION */
+$separation: 8px;
+$separationLarge: $separation * 2;
+$separationXLarge: $separationLarge * 1.5;
+$separationSmall: $separation / 2;
+
+// INPUT
+$inputBorderRadius: 6px;
+$inputPadding: $separation;
+$inputBorder: 1px solid color(gray, gray-5);
+$inputHeight: $separationXLarge + $separationXLarge / 2;
+
+/*** PANEL  ***/
+$borderColor: color(blue);
+$tabActive: color(blue, blue-2);
+$tabHover: color(blue, blue-3);
+$panelMargin: 1rem;
+$borderWidth: 3px;
+
+.row-container,
+.checkbox-container {
+  flex: 1 100%;
+  padding: 0.5rem;
+
+  label,
+  &-label {
+    color: $textSecondary;
+    font-size: $smallFont;
+  }
+
+  input,
+  &-input,
+  .ui-dropdown,
+  .ui-multiselect {
+    margin-top: $panelMargin / 2;
+    border: $inputBorder;
+    font-size: $mediumFont;
+    color: $textColor;
+    border-radius: $inputBorderRadius;
+    padding: $inputPadding;
+    height: $inputHeight;
+  }
+
+  .ui-dropdown,
+  .ui-multiselect {
+    align-items: center;
+    display: flex;
+    width: 100%;
+
+    &-open {
+      border: $inputFocusBorder;
+    }
+
+    label,
+    .ui-multiselect-label {
+      font-size: $mediumFont;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  input:focus {
+    border: $inputFocusBorder;
+    outline: none;
+  }
+
+  p-dropdown {
+    display: grid;
+  }
+
+  p-multiselect {
+    display: contents;
+  }
+
+  .ui-dropdown,
+  .ui-multiselect {
+    &-trigger {
+      height: 96%;
+      right: 1px;
+    }
+
+    &-trigger-icon {
+      color: $textColor;
+    }
+  }
+
+  .ui-dropdown-item {
+    width: 100%;
+    padding: $separation $separation;
+
+    &.ui-state-highlight {
+      span {
+        color: $whiteColor;
+      }
+    }
+  }
+
+  .ui-multiselect-filter-container,
+  .ui-dropdown-filter-container {
+    .ui-inputtext {
+      margin-top: inherit;
+      border: 1px solid $borderColor;
+    }
+  }
+
+  .ui-multiselect-items {
+    .ui-multiselect-item.ui-state-highlight {
+      span {
+        color: $whiteColor;
+      }
+    }
+  }
+
+  textarea,
+  textarea:enabled:hover:not(.ui-state-error) {
+    border-color: $borderColor;
+    padding: $separationLarge;
+  }
+}
+
+.row-container {
+  flex-direction: row;
+  align-items: flex-end;
+  padding-bottom: 1.3em;
+
+  .left-label {
+    padding-left: $panelMargin / 2;
+    padding-bottom: 0.3em;
+  }
+}
+
+.checkbox-container {
+  flex-direction: inherit;
+  align-items: center;
+
+  label {
+    margin-left: $separationXLarge;
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  flex: 1;
+  padding: 0.5rem;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+hr {
+  width: 100%;
+  margin: $panelMargin 0.5rem;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid $borderColor;
+}
+
+.field-wrapper:not(.type-checkbox) {
+  > label {
+    display: inline-block;
+    margin-bottom: $separation;
+    font-size: $fontSizeSmall;
+    color: $mutedSecondary;
+  }
+}
+
+.field-wrapper:first-child:last-child {
+  width: 100%;
+}
+
+.buttons-group-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons-group-right,
+.buttons-group-left {
+  flex: 1;
+  margin-top: 55px;
+  display: inline-block;
+}
+
+.buttons-group-right {
+  text-align: right;
+
+  gp-button:not(:last-child) {
+    .ui-button {
+      margin-right: $separationLarge;
+    }
+  }
+}
+
+.buttons-group-left {
+  text-align: left;
+}

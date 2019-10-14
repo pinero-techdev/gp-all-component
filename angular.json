@@ -30,9 +30,7 @@
             "codeCoverage": true,
             "codeCoverageExclude": [
               "projects/gp-all-component/src/test.ts",
-              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable-crud/**/table-editable-crud/**/*.ts",
-              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable-crud/**/*.component.ts",
-              "projects/gp-all-component/src/lib/components/table-wrapper/components/table-editable-crud/**/resources/**/*.ts",
+              "projects/gp-all-component/src/lib/components/table-wrapper/**/**/*.ts",
               "projects/gp-all-component/src/lib/resources/**/*",
               "projects/gp-all-component/src/lib/shared/**/*",
               "projects/gp-all-component/src/lib/services/core/**/*",
@@ -50,7 +48,11 @@
               "node_modules/primeng/resources/themes/nova-light/theme.css"
             ],
             "assets": [],
-            "scripts": ["node_modules/quill/dist/quill.js", "node_modules/moment/moment.js"],
+            "scripts": [
+              "node_modules/quill/dist/quill.js",
+              "node_modules/moment/moment.js",
+              "node_modules/chart.js/dist/Chart.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "projects/gp-all-component/src/lib/resources/css",

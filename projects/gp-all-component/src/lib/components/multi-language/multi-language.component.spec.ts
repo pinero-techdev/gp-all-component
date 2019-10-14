@@ -43,7 +43,7 @@ describe('MultiLanguageComponent', () => {
           useClass: MultiLanguageServiceMock,
         },
       ],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

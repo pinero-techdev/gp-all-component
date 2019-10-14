@@ -8,4 +8,6 @@ export const TestingVars = {
 export enum TestingErrorCodeMock {
   ERROR_500 = '500',
   ERROR_404 = '404',
+  ERROR_NO_OPTIONS = 'NO_DATA',
+  NO_ERROR = 'NO_ERROR',
 }

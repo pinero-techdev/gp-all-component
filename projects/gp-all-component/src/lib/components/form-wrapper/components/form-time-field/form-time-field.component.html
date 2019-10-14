@@ -5,7 +5,7 @@
   [timeOnly]="true"
   dataType="string"
   [(ngModel)]="currentValue"
-  (change)="onFieldChange()"
+  (onSelect)="onFieldChange()"
   [disabled]="controlDisabled()"
   [utc]="false"
 >

@@ -17,7 +17,8 @@ import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
 } from '../../shared/imports/form-wrapper-shared';
-import { SliderModule } from 'primeng/slider';
+import { FormFieldValidatorDirective } from './components/form-field-validator/form-field-validator.directive';
+import { FormFileFieldComponent } from './components/form-file-field/form-file-field.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,10 @@ import { SliderModule } from 'primeng/slider';
     FormTextFieldComponent,
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
+    FormFieldValidatorDirective,
+    FormFileFieldComponent,
   ],
-  imports: [CommonModule, FormWrapperSharedModules, SliderModule],
+  imports: [CommonModule, FormWrapperSharedModules],
   exports: [
     FormCalendarFieldComponent,
     FormCheckboxFieldComponent,
@@ -50,6 +53,8 @@ import { SliderModule } from 'primeng/slider';
     FormTextFieldComponent,
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
+    FormFieldValidatorDirective,
+    FormFileFieldComponent,
   ],
   providers: [FormWrapperSharedProviders],
 })

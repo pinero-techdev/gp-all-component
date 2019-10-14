@@ -6,29 +6,37 @@
     "
   >
     <input
-      name="__field__{{ formField?.fieldMetadata.fieldName }}"
       pInputText
-      type="text"
-      [(ngModel)]="currentValue"
-      [maxlength]="maxLength"
-      [class]="textboxClass"
+      [gpFieldValidator]="formField"
       class="full-width"
-      (change)="onFieldChange()"
+      [(ngClass)]="textboxClass"
+      [(ngModel)]="currentValue"
       [disabled]="controlDisabled()"
+      [minlength]="minLength"
+      [maxlength]="maxLength"
+      [max]="maxValue"
+      [min]="minValue"
+      [name]="formField?.fieldMetadata?.fieldName"
+      [id]="formField?.fieldMetadata?.fieldName"
+      [placeholder]="placeholder"
+      [readonly]="readonly"
+      [required]="required"
+      [type]="displayInfo.displayType"
+      (change)="onFieldChange()"
     />
   </div>
   <div
-    *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''"
+    *ngIf="formField?.fieldMetadata?.displayInfo.translationInfo && translationKeys"
     class="multilanguage-wrapper"
   >
     <gp-multi-language
       [pKey]="translationKeys"
-      [schema]="formField.fieldMetadata.displayInfo.translationInfo.scheme"
-      [table]="formField.fieldMetadata.displayInfo.translationInfo.table"
-      [field]="formField.fieldMetadata.displayInfo.translationInfo.field"
-      [description]="formField.fieldMetadata.displayInfo.translationInfo.description"
-      [isEditing]="formField.fieldMetadata.displayInfo.translationInfo.allowEdition"
-      [orderByLangCod]="formField.fieldMetadata.displayInfo.translationInfo.orderByLangCod"
+      [schema]="formField?.fieldMetadata?.displayInfo.translationInfo.scheme"
+      [table]="formField?.fieldMetadata?.displayInfo.translationInfo.table"
+      [field]="formField?.fieldMetadata?.displayInfo.translationInfo.field"
+      [description]="formField?.fieldMetadata?.displayInfo.translationInfo.description"
+      [isEditing]="formField?.fieldMetadata?.displayInfo.translationInfo.allowEdition"
+      [orderByLangCod]="formField?.fieldMetadata?.displayInfo.translationInfo.orderByLangCod"
     >
     </gp-multi-language>
   </div>

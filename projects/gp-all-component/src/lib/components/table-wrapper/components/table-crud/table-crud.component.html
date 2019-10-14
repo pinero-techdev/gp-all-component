@@ -113,50 +113,66 @@
           <gp-form-number-field
             *ngIf="col.formFieldType == 'gp-form-number-field'"
             [formField]="col"
+            (onChange)="onChangeEvent($event)"
           ></gp-form-number-field>
           <gp-form-textarea-field
             *ngIf="col.formFieldType == 'gp-form-textarea-field'"
             [formField]="col"
+            (onChange)="onChangeEvent($event)"
           >
           </gp-form-textarea-field>
           <gp-form-dropdown-field
             *ngIf="col.formFieldType == 'gp-form-dropdown-field'"
             [formField]="col"
-            (valueChanged)="changeEvent($event)"
+            (onChange)="onDropdownChangeEvent($event)"
           ></gp-form-dropdown-field>
           <gp-form-dropdown-related-field
             [formField]="col"
             *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
-            (valueChanged)="changeEvent($event)"
-            [relatedField]="fieldsChanged"
+            (onChange)="onDropdownChangeEvent($event)"
+            [relatedFields]="fieldsChanged"
           >
           </gp-form-dropdown-related-field>
           <gp-form-switch-field
             *ngIf="col.formFieldType == 'gp-form-switch-field'"
             [formField]="col"
+            (onChange)="onChangeEvent($event)"
           >
           </gp-form-switch-field>
           <gp-form-checkbox-field
             *ngIf="col.formFieldType == 'gp-form-checkbox-field'"
             [formField]="col"
+            (onChange)="onChangeEvent($event)"
           >
           </gp-form-checkbox-field>
           <gp-form-calendar-field
             *ngIf="col.formFieldType == 'gp-form-calendar-field'"
             [formField]="col"
+            (onChange)="onChangeEvent($event)"
           >
           </gp-form-calendar-field>
           <gp-form-wysiwyg-field
             *ngIf="col.formFieldType == 'gp-form-wysiwyg-field'"
             [formField]="col"
+            (onChange)="onChangeEvent($event)"
           >
           </gp-form-wysiwyg-field>
-          <gp-form-img-field *ngIf="col.formFieldType == 'gp-form-img-field'" [formField]="col">
+          <gp-form-img-field
+            *ngIf="col.formFieldType == 'gp-form-img-field'"
+            [formField]="col"
+            (onChange)="onChangeEvent($event)"
+          >
           </gp-form-img-field>
           <gp-form-nullable-checkbox-field
             *ngIf="col.formFieldType == 'gp-form-nullable-checkbox-field'"
             [formField]="col"
+            (onChange)="onChangeEvent($event)"
           ></gp-form-nullable-checkbox-field>
+          <gp-form-file-field
+            *ngIf="col.formFieldType == 'gp-form-file-field'"
+            [formField]="col"
+            (onChange)="onChangeEvent($event)"
+          ></gp-form-file-field>
         </div>
       </div>
       <div class="p-grid">

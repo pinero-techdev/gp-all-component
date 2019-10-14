@@ -34,7 +34,7 @@ describe('TableEditableCellComponent', () => {
         { provide: NG_VALUE_ACCESSOR, useExisting: TableEditableCellComponent, multi: true },
         { provide: TableService, useClass: TableServiceMock },
       ],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

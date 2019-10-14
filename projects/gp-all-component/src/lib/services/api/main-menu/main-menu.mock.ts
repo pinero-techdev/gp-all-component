@@ -291,7 +291,7 @@ export const MAIN_MENU_MOCK = {
 export const MAIN_MENU_TEMP_MOCK = [
   {
     id: 'FROFR001',
-    texto: 'Reservas',
+    text: 'Reservas',
     description: 'Consulta de reservas',
     type: 'A',
     icon: 'search',
@@ -301,7 +301,7 @@ export const MAIN_MENU_TEMP_MOCK = [
   },
   {
     id: 'FROFR001B',
-    texto: 'Reservas360',
+    text: 'Reservas360',
     description: 'Consulta de reservas',
     type: 'A',
     icon: 'search',
@@ -311,7 +311,7 @@ export const MAIN_MENU_TEMP_MOCK = [
   },
   {
     id: 'concierge-service',
-    texto: 'Concierge Service',
+    text: 'Concierge Service',
     description: 'Concierge Service',
     type: 'A',
     icon: 'concierge',
@@ -319,7 +319,7 @@ export const MAIN_MENU_TEMP_MOCK = [
     submenus: [
       {
         id: 'CLDFR029A',
-        texto: 'Movimientos',
+        text: 'Movimientos',
         description: 'Movimientos',
         type: 'Q',
         icon: 'search',
@@ -329,7 +329,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'CLDFR029B',
-        texto: 'Movimientos360',
+        text: 'Movimientos360',
         description: 'Movimientos',
         type: 'Q',
         icon: 'search',
@@ -339,7 +339,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'cd_mantenimientos',
-        texto: 'Mantenimientos',
+        text: 'Mantenimientos',
         description: 'Mantenimientos',
         type: 'MF',
         icon: 'maintenance-folder',
@@ -347,7 +347,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'CLDFR028A',
-            texto: 'Alertas',
+            text: 'Alertas',
             description: 'Alertas',
             type: 'M',
             icon: 'maintenance',
@@ -356,7 +356,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CLDFR026A',
-            texto: 'Clasificación',
+            text: 'Clasificación',
             description: 'Clasificación',
             type: 'M',
             icon: 'maintenance',
@@ -365,7 +365,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CLDFR027A',
-            texto: 'Departamentos',
+            text: 'Departamentos',
             description: 'Departamentos',
             type: 'M',
             icon: 'maintenance',
@@ -374,7 +374,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CLDFR035A',
-            texto: 'Solicitudes por Hotel',
+            text: 'Solicitudes por Hotel',
             description: 'Solicitudes por Hotel',
             type: 'M',
             icon: 'maintenance',
@@ -383,7 +383,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CLDFR035B',
-            texto: 'Solicitudes por Hotel 360',
+            text: 'Solicitudes por Hotel 360',
             description: 'Solicitudes por Hotel',
             type: 'M',
             icon: 'maintenance',
@@ -394,7 +394,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'cd_listados',
-        texto: 'Listados',
+        text: 'Listados',
         description: 'Listados',
         type: 'LF',
         icon: 'list-folder',
@@ -402,7 +402,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'CLDRW031',
-            texto: 'Comparativo Hoteles',
+            text: 'Comparativo Hoteles',
             description: 'Comparativo Hoteles',
             type: 'L',
             icon: 'list',
@@ -411,7 +411,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CLDRW031B',
-            texto: 'Comparativo Hoteles 360',
+            text: 'Comparativo Hoteles 360',
             description: 'Comparativo Hoteles',
             type: 'L',
             icon: 'list',
@@ -420,7 +420,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CLDRW032',
-            texto: 'Dpto. y Solicitudes',
+            text: 'Dpto. y Solicitudes',
             description: 'Dpto. y Solicitudes',
             type: 'L',
             icon: 'list',
@@ -429,7 +429,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CLDRW032B',
-            texto: 'Dpto. y Solicitudes 360',
+            text: 'Dpto. y Solicitudes 360',
             description: 'Dpto. y Solicitudes',
             type: 'L',
             icon: 'list',
@@ -442,7 +442,7 @@ export const MAIN_MENU_TEMP_MOCK = [
   },
   {
     id: 'clientes',
-    texto: 'Clientes',
+    text: 'Clientes',
     description: 'Clientes',
     type: 'A',
     icon: 'contacts',
@@ -450,7 +450,7 @@ export const MAIN_MENU_TEMP_MOCK = [
     submenus: [
       {
         id: 'CRMFR004A',
-        texto: 'Consulta',
+        text: 'Consulta',
         description: 'Consulta',
         type: 'Q',
         icon: 'search',
@@ -459,7 +459,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'CRMFR001A',
-        texto: 'Ficha',
+        text: 'Ficha',
         description: 'Ficha',
         icon: 'search',
         type: 'Q',
@@ -468,7 +468,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'CRMFR004A2',
-        texto: 'Consultas Antiguas',
+        text: 'Consultas Antiguas',
         description: 'Consultas Antiguas',
         type: 'QF',
         icon: 'search-folder',
@@ -477,7 +477,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'CRMFR004A2',
-            texto: 'Consulta (Old)',
+            text: 'Consulta (Old)',
             description: 'Consulta (Old)',
             type: 'Q',
             icon: 'search',
@@ -486,7 +486,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CRMFR001A2',
-            texto: 'Ficha (Old)',
+            text: 'Ficha (Old)',
             description: 'Ficha (Old)',
             type: 'Q', // En un futuro puede que se mueva y pase a aplicación
             icon: 'search',
@@ -497,7 +497,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'CRMFR019A1',
-        texto: 'Funcionalidades',
+        text: 'Funcionalidades',
         description: 'Funcionalidades',
         type: 'FF',
         icon: 'funcionality-folder',
@@ -505,7 +505,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'CRMFR019A',
-            texto: 'Inserción receptivo',
+            text: 'Inserción receptivo',
             description: 'Inserción receptivo',
             type: 'F',
             icon: 'funcionality',
@@ -514,7 +514,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CRMFR020A',
-            texto: 'Importación contactos',
+            text: 'Importación contactos',
             description: 'Importación contactos',
             type: 'F',
             icon: 'funcionality',
@@ -525,7 +525,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'cd_mantenimientos',
-        texto: 'Mantenimientos',
+        text: 'Mantenimientos',
         description: 'Mantenimientos',
         type: 'MF',
         icon: 'maintenance-folder',
@@ -533,7 +533,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'cd_mantenimientos',
-            texto: 'Básicos',
+            text: 'Básicos',
             description: 'Mant. Básicos',
             type: 'MF',
             icon: 'maintenance-folder',
@@ -541,7 +541,7 @@ export const MAIN_MENU_TEMP_MOCK = [
             submenus: [
               {
                 id: 'CRMFR002A',
-                texto: 'Nacionalidades',
+                text: 'Nacionalidades',
                 description: 'Nacionalidades',
                 type: 'M',
                 icon: 'maintenance',
@@ -550,7 +550,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR005A',
-                texto: 'Visto promoción',
+                text: 'Visto promoción',
                 description: 'Visto promoción',
                 type: 'M',
                 icon: 'maintenance',
@@ -559,7 +559,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR023A',
-                texto: 'Canales',
+                text: 'Canales',
                 description: 'Canales',
                 type: 'M',
                 icon: 'maintenance',
@@ -568,7 +568,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR033A',
-                texto: 'Alertas de control',
+                text: 'Alertas de control',
                 description: 'Alertas de control',
                 type: 'M',
                 icon: 'maintenance',
@@ -577,7 +577,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR040A',
-                texto: 'Pref. Documentación',
+                text: 'Pref. Documentación',
                 description: 'Pref. Documentación',
                 type: 'M',
                 icon: 'maintenance',
@@ -586,7 +586,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR043A',
-                texto: 'Mails Informativos',
+                text: 'Mails Informativos',
                 description: 'Mails Informativos',
                 type: 'M',
                 icon: 'maintenance',
@@ -597,7 +597,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'cd_mantenimientos',
-            texto: 'Fidelización CF',
+            text: 'Fidelización CF',
             description: 'Fidelización CF',
             type: 'MF',
             icon: 'maintenance-folder',
@@ -605,7 +605,7 @@ export const MAIN_MENU_TEMP_MOCK = [
             submenus: [
               {
                 id: 'CRMFR034A',
-                texto: 'Agrup. preferencias',
+                text: 'Agrup. preferencias',
                 description: 'Agrup. preferencias',
                 type: 'M',
                 icon: 'maintenance',
@@ -614,7 +614,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR035A',
-                texto: 'Preferencias',
+                text: 'Preferencias',
                 description: 'Preferencias',
                 type: 'M',
                 icon: 'maintenance',
@@ -623,7 +623,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR041A',
-                texto: 'Pref. Pais Destino',
+                text: 'Pref. Pais Destino',
                 description: 'Pref. Pais Destino',
                 type: 'M',
                 icon: 'maintenance',
@@ -632,7 +632,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR038A',
-                texto: 'Benef. Fidelizacion',
+                text: 'Benef. Fidelizacion',
                 description: 'Benef. Fidelizacion',
                 type: 'M',
                 icon: 'maintenance',
@@ -641,7 +641,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR037A',
-                texto: 'Nivel Fidelizacion',
+                text: 'Nivel Fidelizacion',
                 description: 'Nivel Fidelizacion',
                 type: 'M',
                 icon: 'maintenance',
@@ -650,7 +650,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR042A',
-                texto: 'Clientes Fid. GTI',
+                text: 'Clientes Fid. GTI',
                 description: 'Clientes Fid. GTI',
                 type: 'M',
                 icon: 'maintenance',
@@ -663,7 +663,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'CRM_LIST',
-        texto: 'Listados',
+        text: 'Listados',
         description: 'Listados',
         type: 'LF',
         icon: 'list-folder',
@@ -671,7 +671,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'CRMFR012A',
-            texto: 'Estadisticas por entrada',
+            text: 'Estadisticas por entrada',
             description: 'Estadisticas por entrada',
             type: 'L',
             icon: 'list',
@@ -684,7 +684,7 @@ export const MAIN_MENU_TEMP_MOCK = [
   },
   {
     id: 'servicios',
-    texto: 'Servicios',
+    text: 'Servicios',
     description: 'Servicios',
     type: 'A',
     icon: 'services',
@@ -692,7 +692,7 @@ export const MAIN_MENU_TEMP_MOCK = [
     submenus: [
       {
         id: 'SERFR215A',
-        texto: 'Consulta Reservas',
+        text: 'Consulta Reservas',
         description: 'Consulta Reservas',
         type: 'Q',
         icon: 'search',
@@ -702,7 +702,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'cd_mantenimientos',
-        texto: 'Mantenimientos',
+        text: 'Mantenimientos',
         description: 'Mantenimientos',
         type: 'MF',
         icon: 'maintenance-folder',
@@ -710,7 +710,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'cd_mantenimientos',
-            texto: 'Básicos',
+            text: 'Básicos',
             description: 'Mant. Básicos',
             type: 'MF',
             icon: 'maintenance-folder',
@@ -718,7 +718,7 @@ export const MAIN_MENU_TEMP_MOCK = [
             submenus: [
               {
                 id: 'SERFR209A',
-                texto: 'Hoteles App',
+                text: 'Hoteles App',
                 description: 'Hoteles App',
                 type: 'M',
                 icon: 'maintenance',
@@ -727,7 +727,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR211A',
-                texto: 'Imágenes App',
+                text: 'Imágenes App',
                 description: 'Imágenes App',
                 type: 'M',
                 icon: 'maintenance',
@@ -736,7 +736,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR034A',
-                texto: 'Usuarios / hotel (cal)',
+                text: 'Usuarios / hotel (cal)',
                 description: 'Usuarios / hotel (cal)',
                 type: 'M',
                 icon: 'maintenance',
@@ -745,7 +745,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'CRMFR008A',
-                texto: 'Usuarios / hotel (crm)',
+                text: 'Usuarios / hotel (crm)',
                 description: 'Usuarios / hotel (crm)',
                 type: 'M',
                 icon: 'maintenance',
@@ -754,7 +754,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR216A',
-                texto: 'Origenes OC',
+                text: 'Origenes OC',
                 description: 'Origenes OC',
                 type: 'M',
                 icon: 'maintenance',
@@ -763,7 +763,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR217A',
-                texto: 'Pildoras OC',
+                text: 'Pildoras OC',
                 description: 'Pildoras OC',
                 type: 'M',
                 icon: 'maintenance',
@@ -772,7 +772,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR218A',
-                texto: 'Configuración OC',
+                text: 'Configuración OC',
                 description: 'Configuración OC',
                 type: 'M',
                 icon: 'maintenance',
@@ -783,7 +783,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'actividades',
-            texto: 'Actividades',
+            text: 'Actividades',
             description: 'Actividades',
             type: 'MF',
             icon: 'maintenance-folder',
@@ -791,7 +791,7 @@ export const MAIN_MENU_TEMP_MOCK = [
             submenus: [
               {
                 id: 'SERFR201A',
-                texto: 'Departamentos',
+                text: 'Departamentos',
                 description: 'Departamentos',
                 type: 'M',
                 icon: 'maintenance',
@@ -800,7 +800,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR203A',
-                texto: 'Programas',
+                text: 'Programas',
                 description: 'Programas',
                 type: 'M',
                 icon: 'maintenance',
@@ -809,7 +809,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR206A',
-                texto: 'Actividades',
+                text: 'Actividades',
                 description: 'Actividades',
                 type: 'M',
                 icon: 'maintenance',
@@ -818,7 +818,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR204A',
-                texto: 'Actividades Hotel',
+                text: 'Actividades Hotel',
                 description: 'Actividades Hotel',
                 type: 'M',
                 icon: 'maintenance',
@@ -829,7 +829,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'ubicaciones',
-            texto: 'Ubicaciones',
+            text: 'Ubicaciones',
             description: 'Ubicaciones',
             type: 'MF',
             icon: 'maintenance-folder',
@@ -837,7 +837,7 @@ export const MAIN_MENU_TEMP_MOCK = [
             submenus: [
               {
                 id: 'SERFR202A',
-                texto: 'Ubicaciones',
+                text: 'Ubicaciones',
                 description: 'Ubicaciones',
                 type: 'M',
                 icon: 'maintenance',
@@ -846,7 +846,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR208A',
-                texto: 'Tipos de Ubicaciones',
+                text: 'Tipos de Ubicaciones',
                 description: 'Tipos de Ubicaciones',
                 type: 'M',
                 icon: 'maintenance',
@@ -857,7 +857,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'servicios',
-            texto: 'Servicios',
+            text: 'Servicios',
             description: 'Servicios',
             type: 'MF',
             icon: 'maintenance-folder',
@@ -865,7 +865,7 @@ export const MAIN_MENU_TEMP_MOCK = [
             submenus: [
               {
                 id: 'SERFR007A',
-                texto: 'Servicios',
+                text: 'Servicios',
                 description: 'Servicios',
                 type: 'M',
                 icon: 'maintenance',
@@ -874,7 +874,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR034A',
-                texto: 'Tipos de Servicio',
+                text: 'Tipos de Servicio',
                 description: 'Tipos de Servicios',
                 type: 'M',
                 icon: 'maintenance',
@@ -883,7 +883,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR061A',
-                texto: 'Tipos de Serv. Hotel',
+                text: 'Tipos de Serv. Hotel',
                 description: 'Tipos de Serv. Hotel',
                 type: 'M',
                 icon: 'maintenance',
@@ -892,7 +892,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR060A',
-                texto: 'Directorio de Servicios',
+                text: 'Directorio de Servicios',
                 description: 'Directorio de Servicios',
                 type: 'M',
                 icon: 'maintenance',
@@ -901,7 +901,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR001A',
-                texto: 'Turnos',
+                text: 'Turnos',
                 description: 'Turnos',
                 type: 'M',
                 icon: 'maintenance',
@@ -910,7 +910,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR210A',
-                texto: 'Planning',
+                text: 'Planning',
                 description: 'Planning',
                 type: 'M',
                 icon: 'maintenance',
@@ -919,7 +919,7 @@ export const MAIN_MENU_TEMP_MOCK = [
               },
               {
                 id: 'SERFR035A',
-                texto: 'Tipos de Restaurante',
+                text: 'Tipos de Restaurante',
                 description: 'Tipos de Restaurante',
                 type: 'M',
                 icon: 'maintenance',
@@ -934,7 +934,7 @@ export const MAIN_MENU_TEMP_MOCK = [
   },
   {
     id: 'cambio_divisas',
-    texto: 'Cambio Divisas',
+    text: 'Cambio Divisas',
     description: 'cambio_divisas',
     type: 'A',
     icon: 'currency-exchange',
@@ -942,7 +942,7 @@ export const MAIN_MENU_TEMP_MOCK = [
     submenus: [
       {
         id: 'DVFR002A',
-        texto: 'Consulta',
+        text: 'Consulta',
         description: 'Consulta',
         type: 'Q',
         icon: 'search',
@@ -951,7 +951,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'DVFR001A',
-        texto: 'Cambio Divisas',
+        text: 'Cambio Divisas',
         description: 'Cambio Divisas',
         type: 'F',
         icon: 'funcionality',
@@ -962,7 +962,7 @@ export const MAIN_MENU_TEMP_MOCK = [
   },
   {
     id: 'encuestas',
-    texto: 'Encuestas',
+    text: 'Encuestas',
     description: 'Encuestas',
     type: 'A',
     icon: 'funcionality',
@@ -970,7 +970,7 @@ export const MAIN_MENU_TEMP_MOCK = [
     submenus: [
       {
         id: 'BPGFR001A',
-        texto: 'Mantenimiento Encuestas',
+        text: 'Mantenimiento Encuestas',
         description: 'Mantenimiento Encuestas',
         type: 'M',
         icon: 'maintenance',
@@ -979,7 +979,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'BPGFR002A',
-        texto: 'Encuestas',
+        text: 'Encuestas',
         description: 'Encuestas',
         type: 'F',
         icon: 'funcionality',
@@ -990,7 +990,7 @@ export const MAIN_MENU_TEMP_MOCK = [
   },
   {
     id: 'configuracion',
-    texto: 'Configuracion',
+    text: 'Configuracion',
     description: 'Configuracion',
     type: 'MF',
     icon: 'config',
@@ -998,7 +998,7 @@ export const MAIN_MENU_TEMP_MOCK = [
     submenus: [
       {
         id: 'FROFR002',
-        texto: 'Reservas pasadas y futuras',
+        text: 'Reservas pasadas y futuras',
         description: 'Reservas pasadas y futuras',
         type: 'Q',
         icon: 'search',
@@ -1007,7 +1007,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'cd_mantenimientos',
-        texto: 'Mantenimientos',
+        text: 'Mantenimientos',
         description: 'Mantenimientos',
         type: 'MF',
         icon: 'maintenance-folder',
@@ -1015,7 +1015,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'WCOFR003A',
-            texto: 'Agentes',
+            text: 'Agentes',
             description: 'Agentes',
             type: 'M',
             icon: 'maintenance',
@@ -1026,7 +1026,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'seguridad',
-        texto: 'Seguridad',
+        text: 'Seguridad',
         description: 'Seguridad',
         type: 'MF',
         icon: 'config',
@@ -1034,7 +1034,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'SECFR002A',
-            texto: 'Mantenimiento CA',
+            text: 'Mantenimiento CA',
             description: 'Mantenimiento CA',
             type: 'M',
             icon: 'maintenance',
@@ -1043,7 +1043,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'SECFR001A',
-            texto: 'Mantenimiento General',
+            text: 'Mantenimiento General',
             description: 'Mantenimiento General',
             type: 'M',
             icon: 'maintenance',
@@ -1054,7 +1054,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'inhouse',
-        texto: 'Inhouse',
+        text: 'Inhouse',
         description: 'Inhouse',
         type: 'FF',
         icon: 'inhouse',
@@ -1062,7 +1062,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'INHFR001A',
-            texto: 'Inhouse',
+            text: 'Inhouse',
             description: 'Inhouse',
             type: 'F',
             icon: 'funcionality',
@@ -1073,7 +1073,7 @@ export const MAIN_MENU_TEMP_MOCK = [
       },
       {
         id: 'marketing',
-        texto: 'BP Mkt',
+        text: 'BP Mkt',
         description: 'BP Mkt',
         type: 'MF',
         icon: 'bpmkt',
@@ -1081,7 +1081,7 @@ export const MAIN_MENU_TEMP_MOCK = [
         submenus: [
           {
             id: 'CRMFR053A',
-            texto: 'BP Datos Básicos',
+            text: 'BP Datos Básicos',
             description: 'BP Datos Básicos',
             type: 'M',
             icon: 'maintenance',
@@ -1090,7 +1090,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CRMFR052A',
-            texto: 'BP Schedule',
+            text: 'BP Schedule',
             description: 'BP Schedule',
             type: 'M',
             icon: 'maintenance',
@@ -1099,7 +1099,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CRMFR051A',
-            texto: 'BP Programas',
+            text: 'BP Programas',
             description: 'BP Programas',
             type: 'M',
             icon: 'maintenance',
@@ -1108,7 +1108,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CRMFR050A',
-            texto: 'BP Directo',
+            text: 'BP Directo',
             description: 'BP Directo',
             type: 'M',
             icon: 'maintenance',
@@ -1117,7 +1117,7 @@ export const MAIN_MENU_TEMP_MOCK = [
           },
           {
             id: 'CRMFR050ATest',
-            texto: 'BP Test',
+            text: 'BP Test',
             description: 'BP Test',
             type: 'M',
             icon: 'maintenance',

@@ -2,7 +2,7 @@
   name="__field__{{ formField?.fieldMetadata.fieldName }}"
   [(ngModel)]="currentValue"
   [style]="{ height: '200px' }"
-  (change)="onFieldChange()"
+  (onTextChange)="onChangeEvent($event)"
   [disabled]="controlDisabled()"
 >
 </p-editor>

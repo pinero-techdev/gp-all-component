@@ -1,0 +1,90 @@
+<div *ngIf="field && field.displayInfo" [class]="field.displayInfo.displayType | lowercase">
+  <!-- Input text | number -->
+  <gp-form-text-field
+    *ngIf="
+      field.displayInfo.displayType === displayType.TEXT ||
+      field.displayInfo.displayType === displayType.NUMBER ||
+      field.displayInfo.displayType === displayType.EMAIL ||
+      field.displayInfo.displayType === displayType.PASSWORD
+    "
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-text-field>
+  <!-- Textarea -->
+  <gp-form-textarea-field
+    *ngIf="field.displayInfo.displayType === displayType.TEXT_AREA"
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-textarea-field>
+  <!-- Image -->
+  <gp-form-img-field
+    *ngIf="field.displayInfo.displayType === displayType.IMG"
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-img-field>
+  <!-- Time -->
+  <gp-form-time-field
+    *ngIf="field.displayInfo.displayType === displayType.HOUR_MINUTE"
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-time-field>
+  <!-- Dropdown -->
+  <gp-form-dropdown-field
+    *ngIf="field.displayInfo.displayType === displayType.DROPDOWN"
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-dropdown-field>
+  <!-- Dropdown related -->
+  <gp-form-dropdown-related-field
+    *ngIf="field.displayInfo.displayType === displayType.DROPDOWN_RELATED"
+    [formField]="formField"
+    [currentValue]="value"
+    [relatedFields]="relatedFields"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-dropdown-related-field>
+  <!-- Checkbox -->
+  <gp-form-checkbox-field
+    *ngIf="field.displayInfo.displayType === displayType.CHECKBOX"
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-checkbox-field>
+  <!-- Tri-State Checkbox -->
+  <gp-form-nullable-checkbox-field
+    *ngIf="field.displayInfo.displayType === displayType.NULLABLE_CHECKBOX"
+    [formField]="formField"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-nullable-checkbox-field>
+  <!-- Switch -->
+  <gp-form-switch-field
+    *ngIf="field.displayInfo.displayType === displayType.SWITCH"
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-switch-field>
+  <!-- Calendar -->
+  <gp-form-calendar-field
+    *ngIf="field.displayInfo.displayType === displayType.CALENDAR"
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-calendar-field>
+  <!-- WYSIWYG -->
+  <gp-form-wysiwyg-field
+    *ngIf="field.displayInfo.displayType === displayType.WYSIWYG"
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-wysiwyg-field>
+  <gp-form-file-field
+    *ngIf="field.displayInfo.displayType === displayType.FILE"
+    [formField]="formField"
+    [currentValue]="value"
+    (onChange)="onChangeEvent($event)"
+  ></gp-form-file-field>
+</div>

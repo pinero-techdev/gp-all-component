@@ -18,7 +18,7 @@ describe('ButtonComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ButtonComponent],
       imports: [ButtonModule, SplitButtonModule, RouterTestingModule],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

@@ -1,193 +1,92 @@
-import { MessagesService } from './../../../../services/core/messages.service';
-import { MultiLanguageServiceMock } from './../../../../services/api/multi-language/multi-language.service.mock';
-import { TranslationInfo } from './../../../../resources/data/translation-info.model';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormFieldTextarea } from '../../../../shared/testing/@mock/types/form-field.mock';
 import { FormTextAreaFieldComponent } from './form-text-area-field.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
-import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
-import { MultiLanguageService } from './../../../../services/api/multi-language/multi-language.service';
-import { TableService } from './../../../../services/api/table/table.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { GpFormField } from '../../resources/form-field.model';
+import { TableServiceMock } from '../../../../services/api/table/table.service.mock';
+import { TableService } from '../../../../services/api/table/table.service';
+import { FormFieldValidatorDirective } from '../form-field-validator/form-field-validator.directive';
 
 describe('FormTextAreaFieldComponent', () => {
   let component: FormTextAreaFieldComponent;
   let fixture: ComponentFixture<FormTextAreaFieldComponent>;
-  let $elementRef: HTMLElement;
-  const formField = JSON.parse(JSON.stringify(FormFieldMock));
-  const description =
-    'orem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-    'Duis consequat enim arcu, non ornare augue convallis id.Mauris sed volutpat mi.Pellentesque';
+  let tableService: TableService;
+  const value =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
+    'Morbi vestibulum ex ligula, eget posuere massa porttitor ' +
+    'at. Proin sed sagittis nisi. Aliquam massa orci, porttitor' +
+    ' at augue at, interdum dignissim quam. Nulla pretium at ' +
+    'eros tristique mollis. Sed nec luctus nibh. Donec faucibus ' +
+    'augue id justo ullamcorper, quis ultrices dui fermentum.' +
+    ' Duis aliquam mi quis erat scelerisque, sed sodales est ' +
+    'vulputate. Pellentesque rutrum elit ut eros tristique, ' +
+    'sed eleifend massa tempor. Phasellus neque tellus, ' +
+    'pulvinar non efficitur sed, consectetur vitae lectus. ' +
+    'Suspendisse ac tellus ligula. Integer eu libero vel ' +
+    'nunc dignissim mattis. Curabitur vel ligula a est ' +
+    'dictum ultrices. Maecenas vehicula eros quis vehicula porta.';
+  const editRow = { [FormFieldTextarea.fieldMetadata.fieldName]: value.toUpperCase() };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FormTextAreaFieldComponent],
-      imports: [FormWrapperSharedModules],
+      declarations: [FormTextAreaFieldComponent, FormFieldValidatorDirective],
+      imports: [FormWrapperSharedModules, HttpClientTestingModule],
       providers: [
         FormWrapperSharedProviders,
-        MessagesService,
-        { provide: MultiLanguageService, useClass: MultiLanguageServiceMock },
+        { provide: TableService, useClass: TableServiceMock },
       ],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FormTextAreaFieldComponent);
     component = fixture.componentInstance;
-    formField.formFieldType = 'gp-form-textarea-field';
-    formField.field = 'description';
-    formField.fieldMetadata.fieldName = 'description';
-    component.ngOnInit();
+    component.formField = new GpFormField().assign(FormFieldTextarea);
+    tableService = TestBed.get(TableService);
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(tableService).toBeTruthy();
   });
 
-  describe('When the formField is filled', () => {
-    beforeEach(() => {
-      component.formField = formField;
-      fixture.detectChanges();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+    expect(tableService).toBeTruthy();
+  });
 
-    it('should have 1 row', () => {
-      expect(component).toBeTruthy();
-      expect(component.rows).toEqual(component.formField.fieldMetadata.displayInfo.rowsTextArea);
-    });
+  it('should have uppercase class', () => {
+    expect(component.textboxClass).toEqual(' text-uppercase');
+  });
 
-    describe('Then the translate info is filled', () => {
-      const translationInfo = new TranslationInfo();
-      const editedRow = {
-        description,
-        A: 'Test 1',
-        B: 'Test 2',
-        C: 'Test 3',
-      };
+  it('should have uppercase class', () => {
+    component.currentValue = '';
+    fixture.detectChanges();
+    expect(component.textboxClass).toEqual(' text-uppercase');
+  });
 
-      beforeEach(() => {
-        translationInfo.keyFields = ['A', 'B', 'C'];
-        component.formField.fieldMetadata.displayInfo.translationInfo = null;
-        component.ngOnInit();
-        fixture.detectChanges();
-        $elementRef = fixture.debugElement.nativeElement;
-      });
+  it('should trim the value', () => {
+    component.currentValue = '    Testing   - -    Text     ';
+    fixture.detectChanges();
+    expect(component.currentValue).toEqual('Testing   - -    Text'.toUpperCase());
+  });
 
-      it('should show multi-language component', () => {
-        component.formField.fieldMetadata.displayInfo.translationInfo = translationInfo;
-        fixture.detectChanges();
-        component.copyValueFromEditedRowToControl(editedRow);
-        fixture.detectChanges();
-        expect(component.isDisabled).toBeFalsy();
-        expect(component.currentValue).toEqual(description);
-        expect(component.translateInfo.keyFields.length).toEqual(translationInfo.keyFields.length);
-        expect(component.translationKeys).toEqual('Test 1Test 2Test 3');
-        expect($elementRef.querySelector('gp-multi-language')).not.toBeNull();
-      });
+  it('should copy value to editRow', () => {
+    component.currentValue = value;
+    component.copyValueFromControlToEditedRow(component.formField.formControl.editedRow);
+    expect(component.formField.formControl.editedRow).toEqual(editRow);
+  });
 
-      it('should not show multi-language component when editedRow is undefined', () => {
-        component.copyValueFromEditedRowToControl();
-        fixture.detectChanges();
-        expect(component.isDisabled).toBeFalsy();
-        expect(component.currentValue).toBeUndefined();
-        expect(component.translationKeys).toBeUndefined();
-        expect($elementRef.querySelector('gp-multi-language')).toBeNull();
-      });
-
-      it('should not show multi-language component', () => {
-        component.copyValueFromEditedRowToControl(editedRow);
-        fixture.detectChanges();
-        expect(component.isDisabled).toBeFalsy();
-        expect(component.currentValue).toEqual(description);
-        expect(component.translateInfo).toBeNull();
-        expect(component.translationKeys).toBeFalsy();
-        expect($elementRef.querySelector('gp-multi-language')).toBeNull();
-      });
-    });
-
-    describe('Then check validations when is required', () => {
-      const editedRow = {
-        description: null,
-        A: 'Test 1',
-        B: 'Test 2',
-        C: 'Test 3',
-      };
-
-      let isValid = false;
-
-      beforeEach(() => {
-        component.ngOnInit();
-        component.formField.fieldMetadata.notNull = true;
-        fixture.detectChanges();
-        $elementRef = fixture.debugElement.nativeElement;
-      });
-
-      it('should not be valid', () => {
-        editedRow.description = null;
-        isValid = component.validateField(editedRow);
-        fixture.detectChanges();
-        expect(isValid).toBeFalsy();
-      });
-
-      it('should be valid', () => {
-        editedRow.description = description;
-        isValid = component.validateField(editedRow);
-        fixture.detectChanges();
-        expect(isValid).toBeTruthy();
-      });
-    });
-
-    describe('Then copy value to edited row', () => {
-      const editedRow = {
-        description: null,
-        A: 'Test 1',
-        B: 'Test 2',
-        C: 'Test 3',
-      };
-
-      beforeEach(() => {
-        component.ngOnInit();
-        fixture.detectChanges();
-        $elementRef = fixture.debugElement.nativeElement;
-      });
-
-      it('should be null', () => {
-        component.currentValue = null;
-        editedRow.description = null;
-        component.copyValueFromControlToEditedRow(editedRow);
-        fixture.detectChanges();
-        expect(editedRow.description).toBeNull();
-      });
-
-      it('should not be valid', () => {
-        editedRow.description = null;
-        component.currentValue = description;
-        component.formField.fieldMetadata.displayInfo.textProperties = [];
-        component.copyValueFromControlToEditedRow(editedRow);
-        fixture.detectChanges();
-        expect(editedRow.description).toEqual(description);
-      });
-
-      it('should copy currentValue TRIM property', () => {
-        component.currentValue = description;
-        fixture.detectChanges();
-        editedRow.description = description;
-        component.formField.fieldMetadata.displayInfo.textProperties = [TableService.TEXT_TRIM];
-        component.copyValueFromControlToEditedRow(editedRow);
-        fixture.detectChanges();
-        expect(editedRow.description).toEqual(description.trim());
-      });
-
-      it('should copy currentValue UPPERCASE property', () => {
-        component.currentValue = description;
-        editedRow.description = description;
-        component.formField.fieldMetadata.displayInfo.textProperties = [
-          TableService.TEXT_UPPERCASE,
-        ];
-        fixture.detectChanges();
-        component.copyValueFromControlToEditedRow(editedRow);
-        fixture.detectChanges();
-        expect(editedRow.description).toEqual(description.toUpperCase());
-      });
-    });
+  it('should copy value from editRow', () => {
+    component.currentValue = null;
+    component.formField.formControl.editedRow = editRow;
+    component.copyValueFromEditedRowToControl(editRow);
+    expect(component.currentValue).toEqual(value.toUpperCase());
+    expect(component.translationKeys).not.toBeUndefined();
   });
 });

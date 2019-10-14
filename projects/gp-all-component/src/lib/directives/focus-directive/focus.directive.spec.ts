@@ -25,7 +25,7 @@ describe('FocusDirective: Input element', () => {
       declarations: [FocusDirective, TestFocusComponent],
       imports: [FormsModule],
       providers: [NgControl],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

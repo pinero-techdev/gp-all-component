@@ -15,7 +15,7 @@ describe('MultiLanguageServiceSpec', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [GlobalService, MultiLanguageService],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

@@ -1,107 +1,57 @@
-import { FormNumberFieldComponent } from './form-number-field.component';
-import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TableServiceMock } from '../../../../services/api/table/table.service.mock';
+import { TableService } from '../../../../services/api/table/table.service';
 import { GpFormField } from '../../resources/form-field.model';
-import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
+import { FormNumberFieldComponent } from './form-number-field.component';
+import { FormFieldNumber } from '../../../../shared/testing/@mock/types/form-field.mock';
+import { FormFieldValidatorDirective } from '../form-field-validator/form-field-validator.directive';
 
 describe('FormNumberFieldComponent', () => {
   let component: FormNumberFieldComponent;
   let fixture: ComponentFixture<FormNumberFieldComponent>;
-  let formField: GpFormField;
-  const text = 12345;
+  let tableService: TableService;
+  const value = 101010;
+  const editRow = { [FormFieldNumber.fieldMetadata.fieldName]: value };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FormNumberFieldComponent],
-      imports: [FormWrapperSharedModules],
-      providers: [FormWrapperSharedProviders],
-    }).compileComponents();
+      declarations: [FormNumberFieldComponent, FormFieldValidatorDirective],
+      imports: [FormWrapperSharedModules, HttpClientTestingModule],
+      providers: [
+        FormWrapperSharedProviders,
+        { provide: TableService, useClass: TableServiceMock },
+      ],
+    });
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FormNumberFieldComponent);
     component = fixture.componentInstance;
-    formField = FormFieldMock;
-    component.formField = formField;
+    component.formField = new GpFormField().assign(FormFieldNumber);
+    tableService = TestBed.get(TableService);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(tableService).toBeTruthy();
   });
 
-  it('should return fieldMetadata', () => {
-    const metadata = component.getFieldMetadata();
-    expect(metadata).toEqual(component.formField.fieldMetadata);
+  it('should copy value to editRow', () => {
+    component.currentValue = value;
+    component.copyValueFromControlToEditedRow(component.formField.formControl.editedRow);
+    expect(component.formField.formControl.editedRow).toEqual(editRow);
   });
 
-  describe('on copy value from control to edited row', () => {
-    it('should just copy', () => {
-      const editedFormField = {
-        ...FormFieldMock,
-        cansCodi: '',
-        fieldMetadata: { ...FormFieldMock.fieldMetadata, notNull: true },
-      };
-
-      component.formField.fieldMetadata.displayInfo.textProperties = [];
-
-      component.currentValue = text;
-
-      component.copyValueFromControlToEditedRow(editedFormField);
-
-      expect(editedFormField[component.formField.fieldMetadata.fieldName]).toEqual(text);
-    });
-  });
-
-  describe('on copy value from edited row to control', () => {
-    it('should just copy', () => {
-      const editedFormField = {
-        ...FormFieldMock,
-        cansCodi: text,
-        fieldMetadata: { ...FormFieldMock.fieldMetadata, notNull: true },
-      };
-
-      component.copyValueFromEditedRowToControl(editedFormField);
-
-      expect(component.currentValue).toEqual(text);
-    });
-  });
-
-  describe('on validate field', () => {
-    describe('validating not null condition', () => {
-      it('should pass', () => {
-        const editedFormField = {
-          ...FormFieldMock,
-          cansCodi: '01:45',
-          fieldMetadata: { ...FormFieldMock.fieldMetadata, notNull: true },
-        };
-
-        const valid = component.validateField(editedFormField);
-
-        expect(valid).toBeTruthy();
-        expect(component.formField.validField).toBeTruthy();
-      });
-
-      it('should not pass', () => {
-        const editedFormField = {
-          ...FormFieldMock,
-          cansCodi: '',
-          fieldMetadata: { ...FormFieldMock.fieldMetadata, notNull: true },
-        };
-
-        const valid = component.validateField(editedFormField);
-
-        expect(valid).toBeFalsy();
-        expect(component.formField.validField).toBeFalsy();
-        expect(component.formField.fieldMsgs).toContain({
-          severity: 'error',
-          detail: LocaleES.VALUE_IS_REQUIRED,
-        });
-      });
-    });
+  it('should copy value from editRow', () => {
+    component.currentValue = null;
+    component.formField.formControl.editedRow = editRow;
+    component.copyValueFromEditedRowToControl(editRow);
+    expect(component.currentValue).toEqual(value);
   });
 });

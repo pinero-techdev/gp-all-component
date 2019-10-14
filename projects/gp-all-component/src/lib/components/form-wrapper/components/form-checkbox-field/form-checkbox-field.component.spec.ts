@@ -1,98 +1,83 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormCheckboxFieldComponent } from './form-checkbox-field.component';
 import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
-import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TableServiceMock } from '../../../../services/api/table/table.service.mock';
+import { TableService } from '../../../../services/api/table/table.service';
+import { FormFieldCheckbox } from '../../../../shared/testing/@mock/types/form-field.mock';
+import { GpFormField } from '../../resources/form-field.model';
+import { FormCheckboxFieldComponent } from './form-checkbox-field.component';
+import { FormFieldValidatorDirective } from '../form-field-validator/form-field-validator.directive';
 
 describe('FormCheckboxFieldComponent', () => {
   let component: FormCheckboxFieldComponent;
   let fixture: ComponentFixture<FormCheckboxFieldComponent>;
-
+  let tableService: TableService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FormCheckboxFieldComponent],
-      imports: [FormWrapperSharedModules],
-      providers: [FormWrapperSharedProviders],
-    }).compileComponents();
+      declarations: [FormCheckboxFieldComponent, FormFieldValidatorDirective],
+      imports: [FormWrapperSharedModules, HttpClientTestingModule],
+      providers: [
+        FormWrapperSharedProviders,
+        { provide: TableService, useClass: TableServiceMock },
+      ],
+    });
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FormCheckboxFieldComponent);
     component = fixture.componentInstance;
-    component.formField = {
-      ...FormFieldMock,
-      fieldMetadata: {
-        ...FormFieldMock.fieldMetadata,
-        displayInfo: {
-          ...FormFieldMock.fieldMetadata.displayInfo,
-          checkedValue: 'true',
-          uncheckedValue: 'false',
-        },
-      },
-    };
+    component.formField = new GpFormField().assign(FormFieldCheckbox);
+    tableService = TestBed.get(TableService);
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(tableService).toBeTruthy();
   });
 
-  it('should return formField', () => {
-    const formField = FormFieldMock;
-
-    component.formField = formField;
-
-    const returnedFormField = component.getFormField();
-
-    expect(returnedFormField).toEqual(formField);
-  });
-
-  it('should return fieldMetadata', () => {
-    const formField = FormFieldMock;
-
-    component.formField = formField;
-
-    const metadata = component.getFieldMetadata();
-
-    expect(metadata).toEqual(formField.fieldMetadata);
-  });
-
-  it('should copy value from control to edited row', () => {
-    const editedFormField = {
-      ...FormFieldMock,
-      cansCodi: false,
+  describe('Scenario: value is true', () => {
+    const value = true;
+    const editRow = {
+      [FormFieldCheckbox.fieldMetadata.fieldName]:
+        FormFieldCheckbox.fieldMetadata.displayInfo.checkedValue,
     };
 
-    component.copyValueFromControlToEditedRow(editedFormField);
-
-    expect(editedFormField[component.formField.fieldMetadata.fieldName]).toBeTruthy();
-  });
-
-  it('should copy value from edited row to control', () => {
-    const editedFormField = {
-      ...FormFieldMock,
-      cansCodi: false,
-    };
-
-    component.copyValueFromEditedRowToControl(editedFormField);
-
-    expect(component.currentValue).toBeFalsy();
-  });
-
-  describe('on validate', () => {
-    it('should pass', () => {
-      const validation = component.validateField();
-
-      expect(validation).toBeTruthy();
+    it('should copy value to editRow', () => {
+      component.currentValue = value;
+      component.copyValueFromControlToEditedRow(component.formField.formControl.editedRow);
+      expect(component.formField.formControl.editedRow).toEqual(editRow);
     });
 
-    it('should fail', () => {
-      component.formField = undefined;
+    it('should copy value from editRow', () => {
+      component.currentValue = null;
+      component.formField.formControl.editedRow = editRow;
+      component.copyValueFromEditedRowToControl(editRow);
+      expect(component.currentValue).toEqual(value);
+    });
+  });
 
-      const validation = component.validateField();
+  describe('Scenario: value is false', () => {
+    const value = false;
+    const editRow = {
+      [FormFieldCheckbox.fieldMetadata.fieldName]:
+        FormFieldCheckbox.fieldMetadata.displayInfo.uncheckedValue,
+    };
 
-      expect(validation).toBeFalsy();
+    it('should copy value to editRow', () => {
+      component.currentValue = value;
+      component.copyValueFromControlToEditedRow(component.formField.formControl.editedRow);
+      expect(component.formField.formControl.editedRow).toEqual(editRow);
+    });
+
+    it('should copy value from editRow', () => {
+      component.currentValue = null;
+      component.formField.formControl.editedRow = editRow;
+      component.copyValueFromEditedRowToControl(editRow);
+      expect(component.currentValue).toEqual(value);
     });
   });
 });

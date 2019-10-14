@@ -1,26 +1,22 @@
-import { GPUtil } from './../../../services/core/gp-util.service';
-import { RegexValidations } from './regex-validations.type';
-import { LocaleES } from './../../../resources/localization/es-ES.lang';
 import { Message } from 'primeng/api';
-import { isNullOrUndefined } from 'util';
-import { Input } from '@angular/core';
+import { EventEmitter, Input, Output } from '@angular/core';
 import { GpFormControl } from './form-control.model';
 import { GpFormField } from './form-field.model';
-import { GpFormFieldControlInterface } from './form-field-control.interface';
-import { TableService } from '../../../services/api/table/table.service';
-import { GpTableRestrictions } from '../../table-wrapper/resources/gp-table-restrictions.enum';
+import {
+  FieldDisplayInfo,
+  FieldRestriction,
+  FieldType,
+  IModifiedField,
+  RestrictionType,
+  TextPropertyType,
+} from '../../../resources/data/data-table/meta-data/meta-data-field.model';
+import { GPUtil } from '../../../services/core/gp-util.service';
 
-export abstract class GpFormFieldControl extends GpFormControl
-  implements GpFormFieldControlInterface {
-  /**
-   * The current form field
-   */
-  @Input() formField: GpFormField;
-
-  /**
-   * Current form field value
-   */
-  currentValue: any;
+export abstract class GpFormFieldControl extends GpFormControl {
+  // tslint:disable-next-line
+  protected _formField;
+  // tslint:disable-next-line
+  protected _currentValue: any;
 
   /**
    * isDisabled is set up when OnInit is called, used in the template.
@@ -36,29 +32,145 @@ export abstract class GpFormFieldControl extends GpFormControl
    * Max length validation value
    */
   maxLength: number;
+  /**
+   * Min value validation value
+   */
+  minValue: number;
+
+  /**
+   * Max value validation value
+   */
+  maxValue: number;
+  /**
+   * Required validation value
+   */
+  required = false;
+
+  /**
+   * Readonly validation value
+   */
+  readonly = false;
+
+  /**
+   * Placeholder text
+   */
+  placeholder = '';
+
+  /**
+   * Classes styles
+   */
+  textboxClass: string;
+
+  /**
+   * A FieldDisplayInfo object, type, options, label ...
+   */
+  displayInfo: FieldDisplayInfo;
+
+  errorClass = 'invalid-field';
+
+  /**
+   * The current form field
+   */
+  @Input() set formField(value: GpFormField) {
+    if (!GPUtil.isNullOrUndefined(value) && GPUtil.isNullOrUndefined(this._formField)) {
+      this._formField = new GpFormField().assign(value, true);
+      this.displayInfo = new FieldDisplayInfo().assign(
+        this._formField.fieldMetadata.displayInfo,
+        true
+      );
+
+      if (GPUtil.isNullOrUndefined(this.formField.formControl.editedRow)) {
+        this._formField.formControl.editedRow = {
+          [this._formField.fieldMetadata.fieldName]: null,
+        };
+      }
+
+      this.isDisabled = this.controlDisabled();
+      this.setValidations();
+      this.setTextProperties();
+      this.init();
+    }
+  }
+
+  get formField(): GpFormField {
+    return this._formField ? this._formField : null;
+  }
+
+  /**
+   * Current form field value
+   */
+  @Input() currentValue: any;
+
+  /* Handling field change event */
+  @Output() onChange = new EventEmitter<IModifiedField>();
+
+  /**
+   * When the class set the FormField up, the field should be initiated.
+   */
+  protected init() {
+    // Write your init code if it's needed
+  }
 
   /**
    * Returns the current form field object.
    */
-  abstract getFormField(): GpFormField;
+  public getFormField(): GpFormField {
+    return this.formField;
+  }
 
   /**
-   * Get the field value and set the accurate row object.
-   * @param editedRow object
+   * Copies value from control to editing row
+   * @param editedRow The editing row
    */
-  abstract copyValueFromControlToEditedRow(editedRow: any);
+  copyValueFromControlToEditedRow(editedRow: any) {
+    if (this.formField) {
+      editedRow[this.formField.fieldMetadata.fieldName] = this.currentValue;
+    }
+  }
 
   /**
-   * Get the row value and set the control value up.
-   * @param editedRow object
+   * Copies values from editing row to control
+   * @param editedRow The editing row
    */
-  abstract copyValueFromEditedRowToControl(editedRow: any);
+  copyValueFromEditedRowToControl(editedRow: any) {
+    if (this.formField) {
+      this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
+    }
+  }
+
+  protected setValidations() {
+    this.readonly = this.formField ? this.formField.fieldMetadata.readOnly : false;
+    this.required = this.formField ? this.formField.fieldMetadata.notNull : false;
+    this.setRestrictions();
+  }
 
   /**
-   * Validate the field.
-   * @param editedRow object
+   * Set text classes and modify a text according to text properties.
+   * @param value
    */
-  abstract validateField(editedRow: any);
+  protected setTextProperties(value: string = ''): string {
+    let returnedValue = value ? value.toString() : '';
+    if (this.formField.fieldMetadata.fieldType === FieldType.STRING && this.hasTextProperties()) {
+      this.textboxClass = '';
+      this.displayInfo.textProperties.forEach((textProperty) => {
+        switch (textProperty) {
+          case TextPropertyType.TRIM:
+            returnedValue = returnedValue.trim();
+            break;
+          case TextPropertyType.NO_SPACE:
+            returnedValue = returnedValue.replace(/\s/g, '');
+            break;
+          case TextPropertyType.UPPERCASE:
+            this.textboxClass += ' text-uppercase';
+            returnedValue = returnedValue.toUpperCase();
+            break;
+          default:
+        }
+      });
+    }
+
+    return returnedValue;
+  }
 
   /**
    * Set a new message to the messages queue for showing an error/warning.
@@ -68,7 +180,7 @@ export abstract class GpFormFieldControl extends GpFormControl
     const formField = this.getFormField();
     if (formField) {
       formField.validField = false;
-      if (isNullOrUndefined(formField.fieldMsgs)) {
+      if (GPUtil.isNullOrUndefined(formField.fieldMsgs)) {
         formField.fieldMsgs = [];
       }
       formField.fieldMsgs.push({ severity: 'error', detail: msg } as Message);
@@ -90,144 +202,78 @@ export abstract class GpFormFieldControl extends GpFormControl
    * Set the flag isDisabled to true if the field is readonly/locked.
    */
   controlDisabled(): boolean {
-    const formField = this.getFormField();
-    return (
-      !isNullOrUndefined(formField) &&
-      (formField.formControl.lockFields ||
-        formField.fieldMetadata.readOnly ||
-        (formField.fieldMetadata.id && formField.formControl.edicionEdit))
-    );
+    this.isDisabled =
+      this.formField &&
+      (this.formField.formControl.lockFields ||
+        this.formField.fieldMetadata.readOnly ||
+        (this.formField.fieldMetadata.id && this.formField.formControl.edicionEdit));
+    return this.isDisabled;
   }
 
   /**
    * Event when the field is changed by user
    */
-  onFieldChange() {
+  onFieldChange(itemValue: any = null) {
     const field = this.getFormField();
     if (!field || !field.formControl) {
       return;
     }
+
+    const value =
+      !GPUtil.isNullOrUndefined(itemValue) && itemValue.hasOwnProperty('value')
+        ? itemValue.value
+        : this.currentValue;
+
+    const label =
+      !GPUtil.isNullOrUndefined(itemValue) && itemValue.hasOwnProperty('label')
+        ? itemValue.label
+        : this.currentValue;
+
     this.copyValueFromControlToEditedRow(field.formControl.editedRow);
-  }
 
-  /**
-   * Starts validation for editing row
-   * @param editedRow The editing row
-   */
-  validateTextField(editedRow: any = null) {
-    if (this.formField && editedRow) {
-      this.formField.validField = true;
-      this.formField.fieldMsgs = null;
-
-      let fieldValue = editedRow[this.formField.fieldMetadata.fieldName];
-
-      const isDisplayType =
-        typeof fieldValue === 'string' &&
-        this.formField.fieldMetadata.displayInfo.displayType === TableService.TEXT_DISPLAY_TYPE;
-
-      if (isDisplayType) {
-        fieldValue = fieldValue.trim();
-      }
-
-      // Start field validation rules
-
-      // a) Check nullability
-      const notNullable =
-        this.formField.fieldMetadata.notNull && (fieldValue === '' || fieldValue === null);
-
-      if (notNullable) {
-        this.formField.validField = false;
-        this.validateFieldAddMsgs(LocaleES.VALUE_IS_REQUIRED);
-        return false;
-      }
-
-      // b) Check length restrictions
-      const restrictions = this.formField.fieldMetadata.restrictions;
-
-      if (restrictions) {
-        for (const restriction of restrictions) {
-          const hasMinLength =
-            restriction.restrictionType === GpTableRestrictions.MIN_LENGTH &&
-            typeof fieldValue === 'string';
-
-          const hasMaxLength =
-            restriction.restrictionType === GpTableRestrictions.MAX_LENGTH &&
-            typeof fieldValue === 'string';
-
-          if (hasMinLength) {
-            if (fieldValue.length < restriction.minLength) {
-              this.formField.validField = false;
-              this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_SHORT(restriction.minLength));
-            }
-          }
-
-          if (hasMaxLength) {
-            if (fieldValue.length > restriction.maxLength) {
-              this.formField.validField = false;
-              this.validateFieldAddMsgs(LocaleES.VALIDATION_VALUE_TOO_LONG(restriction.maxLength));
-            }
-          }
-        }
-      }
-
-      // c) Check ascii and special characters
-      const allowsAscii = this.formField.fieldMetadata.allowAscii;
-
-      if (!allowsAscii) {
-        const hasBlankSpace = RegexValidations.hasBlankSpace(fieldValue);
-        const disallowsSpaces =
-          this.formField.fieldMetadata.displayInfo.textProperties !== null &&
-          this.formField.fieldMetadata.displayInfo.textProperties.indexOf(
-            TableService.TEXT_NO_SPACE
-          ) !== -1;
-
-        if (disallowsSpaces && hasBlankSpace) {
-          this.formField.validField = false;
-          this.validateFieldAddMsgs(LocaleES.VALIDATION_SPACES);
-          fieldValue = fieldValue.replace(RegexValidations.BLANK_SPACE, '');
-          this.currentValue = fieldValue;
-        }
-
-        if (RegexValidations.hasControlSpace(fieldValue)) {
-          this.formField.validField = false;
-          this.validateFieldAddMsgs(LocaleES.VALIDATION_CONTROL_SPACES);
-          fieldValue = fieldValue.replace(RegexValidations.CONTROL_SPACE, ' ');
-          this.currentValue = fieldValue;
-        }
-
-        if (RegexValidations.hasSpecialCharacters(fieldValue)) {
-          this.formField.validField = false;
-          this.validateFieldAddMsgs(LocaleES.VALIDATION_SPECIAL_CHARACTERS);
-          fieldValue = GPUtil.normalize(fieldValue);
-          this.currentValue = fieldValue;
-        }
-      }
-    }
-    return this.formField && editedRow ? this.formField.validField : false;
+    this.onChange.emit({
+      fieldName: field.fieldMetadata.fieldName,
+      value,
+      label,
+      field,
+    });
   }
 
   /**
    * Setup restrictions used in text fields
    */
   setRestrictions() {
-    const restrictions =
-      this.formField && this.formField.fieldMetadata
-        ? this.formField.fieldMetadata.restrictions
-        : null;
-
-    if (restrictions) {
-      for (const restriction of restrictions) {
-        const isMinLength = restriction.restrictionType === GpTableRestrictions.MIN_LENGTH;
-        const isMaxLength = restriction.restrictionType === GpTableRestrictions.MAX_LENGTH;
-
-        if (isMinLength) {
-          this.minLength = restriction.minLength;
+    if (this.formField.fieldMetadata.restrictions) {
+      this.formField.fieldMetadata.restrictions.forEach((restriction: FieldRestriction) => {
+        switch (restriction.restrictionType) {
+          case RestrictionType.LIST_ALLOWED_VALUES:
+            // TODO
+            break;
+          case RestrictionType.MAX_LENGTH:
+            this.maxLength = restriction.maxLength;
+            break;
+          case RestrictionType.MAX_VALUE:
+            this.maxValue = restriction.maxValue;
+            break;
+          case RestrictionType.MIN_LENGTH:
+            this.minLength = restriction.minLength;
+            break;
+          case RestrictionType.MIN_VALUE:
+            this.minValue = restriction.minValue;
+            break;
+          default:
         }
-
-        if (isMaxLength) {
-          this.maxLength = restriction.maxLength;
-        }
-      }
+      });
     }
+  }
+
+  /**
+   * Text Field can have special properties defined in TextPropertyType
+   */
+  protected hasTextProperties(): boolean {
+    return (
+      !GPUtil.isNullOrUndefined(this.displayInfo) &&
+      !GPUtil.isNullOrUndefined(this.displayInfo.textProperties)
+    );
   }
 }

@@ -1,21 +1,24 @@
-import { DataTableMetaDataFieldDisplayInfoRelatedField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info-related-field.model';
-import { DataTableMetaDataFieldDisplayInfoOption } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info-option.model';
-import { DataTableMetaDataFieldDisplayInfo } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info.model';
-import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import {
+  Field,
+  FieldDisplayInfo,
+  FieldMetadata,
+  FieldOption,
+} from '../../../../resources/data/data-table/meta-data/meta-data-field.model';
 import { GpFormField } from '../../../../components/form-wrapper/resources/form-field.model';
 import { GpFormControl } from './../../../../components/form-wrapper/resources/form-control.model';
 import { TranslationInfo } from './../../../../resources/data/translation-info.model';
+import { RelatedField } from '../../../../resources/data/data-table/filter/related-field.class';
 
 const options = [
-  new DataTableMetaDataFieldDisplayInfoOption(),
-  new DataTableMetaDataFieldDisplayInfoOption(),
-  new DataTableMetaDataFieldDisplayInfoOption(),
-  new DataTableMetaDataFieldDisplayInfoOption(),
-  new DataTableMetaDataFieldDisplayInfoOption(),
-  new DataTableMetaDataFieldDisplayInfoOption(),
-  new DataTableMetaDataFieldDisplayInfoOption(),
-  new DataTableMetaDataFieldDisplayInfoOption(),
-  new DataTableMetaDataFieldDisplayInfoOption(),
+  new FieldOption(),
+  new FieldOption(),
+  new FieldOption(),
+  new FieldOption(),
+  new FieldOption(),
+  new FieldOption(),
+  new FieldOption(),
+  new FieldOption(),
+  new FieldOption(),
 ];
 
 options[0].value = '1';
@@ -42,21 +45,21 @@ const rField1 = {
   fieldExternal: 'langCodi',
   fieldDescription: 'Language',
   value: null,
-} as DataTableMetaDataFieldDisplayInfoRelatedField;
+} as RelatedField;
 
 const rField2 = {
   field: 'name',
   fieldExternal: null,
   fieldDescription: 'Name',
   value: null,
-} as DataTableMetaDataFieldDisplayInfoRelatedField;
+} as RelatedField;
 
 const rField3 = {
   field: 'surname',
   fieldExternal: null,
   fieldDescription: 'Surname',
   value: null,
-} as DataTableMetaDataFieldDisplayInfoRelatedField;
+} as RelatedField;
 
 const relatedFields = [rField1, rField2, rField3];
 
@@ -70,38 +73,46 @@ const translationInfo = {
   table: '',
 } as TranslationInfo;
 
-const displayInfo = new DataTableMetaDataFieldDisplayInfo(
-  'naciCodi',
-  1,
-  'TEXT',
-  null,
-  null,
-  options,
-  'CrmNaci',
-  'naciDesc',
-  'naciDesc',
-  [],
-  1,
-  ['langCodi', 'naciDesc'],
-  ['height', 'red'],
-  relatedFields,
-  translationInfo
+const displayInfo = new FieldDisplayInfo().assign(
+  {
+    fieldLabel: 'naciCodi',
+    order: 1,
+    displayType: 'TEXT',
+    checkedValue: null,
+    uncheckedValue: null,
+    options,
+    referencedTable: 'CrmNaci',
+    referencedField: 'naciDesc',
+    fieldToOrderBy: 'naciDesc',
+    filters: [],
+    rowsTextArea: 1,
+    fieldDescriptions: ['langCodi', 'naciDesc'],
+    textProperties: ['height', 'red'],
+    relatedFields,
+    translationInfo,
+  },
+  true
 );
+const dataTableObject = {
+  fieldMaxLength: 100,
+  fieldName: 'cansCodi',
+  fieldType: 'TEXT',
+  id: true,
+  notNull: true,
+  readOnly: false,
+  allowAscii: false,
+  hideInAddOperation: false,
+  hideInEditOperation: false,
+  lengthInTable: 30,
+  restrictions: [],
+  displayInfo,
+};
+const metadata = new FieldMetadata().assign({
+  tableLabel: 'tablelabel',
+  fields: [new Field().assign(dataTableObject)],
+});
 
-const metadata = new DataTableMetaDataField(
-  100,
-  'cansCodi',
-  'TEXT',
-  true,
-  true,
-  false,
-  false,
-  30,
-  [],
-  displayInfo
-);
-
-export const FormFieldMock = {
+export const FormFieldMock = new GpFormField().assign({
   formControl: new GpFormControl(),
   fieldMetadata: metadata,
   formFieldType: 'gp-form-text-field',
@@ -109,4 +120,4 @@ export const FormFieldMock = {
   fieldMsgs: null,
   header: 'Codigo Subcanal',
   field: 'cansCodi',
-} as GpFormField;
+});

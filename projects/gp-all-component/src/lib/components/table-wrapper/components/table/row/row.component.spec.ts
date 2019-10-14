@@ -4,6 +4,10 @@ import { RowComponent } from './row.component';
 import { TableModule } from 'primeng/table';
 import { TableBuilder } from '../table.builder';
 import { MemoPipeModule } from '../../../../../pipes/memo-pipe/memo.pipe.module';
+import { DynamicFieldModule } from '../../../../../shared/dynamic-field/dynamic-field.module';
+import { ButtonModule } from '../../../../button/button.module';
+import { IModifiedField } from '../../../../../resources/data/data-table/meta-data/meta-data-field.model';
+import { GpFormField } from '../../../../form-wrapper/resources/form-field.model';
 
 describe('RowComponent', () => {
   let component: RowComponent;
@@ -12,8 +16,8 @@ describe('RowComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RowComponent],
-      imports: [TableModule, MemoPipeModule],
-    }).compileComponents();
+      imports: [TableModule, MemoPipeModule, DynamicFieldModule, ButtonModule],
+    });
   }));
 
   beforeEach(() => {
@@ -38,5 +42,36 @@ describe('RowComponent', () => {
     spyOn(component.save, 'emit').and.callThrough();
     component.persistEdition();
     expect(component.save.emit).toHaveBeenCalled();
+  });
+
+  it('should cancel', () => {
+    spyOn(component.onCancelEdition, 'emit').and.callThrough();
+    component.cancelEdition();
+    expect(component.onCancelEdition.emit).toHaveBeenCalled();
+    expect(component.isEditing).toBeFalsy();
+  });
+
+  it('should delete', () => {
+    spyOn(component.delete, 'emit').and.callThrough();
+    component.deleteRow();
+    expect(component.delete.emit).toHaveBeenCalled();
+  });
+
+  it('should add a new row', () => {
+    spyOn(component, 'startEdition').and.callThrough();
+    component.row = { value: null };
+    fixture.detectChanges();
+    expect(component.startEdition).toHaveBeenCalled();
+    expect(component.isEditing).toBeTruthy();
+    expect(component.disableSave).toBeTruthy();
+  });
+
+  it('should get a value from dynamic field', () => {
+    const field = new GpFormField();
+    const modified: IModifiedField = { fieldName: 'field1', value: 'value 1', field };
+    component.row = { field1: null };
+    component.onDynamicFieldChange(modified);
+    fixture.detectChanges();
+    expect(component.disableSave).toBeFalsy();
   });
 });

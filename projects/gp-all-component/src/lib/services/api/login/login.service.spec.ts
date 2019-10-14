@@ -33,7 +33,7 @@ describe('LoginService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [GlobalService, LoginService],
-    }).compileComponents();
+    });
 
     httpLoginResponse.ok = true;
     httpLoginResponse.sessionId = 'eyJ0eXAiOiJKV1Qi';

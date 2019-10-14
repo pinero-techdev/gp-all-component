@@ -1,4 +1,6 @@
-export class TranslationInfo {
+import { AssignedObject } from '../../shared/assigned-object/assigned-object.class';
+
+export class TranslationInfo extends AssignedObject {
   keyFields: string[] = [];
   scheme: string;
   table: string;

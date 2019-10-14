@@ -1,0 +1,32 @@
+@import './../../../../../resources/scss/global/variables';
+
+::ng-deep {
+  body {
+    .ui-table.no-hover .ui-table-tbody > tr {
+      &:nth-child(even).ui-selectable-row.ui-state-highlight:not(.ui-contextmenu-selected),
+      &:nth-child(even).ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+        background: $tableOddBg;
+      }
+
+      &:nth-child(odd).ui-selectable-row.ui-state-highlight:not(.ui-contextmenu-selected),
+      &:nth-child(odd).ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
+        background: $whiteColor;
+      }
+    }
+
+    .ui-dropdown-panel {
+      .ui-dropdown-filter-container {
+        background-color: $multiselectHeaderBg;
+        padding: 0.3em 0.7em 0.3em 0.7em;
+      }
+
+      .ui-dropdown-list {
+        .ui-dropdown-item.ui-state-highlight {
+          span {
+            color: $whiteColor;
+          }
+        }
+      }
+    }
+  }
+}

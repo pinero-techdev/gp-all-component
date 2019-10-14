@@ -1,4 +1,6 @@
-export class TableColumn {
+import { AssignedObject } from '../../../../../shared/assigned-object/assigned-object.class';
+
+export class TableColumn extends AssignedObject {
   field: any | any[];
   header: string;
   name: string;

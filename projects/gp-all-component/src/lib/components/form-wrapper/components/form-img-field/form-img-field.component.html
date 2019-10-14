@@ -1,13 +1,22 @@
 <div class="upload-image-container">
   <img *ngIf="currentValue" [src]="currentValue" class="uploaded-image" />
   <input
-    name="__field__{{ formField?.fieldMetadata.fieldName }}"
     pInputText
-    type="text"
+    [gpFieldValidator]="formField"
+    class="full-width"
+    [(ngClass)]="formField.validField ? textboxClass : errorClass"
     [(ngModel)]="currentValue"
+    [disabled]="controlDisabled()"
+    [max]="maxValue ? maxValue : null"
     [maxlength]="maxLength"
+    [min]="minValue ? minValue : null"
+    [minLength]="minLength"
+    [name]="formField?.fieldMetadata?.fieldName"
+    [id]="formField?.fieldMetadata?.fieldName"
+    [placeholder]="placeholder"
+    [readonly]="readonly"
+    [required]="required"
+    [type]="displayInfo.displayType || 'text'"
     (change)="onFieldChange()"
-    [disabled]="isDisabled"
-    class="full-width {{ textboxClass }}"
   />
 </div>

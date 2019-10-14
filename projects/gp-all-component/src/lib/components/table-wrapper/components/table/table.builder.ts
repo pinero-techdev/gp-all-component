@@ -8,8 +8,17 @@ import { SelectionMode } from './models/selection-mode.type';
 import { EditableColumnTemplateDirective } from './directives/editable-column-template.directive';
 import { CoreTableModel } from './models/core-table.model';
 import { NativeOptions } from './models/native-options.model';
+import {
+  Field,
+  FieldMetadata,
+  RelatedField,
+} from '../../../../resources/data/data-table/meta-data/meta-data-field.model';
 
 export class TableBuilder {
+  metadata: FieldMetadata;
+  data: any;
+  isDynamic = false;
+
   // Once we receive a model, we parse it
   createModel(
     incomingModel: TableModel,
@@ -35,7 +44,6 @@ export class TableBuilder {
     // 6. Set custom and editable columns
     model.customColumnsList = customColumns;
     model.editableColumnsList = editableColumns;
-
     return model;
   }
 
@@ -48,7 +56,7 @@ export class TableBuilder {
   }
 
   enableCaptionRow(model: CoreTableModel, captionContent?: TemplateRef<any>): boolean {
-    return !isNullOrUndefined(model.title) || !isNullOrUndefined(captionContent);
+    return !!model.title || !!captionContent;
   }
 
   enableFilterRow(model: CoreTableModel) {
@@ -120,9 +128,16 @@ export class TableBuilder {
     return modelSelection;
   }
 
-  getRowValue(column: TableColumn, row: any): string {
-    if (column.field instanceof Array && column.field.length) {
-      const keys = [...[], ...column.field];
+  getRowValue(column: TableColumn, row: any, metadata: Field[]): string {
+    let name = column.field;
+    if (metadata) {
+      const field = metadata.filter((f) => f.fieldName === column.field).pop();
+      if (field && field.referenceDescription) {
+        name = field.referenceDescription;
+      }
+    }
+    if (name instanceof Array && name.length) {
+      const keys = [...[], ...name];
       const initValue = row[keys.shift()];
       if (initValue) {
         return keys.reduce((accumulator, currentValue) => {
@@ -136,7 +151,7 @@ export class TableBuilder {
         return '';
       }
     }
-    return row[column.field];
+    return row[name];
   }
 
   getColumns(model: CoreTableModel): TableColumn[] {
@@ -145,6 +160,18 @@ export class TableBuilder {
 
   getColumn(model: CoreTableModel, index: number): TableColumn {
     return this.getColumns(model)[index];
+  }
+
+  getFieldById(name: string, fields: Field[]): Field {
+    return fields.find((f) => f.fieldName === name);
+  }
+
+  getDataFieldById(name: string, fields: Field[], row: any): any {
+    return row[name];
+  }
+
+  getRelatedFields(name: string, fields: Field[], row: any): RelatedField[] {
+    return null;
   }
 
   isCustomColumn(model: CoreTableModel, key: string): boolean {
@@ -156,7 +183,7 @@ export class TableBuilder {
   }
 
   isEditableColumn(model: CoreTableModel, key: string): boolean {
-    return !isNullOrUndefined(model.editableColumns[key]);
+    return model.editableColumns.hasOwnProperty(key);
   }
 
   getEditableColumn(
@@ -184,9 +211,9 @@ export class TableBuilder {
    */
   private toTableColumn(column: string | TableColumn): TableColumn {
     if (typeof column === 'string') {
-      return { ...new TableColumn(), field: column, header: column };
+      return new TableColumn().assign({ field: column, header: column }, true);
     }
-    return { ...new TableColumn(), ...column };
+    return new TableColumn().assign(column, true);
   }
 
   // Create the columns model from the received elements

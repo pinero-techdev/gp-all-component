@@ -59,17 +59,12 @@
   border-radius: $inputBorderRadius;
   box-shadow: 0 0 4px 0 rgba($blackColor, $inputShadowOpacity);
 
-  &:focus,
-  &.ui-state-focus {
+  &:focus {
     @include make-input-state('focus');
   }
 
-  &:disabled {
-    @include make-input-state('disabled');
-  }
-
-  &.ui-state-error {
-    @include make-input-state('error');
+  &:hover {
+    background: $inputHoverBg;
   }
 }
 
@@ -85,8 +80,11 @@
 
 @mixin make-input-state($type) {
   @if $type == 'focus' {
+    border-width: 2px;
     border-color: $inputBorderFocusColor;
     background: $inputFocusBg;
+    box-shadow: 0px 0px 0px 4px rgba(20, 126, 255, 0.1);
+    padding: 4.875px 9px;
   }
 
   @if $type == 'disabled' {

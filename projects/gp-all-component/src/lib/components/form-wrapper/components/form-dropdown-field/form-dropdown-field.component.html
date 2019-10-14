@@ -1,13 +1,13 @@
 <p-dropdown
   *ngIf="formField"
-  name="__field__{{ formField?.fieldMetadata.fieldName }}"
-  [options]="listAllowedValuesOptions"
-  [(ngModel)]="currentValueDropDown"
+  #dropdown
+  [gpFieldValidator]="formField"
+  [name]="formField?.fieldMetadata?.fieldName"
+  [id]="formField?.fieldMetadata?.fieldName"
+  [options]="items"
+  [(ngModel)]="currentValue"
   filter="true"
-  (onChange)="onFieldChange()"
+  (onChange)="onChangeEvent($event)"
   [disabled]="isDisabled"
-  [ngClass]="{
-    'ng-dirty ng-invalid': formField.fieldMsgs != null && formField.fieldMsgs.length > 0
-  }"
-  class="ui-inputfield ui-selectonemenu-label"
+  appendTo="body"
 ></p-dropdown>

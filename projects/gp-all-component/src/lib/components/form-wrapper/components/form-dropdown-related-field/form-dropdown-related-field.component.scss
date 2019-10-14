@@ -95,4 +95,106 @@
       }
     }
   }
+
+  .ui-inputwrapper-filled {
+    .ui-dropdown {
+      @include make-input();
+
+      &:not(.ui-state-disabled):hover {
+        border-color: $inputBorderColor;
+
+        > .ui-dropdown-label {
+          background: transparent;
+        }
+      }
+
+      &:not(.ui-state-disabled):focus,
+      &.ui-state-focus,
+      &.ui-dropdown-open {
+        border: $inputFocusBorder;
+        box-shadow: $inputFocusShadow;
+        padding: 5.875px 9px;
+      }
+
+      .ui-dropdown-label {
+        @include make-input-text();
+        padding: 0;
+        padding-right: $separationLarge;
+      }
+
+      .ui-dropdown-trigger {
+        width: auto;
+        @include absolute-centered('vertical');
+
+        .pi {
+          color: $textSecondaryColor;
+          margin-left: -25px;
+          background: transparent;
+        }
+      }
+    }
+
+    .ui-dropdown-panel.ui-widget {
+      width: auto;
+      min-width: 100%;
+      max-width: 370px;
+      border: 1px solid $borderColor;
+      border-radius: 4px;
+
+      &.ui-shadow {
+        @include box-shadow(
+          0 1px 3px 0 rgba($blackColor, $inputShadowOpacity),
+          0 1px 1px 0 rgba($blackColor, $inputShadowOpacity),
+          0 2px 1px -1px rgba($blackColor, $inputShadowOpacity)
+        );
+      }
+
+      .ui-dropdown-filter-container {
+        padding: 1em 1em;
+        background-color: $multiselectHeaderBg;
+        border-bottom: 1px solid $inputBorderColor;
+
+        .ui-dropdown-filter {
+          &.ui-inputtext {
+            border-color: $inputBorderColor;
+          }
+
+          &-icon {
+            right: $separationXLarge;
+            transform: translateY(-50%);
+            color: $textColor;
+            font-size: $fontSizeLarge;
+            margin-top: 0;
+            background: transparent;
+          }
+        }
+      }
+
+      .ui-dropdown-items-wrapper {
+        @include make-scroll();
+
+        .ui-dropdown-list {
+          background: $whiteColor;
+        }
+      }
+
+      .ui-dropdown-item {
+        font-size: $fontSize;
+        padding: $inputOptionPadding;
+        color: $textSecondaryColor;
+
+        span {
+          color: $textColor;
+        }
+
+        &.ui-state-highlight {
+          background-color: $accentColor;
+
+          span {
+            color: $whiteColor;
+          }
+        }
+      }
+    }
+  }
 }

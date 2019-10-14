@@ -1,12 +1,12 @@
 import {
+  AfterViewChecked,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   Output,
   QueryList,
   ViewChildren,
-  ElementRef,
-  AfterViewChecked,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
@@ -25,17 +25,19 @@ import { FormCheckboxFieldComponent } from '../../../form-wrapper/components/for
 import { FormCalendarFieldComponent } from '../../../form-wrapper/components/form-calendar-field/form-calendar-field.component';
 import { FormWysiwygFieldComponent } from '../../../form-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
 import { FilterOperationType } from '../../../../resources/data/filter/filter-operation-type.enum';
-import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
-import { DataTableMetaData } from '../../../../resources/data/data-table/meta-data/data-table-meta-data.model';
 import { GpFormField } from '../../../form-wrapper/resources/form-field.model';
 import { GpFormControl } from '../../../form-wrapper/resources/form-control.model';
 import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
 import { GpFormFieldControl } from '../../../form-wrapper/resources/form-field-control.class';
 import { isNullOrUndefined } from 'util';
 import { LocaleES } from '../../../../resources/localization';
-import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
 import { FormNumberFieldComponent } from '../../../form-wrapper/components/form-number-field/form-number-field.component';
+import {
+  FieldMetadata,
+  FieldType,
+  IModifiedField,
+} from '../../../../resources/data/data-table/meta-data/meta-data-field.model';
 
 @Component({
   selector: 'gp-table-crud',
@@ -355,14 +357,20 @@ export class TableCrudComponent implements AfterViewChecked {
    * Updates table metadata
    * @param tableMetadata Metadata for table
    */
-  updateDefinition(tableMetadata: DataTableMetaData): void {
+  updateDefinition(tableMetadata: FieldMetadata): void {
     const tempColumns: GpFormField[] = [];
     const tempTableColumns: GpFormField[] = [];
 
     this.tableLabel = tableMetadata.tableLabel;
 
     tableMetadata.fields.forEach((metadata) => {
-      const formField = new GpFormField(this.formControl, metadata);
+      const formField = new GpFormField().assign(
+        {
+          formControl: this.formControl,
+          fieldMetadata: metadata,
+        },
+        true
+      );
 
       // Save id for this table
       if (metadata.id) {
@@ -401,12 +409,12 @@ export class TableCrudComponent implements AfterViewChecked {
       return;
     }
 
-    if (formField.fieldMetadata.fieldType === GpTableDisplayTypes.DATE) {
+    if (formField.fieldMetadata.fieldType === FieldType.DATE) {
       formField.formFieldType = GpFormFieldType.CALENDAR;
       return;
     }
 
-    if (formField.fieldMetadata.fieldType === GpTableDisplayTypes.BOOLEAN) {
+    if (formField.fieldMetadata.fieldType === FieldType.BOOLEAN) {
       const hasFieldMetadata = formField.fieldMetadata.notNull;
 
       formField.formFieldType = hasFieldMetadata
@@ -494,12 +502,14 @@ export class TableCrudComponent implements AfterViewChecked {
   onDialogSave(): void {
     this.formControl.lockFields = true;
     const self = this;
+    let isValid = true;
 
     this.forEachFieldControl((col: GpFormFieldControl) => {
       col.copyValueFromControlToEditedRow(self.formControl.editedRow);
+      isValid = isValid && col.formField.validField;
     });
 
-    if (!this.validateEditRow()) {
+    if (!isValid) {
       this.formControl.lockFields = false;
       return;
     }
@@ -629,8 +639,9 @@ export class TableCrudComponent implements AfterViewChecked {
    * Change event with provided input object
    * @param info Modifed field information object
    */
-  changeEvent(info: InfoCampoModificado): void {
-    this.fieldsChanged[info.field] = info.value;
+  onDropdownChangeEvent(info: IModifiedField): void {
+    this.formControl.editedRow[info.fieldName] = info.value;
+    this.fieldsChanged[info.fieldName] = info.value;
     this.fieldsChanged = Object.assign({}, this.fieldsChanged);
   }
 
@@ -650,6 +661,13 @@ export class TableCrudComponent implements AfterViewChecked {
     } else {
       tableWrapper.classList.remove('shadowSticky');
     }
+  }
+  /**
+   * A field was changed
+   * @param $event {name: string, value: any}
+   */
+  onChangeEvent($event: IModifiedField) {
+    this.formControl.editedRow[$event.fieldName] = $event.value;
   }
 
   /**
@@ -712,24 +730,5 @@ export class TableCrudComponent implements AfterViewChecked {
 
         () => (this.formControl.lockFields = false)
       );
-  }
-
-  /**
-   * Validates row edition
-   */
-  private validateEditRow(): boolean {
-    let valid = true;
-    const self = this;
-
-    this.forEachFieldControl((col: GpFormFieldControl) => {
-      const inAddOperation =
-        self.formControl.edicionAdd || col.getFormField().fieldMetadata.hideInAddOperation;
-
-      if (!inAddOperation) {
-        valid = col.validateField(self.formControl.editedRow) && valid;
-      }
-    });
-
-    return valid;
   }
 }

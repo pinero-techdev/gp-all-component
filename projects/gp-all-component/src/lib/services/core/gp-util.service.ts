@@ -8,25 +8,37 @@ import { isNullOrUndefined } from 'util';
 import { SessionStorageService } from '../session-storage/session-storage.service';
 /* tslint:disable:variable-name */
 export class GPUtil {
-  public static readonly odd_reA = new RegExp('\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5', 'g');
-  public static readonly odd_rea = new RegExp('\u00E0|\u00E1|\u00E2|\u00E3|\u00E4|\u00E5', 'g');
-  public static readonly odd_reE = new RegExp('\u00C8|\u00C9|\u00CA|\u00CB', 'g');
-  public static readonly odd_ree = new RegExp('\u00E8|\u00E9|\u00EA|\u00EB', 'g');
-  public static readonly odd_reI = new RegExp('\u00CC|\u00CD|\u00CE|\u00CF', 'g');
-  public static readonly odd_rei = new RegExp('\u00EC|\u00ED|\u00EE|\u00EF', 'g');
-  public static readonly odd_reO = new RegExp('\u00D2|\u00D3|\u00D4|\u00D5|\u00D6', 'g');
-  public static readonly odd_reo = new RegExp('\u00F2|\u00F3|\u00F4|\u00F5|\u00F6', 'g');
-  public static readonly odd_reU = new RegExp('\u00D9|\u00DA|\u00DB|\u00DC', 'g');
-  public static readonly odd_reu = new RegExp('\u00F9|\u00FA|\u00FB|\u00FC', 'g');
-  public static readonly odd_reN = new RegExp('\u00D1', 'g');
-  public static readonly odd_ren = new RegExp('\u00F1', 'g');
-  public static readonly odd_reC = new RegExp('\u00C7', 'g');
-  public static readonly odd_rec = new RegExp('\u00E7', 'g');
-  public static readonly odd_reOthers = new RegExp('[\u0080-\uFFFF]', 'g');
+  static readonly odd_reA = new RegExp('\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5', 'g');
+  static readonly odd_rea = new RegExp('\u00E0|\u00E1|\u00E2|\u00E3|\u00E4|\u00E5', 'g');
+  static readonly odd_reE = new RegExp('\u00C8|\u00C9|\u00CA|\u00CB', 'g');
+  static readonly odd_ree = new RegExp('\u00E8|\u00E9|\u00EA|\u00EB', 'g');
+  static readonly odd_reI = new RegExp('\u00CC|\u00CD|\u00CE|\u00CF', 'g');
+  static readonly odd_rei = new RegExp('\u00EC|\u00ED|\u00EE|\u00EF', 'g');
+  static readonly odd_reO = new RegExp('\u00D2|\u00D3|\u00D4|\u00D5|\u00D6', 'g');
+  static readonly odd_reo = new RegExp('\u00F2|\u00F3|\u00F4|\u00F5|\u00F6', 'g');
+  static readonly odd_reU = new RegExp('\u00D9|\u00DA|\u00DB|\u00DC', 'g');
+  static readonly odd_reu = new RegExp('\u00F9|\u00FA|\u00FB|\u00FC', 'g');
+  static readonly odd_reN = new RegExp('\u00D1', 'g');
+  static readonly odd_ren = new RegExp('\u00F1', 'g');
+  static readonly odd_reC = new RegExp('\u00C7', 'g');
+  static readonly odd_rec = new RegExp('\u00E7', 'g');
+  static readonly odd_reOthers = new RegExp('[\u0080-\uFFFF]', 'g');
 
-  private sessionStorageService = new SessionStorageService();
+  sessionStorageService = new SessionStorageService();
 
-  public static normalize(s: string): string {
+  static isUndefined(value: any): boolean {
+    return value === undefined;
+  }
+
+  static isNull(value: any): boolean {
+    return value === null;
+  }
+
+  static isNullOrUndefined(value: any): boolean {
+    return GPUtil.isNull(value) || GPUtil.isUndefined(value);
+  }
+
+  static normalize(s: string): string {
     s = s.replace(GPUtil.odd_reA, 'A');
     s = s.replace(GPUtil.odd_rea, 'a');
     s = s.replace(GPUtil.odd_reE, 'E');
@@ -46,7 +58,7 @@ export class GPUtil {
   }
   /* tslint:enable:variable-name */
 
-  public static str2Date(str: string, fmt: string): Date {
+  static str2Date(str: string, fmt: string): Date {
     let fecha = null;
     if (str) {
       if (!fmt) {
@@ -57,7 +69,7 @@ export class GPUtil {
     return fecha;
   }
 
-  public static str2DateString(str: string, fmt1: string, fmt2: string): string {
+  static str2DateString(str: string, fmt1: string, fmt2: string): string {
     let fecha = null;
     if (str) {
       fecha = moment(str, fmt1).format(fmt2);
@@ -65,7 +77,7 @@ export class GPUtil {
     return fecha;
   }
 
-  public static dateToYyyymmdd(date: Date): string {
+  static dateToYyyymmdd(date: Date): string {
     const shouldReturn = !date || (typeof date === 'string' && date === '');
 
     if (shouldReturn) {
@@ -75,7 +87,7 @@ export class GPUtil {
     return moment(date).format('YYYY-MM-DD');
   }
 
-  public static dateTohhmm(date: Date) {
+  static dateTohhmm(date: Date) {
     if (date) {
       return moment(date).format('HH:mm');
     } else {
@@ -83,12 +95,12 @@ export class GPUtil {
     }
   }
 
-  public static letraDni(dni) {
+  static letraDni(dni) {
     return 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(dni.substring(0, 8) % 23);
   }
 
   /* tslint:disable:ban-types */
-  public static calculaDni(value): String {
+  static calculaDni(value): String {
     if (value.length >= 8) {
       const letraDni = this.letraDni(value);
       value = value.substring(0, 8) + letraDni;
@@ -97,7 +109,7 @@ export class GPUtil {
   }
   /* tslint:enable:ban-types */
 
-  public static booleanToString(input: boolean, trueValue?: string, falseValue?: string): string {
+  static booleanToString(input: boolean, trueValue?: string, falseValue?: string): string {
     if (input) {
       return !isNullOrUndefined(trueValue) ? trueValue : 'S';
     } else {
@@ -105,7 +117,7 @@ export class GPUtil {
     }
   }
 
-  public static obtainCalendarConfig(idioma: string = null): any {
+  static obtainCalendarConfig(idioma: string = null): any {
     if (idioma) {
       let calendar: any = null;
       switch (idioma) {
@@ -126,7 +138,7 @@ export class GPUtil {
   }
 
   /* tslint:disable:variable-name */
-  public static base64ToBlob(string: string): Blob {
+  static base64ToBlob(string: string): Blob {
     const byteCharacters = atob(string);
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
@@ -135,6 +147,7 @@ export class GPUtil {
     const byteArray = new Uint8Array(byteNumbers);
     return new Blob([byteArray], { type: 'application/pdf' });
   }
+
   /* tslint:enable:variable-name */
 
   /*METODOS NO ESTÁTICOS, PORQUE PUEDEN SER LLAMADOS DESDE UN TEMPLATE*/
@@ -143,7 +156,7 @@ export class GPUtil {
    * @param selector ''
    * @param valor ''
    */
-  public obtenerEtiqueta(selector: SelectItem[], value: any): string {
+  obtenerEtiqueta(selector: SelectItem[], value: any): string {
     if (selector !== null && value !== null) {
       for (const item of selector) {
         if (item.value === value) {
@@ -164,7 +177,7 @@ export class GPUtil {
    *                                 atributos de la etiqueta del selector. Por defecto es '-'
    * @param adicional  - Identificador atributo posibles datos adicionales
    */
-  public obtenerSelector(
+  obtenerSelector(
     datos: any[],
     atributoValor: string,
     atributoDesc: string[],
@@ -199,7 +212,7 @@ export class GPUtil {
     return selector;
   }
 
-  public indexOf(list: any[], atributeName: string, value: any): number {
+  indexOf(list: any[], atributeName: string, value: any): number {
     if (list) {
       for (let index = 0; index < list.length; index++) {
         if (list[index][atributeName] === value) {
@@ -216,7 +229,7 @@ export class GPUtil {
    * @param atributeName ''
    * @param value ''
    */
-  public getElementFromArray(list: any[], atributeName: string, value: any): any {
+  getElementFromArray(list: any[], atributeName: string, value: any): any {
     if (list) {
       for (const item of list) {
         if (item[atributeName] === value) {
@@ -227,7 +240,7 @@ export class GPUtil {
     return null;
   }
 
-  public triBooleanToString(input: boolean, trueValue?: string, falseValue?: string): string {
+  triBooleanToString(input: boolean, trueValue?: string, falseValue?: string): string {
     if (input === true) {
       if (!(trueValue === null || trueValue === undefined)) {
         return trueValue;
@@ -247,11 +260,7 @@ export class GPUtil {
     }
   }
 
-  public stringToBoolean(
-    input: string,
-    trueValue: string = 'S',
-    falseValue: string = 'N'
-  ): boolean {
+  stringToBoolean(input: string, trueValue: string = 'S', falseValue: string = 'N'): boolean {
     if (trueValue === input) {
       return true;
     } else {
@@ -263,7 +272,7 @@ export class GPUtil {
     }
   }
 
-  public obtainCalendarYearRange(offset = 0): string {
+  obtainCalendarYearRange(offset = 0): string {
     const year = new Date().getFullYear() + offset;
     return '1900:' + year;
   }
@@ -275,7 +284,7 @@ export class GPUtil {
    * @param atributoCod nombre del atributo que continene el id/cod
    * @param atributoDesc nombre del atributo que continene la descripción
    */
-  public cargarMenuItem(
+  cargarMenuItem(
     datos: any[],
     atributoCod: string,
     atributoDesc: string,
@@ -302,7 +311,7 @@ export class GPUtil {
   /**
    * Metodo para actualizar el menu item dinamicametne conforme se ha seleccionado el padre(codig)
    */
-  public cargarMenuItemDesdePadre(
+  cargarMenuItemDesdePadre(
     codigoItemPadre: string,
     itemsMenu: MenuItem[],
     datos: any[],
@@ -322,7 +331,7 @@ export class GPUtil {
     return itemsMenu;
   }
 
-  public limpiaSaltosLinea(s: string): string {
+  limpiaSaltosLinea(s: string): string {
     if (!s) {
       return s;
     } else {
@@ -330,11 +339,11 @@ export class GPUtil {
     }
   }
 
-  public getUserId(): string {
+  getUserId(): string {
     return this.sessionStorageService.getItem('userInfo');
   }
 
-  public calculaEdad(birthday: Date): number {
+  calculaEdad(birthday: Date): number {
     const ageDifMs = Date.now() - birthday.getTime();
     const ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);

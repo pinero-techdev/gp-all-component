@@ -12,7 +12,7 @@ describe('ModalComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ModalComponent],
       imports: [DialogModule, BrowserAnimationsModule],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

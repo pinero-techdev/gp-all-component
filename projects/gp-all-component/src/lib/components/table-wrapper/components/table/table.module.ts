@@ -8,15 +8,27 @@ import { EditableColumnTemplateDirective } from './directives/editable-column-te
 import { MemoPipeModule } from '../../../../pipes/memo-pipe/memo.pipe.module';
 import { IsNilPipeModule } from '../../../../pipes/is-nil-pipe/is-nil.pipe.module';
 import { ButtonModule } from '../../../button/button.module';
+import { DynamicFieldModule } from '../../../../shared/dynamic-field/dynamic-field.module';
+import { AddRowDirective } from './row/add-row/add-row.directive';
+import { ButtonModule as PButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
     TableComponent,
     RowComponent,
+    AddRowDirective,
     ColumnTemplateDirective,
     EditableColumnTemplateDirective,
   ],
-  imports: [CommonModule, PrimeTableModule, MemoPipeModule, IsNilPipeModule, ButtonModule],
+  imports: [
+    CommonModule,
+    PrimeTableModule,
+    MemoPipeModule,
+    IsNilPipeModule,
+    ButtonModule,
+    PButtonModule,
+    DynamicFieldModule,
+  ],
   exports: [TableComponent, ColumnTemplateDirective, EditableColumnTemplateDirective],
 })
 export class TableModule {}

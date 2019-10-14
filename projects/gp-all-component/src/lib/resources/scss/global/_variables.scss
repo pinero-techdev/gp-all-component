@@ -56,6 +56,7 @@ $buttonBorderRadius: 6px;
 
 /* separation */
 $separation: 8px;
+$separationSmall: $separation / 2;
 $separationLarge: $separation * 2;
 $separationXLarge: $separationLarge * 1.5;
 
@@ -80,12 +81,15 @@ $inputPaddingHorizontal: 10px;
 $inputBorderColor: $borderColor;
 $inputBg: color(white);
 $inputBorderFocusColor: $primaryColor;
-$inputFocusBg: $inputBg;
+$inputFocusBg: color(gray, gray-1);
+$inputHoverBg: color(gray, gray-1);
 $inputOptionFontSize: 1em;
 $inputOptionPadding: 0.625em 0.875em;
 $inputHeaderFontSize: 1em;
 $inputHeaderPadding: 0.625em 1em;
 $inputShadowOpacity: 0.04;
+$inputFocusBorder: 2px solid $primaryColor;
+$inputFocusShadow: 0px 0px 0px 4px rgba(20, 126, 255, 0.1);
 
 /* input disabled */
 $inputBorderDisabledColor: color(gray, gray-5);

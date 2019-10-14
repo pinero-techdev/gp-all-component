@@ -97,7 +97,7 @@ describe('ForgotPasswordComponent', () => {
         MessagesService,
         Location,
       ],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

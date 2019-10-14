@@ -1,7 +1,8 @@
-// TODO optimizar 17/12/2018
-export class GpFormControl {
+import { AssignedObject } from '../../../shared/assigned-object/assigned-object.class';
+
+export class GpFormControl extends AssignedObject {
   // Fila editada.
-  editedRow: any;
+  editedRow: any = null;
   // Fila en edicion (seleccionada con selectOneRow).
   // Contiene el valor original del registro que esta en edicion.
   originalRow: any;

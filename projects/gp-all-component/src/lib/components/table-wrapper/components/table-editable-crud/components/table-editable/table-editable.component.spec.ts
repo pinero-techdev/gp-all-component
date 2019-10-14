@@ -19,7 +19,7 @@ describe('TableEditableComponent', () => {
       declarations: [TableEditableComponent, TableEditableCellComponent],
       imports: [SharedModule, ButtonModule, MultiLanguageModule],
       providers: [TableWrapperSharedProviders, TableMetadataService],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

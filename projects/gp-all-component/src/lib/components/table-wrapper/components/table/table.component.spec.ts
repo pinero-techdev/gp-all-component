@@ -11,6 +11,9 @@ import {
   mockFilterEvent,
 } from '../../../../shared/testing/@mock/types/table.type.mock';
 import { ButtonModule } from '../../../button/button.module';
+import { ButtonModule as PButtonModule } from 'primeng/button';
+import { AddRowDirective } from './row/add-row/add-row.directive';
+import { DynamicFieldModule } from '../../../../shared/dynamic-field/dynamic-field.module';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -18,9 +21,16 @@ describe('TableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TableComponent, RowComponent],
-      imports: [TableModule, MemoPipeModule, ButtonModule, IsNilPipeModule],
-    }).compileComponents();
+      declarations: [TableComponent, RowComponent, AddRowDirective],
+      imports: [
+        TableModule,
+        MemoPipeModule,
+        DynamicFieldModule,
+        ButtonModule,
+        PButtonModule,
+        IsNilPipeModule,
+      ],
+    });
   }));
 
   beforeEach(() => {

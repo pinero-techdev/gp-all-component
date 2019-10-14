@@ -21,7 +21,7 @@ xdescribe('TableEditableCrudComponent', () => {
           useClass: TableServiceMock,
         },
       ],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

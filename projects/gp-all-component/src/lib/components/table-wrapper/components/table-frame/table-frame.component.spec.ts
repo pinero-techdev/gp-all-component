@@ -34,7 +34,7 @@ describe('TableFrameComponent', () => {
           },
         },
       ],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

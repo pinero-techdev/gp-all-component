@@ -12,7 +12,7 @@ describe('BreadcrumbComponent', () => {
     TestBed.configureTestingModule({
       declarations: [BreadcrumbComponent],
       imports: [BreadcrumbModule],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

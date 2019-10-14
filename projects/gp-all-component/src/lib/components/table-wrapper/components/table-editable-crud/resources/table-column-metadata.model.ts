@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
-import { RelatedField } from './../../../../../resources/data/data-table/filter/related-field.class';
 import { TranslationInfo } from './../../../../../resources/data/translation-info.model';
 import { GpFormFieldType } from '../../../../form-wrapper/resources/form-field-type.enum';
+import {RelatedField} from '../../../../../resources/data/data-table/meta-data/meta-data-field.model';
 
 export class TableColumnMetadata {
   allowAscii = true;

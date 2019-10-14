@@ -43,6 +43,7 @@ export const LocaleES = {
   PASSWORD_FIELDS_DO_NOT_MATCH: '¡Las contraseñas no coinciden!',
   RETRIEVING_DATA: 'Recuperando datos ...',
   SELECT: 'Seleccione',
+  SELECT_A_FILE: 'Seleccione un fichero',
   SELECT_WITH_PARAM: (param) => `Seleccione ${param} ...`,
   THERE_IS_NOT_ANY_MENU_OPTION: (url) =>
     `No se han informado de opciones menu desde las que se pueda llamar a la url: ${url}`,
@@ -60,7 +61,7 @@ export const LocaleES = {
     `El username ${userId} no tiene menú asociado en la aplicación ${app}`,
   USER_IS_NOT_LOGGED: 'El username no se encuentra logado',
   VALUE_IS_REQUIRED: 'El valor es obligatorio.',
-  YOU_MUST_TO_MAKE_SELECTION: 'Primero debe seleccionar ',
+  YOU_MUST_TO_MAKE_SELECTION: (fieldname) => `Primero debe seleccionar ${fieldname}`,
   YOU_MUST_SET_RELATED_TABLE: (fieldname) =>
     `No se ha indicado tabla relacionada para obtener los valores del campo ${fieldname}`,
   YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS:

@@ -14,7 +14,7 @@ describe('MenuComponent', () => {
     TestBed.configureTestingModule({
       declarations: [MenuComponent],
       imports: [PanelMenuModule, RouterTestingModule, BrowserAnimationsModule],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

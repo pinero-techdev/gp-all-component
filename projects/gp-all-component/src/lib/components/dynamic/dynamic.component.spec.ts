@@ -32,8 +32,6 @@ describe('DynamicComponent', () => {
         entryComponents: [HostedComponent],
       },
     });
-
-    TestBed.compileComponents();
   });
 
   beforeEach(() => {

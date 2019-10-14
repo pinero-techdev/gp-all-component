@@ -26,7 +26,7 @@ xdescribe('TabDirective', () => {
       declarations: [TabDirective, TestTabComponent],
       imports: [FormsModule],
       providers: [NgControl],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {
