@@ -183,7 +183,7 @@ export class TableComponent implements AfterContentInit {
 
   createRow() {
     const newRow = {};
-    if (this.builder.metadata && this.builder.metadata.hasOwnProperty('fields')) {
+    if (this.builder.metadata && this.builder.metadata.fields) {
       this.isCreating = true;
       for (const key of this.builder.metadata.fields) {
         newRow[key.fieldName] = null;

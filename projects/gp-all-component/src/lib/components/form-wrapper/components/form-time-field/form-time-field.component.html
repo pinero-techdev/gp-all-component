@@ -4,9 +4,11 @@
   hourFormat="24"
   [timeOnly]="true"
   dataType="string"
+  [showTime]="true"
   [(ngModel)]="currentValue"
   (onSelect)="onFieldChange()"
   [disabled]="controlDisabled()"
   [utc]="false"
+  appendTo="body"
 >
 </p-calendar>

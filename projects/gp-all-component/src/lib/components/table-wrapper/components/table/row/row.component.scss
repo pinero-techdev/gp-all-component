@@ -12,6 +12,10 @@
       &:nth-child(odd).ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover {
         background: $whiteColor;
       }
+
+      textarea {
+        height: 10px;
+      }
     }
 
     .ui-dropdown-panel {
