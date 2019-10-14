@@ -1,304 +1,309 @@
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>
-<div class="ui-table ui-widget">
-  <div class="p-grid p-justify-between table-header" style="text-align: left;">
-    <div>{{ config.title }}</div>
-    <div>
-      <gp-button
-        *ngIf="config.canAdd"
-        label="{{ translations.ADD }}"
-        (click)="createItem()"
-        [disabled]="onEdition || onCreation"
-        [type]="'icon'"
-        icon="pi pi-plus"
-      ></gp-button>
-      <gp-button
-        *ngIf="onEdition || onCreation"
-        label="{{ translations.CANCEL }}"
-        (click)="cancel()"
-        [type]="'icon'"
-        icon="pi pi-times"
-        [severity]="'danger'"
-      ></gp-button>
+<div class="table-editable">
+  <div class="ui-table ui-widget">
+    <div class="p-grid p-justify-between table-header" style="text-align: left;">
+      <div>{{ config.title }}</div>
+      <div>
+        <gp-button
+          *ngIf="config.canAdd"
+          label="{{ translations.ADD }}"
+          (click)="createItem()"
+          [disabled]="onEdition || onCreation"
+          [type]="'icon'"
+          icon="pi pi-plus"
+        ></gp-button>
+        <gp-button
+          *ngIf="onEdition || onCreation"
+          label="{{ translations.CANCEL }}"
+          (click)="cancel()"
+          [type]="'icon'"
+          icon="pi pi-times"
+          [severity]="'danger'"
+        ></gp-button>
+      </div>
     </div>
-  </div>
 
-  <table class="table-striped table-bordered card panel-content">
-    <div class="table-content">
-      <thead class="ui-table-thead">
-        <tr>
-          <th *ngIf="config.selectable == SelectionType.MULTIPLE">
-            <input
-              *ngIf="!config.filterable"
-              type="checkbox"
-              [ngModel]="allSelected()"
-              (click)="toggleSelectAll()"
-            />
-            <ng-template [ngIf]="selectedData.length > 0">
-              ({{ selectedData.length }})
-            </ng-template>
-          </th>
-          <ng-template ngFor [ngForOf]="columns" let-column>
-            <th
-              *ngIf="column.visible"
-              (click)="changeSort(column)"
-              [class.colsmall]="column.lengthInTable <= 5"
-              [class.colmedium]="column.lengthInTable < 20"
-              [class.colbig]="column.lengthInTable >= 20"
-              [class.ui-state-highlight]="config.sortField == column.name"
-            >
-              {{ column.label }}
-              <i
-                *ngIf="column.sortable && config.sortable"
-                class="table-sort-icon pull-right fa"
-                aria-hidden="true"
-                [class.fa-sort]="config.sortField !== column.name"
-                [class.fa-sort-asc]="
-                  config.sortField == column.name && config.sortDirection == SortDirection.ASC
-                "
-                [class.fa-sort-desc]="
-                  config.sortField == column.name && config.sortDirection == SortDirection.DESC
-                "
-              ></i>
-            </th>
-          </ng-template>
-          <th *ngIf="config.actionsColumn" class="colmedium"> </th>
-        </tr>
-        <tr *ngIf="config.filterable">
-          <th *ngIf="config.selectable == SelectionType.MULTIPLE">
-            <input type="checkbox" [ngModel]="allSelected()" (click)="toggleSelectAll()" />
-          </th>
-          <ng-template ngFor [ngForOf]="columns" let-column>
-            <th *ngIf="column.visible">
-              <gp-table-editable-cell
-                *ngIf="column.filterable"
-                [ngModel]="column.filter"
-                (ngModelChange)="changeFilter(column, $event)"
-                [columnMetadata]="column"
-                [isFilter]="true"
-              ></gp-table-editable-cell>
-            </th>
-          </ng-template>
-          <th *ngIf="config.actionsColumn">
-            <gp-button
-              [type]="'icon'"
-              label="Clear"
-              (click)="clearFilters()"
-              icon="pi pi-times"
-            ></gp-button>
-          </th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr>
-          <td [attr.colspan]="footerColspan">
-            <p-paginator
-              #pg
-              [rows]="config.itemsPerPage"
-              [totalRecords]="filteredData.length"
-              [pageLinkSize]="4"
-              (onPageChange)="changePage($event.first, $event.rows, $event.page, $event.pageCount)"
-              [rowsPerPageOptions]="config.itemsPerPageOptions"
-            ></p-paginator>
-          </td>
-        </tr>
-        <tr *ngIf="config.exportable" class="ui-table-caption">
-          <td [attr.colspan]="footerColspan" class="ui-widget-header ui-table-summary">
-            <gp-button
-              [type]="'icon'"
-              label="Exportar a CSV"
-              icon="pi pi-download"
-              (click)="exportToCsv()"
-            ></gp-button>
-          </td>
-        </tr>
-      </tfoot>
-      <tbody class="ui-table-tbody">
-        <tr *ngIf="!sortedData || sortedData.length === 0">
-          <td [attr.colspan]="footerColspan">
-            No results
-          </td>
-        </tr>
-        <tr
-          *ngFor="let item of currentPageData; let rowIndex = index"
-          (click)="toggleItemSelection(item, $event)"
-          [class.ui-state-highlight]="itemIsSelected(item)"
-        >
-          <td *ngIf="config.selectable == SelectionType.MULTIPLE">
-            <input
-              type="checkbox"
-              [ngModel]="itemIsSelected(item)"
-              (ngModelChange)="toggleItemSelection(item)"
-              [disabled]="!isSelectable(item)"
-            />
-          </td>
-          <!-- Edition -->
-          <ng-template [ngIf]="item._editting" [ngIfElse]="normalRow">
-            <ng-content
-              *ngTemplateOutlet="
-                formTemplate ? formTemplate : defaultFormTemplate;
-                context: {
-                  $implicit: editionObject,
-                  original: item,
-                  index: rowIndex,
-                  columns: columns
-                }
-              "
-            ></ng-content>
-          </ng-template>
-          <!-- Visualization -->
-          <ng-template #normalRow>
-            <ng-content
-              *ngTemplateOutlet="
-                rowTemplate ? rowTemplate : defaultRowTemplate;
-                context: {
-                  $implicit: item,
-                  index: rowIndex,
-                  columns: columns
-                }
-              "
-            ></ng-content>
-            <ng-template #defaultRowTemplate let-item let-columns="columns">
-              <ng-template ngFor [ngForOf]="columns" let-column>
-                <td *ngIf="column.visible" class="gp-grid-table-cell">
-                  <ng-container [ngSwitch]="column.type">
-                    <ng-template [ngSwitchCase]="inputType.FILE">
-                      <p *ngIf="!hasFile(item, column)">{{ item[column.name] }}</p>
-                      <gp-button
-                        *ngIf="hasFile(item, column)"
-                        [type]="'icon'"
-                        icon="pi pi-upload"
-                        (click)="download(item, column)"
-                      ></gp-button>
-                    </ng-template>
-                    <gp-button
-                      *ngSwitchCase="inputType.IMG"
-                      [type]="'icon'"
-                      icon="pi pi-eye"
-                      (click)="
-                        imgModalVisible.visible = true; imgModalVisible.img = item[column.name]
-                      "
-                    ></gp-button>
-                    <gp-button
-                      *ngSwitchCase="inputType.WYSIWYG"
-                      icon="pi pi-eye"
-                      [type]="'icon'"
-                      (click)="
-                        textModalVisible.visible = true; textModalVisible.text = item[column.name]
-                      "
-                    ></gp-button>
-                    <gp-button
-                      *ngSwitchCase="inputType.TEXT_AREA"
-                      icon="pi pi-eye"
-                      [type]="'icon'"
-                      (click)="
-                        textModalVisible.visible = true; textModalVisible.text = item[column.name]
-                      "
-                    ></gp-button>
-                    <ng-template ngSwitchDefault>
-                      <ng-template
-                        [ngIf]="column.referenceDescription"
-                        [ngIfElse]="defaultColumnField"
-                      >
-                        <div class="gp-grid-table-content">{{
-                          item[column.referenceDescription]
-                        }}</div>
-                      </ng-template>
-                      <ng-template #defaultColumnField>
-                        <div class="gp-grid-table-content">
-                          <p>{{ item[column.name] }}</p>
-                        </div>
-                      </ng-template>
-                    </ng-template>
-                  </ng-container>
-                </td>
+    <table class="table-striped table-bordered card panel-content table-editable">
+      <div class="table-content">
+        <thead class="ui-table-thead">
+          <tr>
+            <th *ngIf="config.selectable == SelectionType.MULTIPLE">
+              <input
+                *ngIf="!config.filterable"
+                type="checkbox"
+                [ngModel]="allSelected()"
+                (click)="toggleSelectAll()"
+              />
+              <ng-template [ngIf]="selectedData.length > 0">
+                ({{ selectedData.length }})
               </ng-template>
+            </th>
+            <ng-template ngFor [ngForOf]="columns" let-column>
+              <th
+                *ngIf="column.visible"
+                (click)="changeSort(column)"
+                [class.colsmall]="column.lengthInTable <= 5"
+                [class.colmedium]="column.lengthInTable < 20"
+                [class.colbig]="column.lengthInTable >= 20"
+                [class.ui-state-highlight]="config.sortField == column.name"
+              >
+                {{ column.label }}
+                <i
+                  *ngIf="column.sortable && config.sortable"
+                  class="table-sort-icon pull-right fa"
+                  aria-hidden="true"
+                  [class.fa-sort]="config.sortField !== column.name"
+                  [class.fa-sort-asc]="
+                    config.sortField == column.name && config.sortDirection == SortDirection.ASC
+                  "
+                  [class.fa-sort-desc]="
+                    config.sortField == column.name && config.sortDirection == SortDirection.DESC
+                  "
+                ></i>
+              </th>
             </ng-template>
-          </ng-template>
-          <td *ngIf="config.actionsColumn" class="actions-colum">
-            <ng-template [ngIf]="!item._editting">
+            <th *ngIf="config.actionsColumn" class="colmedium"> </th>
+          </tr>
+          <tr *ngIf="config.filterable">
+            <th *ngIf="config.selectable == SelectionType.MULTIPLE">
+              <input type="checkbox" [ngModel]="allSelected()" (click)="toggleSelectAll()" />
+            </th>
+            <ng-template ngFor [ngForOf]="columns" let-column>
+              <th *ngIf="column.visible">
+                <gp-table-editable-cell
+                  *ngIf="column.filterable"
+                  [ngModel]="column.filter"
+                  (ngModelChange)="changeFilter(column, $event)"
+                  [columnMetadata]="column"
+                  [isFilter]="true"
+                ></gp-table-editable-cell>
+              </th>
+            </ng-template>
+            <th *ngIf="config.actionsColumn">
+              <gp-button
+                [type]="'icon'"
+                label="Clear"
+                (click)="clearFilters()"
+                icon="pi pi-times"
+              ></gp-button>
+            </th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td [attr.colspan]="footerColspan">
+              <p-paginator
+                #pg
+                [rows]="config.itemsPerPage"
+                [totalRecords]="filteredData.length"
+                [pageLinkSize]="4"
+                (onPageChange)="
+                  changePage($event.first, $event.rows, $event.page, $event.pageCount)
+                "
+                [rowsPerPageOptions]="config.itemsPerPageOptions"
+              ></p-paginator>
+            </td>
+          </tr>
+          <tr *ngIf="config.exportable" class="ui-table-caption">
+            <td [attr.colspan]="footerColspan" class="ui-widget-header ui-table-summary">
+              <gp-button
+                [type]="'icon'"
+                label="Exportar a CSV"
+                icon="pi pi-download"
+                (click)="exportToCsv()"
+              ></gp-button>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody class="ui-table-tbody">
+          <tr *ngIf="!sortedData || sortedData.length === 0">
+            <td [attr.colspan]="footerColspan">
+              No results
+            </td>
+          </tr>
+          <tr
+            *ngFor="let item of currentPageData; let rowIndex = index"
+            (click)="toggleItemSelection(item, $event)"
+            [class.ui-state-highlight]="itemIsSelected(item)"
+          >
+            <td *ngIf="config.selectable == SelectionType.MULTIPLE">
+              <input
+                type="checkbox"
+                [ngModel]="itemIsSelected(item)"
+                (ngModelChange)="toggleItemSelection(item)"
+                [disabled]="!isSelectable(item)"
+              />
+            </td>
+            <!-- Edition -->
+            <ng-template [ngIf]="item._editting" [ngIfElse]="normalRow">
               <ng-content
                 *ngTemplateOutlet="
-                  actionsTemplate ? actionsTemplate : defaultActionsTemplate;
+                  formTemplate ? formTemplate : defaultFormTemplate;
                   context: {
-                    $implicit: item,
+                    $implicit: editionObject,
+                    original: item,
                     index: rowIndex,
-                    editItem: editItem,
-                    deleteItem: beforeDeleteItem
+                    columns: columns
                   }
                 "
               ></ng-content>
-              <ng-template #defaultActionsTemplate let-item let-columns="columns">
-                <gp-button
-                  [type]="'icon'"
-                  icon="pi pi-pencil"
-                  [disabled]="onEdition || onCreation || !isEditable(item)"
-                  *ngIf="config.canEdit"
-                  (click)="editItem(item)"
-                ></gp-button>
-                <gp-button
-                  [type]="'icon'"
-                  icon="pi pi-trash"
-                  [disabled]="onEdition || onCreation || !isDeletable(item)"
-                  *ngIf="config.canDelete"
-                  (click)="beforeDeleteItem(item)"
-                  [severity]="'danger'"
-                ></gp-button>
+            </ng-template>
+            <!-- Visualization -->
+            <ng-template #normalRow>
+              <ng-content
+                *ngTemplateOutlet="
+                  rowTemplate ? rowTemplate : defaultRowTemplate;
+                  context: {
+                    $implicit: item,
+                    index: rowIndex,
+                    columns: columns
+                  }
+                "
+              ></ng-content>
+              <ng-template #defaultRowTemplate let-item let-columns="columns">
+                <ng-template ngFor [ngForOf]="columns" let-column>
+                  <td *ngIf="column.visible" class="gp-grid-table-cell">
+                    <ng-container [ngSwitch]="column.type">
+                      <ng-template [ngSwitchCase]="inputType.FILE">
+                        <p *ngIf="!hasFile(item, column)">{{ item[column.name] }}</p>
+                        <gp-button
+                          *ngIf="hasFile(item, column)"
+                          [type]="'icon'"
+                          icon="pi pi-upload"
+                          (click)="download(item, column)"
+                        ></gp-button>
+                      </ng-template>
+                      <gp-button
+                        *ngSwitchCase="inputType.IMG"
+                        [type]="'icon'"
+                        icon="pi pi-eye"
+                        (click)="
+                          imgModalVisible.visible = true; imgModalVisible.img = item[column.name]
+                        "
+                      ></gp-button>
+                      <gp-button
+                        *ngSwitchCase="inputType.WYSIWYG"
+                        icon="pi pi-eye"
+                        [type]="'icon'"
+                        (click)="
+                          textModalVisible.visible = true; textModalVisible.text = item[column.name]
+                        "
+                      ></gp-button>
+                      <gp-button
+                        *ngSwitchCase="inputType.TEXT_AREA"
+                        icon="pi pi-eye"
+                        [type]="'icon'"
+                        (click)="
+                          textModalVisible.visible = true; textModalVisible.text = item[column.name]
+                        "
+                      ></gp-button>
+                      <ng-template ngSwitchDefault>
+                        <ng-template
+                          [ngIf]="column.referenceDescription"
+                          [ngIfElse]="defaultColumnField"
+                        >
+                          <div class="gp-grid-table-content">{{
+                            item[column.referenceDescription]
+                          }}</div>
+                        </ng-template>
+                        <ng-template #defaultColumnField>
+                          <div class="gp-grid-table-content">
+                            <p>{{ item[column.name] }}</p>
+                          </div>
+                        </ng-template>
+                      </ng-template>
+                    </ng-container>
+                  </td>
+                </ng-template>
               </ng-template>
             </ng-template>
-
-            <gp-button
-              [type]="'icon'"
-              icon="pi pi-save"
-              [disabled]="
-                ((onEdition || onCreation) && !item._editting) || (item._editting && !itemValid)
-              "
-              *ngIf="item._editting"
-              (click)="beforeSaveItem(item, editionObject)"
-            ></gp-button>
-            <gp-button
-              [type]="'icon'"
-              icon="pi pi-trash"
-              [disabled]="(onEdition || onCreation) && !item._editting"
-              *ngIf="item._editting"
-              (click)="cancelEdit(item)"
-              [severity]="'danger'"
-            ></gp-button>
-          </td>
-        </tr>
-        <ng-template [ngIf]="onCreation">
-          <tr>
-            <td *ngIf="config.selectable == SelectionType.MULTIPLE"></td>
-            <ng-content
-              *ngTemplateOutlet="
-                formTemplate ? formTemplate : defaultFormTemplate;
-                context: {
-                  $implicit: creationObject,
-                  index: currentPageData.length,
-                  columns: columns
-                }
-              "
-            ></ng-content>
             <td *ngIf="config.actionsColumn" class="actions-colum">
+              <ng-template [ngIf]="!item._editting">
+                <ng-content
+                  *ngTemplateOutlet="
+                    actionsTemplate ? actionsTemplate : defaultActionsTemplate;
+                    context: {
+                      $implicit: item,
+                      index: rowIndex,
+                      editItem: editItem,
+                      deleteItem: beforeDeleteItem
+                    }
+                  "
+                ></ng-content>
+                <ng-template #defaultActionsTemplate let-item let-columns="columns">
+                  <gp-button
+                    [type]="'icon'"
+                    icon="pi pi-pencil"
+                    [disabled]="onEdition || onCreation || !isEditable(item)"
+                    *ngIf="config.canEdit"
+                    (click)="editItem(item)"
+                  ></gp-button>
+                  <gp-button
+                    [type]="'icon'"
+                    icon="pi pi-trash"
+                    [disabled]="onEdition || onCreation || !isDeletable(item)"
+                    *ngIf="config.canDelete"
+                    (click)="beforeDeleteItem(item)"
+                    [severity]="'danger'"
+                  ></gp-button>
+                </ng-template>
+              </ng-template>
+
               <gp-button
                 [type]="'icon'"
                 icon="pi pi-save"
-                [disabled]="!itemValid"
-                (click)="beforeCreateItem(creationObject)"
+                [disabled]="
+                  ((onEdition || onCreation) && !item._editting) || (item._editting && !itemValid)
+                "
+                *ngIf="item._editting"
+                (click)="beforeSaveItem(item, editionObject)"
               ></gp-button>
               <gp-button
                 [type]="'icon'"
                 icon="pi pi-trash"
-                (click)="cancel()"
+                [disabled]="(onEdition || onCreation) && !item._editting"
+                *ngIf="item._editting"
+                (click)="cancelEdit(item)"
                 [severity]="'danger'"
               ></gp-button>
             </td>
           </tr>
-        </ng-template>
-      </tbody>
-    </div>
-  </table>
+          <ng-template [ngIf]="onCreation">
+            <tr>
+              <td *ngIf="config.selectable == SelectionType.MULTIPLE"></td>
+              <ng-content
+                *ngTemplateOutlet="
+                  formTemplate ? formTemplate : defaultFormTemplate;
+                  context: {
+                    $implicit: creationObject,
+                    index: currentPageData.length,
+                    columns: columns
+                  }
+                "
+              ></ng-content>
+              <td *ngIf="config.actionsColumn" class="actions-colum">
+                <gp-button
+                  [type]="'icon'"
+                  icon="pi pi-save"
+                  [disabled]="!itemValid"
+                  (click)="beforeCreateItem(creationObject)"
+                ></gp-button>
+                <gp-button
+                  [type]="'icon'"
+                  icon="pi pi-trash"
+                  (click)="cancel()"
+                  [severity]="'danger'"
+                ></gp-button>
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </div>
+    </table>
+  </div>
 </div>
+
 <p-dialog [(visible)]="imgModalVisible.visible" [modal]="true">
   <img
     [src]="imgModalVisible.img"
