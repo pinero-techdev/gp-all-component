@@ -4,7 +4,12 @@
       <ng-template [ngIf]="field.isVisible(this.data ? 'edit' : 'add')">
         <div
           class="field-wrapper p-col-12 p-lg-6"
-          [ngClass]="field.displayInfo.displayType === 'NULLABLE_CHECKBOX' ? 'type-checkbox' : ''"
+          [ngClass]="
+            field.displayInfo.displayType === displayType.NULLABLE_CHECKBOX ||
+            field.displayInfo.displayType === displayType.CHECKBOX
+              ? 'type-checkbox'
+              : ''
+          "
         >
           <label
             *ngIf="field.displayInfo && field.displayInfo.fieldLabel"
