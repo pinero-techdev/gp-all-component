@@ -1,0 +1,14 @@
+<p-fileUpload
+  *ngIf="formField"
+  [auto]="true"
+  [chooseLabel]="label"
+  [disabled]="disabled"
+  [gpFieldValidator]="formField"
+  [multiple]="multiple"
+  [name]="formField?.fieldMetadata?.fieldName"
+  customUpload="true"
+  maxFileSize="1000000"
+  (uploadHandler)="onChangeEvent($event)"
+  (onClear)="onClearEvent($event)"
+  (onRemove)="onRemoveEvent($event)"
+></p-fileUpload>

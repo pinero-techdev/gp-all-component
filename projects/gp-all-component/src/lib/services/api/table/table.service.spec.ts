@@ -17,7 +17,7 @@ describe('TableServiceSpec', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [GlobalService, TableService],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

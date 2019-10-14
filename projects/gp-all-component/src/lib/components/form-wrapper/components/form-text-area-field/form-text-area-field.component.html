@@ -1,22 +1,29 @@
-<div class="textarea-field-wrapper" [class.with-multilanguage]="translateInfo && translationKeys">
+<div class="textarea-field-wrapper" [class.with-multilanguage]="translationKeys">
   <textarea
-    name="__field__{{ name }}"
     pInputTextarea
     [(ngModel)]="currentValue"
-    [rows]="rows"
-    (change)="onFieldChange()"
-    class="full-width {{ textboxClass }}"
     [disabled]="isDisabled"
+    [gpFieldValidator]="formField"
+    [id]="formField?.fieldMetadata?.fieldName"
+    [name]="formField?.fieldMetadata?.fieldName"
+    [rows]="displayInfo.rowsTextArea > 0 ? this.displayInfo.rowsTextArea : 3"
+    class="full-width {{ textboxClass }}"
+    (change)="onFieldChange()"
   ></textarea>
-  <div class="multilanguage-wrapper" *ngIf="translateInfo && translationKeys">
+
+  <div
+    *ngIf="formField?.fieldMetadata?.displayInfo.translationInfo && translationKeys"
+    class="multilanguage-wrapper"
+  >
     <gp-multi-language
       [pKey]="translationKeys"
-      [schema]="translateInfo.scheme"
-      [table]="translateInfo.table"
-      [field]="translateInfo.field"
-      [description]="translateInfo.description"
-      [isEditing]="translateInfo.allowEdition"
-      [orderByLangCod]="translateInfo.orderByLangCod"
-    ></gp-multi-language>
+      [schema]="formField?.fieldMetadata?.displayInfo.translationInfo.scheme"
+      [table]="formField?.fieldMetadata?.displayInfo.translationInfo.table"
+      [field]="formField?.fieldMetadata?.displayInfo.translationInfo.field"
+      [description]="formField?.fieldMetadata?.displayInfo.translationInfo.description"
+      [isEditing]="formField?.fieldMetadata?.displayInfo.translationInfo.allowEdition"
+      [orderByLangCod]="formField?.fieldMetadata?.displayInfo.translationInfo.orderByLangCod"
+    >
+    </gp-multi-language>
   </div>
 </div>

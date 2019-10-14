@@ -1,87 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
-import { GpFormField } from '../../resources/form-field.model';
-import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
-import { isNullOrUndefined } from 'util';
+import { GPUtil } from '../../../../services/core/gp-util.service';
 
 @Component({
   selector: 'gp-form-nullable-checkbox-field',
   templateUrl: './form-nullable-checkbox-field.component.html',
   styleUrls: ['./form-nullable-checkbox-field.component.scss'],
 })
-export class FormNullableCheckboxComponent extends GpFormFieldControl implements OnInit {
+export class FormNullableCheckboxComponent extends GpFormFieldControl {
   /**
-   * The formField for this component
+   * Current form field value
    */
-  @Input() formField: GpFormField;
-
-  constructor() {
-    super();
+  @Input() set currentValue(v: boolean) {
+    this._currentValue = GPUtil.isUndefined(v) ? null : v;
+    this.copyValueFromControlToEditedRow(this.formField.formControl.editedRow);
   }
 
-  ngOnInit() {
-    this.isDisabled = this.controlDisabled();
-  }
-
-  /**
-   * Returns current form field
-   */
-  getFormField(): GpFormField {
-    return this.formField;
-  }
-
-  /**
-   * Returns current field metadata
-   */
-  getFieldMetadata(): DataTableMetaDataField {
-    return this.formField ? this.formField.fieldMetadata : null;
-  }
-
-  /**
-   * Copies value from control to editing row
-   * @param editedRow The editing row
-   */
-  copyValueFromControlToEditedRow(editedRow: any): void {
-    if (isNullOrUndefined(this.currentValue)) {
-      editedRow[this.formField.fieldMetadata.fieldName] = null;
-    } else {
-      if (this.currentValue) {
-        editedRow[
-          this.formField.fieldMetadata.fieldName
-        ] = this.formField.fieldMetadata.displayInfo.checkedValue;
-      } else {
-        editedRow[
-          this.formField.fieldMetadata.fieldName
-        ] = this.formField.fieldMetadata.displayInfo.uncheckedValue;
-      }
-    }
-  }
-
-  /**
-   * Copies values from editing row to control
-   * @param editedRow The editing row
-   */
-  copyValueFromEditedRowToControl(editedRow: any): void {
-    if (isNullOrUndefined(editedRow[this.formField.fieldMetadata.fieldName])) {
-      this.currentValue = null;
-    } else {
-      this.currentValue =
-        this.formField.fieldMetadata.displayInfo.checkedValue ===
-        editedRow[this.formField.fieldMetadata.fieldName];
-    }
-  }
-
-  /**
-   * Starts validation for editing row
-   */
-  validateField(): boolean {
-    // A checkbox is always valid.
-    if (this.formField !== undefined) {
-      this.formField.validField = true;
-      this.formField.fieldMsgs = null;
-      return this.formField.validField;
-    }
-
-    return false;
+  get currentValue() {
+    return this._currentValue;
   }
 }

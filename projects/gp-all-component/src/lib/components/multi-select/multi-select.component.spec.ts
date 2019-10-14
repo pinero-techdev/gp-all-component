@@ -13,7 +13,7 @@ describe('MultiSelectComponent', () => {
     TestBed.configureTestingModule({
       declarations: [MultiSelectComponent],
       imports: [MultiSelectModule, FormsModule, ReactiveFormsModule],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

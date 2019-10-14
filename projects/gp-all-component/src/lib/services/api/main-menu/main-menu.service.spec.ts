@@ -22,7 +22,7 @@ describe('MainMenuService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [GlobalService, MainMenuService],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

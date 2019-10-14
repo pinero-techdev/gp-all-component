@@ -10,7 +10,7 @@ describe('TabViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TabViewComponent],
       imports: [],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

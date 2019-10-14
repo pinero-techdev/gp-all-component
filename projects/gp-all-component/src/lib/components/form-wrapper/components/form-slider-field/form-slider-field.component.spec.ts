@@ -14,7 +14,7 @@ describe('FormSliderFieldComponent', () => {
     TestBed.configureTestingModule({
       declarations: [FormSliderFieldComponent],
       imports: [SliderModule, FormsModule],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

@@ -86,8 +86,12 @@ export class ButtonComponent implements OnInit {
   /**
    * Returns the click event emit
    */
-  onClick() {
-    return this.onClickEvent.emit(true);
+  onClick($event) {
+    if (!this.disabled) {
+      this.onClickEvent.emit(true);
+    } else {
+      $event.preventDefault();
+    }
   }
 
   initSplitItems() {

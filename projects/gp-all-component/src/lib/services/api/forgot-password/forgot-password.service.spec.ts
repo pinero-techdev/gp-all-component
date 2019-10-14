@@ -12,7 +12,7 @@ describe('ForgotPasswordServiceSpec', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, ButtonModule],
       providers: [GlobalService, ForgotPasswordService],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

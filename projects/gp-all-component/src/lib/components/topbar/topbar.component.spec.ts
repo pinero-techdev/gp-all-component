@@ -46,7 +46,7 @@ describe('TopbarComponent', () => {
         RouterTestingModule.withRoutes(testRoutes),
       ],
       providers: [{ provide: LoginService, useClass: LoginServiceMock }],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

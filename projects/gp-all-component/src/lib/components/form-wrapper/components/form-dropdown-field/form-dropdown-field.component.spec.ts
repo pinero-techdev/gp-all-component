@@ -1,17 +1,22 @@
-import { first } from 'rxjs/operators';
-import { TableServiceMockResponse } from './../../../../services/api/table/table.service.mock';
-import { TestingErrorCodeMock } from './../../../../shared/testing/@mock/utils/testing-mock-constants.class';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormDropdownFieldComponent } from './form-dropdown-field.component';
 import {
   FormWrapperSharedModules,
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
-import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
-import { InfoCampoModificado } from './../../../../resources/data/info-campo-modificado.model';
-import { TableServiceMock } from './../../../../services/api/table/table.service.mock';
-import { TableService } from './../../../../services/api/table/table.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  TableServiceMock,
+  TableServiceMockResponse2,
+} from '../../../../services/api/table/table.service.mock';
+import { FormDropdownFieldComponent } from './form-dropdown-field.component';
+import { TableService } from '../../../../services/api/table/table.service';
+import {
+  FormFieldDropdown,
+  FormFieldDropdownError,
+  FormFieldDropdownNoOptions,
+} from '../../../../shared/testing/@mock/types/form-field.mock';
+import { GpFormField } from '../../resources/form-field.model';
+import { FormFieldValidatorDirective } from '../form-field-validator/form-field-validator.directive';
 
 describe('FormDropdownFieldComponent', () => {
   let component: FormDropdownFieldComponent;
@@ -20,263 +25,146 @@ describe('FormDropdownFieldComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FormDropdownFieldComponent],
+      declarations: [FormDropdownFieldComponent, FormFieldValidatorDirective],
       imports: [FormWrapperSharedModules, HttpClientTestingModule],
       providers: [
         FormWrapperSharedProviders,
         { provide: TableService, useClass: TableServiceMock },
       ],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FormDropdownFieldComponent);
     component = fixture.componentInstance;
-    spyOn(component, 'init').and.callThrough();
-    component.formField = JSON.parse(JSON.stringify(FormFieldMock));
     tableService = TestBed.get(TableService);
+    spyOn(tableService, 'list').and.callThrough();
+    spyOn(component, 'onChangeEvent').and.callThrough();
     fixture.detectChanges();
-    component.ngOnInit();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.init).toHaveBeenCalled();
-    expect(component.isDisabled).toBeFalsy();
+    expect(tableService).toBeTruthy();
   });
 
-  describe('When formField is undefined', () => {
+  describe('Scenario: formField is NULL', () => {
     beforeEach(() => {
-      component.formField = undefined;
-      fixture.detectChanges();
-      component.ngOnInit();
-    });
-
-    it('should be disabled', () => {
-      expect(component.isDisabled).toBeFalsy();
-    });
-
-    it('should not have metadata', () => {
-      expect(component.getFieldMetadata()).toBeNull();
-    });
-
-    describe('Then validateField is called', () => {
-      let returnedValue: boolean;
-
-      beforeEach(() => {
-        returnedValue = component.validateField();
-        fixture.detectChanges();
-      });
-
-      it('should return false', () => {
-        expect(returnedValue).toBeFalsy();
-      });
-    });
-
-    describe('Then copyValueFromEditedRowToControl is called', () => {
-      beforeEach(() => {
-        component.copyValueFromEditedRowToControl();
-      });
-
-      it('should not do nothing', () => {
-        expect(component.currentValueDropDown).toBeNull();
-      });
-    });
-
-    describe('Then copyValueFromControlToEditedRow is called', () => {
-      beforeEach(() => {
-        component.copyValueFromControlToEditedRow();
-      });
-
-      it('should return false', () => {
-        expect(component.formField).toBeUndefined();
-      });
-    });
-
-    describe('Then getFormField is called', () => {
-      it('should return null', () => {
-        expect(component.getFormField()).not.toBeUndefined();
-        expect(component.getFormField()).toBeNull();
-      });
-    });
-  });
-
-  describe('When formField is filled', () => {
-    beforeEach(() => {
-      component.formField = JSON.parse(JSON.stringify(FormFieldMock));
-      component.ngOnInit();
+      component.formField = null;
       fixture.detectChanges();
     });
 
-    it('should not be disabled', () => {
+    it('should NOT call init', () => {
+      expect(component.formField).toBeNull();
+      expect(component.readonly).toBeFalsy();
+      expect(component.required).toBeFalsy();
       expect(component.isDisabled).toBeFalsy();
-    });
-
-    it('should init', () => {
-      expect(component.init).toHaveBeenCalled();
-      expect(component.listAllowedValuesOptions.length).toBeGreaterThan(0);
-    });
-
-    it('should have metadata', () => {
-      expect(component.getFieldMetadata()).not.toBeNull();
-    });
-
-    describe('Then validateField is called', () => {
-      let returnedValue: boolean;
-
-      beforeEach(() => {
-        spyOn(component, 'validateFieldAddMsgs').and.callThrough();
-        component.formField.fieldMetadata.notNull = false;
-        returnedValue = component.validateField();
-        fixture.detectChanges();
-      });
-
-      it('should return true if notNull prop is false', () => {
-        expect(returnedValue).toBeTruthy();
-        expect(component.formField.validField).toBeTruthy();
-        expect(component.validateFieldAddMsgs).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('Then validateField is called', () => {
-      let returnedValue: boolean;
-
-      beforeEach(() => {
-        spyOn(component, 'validateFieldAddMsgs').and.callThrough();
-        returnedValue = component.validateField();
-        fixture.detectChanges();
-      });
-
-      it('should return false', () => {
-        fixture.detectChanges();
-        returnedValue = component.validateField();
-        expect(returnedValue).toBeFalsy();
-        expect(component.formField.validField).toBeFalsy();
-        expect(component.validateFieldAddMsgs).toHaveBeenCalled();
-      });
-
-      it('should be valid', () => {
-        const row = {};
-        row[FormFieldMock.fieldMetadata.fieldName] = 'A';
-        fixture.detectChanges();
-        returnedValue = component.validateField(row);
-        expect(returnedValue).toBeTruthy();
-      });
-    });
-
-    describe('Then copyValueFromEditedRowToControl is called', () => {
-      const row = {};
-      row[FormFieldMock.fieldMetadata.fieldName] = 'A';
-      beforeEach(() => {
-        component.copyValueFromEditedRowToControl();
-      });
-
-      it('should not do nothing', () => {
-        expect(component.currentValueDropDown).toBeNull();
-      });
-
-      it('should get row', () => {
-        component.formField.fieldMetadata.notNull = false;
-        fixture.detectChanges();
-        component.copyValueFromEditedRowToControl(row);
-        expect(component.currentValueDropDown).toBeTruthy();
-      });
-
-      it('should not get row', () => {
-        component.formField.fieldMetadata.notNull = true;
-        fixture.detectChanges();
-        component.copyValueFromEditedRowToControl();
-        expect(component.currentValueDropDown).toBeFalsy();
-      });
-    });
-
-    describe('Then copyValueFromControlToEditedRow is called', () => {
-      const row = {};
-      row[FormFieldMock.fieldMetadata.fieldName] = 'TEST';
-
-      beforeEach(() => {
-        component.currentValueDropDown = 'B';
-      });
-
-      it('should set row', () => {
-        component.copyValueFromControlToEditedRow(row);
-        fixture.detectChanges();
-        expect(row[FormFieldMock.fieldMetadata.fieldName]).toEqual('B');
-      });
-    });
-
-    describe('Then getFormField is called', () => {
-      it('should return null', () => {
-        expect(component.getFormField()).not.toBeUndefined();
-        expect(component.getFormField()).not.toBeNull();
-      });
-    });
-
-    describe('Then select an option', () => {
-      it('should trigger onchange event', () => {
-        spyOn(component, 'onChange').and.callThrough();
-        const field = new InfoCampoModificado(FormFieldMock.fieldMetadata.fieldName, '1');
-        component.valueChanged.pipe(first()).subscribe((value) => expect(value).toEqual(field));
-        component.currentValueDropDown = '1';
-        expect(component.onChange).toHaveBeenCalledWith('1');
-      });
+      expect(component.currentValue).toBeUndefined();
     });
   });
 
-  describe('When formField is filled with a table reference', () => {
+  describe('Scenario: field has options', () => {
+    const value = '1';
+    const editRow = { [FormFieldDropdown.fieldMetadata.fieldName]: value };
+
     beforeEach(() => {
-      spyOn(tableService, 'list').and.callThrough();
-      component.formField = JSON.parse(JSON.stringify(FormFieldMock));
-      component.formField.fieldMetadata.displayInfo.options = [];
+      component.currentValue = value;
+      component.formField = new GpFormField().assign(FormFieldDropdown);
+      fixture.detectChanges();
     });
 
-    describe('and API call is success', () => {
-      beforeEach(() => {
-        component.ngOnInit();
-        fixture.detectChanges();
-      });
-
-      it('should not be disabled', () => {
-        expect(component.isDisabled).toBeFalsy();
-      });
-
-      it('should init', () => {
-        expect(component.init).toHaveBeenCalled();
-        expect(component.listAllowedValuesOptions.length).toEqual(
-          TableServiceMockResponse.data.length + 1
-        );
-        expect(tableService.list).toHaveBeenCalled();
-      });
+    it('should have N items', () => {
+      expect(component.items.length).toEqual(
+        FormFieldDropdown.fieldMetadata.displayInfo.options.length
+      );
     });
 
-    describe('and service is down', () => {
-      beforeEach(() => {
-        component.formField.fieldMetadata.displayInfo.referencedTable =
-          TestingErrorCodeMock.ERROR_500;
-        component.ngOnInit();
-        fixture.detectChanges();
-      });
-
-      it('should return an error', () => {
-        expect(component.init).toHaveBeenCalled();
-        expect(component.listAllowedValuesOptions.length).toEqual(1);
-        expect(tableService.list).toHaveBeenCalled();
-      });
+    it('should be enabled', () => {
+      expect(component.isDisabled).toBeFalsy();
     });
 
-    describe('and API call fails', () => {
-      beforeEach(() => {
-        component.formField.fieldMetadata.displayInfo.referencedTable =
-          TestingErrorCodeMock.ERROR_404;
-        component.ngOnInit();
-        fixture.detectChanges();
-      });
+    it('should be mandatory', () => {
+      expect(component.required).toEqual(FormFieldDropdown.fieldMetadata.notNull);
+    });
 
-      it('should return an error', () => {
-        expect(component.init).toHaveBeenCalled();
-        expect(component.listAllowedValuesOptions.length).toEqual(1);
-        expect(tableService.list).toHaveBeenCalled();
-      });
+    it('should be readonly', () => {
+      expect(component.readonly).toEqual(FormFieldDropdown.fieldMetadata.readOnly);
+    });
+
+    it('should copy value to editRow', () => {
+      component.copyValueFromControlToEditedRow(component.formField.formControl.editedRow);
+      expect(component.formField.formControl.editedRow).toEqual(editRow);
+    });
+
+    it('should copy value from editRow', () => {
+      component.copyValueFromEditedRowToControl(editRow);
+      expect(component.currentValue).toEqual(value);
+    });
+  });
+
+  describe('Scenario: field has not options', () => {
+    const value = 'A';
+    const editRow = { [FormFieldDropdownNoOptions.fieldMetadata.fieldName]: value };
+    const changeEvent = { ['value']: value };
+
+    beforeEach(() => {
+      component.currentValue = value;
+      component.formField = new GpFormField().assign(FormFieldDropdownNoOptions);
+      fixture.detectChanges();
+    });
+
+    it('should call table service to list', () => {
+      expect(tableService.list).toHaveBeenCalled();
+    });
+
+    it('should have N items', () => {
+      expect(component.items.length).toEqual(TableServiceMockResponse2.data.length + 1);
+    });
+
+    it('should be enabled', () => {
+      expect(component.isDisabled).toBeFalsy();
+    });
+
+    it('should be mandatory', () => {
+      expect(component.required).toEqual(FormFieldDropdownNoOptions.fieldMetadata.notNull);
+    });
+
+    it('should be readonly', () => {
+      expect(component.readonly).toEqual(FormFieldDropdownNoOptions.fieldMetadata.readOnly);
+    });
+
+    it('should copy value to editRow', () => {
+      component.copyValueFromControlToEditedRow(component.formField.formControl.editedRow);
+      expect(component.formField.formControl.editedRow).toEqual(editRow);
+    });
+
+    it('should copy value from editRow', () => {
+      component.copyValueFromEditedRowToControl(editRow);
+      expect(component.currentValue).toBeTruthy();
+    });
+
+    it('should get the new value', () => {
+      spyOn(component, 'onFieldChange').and.callThrough();
+      component.onChangeEvent(changeEvent);
+      expect(component.currentValue).toEqual(value);
+      expect(component.formField.validField).toBeTruthy();
+      expect(component.formField.formControl.editedRow).toEqual(editRow);
+      expect(component.onFieldChange).toHaveBeenCalled();
+    });
+  });
+
+  describe('Scenario: field has not options and service fails', () => {
+    beforeEach(() => {
+      component.formField = new GpFormField().assign(FormFieldDropdownError);
+      fixture.detectChanges();
+    });
+
+    it('should call table service to list', () => {
+      expect(tableService.list).toHaveBeenCalled();
+    });
+
+    it('should have N items', () => {
+      expect(component.items.length).toEqual(1);
     });
   });
 });

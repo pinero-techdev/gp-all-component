@@ -1,6 +1,6 @@
 import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
 import { finalize } from 'rxjs/operators';
-import { TableService, FieldMetadata } from '../../../../services/api/table/table.service';
+import { TableService } from '../../../../services/api/table/table.service';
 import { AttachmentOperationEnum } from './resources/attachment-operation.enum';
 import { TableMetadataService } from '../../../../services/api/table/table-metadata.service';
 import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
@@ -15,6 +15,7 @@ import {
   ItemChangeEvent,
 } from './resources/table-events.interface';
 import { Attachment } from './resources/attachment.class';
+import { Field } from '../../../../resources/data/data-table/meta-data/meta-data-field.model';
 
 @Component({
   selector: 'gp-table-editable-crud',
@@ -26,7 +27,6 @@ export class TableEditableCrudComponent {
   // tslint:disable-next-line: variable-name
   private _selectedData: any[] = [];
   loading = true;
-  // Mensaje global.
   msgsGlobal: Message[] = [];
   data: any[] = [];
   tableConfig = new TableConfig();
@@ -106,22 +106,7 @@ export class TableEditableCrudComponent {
           }
           if (!this.columns) {
             this.columns = this.tableMetadataService.getTableColumnsFromMetadata(
-              data.metadata.fields.map(
-                (field) =>
-                  new FieldMetadata(
-                    field.fieldMaxLength,
-                    field.fieldName,
-                    field.fieldType,
-                    field.id,
-                    field.notNull,
-                    field.readOnly,
-                    field.allowAscii,
-                    field.lengthInTable,
-                    null,
-                    field.displayInfo,
-                    null
-                  )
-              )
+              data.metadata.fields.map((field: Field) => new Field().assign(field, true))
             );
             this.setTableColumns.emit({
               data: this.columns,

@@ -1,8 +1,10 @@
 <div class="text-field-wrapper">
   <div class="full-width">
     <input
-      name="__field__{{ formField?.fieldMetadata.fieldName }}"
       pInputText
+      [gpFieldValidator]="formField"
+      [name]="formField?.fieldMetadata?.fieldName"
+      [id]="formField?.fieldMetadata?.fieldName"
       type="number"
       [(ngModel)]="currentValue"
       [maxlength]="maxLength"

@@ -1,12 +1,17 @@
-import { FieldMetadata } from './table.service';
 import { GpFormFieldType } from './../../../components/form-wrapper/resources/form-field-type.enum';
 import { TableColumnMetadata } from '../../../components/table-wrapper/components/table-editable-crud/resources/table-column-metadata.model';
-import { TableService } from './table.service';
 import { Injectable } from '@angular/core';
+import {
+  Field,
+  DisplayType,
+  FieldType,
+  RestrictionType,
+  TextPropertyType,
+} from '../../../resources/data/data-table/meta-data/meta-data-field.model';
 
 @Injectable()
 export class TableMetadataService {
-  getTableColumnsFromMetadata(metadata: FieldMetadata[]): TableColumnMetadata[] {
+  getTableColumnsFromMetadata(metadata: Field[]): TableColumnMetadata[] {
     const columns: TableColumnMetadata[] = [];
     for (const field of metadata) {
       columns.push(this.getTableColumnFromFieldMetadata(field));
@@ -14,7 +19,7 @@ export class TableMetadataService {
     return columns;
   }
 
-  getTableColumnFromFieldMetadata(metadata: FieldMetadata): TableColumnMetadata {
+  getTableColumnFromFieldMetadata(metadata: Field): TableColumnMetadata {
     const column = new TableColumnMetadata();
     column.name = metadata.fieldName;
     this.getRequired(metadata, column);
@@ -34,7 +39,7 @@ export class TableMetadataService {
         column.rows = metadata.displayInfo.rowsTextArea;
       }
       column.referencedTable = metadata.displayInfo.referencedTable;
-      column.fieldToOrderBy = [metadata.displayInfo.fieldToOrderBy];
+      column.fieldToOrderBy = metadata.displayInfo.fieldToOrderBy;
       column.optionsValue = metadata.displayInfo.referencedField;
       column.options = metadata.displayInfo.options;
       column.checkedValue = metadata.displayInfo.checkedValue;
@@ -52,12 +57,12 @@ export class TableMetadataService {
     return column;
   }
 
-  getRequired(metadata: FieldMetadata, column: TableColumnMetadata) {
+  getRequired(metadata: Field, column: TableColumnMetadata) {
     if (metadata.id || metadata.notNull) {
       column.required = true;
     } else if (metadata.restrictions) {
       for (const restriction of metadata.restrictions) {
-        if (restriction.restrictionType === TableService.RESTRICTION_NOT_NULL) {
+        if (restriction.restrictionType === RestrictionType.NOT_NULL) {
           column.required = true;
           break;
         }
@@ -75,69 +80,69 @@ export class TableMetadataService {
     return true;
   }
 
-  getType(metadata: FieldMetadata, column: TableColumnMetadata) {
+  getType(metadata: Field, column: TableColumnMetadata) {
     if (metadata.displayInfo.displayType) {
       switch (metadata.displayInfo.displayType) {
-        case TableService.IMG_DISPLAY_TYPE: {
+        case DisplayType.IMG: {
           column.type = GpFormFieldType.IMG;
           break;
         }
-        case TableService.CHECKBOX_DISPLAY_TYPE: {
+        case DisplayType.CHECKBOX: {
           column.type = GpFormFieldType.CHECKBOX;
           break;
         }
-        case TableService.TEXT_DISPLAY_TYPE: {
+        case DisplayType.TEXT: {
           column.type = GpFormFieldType.TEXT;
           break;
         }
-        case TableService.TEXT_AREA_DISPLAY_TYPE: {
+        case DisplayType.TEXT_AREA: {
           column.type = GpFormFieldType.TEXT_AREA;
           break;
         }
-        case TableService.DROPDOWN_DISPLAY_TYPE: {
+        case DisplayType.DROPDOWN: {
           column.type = GpFormFieldType.DROPDOWN;
           break;
         }
-        case TableService.DROPDOWN_RELATED_DISPLAY_TYPE: {
+        case DisplayType.DROPDOWN_RELATED: {
           column.type = GpFormFieldType.DROPDOWN_RELATED;
           break;
         }
-        case TableService.SWITCH_DISPLAY_TYPE: {
+        case DisplayType.SWITCH: {
           column.type = GpFormFieldType.SWITCH;
           break;
         }
-        case TableService.CALENDAR_DISPLAY_TYPE: {
+        case DisplayType.CALENDAR: {
           column.type = GpFormFieldType.CALENDAR;
           break;
         }
-        case TableService.HOUR_MINUTE_DISPLAY_TYPE: {
+        case DisplayType.HOUR_MINUTE: {
           column.type = GpFormFieldType.TIME;
           break;
         }
-        case TableService.WYSIWYG_DISPLAY_TYPE: {
+        case DisplayType.WYSIWYG: {
           column.type = GpFormFieldType.WYSIWYG;
           break;
         }
-        case TableService.FILE_DISPLAY_TYPE: {
+        case DisplayType.FILE: {
           column.type = GpFormFieldType.FILE;
           break;
         }
-        case TableService.NULLABLE_CHECKBOX_DISPLAY_TYPE: {
+        case DisplayType.NULLABLE_CHECKBOX: {
           column.type = GpFormFieldType.NULLABLE_CHECKBOX;
           break;
         }
-        case TableService.NUMBER_FIELD_TYPE: {
+        case DisplayType.NUMBER: {
           column.type = GpFormFieldType.NUMBER;
           break;
         }
       }
     } else {
       switch (metadata.fieldType) {
-        case 'DATE': {
+        case FieldType.DATE: {
           column.type = GpFormFieldType.CALENDAR;
           break;
         }
-        case 'BOOLEAN': {
+        case FieldType.BOOLEAN: {
           if (metadata.notNull) {
             column.type = GpFormFieldType.SWITCH;
           } else {
@@ -153,19 +158,19 @@ export class TableMetadataService {
     }
   }
 
-  getTextProperties(metadata: FieldMetadata, column: TableColumnMetadata) {
+  getTextProperties(metadata: Field, column: TableColumnMetadata) {
     if (metadata.displayInfo.textProperties) {
       for (const property of metadata.displayInfo.textProperties) {
         switch (property) {
-          case TableService.TEXT_UPPERCASE: {
+          case TextPropertyType.UPPERCASE: {
             column.uppercase = true;
             break;
           }
-          case TableService.TEXT_TRIM: {
+          case TextPropertyType.TRIM: {
             column.trim = true;
             break;
           }
-          case TableService.TEXT_NO_SPACE: {
+          case TextPropertyType.NO_SPACE: {
             column.noSpace = false;
             break;
           }
@@ -174,28 +179,31 @@ export class TableMetadataService {
     }
   }
 
-  getRestrictions(metadata: FieldMetadata, column: TableColumnMetadata): TableColumnMetadata {
+  getRestrictions(
+    metadata: Field,
+    column: TableColumnMetadata
+  ): TableColumnMetadata {
     if (metadata.fieldMaxLength > 0) {
       column.maxLength = metadata.fieldMaxLength;
     }
     if (metadata.restrictions) {
       for (const restriction of metadata.restrictions) {
         switch (restriction.restrictionType) {
-          case TableService.RESTRICTION_MAX_LENGTH: {
+          case RestrictionType.MAX_LENGTH: {
             if (!column.maxLength) {
               column.maxLength = restriction.maxLength;
             }
             break;
           }
-          case TableService.RESTRICTION_MIN_LENGTH: {
+          case RestrictionType.MIN_LENGTH: {
             column.minLength = restriction.minLength;
             break;
           }
-          case TableService.RESTRICTION_MAX_VALUE: {
+          case RestrictionType.MAX_VALUE: {
             column.maxValue = restriction.maxValue;
             break;
           }
-          case TableService.RESTRICTION_MIN_VALUE: {
+          case RestrictionType.MIN_VALUE: {
             column.maxValue = restriction.minValue;
             break;
           }

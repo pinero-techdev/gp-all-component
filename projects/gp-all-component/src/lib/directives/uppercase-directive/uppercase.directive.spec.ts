@@ -21,7 +21,7 @@ describe('UppercaseDirective', () => {
       declarations: [UppercaseDirective, TestUppercaseComponent],
       imports: [FormsModule],
       providers: [NgControl],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

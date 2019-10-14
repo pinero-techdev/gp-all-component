@@ -11,7 +11,7 @@ describe('MainMenuProviderService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [GlobalService, MainMenuProviderService],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

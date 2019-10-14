@@ -12,12 +12,12 @@
 
 <!-- Start main cell body -->
 <td *ngFor="let column of (builder.getColumns | memo: model)">
-  <!-- Render main cell template depending on logic -->
+  <!--Render main cell template depending on logic -->
   <ng-container
     [ngTemplateOutlet]="
-      (builder.isEditableColumn | memo: model:column.key) && isEditing
+      (isDynamic || (builder.isEditableColumn | memo: model:column.field)) && isEditing
         ? editableCell
-        : (builder.isCustomColumn | memo: model:column.key)
+        : (builder.isCustomColumn | memo: model:column.field)
         ? customCell
         : defaultCell
     "
@@ -28,23 +28,32 @@
 <!-- Template for custom cell -->
 <ng-template #customCell let-column>
   <ng-container
-    [ngTemplateOutlet]="builder.getCustomColumn | memo: model:column.key"
+    [ngTemplateOutlet]="builder.getCustomColumn | memo: model:column.field"
     [ngTemplateOutletContext]="{ $implicit: row, editing: isEditing }"
   ></ng-container>
 </ng-template>
 
 <!-- Template for default cell -->
 <ng-template #defaultCell let-column>
-  {{ builder.getRowValue(column, row) }}
+  {{ builder.getRowValue(column, row, fields) }}
 </ng-template>
 
 <!-- Template for editable cell -->
 <ng-template #editableCell let-column>
   <ng-container
-    *ngIf="(builder.isEditableColumn | memo: model:column.key)"
-    [ngTemplateOutlet]="builder.getEditableColumn | memo: model:column.key"
+    *ngIf="!isDynamic && (builder.isEditableColumn | memo: model:column.field)"
+    [ngTemplateOutlet]="builder.getEditableColumn | memo: model:column.field"
     [ngTemplateOutletContext]="{ $implicit: row }"
   ></ng-container>
+
+  <ng-container *ngIf="isDynamic">
+    <gp-dynamic-field
+      [field]="builder.getFieldById(column.field, fields)"
+      [value]="builder.getDataFieldById(column.field, fields, row)"
+      [relatedFields]="relatedFields ? relatedFields[column.field] : null"
+      (onChange)="onDynamicFieldChange($event)"
+    ></gp-dynamic-field>
+  </ng-container>
 </ng-template>
 
 <!-- End main cell body -->
@@ -52,7 +61,7 @@
 <!-- Start edition action cells -->
 
 <!-- Render edition action cell template depending on logic -->
-<td *ngIf="(builder.isEditable | memo: model)">
+<td *ngIf="(builder.isEditable | memo: model)" class="ui-buttonpane-narrow">
   <ng-container
     [ngTemplateOutlet]="isEditing ? editing : editable"
     [ngTemplateOutletContext]="{ $implicit: row }"
@@ -61,14 +70,36 @@
 
 <!-- Template for actions while not editing -->
 <ng-template #editable>
-  <button [disabled]="disableAction" (click)="startEdition()">Edit</button>
-  <button [disabled]="disableAction" (click)="deleteRow()">Delete</button>
+  <gp-button
+    [type]="'icon'"
+    [disabled]="disableAction"
+    icon="pi pi-pencil"
+    (onClickEvent)="startEdition()"
+  ></gp-button>
+  <gp-button
+    [type]="'icon'"
+    icon="pi pi-trash"
+    [disabled]="disableAction"
+    (onClickEvent)="deleteRow()"
+    [severity]="'danger'"
+  ></gp-button>
 </ng-template>
 
 <!-- Template for actions while editing -->
 <ng-template #editing let-row>
-  <button (click)="persistEdition()">Confirm</button>
-  <button (click)="cancelEdition()">Cancel</button>
+  <gp-button
+    [type]="'icon'"
+    icon="pi pi-check"
+    (onClickEvent)="persistEdition()"
+    [disabled]="disableSave"
+  >
+  </gp-button>
+  <gp-button
+    [type]="'icon'"
+    icon="pi pi-times"
+    (click)="cancelEdition()"
+    [severity]="'danger'"
+  ></gp-button>
 </ng-template>
 
 <!-- End edition action cells -->

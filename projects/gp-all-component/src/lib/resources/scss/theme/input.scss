@@ -1,6 +1,6 @@
 @import '../global/variables';
 /* Put your custom styles here for the PrimeNG Input Text */
-body .ui-inputtext {
+body .ui-inputtext:not(p-checkbox) {
   &:enabled:not(.ui-state-error):focus,
   &:enabled:not(.ui-state-error):hover,
   &:enabled:not(.ui-state-error):active {

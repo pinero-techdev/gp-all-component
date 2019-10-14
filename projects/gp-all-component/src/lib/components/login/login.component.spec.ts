@@ -75,7 +75,7 @@ describe('LoginComponent', () => {
         GlobalService,
         MainMenuService,
       ],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {

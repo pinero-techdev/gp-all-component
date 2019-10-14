@@ -1,7 +1,9 @@
 <p-inputSwitch
-  name="__field__{{ formField?.fieldMetadata.fieldName }}"
+  [gpFieldValidator]="formField"
+  [name]="formField?.fieldMetadata?.fieldName"
+  [id]="formField?.fieldMetadata?.fieldName"
   [(ngModel)]="currentValue"
-  (change)="onFieldChange()"
+  (onChange)="onFieldChange()"
   [disabled]="isDisabled"
 >
 </p-inputSwitch>

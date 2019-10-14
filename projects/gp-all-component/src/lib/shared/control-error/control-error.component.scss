@@ -1,0 +1,29 @@
+@import './../../resources/scss/global/variables';
+
+::ng-deep {
+  .field-wrapper {
+    .ui-messages {
+      &.ui-messages-error {
+        background-color: $whiteColor;
+        margin: 0;
+        padding: 0;
+        margin-top: $separationSmall;
+
+        .ui-messages-icon,
+        .ui-messages-close {
+          display: none;
+        }
+
+        .ui-messages-summary,
+        .ui-messages-detail {
+          color: $errorColor;
+          font-size: $fontSizeSmall;
+        }
+
+        li {
+          padding: 0;
+        }
+      }
+    }
+  }
+}

@@ -5,15 +5,24 @@
 // ::ng-deep is deprecated but not removed.
 // More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
 ::ng-deep {
-  .ui-calendar {
-    display: inline-flex;
+  body {
+    .ui-calendar {
+      display: inline-flex;
 
-    input.ui-inputtext {
-      @include make-input();
+      input.ui-inputtext {
+        @include make-input();
 
-      &:enabled:hover:not(.ui-state-error),
-      &:enabled:focus:not(.ui-state-error) {
-        border-color: $inputBorderColor;
+        &:enabled:hover:not(.ui-state-error) {
+          border-color: $inputBorderColor;
+        }
+
+        &:enabled:focus:not(.ui-state-error) {
+          box-shadow: $inputFocusShadow;
+
+          ~ .ui-calendar-button {
+            box-shadow: $inputFocusShadow;
+          }
+        }
       }
     }
 
@@ -78,6 +87,9 @@
 
         .ui-datepicker-prev,
         .ui-datepicker-next {
+          color: $whiteColor;
+          top: 20%;
+
           &:hover {
             background: transparent;
           }
@@ -90,13 +102,11 @@
 
         .ui-datepicker-calendar {
           width: calc(100% + 1px);
+          margin: 0;
         }
       }
 
       a.ui-corner-all {
-        color: $whiteColor;
-        top: 20%;
-
         .ui-datepicker-prev-icon,
         .ui-datepicker-next-icon {
           color: $whiteColor;

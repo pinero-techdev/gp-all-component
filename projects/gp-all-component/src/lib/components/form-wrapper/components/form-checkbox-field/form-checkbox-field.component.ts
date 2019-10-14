@@ -1,73 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
-import { GpFormField } from '../../resources/form-field.model';
-import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { GPUtil } from '../../../../services/core/gp-util.service';
 
 @Component({
   selector: 'gp-form-checkbox-field',
   templateUrl: './form-checkbox-field.component.html',
   styleUrls: ['./form-checkbox-field.component.scss'],
 })
-export class FormCheckboxFieldComponent extends GpFormFieldControl implements OnInit {
+export class FormCheckboxFieldComponent extends GpFormFieldControl {
   /**
-   * The formField for this component
+   * Current form field value
    */
-  @Input() formField: GpFormField;
-
-  constructor() {
-    super();
+  @Input() set currentValue(v: boolean) {
+    this._currentValue = GPUtil.isNullOrUndefined(v) ? false : v;
   }
 
-  ngOnInit() {
-    this.isDisabled = this.controlDisabled();
-  }
-
-  /**
-   * Returns current form field
-   */
-  getFormField(): GpFormField {
-    return this.formField;
-  }
-
-  /**
-   * Returns current field metadata
-   */
-  getFieldMetadata(): DataTableMetaDataField {
-    return this.formField ? this.formField.fieldMetadata : null;
+  get currentValue() {
+    return this._currentValue;
   }
 
   /**
    * Copies value from control to editing row
    * @param editedRow The editing row
    */
-  copyValueFromControlToEditedRow(editedRow: any): void {
-    editedRow[this.formField.fieldMetadata.fieldName] = this.currentValue
+  copyValueFromControlToEditedRow(editedRow: any) {
+    const newValue = this.currentValue
       ? this.formField.fieldMetadata.displayInfo.checkedValue
       : this.formField.fieldMetadata.displayInfo.uncheckedValue;
+
+    editedRow[this.formField.fieldMetadata.fieldName] = newValue;
   }
 
   /**
    * Copies values from editing row to control
    * @param editedRow The editing row
    */
-  copyValueFromEditedRowToControl(editedRow: any): void {
+  copyValueFromEditedRowToControl(editedRow: any) {
     this.currentValue =
       this.formField.fieldMetadata.displayInfo.checkedValue ===
       editedRow[this.formField.fieldMetadata.fieldName];
-  }
-
-  /**
-   * Starts validation for editing row
-   * @param editedRow The editing row
-   */
-  validateField(): boolean {
-    // A checkbox is always valid.
-    if (this.formField !== undefined) {
-      this.formField.validField = true;
-      this.formField.fieldMsgs = null;
-      return this.formField.validField;
-    }
-
-    return false;
   }
 }

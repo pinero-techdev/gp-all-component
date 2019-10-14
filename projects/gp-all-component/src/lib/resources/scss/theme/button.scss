@@ -1,6 +1,7 @@
 @import '../global/variables';
 
-.ui-buttonpane {
+.ui-buttonpane,
+.ui-buttonpane-narrow {
   display: flex;
 
   .ui-button,
@@ -10,6 +11,16 @@
 
   gp-button {
     margin-left: $separationXLarge;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.ui-buttonpane-narrow {
+  gp-button {
+    margin-left: $separation;
 
     &:first-child {
       margin-left: 0;

@@ -1,0 +1,49 @@
+<form [formGroup]="form" (ngSubmit)="onSubmitEvent($event)">
+  <div class="p-grid">
+    <ng-template ngFor let-field [ngForOf]="metadata?.fields">
+      <ng-template [ngIf]="field.isVisible(this.data ? 'edit' : 'add')">
+        <div
+          class="field-wrapper p-col-12 p-lg-6"
+          [ngClass]="field.displayInfo.displayType === 'NULLABLE_CHECKBOX' ? 'type-checkbox' : ''"
+        >
+          <label
+            *ngIf="field.displayInfo && field.displayInfo.fieldLabel"
+            [attr.for]="field?.fieldName"
+          >
+            <span *ngIf="field.notNull">*</span>
+            {{ field.displayInfo.fieldLabel }}
+          </label>
+          <gp-dynamic-field
+            [field]="field"
+            [value]="(form?.controls)[(field?.fieldName)].value"
+            [relatedFields]="relatedFields ? relatedFields[(field?.fieldName)] : null"
+            (onChange)="onChangeEvent($event)"
+          ></gp-dynamic-field>
+          <gp-control-error [form]="form" [fieldName]="field?.fieldName"></gp-control-error>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+
+  <div class="buttons-group-wrapper">
+    <div class="buttons-group-left"
+      ><gp-button
+        [label]="locale.CANCEL"
+        (onClickEvent)="onCancelEvent($event)"
+        [severity]="'danger'"
+      ></gp-button
+    ></div>
+    <div class="buttons-group-right">
+      <gp-button
+        [label]="locale.REMOVE"
+        (onClickEvent)="onDeleteEvent($event)"
+        [severity]="'dangerGhost'"
+      ></gp-button>
+      <gp-button
+        [label]="locale.SAVE"
+        buttonType="submit"
+        [disabled]="!form.dirty || !form.valid"
+      ></gp-button>
+    </div>
+  </div>
+</form>

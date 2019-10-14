@@ -252,11 +252,11 @@ export class TableEditableCellComponent extends CustomInput implements AfterView
                 // if (this.item[related.field] !== null &&
                 // this.item[related.field] !== undefined) {
                 filters.push(
-                  new Filter(
-                    FilterOperationType.EQUAL,
-                    related.fieldExternal ? related.fieldExternal : related.field,
-                    [this.isFilter ? related.value : this.item[related.field]]
-                  )
+                  new Filter().assign({
+                    op: FilterOperationType.EQUAL,
+                    field: related.fieldExternal ? related.fieldExternal : related.field,
+                    values: [this.isFilter ? related.value : this.item[related.field]],
+                  })
                 );
                 // }
               }

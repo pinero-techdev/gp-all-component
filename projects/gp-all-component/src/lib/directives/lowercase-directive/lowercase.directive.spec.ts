@@ -20,7 +20,7 @@ describe('LowercaseDirective', () => {
       declarations: [LowercaseDirective, TestLowercaseComponent],
       imports: [FormsModule],
       providers: [NgControl],
-    }).compileComponents();
+    });
   }));
 
   beforeEach(() => {
