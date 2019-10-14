@@ -10,6 +10,13 @@
 ::ng-deep {
   p-checkbox.ui-inputtext.ui-widget {
     border: 0;
+    background: transparent;
+    padding-left: 0;
+    box-shadow: none;
+
+    &:hover {
+      background: transparent;
+    }
   }
 
   .ui-chkbox.ui-widget {
@@ -17,7 +24,6 @@
 
     .ui-chkbox-box {
       border-color: $inputBorderColor;
-      @include box-shadow(0 0 4px 0 rgba($blackColor, $inputShadowOpacity));
 
       &.ui-state-active,
       &.ui-state-active:not(.ui-state-disabled):hover {
