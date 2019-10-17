@@ -57,6 +57,7 @@ export class TableComponent implements AfterContentInit {
   set model(value: TableModel) {
     const newValue = new TableModel().assign(value, true);
     this._model = this.isDynamic ? this.buildDynamicModel(newValue) : newValue;
+    console.info('model');
     this.buildModel();
   }
 
@@ -155,7 +156,7 @@ export class TableComponent implements AfterContentInit {
 
       this.builder.data = this.data;
       this.builder.isDynamic = this.isDynamic = true;
-      this._model = this.buildDynamicModel();
+      this._model = this.buildDynamicModel(this.model);
       this.buildModel();
     }
   }
