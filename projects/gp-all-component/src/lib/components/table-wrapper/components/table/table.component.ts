@@ -57,7 +57,6 @@ export class TableComponent implements AfterContentInit {
   set model(value: TableModel) {
     const newValue = new TableModel().assign(value, true);
     this._model = this.isDynamic ? this.buildDynamicModel(newValue) : newValue;
-    console.info('model');
     this.buildModel();
   }
 
@@ -172,7 +171,7 @@ export class TableComponent implements AfterContentInit {
       pagination: true,
       lazy: false,
       native: {
-        rowsPerPageOptions: [1, 10, 20],
+        rowsPerPageOptions: [5, 10, 20],
         paginatorPosition: 'bottom',
         dataKey: 'id',
         defaultSortKey: 'id',
