@@ -48,7 +48,7 @@ export class TableBuilder {
   }
 
   getNative(model: CoreTableModel): NativeOptions {
-    return model.native;
+    return model ? model.native : null;
   }
 
   getTitle(model: CoreTableModel): string {
@@ -64,6 +64,7 @@ export class TableBuilder {
     captionContent?: TemplateRef<any>,
     isDynamic?: boolean
   ): boolean {
+    console.info('enabled?', !!model.title || !!captionContent || isDynamic);
     return !!model.title || !!captionContent || isDynamic;
   }
 
@@ -99,11 +100,11 @@ export class TableBuilder {
   }
 
   getLazy(model: CoreTableModel): boolean {
-    return model.lazy;
+    return model ? model.lazy : false;
   }
 
   getPaginator(model: CoreTableModel): boolean {
-    return model.pagination;
+    return model ? model.pagination : false;
   }
 
   getExportFile(model: CoreTableModel): string {

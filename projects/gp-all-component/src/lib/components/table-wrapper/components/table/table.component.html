@@ -27,10 +27,7 @@
   (onPage)="onPageEvent($event)"
   [styleClass]="tableEditing ? 'table-flex no-hover' : 'table-flex'"
 >
-  <ng-template
-    *ngIf="(builder.enableCaptionRow | memo: coreModel:captionContent:isDynamic)"
-    pTemplate="caption"
-  >
+  <ng-template pTemplate="caption">
     <ng-container *ngIf="captionContent">
       <ng-content
         *ngTemplateOutlet="
@@ -41,28 +38,30 @@
     </ng-container>
 
     <ng-container *ngIf="!captionContent">
-      <span>{{ builder.getTitle | memo: coreModel }}</span>
+      <div class="caption-container">
+        <span>{{ builder.getTitle | memo: coreModel }}</span>
 
-      <button
-        *ngIf="(builder.getIsCreating | memo: isDynamic:isCreating)"
-        pButton
-        gpAddRow
-        type="button"
-        icon="pi pi-plus"
-        class="ui-button-info"
-        [label]="'Add'"
-        [table]="table"
-        [newRow]="createRow()"
-        (click)="onCreateRow()"
-      ></button>
-      <button
-        *ngIf="isDynamic && isCreating"
-        pButton
-        type="button"
-        class="ui-button-info"
-        [label]="'Cancel'"
-        (click)="cancelCreateRow()"
-      ></button>
+        <button
+          *ngIf="(builder.getIsCreating | memo: isDynamic:isCreating)"
+          pButton
+          gpAddRow
+          type="button"
+          icon="pi pi-plus"
+          class="ui-button-info"
+          [label]="'Add'"
+          [table]="table"
+          [newRow]="createRow()"
+          (click)="onCreateRow()"
+        ></button>
+        <button
+          *ngIf="isDynamic && isCreating"
+          pButton
+          type="button"
+          class="ui-button-info"
+          [label]="'Cancel'"
+          (click)="cancelCreateRow()"
+        ></button
+      ></div>
     </ng-container>
 
     <div *ngIf="(builder.hasGlobalFilter | memo: coreModel)">

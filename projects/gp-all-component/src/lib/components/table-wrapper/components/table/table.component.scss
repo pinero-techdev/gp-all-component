@@ -56,8 +56,13 @@
     .ui-table-caption.ui-widget-header {
       width: 100%;
       border: none;
-      display: flex;
-      justify-content: space-between;
+      padding: 0;
+
+      .caption-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0 1em 0;
+      }
 
       gp-button,
       button {
