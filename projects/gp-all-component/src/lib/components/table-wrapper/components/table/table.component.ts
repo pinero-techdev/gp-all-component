@@ -1,6 +1,7 @@
 import {
-  AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   ContentChildren,
@@ -28,6 +29,7 @@ import {
   FieldMetadata, //
 } from '../../../../resources/data/data-table/meta-data/meta-data-field.model';
 import { RowComponent } from './row/row.component';
+import { GPUtil } from '../../../../services/core/gp-util.service';
 
 @Component({
   selector: 'gp-table',
@@ -35,7 +37,7 @@ import { RowComponent } from './row/row.component';
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableComponent implements AfterContentInit {
+export class TableComponent implements AfterViewInit {
   @ViewChild('refCaption') $caption: ElementRef;
   @ViewChildren(RowComponent) $rows: QueryList<RowComponent>;
   // tslint:disable-next-line
@@ -45,11 +47,11 @@ export class TableComponent implements AfterContentInit {
 
   @Input() pagination: PaginationOptions;
 
-  @Input() selected = [];
+  @Input() selected = null;
 
-  @Input() @OnChange<FieldMetadata>('buildDynamicTable') metadata: FieldMetadata;
+  @Input() @OnChange<FieldMetadata>('buildTable') metadata: FieldMetadata;
 
-  @Input() @OnChange<any>('buildDynamicTable') data: any;
+  @Input() @OnChange<any>('buildTable') data: any;
 
   @Input() emptyMessage = LocaleES.NO_RECORDS_FOUND;
 
@@ -57,7 +59,6 @@ export class TableComponent implements AfterContentInit {
   set model(value: TableModel) {
     const newValue = new TableModel().assign(value, true);
     this._model = this.isDynamic ? this.buildDynamicModel(newValue) : newValue;
-    this.buildModel();
   }
 
   get model() {
@@ -105,10 +106,23 @@ export class TableComponent implements AfterContentInit {
 
   isCreating = false;
 
+  // when a row is editing
+  isRowEditing = false;
+
+  // when all rows are selected
+  selectedAll = false;
+
+  // selectionOnly
+  selectionOnly = false;
+
   private cols: TableColumn[];
 
-  ngAfterContentInit(): void {
-    this.buildModel();
+  constructor(private cd: ChangeDetectorRef) {}
+
+  ngAfterViewInit() {
+    if (GPUtil.isNullOrUndefined(this.coreModel)) {
+      this.buildModel();
+    }
   }
 
   /**
@@ -125,37 +139,45 @@ export class TableComponent implements AfterContentInit {
    * Builds the table model
    */
   private buildModel(): void {
-    this.coreModel = this.builder.createModel(
-      this.model,
-      this.customColumns,
-      this.editableColumns,
-      this.pagination
-    );
+    if (!GPUtil.isNullOrUndefined(this.model)) {
+      this.coreModel = this.builder.createModel(
+        this.model,
+        this.customColumns,
+        this.editableColumns,
+        this.pagination
+      );
+
+      this.cd.detectChanges();
+    }
   }
 
-  private buildDynamicTable(): void {
-    if (this.metadata && this.data) {
-      this.cols = this.metadata.fields
-        .filter((field: Field) => !!field.displayInfo.displayType)
-        .map((field) => {
-          return new TableColumn().assign(
-            {
-              field: field.fieldName,
-              header: field.displayInfo.fieldLabel,
-            },
-            true
-          );
-        });
+  private buildTable(): void {
+    if (this.data) {
+      if (this.metadata) {
+        // The table is dynamic
+        this.cols = this.metadata.fields
+          .filter((field: Field) => !!field.displayInfo.displayType)
+          .map((field) => {
+            return new TableColumn().assign(
+              {
+                field: field.fieldName,
+                header: field.displayInfo.fieldLabel,
+              },
+              true
+            );
+          });
 
-      this.pagination = {
-        rows: 10,
-        totalRecords: this.data.length,
-      } as PaginationOptions;
-      this.builder.metadata = this.metadata;
+        this.pagination = {
+          rows: 10,
+          totalRecords: this.data.length,
+        } as PaginationOptions;
+        this.builder.metadata = this.metadata;
+        this.builder.data = this.data;
+        this.builder.isDynamic = this.isDynamic = true;
+        this._model = this.buildDynamicModel(this.model);
+        this._model.editable = true;
+      }
 
-      this.builder.data = this.data;
-      this.builder.isDynamic = this.isDynamic = true;
-      this._model = this.buildDynamicModel(this.model);
       this.buildModel();
     }
   }
@@ -166,7 +188,7 @@ export class TableComponent implements AfterContentInit {
     }
     const model = new TableModel().assign({
       sortable: true,
-      editable: false,
+      editable: true,
       columns: this.cols,
       pagination: true,
       lazy: false,
@@ -184,7 +206,6 @@ export class TableComponent implements AfterContentInit {
   createRow() {
     const newRow = {};
     if (this.builder.metadata && this.builder.metadata.fields) {
-      this.isCreating = true;
       for (const key of this.builder.metadata.fields) {
         newRow[key.fieldName] = null;
       }
@@ -200,14 +221,54 @@ export class TableComponent implements AfterContentInit {
     return null;
   }
 
+  onPageEvent($event) {
+    this.cancelCreateRow();
+    this.cancelRowEdition();
+    this.page.emit($event);
+  }
+
+  onRowEditionEvent($event: boolean) {
+    this.isRowEditing = $event;
+    this.tableEditing = $event;
+  }
+
+  onCreateRow() {
+    this.isCreating = true;
+  }
+
   onCancelEditionEvent() {
     if (this.isCreating) {
       this.cancelCreateRow();
     }
+    this.isRowEditing = false;
   }
 
   onSort($event) {
     this.onCancelEditionEvent();
+    this.cancelRowEdition();
     this.sort.emit($event);
+  }
+
+  onRowSelect($event) {
+    this.rowSelect.emit($event);
+  }
+
+  onRowUnSelect($event) {
+    this.selectionOnly = true;
+    this.rowUnselect.emit($event);
+  }
+
+  onSelectedChangeEvent($event) {
+    if ($event.length === this.data.length || $event.length === 0) {
+      this.selectedAll = $event.length === this.data.length;
+      this.selectionOnly = $event.length === this.data.length;
+    }
+    this.selectedChange.emit($event);
+  }
+
+  cancelRowEdition() {
+    if (!GPUtil.isNullOrUndefined(this.$rows) && this.isRowEditing) {
+      this.$rows.forEach(($row) => $row.cancelEdition());
+    }
   }
 }

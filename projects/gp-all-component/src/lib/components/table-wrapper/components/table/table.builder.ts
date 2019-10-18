@@ -55,8 +55,16 @@ export class TableBuilder {
     return model.title;
   }
 
-  enableCaptionRow(model: CoreTableModel, captionContent?: TemplateRef<any>): boolean {
-    return !!model.title || !!captionContent;
+  getIsCreating(isDynamic: boolean, isCreating: boolean): boolean {
+    return isDynamic && !isCreating;
+  }
+
+  enableCaptionRow(
+    model: CoreTableModel,
+    captionContent?: TemplateRef<any>,
+    isDynamic?: boolean
+  ): boolean {
+    return !!model.title || !!captionContent || isDynamic;
   }
 
   enableFilterRow(model: CoreTableModel) {
@@ -86,8 +94,8 @@ export class TableBuilder {
       : column.sortable;
   }
 
-  isEditable(model: CoreTableModel): boolean {
-    return model.editable;
+  isEditable(model: CoreTableModel, isDynamic: boolean): boolean {
+    return model.editable || isDynamic;
   }
 
   getLazy(model: CoreTableModel): boolean {

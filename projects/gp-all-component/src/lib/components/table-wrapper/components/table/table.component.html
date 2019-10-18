@@ -1,7 +1,8 @@
 <p-table
+  *ngIf="coreModel"
   #table
-  [value]="data"
   editMode="row"
+  [value]="data"
   [columns]="builder.getColumns | memo: coreModel"
   [paginator]="builder.getPaginator | memo: coreModel"
   [rowsPerPageOptions]="(builder.getNative | memo: coreModel).rowsPerPageOptions"
@@ -14,23 +15,20 @@
   [dataKey]="(builder.getNative | memo: coreModel).dataKey"
   [sortField]="(builder.getNative | memo: coreModel).defaultSortKey"
   [sortOrder]="(builder.getNative | memo: coreModel).defaultSortOrder"
-  (selectionChange)="selectedChange.emit($event)"
+  (selectionChange)="onSelectedChangeEvent($event)"
   [selection]="selected"
   [exportFilename]="builder.getExportFile | memo: coreModel"
   [csvSeparator]="builder.getCSVSeparator | memo: coreModel"
   [globalFilterFields]="(builder.getNative | memo: coreModel).globalFilterFields"
-  (onPage)="page.emit($event)"
   (onSort)="onSort($event)"
   (onLazyLoad)="lazy.emit($event)"
-  (onRowSelect)="rowSelect.emit($event)"
-  (onRowUnselect)="rowUnselect.emit($event)"
+  (onRowSelect)="onRowSelect($event)"
+  (onRowUnselect)="onRowUnSelect($event)"
+  (onPage)="onPageEvent($event)"
   [styleClass]="tableEditing ? 'table-flex no-hover' : 'table-flex'"
 >
   <ng-template
-    *ngIf="
-      (builder.isDynamic && (builder.isEditable | memo: coreModel)) ||
-      (builder.enableCaptionRow | memo: coreModel:captionContent)
-    "
+    *ngIf="(builder.enableCaptionRow | memo: coreModel:captionContent:isDynamic)"
     pTemplate="caption"
   >
     <ng-container *ngIf="captionContent">
@@ -46,7 +44,7 @@
       <span>{{ builder.getTitle | memo: coreModel }}</span>
 
       <button
-        *ngIf="isDynamic && !isCreating"
+        *ngIf="(builder.getIsCreating | memo: isDynamic:isCreating)"
         pButton
         gpAddRow
         type="button"
@@ -55,6 +53,7 @@
         [label]="'Add'"
         [table]="table"
         [newRow]="createRow()"
+        (click)="onCreateRow()"
       ></button>
       <button
         *ngIf="isDynamic && isCreating"
@@ -116,7 +115,7 @@
             </th>
           </ng-template>
         </ng-container>
-        <th *ngIf="(builder.isEditable | memo: coreModel)">
+        <th *ngIf="(builder.isEditable | memo: coreModel:isDynamic)">
           Edit Actions
         </th>
       </tr>
@@ -134,13 +133,15 @@
             (input)="onFilter($event, column)"
           />
         </th>
-        <th *ngIf="(builder.isEditable | memo: coreModel)"></th>
+        <th *ngIf="(builder.isEditable | memo: coreModel:isDynamic)"></th>
       </tr>
     </ng-container>
   </ng-template>
   <ng-template pTemplate="body" let-row let-index="rowIndex">
     <tr
       gpRow
+      gpSelectRow
+      [selected]="selectedAll"
       [pEditableRow]="row"
       [row]="row"
       [isDynamic]="builder.isDynamic"
@@ -149,11 +150,12 @@
       [metadata]="metadata"
       [index]="index"
       [pSelectableRow]="row"
+      [pSelectableRowIndex]="index"
       [pSelectableRowDisabled]="builder.getSelectionMode | memo: coreModel | isNil"
       [tableEditing]="tableEditing"
-      (editing)="tableEditing = $event"
       (save)="saveRow.emit($event)"
       (delete)="deleteRow.emit($event)"
+      (editing)="onRowEditionEvent($event)"
       (onCancelEdition)="onCancelEditionEvent()"
     >
     </tr
@@ -169,12 +171,12 @@
       [type]="'textIcon'"
       icon="pi pi-download"
       label="Exportar a CSV"
-      (click)="table.exportCSV()"
+      (click)="table.exportCSV({ selectionOnly: selectionOnly })"
     ></gp-button>
   </ng-template>
 
   <ng-template pTemplate="emptymessage" let-columns>
-    <tr class="empty-message">
+    <tr class="empty-message" *ngIf="columns && customColumns">
       <td [attr.colspan]="columns.length + customColumns.length">{{ emptyMessage }}</td>
     </tr>
   </ng-template>
