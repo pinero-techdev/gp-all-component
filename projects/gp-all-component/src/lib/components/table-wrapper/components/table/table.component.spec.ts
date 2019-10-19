@@ -46,19 +46,9 @@ describe('TableComponent', () => {
   describe('model input change', () => {
     it('should trigger build model method', () => {
       const previousModel = component.coreModel;
-
-      component.model = new TableModel();
-
-      const newModel = component.coreModel;
-
-      expect(previousModel).not.toEqual(newModel);
-    });
-  });
-
-  describe('after content init angular lifecycle hook', () => {
-    it('should trigger build model method', () => {
-      const previousModel = component.coreModel;
-
+      component.model = new TableModel().assign({ filterable: true }, true);
+      component.data = [{}];
+      fixture.detectChanges();
       const newModel = component.coreModel;
 
       expect(previousModel).not.toEqual(newModel);
@@ -66,12 +56,15 @@ describe('TableComponent', () => {
   });
 
   it('should emit filter event and call table filter method', () => {
-    const tableFilterSpy = spyOn(component.table, 'filter');
-    const tableFilterEmitSpy = spyOn(component.filter, 'emit');
+    component.model = new TableModel().assign({ filterable: true }, true);
+    component.data = [{}];
+    fixture.detectChanges();
+    expect(component.table).not.toBeUndefined();
 
+    spyOn(component.table, 'filter').and.callThrough();
+    spyOn(component.filter, 'emit').and.callThrough();
     component.onFilter(mockFilterEvent, mockTableColumn);
-
-    expect(tableFilterSpy).toHaveBeenCalled();
-    expect(tableFilterEmitSpy).toHaveBeenCalled();
+    expect(component.table.filter).toHaveBeenCalled();
+    expect(component.filter.emit).toHaveBeenCalled();
   });
 });
