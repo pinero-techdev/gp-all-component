@@ -59,8 +59,6 @@ describe('TableComponent', () => {
     it('should trigger build model method', () => {
       const previousModel = component.coreModel;
 
-      component.ngAfterContentInit();
-
       const newModel = component.coreModel;
 
       expect(previousModel).not.toEqual(newModel);
