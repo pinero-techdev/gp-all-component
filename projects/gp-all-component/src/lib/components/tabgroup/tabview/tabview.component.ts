@@ -20,10 +20,10 @@ export class TabViewComponent implements OnInit {
 
   @Input() orientation: string;
   @Input() selected: string;
+  @Input() activePosition = 0;
 
   @Output() onClick = new EventEmitter<number>();
 
-  activePosition = 0;
   orientationLeft = false;
 
   ngOnInit() {

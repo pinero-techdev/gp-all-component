@@ -78,6 +78,7 @@ export * from './lib/directives/lowercase-directive/lowercase.directive';
 export * from './lib/directives/uppercase-directive/uppercase.directive';
 export * from './lib/components/table-wrapper/components/table/directives/column-template.directive';
 export * from './lib/components/tabgroup/tab.directive';
+export * from './lib/components/table-wrapper/components/table/row/add-row/add-row.directive';
 
 // Components
 export * from './lib/components/breadcrumb/breadcrumb.component';
