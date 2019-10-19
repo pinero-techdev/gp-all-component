@@ -48,15 +48,24 @@ export class TableBuilder {
   }
 
   getNative(model: CoreTableModel): NativeOptions {
-    return model.native;
+    return model ? model.native : null;
   }
 
   getTitle(model: CoreTableModel): string {
     return model.title;
   }
 
-  enableCaptionRow(model: CoreTableModel, captionContent?: TemplateRef<any>): boolean {
-    return !!model.title || !!captionContent;
+  getIsCreating(isDynamic: boolean, isCreating: boolean): boolean {
+    return isDynamic && !isCreating;
+  }
+
+  enableCaptionRow(
+    model: CoreTableModel,
+    captionContent?: TemplateRef<any>,
+    isDynamic?: boolean
+  ): boolean {
+    console.info('enabled?', !!model.title || !!captionContent || isDynamic);
+    return !!model.title || !!captionContent || isDynamic;
   }
 
   enableFilterRow(model: CoreTableModel) {
@@ -86,16 +95,16 @@ export class TableBuilder {
       : column.sortable;
   }
 
-  isEditable(model: CoreTableModel): boolean {
-    return model.editable;
+  isEditable(model: CoreTableModel, isDynamic: boolean): boolean {
+    return model.editable || isDynamic;
   }
 
   getLazy(model: CoreTableModel): boolean {
-    return model.lazy;
+    return model ? model.lazy : false;
   }
 
   getPaginator(model: CoreTableModel): boolean {
-    return model.pagination;
+    return model ? model.pagination : false;
   }
 
   getExportFile(model: CoreTableModel): string {

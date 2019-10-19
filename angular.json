@@ -30,6 +30,7 @@
             "codeCoverage": true,
             "codeCoverageExclude": [
               "projects/gp-all-component/src/test.ts",
+              "projects/gp-all-component/src/lib/components/redirect/redirect*.ts",
               "projects/gp-all-component/src/lib/components/table-wrapper/**/**/*.ts",
               "projects/gp-all-component/src/lib/resources/**/*",
               "projects/gp-all-component/src/lib/shared/**/*",

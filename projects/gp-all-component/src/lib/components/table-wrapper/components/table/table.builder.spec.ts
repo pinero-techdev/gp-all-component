@@ -124,7 +124,7 @@ xdescribe('TableBuilder', () => {
   });
 
   it('should return editable', () => {
-    const isEditable = builder.isEditable(model);
+    const isEditable = builder.isEditable(model, false);
     expect(isEditable).toBeFalsy();
   });
 
