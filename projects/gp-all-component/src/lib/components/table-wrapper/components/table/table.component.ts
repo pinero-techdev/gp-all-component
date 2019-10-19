@@ -59,6 +59,7 @@ export class TableComponent implements AfterViewInit {
   set model(value: TableModel) {
     const newValue = new TableModel().assign(value, true);
     this._model = this.isDynamic ? this.buildDynamicModel(newValue) : newValue;
+    console.info('0 model?', this._model, 'is dynamic?', this.isDynamic);
   }
 
   get model() {
@@ -117,9 +118,10 @@ export class TableComponent implements AfterViewInit {
   constructor(private cd: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
-    if (GPUtil.isNullOrUndefined(this.coreModel)) {
-      this.buildModel();
-    }
+    console.info('2 model?', this._model);
+    // if (GPUtil.isNullOrUndefined(this.coreModel)) {
+    this.buildModel();
+    // }
   }
 
   /**
@@ -171,6 +173,7 @@ export class TableComponent implements AfterViewInit {
         this.builder.metadata = this.metadata;
         this.builder.data = this.data;
         this.builder.isDynamic = this.isDynamic = true;
+        console.info('1 model?', this._model);
         this._model = this.buildDynamicModel(this.model);
         this._model.editable = true;
       }
@@ -188,6 +191,7 @@ export class TableComponent implements AfterViewInit {
       editable: true,
       columns: this.cols,
       pagination: true,
+      selectable: 'single',
       lazy: false,
       native: {
         rowsPerPageOptions: [5, 10, 20],
@@ -197,7 +201,15 @@ export class TableComponent implements AfterViewInit {
         defaultSortOrder: -1,
       },
     });
-    return Object.assign(model, newValue);
+    let submodel = {};
+    if (newValue) {
+      submodel = {
+        selectable: newValue.hasOwnProperty('selectable') ? newValue.selectable : 'single',
+        filterable: newValue.hasOwnProperty('filterable') ? newValue.filterable : false,
+        sortable: newValue.hasOwnProperty('sortable') ? newValue.sortable : false,
+      };
+    }
+    return Object.assign(model, submodel);
   }
 
   createRow() {
