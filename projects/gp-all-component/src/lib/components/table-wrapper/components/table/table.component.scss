@@ -312,24 +312,26 @@
       }
     }
 
-    .ui-chkbox {
-      .ui-chkbox-box {
-        &.ui-state-active {
-          background: $tableActiveColor;
+    tr.ui-state-highlight .ui-chkbox .ui-chkbox-box,
+    thead th .ui-chkbox .ui-chkbox-box.ui-state-active {
+      background: $tableActiveColor;
 
-          .ui-chkbox-icon {
-            color: $whiteColor;
-          }
+      &:hover {
+        border-color: $tableActiveColor;
+      }
 
-          &,
-          &:hover {
-            border-color: $tableActiveColor;
-          }
-        }
+      .ui-chkbox-icon {
+        color: $whiteColor;
+        speak: none;
+        display: inline-block;
+        -webkit-font-smoothing: antialiased;
+        font-family: 'primeicons';
+        line-height: 1;
+        height: 100%;
+        width: 100%;
 
-        .ui-chkbox-icon {
-          width: 100%;
-          height: 100%;
+        &::before {
+          content: '\e909';
         }
       }
     }

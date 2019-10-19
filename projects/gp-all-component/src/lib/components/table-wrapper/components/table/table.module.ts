@@ -11,14 +11,12 @@ import { ButtonModule } from '../../../button/button.module';
 import { DynamicFieldModule } from '../../../../shared/dynamic-field/dynamic-field.module';
 import { AddRowDirective } from './row/add-row/add-row.directive';
 import { ButtonModule as PButtonModule } from 'primeng/button';
-import { SelectRowDirective } from './row/select-row/select-row.directive';
 
 @NgModule({
   declarations: [
     TableComponent,
     RowComponent,
     AddRowDirective,
-    SelectRowDirective,
     ColumnTemplateDirective,
     EditableColumnTemplateDirective,
   ],

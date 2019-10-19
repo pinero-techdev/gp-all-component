@@ -109,9 +109,6 @@ export class TableComponent implements AfterViewInit {
   // when a row is editing
   isRowEditing = false;
 
-  // when all rows are selected
-  selectedAll = false;
-
   // selectionOnly
   selectionOnly = false;
 
@@ -259,10 +256,6 @@ export class TableComponent implements AfterViewInit {
   }
 
   onSelectedChangeEvent($event) {
-    if ($event.length === this.data.length || $event.length === 0) {
-      this.selectedAll = $event.length === this.data.length;
-      this.selectionOnly = $event.length === this.data.length;
-    }
     this.selectedChange.emit($event);
   }
 
