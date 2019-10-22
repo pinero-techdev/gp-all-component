@@ -1,12 +1,11 @@
 import { LocaleES } from './../../resources/localization/es-ES.lang';
-import { MessagesService } from './../../services/core/messages.service';
 import { LANGUAGE_ORDER } from './../../resources/constants/language-order.constant';
 import {
   MultiLanguageService,
   GetTranslationsRq,
   UpdateTranslationsRq,
 } from './../../services/api/multi-language/multi-language.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Translation } from '../../resources/data/translation.model';
 import { finalize, first } from 'rxjs/operators';
 
@@ -25,7 +24,7 @@ export class MultiLanguageComponent implements OnInit {
   /* Field reference only used for service */
   @Input() field: string;
 
-  /* Part of the title, usuarlly the section where the MultiLanguage is open  */
+  /* Part of the title, usually the section where the MultiLanguage is open  */
   @Input() description: string;
   /* Depending if the user is editing some text input and buttons are shown. */
   @Input() isEditing: boolean;
@@ -51,10 +50,7 @@ export class MultiLanguageComponent implements OnInit {
   /* Show the spinner when is false */
   working = false;
 
-  constructor(
-    private multiLanguageService: MultiLanguageService,
-    private messagesService: MessagesService
-  ) {}
+  constructor(private multiLanguageService: MultiLanguageService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.showTranslations = false;
@@ -64,11 +60,7 @@ export class MultiLanguageComponent implements OnInit {
 
   /* Start the translations init; the component needs the pKey for the service. */
   initTranslations() {
-    if (this.pKey) {
-      this.getTranslations();
-    } else {
-      this.messagesService.showErrorAlert(LocaleES.YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS);
-    }
+    this.getTranslations();
   }
 
   /**
@@ -87,14 +79,13 @@ export class MultiLanguageComponent implements OnInit {
               translations = this.sortTranslations(data.traducciones, LANGUAGE_ORDER);
             }
             this.translations = translations;
+            this.showTranslations = true;
+            this.cd.detectChanges();
           } else if (data.error) {
             console.error(data.error.internalErrorMessage);
           }
         },
-        (err) => console.error(err),
-        () => {
-          this.showTranslations = true;
-        }
+        (err) => console.error(err)
       );
   }
 

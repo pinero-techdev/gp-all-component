@@ -1,15 +1,15 @@
-<form [formGroup]="form" (ngSubmit)="onSubmitEvent($event)">
+<form *ngIf="dataLoaded" [formGroup]="form" (ngSubmit)="onSubmitEvent($event)">
   <div class="p-grid">
     <ng-template ngFor let-field [ngForOf]="metadata?.fields">
-      <ng-template [ngIf]="field.isVisible(this.data ? 'edit' : 'add')">
+      <ng-template [ngIf]="field.isVisible(!isEditing ? 'edit' : 'add')">
         <div
-          class="field-wrapper p-col-12 p-lg-6"
-          [ngClass]="
-            field.displayInfo.displayType === displayType.NULLABLE_CHECKBOX ||
-            field.displayInfo.displayType === displayType.CHECKBOX
-              ? 'type-checkbox'
-              : ''
-          "
+          class="field-wrapper p-col-12"
+          [ngClass]="{
+            'type-checkbox':
+              field.displayInfo.displayType === displayType.NULLABLE_CHECKBOX ||
+              field.displayInfo.displayType === displayType.CHECKBOX,
+            'p-lg-6 double-col': !config || config.cols > 1
+          }"
         >
           <label
             *ngIf="field.displayInfo && field.displayInfo.fieldLabel"
@@ -20,6 +20,7 @@
           </label>
           <gp-dynamic-field
             [field]="field"
+            [data]="data"
             [value]="(form?.controls)[(field?.fieldName)].value"
             [relatedFields]="relatedFields ? relatedFields[(field?.fieldName)] : null"
             (onChange)="onChangeEvent($event)"
@@ -31,6 +32,7 @@
   </div>
 
   <div class="buttons-group-wrapper">
+    <p class="label-mandatory">{{ locale.FIELDS_MANDATORY_ASTERISK }}</p>
     <div class="buttons-group-left"
       ><gp-button
         [label]="locale.CANCEL"
@@ -40,11 +42,13 @@
     ></div>
     <div class="buttons-group-right">
       <gp-button
+        *ngIf="isEditing && config.canDelete"
         [label]="locale.REMOVE"
         (onClickEvent)="onDeleteEvent($event)"
         [severity]="'dangerGhost'"
       ></gp-button>
       <gp-button
+        *ngIf="(isEditing && config.canEdit) || (!isEditing && config.canAdd)"
         [label]="locale.SAVE"
         buttonType="submit"
         [disabled]="!form.dirty || !form.valid"

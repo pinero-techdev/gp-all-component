@@ -194,7 +194,10 @@ hr {
 }
 
 .field-wrapper.type-checkbox {
-  padding: 2.5em 1em 0 0.5em;
+  &.double-col {
+    padding: 2.5em 1em 0 0.5em;
+  }
+
   position: relative;
 
   > label {
@@ -216,24 +219,26 @@ hr {
 
 .buttons-group-wrapper {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+
+  > .label-mandatory {
+    font-size: 12px;
+    width: 100%;
+    display: block;
+    order: 1;
+  }
 }
 
 .buttons-group-right,
 .buttons-group-left {
-  flex: 1;
-  margin-top: 55px;
   display: inline-block;
+  flex: 1;
+  order: 2;
 }
 
 .buttons-group-right {
   text-align: right;
-
-  gp-button:not(:last-child) {
-    .ui-button {
-      margin-right: $separationLarge;
-    }
-  }
 }
 
 .buttons-group-left {

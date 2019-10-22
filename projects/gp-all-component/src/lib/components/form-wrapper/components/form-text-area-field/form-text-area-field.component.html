@@ -11,10 +11,7 @@
     (change)="onFieldChange()"
   ></textarea>
 
-  <div
-    *ngIf="formField?.fieldMetadata?.displayInfo.translationInfo && translationKeys"
-    class="multilanguage-wrapper"
-  >
+  <div *ngIf="formField?.fieldMetadata?.displayInfo.translationInfo" class="multilanguage-wrapper">
     <gp-multi-language
       [pKey]="translationKeys"
       [schema]="formField?.fieldMetadata?.displayInfo.translationInfo.scheme"

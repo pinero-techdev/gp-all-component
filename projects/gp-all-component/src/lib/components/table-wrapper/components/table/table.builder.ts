@@ -64,7 +64,6 @@ export class TableBuilder {
     captionContent?: TemplateRef<any>,
     isDynamic?: boolean
   ): boolean {
-    console.info('enabled?', !!model.title || !!captionContent || isDynamic);
     return !!model.title || !!captionContent || isDynamic;
   }
 

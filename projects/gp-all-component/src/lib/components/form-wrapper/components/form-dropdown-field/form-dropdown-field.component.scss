@@ -98,8 +98,10 @@
 
         &.ui-state-highlight {
           background-color: $accentColor;
+          color: $whiteColor;
 
-          span {
+          > span,
+          .ng-star-inserted {
             color: $whiteColor;
           }
         }

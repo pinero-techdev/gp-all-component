@@ -11,6 +11,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { ButtonModule } from '../../../button/button.module';
+import { DynamicFormModule } from '../../../dynamic-form/dynamic-form.module';
 
 describe('TableFrameComponent', () => {
   let component: TableFrameComponent;
@@ -22,6 +23,7 @@ describe('TableFrameComponent', () => {
       imports: [
         TableWrapperSharedModules,
         RouterTestingModule,
+        DynamicFormModule,
         ButtonModule,
         HttpClientTestingModule,
       ],

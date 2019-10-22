@@ -24,11 +24,13 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl {
    * @param editedRow The editing row
    */
   copyValueFromControlToEditedRow(editedRow: any) {
-    const newValue = this.currentValue
-      ? this.formField.fieldMetadata.displayInfo.checkedValue
-      : this.formField.fieldMetadata.displayInfo.uncheckedValue;
+    if (editedRow && this.formField) {
+      const newValue = this.currentValue
+        ? this.formField.fieldMetadata.displayInfo.checkedValue
+        : this.formField.fieldMetadata.displayInfo.uncheckedValue;
 
-    editedRow[this.formField.fieldMetadata.fieldName] = newValue;
+      editedRow[this.formField.fieldMetadata.fieldName] = newValue;
+    }
   }
 
   /**
@@ -36,8 +38,10 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl {
    * @param editedRow The editing row
    */
   copyValueFromEditedRowToControl(editedRow: any) {
-    this.currentValue =
-      this.formField.fieldMetadata.displayInfo.checkedValue ===
-      editedRow[this.formField.fieldMetadata.fieldName];
+    if (editedRow && this.formField) {
+      this.currentValue =
+        this.formField.fieldMetadata.displayInfo.checkedValue ===
+        editedRow[this.formField.fieldMetadata.fieldName];
+    }
   }
 }
