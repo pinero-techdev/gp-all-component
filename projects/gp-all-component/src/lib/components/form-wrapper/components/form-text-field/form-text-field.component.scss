@@ -15,6 +15,11 @@
       @include make-input();
       max-height: 36px;
 
+      &.ng-touched.ng-invalid,
+      &.ui-state-error {
+        border-color: $inputBorderErrorColor;
+      }
+
       &:enabled:hover:not(.ui-state-error),
       &:enabled:hover:not(.ng-invalid) {
         border-color: $inputBorderColor;

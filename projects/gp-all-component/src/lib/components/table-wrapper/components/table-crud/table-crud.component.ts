@@ -1,5 +1,6 @@
 import {
   AfterViewChecked,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -24,12 +25,9 @@ import { FormDropdownRelatedFieldComponent } from '../../../form-wrapper/compone
 import { FormCheckboxFieldComponent } from '../../../form-wrapper/components/form-checkbox-field/form-checkbox-field.component';
 import { FormCalendarFieldComponent } from '../../../form-wrapper/components/form-calendar-field/form-calendar-field.component';
 import { FormWysiwygFieldComponent } from '../../../form-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
-import { FilterOperationType } from '../../../../resources/data/filter/filter-operation-type.enum';
 import { GpFormField } from '../../../form-wrapper/resources/form-field.model';
 import { GpFormControl } from '../../../form-wrapper/resources/form-control.model';
 import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
-import { GpFormFieldControl } from '../../../form-wrapper/resources/form-field-control.class';
-import { isNullOrUndefined } from 'util';
 import { LocaleES } from '../../../../resources/localization';
 import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
 import { FormNumberFieldComponent } from '../../../form-wrapper/components/form-number-field/form-number-field.component';
@@ -119,6 +117,7 @@ export class TableCrudComponent implements AfterViewChecked {
    * Table data list
    */
   data: any[] = [];
+  metadata: FieldMetadata;
 
   /**
    * Selected row property
@@ -183,6 +182,8 @@ export class TableCrudComponent implements AfterViewChecked {
    */
   columnsToRender: any;
 
+  config = { cols: 1, canAdd: this.canAdd, canEdit: this.canEdit, canDelete: this.canDelete };
+
   /* I18N */
   readonly localeEs = LocaleES;
 
@@ -227,7 +228,8 @@ export class TableCrudComponent implements AfterViewChecked {
     private readonly tableService: TableService,
     private readonly gpUtil: GPUtil,
     private el: ElementRef,
-    private readonly messagesService: MessagesService
+    private readonly messagesService: MessagesService,
+    private cd: ChangeDetectorRef
   ) {}
 
   ngAfterViewChecked() {
@@ -307,7 +309,6 @@ export class TableCrudComponent implements AfterViewChecked {
       this.working = false;
       return;
     }
-
     this.working = true;
     this.columns = [];
     this.tableColumns = [];
@@ -361,6 +362,8 @@ export class TableCrudComponent implements AfterViewChecked {
     const tempColumns: GpFormField[] = [];
     const tempTableColumns: GpFormField[] = [];
 
+    this.metadata = tableMetadata;
+
     this.tableLabel = tableMetadata.tableLabel;
 
     tableMetadata.fields.forEach((metadata) => {
@@ -404,7 +407,7 @@ export class TableCrudComponent implements AfterViewChecked {
   calcFieldType(formField: GpFormField): void {
     const fieldType = GpFormFieldType[formField.fieldMetadata.displayInfo.displayType];
 
-    if (!isNullOrUndefined(fieldType)) {
+    if (!GPUtil.isNullOrUndefined(fieldType)) {
       formField.formFieldType = fieldType;
       return;
     }
@@ -432,6 +435,7 @@ export class TableCrudComponent implements AfterViewChecked {
    * Logic to execute when a row has been selected
    */
   onRowSelect(): void {
+    this.displayEdicion = false;
     this.rowSelected.emit(this.selectedRow);
 
     this.tableService
@@ -446,13 +450,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
           this.formControl.editedRow = JSON.parse(JSON.stringify(data.data));
           this.formControl.originalRow = JSON.parse(JSON.stringify(data.data));
-          const self = this;
-          this.forEachFieldControl((col: GpFormFieldControl) => {
-            col.copyValueFromEditedRowToControl(self.formControl.editedRow);
-            col.clearValidations();
-          });
           this.formControl.edicionEdit = true;
           this.displayEdicion = true;
+          this.cd.detectChanges();
         },
 
         (err) => this.messagesService.showErrorAlert(LocaleES.ERROR.RETRIEVE_RECORD),
@@ -464,7 +464,7 @@ export class TableCrudComponent implements AfterViewChecked {
   /**
    * Logic to execute on dialog delete action
    */
-  onDialogDelete(): void {
+  onDialogDelete($event: any = null): void {
     this.formControl.lockFields = true;
     const jsonDeleteRow = JSON.stringify(this.formControl.originalRow);
 
@@ -499,32 +499,18 @@ export class TableCrudComponent implements AfterViewChecked {
   /**
    * Logic to execute on dialog save action
    */
-  onDialogSave(): void {
+  onDialogSave($event: any = null): void {
     this.formControl.lockFields = true;
-    const self = this;
-    let isValid = true;
-
-    this.forEachFieldControl((col: GpFormFieldControl) => {
-      col.copyValueFromControlToEditedRow(self.formControl.editedRow);
-      isValid = isValid && col.formField.validField;
-    });
-
-    if (!isValid) {
-      this.formControl.lockFields = false;
-      return;
-    }
-
-    const jsonModifiedRow = JSON.stringify(this.formControl.editedRow);
-
+    this.formControl.editedRow = $event;
+    const jsonModifiedRow = JSON.stringify($event);
     const selectedRow = this.selectedRow !== null;
-
     selectedRow ? this.updateRow(jsonModifiedRow) : this.insertRow(jsonModifiedRow);
   }
 
   /**
    * Logic to execute on dialog close action
    */
-  closeDialog(): void {
+  closeDialog($event: any = null): void {
     this.closedDialog.emit(true);
     this.displayEdicion = false;
     this.selectedRow = null;
@@ -543,96 +529,9 @@ export class TableCrudComponent implements AfterViewChecked {
   onDialogAdd(): void {
     this.selectedRow = null;
     this.rowSelected.emit(this.selectedRow);
-    this.formControl.originalRow = null;
-    this.formControl.editedRow = {};
-    const self = this;
-
-    this.forEachFieldControl((col: GpFormFieldControl) => {
-      const lengthGreaterThanZero = self.addSelectedCodes.length > 0;
-
-      if (lengthGreaterThanZero) {
-        self.addSelectedCodes.forEach((code) => {
-          if (code.key === col.getFormField().fieldMetadata.fieldName) {
-            self.formControl.editedRow[col.getFormField().fieldMetadata.fieldName] = code.value;
-          }
-        });
-      }
-
-      if (!lengthGreaterThanZero) {
-        const fieldName = col.getFormField().fieldMetadata.fieldName;
-        const filter: Filter = self.gpUtil.getElementFromArray(self.filters, 'field', fieldName);
-
-        if (
-          filter !== null &&
-          filter.op === FilterOperationType.EQUAL &&
-          filter.values.length === 1
-        ) {
-          self.formControl.editedRow[fieldName] = filter.values[0];
-        } else {
-          self.formControl.editedRow[fieldName] = null;
-        }
-      }
-
-      col.copyValueFromEditedRowToControl(self.formControl.editedRow);
-      col.clearValidations();
-    });
-
-    this.formControl.edicionEdit = false;
-    this.formControl.edicionAdd = true;
+    this.formControl = new GpFormControl().assign({ editedRow: null, originalRow: null }, true);
     this.displayEdicion = true;
-  }
-
-  /**
-   * Iterates each column and applies passed callback
-   * @param f Logic to be executed for each iteration
-   */
-  private forEachField(f: (col: GpFormField) => void): void {
-    this.columns.forEach((col) => {
-      f(col);
-    });
-  }
-
-  /**
-   * Iterates each field control and applies passed callback
-   * @param f Logic to be executed for each iteration
-   */
-  private forEachFieldControl(f: (col: GpFormControl) => void): void {
-    this.textFormFields.forEach((col) => {
-      f(col);
-    });
-    this.textAreaFormFields.forEach((col) => {
-      f(col);
-    });
-    this.timeFormFields.forEach((col) => {
-      f(col);
-    });
-    this.switchFormFields.forEach((col) => {
-      f(col);
-    });
-    this.dropdownFormFields.forEach((col) => {
-      f(col);
-    });
-    this.dropdownRelatedFormFields.forEach((col) => {
-      f(col);
-    });
-    this.checkboxFormFields.forEach((col) => {
-      f(col);
-    });
-    this.calendarFormFields.forEach((col) => {
-      f(col);
-    });
-    this.wysiwygFormFields.forEach((col) => {
-      f(col);
-    });
-    this.imgFormFields.forEach((col) => {
-      f(col);
-    });
-    this.nullableCheckboxFormFields.forEach((col) => {
-      f(col);
-    });
-    this.numberFormFields.forEach((col) => {
-      f(col);
-    });
+    this.cd.detectChanges();
   }
 
   /**
@@ -662,22 +561,13 @@ export class TableCrudComponent implements AfterViewChecked {
       tableWrapper.classList.remove('shadowSticky');
     }
   }
-  /**
-   * A field was changed
-   * @param $event {name: string, value: any}
-   */
-  onChangeEvent($event: IModifiedField) {
-    this.formControl.editedRow[$event.fieldName] = $event.value;
-  }
 
   /**
    * Updates row with provided input modified row data
    * @param jsonModifiedRow Modified row object
    */
   private updateRow(jsonModifiedRow: string): void {
-    const self = this;
     const jsonOriginalRow = JSON.stringify(this.formControl.originalRow);
-
     this.tableService
       .updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow)
       .pipe(take(1))
@@ -689,11 +579,6 @@ export class TableCrudComponent implements AfterViewChecked {
             );
             return;
           }
-
-          this.forEachField((col: GpFormField) => {
-            self.selectedRow[col.fieldMetadata.fieldName] =
-              self.formControl.editedRow[col.fieldMetadata.fieldName];
-          });
 
           this.closeDialog();
           this.changes.emit(true);

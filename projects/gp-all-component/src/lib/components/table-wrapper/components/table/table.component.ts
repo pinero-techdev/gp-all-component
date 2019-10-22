@@ -59,7 +59,6 @@ export class TableComponent implements AfterViewInit {
   set model(value: TableModel) {
     const newValue = new TableModel().assign(value, true);
     this._model = this.isDynamic ? this.buildDynamicModel(newValue) : newValue;
-    console.info('0 model?', this._model, 'is dynamic?', this.isDynamic);
   }
 
   get model() {
@@ -118,7 +117,6 @@ export class TableComponent implements AfterViewInit {
   constructor(private cd: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
-    console.info('2 model?', this._model);
     // if (GPUtil.isNullOrUndefined(this.coreModel)) {
     this.buildModel();
     // }
@@ -173,7 +171,6 @@ export class TableComponent implements AfterViewInit {
         this.builder.metadata = this.metadata;
         this.builder.data = this.data;
         this.builder.isDynamic = this.isDynamic = true;
-        console.info('1 model?', this._model);
         this._model = this.buildDynamicModel(this.model);
         this._model.editable = true;
       }

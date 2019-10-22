@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TableEditableCellComponent } from './components/table-editable-crud/components/table-editable-cell/table-editable-cell.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableMetadataService } from '../../services/api/table/table-metadata.service';
+import { DynamicFormModule } from '../dynamic-form/dynamic-form.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TableMetadataService } from '../../services/api/table/table-metadata.se
     FormsModule,
     ReactiveFormsModule,
     TableWrapperSharedModules,
+    DynamicFormModule,
   ],
   providers: [TableWrapperSharedProviders, TableMetadataService],
   exports: [

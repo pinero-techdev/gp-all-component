@@ -123,7 +123,7 @@ export abstract class GpFormFieldControl extends GpFormControl {
    * @param editedRow The editing row
    */
   copyValueFromControlToEditedRow(editedRow: any) {
-    if (this.formField) {
+    if (this.formField && editedRow) {
       editedRow[this.formField.fieldMetadata.fieldName] = this.currentValue;
     }
   }
@@ -133,7 +133,7 @@ export abstract class GpFormFieldControl extends GpFormControl {
    * @param editedRow The editing row
    */
   copyValueFromEditedRowToControl(editedRow: any) {
-    if (this.formField) {
+    if (this.formField && editedRow) {
       this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
     }
   }

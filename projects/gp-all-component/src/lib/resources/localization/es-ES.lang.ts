@@ -61,6 +61,7 @@ export const LocaleES = {
     `El username ${userId} no tiene menú asociado en la aplicación ${app}`,
   USER_IS_NOT_LOGGED: 'El username no se encuentra logado',
   VALUE_IS_REQUIRED: 'El valor es obligatorio.',
+  FIELD_HAS_AN_ERROR: 'El campo tiene errores.',
   YOU_MUST_TO_MAKE_SELECTION: (fieldname) => `Primero debe seleccionar ${fieldname}`,
   YOU_MUST_SET_RELATED_TABLE: (fieldname) =>
     `No se ha indicado tabla relacionada para obtener los valores del campo ${fieldname}`,

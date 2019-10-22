@@ -28,7 +28,7 @@ export class FormTextAreaFieldComponent extends GpFormFieldControl {
    * @param editedRow The editing row
    */
   copyValueFromEditedRowToControl(editedRow: any) {
-    if (this.formField) {
+    if (this.formField && editedRow) {
       this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
 
       const hasTranslationKeyFields =

@@ -78,137 +78,20 @@
       </p-table>
     </div>
   </div>
+
   <div class="p-col-12 p-xl-6 form-section">
-    <div class="card panel-content" [hidden]="!displayEdicion">
+    <div *ngIf="displayEdicion" class="card panel-content">
       <div class="p-grid">
         <h3 class="p-col-12 big-topic">Edición - {{ tableLabel }}</h3>
       </div>
-      <div class="p-grid input-group" *ngFor="let col of columns">
-        <div *ngFor="let msg of col.fieldMsgs" class="ui-messages-error">
-          <i class="pi pi-close"></i>&nbsp;{{ msg.detail }}
-        </div>
-        <div
-          class="p-col-12 p-md-4"
-          *ngIf="
-            (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
-            (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
-          "
-        >
-          <label
-            >{{ col.fieldMetadata.displayInfo.fieldLabel }}
-            <span *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span></label
-          >
-        </div>
-        <div
-          class="p-col-12 p-md-8"
-          *ngIf="
-            (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
-            (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
-          "
-        >
-          <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField]="col">
-          </gp-form-time-field>
-          <gp-form-text-field *ngIf="col.formFieldType == 'gp-form-text-field'" [formField]="col">
-          </gp-form-text-field>
-          <gp-form-number-field
-            *ngIf="col.formFieldType == 'gp-form-number-field'"
-            [formField]="col"
-            (onChange)="onChangeEvent($event)"
-          ></gp-form-number-field>
-          <gp-form-textarea-field
-            *ngIf="col.formFieldType == 'gp-form-textarea-field'"
-            [formField]="col"
-            (onChange)="onChangeEvent($event)"
-          >
-          </gp-form-textarea-field>
-          <gp-form-dropdown-field
-            *ngIf="col.formFieldType == 'gp-form-dropdown-field'"
-            [formField]="col"
-            (onChange)="onDropdownChangeEvent($event)"
-          ></gp-form-dropdown-field>
-          <gp-form-dropdown-related-field
-            [formField]="col"
-            *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
-            (onChange)="onDropdownChangeEvent($event)"
-            [relatedFields]="fieldsChanged"
-          >
-          </gp-form-dropdown-related-field>
-          <gp-form-switch-field
-            *ngIf="col.formFieldType == 'gp-form-switch-field'"
-            [formField]="col"
-            (onChange)="onChangeEvent($event)"
-          >
-          </gp-form-switch-field>
-          <gp-form-checkbox-field
-            *ngIf="col.formFieldType == 'gp-form-checkbox-field'"
-            [formField]="col"
-            (onChange)="onChangeEvent($event)"
-          >
-          </gp-form-checkbox-field>
-          <gp-form-calendar-field
-            *ngIf="col.formFieldType == 'gp-form-calendar-field'"
-            [formField]="col"
-            (onChange)="onChangeEvent($event)"
-          >
-          </gp-form-calendar-field>
-          <gp-form-wysiwyg-field
-            *ngIf="col.formFieldType == 'gp-form-wysiwyg-field'"
-            [formField]="col"
-            (onChange)="onChangeEvent($event)"
-          >
-          </gp-form-wysiwyg-field>
-          <gp-form-img-field
-            *ngIf="col.formFieldType == 'gp-form-img-field'"
-            [formField]="col"
-            (onChange)="onChangeEvent($event)"
-          >
-          </gp-form-img-field>
-          <gp-form-nullable-checkbox-field
-            *ngIf="col.formFieldType == 'gp-form-nullable-checkbox-field'"
-            [formField]="col"
-            (onChange)="onChangeEvent($event)"
-          ></gp-form-nullable-checkbox-field>
-          <gp-form-file-field
-            *ngIf="col.formFieldType == 'gp-form-file-field'"
-            [formField]="col"
-            (onChange)="onChangeEvent($event)"
-          ></gp-form-file-field>
-        </div>
-      </div>
-      <div class="p-grid">
-        <span class="p-col-12 info-msg">
-          {{ localeEs.FIELDS_MANDATORY_ASTERISK }}
-        </span>
-      </div>
-      <div class="ui-buttonpane">
-        <gp-button
-          *ngIf="canDelete && selectedRow"
-          [severity]="'danger'"
-          label="Borrar"
-          [type]="'textIcon'"
-          icon="pi pi-trash"
-          (click)="onDialogDelete()"
-          [disabled]="formControl.lockFields"
-        >
-        </gp-button>
-        <gp-button
-          *ngIf="canEdit || (canAdd && !selectedRow)"
-          label="Guardar"
-          [type]="'textIcon'"
-          icon="pi pi-save"
-          (click)="onDialogSave()"
-          [disabled]="formControl.lockFields"
-        >
-        </gp-button>
-        <gp-button
-          label="Cerrar"
-          [type]="'textIcon'"
-          icon="pi pi-times"
-          (click)="closeDialog()"
-          [disabled]="formControl.lockFields"
-        >
-        </gp-button>
-      </div>
+      <gp-dynamic-form
+        [metadata]="metadata"
+        [data]="formControl?.originalRow"
+        [config]="config"
+        (onCancel)="closeDialog($event)"
+        (onSubmit)="onDialogSave($event)"
+        (onDelete)="onDialogDelete($event)"
+      ></gp-dynamic-form>
     </div>
   </div>
 </div>

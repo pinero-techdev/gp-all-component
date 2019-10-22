@@ -28,6 +28,7 @@ export class DynamicFieldComponent implements OnInit {
   formField: GpFormField;
 
   @Input() field: Field;
+  @Input() data: any;
   @Input() relatedFields: IModifiedRelatedField;
   @Input() value: any;
 
@@ -35,13 +36,12 @@ export class DynamicFieldComponent implements OnInit {
 
   ngOnInit() {
     if (this.field) {
-      const editedRow = {};
-      editedRow[this.field.fieldName] = this.value;
-
+      const editedRow = this.data ? this.data : { [this.field.fieldName]: this.value };
+      const originalRow = this.data ? this.data : { [this.field.fieldName]: this.value };
       // Create formField object to init the field
       this.formField = new GpFormField().assign(
         {
-          formControl: new GpFormControl().assign({ editedRow }, true),
+          formControl: new GpFormControl().assign({ editedRow, originalRow }, true),
           fieldMetadata: this.field,
         },
 

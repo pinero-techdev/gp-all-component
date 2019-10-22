@@ -35,6 +35,7 @@ import { GpFormField } from './../../../../components/form-wrapper/resources/for
 import { LocaleES } from './../../../../resources/localization';
 import { Observable } from 'rxjs';
 import { IModifiedField } from '../../../../resources/data/data-table/meta-data/meta-data-field.model';
+import { DynamicFormModule } from '../../../dynamic-form/dynamic-form.module';
 
 xdescribe('TableCrudComponent', () => {
   let component: TableCrudComponent;
@@ -49,7 +50,12 @@ xdescribe('TableCrudComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TableCrudComponent],
-      imports: [TableWrapperSharedModules, RouterTestingModule, HttpClientTestingModule],
+      imports: [
+        TableWrapperSharedModules,
+        RouterTestingModule,
+        DynamicFormModule,
+        HttpClientTestingModule,
+      ],
       providers: [TableWrapperSharedProviders, { provide: Router, useValue: router }],
     });
   }));

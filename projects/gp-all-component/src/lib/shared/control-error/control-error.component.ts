@@ -4,9 +4,9 @@ import { Message } from 'primeng/api';
 import { takeWhile } from 'rxjs/operators';
 import { LocaleES } from '../../resources/localization';
 
-const defaultErrors = {
-  default: `This field has an error`,
-  required: () => `This field is required`,
+export const DefaultErrors = {
+  default: `${LocaleES.FIELD_HAS_AN_ERROR}`,
+  required: () => `${LocaleES.VALUE_IS_REQUIRED}`,
   validateBlankSpace: () => `${LocaleES.VALIDATION_SPACES}`,
   validateSpecialChar: () => `${LocaleES.VALIDATION_SPECIAL_CHARACTERS}`,
   validateControlSpace: () => `${LocaleES.VALIDATION_CONTROL_SPACES}`,
@@ -48,12 +48,12 @@ export class ControlErrorComponent implements OnDestroy {
   recalculateErrors() {
     this.error = [];
     for (const key in this.control.errors) {
-      if (defaultErrors.hasOwnProperty(key) && this.control.errors.hasOwnProperty(key)) {
+      if (DefaultErrors.hasOwnProperty(key) && this.control.errors.hasOwnProperty(key)) {
         const error: ValidationErrors = this.control.errors[key];
         this.error.push({
           severity: 'error',
           summary: '',
-          detail: defaultErrors[key](error),
+          detail: DefaultErrors[key](error),
         });
       }
     }

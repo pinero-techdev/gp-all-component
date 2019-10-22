@@ -14,7 +14,6 @@ import {
   MultiLanguageService,
   GetTranslationsRq, //
 } from './../../.../../services/api/multi-language/multi-language.service';
-import { MessagesService } from './../../.../../services/core/messages.service';
 import { ButtonModule } from '../button/button.module';
 
 describe('MultiLanguageComponent', () => {
@@ -23,7 +22,6 @@ describe('MultiLanguageComponent', () => {
   let component: MultiLanguageComponent;
   let elementRef: HTMLElement;
   let fixture: ComponentFixture<MultiLanguageComponent>;
-  let messageService: MessagesService;
   let service: MultiLanguageService;
 
   beforeEach(async(() => {
@@ -37,7 +35,6 @@ describe('MultiLanguageComponent', () => {
         HttpClientTestingModule,
       ],
       providers: [
-        MessagesService,
         {
           provide: MultiLanguageService,
           useClass: MultiLanguageServiceMock,
@@ -50,7 +47,6 @@ describe('MultiLanguageComponent', () => {
     fixture = TestBed.createComponent(MultiLanguageComponent);
     component = fixture.componentInstance;
     service = TestBed.get(MultiLanguageService);
-    messageService = TestBed.get(MessagesService);
     component.ngOnInit();
   });
 
@@ -69,13 +65,9 @@ describe('MultiLanguageComponent', () => {
     });
 
     it('should not get translations', () => {
-      spyOn(service, 'getTranslations')
-        .withArgs(request)
-        .and.callThrough();
-      spyOn(messageService, 'showErrorAlert').and.callThrough();
+      spyOn(service, 'getTranslations').and.callThrough();
       component.initTranslations();
-      expect(service.getTranslations).not.toHaveBeenCalled();
-      expect(messageService.showErrorAlert).toHaveBeenCalled();
+      expect(service.getTranslations).toHaveBeenCalled();
     });
   });
 

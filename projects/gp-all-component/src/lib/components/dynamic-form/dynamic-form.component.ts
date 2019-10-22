@@ -20,6 +20,14 @@ import { FormBuilder, FormControl, ValidatorFn, Validators } from '@angular/form
 import { OnChange } from 'property-watch-decorator';
 import { FormValidations } from './resources/form-validations.class';
 import { LocaleES } from '../../resources/localization';
+import { GPUtil } from '../../services/core/gp-util.service';
+
+export interface IDynamicFormConfig {
+  cols: number;
+  canAdd: boolean;
+  canDelete: boolean;
+  canEdit: boolean;
+}
 
 @Component({
   selector: 'gp-dynamic-form',
@@ -34,9 +42,12 @@ export class DynamicFormComponent {
 
   form = this.formBuilder.group({});
   errors: any = {};
+  dataLoaded = false;
   locale = LocaleES;
   relatedFields: any;
   readonly displayType = DisplayType;
+
+  @Input() config: IDynamicFormConfig = { canEdit: true, canDelete: true, canAdd: true, cols: 2 };
 
   @Input() set metadata(value: FieldMetadata) {
     this.buildForm(value);
@@ -57,6 +68,10 @@ export class DynamicFormComponent {
     //
   }
 
+  get isEditing(): boolean {
+    return !!this.data && !GPUtil.isNullOrUndefined(this.data[this.metadata.getIdName()]);
+  }
+
   /** The form is created when the metadata is set */
   private buildForm(value: FieldMetadata) {
     if (value) {
@@ -65,6 +80,7 @@ export class DynamicFormComponent {
       }
       this._metadata = new FieldMetadata().assign(value, true);
       this._metadata.fields.map((item) => this.setControl(item));
+
       this.watchedRelated = this.metadata.getRelatedFieldNames();
       this.cd.detectChanges();
     }
@@ -210,7 +226,18 @@ export class DynamicFormComponent {
   }
 
   private buildData() {
-    if (this.data) {
+    if (GPUtil.isNull(this.data) && this.form) {
+      for (const key in this.form.getRawValue()) {
+        if (this.form.controls.hasOwnProperty(key)) {
+          this.form.get(key).reset(null);
+          this.form.get(key).markAsPristine();
+          this.form.get(key).markAsUntouched();
+        }
+      }
+      this.form.markAsUntouched();
+      this.form.markAsPristine();
+      this.dataLoaded = true;
+    } else {
       for (const key in this.data) {
         if (this.data.hasOwnProperty(key)) {
           const field = this.getFieldByName(key);
@@ -219,7 +246,9 @@ export class DynamicFormComponent {
         }
       }
       this.setRelatedFields(this.data);
+      this.dataLoaded = true;
     }
+    this.cd.detectChanges();
   }
 
   /*** Related Fields */

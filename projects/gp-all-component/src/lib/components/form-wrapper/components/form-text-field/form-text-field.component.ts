@@ -34,20 +34,26 @@ export class FormTextFieldComponent extends GpFormFieldControl {
    * @param editedRow The editing row
    */
   copyValueFromEditedRowToControl(editedRow: any) {
-    if (this.formField) {
+    if (this.formField && editedRow) {
       this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
+      this.setTranslationKeys(editedRow);
+    }
+  }
 
-      const hasTranslationKeyFields =
-        !GPUtil.isNullOrUndefined(this.formField.fieldMetadata.displayInfo.translationInfo) &&
-        !GPUtil.isNullOrUndefined(
-          this.formField.fieldMetadata.displayInfo.translationInfo.keyFields
-        );
+  /**
+   * Set translation keys for internationalization
+   * @param editedRow
+   */
+  private setTranslationKeys(editedRow: any) {
+    const hasTranslationKeyFields =
+      !GPUtil.isNullOrUndefined(this.formField.fieldMetadata.displayInfo.translationInfo) &&
+      !GPUtil.isNullOrUndefined(this.formField.fieldMetadata.displayInfo.translationInfo.keyFields);
+    if (hasTranslationKeyFields) {
+      const keyFields = this.formField.fieldMetadata.displayInfo.translationInfo.keyFields;
 
-      if (hasTranslationKeyFields) {
-        const keyFields = this.formField.fieldMetadata.displayInfo.translationInfo.keyFields;
-
-        this.translationKeys = '';
-        for (const keyField of keyFields) {
+      this.translationKeys = '';
+      for (const keyField of keyFields) {
+        if (editedRow.hasOwnProperty(keyField) && !GPUtil.isNullOrUndefined(editedRow[keyField])) {
           this.translationKeys += editedRow[keyField];
         }
       }
