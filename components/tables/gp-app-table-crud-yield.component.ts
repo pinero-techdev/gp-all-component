@@ -203,6 +203,11 @@ export class GpAppTableCrudYieldComponent implements OnInit {
   treeTableElementos: TreeNode[];
   selectedTree: TreeNode;
 
+  /**
+   * Filter property
+   */
+  externalDetailfilter: Filter;
+
   //Id de la tabla
   tableId: string = null;
 
@@ -249,10 +254,13 @@ export class GpAppTableCrudYieldComponent implements OnInit {
 
   ngOnInit() {}
 
-  initDetailTable(tableNameDetail: string, filterField: string) {
+  initDetailTable(tableNameDetail: string, filterField: string, externalDetailfilter?: Filter) {
     this.tableNameDetail = tableNameDetail;
     this.filterField = filterField;
     this.activeLoagingDetail = true;
+    if (externalDetailfilter) {
+      this.externalDetailfilter = externalDetailfilter;
+    }
   }
 
   cambiaTablaDetail(filterCode: string, filterColumn: string, isLazyLoadingTable: boolean) {
@@ -272,6 +280,9 @@ export class GpAppTableCrudYieldComponent implements OnInit {
       }
       this.codes.push(filterCode);
       this.filter = new Filter(FilterOperationType.EQUAL, filterColumn, this.codes);
+      if (this.externalDetailfilter) {
+        this.filters.push(this.externalDetailfilter);
+      }
       this.filters.push(this.filter);
       this.msgsDialog = [];
       this.msgsGlobal = [{ severity: 'info', detail: 'Cargando los datos de la tabla detalle.' }];
@@ -650,7 +661,8 @@ export class GpAppTableCrudYieldComponent implements OnInit {
         this.formControl.lockFields = false;
         this.formControlDetail.lockFields = false;
         console.log('onRowSelect. end select.');
-        this.cambiaTablaDetail(event.data[this.tableId], this.filterField, false);
+        const filterCode = this.filterField && this.filterField === this.tableId ? event.data[this.tableId] : event.data[this.filterField];
+        this.cambiaTablaDetail(filterCode, this.filterField, false);
       }
     );
   }
@@ -1054,7 +1066,11 @@ export class GpAppTableCrudYieldComponent implements OnInit {
     this.formControlDetail.originalRow = null;
     this.formControlDetail.editedRow = {};
     let fielNameEditedRow = Object.keys(this.formControlDetail.editedRow);
-    this.formControlDetail.editedRow[this.tableId] = this.formControl.editedRow[this.tableId];
+    if (this.filterField && this.filterField !== this.tableId) {
+      this.formControlDetail.editedRow[this.filterField] = this.formControl.editedRow[this.filterField];
+    } else {
+      this.formControlDetail.editedRow[this.tableId] = this.formControl.editedRow[this.tableId];
+    }
     let self = this;
     this.forEachFieldControl(function(col: GpFormFieldControl) {
       if (fielNameEditedRow[1]) {
