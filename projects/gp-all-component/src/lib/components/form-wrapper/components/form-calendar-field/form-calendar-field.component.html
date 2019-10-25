@@ -3,13 +3,12 @@
   styleClass="full-width"
   [(ngModel)]="currentValue"
   [dateFormat]="dateFormat"
-  showAnim="slideDown"
   [locale]="config"
   [showIcon]="true"
   icon="pi pi-calendar"
   (change)="onFieldChange()"
   [disabled]="controlDisabled()"
   [defaultDate]="currentValue"
-  showButtonBar="true"
+  [showButtonBar]="true"
 >
 </p-calendar>
