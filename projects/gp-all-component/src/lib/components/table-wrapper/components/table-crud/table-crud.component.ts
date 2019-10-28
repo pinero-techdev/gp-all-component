@@ -36,6 +36,7 @@ import {
   FieldType,
   IModifiedField,
 } from '../../../../resources/data/data-table/meta-data/meta-data-field.model';
+import { IDynamicFormConfig } from '../../../dynamic-form/dynamic-form.component';
 
 @Component({
   selector: 'gp-table-crud',
@@ -182,7 +183,12 @@ export class TableCrudComponent implements AfterViewChecked {
    */
   columnsToRender: any;
 
-  config = { cols: 1, canAdd: this.canAdd, canEdit: this.canEdit, canDelete: this.canDelete };
+  config: IDynamicFormConfig = {
+    cols: 1,
+    canAdd: this.canAdd,
+    canEdit: this.canEdit,
+    canDelete: this.canDelete,
+  };
 
   /* I18N */
   readonly localeEs = LocaleES;
@@ -293,6 +299,26 @@ export class TableCrudComponent implements AfterViewChecked {
 
         (err) => console.error(err)
       );
+  }
+
+  private setOriginalRow() {
+    const filters = [...[], ...this.filters];
+    filters.forEach((filter) => {
+      const fieldName = filter.field;
+      const value = Array.isArray(filter.values) ? filter.values.shift() : null;
+      this.formControl.originalRow[fieldName] = GPUtil.isUndefined(value) ? null : value;
+    });
+    this.cd.detectChanges();
+  }
+
+  private setFormControl() {
+    this.formControl = new GpFormControl().assign({ editedRow: null, originalRow: {} }, true);
+    if (this.metadata && this.metadata.hasOwnProperty('fields')) {
+      this.metadata.fields.forEach(
+        (field) => (this.formControl.originalRow[field.fieldName] = null)
+      );
+    }
+    this.setOriginalRow();
   }
 
   /**
@@ -451,6 +477,7 @@ export class TableCrudComponent implements AfterViewChecked {
           this.formControl.editedRow = JSON.parse(JSON.stringify(data.data));
           this.formControl.originalRow = JSON.parse(JSON.stringify(data.data));
           this.formControl.edicionEdit = true;
+          this.formControl.edicionAdd = false;
           this.displayEdicion = true;
           this.cd.detectChanges();
         },
@@ -527,9 +554,10 @@ export class TableCrudComponent implements AfterViewChecked {
    * Logic to execute on dialog add action
    */
   onDialogAdd(): void {
-    this.selectedRow = null;
+    this.setFormControl();
+    this.formControl.edicionAdd = true;
+    this.formControl.edicionEdit = false;
     this.rowSelected.emit(this.selectedRow);
-    this.formControl = new GpFormControl().assign({ editedRow: null, originalRow: null }, true);
     this.displayEdicion = true;
     this.cd.detectChanges();
   }
