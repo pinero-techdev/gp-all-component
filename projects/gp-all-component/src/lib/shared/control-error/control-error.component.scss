@@ -1,5 +1,10 @@
 @import './../../resources/scss/global/variables';
 
+:host {
+  display: block;
+  padding: 0.3em 0;
+}
+
 ::ng-deep {
   .field-wrapper {
     .ui-messages {

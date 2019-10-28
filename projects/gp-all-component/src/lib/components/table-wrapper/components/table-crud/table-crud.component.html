@@ -82,7 +82,11 @@
   <div class="p-col-12 p-xl-6 form-section">
     <div *ngIf="displayEdicion" class="card panel-content">
       <div class="p-grid">
-        <h3 class="p-col-12 big-topic">Edición - {{ tableLabel }}</h3>
+        <h3 class="p-col-12 big-topic">
+          <span *ngIf="formControl.edicionEdit">Edición</span>
+          <span *ngIf="!formControl.edicionEdit">Nuevo</span> -
+          {{ tableLabel }}
+        </h3>
       </div>
       <gp-dynamic-form
         [metadata]="metadata"

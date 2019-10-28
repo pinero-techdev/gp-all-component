@@ -27,6 +27,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl {
    */
   @Input() set currentValue(v: any) {
     this._currentValue = GPUtil.isNullOrUndefined(v) ? null : v;
+    this.setOption();
     this.cd.markForCheck();
   }
 
@@ -60,6 +61,16 @@ export class FormDropdownFieldComponent extends GpFormFieldControl {
   }
 
   /**
+   * When the dropdown is disabled and have a value,
+   * it doesn't load items however it should have one item selected.
+   */
+  protected setOption() {
+    if (this.isDisabled && !GPUtil.isNullOrUndefined(this.currentValue)) {
+      this.items = [{ label: this.currentValue, value: this.currentValue }];
+    }
+  }
+
+  /**
    * Api Service needs referencedTable
    */
   protected getData() {
@@ -70,6 +81,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl {
           this.formField.fieldMetadata.displayInfo.fieldLabel
         );
         this.handleError(errorMessage);
+        this.setOption();
       } else {
         const fieldToOrderBy = this.displayInfo.fieldToOrderBy;
         const tableName = this.displayInfo.referencedTable;
@@ -123,7 +135,6 @@ export class FormDropdownFieldComponent extends GpFormFieldControl {
     const field = this.displayInfo.referencedField;
     let label;
     let value;
-
     this.resetDropdown();
 
     items.forEach((item) => {
