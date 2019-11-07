@@ -226,6 +226,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   toggleUserMenu() {
     this.userMenuVisible = !this.userMenuVisible;
+    this.changeDetector.detectChanges();
   }
 
   resetMenu() {
