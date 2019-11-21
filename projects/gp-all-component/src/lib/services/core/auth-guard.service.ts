@@ -44,20 +44,20 @@ export class AuthGuard implements CanActivate {
                   .subscribe(
                     (menu) => {
                       hasPermission = this.menuProvider.optionIsActive(menu, url, params);
-                      isAllowed = this.isAllowed(isLogged, isPublic, hasPermission, url);
+                      isAllowed = this.isAllowed(route, isLogged, isPublic, hasPermission, url);
                       observer.next(isAllowed);
                     },
                     () => {
-                      isAllowed = this.isAllowed(isLogged, isPublic, false, url);
+                      isAllowed = this.isAllowed(route, isLogged, isPublic, false, url);
                       observer.next(isAllowed);
                     }
                   );
               } else {
-                isAllowed = this.isAllowed(isLogged, isPublic, false, url);
+                isAllowed = this.isAllowed(route, isLogged, isPublic, false, url);
                 observer.next(isAllowed);
               }
             } else {
-              isAllowed = this.isAllowed(isLogged, isPublic, true, url);
+              isAllowed = this.isAllowed(route, isLogged, isPublic, true, url);
               observer.next(isAllowed);
             }
           },
@@ -77,6 +77,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private isAllowed(
+    route: ActivatedRouteSnapshot,
     isLogged: boolean,
     isPublic: boolean,
     hasPermission: boolean,
@@ -96,6 +97,7 @@ export class AuthGuard implements CanActivate {
     if (!isAllowed) {
       // If not allowed save url, to jump when logged
       GlobalService.setPreLoginUrl(url);
+      GlobalService.setPreLoginParams(route.queryParams);
     }
     return isAllowed;
   }
