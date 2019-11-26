@@ -32,6 +32,8 @@ export class MultiLanguageComponent implements OnInit {
   /* Used for sorting */
   @Input() orderByLangCod = true;
 
+  alertKey = 'gp-multi-language';
+
   /* Current target language edited */
   currentLanguageHTML: string;
   /* Current target text edited */
@@ -67,7 +69,12 @@ export class MultiLanguageComponent implements OnInit {
     if (this.pKey) {
       this.getTranslations();
     } else {
-      this.messagesService.showErrorAlert(LocaleES.YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS);
+      this.messagesService.showErrorMessage(
+        LocaleES.YOU_MUST_SAVE_BEFORE_MODIFY_VIEW_TRANSLATIONS,
+        this.alertKey,
+        false,
+        5000
+      );
     }
   }
 

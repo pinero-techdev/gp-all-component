@@ -278,7 +278,7 @@ export class TableCrudComponent implements AfterViewChecked {
             }
 
             const msg = data.error.errorMessage.toString() || LocaleES.ERROR.OPERATION;
-            this.messagesService.showErrorAlert(msg);
+            this.messagesService.showErrorMessage(msg, this.tableName);
 
             return;
           }
@@ -338,7 +338,7 @@ export class TableCrudComponent implements AfterViewChecked {
             }
 
             const msg = data.error.errorMessage.toString() || LocaleES.ERROR.OPERATION;
-            this.messagesService.showErrorAlert(msg);
+            this.messagesService.showErrorMessage(msg, this.tableName);
 
             return;
           }
@@ -432,7 +432,7 @@ export class TableCrudComponent implements AfterViewChecked {
       .subscribe(
         (data) => {
           if (!data.ok) {
-            this.messagesService.showErrorAlert(LocaleES.ERROR.RETRIEVE_RECORD);
+            this.messagesService.showErrorMessage(LocaleES.ERROR.RETRIEVE_RECORD, this.tableName);
             return;
           }
 
@@ -447,7 +447,8 @@ export class TableCrudComponent implements AfterViewChecked {
           this.displayEdicion = true;
         },
 
-        (err) => this.messagesService.showErrorAlert(LocaleES.ERROR.RETRIEVE_RECORD),
+        (err) =>
+          this.messagesService.showErrorMessage(LocaleES.ERROR.RETRIEVE_RECORD, this.tableName),
 
         () => (this.formControl.lockFields = false)
       );
@@ -466,8 +467,9 @@ export class TableCrudComponent implements AfterViewChecked {
       .subscribe(
         (data) => {
           if (!data.ok) {
-            this.messagesService.showErrorAlert(
-              LocaleES.ERROR.REMOVE_RECORD(data.error.errorMessage)
+            this.messagesService.showErrorMessage(
+              LocaleES.ERROR.REMOVE_RECORD(data.error.errorMessage),
+              this.tableName
             );
             return;
           }
@@ -482,7 +484,11 @@ export class TableCrudComponent implements AfterViewChecked {
           this.changes.emit(true);
         },
 
-        (err) => this.messagesService.showErrorAlert(LocaleES.ERROR.REMOVE_INTERNAL_RECORD),
+        (err) =>
+          this.messagesService.showErrorMessage(
+            LocaleES.ERROR.REMOVE_INTERNAL_RECORD,
+            this.tableName
+          ),
 
         () => (this.formControl.lockFields = false)
       );
@@ -666,8 +672,9 @@ export class TableCrudComponent implements AfterViewChecked {
       .subscribe(
         (data) => {
           if (!data.ok) {
-            this.messagesService.showErrorAlert(
-              LocaleES.ERROR.UPDATING_RECORD(data.error.errorMessage)
+            this.messagesService.showErrorMessage(
+              LocaleES.ERROR.UPDATING_RECORD(data.error.errorMessage),
+              this.tableName
             );
             return;
           }
@@ -681,7 +688,11 @@ export class TableCrudComponent implements AfterViewChecked {
           this.changes.emit(true);
         },
 
-        (err) => this.messagesService.showErrorAlert(LocaleES.ERROR.UPDATING_INTERNAL_RECORD),
+        (err) =>
+          this.messagesService.showErrorMessage(
+            LocaleES.ERROR.UPDATING_INTERNAL_RECORD,
+            this.tableName
+          ),
 
         () => (this.formControl.lockFields = false)
       );
@@ -698,8 +709,9 @@ export class TableCrudComponent implements AfterViewChecked {
       .subscribe(
         (data) => {
           if (!data.ok) {
-            this.messagesService.showErrorAlert(
-              LocaleES.ERROR.UPDATING_RECORD(data.error.errorMessage)
+            this.messagesService.showErrorMessage(
+              LocaleES.ERROR.UPDATING_RECORD(data.error.errorMessage),
+              this.tableName
             );
             return;
           }
@@ -708,7 +720,8 @@ export class TableCrudComponent implements AfterViewChecked {
           this.closeDialog();
         },
 
-        (err) => this.messagesService.showErrorAlert(LocaleES.ERROR.INSERTING_RECORD),
+        (err) =>
+          this.messagesService.showErrorMessage(LocaleES.ERROR.INSERTING_RECORD, this.tableName),
 
         () => (this.formControl.lockFields = false)
       );

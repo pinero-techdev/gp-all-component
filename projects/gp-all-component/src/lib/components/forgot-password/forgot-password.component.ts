@@ -27,6 +27,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   /** If something wrong occurs an error message is shown in the HTML */
   errors: Message;
 
+  alertKey = 'gp-forgot-password';
+
   /** Localization strings */
   readonly locale = LocaleES;
 
@@ -79,7 +81,10 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         .subscribe(
           (data) => {
             if (data.ok) {
-              this.messagesService.showInfoAlert(LocaleES.PASSWORD_CORRECTLY_MODIFIED);
+              this.messagesService.showInfoMessage(
+                LocaleES.PASSWORD_CORRECTLY_MODIFIED,
+                this.alertKey
+              );
               this.router.navigate([this.nextRoute]);
             } else {
               this.errorMessage = data.error.internalErrorMessage;
