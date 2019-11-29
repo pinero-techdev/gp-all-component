@@ -51,7 +51,7 @@ const myModel = new TableModel().assign({
 
 [Go here](#model) to find more information.
 
-+ **Page**. This option comes by default in the advanced table (with metadata). If we want to add pagination to the basic or simple table, we have to add in the template and our HTML as follows:
++ **Pagination**. This option comes by default in the advanced table (with metadata). If we want to add pagination to the basic or simple table, we have to add in the template and our HTML as follows.
 
 In our model would be:
 ```js
@@ -64,7 +64,7 @@ const myModel = new TableModel().assign({
   	  ],
 	pagination: true,
     	native: {
-       	  	rowsPerPageOptions: [5, 10, 20],
+       	rowsPerPageOptions: [5, 10, 20],
     		paginatorPosition: 'bottom', // 'bottom' | 'both' | 'top'
 	    	dataKey: 'id',
 	      defaultSortKey: 'name',
