@@ -41,7 +41,7 @@ export class MainMenuProviderService extends CommonService {
           ) {
             let index = 0;
             let exit = false;
-            while (index < opcMenuParams.length - nroParams && !exit) {
+            while (index < opcMenuParams.length && !exit) {
               exit = opcMenuParams[index].toLowerCase() !== accionParams[index].toLowerCase();
               index++;
             }

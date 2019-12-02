@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.service';
 import { MainMenuService, MenuRq } from '../api/main-menu/main-menu.service';
@@ -22,8 +22,8 @@ export class AuthGuard implements CanActivate {
     //
   }
 
-  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    const url = route.routeConfig.path;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    const url = state.url.substring(1);
     return Observable.create((observer) => {
       this.loginService
         .sessionInfo()
