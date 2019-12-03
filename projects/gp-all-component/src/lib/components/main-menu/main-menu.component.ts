@@ -170,13 +170,13 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * @param item a menu's item
    */
   onCloseMenu(item: any): void {
-    if (this.router.url !== this.homeUrl) {
-      this.isOpen = false;
-      this.closeMenu.emit(this.isOpen);
-      this.sendBreadcrumb.emit({ label: item.text, isActive: true });
-      this.isExpanded = false;
-      this.changeDetector.detectChanges();
-    }
+    this.isOpen = false;
+    this.closeMenu.emit(this.isOpen);
+
+    const idItem = item.action ? item.id : undefined;
+    this.sendBreadcrumb.emit({ label: item.text, isActive: true, id: idItem });
+    this.isExpanded = false;
+    this.changeDetector.detectChanges();
   }
 
   /**
@@ -201,6 +201,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * @param label The input label
    */
   getActionSubmenu(submenus: any, label: string): void {
+    console.log('getActionSubmenu: ', submenus, label);
     if (submenus && submenus.length > 0) {
       this.getGoBackOptionMenu(submenus);
       this.menu = submenus;
@@ -231,6 +232,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * @param label The input label
    */
   getActionGoBack(parentList: any, label: string): void {
+    console.log('getActionGoBack: ', parentList, label);
     this.menu = parentList;
     this.sendBreadcrumb.emit({
       label,
