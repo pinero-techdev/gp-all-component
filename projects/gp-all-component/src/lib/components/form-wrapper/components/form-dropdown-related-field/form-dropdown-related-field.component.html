@@ -4,6 +4,6 @@
   [(ngModel)]="currentValue"
   filter="true"
   (onChange)="onFieldChange()"
-  [disabled]="isDisabled"
+  [disabled]="controlDisabled()"
   class="ui-inputfield ui-selectonemenu-label full-width"
 ></p-dropdown>

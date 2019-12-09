@@ -5,7 +5,7 @@
   [(ngModel)]="currentValueDropDown"
   filter="true"
   (onChange)="onFieldChange()"
-  [disabled]="isDisabled"
+  [disabled]="controlDisabled()"
   [ngClass]="{
     'ng-dirty ng-invalid': formField.fieldMsgs != null && formField.fieldMsgs.length > 0
   }"
