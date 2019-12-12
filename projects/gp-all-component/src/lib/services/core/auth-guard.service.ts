@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.service';
 import { MainMenuService, MenuRq } from '../api/main-menu/main-menu.service';
@@ -22,8 +22,8 @@ export class AuthGuard implements CanActivate {
     //
   }
 
-  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    const url = route.routeConfig.path;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    const url = state.url.substring(1);
     return Observable.create((observer) => {
       this.loginService
         .sessionInfo()
@@ -44,20 +44,20 @@ export class AuthGuard implements CanActivate {
                   .subscribe(
                     (menu) => {
                       hasPermission = this.menuProvider.optionIsActive(menu, url, params);
-                      isAllowed = this.isAllowed(isLogged, isPublic, hasPermission, url);
+                      isAllowed = this.isAllowed(route, isLogged, isPublic, hasPermission, url);
                       observer.next(isAllowed);
                     },
                     () => {
-                      isAllowed = this.isAllowed(isLogged, isPublic, false, url);
+                      isAllowed = this.isAllowed(route, isLogged, isPublic, false, url);
                       observer.next(isAllowed);
                     }
                   );
               } else {
-                isAllowed = this.isAllowed(isLogged, isPublic, false, url);
+                isAllowed = this.isAllowed(route, isLogged, isPublic, false, url);
                 observer.next(isAllowed);
               }
             } else {
-              isAllowed = this.isAllowed(isLogged, isPublic, true, url);
+              isAllowed = this.isAllowed(route, isLogged, isPublic, true, url);
               observer.next(isAllowed);
             }
           },
@@ -77,6 +77,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private isAllowed(
+    route: ActivatedRouteSnapshot,
     isLogged: boolean,
     isPublic: boolean,
     hasPermission: boolean,
@@ -96,6 +97,7 @@ export class AuthGuard implements CanActivate {
     if (!isAllowed) {
       // If not allowed save url, to jump when logged
       GlobalService.setPreLoginUrl(url);
+      GlobalService.setPreLoginParams(route.queryParams);
     }
     return isAllowed;
   }

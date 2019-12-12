@@ -64,7 +64,7 @@ export class ButtonComponent implements OnInit {
    * Event to emit when a button is clicked
    */
   @Output()
-  onClickEvent = new EventEmitter<boolean>();
+  onClickEvent = new EventEmitter<Event>();
 
   /**
    * Items to show if button is type splitbutton

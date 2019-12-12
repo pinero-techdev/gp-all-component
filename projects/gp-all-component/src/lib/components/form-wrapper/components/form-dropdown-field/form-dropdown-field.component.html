@@ -6,7 +6,7 @@
   [id]="formField?.fieldMetadata?.fieldName"
   [options]="items"
   [(ngModel)]="currentValue"
-  filter="true"
+  [filter]="true"
   (onChange)="onChangeEvent($event)"
   [disabled]="isDisabled"
   appendTo="body"

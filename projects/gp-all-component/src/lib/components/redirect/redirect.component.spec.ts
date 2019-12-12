@@ -46,13 +46,5 @@ describe('RedirectComponent', () => {
       component.ngOnInit();
       expect($locationSpy).toHaveBeenCalled();
     });
-
-    xit('should change location', () => {
-      const newLocation = 'localhost';
-      fixture = TestBed.createComponent(RedirectComponent);
-      component.ngOnInit();
-      component.setUrl(newLocation);
-      expect(newLocation).toEqual(component.getUrl());
-    });
   });
 });

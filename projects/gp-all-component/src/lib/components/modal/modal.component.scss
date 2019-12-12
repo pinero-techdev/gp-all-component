@@ -61,18 +61,24 @@
         }
       }
     }
-
     &.no-footer {
       .ui-dialog-content {
         height: calc(100% - 81px);
         max-height: calc(100% - 81px);
         border-bottom-left-radius: $borderRadius;
         border-bottom-right-radius: $borderRadius;
+        border: none;
+        .ui-widget-content {
+          border: none;
+        }
       }
 
       .ui-dialog-footer {
         display: none;
       }
     }
+  }
+  .ui-dialog-content.ui-widget-content > div:first-child {
+    height: 100%;
   }
 }

@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * @param otherParams string
    */
   login(urlToRedirect?: string, otherParams?: string) {
-    if (this.password && this.username) {
+    if ((this.password && this.username) || otherParams) {
       this.working = true;
       const request: LoginRq = new LoginRq(
         this.username,
@@ -133,7 +133,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (urlToRedirect) {
         this.router.navigate([urlToRedirect]);
       } else if (GlobalService.getPRE_LOGIN_URL()) {
-        this.router.navigate([GlobalService.getPRE_LOGIN_URL()]);
+        this.router.navigate([GlobalService.getPRE_LOGIN_URL()], {
+          queryParams: GlobalService.getPRE_LOGIN_PARAMS(),
+        });
       } else {
         this.router.navigate(['home']);
       }

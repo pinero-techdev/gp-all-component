@@ -33,6 +33,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('userMobileButton') userMobileButton: ElementRef;
 
   breadCrumb: any = [];
+  breadCrumbTemp: any = [];
   display = false;
   isHome = false;
   itemsUserMenu: MenuItem[];
@@ -102,7 +103,10 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
         label: 'Logout',
         icon: 'pi pi-sign-out',
         command: (click) => {
-          this.toggleUserMenu(), this.toggleMenu(false), this.redirect('logout');
+          this.toggleUserMenu(),
+            this.toggleMenu(false),
+            (this.breadCrumb = []),
+            this.redirect('logout');
         },
       },
     ];
@@ -162,10 +166,11 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    * @param index 'numeric index'
    */
   getBreadCrumbMenu(menu: object, index: number) {
+    this.breadCrumbTemp = Object.assign([], this.breadCrumb);
     this.breadCrumb.splice(index + 1, this.breadCrumb.length - 1);
 
-    if (menu[index] && menu[index].floatMenu && menu[index].floatMenu.length) {
-      this.sendLauncher.emit(menu[index].floatMenu);
+    if (menu[index] && menu[index].menu && menu[index].menu.length) {
+      this.sendLauncher.emit(menu[index].menu);
       this.toggleMenu(true);
     }
   }
@@ -185,7 +190,14 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    */
   toggleIconUserMenu() {
     this.toggleMenu(!this.isOpen);
+    if (this.isOpen) {
+      this.breadCrumbTemp = Object.assign([], this.breadCrumb);
+    }
     this.checkLastItemBreadcrumb();
+
+    if (!this.isOpen) {
+      this.breadCrumb = Object.assign([], this.breadCrumbTemp);
+    }
   }
 
   /**
@@ -193,8 +205,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    */
   checkLastItemBreadcrumb() {
     const lastItemBreadcrumb = this.breadCrumb[this.breadCrumb.length - 1];
-
-    if (lastItemBreadcrumb && !lastItemBreadcrumb.floatMenu) {
+    if (lastItemBreadcrumb && !lastItemBreadcrumb.menu) {
       this.removeItemBreadcrumb();
     }
   }
@@ -226,11 +237,14 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   toggleUserMenu() {
     this.userMenuVisible = !this.userMenuVisible;
+    this.changeDetector.detectChanges();
   }
 
   resetMenu() {
+    const temp = this.breadCrumb[0].menu[0].parentList;
+    this.breadCrumbTemp = Object.assign([], this.breadCrumb);
     this.breadCrumb = [];
-    this.sendLauncher.emit('init');
+    this.sendLauncher.emit(temp);
     this.toggleMenu(true);
   }
 

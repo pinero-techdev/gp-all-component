@@ -5,6 +5,7 @@ import { UserInfo } from '../../resources/data/user-info.model';
 import { GlobalSingletonService } from './global-singleton.service';
 import { SessionStorageService } from '../session-storage/session-storage.service';
 import { environmentBase, IEnvironment } from '../../util/environment';
+import { Params } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
@@ -53,6 +54,14 @@ export class GlobalService {
 
   public static setPreLoginUrl(preLoginUrl: string) {
     GlobalService.globalSingleton.preLoginUrl = preLoginUrl;
+  }
+
+  public static getPRE_LOGIN_PARAMS(): Params {
+    return GlobalService.globalSingleton.preLoginParams;
+  }
+
+  public static setPreLoginParams(preLoginParams: Params) {
+    GlobalService.globalSingleton.preLoginParams = preLoginParams;
   }
 
   public static getAPLICACION_LOGIN(): string {

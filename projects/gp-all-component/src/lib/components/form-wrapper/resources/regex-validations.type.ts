@@ -3,6 +3,7 @@ export class RegexValidations {
   static BLANK_SPACE = /\s/;
   static CONTROL_SPACE = /[\u0000-\u0019]/;
   static SPECIAL_CHARACTERS = /[\u0080-\uFFFF]/;
+  static TIME_24_HOURS = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])/;
   static TIME_24_HOURS = /(([0-1][1-9])|(2[0-3])):[0-5][0-9]/;
   static LENGTH = (minLength, maxLength) =>
     new RegExp('^(?=.{' + minLength + ',' + maxLength + '}$).*');

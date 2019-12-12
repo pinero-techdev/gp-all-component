@@ -42,7 +42,7 @@ export const LocaleES = {
   PASSWORD_CORRECTLY_MODIFIED: '¡Contraseña modificada correctamente!',
   PASSWORD_FIELDS_DO_NOT_MATCH: '¡Las contraseñas no coinciden!',
   RETRIEVING_DATA: 'Recuperando datos ...',
-  SELECT: 'Seleccione',
+  SELECT: 'Seleccione ',
   SELECT_A_FILE: 'Seleccione un fichero',
   SELECT_WITH_PARAM: (param) => `Seleccione ${param} ...`,
   THERE_IS_NOT_ANY_MENU_OPTION: (url) =>

@@ -1,4 +1,4 @@
-<p-toast life="5000"></p-toast>
+<p-toast [key]="alertKey"></p-toast>
 <gp-button [type]="'icon'" icon="pi pi-globe" (click)="initTranslations()"> </gp-button>
 <p-dialog
   [(visible)]="showTranslations"
