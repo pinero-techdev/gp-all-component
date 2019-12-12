@@ -91,7 +91,7 @@
     [type]="'icon'"
     icon="pi pi-check"
     (onClickEvent)="persistEdition()"
-    [disabled]="disableSave"
+    [disabled]="disableSave && isDynamic"
   >
   </gp-button>
   <gp-button
