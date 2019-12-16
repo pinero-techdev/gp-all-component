@@ -1,4 +1,4 @@
-import { GlobalService } from './../../services/core/global.service';
+import { GlobalService } from '../../services/core/global.service';
 import { MainMenuService, MenuRq } from '../../services/api/main-menu/main-menu.service';
 import {
   Component,
@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { takeWhile, first } from 'rxjs/operators';
-import { LocaleES } from '../../resources/localization';
+import { LocaleES } from '../../resources/localization/es-ES.lang';
 
 class MenuItem {
   action: string;

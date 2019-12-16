@@ -1,19 +1,19 @@
-import { GpFormFieldType } from './../../../../../form-wrapper/resources/form-field-type.enum';
-import { AttachmentOperationEnum } from './../../resources/attachment-operation.enum';
+import { GpFormFieldType } from '../../../../../form-wrapper/resources/form-field-type.enum';
+import { AttachmentOperationEnum } from '../../resources/attachment-operation.enum';
 import { switchMap } from 'rxjs/operators';
-import { Attachment } from './../../resources/attachment.class';
+import { Attachment } from '../../resources/attachment.class';
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
-import { CustomInput } from './../../resources/custom-input.class';
-import { Filter } from './../../../../../../resources/data/filter/filter.model';
-import { FilterOperationType } from './../../../../../../resources/data/filter/filter-operation-type.enum';
+import { CustomInput } from '../../resources/custom-input.class';
+import { Filter } from '../../../../../../resources/data/filter/filter.model';
+import { FilterOperationType } from '../../../../../../resources/data/filter/filter-operation-type.enum';
 import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
-import { TableColumnMetadata } from './../../resources/table-column-metadata.model';
+import { TableColumnMetadata } from '../../resources/table-column-metadata.model';
 import { TableFieldEvent } from '../../resources/table-events.interface';
-import { TableMetadataService } from './../../../../../../services/api/table/table-metadata.service';
-import { TableService } from './../../../../../../services/api/table/table.service';
-import { LocaleES } from '../../../../../../resources/localization';
+import { TableMetadataService } from '../../../../../../services/api/table/table-metadata.service';
+import { TableService } from '../../../../../../services/api/table/table.service';
+import { LocaleES } from '../../../../../../resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-table-editable-cell',

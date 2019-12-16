@@ -11,9 +11,9 @@ import {
   ListRs,
   SelectOneRowRs,
   InsertRowRs,
-} from './../../../../services/api/table/table.service';
-import { Filter } from './../../../../resources/data/filter/filter.model';
-import { FilterOperationType } from './../../../../resources/data/filter/filter-operation-type.enum';
+} from '../../../../services/api/table/table.service';
+import { Filter } from '../../../../resources/data/filter/filter.model';
+import { FilterOperationType } from '../../../../resources/data/filter/filter-operation-type.enum';
 import {
   ListRsSuccessMock,
   ListRsFailSessionMock,
@@ -24,16 +24,16 @@ import {
   InsertRowRsMock,
 } from '../../../../shared/testing/@mock/types/list-rs.type.mock';
 import moment from 'moment';
-import { MessagesService } from './../../../../services/core/messages.service';
+import { MessagesService } from '../../../../services/core/messages.service';
 import { Router } from '@angular/router';
-import { FormFieldMock } from './../../../../shared/testing/@mock/types/form-wrapper.type.mock';
+import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { take } from 'rxjs/operators';
-import { CommonRs } from './../../../../services/core/common.service';
-import { InfoCampoModificado } from './../../../../resources/data/info-campo-modificado.model';
-import { GpFormFieldType } from './../../../../components/form-wrapper/resources/form-field-type.enum';
-import { GpFormField } from './../../../../components/form-wrapper/resources/form-field.model';
-import { LocaleES } from './../../../../resources/localization';
+import { CommonRs } from '../../../../services/core/common.service';
+import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
+import { GpFormFieldType } from '../../../../components/form-wrapper/resources/form-field-type.enum';
+import { GpFormField } from '../../../../components/form-wrapper/resources/form-field.model';
+import { LocaleES } from '../../../../resources/localization';
 import { Observable } from 'rxjs';
 
 describe('TableCrudComponent', () => {

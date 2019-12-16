@@ -1,7 +1,7 @@
-import { LocaleES } from './../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../resources/localization/es-ES.lang';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { GlobalService } from './../../services/core/global.service';
-import { LoginService, LoginRq, LoginRs } from './../../services/api/login/login.service';
+import { GlobalService } from '../../services/core/global.service';
+import { LoginService, LoginRq, LoginRs } from '../../services/api/login/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Message } from 'primeng/primeng';
 import { Component, OnInit, OnDestroy } from '@angular/core';

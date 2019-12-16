@@ -1,4 +1,4 @@
-import { SharedModule } from './../../../../../../shared/shared.module';
+import { SharedModule } from '../../../../../../shared/shared.module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableEditableCellComponent } from './table-editable-cell.component';
 import { MultiLanguageModule } from '../../../../../multi-language/multi-language.module';

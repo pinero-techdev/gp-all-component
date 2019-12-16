@@ -3,7 +3,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { MultiSelect } from 'primeng/primeng';
 import { noop } from 'rxjs';
-import { LocaleES } from './../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-multi-select',

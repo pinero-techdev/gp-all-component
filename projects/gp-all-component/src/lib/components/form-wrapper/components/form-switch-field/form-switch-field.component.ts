@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
-import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 
 @Component({
   selector: 'gp-form-switch-field',

@@ -1,6 +1,6 @@
-import { GPUtil } from './../../../services/core/gp-util.service';
+import { GPUtil } from '../../../services/core/gp-util.service';
 import { RegexValidations } from './regex-validations.type';
-import { LocaleES } from './../../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../../resources/localization/es-ES.lang';
 import { Message } from 'primeng/api';
 import { isNullOrUndefined } from 'util';
 import { Input } from '@angular/core';

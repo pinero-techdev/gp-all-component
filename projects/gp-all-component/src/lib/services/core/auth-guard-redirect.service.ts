@@ -1,9 +1,9 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { GlobalService } from './global.service';
 import { Injectable } from '@angular/core';
-import { LocaleES } from './../../resources/localization/es-ES.lang';
-import { MainMenuProviderService } from './../api/main-menu/main-menu-provider.service';
-import { MainMenuService, MenuRq } from './../api/main-menu/main-menu.service';
+import { LocaleES } from '../../resources/localization/es-ES.lang';
+import { MainMenuProviderService } from '../api/main-menu/main-menu-provider.service';
+import { MainMenuService, MenuRq } from '../api/main-menu/main-menu.service';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SessionStorageService } from '../session-storage/session-storage.service';

@@ -1,11 +1,11 @@
-import { LocaleES } from './../../resources/localization/es-ES.lang';
-import { MessagesService } from './../../services/core/messages.service';
-import { LANGUAGE_ORDER } from './../../resources/constants/language-order.constant';
+import { LocaleES } from '../../resources/localization/es-ES.lang';
+import { MessagesService } from '../../services/core/messages.service';
+import { LANGUAGE_ORDER } from '../../resources/constants/language-order.constant';
 import {
   MultiLanguageService,
   GetTranslationsRq,
   UpdateTranslationsRq,
-} from './../../services/api/multi-language/multi-language.service';
+} from '../../services/api/multi-language/multi-language.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Translation } from '../../resources/data/translation.model';
 import { finalize, first } from 'rxjs/operators';

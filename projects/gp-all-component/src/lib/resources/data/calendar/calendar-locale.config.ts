@@ -1,4 +1,5 @@
-import { LocaleES, LocaleEN } from '../../../resources/localization';
+import { LocaleEN } from '../../localization/en-EN.lang';
+import { LocaleES } from '../../localization/es-ES.lang';
 
 export const CalendarLocaleConfigES = {
   closeText: LocaleES.CLOSE_TEXT,

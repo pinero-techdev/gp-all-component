@@ -1,6 +1,6 @@
-import { LocaleES } from './../../../../resources/localization/es-ES.lang';
-import { TableService } from './../../../../services/api/table/table.service';
-import { GpTableRestrictions } from './../../../table-wrapper/resources/gp-table-restrictions.enum';
+import { LocaleES } from '../../../../resources/localization/es-ES.lang';
+import { TableService } from '../../../../services/api/table/table.service';
+import { GpTableRestrictions } from '../../../table-wrapper/resources/gp-table-restrictions.enum';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormWysiwygFieldComponent } from './form-wysiwyg-field.component';
 import {

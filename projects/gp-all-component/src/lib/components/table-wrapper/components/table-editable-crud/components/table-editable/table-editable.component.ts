@@ -20,7 +20,7 @@ import { SortDirection } from '../../resources/sort-direction.enum';
 import { SelectionType } from '../../resources/selection-type.enum';
 import { Paginator } from 'primeng/paginator';
 import { GpFormFieldType } from '../../../../../form-wrapper/resources/form-field-type.enum';
-import { LocaleES } from '../../../../../../resources/localization';
+import { LocaleES } from '../../../../../../resources/localization/es-ES.lang';
 
 /*
  *  Data order: data -> filteredData -> sortedData -> currentPageData

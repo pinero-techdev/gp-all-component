@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { GpFormFieldControl } from './../../resources/form-field-control.class';
-import { TableService } from './../../../../services/api/table/table.service';
+import { GpFormFieldControl } from '../../resources/form-field-control.class';
+import { TableService } from '../../../../services/api/table/table.service';
 import { GPUtil } from '../../../../services/core/gp-util.service';
-import { DataTableMetaDataFieldDisplayInfoRelatedField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info-related-field.model';
-import { InfoCampoModificado } from './../../../../resources/data/info-campo-modificado.model';
+import { DataTableMetaDataFieldDisplayInfoRelatedField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field-display-info-related-field.model';
+import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
 import { SelectItem } from 'primeng/api';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { finalize, first } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
-import { LocaleES } from './../../../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 
 // tslint:disable:variable-name
 @Component({

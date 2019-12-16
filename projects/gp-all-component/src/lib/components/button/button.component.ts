@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ButtonType, ButtonSeverity, ButtonWidth } from './../../resources/constants/button.enum';
-import { GpMenuItem } from './../../resources/data/gp-menu-item.model';
+import { ButtonType, ButtonSeverity, ButtonWidth } from '../../resources/constants/button.enum';
+import { GpMenuItem } from '../../resources/data/gp-menu-item.model';
 
 @Component({
   selector: 'gp-button',

@@ -1,6 +1,6 @@
-import { MessagesService } from './../../../../services/core/messages.service';
-import { MultiLanguageServiceMock } from './../../../../services/api/multi-language/multi-language.service.mock';
-import { TranslationInfo } from './../../../../resources/data/translation-info.model';
+import { MessagesService } from '../../../../services/core/messages.service';
+import { MultiLanguageServiceMock } from '../../../../services/api/multi-language/multi-language.service.mock';
+import { TranslationInfo } from '../../../../resources/data/translation-info.model';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormTextAreaFieldComponent } from './form-text-area-field.component';
 import {
@@ -8,8 +8,8 @@ import {
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
-import { MultiLanguageService } from './../../../../services/api/multi-language/multi-language.service';
-import { TableService } from './../../../../services/api/table/table.service';
+import { MultiLanguageService } from '../../../../services/api/multi-language/multi-language.service';
+import { TableService } from '../../../../services/api/table/table.service';
 
 describe('FormTextAreaFieldComponent', () => {
   let component: FormTextAreaFieldComponent;

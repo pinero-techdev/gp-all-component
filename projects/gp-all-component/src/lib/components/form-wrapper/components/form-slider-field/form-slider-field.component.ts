@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Orientation } from './../../../../resources/constants/slider.enum';
+import { Orientation } from '../../../../resources/constants/slider.enum';
 
 @Component({
   selector: 'gp-form-slider-field',

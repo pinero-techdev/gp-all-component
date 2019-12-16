@@ -1,5 +1,5 @@
 import { RouterTestingModule } from '@angular/router/testing';
-import { ButtonType, ButtonSeverity } from './../../resources/constants/button.enum';
+import { ButtonType, ButtonSeverity } from '../../resources/constants/button.enum';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';

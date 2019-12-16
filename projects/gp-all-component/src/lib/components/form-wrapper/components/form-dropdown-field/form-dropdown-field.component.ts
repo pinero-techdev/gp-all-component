@@ -1,12 +1,12 @@
-import { ListRs } from './../../../../services/api/table/table.service';
-import { LocaleES } from './../../../../resources/localization/es-ES.lang';
+import { ListRs } from '../../../../services/api/table/table.service';
+import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
-import { GpFormFieldControl } from './../../resources/form-field-control.class';
-import { InfoCampoModificado } from './../../../../resources/data/info-campo-modificado.model';
+import { GpFormFieldControl } from '../../resources/form-field-control.class';
+import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
 import { SelectItem } from 'primeng/api';
-import { TableService } from './../../../../services/api/table/table.service';
+import { TableService } from '../../../../services/api/table/table.service';
 import { GpFormField } from '../../resources/form-field.model';
-import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { isUndefined } from 'util';
 import { first } from 'rxjs/operators';
 

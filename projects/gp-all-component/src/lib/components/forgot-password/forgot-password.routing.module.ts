@@ -1,4 +1,4 @@
-import { AuthGuard } from './../../services/core/auth-guard.service';
+import { AuthGuard } from '../../services/core/auth-guard.service';
 import { ForgotPasswordComponent } from './forgot-password.component';
 
 import { NgModule } from '@angular/core';

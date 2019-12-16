@@ -1,20 +1,20 @@
-import { LocaleES } from './../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../resources/localization/es-ES.lang';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './../../shared/shared.module';
-import { LoadingIndicatorComponent } from './../loading-indicator/loading-indicator.component';
-import { TestingMockEvents } from './../../.../../shared/testing/@mock/utils/testing-mock-events.class';
+import { SharedModule } from '../../shared/shared.module';
+import { LoadingIndicatorComponent } from '../loading-indicator/loading-indicator.component';
+import { TestingMockEvents } from '../../.../../shared/testing/@mock/utils/testing-mock-events.class';
 import {
   MultiLanguageServiceMock, //
-} from './../../.../../services/api/multi-language/multi-language.service.mock';
+} from '../../.../../services/api/multi-language/multi-language.service.mock';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { MultiLanguageComponent } from './multi-language.component';
 import {
   MultiLanguageService,
   GetTranslationsRq, //
-} from './../../.../../services/api/multi-language/multi-language.service';
-import { MessagesService } from './../../.../../services/core/messages.service';
+} from '../../.../../services/api/multi-language/multi-language.service';
+import { MessagesService } from '../../.../../services/core/messages.service';
 import { ButtonModule } from '../button/button.module';
 
 describe('MultiLanguageComponent', () => {

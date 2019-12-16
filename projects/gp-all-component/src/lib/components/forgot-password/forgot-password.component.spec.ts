@@ -1,19 +1,19 @@
-import { ButtonModule } from './../button/button.module';
+import { ButtonModule } from '../button/button.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ForgotPasswordRq } from './../../services/api/forgot-password/forgot-password.service';
-import { TestingMockEvents } from './../../shared/testing/@mock/utils/testing-mock-events.class';
+import { ForgotPasswordRq } from '../../services/api/forgot-password/forgot-password.service';
+import { TestingMockEvents } from '../../shared/testing/@mock/utils/testing-mock-events.class';
 import {
   ForgotPasswordServiceMock, //
-} from './../../services/api/forgot-password/forgot-password.service.mock';
-import { MessagesService } from './../../services/core/messages.service';
+} from '../../services/api/forgot-password/forgot-password.service.mock';
+import { MessagesService } from '../../services/core/messages.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ForgotPasswordComponent } from './forgot-password.component';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from './../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ForgotPasswordService } from './../../services/api/forgot-password/forgot-password.service';
-import { TestingVars } from './../../shared/testing/@mock/utils/testing-mock-constants.class';
+import { ForgotPasswordService } from '../../services/api/forgot-password/forgot-password.service';
+import { TestingVars } from '../../shared/testing/@mock/utils/testing-mock-constants.class';
 import { Router, Routes, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 

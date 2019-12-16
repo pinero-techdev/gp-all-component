@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GpFormFieldControl } from './../../resources/form-field-control.class';
-import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
-import { GpFormField } from './../../resources/form-field.model';
-import { TableService } from './../../../../services/api/table/table.service';
+import { GpFormFieldControl } from '../../resources/form-field-control.class';
+import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { GpFormField } from '../../resources/form-field.model';
+import { TableService } from '../../../../services/api/table/table.service';
 
 @Component({
   selector: 'gp-form-wysiwyg-field',

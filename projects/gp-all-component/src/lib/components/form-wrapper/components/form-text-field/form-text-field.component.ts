@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
-import { DataTableMetaDataField } from './../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
+import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../resources/form-field.model';
-import { TableService } from './../../../../services/api/table/table.service';
-import { GpTableRestrictions } from './../../../../components/table-wrapper/resources/gp-table-restrictions.enum';
-import { GPUtil } from './../../../../services/core/gp-util.service';
+import { TableService } from '../../../../services/api/table/table.service';
+import { GpTableRestrictions } from '../../../../components/table-wrapper/resources/gp-table-restrictions.enum';
+import { GPUtil } from '../../../../services/core/gp-util.service';
 import { RegexValidations } from '../../resources/regex-validations.type';
-import { LocaleES } from './../../../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 import { isNullOrUndefined } from 'util';
 
 @Component({

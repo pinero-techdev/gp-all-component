@@ -1,15 +1,15 @@
-import { FormWrapperModule } from './../../form-wrapper.module';
-import { TableService } from './../../../../services/api/table/table.service';
-import { FormWrapperSharedProviders } from './../../../../shared/imports/form-wrapper-shared';
+import { FormWrapperModule } from '../../form-wrapper.module';
+import { TableService } from '../../../../services/api/table/table.service';
+import { FormWrapperSharedProviders } from '../../../../shared/imports/form-wrapper-shared';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { FormDropdownRelatedFieldComponent } from './form-dropdown-related-field.component';
 import {
   TableServiceMock,
   TableServiceMockResponse,
-} from './../../../../services/api/table/table.service.mock';
-import { FormFieldMock } from './../../../../shared/testing/@mock/types/form-wrapper.type.mock';
-import { TestingErrorCodeMock } from './../../../../shared/testing/@mock/utils/testing-mock-constants.class';
+} from '../../../../services/api/table/table.service.mock';
+import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
+import { TestingErrorCodeMock } from '../../../../shared/testing/@mock/utils/testing-mock-constants.class';
 
 describe('FormDropdownRelatedFieldComponent', () => {
   let component: FormDropdownRelatedFieldComponent;

@@ -1,6 +1,6 @@
 import { first } from 'rxjs/operators';
-import { TableServiceMockResponse } from './../../../../services/api/table/table.service.mock';
-import { TestingErrorCodeMock } from './../../../../shared/testing/@mock/utils/testing-mock-constants.class';
+import { TableServiceMockResponse } from '../../../../services/api/table/table.service.mock';
+import { TestingErrorCodeMock } from '../../../../shared/testing/@mock/utils/testing-mock-constants.class';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormDropdownFieldComponent } from './form-dropdown-field.component';
@@ -9,9 +9,9 @@ import {
   FormWrapperSharedProviders,
 } from '../../../../shared/imports/form-wrapper-shared';
 import { FormFieldMock } from '../../../../shared/testing/@mock/types/form-wrapper.type.mock';
-import { InfoCampoModificado } from './../../../../resources/data/info-campo-modificado.model';
-import { TableServiceMock } from './../../../../services/api/table/table.service.mock';
-import { TableService } from './../../../../services/api/table/table.service';
+import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
+import { TableServiceMock } from '../../../../services/api/table/table.service.mock';
+import { TableService } from '../../../../services/api/table/table.service';
 
 describe('FormDropdownFieldComponent', () => {
   let component: FormDropdownFieldComponent;

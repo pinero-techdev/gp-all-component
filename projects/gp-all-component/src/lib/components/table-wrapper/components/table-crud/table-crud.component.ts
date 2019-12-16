@@ -32,7 +32,7 @@ import { GpFormControl } from '../../../form-wrapper/resources/form-control.mode
 import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
 import { GpFormFieldControl } from '../../../form-wrapper/resources/form-field-control.class';
 import { isNullOrUndefined } from 'util';
-import { LocaleES } from '../../../../resources/localization';
+import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
 import { FormNumberFieldComponent } from '../../../form-wrapper/components/form-number-field/form-number-field.component';

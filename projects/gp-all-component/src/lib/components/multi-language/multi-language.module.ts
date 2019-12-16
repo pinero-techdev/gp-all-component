@@ -1,5 +1,5 @@
-import { MessagesService } from './../../services/core/messages.service';
-import { MultiLanguageService } from './../../services/api/multi-language/multi-language.service';
+import { MessagesService } from '../../services/core/messages.service';
+import { MultiLanguageService } from '../../services/api/multi-language/multi-language.service';
 import { MultiLanguageComponent } from './multi-language.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

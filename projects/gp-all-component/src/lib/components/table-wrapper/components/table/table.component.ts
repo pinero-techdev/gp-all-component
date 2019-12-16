@@ -20,7 +20,7 @@ import { TableColumn } from './models/table-column.model';
 import { PaginationOptions } from './models/pagination-options.model';
 import { OnChange } from 'property-watch-decorator';
 import { Table } from 'primeng/table';
-import { LocaleES } from './../../../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-table',

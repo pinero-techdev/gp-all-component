@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { LocaleES } from './../../resources/localization/es-ES.lang';
+import { LocaleES } from '../../resources/localization/es-ES.lang';
 
 @Component({
   selector: 'gp-loading-indicator',
@@ -7,7 +7,6 @@ import { LocaleES } from './../../resources/localization/es-ES.lang';
   styleUrls: ['./loading-indicator.component.scss'],
 })
 export class LoadingIndicatorComponent {
-
   /**
    * Add a custom message while active
    */
@@ -22,5 +21,4 @@ export class LoadingIndicatorComponent {
    * Set custom height for component
    */
   @Input() h = '40px';
-
 }

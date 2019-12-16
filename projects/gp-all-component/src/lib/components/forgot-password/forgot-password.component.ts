@@ -1,9 +1,9 @@
-import { LocaleES } from './../../resources/localization/es-ES.lang';
-import { MessagesService } from './../../services/core/messages.service';
+import { LocaleES } from '../../resources/localization/es-ES.lang';
+import { MessagesService } from '../../services/core/messages.service';
 import {
   ForgotPasswordRq,
   ForgotPasswordService,
-} from './../../services/api/forgot-password/forgot-password.service';
+} from '../../services/api/forgot-password/forgot-password.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Message } from 'primeng/api';

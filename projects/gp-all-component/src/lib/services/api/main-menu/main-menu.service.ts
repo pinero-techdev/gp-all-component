@@ -1,4 +1,4 @@
-import { LocaleES } from '../../../resources/localization';
+import { LocaleES } from '../../../resources/localization/es-ES.lang';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Param } from '../../../resources/data/param.model';
