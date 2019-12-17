@@ -17,7 +17,7 @@ import { LoginService } from './../../services/api/login/login.service';
 import { CommonRs } from './../../services/core/common.service';
 import { GlobalService } from './../../services/core/global.service';
 import { filter, first, takeWhile } from 'rxjs/operators';
-import { LocaleES } from '../../resources/localization';
+import { LocaleES } from '../../resources/localization/es-ES.lang';
 import { UserInfo } from '../../resources/data/user-info.model';
 
 @Component({
@@ -166,7 +166,9 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    * @param index 'numeric index'
    */
   getBreadCrumbMenu(menu: object, index: number) {
-    this.breadCrumbTemp = Object.assign([], this.breadCrumb);
+    if (!this.isOpen) {
+      this.breadCrumbTemp = Object.assign([], this.breadCrumb);
+    }
     this.breadCrumb.splice(index + 1, this.breadCrumb.length - 1);
 
     if (menu[index] && menu[index].menu && menu[index].menu.length) {
@@ -242,7 +244,10 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   resetMenu() {
     const temp = this.breadCrumb[0].menu[0].parentList;
-    this.breadCrumbTemp = Object.assign([], this.breadCrumb);
+    if (!this.isOpen) {
+      this.breadCrumbTemp = Object.assign([], this.breadCrumb);
+    }
+
     this.breadCrumb = [];
     this.sendLauncher.emit(temp);
     this.toggleMenu(true);

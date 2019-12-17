@@ -201,7 +201,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * @param label The input label
    */
   getActionSubmenu(submenus: any, label: string): void {
-    console.log('getActionSubmenu: ', submenus, label);
     if (submenus && submenus.length > 0) {
       this.getGoBackOptionMenu(submenus);
       this.menu = submenus;
@@ -232,7 +231,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * @param label The input label
    */
   getActionGoBack(parentList: any, label: string): void {
-    console.log('getActionGoBack: ', parentList, label);
     this.menu = parentList;
     this.sendBreadcrumb.emit({
       label,
