@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { LoginService } from '../api/login/login.service';
 import { GlobalService } from './global.service';
 import { first } from 'rxjs/operators';
+import { VersionCheckService } from './version-check.service';
+import { MessagesService } from './messages.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -17,12 +19,26 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private menuProvider: MainMenuProviderService,
     private menuService: MainMenuService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private versionCheckService: VersionCheckService,
+    private messagesService: MessagesService
   ) {
     //
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    if (
+      this.versionCheckService.getVersion() &&
+      this.versionCheckService.getVersion().version !== GlobalService.getVERSION()
+    ) {
+      this.messagesService.showErrorMessage(
+        'Hay una nueva versión de ' +
+          GlobalService.getAPPLICATION_TITLE() +
+          ', refresque su navegador con CTRL + F5 para activarla.',
+        'root'
+      );
+    }
+
     const url = state.url.substring(1);
     return Observable.create((observer) => {
       this.loginService
