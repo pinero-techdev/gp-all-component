@@ -3,161 +3,168 @@ import { RolInfo } from '../../resources/data/rol-info.model';
 import { UserInfo } from '../../resources/data/user-info.model';
 import { Params } from '@angular/router';
 
-/* tslint:disable:variable-name */
 export class GlobalSingletonService {
-  private _baseUrl: string;
-  private _loginServiceUrl: string;
-  private _menuServiceUrl: string;
-  private _preLoginUrl: string;
-  private _preLoginParams: Params;
-  private _aplicacionLogin: string;
-  private _paramsLogin: Param[];
+  private baseUrlValue: string;
+  private loginServiceUrlValue: string;
+  private menuServiceUrlValue: string;
+  private preLoginUrlValue: string;
+  private preLoginParamsValue: Params;
+  private aplicacionLoginValue: string;
+  private paramsLoginValue: Param[];
 
-  private _app: string;
-  private _ip: string;
-  private _params: Param[] = [];
-  private _session: UserInfo;
-  private _sessionId: string;
+  private appValue: string;
+  private versionValue: string;
+  private ipValue: string;
+  private paramsValue: Param[] = [];
+  private sessionValue: UserInfo;
+  private sessionIdValue: string;
 
-  private _kiosk: boolean;
-  private _logged: boolean;
-  private _applicationTitle: string;
-  private _roles: RolInfo[];
-  private _language: string;
-  /* tslint:enable:variable-name */
+  private kioskValue: boolean;
+  private loggedValue: boolean;
+  private applicationTitleValue: string;
+  private rolesValue: RolInfo[];
+  private languageValue: string;
 
   get baseUrl(): string {
-    return this._baseUrl;
+    return this.baseUrlValue;
   }
 
   set baseUrl(value: string) {
-    this._baseUrl = value;
+    this.baseUrlValue = value;
   }
 
   get loginServiceUrl(): string {
-    return this._loginServiceUrl;
+    return this.loginServiceUrlValue;
   }
 
   set loginServiceUrl(value: string) {
-    this._loginServiceUrl = value;
+    this.loginServiceUrlValue = value;
   }
 
   get menuServiceUrl(): string {
-    return this._menuServiceUrl;
+    return this.menuServiceUrlValue;
   }
 
   set menuServiceUrl(value: string) {
-    this._menuServiceUrl = value;
+    this.menuServiceUrlValue = value;
   }
 
   get preLoginUrl(): string {
-    return this._preLoginUrl;
+    return this.preLoginUrlValue;
   }
 
   set preLoginUrl(value: string) {
-    this._preLoginUrl = value;
+    this.preLoginUrlValue = value;
   }
   get preLoginParams(): Params {
-    return this._preLoginParams;
+    return this.preLoginParamsValue;
   }
 
   set preLoginParams(value: Params) {
-    this._preLoginParams = value;
+    this.preLoginParamsValue = value;
   }
 
   get aplicacionLogin(): string {
-    return this._aplicacionLogin;
+    return this.aplicacionLoginValue;
   }
 
   set aplicacionLogin(value: string) {
-    this._aplicacionLogin = value;
+    this.aplicacionLoginValue = value;
   }
 
   get paramsLogin(): Param[] {
-    return this._paramsLogin;
+    return this.paramsLoginValue;
   }
 
   set paramsLogin(value: Param[]) {
-    this._paramsLogin = value;
+    this.paramsLoginValue = value;
   }
 
   get app(): string {
-    return this._app;
+    return this.appValue;
   }
 
   set app(value: string) {
-    this._app = value;
+    this.appValue = value;
   }
 
   get ip(): string {
-    return this._ip;
+    return this.ipValue;
   }
 
   set ip(value: string) {
-    this._ip = value;
+    this.ipValue = value;
   }
 
   get params(): Param[] {
-    return this._params;
+    return this.paramsValue;
   }
 
   set params(value: Param[]) {
-    this._params = value;
+    this.paramsValue = value;
   }
 
   get session(): UserInfo {
-    return this._session;
+    return this.sessionValue;
   }
 
   set session(value: UserInfo) {
-    this._session = value;
+    this.sessionValue = value;
   }
 
   get sessionId(): string {
-    return this._sessionId;
+    return this.sessionIdValue;
   }
 
   set sessionId(value: string) {
-    this._sessionId = value;
+    this.sessionIdValue = value;
   }
 
   get kiosk(): boolean {
-    return this._kiosk;
+    return this.kioskValue;
   }
 
   set kiosk(value: boolean) {
-    this._kiosk = value;
+    this.kioskValue = value;
   }
 
   get logged(): boolean {
-    return this._logged;
+    return this.loggedValue;
   }
 
   set logged(value: boolean) {
-    this._logged = value;
+    this.loggedValue = value;
   }
 
   get applicationTitle(): string {
-    return this._applicationTitle;
+    return this.applicationTitleValue;
   }
 
   set applicationTitle(value: string) {
-    this._applicationTitle = value;
+    this.applicationTitleValue = value;
   }
 
   get roles(): RolInfo[] {
-    return this._roles;
+    return this.rolesValue;
   }
 
   set roles(value: RolInfo[]) {
-    this._roles = value;
+    this.rolesValue = value;
   }
 
   get language(): string {
-    return this._language;
+    return this.languageValue;
   }
 
   set language(value: string) {
-    this._language = value;
+    this.languageValue = value;
+  }
+
+  get version(): string {
+    return this.versionValue;
+  }
+
+  set version(value: string) {
+    this.versionValue = value;
   }
 }

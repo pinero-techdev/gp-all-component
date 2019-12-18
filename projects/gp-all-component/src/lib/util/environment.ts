@@ -5,6 +5,7 @@ export interface IEnvironment {
   baseUrl: string;
   loginUrl: string;
   menuUrl?: string;
+  version?: string;
 }
 
 export const environmentBase: IEnvironment = {
@@ -14,4 +15,5 @@ export const environmentBase: IEnvironment = {
   baseUrl: '',
   loginUrl: '',
   menuUrl: '',
+  version: '',
 };
