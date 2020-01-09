@@ -12,4 +12,5 @@ export enum GpFormFieldType {
   TIME = 'gp-form-time-field',
   WYSIWYG = 'gp-form-wysiwyg-field',
   NULLABLE_CHECKBOX = 'gp-form-nullable-checkbox-field',
+  COLOR_PICKER = 'gp-form-color-picker-field',
 }

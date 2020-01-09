@@ -1,0 +1,11 @@
+@import 'global/functions';
+@import 'global/variables';
+@import 'global/mixins';
+
+// ::ng-deep is deprecated but not removed.
+// More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
+::ng-deep {
+  p-colorPicker > div {
+    width: 100%;
+  }
+}
