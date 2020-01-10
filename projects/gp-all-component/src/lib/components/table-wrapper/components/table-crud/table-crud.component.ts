@@ -1,12 +1,12 @@
 import {
+  AfterViewChecked,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   Output,
   QueryList,
   ViewChildren,
-  ElementRef,
-  AfterViewChecked,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
@@ -36,6 +36,7 @@ import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
 import { FormNumberFieldComponent } from '../../../form-wrapper/components/form-number-field/form-number-field.component';
+import { FormColorPickerFieldComponent } from '../../../form-wrapper/components/form-color-picker-field/form-color-picker-field.component';
 
 @Component({
   selector: 'gp-table-crud',
@@ -216,6 +217,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
   @ViewChildren(FormNullableCheckboxComponent)
   nullableCheckboxFormFields: QueryList<FormNullableCheckboxComponent>;
+
+  @ViewChildren(FormColorPickerFieldComponent)
+  colorPickerFormFields: QueryList<FormColorPickerFieldComponent>;
 
   @ViewChildren(FormNumberFieldComponent)
   numberFormFields: QueryList<FormNumberFieldComponent>;
@@ -627,6 +631,9 @@ export class TableCrudComponent implements AfterViewChecked {
       f(col);
     });
     this.numberFormFields.forEach((col) => {
+      f(col);
+    });
+    this.colorPickerFormFields.forEach((col) => {
       f(col);
     });
   }

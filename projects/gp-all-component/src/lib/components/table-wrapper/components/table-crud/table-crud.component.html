@@ -157,6 +157,11 @@
             *ngIf="col.formFieldType == 'gp-form-nullable-checkbox-field'"
             [formField]="col"
           ></gp-form-nullable-checkbox-field>
+          <gp-form-color-picker-field
+            *ngIf="col.formFieldType == 'gp-form-color-picker-field'"
+            [formField]="col"
+          >
+          </gp-form-color-picker-field>
         </div>
       </div>
       <div class="p-grid">

@@ -1,0 +1,10 @@
+<input
+  name="__field__{{ formField?.fieldMetadata.fieldName }}"
+  pInputText
+  type="text"
+  [(ngModel)]="currentValue"
+  [maxlength]="maxLength"
+  (change)="onFieldChange()"
+  [disabled]="controlDisabled()"
+/>
+<p-colorPicker [(ngModel)]="currentValue"></p-colorPicker>
