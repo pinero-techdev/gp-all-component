@@ -32,6 +32,8 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   // Once the service has been called, the var is set to true
   private listCharged = false;
 
+  searching = false;
+
   constructor(private tableService: TableService, private gpUtil: GPUtil) {
     super();
   }
@@ -286,6 +288,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
       ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy]
       : null;
 
+    this.searching = true;
     this.tableService
       .list(
         this.formField.fieldMetadata.displayInfo.referencedTable,
@@ -296,7 +299,10 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
       )
       .pipe(
         first(),
-        finalize(() => (this.listCharged = true))
+        finalize(() => {
+          this.listCharged = true;
+          this.searching = false;
+        })
       )
       .subscribe(
         (data: any) => {
