@@ -1,4 +1,5 @@
 <p-dropdown
+  *ngIf="!searching; else loading"
   name="__field__{{ formField?.fieldMetadata.fieldName }}"
   [options]="listAllowedValuesOptions"
   [(ngModel)]="currentValue"
@@ -7,3 +8,6 @@
   [disabled]="controlDisabled()"
   class="ui-inputfield ui-selectonemenu-label full-width"
 ></p-dropdown>
+<ng-template #loading>
+  <gp-loading-indicator></gp-loading-indicator>
+</ng-template>

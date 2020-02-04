@@ -20,6 +20,7 @@ import {
 import { SliderModule } from 'primeng/slider';
 import { ColorPickerModule } from 'primeng/primeng';
 import { FormColorPickerFieldComponent } from './components/form-color-picker-field/form-color-picker-field.component';
+import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,13 @@ import { FormColorPickerFieldComponent } from './components/form-color-picker-fi
     FormWysiwygFieldComponent,
     FormColorPickerFieldComponent,
   ],
-  imports: [CommonModule, FormWrapperSharedModules, SliderModule, ColorPickerModule],
+  imports: [
+    CommonModule,
+    FormWrapperSharedModules,
+    LoadingIndicatorModule,
+    SliderModule,
+    ColorPickerModule,
+  ],
   exports: [
     FormCalendarFieldComponent,
     FormCheckboxFieldComponent,
