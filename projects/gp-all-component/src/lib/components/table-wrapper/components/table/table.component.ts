@@ -35,7 +35,7 @@ export class TableComponent implements AfterContentInit {
 
   @Input() pagination: PaginationOptions;
 
-  @Input() selected = [];
+  @Input() selected;
 
   @Input() emptyMessage = LocaleES.NO_RECORDS_FOUND;
 
@@ -55,7 +55,7 @@ export class TableComponent implements AfterContentInit {
 
   @Output() rowUnselect: EventEmitter<any> = new EventEmitter();
 
-  @Output() selectedChange: EventEmitter<any[]> = new EventEmitter();
+  @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
   @Output() saveRow: EventEmitter<any> = new EventEmitter();
 
