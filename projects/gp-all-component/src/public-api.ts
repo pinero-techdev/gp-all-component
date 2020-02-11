@@ -11,6 +11,7 @@ export * from './lib/services/api/main-menu/main-menu.service';
 export * from './lib/services/api/multi-language/multi-language.service';
 export * from './lib/services/api/table/table.service';
 export * from './lib/services/core/gp-util.service';
+export * from './lib/services/core/auth-guard-logged.service';
 export * from './lib/services/core/auth-guard-redirect.service';
 export * from './lib/services/core/auth-guard.service';
 export * from './lib/services/core/common.service';
