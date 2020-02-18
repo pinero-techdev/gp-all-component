@@ -743,9 +743,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
     this.forEachFieldControl((col: GpFormFieldControl) => {
       const inAddOperation =
-        self.formControl.edicionAdd || col.getFormField().fieldMetadata.hideInAddOperation;
+        self.formControl.edicionAdd && !col.getFormField().fieldMetadata.hideInAddOperation;
 
-      if (!inAddOperation) {
+      if (inAddOperation) {
         valid = col.validateField(self.formControl.editedRow) && valid;
       }
     });
