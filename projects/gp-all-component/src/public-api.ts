@@ -18,6 +18,7 @@ export * from './lib/services/core/common.service';
 export * from './lib/services/core/global-singleton.service';
 export * from './lib/services/core/global.service';
 export * from './lib/services/core/messages.service';
+export * from './lib/services/core/version-check.service';
 export * from './lib/services/session-storage/session-storage.service';
 
 // Classes & Types
