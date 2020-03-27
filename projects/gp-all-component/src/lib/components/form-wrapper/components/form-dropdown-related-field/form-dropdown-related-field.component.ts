@@ -278,6 +278,12 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
             value: item[this.formField.fieldMetadata.displayInfo.referencedField],
           };
         });
+
+      // Autoselect when only one result
+      if (optionsAllowed.length === 1) {
+        this.currentValue = optionsAllowed[0].value;
+      }
+
       this.listAllowedValuesOptions = this.listAllowedValuesOptions.concat(optionsAllowed);
     }
   }

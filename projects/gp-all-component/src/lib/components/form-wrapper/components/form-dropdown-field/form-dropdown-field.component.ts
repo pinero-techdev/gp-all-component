@@ -179,6 +179,12 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
           value: row[this.formField.fieldMetadata.displayInfo.referencedField],
         });
       }
+
+      // Autoselect when only one option
+      if (data.data.length === 1) {
+        this.currentValueDropDown =
+          data.data[this.formField.fieldMetadata.displayInfo.referencedField];
+      }
     } else {
       this.handleError();
     }
