@@ -1,0 +1,12 @@
+<div class="upload-image-container">
+  <p-fileUpload
+    (onSelect)="onSelect($event)"
+    (onRemove)="onRemove()"
+    [showUploadButton]="false"
+    [showCancelButton]="false"
+    chooseLabel="Seleccione fichero"
+    [accept]="formField.fieldMetadata.displayInfo.b64FileInfo?.mimeType"
+    [maxFileSize]="formField.fieldMetadata.displayInfo.b64FileInfo?.maxFileSize"
+  >
+  </p-fileUpload>
+</div>

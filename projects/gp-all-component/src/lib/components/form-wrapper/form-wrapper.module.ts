@@ -18,9 +18,10 @@ import {
   FormWrapperSharedProviders,
 } from '../../shared/imports/form-wrapper-shared';
 import { SliderModule } from 'primeng/slider';
-import { ColorPickerModule } from 'primeng/primeng';
+import { ColorPickerModule, FileUploadModule } from 'primeng/primeng';
 import { FormColorPickerFieldComponent } from './components/form-color-picker-field/form-color-picker-field.component';
 import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
+import { FormB64FileFieldComponent } from './components/form-b64-file-field/form-b64-file-field.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.m
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
     FormColorPickerFieldComponent,
+    FormB64FileFieldComponent,
   ],
   imports: [
     CommonModule,
@@ -45,12 +47,14 @@ import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.m
     LoadingIndicatorModule,
     SliderModule,
     ColorPickerModule,
+    FileUploadModule,
   ],
   exports: [
     FormCalendarFieldComponent,
     FormCheckboxFieldComponent,
     FormDropdownFieldComponent,
     FormDropdownRelatedFieldComponent,
+    FormB64FileFieldComponent,
     FormImgFieldComponent,
     FormNullableCheckboxComponent,
     FormNumberFieldComponent,

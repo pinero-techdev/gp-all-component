@@ -4,6 +4,7 @@ export enum GpFormFieldType {
   DROPDOWN = 'gp-form-dropdown-field',
   DROPDOWN_RELATED = 'gp-form-dropdown-related-field',
   FILE = 'gp-form-file-field',
+  FILE_B64 = 'gp-form-b64-file-field',
   IMG = 'gp-form-img-field',
   NUMBER = 'gp-form-number-field',
   SWITCH = 'gp-form-switch-field',

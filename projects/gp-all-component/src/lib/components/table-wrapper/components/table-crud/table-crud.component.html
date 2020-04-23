@@ -1,5 +1,5 @@
 <p-toast [key]="tableName"></p-toast>
-<div class="p-grid gp-table-wrapper" *ngIf="!working && columns.length > 0">
+<div class="p-grid gp-table-wrapper" *ngIf="!working">
   <div class="p-col-12 table-section" [class.p-xl-6]="displayEdicion">
     <div class="card panel-content">
       <p-table
@@ -162,6 +162,11 @@
             [formField]="col"
           >
           </gp-form-color-picker-field>
+          <gp-form-b64-file-field
+            *ngIf="col.formFieldType == 'gp-form-b64-file-field'"
+            [formField]="col"
+          >
+          </gp-form-b64-file-field>
         </div>
       </div>
       <div class="p-grid">

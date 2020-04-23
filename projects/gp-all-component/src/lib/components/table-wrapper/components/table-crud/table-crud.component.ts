@@ -37,6 +37,7 @@ import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum
 import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
 import { FormNumberFieldComponent } from '../../../form-wrapper/components/form-number-field/form-number-field.component';
 import { FormColorPickerFieldComponent } from '../../../form-wrapper/components/form-color-picker-field/form-color-picker-field.component';
+import { FormB64FileFieldComponent } from '../../../form-wrapper/components/form-b64-file-field/form-b64-file-field.component';
 
 @Component({
   selector: 'gp-table-crud',
@@ -223,6 +224,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
   @ViewChildren(FormNumberFieldComponent)
   numberFormFields: QueryList<FormNumberFieldComponent>;
+
+  @ViewChildren(FormB64FileFieldComponent)
+  fileFormFields: QueryList<FormB64FileFieldComponent>;
 
   constructor(
     private readonly router: Router,
@@ -634,6 +638,9 @@ export class TableCrudComponent implements AfterViewChecked {
       f(col);
     });
     this.colorPickerFormFields.forEach((col) => {
+      f(col);
+    });
+    this.fileFormFields.forEach((col) => {
       f(col);
     });
   }
