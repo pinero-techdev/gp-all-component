@@ -4,6 +4,7 @@ import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { TableService } from '../../../../services/api/table/table.service';
 import { FileUpload } from 'primeng/primeng';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'gp-form-b64-file-field',
@@ -14,6 +15,13 @@ export class FormB64FileFieldComponent extends GpFormFieldControl implements OnI
   @Input() formField: GpFormField;
 
   @ViewChild(FileUpload) upload: FileUpload;
+
+  regExImage = /image\/.*/;
+  isImageFile = false;
+
+  constructor(private sanitizer: DomSanitizer) {
+    super();
+  }
 
   getFieldMetadata(): DataTableMetaDataField {
     return this.formField && this.formField.fieldMetadata ? this.formField.fieldMetadata : null;
@@ -106,12 +114,14 @@ export class FormB64FileFieldComponent extends GpFormFieldControl implements OnI
     const byteString = atob(dataURI.split(',')[1]);
     // get mime type from dataUri (from Base64 prefix)
     const init = base64Prefix.indexOf(':');
+    const initType = base64Prefix.indexOf('/');
     const final = base64Prefix.indexOf(';');
 
     if (init < 0 || final < 0) {
       return null;
     }
     const mimeType = base64Prefix.slice(init + 1, final);
+    const fileType = base64Prefix.slice(initType + 1, final);
 
     const byteArray = new Uint8Array(byteString.length);
 
@@ -119,7 +129,14 @@ export class FormB64FileFieldComponent extends GpFormFieldControl implements OnI
       byteArray[i] = byteString.charCodeAt(i);
     }
     console.log('type: ', mimeType);
+    this.isImageFile = this.regExImage.test(mimeType);
 
-    return new File([byteArray], 'fichero_guardado.png', { type: mimeType });
+    const fileName = `fichero_guardado.${fileType}`;
+
+    return new File([byteArray], fileName, { type: mimeType });
+  }
+
+  getImgSrc(base64: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(base64);
   }
 }

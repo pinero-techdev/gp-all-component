@@ -1,4 +1,5 @@
 <div class="upload-image-container">
+  <img [src]="getImgSrc(currentValue)" *ngIf="currentValue && isImageFile" class="uploaded-image" />
   <p-fileUpload
     (onSelect)="onSelect($event)"
     (onRemove)="onRemove()"
