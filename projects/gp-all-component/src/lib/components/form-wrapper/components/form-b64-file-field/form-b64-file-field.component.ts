@@ -45,19 +45,26 @@ export class FormB64FileFieldComponent extends GpFormFieldControl implements OnI
     };
   }
 
-  onRemove() {
+  // FIXME: VPRATS 24/04/2020
+  /*download( file: File ) {
+    console.log('download-file: ', file);
+    console.log('currentValue:', this.currentValue);
+    // window.location.href = this.currentValue;
+    navigator.msSaveBlob(file, file.name);
+  }*/
+
+  remove() {
+    this.upload.files = [];
     this.currentValue = null;
   }
 
   /* Init method to setup  */
   init() {
-    console.log('init: ', this.currentValue);
     this.setRestrictions();
   }
 
   /* Depending of the restrictions, the current value is formatted */
   copyValueFromControlToEditedRow(editedRow: any) {
-    console.log('editedrow: ', editedRow);
     const hasTextProperties =
       this.formField.fieldMetadata.displayInfo &&
       this.formField.fieldMetadata.displayInfo.textProperties;
@@ -96,10 +103,11 @@ export class FormB64FileFieldComponent extends GpFormFieldControl implements OnI
       this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
       if (this.currentValue) {
         const file = this.b64toFile(this.currentValue);
-        console.log('fileBlob: ', file);
         if (file) {
-          this.upload.files.push(file);
+          this.upload.files = [file];
         }
+      } else {
+        this.upload.files = [];
       }
     }
   }
@@ -128,7 +136,6 @@ export class FormB64FileFieldComponent extends GpFormFieldControl implements OnI
     for (let i = 0; i < byteString.length; i++) {
       byteArray[i] = byteString.charCodeAt(i);
     }
-    console.log('type: ', mimeType);
     this.isImageFile = this.regExImage.test(mimeType);
 
     const fileName = `fichero_guardado.${fileType}`;
