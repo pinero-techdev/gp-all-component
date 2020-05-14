@@ -19,6 +19,7 @@ export class DataTableMetaDataFieldDisplayInfo {
   options: DataTableMetaDataFieldDisplayInfoOption[];
   referencedTable: string;
   referencedField: string;
+  defaultValue: string = null;
   fieldToOrderBy: string;
   filters: Filter[];
   rowsTextArea: number;
