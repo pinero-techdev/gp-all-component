@@ -20,6 +20,8 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
    */
   @Input() formField: GpFormField;
 
+  @Input() canTranslate = true;
+
   /**
    * Class for textbox
    */
