@@ -121,6 +121,7 @@
           <gp-form-textarea-field
             *ngIf="col.formFieldType == 'gp-form-textarea-field'"
             [formField]="col"
+            [canTranslate]="formControl.edicionEdit"
           >
           </gp-form-textarea-field>
           <gp-form-dropdown-field
