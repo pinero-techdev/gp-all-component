@@ -2,7 +2,9 @@
   <div
     class="full-width"
     [class.with-multilanguage]="
-      formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''
+      formField.fieldMetadata.displayInfo.translationInfo != null &&
+      translationKeys != '' &&
+      canTranslate
     "
   >
     <input
@@ -18,7 +20,11 @@
     />
   </div>
   <div
-    *ngIf="formField.fieldMetadata.displayInfo.translationInfo != null && translationKeys != ''"
+    *ngIf="
+      formField.fieldMetadata.displayInfo.translationInfo != null &&
+      translationKeys != '' &&
+      canTranslate
+    "
     class="multilanguage-wrapper"
   >
     <gp-multi-language

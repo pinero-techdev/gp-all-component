@@ -108,7 +108,11 @@
         >
           <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField]="col">
           </gp-form-time-field>
-          <gp-form-text-field *ngIf="col.formFieldType == 'gp-form-text-field'" [formField]="col">
+          <gp-form-text-field
+            *ngIf="col.formFieldType == 'gp-form-text-field'"
+            [formField]="col"
+            [canTranslate]="formControl.edicionEdit"
+          >
           </gp-form-text-field>
           <gp-form-number-field
             *ngIf="col.formFieldType == 'gp-form-number-field'"
@@ -117,6 +121,7 @@
           <gp-form-textarea-field
             *ngIf="col.formFieldType == 'gp-form-textarea-field'"
             [formField]="col"
+            [canTranslate]="formControl.edicionEdit"
           >
           </gp-form-textarea-field>
           <gp-form-dropdown-field
