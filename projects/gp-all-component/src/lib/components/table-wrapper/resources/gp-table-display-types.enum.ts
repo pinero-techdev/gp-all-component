@@ -13,4 +13,5 @@ export enum GpTableDisplayTypes {
   BOOLEAN = 'BOOLEAN',
   GENERIC = 'GENERIC',
   COLOR_PICKER = 'COLOR_PICKER',
+  PASSWORD = 'PASSWORD',
 }

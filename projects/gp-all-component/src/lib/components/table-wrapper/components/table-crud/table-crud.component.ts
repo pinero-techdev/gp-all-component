@@ -38,6 +38,7 @@ import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/
 import { FormNumberFieldComponent } from '../../../form-wrapper/components/form-number-field/form-number-field.component';
 import { FormColorPickerFieldComponent } from '../../../form-wrapper/components/form-color-picker-field/form-color-picker-field.component';
 import { FormB64FileFieldComponent } from '../../../form-wrapper/components/form-b64-file-field/form-b64-file-field.component';
+import { FormPasswordFieldComponent } from '../../../form-wrapper/components/form-password-field/form-password-field.component';
 
 @Component({
   selector: 'gp-table-crud',
@@ -188,6 +189,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
   @ViewChildren(FormTextFieldComponent)
   textFormFields: QueryList<FormTextFieldComponent>;
+
+  @ViewChildren(FormPasswordFieldComponent)
+  passwordFormFields: QueryList<FormPasswordFieldComponent>;
 
   @ViewChildren(FormImgFieldComponent)
   imgFormFields: QueryList<FormImgFieldComponent>;
@@ -602,6 +606,9 @@ export class TableCrudComponent implements AfterViewChecked {
    */
   private forEachFieldControl(f: (col: GpFormControl) => void): void {
     this.textFormFields.forEach((col) => {
+      f(col);
+    });
+    this.passwordFormFields.forEach((col) => {
       f(col);
     });
     this.textAreaFormFields.forEach((col) => {

@@ -22,6 +22,7 @@ import { ColorPickerModule, FileUploadModule } from 'primeng/primeng';
 import { FormColorPickerFieldComponent } from './components/form-color-picker-field/form-color-picker-field.component';
 import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
 import { FormB64FileFieldComponent } from './components/form-b64-file-field/form-b64-file-field.component';
+import { FormPasswordFieldComponent } from './components/form-password-field/form-password-field.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { FormB64FileFieldComponent } from './components/form-b64-file-field/form
     FormSwitchFieldComponent,
     FormTextAreaFieldComponent,
     FormTextFieldComponent,
+    FormPasswordFieldComponent,
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
     FormColorPickerFieldComponent,
@@ -62,6 +64,7 @@ import { FormB64FileFieldComponent } from './components/form-b64-file-field/form
     FormSwitchFieldComponent,
     FormTextAreaFieldComponent,
     FormTextFieldComponent,
+    FormPasswordFieldComponent,
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
     FormColorPickerFieldComponent,
