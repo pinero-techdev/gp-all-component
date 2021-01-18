@@ -739,6 +739,7 @@ export class TableCrudComponent implements AfterViewChecked {
 
           this.data.push(data.insertedRow);
           this.closeDialog();
+          this.changes.emit(true);
         },
 
         (err) =>
