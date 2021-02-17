@@ -68,7 +68,7 @@ export class CommonService {
     }
 
     const ok = 'ok';
-    const res = this.post<T>(url, body).pipe(
+    return this.post<T>(url, body).pipe(
       map((response) => {
         if (response[ok]) {
           this.sessionStorageService.setItem(
@@ -79,7 +79,6 @@ export class CommonService {
         return response;
       })
     );
-    return res;
   }
 
   post<T>(url: string, body: any): Observable<T> {

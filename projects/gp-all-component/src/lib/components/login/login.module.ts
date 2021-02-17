@@ -6,6 +6,7 @@ import { LoginService } from '../../services/api/login/login.service';
 import { ButtonModule } from '../button/button.module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     ReactiveFormsModule,
     LoginRoutingModule,
+    LoadingIndicatorModule,
   ],
   exports: [LoginComponent],
   providers: [LoginService],
