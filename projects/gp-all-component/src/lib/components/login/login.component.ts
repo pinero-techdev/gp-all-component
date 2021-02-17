@@ -152,6 +152,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /** On init state, a router listener is set for getting the possible query params by url. */
   private initLogin() {
+    this.working = true;
     let otherParams = null;
     let urlToRedirect = null;
     let urlParams = null;
@@ -167,6 +168,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     if ((this.username && this.password) || otherParams) {
       this.login(urlToRedirect, urlParams, otherParams);
+    } else {
+      this.working = false;
     }
   }
 
