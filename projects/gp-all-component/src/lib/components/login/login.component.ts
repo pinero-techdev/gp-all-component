@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   /* Username text input value */
   username: string;
   /* Loading */
-  working = false;
+  working = true;
 
   /** Localization strings */
   readonly locale = LocaleES;
@@ -54,8 +54,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /**
    * When form is submitted, get the input fields values and try to login
-   * @param urlToRedirect After login state
-   * @param otherParams string
    */
   login(urlToRedirect?: string, urlParams?: string, otherParams?: string) {
     if ((this.password && this.username) || otherParams) {
@@ -152,7 +150,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /** On init state, a router listener is set for getting the possible query params by url. */
   private initLogin() {
-    this.working = true;
     let otherParams = null;
     let urlToRedirect = null;
     let urlParams = null;
