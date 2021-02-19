@@ -25,7 +25,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   /* Username text input value */
   username: string;
   /* Loading */
-  working = true;
+  working = false;
+  /* Hidden Login */
+  hiddenLogin = true;
 
   /** Localization strings */
   readonly locale = LocaleES;
@@ -155,6 +157,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     let urlParams = null;
 
     this.route.queryParams.pipe(takeUntil(this.isDestroyed)).subscribe((params) => {
+      this.hiddenLogin = params.hiddenLogin ? params.hiddenLogin : false;
       this.username = params.username;
       this.password = params.password;
       otherParams = params.otherparams;
@@ -179,8 +182,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (params) {
       for (const property of params.split(' ')) {
         const key = property.split('=')[0];
-        const value = property.split('=')[1];
-        queryParams[key] = value;
+        queryParams[key] = property.split('=')[1];
       }
     }
     return queryParams;

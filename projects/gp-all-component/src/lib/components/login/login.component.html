@@ -1,4 +1,4 @@
-<div class="login-body">
+<div class="login-body" *ngIf="!hiddenLogin">
   <div class="card login-panel ui-fluid" *ngIf="!working">
     <div class="login-panel-logo"></div>
     <div *ngIf="title" class="login-panel-title"
