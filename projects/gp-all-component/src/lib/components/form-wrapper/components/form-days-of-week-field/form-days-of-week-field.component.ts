@@ -21,8 +21,6 @@ export class FormDaysOfWeekFieldComponent extends GpFormFieldControl implements 
   day5Checked: boolean;
   day6Checked: boolean;
   day7Checked: boolean;
-  // tslint:disable-next-line:max-line-length
-  // currentValue = [this.day1Checked,this.day2Checked, this.day3Checked, this.day4Checked, this.day5Checked, this.day6Checked, this.day7Checked];
   ngOnInit() {
     this.isDisabled = this.controlDisabled();
   }
@@ -46,10 +44,7 @@ export class FormDaysOfWeekFieldComponent extends GpFormFieldControl implements 
    * @param editedRow The editing row
    */
   copyValueFromControlToEditedRow(editedRow: any) {
-    // Copia el valor recogido al current value - Ej '0000111'
     editedRow[this.formField.fieldMetadata.fieldName] = this.currentValue;
-    console.log('valor actual BBDD: ' + this.getValueToBBDD());
-    // Pasamos este valor a las checkboxes
     this.setValueToCheckboxes(this.currentValue);
   }
 
@@ -59,9 +54,12 @@ export class FormDaysOfWeekFieldComponent extends GpFormFieldControl implements 
    */
   copyValueFromEditedRowToControl(editedRow: any) {
     // tslint:enable
-    console.log('copyValueFromEditedRowToControl - currentValue = ' + this.currentValue);
-    this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
-    console.log('copyValueFromEditedRowToControl - currentValue = ' + this.currentValue);
+    if (editedRow[this.formField.fieldMetadata.fieldName] !== undefined) {
+      this.currentValue = editedRow[this.formField.fieldMetadata.fieldName];
+    } else {
+      this.currentValue = this.getValueToBBDD();
+    }
+    this.setValueToCheckboxes(this.currentValue);
   }
 
   /**
@@ -77,7 +75,6 @@ export class FormDaysOfWeekFieldComponent extends GpFormFieldControl implements 
     return false;
   }
   dayChanged(day: number, $event) {
-    console.log('day ' + day + ' status: ' + $event);
     if (day === 1) {
       this.day1Checked = $event;
     } else if (day === 2) {

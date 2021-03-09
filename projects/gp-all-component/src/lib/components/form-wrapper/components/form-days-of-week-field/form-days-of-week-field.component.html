@@ -1,65 +1,79 @@
-<div>
-  <p-checkbox
-    name="__field__{{ formField?.fieldMetadata.fieldName }}"
-    binary="true"
-    [(ngModel)]="day1Checked"
-    (onChange)="dayChanged(1, $event)"
-    [disabled]="isDisabled"
-  >
-  </p-checkbox>
-  <span>L</span>
-  <p-checkbox
-    name="__field__{{ formField?.fieldMetadata.fieldName }}2"
-    binary="true"
-    [(ngModel)]="day2Checked"
-    (onChange)="dayChanged(2, $event)"
-    [disabled]="isDisabled"
-  >
-  </p-checkbox>
-  <span>M</span>
-  <p-checkbox
-    name="__field__{{ formField?.fieldMetadata.fieldName }}3"
-    binary="true"
-    [(ngModel)]="day3Checked"
-    (onChange)="dayChanged(3, $event)"
-    [disabled]="isDisabled"
-  >
-  </p-checkbox>
-  <span>X</span>
-  <p-checkbox
-    name="__field__{{ formField?.fieldMetadata.fieldName }}4"
-    binary="true"
-    [(ngModel)]="day4Checked"
-    (onChange)="dayChanged(4, $event)"
-    [disabled]="isDisabled"
-  >
-  </p-checkbox>
-  <span>J</span>
-  <p-checkbox
-    name="__field__{{ formField?.fieldMetadata.fieldName }}5"
-    binary="true"
-    [(ngModel)]="day5Checked"
-    (onChange)="dayChanged(5, $event)"
-    [disabled]="isDisabled"
-  >
-  </p-checkbox>
-  <span>V</span>
-  <p-checkbox
-    name="__field__{{ formField?.fieldMetadata.fieldName }}6"
-    binary="true"
-    [(ngModel)]="day6Checked"
-    (onChange)="dayChanged(6, $event)"
-    [disabled]="isDisabled"
-  >
-  </p-checkbox>
-  <span>S</span>
-  <p-checkbox
-    name="__field__{{ formField?.fieldMetadata.fieldName }}7"
-    binary="true"
-    [(ngModel)]="day7Checked"
-    (onChange)="dayChanged(7, $event)"
-    [disabled]="isDisabled"
-  >
-  </p-checkbox>
-  <span>D</span>
+<div class="ui-inputgroup">
+  <div class="p-col-1">
+    <p-checkbox
+      name="__field__{{ formField?.fieldMetadata.fieldName }}"
+      binary="true"
+      [(ngModel)]="day1Checked"
+      (onChange)="dayChanged(1, $event)"
+      [disabled]="isDisabled"
+    >
+    </p-checkbox>
+    <span class="ui-chkbox-label">L</span>
+  </div>
+  <div class="p-col-1">
+    <p-checkbox
+      name="__field__{{ formField?.fieldMetadata.fieldName }}2"
+      binary="true"
+      [(ngModel)]="day2Checked"
+      (onChange)="dayChanged(2, $event)"
+      [disabled]="isDisabled"
+    >
+    </p-checkbox>
+    <span class="ui-chkbox-label">M</span>
+  </div>
+  <div class="p-col-1">
+    <p-checkbox
+      name="__field__{{ formField?.fieldMetadata.fieldName }}3"
+      binary="true"
+      [(ngModel)]="day3Checked"
+      (onChange)="dayChanged(3, $event)"
+      [disabled]="isDisabled"
+    >
+    </p-checkbox>
+    <span class="ui-chkbox-label">X</span>
+  </div>
+  <div class="p-col-1">
+    <p-checkbox
+      name="__field__{{ formField?.fieldMetadata.fieldName }}4"
+      binary="true"
+      [(ngModel)]="day4Checked"
+      (onChange)="dayChanged(4, $event)"
+      [disabled]="isDisabled"
+    >
+    </p-checkbox>
+    <span class="ui-chkbox-label">J</span>
+  </div>
+  <div class="p-col-1">
+    <p-checkbox
+      name="__field__{{ formField?.fieldMetadata.fieldName }}5"
+      binary="true"
+      [(ngModel)]="day5Checked"
+      (onChange)="dayChanged(5, $event)"
+      [disabled]="isDisabled"
+    >
+    </p-checkbox>
+    <span class="ui-chkbox-label">V</span>
+  </div>
+  <div class="p-col-1">
+    <p-checkbox
+      name="__field__{{ formField?.fieldMetadata.fieldName }}6"
+      binary="true"
+      [(ngModel)]="day6Checked"
+      (onChange)="dayChanged(6, $event)"
+      [disabled]="isDisabled"
+    >
+    </p-checkbox>
+    <span class="ui-chkbox-label">S</span>
+  </div>
+  <div class="p-col-1">
+    <p-checkbox
+      name="__field__{{ formField?.fieldMetadata.fieldName }}7"
+      binary="true"
+      [(ngModel)]="day7Checked"
+      (onChange)="dayChanged(7, $event)"
+      [disabled]="isDisabled"
+    >
+    </p-checkbox>
+    <span class="ui-chkbox-label">D</span>
+  </div>
 </div>
