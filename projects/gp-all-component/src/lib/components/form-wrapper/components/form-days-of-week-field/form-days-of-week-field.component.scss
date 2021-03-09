@@ -1,0 +1,43 @@
+@import 'global/variables';
+@import 'global/mixins';
+
+// ::ng-deep is deprecated but not removed.
+// More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
+::ng-deep {
+  .ui-chkbox.ui-widget {
+    &:enabled:hover:not(.ui-state-error) {
+      border-color: $inputBorderColor;
+    }
+
+    .ui-chkbox-box {
+      border-color: $inputBorderColor;
+      @include box-shadow(0 0 4px 0 rgba($blackColor, $inputShadowOpacity));
+
+      &.ui-state-active,
+      &.ui-state-active:not(.ui-state-disabled):hover {
+        border-color: $primaryColor;
+        background: $primaryColor;
+
+        .ui-chkbox-icon {
+          color: $whiteColor;
+          border-color: $primaryColor;
+          background: transparent;
+        }
+      }
+
+      &:not(.ui-state-disabled):hover {
+        border-color: $inputBorderColor;
+      }
+
+      &:focus,
+      &.ui-state-focus {
+        outline: none;
+        box-shadow: none;
+        border-color: $inputBorderColor;
+      }
+    }
+  }
+  span {
+    padding-left: 5px;
+  }
+}

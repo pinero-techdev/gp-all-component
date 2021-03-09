@@ -23,6 +23,7 @@ import { FormColorPickerFieldComponent } from './components/form-color-picker-fi
 import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
 import { FormB64FileFieldComponent } from './components/form-b64-file-field/form-b64-file-field.component';
 import { FormPasswordFieldComponent } from './components/form-password-field/form-password-field.component';
+import { FormDaysOfWeekFieldComponent } from './components/form-days-of-week-field/form-days-of-week-field.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { FormPasswordFieldComponent } from './components/form-password-field/for
     FormWysiwygFieldComponent,
     FormColorPickerFieldComponent,
     FormB64FileFieldComponent,
+    FormDaysOfWeekFieldComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { FormPasswordFieldComponent } from './components/form-password-field/for
     FormCheckboxFieldComponent,
     FormDropdownFieldComponent,
     FormDropdownRelatedFieldComponent,
+    FormDaysOfWeekFieldComponent,
     FormB64FileFieldComponent,
     FormImgFieldComponent,
     FormNullableCheckboxComponent,

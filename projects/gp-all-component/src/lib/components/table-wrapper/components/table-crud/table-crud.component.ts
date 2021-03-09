@@ -39,6 +39,7 @@ import { FormNumberFieldComponent } from '../../../form-wrapper/components/form-
 import { FormColorPickerFieldComponent } from '../../../form-wrapper/components/form-color-picker-field/form-color-picker-field.component';
 import { FormB64FileFieldComponent } from '../../../form-wrapper/components/form-b64-file-field/form-b64-file-field.component';
 import { FormPasswordFieldComponent } from '../../../form-wrapper/components/form-password-field/form-password-field.component';
+import { FormDaysOfWeekFieldComponent } from '../../../form-wrapper/components/form-days-of-week-field/form-days-of-week-field.component';
 
 @Component({
   selector: 'gp-table-crud',
@@ -213,6 +214,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
   @ViewChildren(FormCheckboxFieldComponent)
   checkboxFormFields: QueryList<FormCheckboxFieldComponent>;
+
+  @ViewChildren(FormDaysOfWeekFieldComponent)
+  daysOfWeekFormFields: QueryList<FormDaysOfWeekFieldComponent>;
 
   @ViewChildren(FormCalendarFieldComponent)
   calendarFormFields: QueryList<FormCalendarFieldComponent>;
@@ -627,6 +631,9 @@ export class TableCrudComponent implements AfterViewChecked {
       f(col);
     });
     this.checkboxFormFields.forEach((col) => {
+      f(col);
+    });
+    this.daysOfWeekFormFields.forEach((col) => {
       f(col);
     });
     this.calendarFormFields.forEach((col) => {
