@@ -15,4 +15,5 @@ export enum GpFormFieldType {
   NULLABLE_CHECKBOX = 'gp-form-nullable-checkbox-field',
   COLOR_PICKER = 'gp-form-color-picker-field',
   PASSWORD = 'gp-form-password-field',
+  DAYS_OF_WEEK = 'gp-form-days-of-week-field',
 }

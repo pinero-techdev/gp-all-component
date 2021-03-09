@@ -156,6 +156,11 @@
             [formField]="col"
           >
           </gp-form-checkbox-field>
+          <gp-form-days-of-week-field
+            *ngIf="col.formFieldType == 'gp-form-days-of-week-field'"
+            [formField]="col"
+          >
+          </gp-form-days-of-week-field>
           <gp-form-calendar-field
             *ngIf="col.formFieldType == 'gp-form-calendar-field'"
             [formField]="col"
