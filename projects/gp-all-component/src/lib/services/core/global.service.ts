@@ -97,6 +97,14 @@ export class GlobalService {
     GlobalService.globalSingleton.ip = ip;
   }
 
+  public static getPERIPHERAL(): string {
+    return GlobalService.globalSingleton.peripheralId;
+  }
+
+  public static setPeripheral(peripheralId: string) {
+    GlobalService.globalSingleton.peripheralId = peripheralId;
+  }
+
   public static getPARAMS(): Param[] {
     return GlobalService.globalSingleton.params;
   }
