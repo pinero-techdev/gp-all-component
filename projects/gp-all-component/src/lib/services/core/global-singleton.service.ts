@@ -15,7 +15,7 @@ export class GlobalSingletonService {
   private appValue: string;
   private versionValue: string;
   private ipValue: string;
-  private peripheralIdValue: string;
+  private peripheralValue: string;
   private paramsValue: Param[] = [];
   private sessionValue: UserInfo;
   private sessionIdValue: string;
@@ -98,12 +98,12 @@ export class GlobalSingletonService {
     this.ipValue = value;
   }
 
-  get peripheralId(): string {
-    return this.peripheralIdValue;
+  get peripheral(): string {
+    return this.peripheralValue;
   }
 
-  set peripheralId(value: string) {
-    this.peripheralIdValue = value;
+  set peripheral(value: string) {
+    this.peripheralValue = value;
   }
 
   get params(): Param[] {

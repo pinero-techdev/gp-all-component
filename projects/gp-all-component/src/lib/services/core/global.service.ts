@@ -98,11 +98,11 @@ export class GlobalService {
   }
 
   public static getPERIPHERAL(): string {
-    return GlobalService.globalSingleton.peripheralId;
+    return GlobalService.globalSingleton.peripheral;
   }
 
-  public static setPeripheral(peripheralId: string) {
-    GlobalService.globalSingleton.peripheralId = peripheralId;
+  public static setPeripheral(peripheral: string) {
+    GlobalService.globalSingleton.peripheral = peripheral;
   }
 
   public static getPARAMS(): Param[] {
