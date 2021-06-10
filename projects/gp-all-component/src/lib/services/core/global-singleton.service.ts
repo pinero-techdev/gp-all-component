@@ -15,6 +15,7 @@ export class GlobalSingletonService {
   private appValue: string;
   private versionValue: string;
   private ipValue: string;
+  private peripheralValue: string;
   private paramsValue: Param[] = [];
   private sessionValue: UserInfo;
   private sessionIdValue: string;
@@ -56,6 +57,7 @@ export class GlobalSingletonService {
   set preLoginUrl(value: string) {
     this.preLoginUrlValue = value;
   }
+
   get preLoginParams(): Params {
     return this.preLoginParamsValue;
   }
@@ -94,6 +96,14 @@ export class GlobalSingletonService {
 
   set ip(value: string) {
     this.ipValue = value;
+  }
+
+  get peripheral(): string {
+    return this.peripheralValue;
+  }
+
+  set peripheral(value: string) {
+    this.peripheralValue = value;
   }
 
   get params(): Param[] {

@@ -37,6 +37,9 @@ import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum
 import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
 import { FormNumberFieldComponent } from '../../../form-wrapper/components/form-number-field/form-number-field.component';
 import { FormColorPickerFieldComponent } from '../../../form-wrapper/components/form-color-picker-field/form-color-picker-field.component';
+import { FormB64FileFieldComponent } from '../../../form-wrapper/components/form-b64-file-field/form-b64-file-field.component';
+import { FormPasswordFieldComponent } from '../../../form-wrapper/components/form-password-field/form-password-field.component';
+import { FormDaysOfWeekFieldComponent } from '../../../form-wrapper/components/form-days-of-week-field/form-days-of-week-field.component';
 
 @Component({
   selector: 'gp-table-crud',
@@ -188,6 +191,9 @@ export class TableCrudComponent implements AfterViewChecked {
   @ViewChildren(FormTextFieldComponent)
   textFormFields: QueryList<FormTextFieldComponent>;
 
+  @ViewChildren(FormPasswordFieldComponent)
+  passwordFormFields: QueryList<FormPasswordFieldComponent>;
+
   @ViewChildren(FormImgFieldComponent)
   imgFormFields: QueryList<FormImgFieldComponent>;
 
@@ -209,6 +215,9 @@ export class TableCrudComponent implements AfterViewChecked {
   @ViewChildren(FormCheckboxFieldComponent)
   checkboxFormFields: QueryList<FormCheckboxFieldComponent>;
 
+  @ViewChildren(FormDaysOfWeekFieldComponent)
+  daysOfWeekFormFields: QueryList<FormDaysOfWeekFieldComponent>;
+
   @ViewChildren(FormCalendarFieldComponent)
   calendarFormFields: QueryList<FormCalendarFieldComponent>;
 
@@ -223,6 +232,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
   @ViewChildren(FormNumberFieldComponent)
   numberFormFields: QueryList<FormNumberFieldComponent>;
+
+  @ViewChildren(FormB64FileFieldComponent)
+  fileFormFields: QueryList<FormB64FileFieldComponent>;
 
   constructor(
     private readonly router: Router,
@@ -600,6 +612,9 @@ export class TableCrudComponent implements AfterViewChecked {
     this.textFormFields.forEach((col) => {
       f(col);
     });
+    this.passwordFormFields.forEach((col) => {
+      f(col);
+    });
     this.textAreaFormFields.forEach((col) => {
       f(col);
     });
@@ -618,6 +633,9 @@ export class TableCrudComponent implements AfterViewChecked {
     this.checkboxFormFields.forEach((col) => {
       f(col);
     });
+    this.daysOfWeekFormFields.forEach((col) => {
+      f(col);
+    });
     this.calendarFormFields.forEach((col) => {
       f(col);
     });
@@ -634,6 +652,9 @@ export class TableCrudComponent implements AfterViewChecked {
       f(col);
     });
     this.colorPickerFormFields.forEach((col) => {
+      f(col);
+    });
+    this.fileFormFields.forEach((col) => {
       f(col);
     });
   }
@@ -725,6 +746,7 @@ export class TableCrudComponent implements AfterViewChecked {
 
           this.data.push(data.insertedRow);
           this.closeDialog();
+          this.changes.emit(true);
         },
 
         (err) =>
@@ -743,9 +765,9 @@ export class TableCrudComponent implements AfterViewChecked {
 
     this.forEachFieldControl((col: GpFormFieldControl) => {
       const inAddOperation =
-        self.formControl.edicionAdd || col.getFormField().fieldMetadata.hideInAddOperation;
+        self.formControl.edicionAdd && !col.getFormField().fieldMetadata.hideInAddOperation;
 
-      if (!inAddOperation) {
+      if (inAddOperation) {
         valid = col.validateField(self.formControl.editedRow) && valid;
       }
     });

@@ -6,5 +6,6 @@ export class TableColumn {
   frozen: boolean;
   sortable: boolean;
   filterable: boolean;
+  filterMode = 'contains';
   defaultSort: boolean;
 }

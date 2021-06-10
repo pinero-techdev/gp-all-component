@@ -13,4 +13,6 @@ export enum GpTableDisplayTypes {
   BOOLEAN = 'BOOLEAN',
   GENERIC = 'GENERIC',
   COLOR_PICKER = 'COLOR_PICKER',
+  PASSWORD = 'PASSWORD',
+  DAYS_OF_WEEK = 'gp-form-days-of-week-field',
 }

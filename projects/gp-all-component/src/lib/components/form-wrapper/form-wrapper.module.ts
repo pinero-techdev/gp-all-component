@@ -18,8 +18,12 @@ import {
   FormWrapperSharedProviders,
 } from '../../shared/imports/form-wrapper-shared';
 import { SliderModule } from 'primeng/slider';
-import { ColorPickerModule } from 'primeng/primeng';
+import { ColorPickerModule, FileUploadModule } from 'primeng/primeng';
 import { FormColorPickerFieldComponent } from './components/form-color-picker-field/form-color-picker-field.component';
+import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
+import { FormB64FileFieldComponent } from './components/form-b64-file-field/form-b64-file-field.component';
+import { FormPasswordFieldComponent } from './components/form-password-field/form-password-field.component';
+import { FormDaysOfWeekFieldComponent } from './components/form-days-of-week-field/form-days-of-week-field.component';
 
 @NgModule({
   declarations: [
@@ -34,16 +38,28 @@ import { FormColorPickerFieldComponent } from './components/form-color-picker-fi
     FormSwitchFieldComponent,
     FormTextAreaFieldComponent,
     FormTextFieldComponent,
+    FormPasswordFieldComponent,
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
     FormColorPickerFieldComponent,
+    FormB64FileFieldComponent,
+    FormDaysOfWeekFieldComponent,
   ],
-  imports: [CommonModule, FormWrapperSharedModules, SliderModule, ColorPickerModule],
+  imports: [
+    CommonModule,
+    FormWrapperSharedModules,
+    LoadingIndicatorModule,
+    SliderModule,
+    ColorPickerModule,
+    FileUploadModule,
+  ],
   exports: [
     FormCalendarFieldComponent,
     FormCheckboxFieldComponent,
     FormDropdownFieldComponent,
     FormDropdownRelatedFieldComponent,
+    FormDaysOfWeekFieldComponent,
+    FormB64FileFieldComponent,
     FormImgFieldComponent,
     FormNullableCheckboxComponent,
     FormNumberFieldComponent,
@@ -51,6 +67,7 @@ import { FormColorPickerFieldComponent } from './components/form-color-picker-fi
     FormSwitchFieldComponent,
     FormTextAreaFieldComponent,
     FormTextFieldComponent,
+    FormPasswordFieldComponent,
     FormTimeFieldComponent,
     FormWysiwygFieldComponent,
     FormColorPickerFieldComponent,

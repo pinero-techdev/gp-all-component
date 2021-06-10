@@ -10,11 +10,11 @@ import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 import { isNullOrUndefined } from 'util';
 
 @Component({
-  selector: 'gp-form-text-field',
-  templateUrl: './form-text-field.component.html',
-  styleUrls: ['./form-text-field.component.scss'],
+  selector: 'gp-form-password-field',
+  templateUrl: './form-password-field.component.html',
+  styleUrls: ['./form-password-field.component.scss'],
 })
-export class FormTextFieldComponent extends GpFormFieldControl implements OnInit {
+export class FormPasswordFieldComponent extends GpFormFieldControl implements OnInit {
   /**
    * The formField for this component
    */

@@ -1,4 +1,7 @@
-<div class="textarea-field-wrapper" [class.with-multilanguage]="translateInfo && translationKeys">
+<div
+  class="textarea-field-wrapper"
+  [class.with-multilanguage]="translateInfo && translationKeys && canTranslate"
+>
   <textarea
     name="__field__{{ name }}"
     pInputTextarea
@@ -8,7 +11,7 @@
     class="full-width {{ textboxClass }}"
     [disabled]="isDisabled"
   ></textarea>
-  <div class="multilanguage-wrapper" *ngIf="translateInfo && translationKeys">
+  <div class="multilanguage-wrapper" *ngIf="translateInfo && translationKeys && canTranslate">
     <gp-multi-language
       [pKey]="translationKeys"
       [schema]="translateInfo.scheme"

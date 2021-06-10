@@ -4,6 +4,7 @@ export enum GpFormFieldType {
   DROPDOWN = 'gp-form-dropdown-field',
   DROPDOWN_RELATED = 'gp-form-dropdown-related-field',
   FILE = 'gp-form-file-field',
+  FILE_B64 = 'gp-form-b64-file-field',
   IMG = 'gp-form-img-field',
   NUMBER = 'gp-form-number-field',
   SWITCH = 'gp-form-switch-field',
@@ -13,4 +14,6 @@ export enum GpFormFieldType {
   WYSIWYG = 'gp-form-wysiwyg-field',
   NULLABLE_CHECKBOX = 'gp-form-nullable-checkbox-field',
   COLOR_PICKER = 'gp-form-color-picker-field',
+  PASSWORD = 'gp-form-password-field',
+  DAYS_OF_WEEK = 'gp-form-days-of-week-field',
 }

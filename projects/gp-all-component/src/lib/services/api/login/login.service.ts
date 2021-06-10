@@ -148,8 +148,8 @@ export class LoginService {
 
   cleanSessionInfo() {
     // Limpieza informacion de sesion.
-    this.sessionStorageService.removeItem('sessionId');
     this.sessionStorageService.removeItem('userInfo');
+    this.sessionStorageService.removeItem('sessionId');
     // Limpieza de los datos de username del global service.
     GlobalService.setLogged(false);
     GlobalService.setSession(new UserInfo());

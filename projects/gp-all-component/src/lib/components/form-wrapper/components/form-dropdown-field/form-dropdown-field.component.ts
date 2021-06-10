@@ -7,7 +7,7 @@ import { SelectItem } from 'primeng/api';
 import { TableService } from '../../../../services/api/table/table.service';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
-import { isUndefined } from 'util';
+import { isNullOrUndefined, isUndefined } from 'util';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -36,7 +36,9 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
   }
 
   get currentValueDropDown(): string {
-    return isUndefined(this.currentValue) ? null : this.currentValue;
+    return isNullOrUndefined(this.currentValue)
+      ? this.formField.fieldMetadata.displayInfo.defaultValue
+      : this.currentValue;
   }
 
   ngOnInit() {
@@ -71,7 +73,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
 
         this.listAllowedValuesOptions.push({
           label,
-          value: null,
+          value: this.formField.fieldMetadata.displayInfo.defaultValue,
         });
 
         for (const i of this.formField.fieldMetadata.displayInfo.options) {
@@ -100,7 +102,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
       this.currentValueDropDown =
         editedRow && editedRow.hasOwnProperty(this.formField.fieldMetadata.fieldName)
           ? editedRow[this.formField.fieldMetadata.fieldName]
-          : null;
+          : this.formField.fieldMetadata.displayInfo.defaultValue;
     }
   }
 
@@ -135,7 +137,12 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
 
   /** Getting the table data from service */
   private getTableData() {
-    this.listAllowedValuesOptions = [{ label: LocaleES.LOADING_DROPDOWN_DATA, value: null }];
+    this.listAllowedValuesOptions = [
+      {
+        label: LocaleES.LOADING_DROPDOWN_DATA,
+        value: this.formField.fieldMetadata.displayInfo.defaultValue,
+      },
+    ];
 
     const fieldToOrderBy = this.formField.fieldMetadata.displayInfo.fieldToOrderBy
       ? [this.formField.fieldMetadata.displayInfo.fieldToOrderBy]
@@ -164,7 +171,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
             this.formField.fieldMetadata.displayInfo.fieldLabel //
               .toLowerCase() +
             ' ...',
-          value: null,
+          value: this.formField.fieldMetadata.displayInfo.defaultValue,
         },
       ];
       for (const row of data.data) {
@@ -179,6 +186,12 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
           value: row[this.formField.fieldMetadata.displayInfo.referencedField],
         });
       }
+
+      // Autoselect when only one option
+      if (data.data.length === 1) {
+        this.currentValueDropDown =
+          data.data[this.formField.fieldMetadata.displayInfo.referencedField];
+      }
     } else {
       this.handleError();
     }
@@ -186,6 +199,11 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
 
   /** Handling error showing an message */
   private handleError() {
-    this.listAllowedValuesOptions = [{ label: LocaleES.AN_ERROR_HAS_OCURRED, value: null }];
+    this.listAllowedValuesOptions = [
+      {
+        label: LocaleES.AN_ERROR_HAS_OCURRED,
+        value: this.formField.fieldMetadata.displayInfo.defaultValue,
+      },
+    ];
   }
 }

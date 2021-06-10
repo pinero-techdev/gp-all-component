@@ -83,10 +83,20 @@ body .ui-message .ui-message-text {
 
 .control {
   &-valid {
-    border-left: 5px solid $successColor !important;
+    &:not(p-calendar) {
+      border-left: 5px solid $successColor !important;
+    }
+    .ui-calendar {
+      border-left: 5px solid $successColor !important;
+    }
   }
   &-error {
-    border-left: 5px solid $errorColor !important;
+    &:not(p-calendar) {
+      border-left: 5px solid $errorColor !important;
+    }
+    .ui-calendar {
+      border-left: 5px solid $errorColor !important;
+    }
   }
 }
 

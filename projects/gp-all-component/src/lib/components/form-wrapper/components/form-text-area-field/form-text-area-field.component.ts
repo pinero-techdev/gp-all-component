@@ -12,7 +12,7 @@ import { isUndefined } from 'util';
 })
 export class FormTextAreaFieldComponent extends GpFormFieldControl implements OnInit {
   @Input() formField: GpFormField;
-
+  @Input() canTranslate = true;
   maxLength: number;
   name = 'field-textarea';
   minLength: number;

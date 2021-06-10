@@ -56,7 +56,7 @@ export class CommonService {
     );
     const key = new Buffer(hash(uintArray)).toString('hex');
     if (this.sessionStorageService.getItem(key) !== null) {
-      const cachedElement = JSON.parse(this.sessionStorageService.getItem(key));
+      const cachedElement = this.sessionStorageService.getItem(key);
       if (cachedElement.ttl !== null && Date.now() > cachedElement.ttl) {
         this.sessionStorageService.removeItem(key);
       } else {
@@ -66,15 +66,11 @@ export class CommonService {
         });
       }
     }
-    const res = this.post<T>(url, body);
+
     const ok = 'ok';
-    const error = 'error';
-    const errorMessage = 'errorMessage';
-    const cacheKey = 'cacheKey';
-    res.pipe(
+    return this.post<T>(url, body).pipe(
       map((response) => {
-        if (response[ok] && response[error] === null && response[errorMessage] === null) {
-          response[cacheKey] = key;
+        if (response[ok]) {
           this.sessionStorageService.setItem(
             key,
             new CachedElement(response, ttl !== null ? Date.now() + ttl : null)
@@ -83,7 +79,6 @@ export class CommonService {
         return response;
       })
     );
-    return res;
   }
 
   post<T>(url: string, body: any): Observable<T> {

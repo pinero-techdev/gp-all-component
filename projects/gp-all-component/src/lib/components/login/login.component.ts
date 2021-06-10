@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   username: string;
   /* Loading */
   working = false;
+  /* Hidden Login */
+  hiddenLogin = true;
 
   /** Localization strings */
   readonly locale = LocaleES;
@@ -54,10 +56,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /**
    * When form is submitted, get the input fields values and try to login
-   * @param urlToRedirect After login state
-   * @param otherParams string
    */
-  login(urlToRedirect?: string, otherParams?: string) {
+  login(urlToRedirect?: string, urlParams?: string, otherParams?: string) {
     if ((this.password && this.username) || otherParams) {
       this.working = true;
       const request: LoginRq = new LoginRq(
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           })
         )
         .subscribe(
-          (data) => this.setLogin(data, urlToRedirect),
+          (data) => this.setLogin(data, urlToRedirect, urlParams),
           (err) => this.showError(null, err)
         );
     } else {
@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * and navigate to home or urlToRedirect,
    * if something goes wrong show an error message.
    */
-  private setLogin(data: LoginRs, urlToRedirect: string = null) {
+  private setLogin(data: LoginRs, urlToRedirect: string = null, paramsUrl: string = null) {
     if (data.ok) {
       GlobalService.setSession(data.userInfo);
       GlobalService.setLogged(true);
@@ -131,7 +131,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         GlobalService.setPreLoginUrl(this.url);
       }
       if (urlToRedirect) {
-        this.router.navigate([urlToRedirect]);
+        const params = this.getQueryParams(paramsUrl);
+        this.router.navigate([urlToRedirect], { queryParams: params });
       } else if (GlobalService.getPRE_LOGIN_URL()) {
         this.router.navigate([GlobalService.getPRE_LOGIN_URL()], {
           queryParams: GlobalService.getPRE_LOGIN_PARAMS(),
@@ -153,17 +154,37 @@ export class LoginComponent implements OnInit, OnDestroy {
   private initLogin() {
     let otherParams = null;
     let urlToRedirect = null;
+    let urlParams = null;
 
     this.route.queryParams.pipe(takeUntil(this.isDestroyed)).subscribe((params) => {
+      this.hiddenLogin = params.hiddenLogin ? params.hiddenLogin : false;
       this.username = params.username;
       this.password = params.password;
       otherParams = params.otherparams;
       urlToRedirect = params.urlToRedirect;
+      urlParams = params.urlParams;
       this.url = params.url;
     });
 
     if ((this.username && this.password) || otherParams) {
-      this.login(urlToRedirect, otherParams);
+      this.login(urlToRedirect, urlParams, otherParams);
+    } else {
+      this.working = false;
     }
+  }
+
+  /**
+   * Convert params from url to redirect from string to object
+   * (string} params -> Format : [key0=value0 key1=value1]
+   */
+  getQueryParams(params: string): any {
+    const queryParams = {};
+    if (params) {
+      for (const property of params.split(' ')) {
+        const key = property.split('=')[0];
+        queryParams[key] = property.split('=')[1];
+      }
+    }
+    return queryParams;
   }
 }

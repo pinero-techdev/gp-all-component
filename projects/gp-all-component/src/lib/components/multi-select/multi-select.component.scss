@@ -16,6 +16,7 @@
       .ui-multiselect-label-container {
         .ui-multiselect-label {
           @include make-input-text();
+          white-space: nowrap;
           padding: 0;
           padding-right: $separationLarge;
         }

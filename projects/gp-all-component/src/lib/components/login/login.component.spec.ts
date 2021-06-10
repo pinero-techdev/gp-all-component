@@ -34,6 +34,7 @@ describe('LoginComponent', () => {
   const password = '1234';
   const url = 'home';
   const username = 'test';
+  const urlParams = null;
   let $password: HTMLInputElement;
   let $username: HTMLInputElement;
   let component: LoginComponent;
@@ -69,7 +70,7 @@ describe('LoginComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParams: of({ username, password, urlToRedirect: url, url }),
+            queryParams: of({ username, password, urlToRedirect: url, urlParams, url }),
           },
         },
         GlobalService,
