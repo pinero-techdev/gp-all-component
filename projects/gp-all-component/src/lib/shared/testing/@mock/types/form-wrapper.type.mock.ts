@@ -61,7 +61,7 @@ const rField3 = {
 const relatedFields = [rField1, rField2, rField3];
 
 const translationInfo = {
-  allowEdition: false,
+  allowHtmlEdition: false,
   description: 'Description',
   field: 'cansCodi',
   keyFields: [],
