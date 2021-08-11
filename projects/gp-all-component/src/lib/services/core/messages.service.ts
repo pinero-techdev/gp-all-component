@@ -77,6 +77,79 @@ export class MessagesService {
     });
   }
 
+  showCustomSuccessMessage(
+    header: string,
+    alert: string,
+    mKey: string,
+    stickyMessage?: boolean,
+    lifeMessage?: number,
+    closableMessage?: boolean
+  ) {
+    this.messageService.add({
+      key: mKey,
+      severity: 'success',
+      summary: header,
+      detail: alert,
+      sticky: stickyMessage,
+      life: lifeMessage,
+      closable: closableMessage,
+    });
+  }
+  showCustomInfoMessage(
+    header: string,
+    alert: string,
+    mKey: string,
+    stickyMessage?: boolean,
+    lifeMessage?: number,
+    closableMessage?: boolean
+  ) {
+    this.messageService.add({
+      key: mKey,
+      severity: 'info',
+      summary: header,
+      detail: alert,
+      sticky: stickyMessage,
+      life: lifeMessage,
+      closable: closableMessage,
+    });
+  }
+  showCustomWarnMessage(
+    header: string,
+    alert: string,
+    mKey: string,
+    stickyMessage?: boolean,
+    lifeMessage?: number,
+    closableMessage?: boolean
+  ) {
+    this.messageService.add({
+      key: mKey,
+      severity: 'warn',
+      summary: header,
+      detail: alert,
+      sticky: stickyMessage,
+      life: lifeMessage,
+      closable: closableMessage,
+    });
+  }
+  showCustomErrorMessage(
+    header: string,
+    alert: string,
+    mKey: string,
+    stickyMessage?: boolean,
+    lifeMessage?: number,
+    closableMessage?: boolean
+  ) {
+    this.messageService.add({
+      key: mKey,
+      severity: 'error',
+      summary: header,
+      detail: alert,
+      sticky: stickyMessage,
+      life: lifeMessage,
+      closable: closableMessage,
+    });
+  }
+
   clear() {
     this.messageService.clear();
   }
