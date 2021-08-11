@@ -181,12 +181,13 @@
         }
 
         p-paginator {
-          padding-top: 30px;
+          padding-top: 30px !important;
 
           .ui-inputwrapper-filled {
-            position: absolute;
-            top: 50px;
-            left: 0;
+            // FIXME: Se desactivan estos estilos porque provocan que el paginator aparezca sobre el nombre de columna
+            //position: absolute !important;
+            //top: 50px !important;
+            //left: 0 !important;
           }
 
           .ui-paginator-bottom {
