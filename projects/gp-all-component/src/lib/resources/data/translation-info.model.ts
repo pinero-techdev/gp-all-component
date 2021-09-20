@@ -4,6 +4,6 @@ export class TranslationInfo {
   table: string;
   field: string;
   description: string;
-  allowEdition: boolean;
+  allowHtmlEdition: boolean;
   orderByLangCod: boolean;
 }
