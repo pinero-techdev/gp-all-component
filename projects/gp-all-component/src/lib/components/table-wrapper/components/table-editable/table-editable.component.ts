@@ -1,38 +1,40 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { ConfirmationService, LazyLoadEvent, MessageService, SelectItem } from 'primeng/api';
-import { GfinListService } from '../../services/gfin-list.service';
-import { Table } from 'primeng/table';
-import { GPUtil } from 'gp-all-component';
-import * as moment from 'moment';
+import * as moment_ from 'moment';
+import {TableEditableService} from '../../../../services/api/table/table-editable.service';
+import {GPUtil} from '../../../../services/core/gp-util.service';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ConfirmationService, LazyLoadEvent, MessageService, SelectItem} from 'primeng/api';
+import {Table} from 'primeng/table';
 
+/*
+ *  Data order: data -> filteredData -> sortedData -> currentPageData
+ *
+ * */
 @Component({
   selector: 'app-table-editable',
   templateUrl: './table-editable.component.html',
   styleUrls: ['./table-editable.component.scss'],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService]
 })
+
 export class TableEditableComponent implements OnInit {
+
   @Input() dataTable: any;
   @Input() customButtons: any[] = [];
 
   @Output() onRowSelectEvent = new EventEmitter<any>();
+  @Output() onRowSelectMultipleEvent = new EventEmitter<any>();
   @Output() onSaveEvent = new EventEmitter<any>();
   @Output() onCustomButtonClicEvent = new EventEmitter<any>();
 
   @Output() onSaveChildEvent = new EventEmitter<any>();
 
   @Output() onRefreshEvent = new EventEmitter<null>();
-  @Output() onCheckChangeEvent = new EventEmitter<any>();
 
   @ViewChild('tc') tc: Table;
+
+  hiddenTable = false;
+
+  checkBoxHeaderSelect = false;
 
   displayChildDataTable = false;
 
@@ -43,6 +45,7 @@ export class TableEditableComponent implements OnInit {
   selectedColumns: any[];
   optionsSelectedColumns: any[];
   newRow: any = {};
+  editRow: any = {};
   rowStyle: any;
 
   caption: string;
@@ -50,6 +53,7 @@ export class TableEditableComponent implements OnInit {
   filterDefaultValues: any[] = [];
   totales: any[] = [];
   displayAddDialog = false;
+  displayEditDialog = false;
   lovs: any = {};
 
   dataTableRowsOriginal: any;
@@ -63,22 +67,22 @@ export class TableEditableComponent implements OnInit {
   calendar = GPUtil.obtainCalendarConfig();
   changedDetected = false;
 
+  moment = moment_;
+
   constructor(
     private confirmationService: ConfirmationService,
-    private listService: GfinListService,
+    private listService: TableEditableService,
     private messageService: MessageService,
     private cdRef: ChangeDetectorRef
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.working = true;
     this.dataTableRowsOriginal = JSON.parse(JSON.stringify(this.dataTable.rows));
 
-    this.selectedColumns = JSON.parse(
-      JSON.stringify(
-        this.dataTable.cols.filter((c) => c.showInTable === true || c.expandable === true)
-      )
-    );
+
+    this.selectedColumns = JSON.parse(JSON.stringify(this.dataTable.cols.filter(c => c.showInTable === true || c.expandable == true)));
     this.optionsSelectedColumns = JSON.parse(JSON.stringify(this.selectedColumns));
     this.initLov();
     this.calcFilterOptions();
@@ -87,20 +91,21 @@ export class TableEditableComponent implements OnInit {
     this.scrollHeightString = this.scrollHeight + 'px';
   }
 
-  getStyleCols(col) {
+  getStyleCols(col){
     return JSON.stringify(col.colsColor).replace(/['"]+/g, '');
   }
 
   onRowSelected(event: any) {
     this.onRowSelectEvent.emit(event.data);
+    this.onRowSelectMultipleEvent.emit(this.rowSelected);
   }
 
-  getStyle(style: string, rowData?: any, rowStyle?: boolean, field?: string) {
+  getStyle(style: string, rowData?:any, rowStyle?: boolean, field?:string) {
     let result: any = null;
 
     result = style === null ? '' : JSON.parse(style);
 
-    if (rowData && rowData.colsColor !== undefined && rowData.colsColor !== null && rowStyle) {
+    if(rowData && rowData.colsColor !== undefined && rowData.colsColor !== null && rowStyle){
       result.backgroundColor = rowData.colsColor;
       result.color = 'white';
       result.borderRadius = '6px';
@@ -109,13 +114,15 @@ export class TableEditableComponent implements OnInit {
   }
 
   calcFilterOptions() {
+
     let rows;
     let cols;
     let filters = null;
     if (this.tc) {
+
       let filteredRows = this.dataTable.rows;
       for (const f of Object.keys(this.tc.filters)) {
-        filteredRows = filteredRows.filter((r) => (r[f] + '').startsWith(this.tc.filters[f].value));
+        filteredRows = filteredRows.filter(r => (r[f] + '').startsWith(this.tc.filters[f].value));
       }
       rows = filteredRows;
 
@@ -126,51 +133,50 @@ export class TableEditableComponent implements OnInit {
       cols = this.dataTable.cols;
     }
 
-    cols.forEach((c) => {
-      if (
-        c.filter === 'dropdown' &&
-        (filters === null || filters[c.field] === undefined) &&
-        this.dataTable.filters
-      ) {
+    cols.forEach(c => {
+      if (c.filter === 'dropdown' && (filters === null || filters[c.field] === undefined) && this.dataTable.filters) {
         let options: SelectItem[];
         let colData: any[];
 
         colData = [];
         for (const row of rows) {
           if (row[c.field] !== null) {
-            colData.push({ value: row[c.field] });
+            colData.push({value: row[c.field]});
           }
         }
 
-        const unique = Array.from(new Set(colData.map(({ value }) => value)));
+        const unique = Array.from(new Set(colData.map(({value}) => value)));
 
         options = [];
 
         for (const val of unique.sort()) {
           const lab = this.getLabel(val, c);
-          options.push({ label: lab, value: val });
+          options.push({label: lab, value: val});
         }
 
-        options.unshift({ label: '', value: null });
+        options.unshift({label: '', value: null})
 
         this.filterOptions[c.field] = options;
+
       }
       if (c.total) {
         this.totales[c.field] = 0;
         for (const row of rows) {
+
           let rowValue: number;
           if (row[c.field] === undefined || row[c.field] === null) {
             rowValue = 0;
           } else {
             rowValue = Number(row[c.field]);
           }
-          this.totales[c.field] += rowValue;
+          this.totales[c.field] += rowValue
+
         }
       } else {
         this.totales[c.field] = null;
       }
       if (c.field === 'prevision') {
-        console.debug('total: ' + this.totales[c.field]);
+        console.debug('total: ' + this.totales[c.field])
       }
     });
   }
@@ -194,10 +200,38 @@ export class TableEditableComponent implements OnInit {
       this.displayAddDialog = true;
     }
   }
+  onEditRow() {
+    if (this.changedDetected) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Existen cambios pendientes de guardar. Debe guardarlos o descartarlos refrescando la tabla',
+      });
+    } else if(this.tc.selection == null || this.tc.selection.length == 0){
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Debe seleccionar un registro primero',
+      });
+    }else {
+      this.editRow = this.tc.selection[0];
+      console.log('editRow: ' + JSON.stringify(this.editRow));
+      this.displayEditDialog = true;
+    }
+  }
 
   saveNewRow() {
     if (this.newRow !== {}) {
-      this.onSaveEvent.emit({ action: 'insert', rows: [this.newRow] });
+      this.onSaveEvent.emit({action: 'insert', rows: [this.newRow]});
+    }
+  }
+
+  saveEditRow() {
+    if (this.editRow !== {}) {
+      this.tc.selection = this.editRow;
+      this.markAsEdited(this.editRow)
+      this.editRow = {};
+      this.displayEditDialog = false;
     }
   }
 
@@ -206,8 +240,13 @@ export class TableEditableComponent implements OnInit {
     this.displayAddDialog = false;
   }
 
+  cancelEditRow() {
+    this.editRow = {}
+    this.displayEditDialog = false;
+  }
+
   onCustomButtonClic(but: any) {
-    this.onCustomButtonClicEvent.emit({ button: but, data: this.tc.selection });
+    this.onCustomButtonClicEvent.emit({button: but, data: this.tc.selection});
   }
 
   onSave() {
@@ -217,10 +256,11 @@ export class TableEditableComponent implements OnInit {
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.onSaveEvent.emit({ action: 'update', rows: this.rowsToUpdate });
+        this.onSaveEvent.emit({action: 'update', rows: this.rowsToUpdate});
         this.changedDetected = false;
-      },
+      }
     });
+
   }
 
   onDeleteRow() {
@@ -228,7 +268,7 @@ export class TableEditableComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Existen cambios pendientes. Por favor guardelos o descartelos',
+        detail: 'Existen cambios pendientes de guardar. Debe guardarlos o descartarlos refrescando la tabla',
       });
     } else {
       if (this.tc.selection) {
@@ -237,9 +277,10 @@ export class TableEditableComponent implements OnInit {
           header: 'Confirmación',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-            this.onSaveEvent.emit({ action: 'delete', rows: this.tc.selection });
-          },
+            this.onSaveEvent.emit({action: 'delete', rows: this.tc.selection});
+          }
         });
+
       } else {
         this.messageService.add({
           severity: 'error',
@@ -254,7 +295,7 @@ export class TableEditableComponent implements OnInit {
     let result = null;
 
     if (col.editType === 'dropdown' && this.lovs[col.field]) {
-      result = this.lovs[col.field].find((i) => i.value === value);
+      result = this.lovs[col.field].find(i => i.value === value)
     }
     if (result === null || result === undefined) {
       return value;
@@ -263,17 +304,14 @@ export class TableEditableComponent implements OnInit {
     }
   }
 
-  getTableChild(event: any) {
-    if (this.dataTable.tableChild !== null && event[this.dataTable.dataKey]) {
+  getTableChild() {
+    if (this.dataTable.tableChild !== null && this.rowSelected[this.dataTable.dataKey]) {
       this.childDataTable = null;
 
-      this.listService.postApi(this.dataTable.tableChild, event).subscribe(
+      this.listService.postApi(this.dataTable.tableChild, this.rowSelected).subscribe(
         (response) => {
           if (response.response.code === 0) {
             this.childDataTable = response.data;
-            const calcHeight = this.dataTable.scrollHeight + this.childDataTable.scrollHeight + 40;
-            this.scrollHeight = calcHeight;
-            this.scrollHeightString = this.scrollHeight + 'px';
           } else {
             this.messageService.add({
               severity: 'error',
@@ -289,36 +327,26 @@ export class TableEditableComponent implements OnInit {
             summary: 'Error General',
             detail: err.message,
           });
-        }
-      );
+        });
     }
-    const expandables = this.dataTable.cols.filter((c) => c.expandable === true).length * 55;
-    console.log('expandables: ' + expandables);
-    if (expandables > 0) {
-      this.scrollHeight = this.scrollHeight + expandables;
-      this.scrollHeightString = this.scrollHeight + 'px';
-      console.log('scrollHeight: ' + this.scrollHeight);
-    }
+
   }
 
   onRowCollapse() {
     this.childDataTable = null;
-    this.scrollHeight = this.dataTable.scrollHeight;
-    this.scrollHeightString = this.scrollHeight + 'px';
   }
 
   onRefresh() {
     this.onRefreshEvent.emit(null);
   }
 
+
   onSaveChild(event: any) {
     this.onSaveChildEvent.emit(event);
   }
 
   markAsEdited(event: Event) {
-    const index1 = this.dataTableRowsOriginal.findIndex(
-      (r) => r[this.dataTable.dataKey] === event[this.dataTable.dataKey]
-    );
+    const index1 = this.dataTableRowsOriginal.findIndex(r => r[this.dataTable.dataKey] === event[this.dataTable.dataKey]);
     if (index1 > 0) {
       if (JSON.stringify(event) !== JSON.stringify(this.dataTableRowsOriginal[index1])) {
         this.changedDetected = true;
@@ -327,9 +355,7 @@ export class TableEditableComponent implements OnInit {
       this.changedDetected = true;
     }
 
-    const index2 = this.rowsToUpdate.findIndex(
-      (r) => r[this.dataTable.dataKey] === event[this.dataTable.dataKey]
-    );
+    const index2 = this.rowsToUpdate.findIndex(r => r[this.dataTable.dataKey] === event[this.dataTable.dataKey]);
     if (index2 < 0) {
       this.rowsToUpdate.push(event);
     } else {
@@ -340,7 +366,8 @@ export class TableEditableComponent implements OnInit {
 
   /* Orden de las columnas personalizada para poder ordenar correctamente las fechas */
   customSort(sortField, sortOrder) {
-    const colData = this.dataTable.cols.find((c) => c.field === sortField);
+
+    const colData = this.dataTable.cols.find(c => c.field === sortField);
 
     this.dataTable.rows.sort((data1, data2) => {
       const value1 = data1[sortField];
@@ -353,49 +380,45 @@ export class TableEditableComponent implements OnInit {
         result = 1;
       } else if (value1 === null && value2 === null) {
         result = 0;
-      } else if (
-        colData !== null &&
-        colData !== undefined &&
-        colData.type !== null &&
-        colData.type === 'date'
-      ) {
-        const dateFormat = colData.pipe === null ? 'DD/MM/YYYY' : colData.pipe;
+      } else if (colData !== null && colData !== undefined && colData.type !== null && colData.type === 'date') {
+        const dateFormat = colData.pipe === null ? 'DD/MM/YYYY' : colData.pipe
         const date1 = moment(value1, dateFormat);
         const date2 = moment(value2, dateFormat);
 
         if (moment(date2).isBefore(date1, 'day')) {
           result = 1;
         } else {
-          result = -1;
+          result = -1
         }
 
         return result * sortOrder;
       } else if (typeof value1 === 'string' && typeof value2 === 'string') {
         result = value1.localeCompare(value2);
       } else {
-        result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
+        result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
       }
-      return sortOrder * result;
+      return (sortOrder * result);
     });
   }
 
   loadDataOnScroll(event: LazyLoadEvent) {
     // console.log(JSON.stringify(event));
-    this.customSort(event.sortField, event.sortOrder);
+    this.customSort(event.sortField, event.sortOrder)
 
     let filteredRows = this.dataTable.rows;
     for (const f of Object.keys(event.filters)) {
-      filteredRows = filteredRows.filter((r) => (r[f] + '').startsWith(event.filters[f].value));
+      filteredRows = filteredRows.filter(r => (r[f] + '').startsWith(event.filters[f].value));
     }
 
     if (event.first + event.rows <= filteredRows.length) {
-      this.virtualRows = filteredRows.slice(event.first, event.first + event.rows);
+      this.virtualRows = filteredRows.slice(event.first, (event.first + event.rows));
     } else if (event.first <= filteredRows.length) {
       this.virtualRows = filteredRows.slice(event.first);
     }
 
     this.cdRef.detectChanges();
   }
+
 
   onExpand(rowData: any) {
     this.rowSelected = rowData;
@@ -407,8 +430,18 @@ export class TableEditableComponent implements OnInit {
     this.cdRef.detectChanges();
   }
 
-  // Enviamos las columnas seleccionadas actualmente
-  checkRow(event: any) {
-    this.onCheckChangeEvent.emit(this.rowSelected);
+  onCheckBoxHeaderSelect() {
+    if(this.checkBoxHeaderSelect){
+      this.rowSelected = this.dataTable.rows;
+    }else{
+      this.rowSelected = [];
+    }
+    this.onRowSelectMultipleEvent.emit(this.rowSelected);
+  }
+
+
+  getLink(value: any, col: any){
+    let link = this.getLabel(value, col);
+    window.open(link);
   }
 }

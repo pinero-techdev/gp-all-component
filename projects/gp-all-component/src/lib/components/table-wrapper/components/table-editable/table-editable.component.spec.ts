@@ -28,7 +28,7 @@ describe('TableEditableComponent', () => {
     fixture.detectChanges();
     elementRef = fixture.nativeElement;
     tableMetadataService = TestBed.get(TableMetadataService);
-    component.columns = tableMetadataService.getTableColumnsFromMetadata(FieldMetadataMock);
+    //component.columns = tableMetadataService.getTableColumnsFromMetadata(FieldMetadataMock);
   });
 
   it('should create', () => {

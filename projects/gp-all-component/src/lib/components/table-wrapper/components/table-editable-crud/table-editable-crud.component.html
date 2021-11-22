@@ -1,6 +1,7 @@
 <div *ngIf="loading">
   <gp-loading-indicator></gp-loading-indicator>
 </div>
+<!--
 <gp-table-editable
   *ngIf="!loading"
   [columns]="columns"
@@ -23,4 +24,5 @@
   (deletedItem)="loadTable(); deletedItem.emit($event)"
   (createdItem)="loadTable(); createdItem.emit($event)"
 ></gp-table-editable>
+-->
 <p-toast></p-toast>
