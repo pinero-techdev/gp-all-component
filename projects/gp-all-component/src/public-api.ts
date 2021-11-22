@@ -6,6 +6,7 @@
 export * from './lib/services/api/forgot-password/forgot-password.service';
 export * from './lib/services/api/login/login.service';
 export * from './lib/services/api/table/table-metadata.service';
+export * from './lib/services/api/table/table-editable.service';
 export * from './lib/services/api/main-menu/main-menu-provider.service';
 export * from './lib/services/api/main-menu/main-menu.service';
 export * from './lib/services/api/multi-language/multi-language.service';
