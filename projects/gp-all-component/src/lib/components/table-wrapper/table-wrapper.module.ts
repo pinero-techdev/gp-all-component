@@ -1,6 +1,5 @@
 import { TableEditableCrudComponent } from './components/table-editable-crud/table-editable-crud.component';
 import { TableEditableComponent } from './components/table-editable/table-editable.component';
-//import { TableEditableComponent } from './components/table-editable-crud/components/table-editable/table-editable.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableCrudComponent } from './components/table-crud/table-crud.component';

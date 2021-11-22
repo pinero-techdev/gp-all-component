@@ -4,15 +4,12 @@ import { MultiLanguageModule } from '../../../../../multi-language/multi-languag
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableEditableComponent } from './table-editable.component';
 import { TableWrapperSharedProviders } from '../../../../../../shared/imports/table-wrapper-shared';
-import { FieldMetadataMock } from '../../../../../../shared/testing/@mock/types/list-rs.type.mock';
-import { TableMetadataService } from '../../../../../../services/api/table/table-metadata.service';
 import { ButtonModule } from '../../../../../button/button.module';
 
 describe('TableEditableComponent', () => {
   let component: TableEditableComponent;
   let fixture: ComponentFixture<TableEditableComponent>;
   let elementRef: HTMLElement;
-  let tableMetadataService: TableMetadataService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,7 +25,6 @@ describe('TableEditableComponent', () => {
     fixture.detectChanges();
     elementRef = fixture.nativeElement;
     tableMetadataService = TestBed.get(TableMetadataService);
-    //component.columns = tableMetadataService.getTableColumnsFromMetadata(FieldMetadataMock);
   });
 
   it('should create', () => {
