@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { TableEditableService } from '../../../../services/api/table/table-editable.service';
 import { GPUtil } from '../../../../services/core/gp-util.service';
+import { TableEditable } from '../../../../resources/data/data-table/editable/data-table-editable.model';
 import {
   ChangeDetectorRef,
   Component,
@@ -24,7 +25,7 @@ import { Table } from 'primeng/table';
   providers: [ConfirmationService],
 })
 export class TableEditableComponent implements OnInit {
-  @Input() dataTable: any;
+  @Input() dataTable: TableEditable;
   @Input() customButtons: any[] = [];
 
   @Output() onRowSelectEvent = new EventEmitter<any>();
