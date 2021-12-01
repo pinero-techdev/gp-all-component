@@ -6,6 +6,7 @@
 export * from './lib/services/api/forgot-password/forgot-password.service';
 export * from './lib/services/api/login/login.service';
 export * from './lib/services/api/table/table-metadata.service';
+export * from './lib/services/api/table/table-editable.service';
 export * from './lib/services/api/main-menu/main-menu-provider.service';
 export * from './lib/services/api/main-menu/main-menu.service';
 export * from './lib/services/api/multi-language/multi-language.service';
@@ -112,7 +113,7 @@ export * from './lib/components/rating/rating.component';
 export * from './lib/components/redirect/redirect.component';
 export * from './lib/components/table-wrapper/components/table-editable-crud/components/table-editable-cell/table-editable-cell.component';
 export * from './lib/components/table-wrapper/components/table-editable-crud/table-editable-crud.component';
-export * from './lib/components/table-wrapper/components/table-editable-crud/components/table-editable/table-editable.component';
+export * from './lib/components/table-wrapper/components/table-editable/table-editable.component';
 export * from './lib/components/table-wrapper/components/table-crud/table-crud.component';
 export * from './lib/components/table-wrapper/components/table-frame/table-frame.component';
 export * from './lib/components/table-wrapper/components/table/table.component';
