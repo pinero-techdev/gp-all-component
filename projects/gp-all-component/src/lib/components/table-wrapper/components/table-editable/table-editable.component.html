@@ -1,300 +1,493 @@
 <section>
   <p-panel toggleable="true" class="pToggaglePanel">
-    <p-header [hidden]="working&&!dataTable&&!tc">
-      <div class='p-grid' style='height:34px;'>
-        <div class='p-col-fixed'>
-          <div style='text-align:left' *ngIf='dataTable.toggleColumns'>
-            <p-multiSelect [options]='optionsSelectedColumns' [(ngModel)]='selectedColumns' optionLabel='header'
-                           selectedItemsLabel='{0} columnas' [style]="{maxWidth: '150px'}"
-                           defaultLabel='Seleccione columnas'>
+    <p-header [hidden]="working && !dataTable && !tc">
+      <div class="p-grid" style="height:34px;">
+        <div class="p-col-fixed">
+          <div style="text-align:left" *ngIf="dataTable.toggleColumns">
+            <p-multiSelect
+              [options]="optionsSelectedColumns"
+              [(ngModel)]="selectedColumns"
+              optionLabel="header"
+              selectedItemsLabel="{0} columnas"
+              [style]="{ maxWidth: '150px' }"
+              defaultLabel="Seleccione columnas"
+            >
             </p-multiSelect>
           </div>
         </div>
-        <div class='p-col' style='padding-left:75px; text-align: center;padding-top: 10px;'>
-          <div class='box'>{{ dataTable.caption }}</div>
+        <div class="p-col" style="padding-left:75px; text-align: center;padding-top: 10px;">
+          <div class="box">{{ dataTable.caption }}</div>
         </div>
-        <ng-container *ngIf='customButtons'>
-          <ng-container *ngFor='let button of customButtons'>
-            <div class='p-col-fixed' style='width: 40px;height: 5px;'>
-              <div class='box'>
-                <button type='button' class='ui-button full-width' pButton [pTooltip]='button.tooltip'
-                        [icon]='button.icon' (click)='onCustomButtonClic(button)'></button>
+        <ng-container *ngIf="customButtons">
+          <ng-container *ngFor="let button of customButtons">
+            <div class="p-col-fixed" style="width: 40px;height: 5px;">
+              <div class="box">
+                <button
+                  type="button"
+                  class="ui-button full-width"
+                  pButton
+                  [pTooltip]="button.tooltip"
+                  [icon]="button.icon"
+                  (click)="onCustomButtonClic(button)"
+                ></button>
               </div>
             </div>
           </ng-container>
         </ng-container>
-        <div class='p-col-fixed' style='width: 40px;height: 5px;'
-             *ngIf='(dataTable.canAdd||dataTable.canEdit||dataTable.canEditRow||dataTable.canDelete)&&changedDetected'>
-          <div class='box'>
-            <button type='button' class='ui-button full-width' pButton pTooltip='Guardar cambios' icon='fa fa-hdd'
-                    (click)='onSave()' [style.background-color]="'#bf9b3f'" [style.border-color]="'#bf9b3f'"></button>
+        <div
+          class="p-col-fixed"
+          style="width: 40px;height: 5px;"
+          *ngIf="
+            (dataTable.canAdd ||
+              dataTable.canEdit ||
+              dataTable.canEditRow ||
+              dataTable.canDelete) &&
+            changedDetected
+          "
+        >
+          <div class="box">
+            <button
+              type="button"
+              class="ui-button full-width"
+              pButton
+              pTooltip="Guardar cambios"
+              icon="fa fa-hdd"
+              (click)="onSave()"
+              [style.background-color]="'#bf9b3f'"
+              [style.border-color]="'#bf9b3f'"
+            ></button>
           </div>
         </div>
-        <div class='p-col-fixed' style='width: 40px;height: 5px;' *ngIf="dataTable&&dataTable.canAdd">
-          <div class='box'>
-            <button type='button' class='ui-button full-width' pButton pTooltip='Añadir nuevo registro'
-                    icon='fa fa-plus' (click)='onAddRow()'></button>
+        <div
+          class="p-col-fixed"
+          style="width: 40px;height: 5px;"
+          *ngIf="dataTable && dataTable.canAdd"
+        >
+          <div class="box">
+            <button
+              type="button"
+              class="ui-button full-width"
+              pButton
+              pTooltip="Añadir nuevo registro"
+              icon="fa fa-plus"
+              (click)="onAddRow()"
+            ></button>
           </div>
         </div>
-        <div class='p-col-fixed' style='width: 40px;height: 5px;'
-             *ngIf="dataTable&&dataTable.canEdit&&tc&&tc.selection">
-          <div class='box'>
-            <button type='button' class='ui-button full-width' pButton pTooltip='Editar registro'
-                    icon='fa fa-pen' (click)='onEditRow()'></button>
+        <div
+          class="p-col-fixed"
+          style="width: 40px;height: 5px;"
+          *ngIf="dataTable && dataTable.canEdit && tc && tc.selection"
+        >
+          <div class="box">
+            <button
+              type="button"
+              class="ui-button full-width"
+              pButton
+              pTooltip="Editar registro"
+              icon="fa fa-pen"
+              (click)="onEditRow()"
+            ></button>
           </div>
         </div>
 
-        <div class='p-col-fixed' style='width: 40px;height: 5px;' *ngIf='dataTable.canDelete&&tc&&tc.selection'>
-          <div class='box'>
-            <button type='button' class='ui-button full-width' pButton pTooltip='Borrar registro seleccionado'
-                    icon='fa fa-trash' (click)='onDeleteRow()'></button>
+        <div
+          class="p-col-fixed"
+          style="width: 40px;height: 5px;"
+          *ngIf="dataTable.canDelete && tc && tc.selection"
+        >
+          <div class="box">
+            <button
+              type="button"
+              class="ui-button full-width"
+              pButton
+              pTooltip="Borrar registro seleccionado"
+              icon="fa fa-trash"
+              (click)="onDeleteRow()"
+            ></button>
           </div>
         </div>
-        <div class='p-col-fixed' style='width: 40px;height: 5px;'>
-          <div class='box'>
-            <button type='button' class='ui-button full-width' pButton pTooltip='Refresca la tabla' icon='fa fa-sync'
-                    (click)='onRefresh()'></button>
+        <div class="p-col-fixed" style="width: 40px;height: 5px;">
+          <div class="box">
+            <button
+              type="button"
+              class="ui-button full-width"
+              pButton
+              pTooltip="Refresca la tabla"
+              icon="fa fa-sync"
+              (click)="onRefresh()"
+            ></button>
           </div>
         </div>
       </div>
     </p-header>
-    <p-table #tc *ngIf='!working' [value]='virtualRows' [columns]='selectedColumns' [(selection)]='rowSelected'
-             [dataKey]='dataTable.dataKey' [scrollable]='true' [scrollHeight]='scrollHeightString'
-             [selectionMode]="dataTable.checkBoxSelect? '': 'multiple'"
-             rowExpandMode='single' autoLayout='true'
-             [tableStyle]="dataTable.width==0 ? {width: '100%'}: {'width':dataTable.width + 'px'}"
-             columnResizeMode='expand'
-             [resizableColumns]='true'
-             [metaKeySelection]="!dataTable.checkBoxSelect" (onRowSelect)='onRowSelected($event)'
-             (onHeaderCheckboxToggle)="onRowSelectMultipleEvent.emit(rowSelected)"
-             (onFilter)='calcFilterOptions()'
-             (onRowCollapse)='onRowCollapse()'
-             [loading]='working' [rows]='dataTable.displayRows' [virtualScroll]='true'
-             (onLazyLoad)='loadDataOnScroll($event)'
-             [lazy]='true' [totalRecords]='dataTable.rows.length' [virtualRowHeight]='dataTable.displayRows+10'>
-
-
-      <ng-template pTemplate='colgroup' let-columns>
+    <p-table
+      #tc
+      *ngIf="!working"
+      [value]="virtualRows"
+      [columns]="selectedColumns"
+      [(selection)]="rowSelected"
+      [dataKey]="dataTable.dataKey"
+      [scrollable]="true"
+      [scrollHeight]="scrollHeightString"
+      [selectionMode]="dataTable.checkBoxSelect ? '' : 'multiple'"
+      rowExpandMode="single"
+      autoLayout="true"
+      [tableStyle]="dataTable.width == 0 ? { width: '100%' } : { width: dataTable.width + 'px' }"
+      columnResizeMode="expand"
+      [resizableColumns]="true"
+      [metaKeySelection]="!dataTable.checkBoxSelect"
+      (onRowSelect)="onRowSelected($event)"
+      (onHeaderCheckboxToggle)="onRowSelectMultipleEvent.emit(rowSelected)"
+      (onFilter)="calcFilterOptions()"
+      (onRowCollapse)="onRowCollapse()"
+      [loading]="working"
+      [rows]="dataTable.displayRows"
+      [virtualScroll]="true"
+      (onLazyLoad)="loadDataOnScroll($event)"
+      [lazy]="true"
+      [totalRecords]="dataTable.rows.length"
+      [virtualRowHeight]="dataTable.displayRows + 10"
+    >
+      <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
-          <col *ngIf='dataTable.expandableRows' [ngStyle]="{width:'30px',padding:'0px'}">
-          <col *ngIf='dataTable.checkBoxSelect' [ngStyle]="{width:'30px',padding:'0px'}">
+          <col *ngIf="dataTable.expandableRows" [ngStyle]="{ width: '30px', padding: '0px' }" />
+          <col *ngIf="dataTable.checkBoxSelect" [ngStyle]="{ width: '30px', padding: '0px' }" />
 
-          <ng-container *ngFor='let col of columns'>
-            <col *ngIf='col.showInTable' [ngStyle]=getStyle(col.style)>
+          <ng-container *ngFor="let col of columns">
+            <col *ngIf="col.showInTable" [ngStyle]="getStyle(col.style)" />
           </ng-container>
         </colgroup>
       </ng-template>
 
-      <ng-template pTemplate='header' let-columns>
+      <ng-template pTemplate="header" let-columns>
         <tr>
-          <th [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.expandableRows'></th>
-          <th [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.checkBoxSelect'>
-            <p-checkbox [(ngModel)]="checkBoxHeaderSelect" binary="true"
-                        (onChange)="onCheckBoxHeaderSelect()"></p-checkbox>
+          <th [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.expandableRows"></th>
+          <th [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.checkBoxSelect">
+            <p-checkbox
+              [(ngModel)]="checkBoxHeaderSelect"
+              binary="true"
+              (onChange)="onCheckBoxHeaderSelect()"
+            ></p-checkbox>
           </th>
-          <ng-container *ngFor='let col of columns'>
-            <th *ngIf='col.showInTable' [pSortableColumn]='col.field' pResizableColumn [ngStyle]=getStyle(col.style)
-                [pTooltip]="col.tooltip">
-              {{col.header}}
-              <p-sortIcon [field]='col.field' class='sort-icon'></p-sortIcon>
+          <ng-container *ngFor="let col of columns">
+            <th
+              *ngIf="col.showInTable"
+              [pSortableColumn]="col.field"
+              pResizableColumn
+              [ngStyle]="getStyle(col.style)"
+              [pTooltip]="col.tooltip"
+            >
+              {{ col.header }}
+              <p-sortIcon [field]="col.field" class="sort-icon"></p-sortIcon>
             </th>
           </ng-container>
         </tr>
-        <tr *ngIf='dataTable.filters'>
-          <th [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.expandableRows'></th>
-          <th [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.checkBoxSelect'></th>
-          <ng-container *ngFor='let col of columns'>
-            <th *ngIf='col.showInTable&&col.filter!=null' [ngStyle]=getStyle(col.style) [style.overflow]="'visible'">
-              <input *ngIf="col.filter=='input'" pInputText type='text'
-                     (input)="tc.filter($event.target.value, col.field, 'startsWith')">
-              <p-dropdown *ngIf="col.filter=='dropdown'" [options]='filterOptions[col.field]'
-                          [style]="{ width: '100%' }" [panelStyle]="{ width: 'auto' }"
-                          [(ngModel)]='filterDefaultValues[col.field]'
-                          (onChange)="tc.filter($event.value, col.field, 'startsWith')" scrollHeight='400px'
-                          [appendTo]='tc'
-                          [filter]='true'></p-dropdown>
+        <tr *ngIf="dataTable.filters">
+          <th [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.expandableRows"></th>
+          <th [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.checkBoxSelect"></th>
+          <ng-container *ngFor="let col of columns">
+            <th
+              *ngIf="col.showInTable && col.filter != null"
+              [ngStyle]="getStyle(col.style)"
+              [style.overflow]="'visible'"
+            >
+              <input
+                *ngIf="col.filter == 'input'"
+                pInputText
+                type="text"
+                (input)="tc.filter($event.target.value, col.field, 'startsWith')"
+              />
+              <p-dropdown
+                *ngIf="col.filter == 'dropdown'"
+                [options]="filterOptions[col.field]"
+                [style]="{ width: '100%' }"
+                [panelStyle]="{ width: 'auto' }"
+                [(ngModel)]="filterDefaultValues[col.field]"
+                (onChange)="tc.filter($event.value, col.field, 'startsWith')"
+                scrollHeight="400px"
+                [appendTo]="tc"
+                [filter]="true"
+              ></p-dropdown>
             </th>
           </ng-container>
         </tr>
       </ng-template>
 
-      <ng-template pTemplate='body' let-rowData let-columns='columns' let-rowIndex='rowIndex' let-expanded='expanded'>
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" *ngIf='dataTable.canEditRow'>
+      <ng-template
+        pTemplate="body"
+        let-rowData
+        let-columns="columns"
+        let-rowIndex="rowIndex"
+        let-expanded="expanded"
+      >
+        <tr
+          [pSelectableRow]="rowData"
+          [pSelectableRowIndex]="rowIndex"
+          *ngIf="dataTable.canEditRow"
+        >
           <!-- Icono expansable table -->
-          <td [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.expandableRows'>
-            <button type='button' class='ui-button full-width' pButton pTooltip="Detalles"
-                    icon="fa fa-info-circle" (click)="onExpand(rowData)"></button>
+          <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.expandableRows">
+            <button
+              type="button"
+              class="ui-button full-width"
+              pButton
+              pTooltip="Detalles"
+              icon="fa fa-info-circle"
+              (click)="onExpand(rowData)"
+            ></button>
           </td>
-          <td [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.checkBoxSelect'>
+          <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.checkBoxSelect">
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
           <!--- Header cols --->
-          <ng-container *ngFor='let col of columns'>
-            <td *ngIf='col.showInTable' [ngStyle]=getStyle(col.style)
-                [pEditableColumn]='rowData'
-                [pEditableColumnField]='col.field' class='ui-resizable-column'>
+          <ng-container *ngFor="let col of columns">
+            <td
+              *ngIf="col.showInTable"
+              [ngStyle]="getStyle(col.style)"
+              [pEditableColumn]="rowData"
+              [pEditableColumnField]="col.field"
+              class="ui-resizable-column"
+            >
               <p-cellEditor>
-                <ng-template pTemplate='input' *ngIf='col.editable'>
-                  <input *ngIf="col.editType=='input' && col.type!='number'" pInputText type='text'
-                         [(ngModel)]='rowData[col.field]'
-                         (change)='markAsEdited(rowData)'>
-                  <input *ngIf="col.editType=='input' && col.type=='number'" pInputText type='number'
-                         style="text-align: right"
-                         [(ngModel)]='rowData[col.field]'
-                         (change)='markAsEdited(rowData)'>
-                  <p-dropdown *ngIf="col.editType=='dropdown'" [options]='lovs[col.field]'
-                              [(ngModel)]='rowData[col.field]' [style]="{ width: '100%' }" scrollHeight='400px'
-                              filter='true'
-                              placeholder='Lista de valores' [appendTo]='tc'
-                              (onChange)='markAsEdited(rowData)'></p-dropdown>
-                  <p-calendar *ngIf="col.editType=='calendar'" showAnim='slideDown' dateFormat='dd/mm/yy'
-                              icon='pi pi-calendar' [locale]='calendar' dataType='string'
-                              [(ngModel)]='rowData[col.field]'
-                              [style]="{ width: '100%' }" [appendTo]='tc' (change)='markAsEdited(rowData)'></p-calendar>
-                  <p-button *ngIf="col.type=='button'" label="{{col.header}}"
-                            (onClick)="getLink(rowData[col.field], col)"></p-button>
-
+                <ng-template pTemplate="input" *ngIf="col.editable">
+                  <input
+                    *ngIf="col.editType == 'input' && col.type != 'number'"
+                    pInputText
+                    type="text"
+                    [(ngModel)]="rowData[col.field]"
+                    (change)="markAsEdited(rowData, col.field)"
+                  />
+                  <input
+                    *ngIf="col.editType == 'input' && col.type == 'number'"
+                    pInputText
+                    type="number"
+                    style="text-align: right"
+                    [(ngModel)]="rowData[col.field]"
+                    (change)="markAsEdited(rowData, col.field)"
+                  />
+                  <p-dropdown
+                    *ngIf="col.editType == 'dropdown'"
+                    [options]="lovs[col.field]"
+                    [(ngModel)]="rowData[col.field]"
+                    [style]="{ width: '100%' }"
+                    scrollHeight="400px"
+                    filter="true"
+                    placeholder="Lista de valores"
+                    [appendTo]="tc"
+                    (onChange)="markAsEdited(rowData, col.field)"
+                  ></p-dropdown>
+                  <p-calendar
+                    *ngIf="col.editType == 'calendar'"
+                    showAnim="slideDown"
+                    dateFormat="dd/mm/yy"
+                    icon="pi pi-calendar"
+                    [locale]="calendar"
+                    dataType="string"
+                    [(ngModel)]="rowData[col.field]"
+                    [style]="{ width: '100%' }"
+                    [appendTo]="tc"
+                    (change)="markAsEdited(rowData, col.field)"
+                  ></p-calendar>
+                  <p-button
+                    *ngIf="col.type == 'button'"
+                    label="{{ col.header }}"
+                    (onClick)="getLink(rowData[col.field], col)"
+                  ></p-button>
                 </ng-template>
-                <ng-template pTemplate='input' *ngIf='!col.editable'>
+                <ng-template pTemplate="input" *ngIf="!col.editable">
                   <span
-                    *ngIf="col.type=='string' || (col.pipe == null && col.type != 'button')">{{rowData[col.field]}}</span>
-                  <span *ngIf="col.type=='number' && col.pipe != null">{{rowData[col.field] | number: col.pipe }}</span>
-                  <span *ngIf="col.type=='date'   && col.pipe != null">{{rowData[col.field] | date: col.pipe }}</span>
-                  <p-button *ngIf="col.type=='button'" label="{{col.header}}"
-                            (onClick)="getLink(rowData[col.field], col)"></p-button>
+                    *ngIf="col.type == 'string' || (col.pipe == null && col.type != 'button')"
+                    >{{ rowData[col.field] }}</span
+                  >
+                  <span *ngIf="col.type == 'number' && col.pipe != null">{{
+                    rowData[col.field] | number: col.pipe
+                  }}</span>
+                  <span *ngIf="col.type == 'date' && col.pipe != null">{{
+                    rowData[col.field] | date: col.pipe
+                  }}</span>
+                  <p-button
+                    *ngIf="col.type == 'button'"
+                    label="{{ col.header }}"
+                    (onClick)="getLink(rowData[col.field], col)"
+                  ></p-button>
                 </ng-template>
-                <ng-template pTemplate='output'>
+                <ng-template pTemplate="output">
                   <span
-                    *ngIf="col.type=='string'  || (col.pipe == null && col.type != 'button')">{{getLabel(rowData[col.field], col)}}</span>
-                  <span *ngIf="col.type=='number' && col.pipe != null">{{rowData[col.field] | number: col.pipe }}</span>
-                  <span *ngIf="col.type=='date'   && col.pipe != null">{{rowData[col.field] | date: col.pipe }}</span>
-                  <p-button *ngIf="col.type=='button'" label="{{col.header}}"
-                            (onClick)="getLink(rowData[col.field], col)"></p-button>
+                    *ngIf="col.type == 'string' || (col.pipe == null && col.type != 'button')"
+                    >{{ getLabel(rowData[col.field], col) }}</span
+                  >
+                  <span *ngIf="col.type == 'number' && col.pipe != null">{{
+                    rowData[col.field] | number: col.pipe
+                  }}</span>
+                  <span *ngIf="col.type == 'date' && col.pipe != null">{{
+                    rowData[col.field] | date: col.pipe
+                  }}</span>
+                  <p-button
+                    *ngIf="col.type == 'button'"
+                    label="{{ col.header }}"
+                    (onClick)="getLink(rowData[col.field], col)"
+                  ></p-button>
                 </ng-template>
               </p-cellEditor>
             </td>
           </ng-container>
         </tr>
-        <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex" *ngIf='!dataTable.canEditRow'>
+        <tr
+          [pSelectableRow]="rowData"
+          [pSelectableRowIndex]="rowIndex"
+          *ngIf="!dataTable.canEditRow"
+        >
           <!-- Icono expansable table -->
-          <td [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.expandableRows'>
-            <button type='button' class='ui-button full-width' pButton pTooltip="Detalles"
-                    icon="fa fa-info-circle" (click)="onExpand(rowData)"></button>
+          <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.expandableRows">
+            <button
+              type="button"
+              class="ui-button full-width"
+              pButton
+              pTooltip="Detalles"
+              icon="fa fa-info-circle"
+              (click)="onExpand(rowData)"
+            ></button>
           </td>
-          <td [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.checkBoxSelect'>
+          <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.checkBoxSelect">
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
-          <ng-container *ngFor='let col of columns'>
-            <td *ngIf='col.showInTable' [ngStyle]="getStyle(col.style, rowData, col.colsColor, col.field)">
-              <span
-                *ngIf="col.type=='string'  || (col.pipe == null && col.type != 'button')"> {{getLabel(rowData[col.field], col)}}</span>
-              <p-button *ngIf="col.type=='button' && col.pipe == null" label="{{col.header}}"
-                        (onClick)="getLink(rowData[col.field], col)"></p-button>
-              <span *ngIf="col.type=='number' && col.pipe != null">{{rowData[col.field] | number: col.pipe }}</span>
-              <span *ngIf="col.type=='date'   && col.pipe != null">{{rowData[col.field] | date: col.pipe }}</span>
+          <ng-container *ngFor="let col of columns">
+            <td
+              *ngIf="col.showInTable"
+              [ngStyle]="getStyle(col.style, rowData, col.colsColor, col.field)"
+            >
+              <span *ngIf="col.type == 'string' || (col.pipe == null && col.type != 'button')">
+                {{ getLabel(rowData[col.field], col) }}</span
+              >
+              <p-button
+                *ngIf="col.type == 'button' && col.pipe == null"
+                label="{{ col.header }}"
+                (onClick)="getLink(rowData[col.field], col)"
+              ></p-button>
+              <span *ngIf="col.type == 'number' && col.pipe != null">{{
+                rowData[col.field] | number: col.pipe
+              }}</span>
+              <span *ngIf="col.type == 'date' && col.pipe != null">{{
+                rowData[col.field] | date: col.pipe
+              }}</span>
             </td>
           </ng-container>
         </tr>
       </ng-template>
 
       <!--- Footer table editable--->
-      <ng-template pTemplate='footer' let-state let-columns>
-        <div style='position:absolute;bottom: 2px;left: 10px;'>
-          {{dataTable.rows.length}} filas
+      <ng-template pTemplate="footer" let-state let-columns>
+        <div style="position:absolute;bottom: 2px;left: 10px;">
+          {{ dataTable.rows.length }} filas
         </div>
-        <tr style='font-weight: bold; background-color: rgb(255,255,255);'>
-          <td [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.expandableRows'></td>
-          <td [ngStyle]="{width:'30px',padding:'0px'}" *ngIf='dataTable.checkBoxSelect'></td>
-          <ng-container *ngFor='let col of columns'>
-            <td *ngIf='col.showInTable' [ngStyle]=getStyle(col.style)>
-              <span *ngIf='totales[col.field]!=null' class='ui-cell-data'>
-                <hr/>
-                {{totales[col.field] | number: col.pipe}}
+        <tr style="font-weight: bold; background-color: rgb(255,255,255);">
+          <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.expandableRows"></td>
+          <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.checkBoxSelect"></td>
+          <ng-container *ngFor="let col of columns">
+            <td *ngIf="col.showInTable" [ngStyle]="getStyle(col.style)">
+              <span *ngIf="totales[col.field] != null" class="ui-cell-data">
+                <hr />
+                {{ totales[col.field] | number: col.pipe }}
               </span>
             </td>
           </ng-container>
         </tr>
       </ng-template>
 
-      <button class='button-base export-to-csv' type='button' pButton icon='pi pi-download' (click)='tc.exportCSV()'
-              label='Exportar a CSV'></button>
+      <button
+        class="button-base export-to-csv"
+        type="button"
+        pButton
+        icon="pi pi-download"
+        (click)="tc.exportCSV()"
+        label="Exportar a CSV"
+      ></button>
     </p-table>
   </p-panel>
 </section>
 
-<p-dialog [(visible)]="displayChildDataTable" *ngIf="childDataTable && childDataTable.rows.length > 0"
-          [closeOnEscape]='true' styleClass='pDialogChild' [modal]='true' [responsive]='true'
-          (onHide)="displayChildDataTable=false">
-  <app-table-editable *ngIf='childDataTable && childDataTable.rows.length > 0'
-                      class="childDataTable"
-                      [dataTable]='childDataTable'
-                      (onSaveEvent)='onSaveChild($event)'
-                      (onRefreshEvent)='getTableChild()'>
+<p-dialog
+  [(visible)]="displayChildDataTable"
+  *ngIf="childDataTable && childDataTable.rows.length > 0"
+  [closeOnEscape]="true"
+  styleClass="pDialogChild"
+  [modal]="true"
+  [responsive]="true"
+  (onHide)="displayChildDataTable = false"
+>
+  <app-table-editable
+    *ngIf="childDataTable && childDataTable.rows.length > 0"
+    class="childDataTable"
+    [dataTable]="childDataTable"
+    (onSaveEvent)="onSaveChild($event)"
+    (onRefreshEvent)="getTableChild()"
+  >
   </app-table-editable>
 </p-dialog>
 
-
-<p-dialog #addDialog header='Nuevo Registro' *ngIf='displayAddDialog' [(visible)]='displayAddDialog' [responsive]='true'
-          showEffect='fade' [modal]='true' [contentStyle]="{'max-width': '600px', overflowY: 'scroll'}">
-  <div class='ui-g'>
-    <div class='p-grid'>
-      <ng-container *ngFor='let col of dataTable.cols'>
-        <div class='ui-separation-lg full-width' style='padding-bottom: 15px' [hidden]='!col.insertable'>
+<p-dialog
+  #addDialog
+  header="Nuevo Registro"
+  *ngIf="displayAddDialog"
+  [(visible)]="displayAddDialog"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [contentStyle]="{ 'max-width': '600px', overflowY: 'scroll' }"
+>
+  <div class="ui-g">
+    <div class="p-grid">
+      <ng-container *ngFor="let col of dataTable.cols">
+        <div
+          class="ui-separation-lg full-width"
+          style="padding-bottom: 15px"
+          [hidden]="!col.insertable"
+        >
           <div>
-            <label class='full-width'>{{ col.header }}</label>
+            <label class="full-width">{{ col.header }}</label>
           </div>
-          <div class='p-col-12 nopad'>
-            <input *ngIf="col.editType=='input'" pInputText [type]="col.type=='string'?'text':col.type"
-                   [(ngModel)]='newRow[col.field]' [style]='getStyle(col.style)'>
-            <p-dropdown *ngIf="col.editType=='dropdown' && col.insertable" [options]='lovs[col.field]'
-                        [(ngModel)]='newRow[col.field]' [style]="{ width: '100%' }" scrollHeight='400px' filter='true'
-                        [appendTo]='addDialog' autofocus='true'
-                        [placeholder]="'Seleccione...'"></p-dropdown>
-            <p-calendar *ngIf="col.editType=='calendar'" showAnim='slideDown' dateFormat='dd/mm/yy'
-                        icon='pi pi-calendar' [locale]='calendar' dataType='string' [(ngModel)]='newRow[col.field]'
-                        [style]="{ width: '100%' }" [appendTo]='addDialog'></p-calendar>
-            <textarea *ngIf="col.editType=='textArea'" pInputTextarea [(ngModel)]='newRow[col.field]' [rows]='3'
-                      [cols]='60' [style]='getStyle(col.style)'></textarea>
-          </div>
-        </div>
-      </ng-container>
-    </div>
-  </div>
-  <p-footer>
-    <div class='ui-dialog-buttonpanel ui-widget-content ui-helper-clearfix'>
-      <div class='ui-button-group'>
-        <button type='button' pButton icon='fa fa-check' (click)='saveNewRow()' label='Añadir'></button>
-        <button type='button' pButton icon='fa fa-close' (click)='cancelNewRow()' label='Cancelar'></button>
-      </div>
-    </div>
-  </p-footer>
-</p-dialog>
-
-<p-dialog #editDialog header='Editar Registro' *ngIf='displayEditDialog' [(visible)]='displayEditDialog'
-          [responsive]='true'
-          showEffect='fade' [modal]='true' [contentStyle]="{'max-width': '600px', overflowY: 'scroll'}">
-  <div class='ui-g'>
-    <div class='p-grid'>
-      <ng-container *ngFor='let col of dataTable.cols'>
-        <div class='ui-separation-lg full-width' style='padding-bottom: 15px' [hidden]='!col.editable'>
-          <div>
-            <label class='full-width'>{{ col.header }}</label>
-          </div>
-          <div class='p-col-12 nopad'>
-            <input *ngIf="col.editType=='input'" pInputText [type]="col.type=='string'?'text':col.type"
-                   [(ngModel)]='editRow[col.field]' [style]='getStyle(col.style)'
-            >
-            <p-dropdown *ngIf="col.editType=='dropdown' && col.editable" [options]='lovs[col.field]'
-                        [(ngModel)]='editRow[col.field]' [style]="{ width: '100%' }" scrollHeight='400px' filter='true'
-                        [appendTo]='editDialog' autofocus='true'
-                        [placeholder]="'Seleccione...'"
+          <div class="p-col-12 nopad">
+            <input
+              *ngIf="col.editType == 'input'"
+              pInputText
+              [type]="col.type == 'string' ? 'text' : col.type"
+              [(ngModel)]="newRow[col.field]"
+              [style]="getStyle(col.style)"
+              (change)="onFieldChange(col.field, newRow)"
+            />
+            <p-dropdown
+              *ngIf="col.editType == 'dropdown' && col.insertable"
+              [options]="lovs[col.field]"
+              [(ngModel)]="newRow[col.field]"
+              [style]="{ width: '100%' }"
+              scrollHeight="400px"
+              filter="true"
+              [appendTo]="addDialog"
+              autofocus="true"
+              [placeholder]="'Seleccione...'"
+              (onChange)="onFieldChange(col.field, newRow)"
             ></p-dropdown>
-            <p-calendar *ngIf="col.editType=='calendar'" showAnim='slideDown' dateFormat='dd/mm/yy'
-                        icon='pi pi-calendar' [locale]='calendar' dataType='string' [(ngModel)]='editRow[col.field]'
-                        [style]="{ width: '100%' }" [appendTo]='editDialog'
+            <p-calendar
+              *ngIf="col.editType == 'calendar'"
+              showAnim="slideDown"
+              dateFormat="dd/mm/yy"
+              icon="pi pi-calendar"
+              [locale]="calendar"
+              dataType="string"
+              [(ngModel)]="newRow[col.field]"
+              [style]="{ width: '100%' }"
+              [appendTo]="addDialog"
+              (change)="onFieldChange(col.field, newRow)"
             ></p-calendar>
-            <textarea *ngIf="col.editType=='textArea'" pInputTextarea [(ngModel)]='editRow[col.field]' [rows]='3'
-                      [cols]='60' [style]='getStyle(col.style)'
+            <textarea
+              *ngIf="col.editType == 'textArea'"
+              pInputTextarea
+              [(ngModel)]="newRow[col.field]"
+              [rows]="3"
+              [cols]="60"
+              [style]="getStyle(col.style)"
+              (change)="onFieldChange(col.field, newRow)"
             ></textarea>
           </div>
         </div>
@@ -302,24 +495,124 @@
     </div>
   </div>
   <p-footer>
-    <div class='ui-dialog-buttonpanel ui-widget-content ui-helper-clearfix'>
-      <div class='ui-button-group'>
-        <button type='button' pButton icon='fa fa-check' (click)='saveEditRow()' label='Añadir'></button>
-        <button type='button' pButton icon='fa fa-close' (click)='cancelEditRow()' label='Cancelar'></button>
+    <div class="ui-dialog-buttonpanel ui-widget-content ui-helper-clearfix">
+      <div class="ui-button-group">
+        <button
+          type="button"
+          pButton
+          icon="fa fa-check"
+          (click)="saveNewRow()"
+          label="Añadir"
+        ></button>
+        <button
+          type="button"
+          pButton
+          icon="fa fa-close"
+          (click)="cancelNewRow()"
+          label="Cancelar"
+        ></button>
       </div>
     </div>
   </p-footer>
 </p-dialog>
 
-
-<p-confirmDialog #cd styleClass='pConfirmDialog'>
+<p-dialog
+  #editDialog
+  header="Editar Registro"
+  *ngIf="displayEditDialog"
+  [(visible)]="displayEditDialog"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [contentStyle]="{ 'max-width': '600px', overflowY: 'scroll' }"
+>
+  <div class="ui-g">
+    <div class="p-grid">
+      <ng-container *ngFor="let col of dataTable.cols">
+        <div
+          class="ui-separation-lg full-width"
+          style="padding-bottom: 15px"
+          [hidden]="!col.editable"
+        >
+          <div>
+            <label class="full-width">{{ col.header }}</label>
+          </div>
+          <div class="p-col-12 nopad">
+            <input
+              *ngIf="col.editType == 'input'"
+              pInputText
+              [type]="col.type == 'string' ? 'text' : col.type"
+              [(ngModel)]="editRow[col.field]"
+              [style]="getStyle(col.style)"
+              (change)="onFieldChange(col.field, newRow)"
+            />
+            <p-dropdown
+              *ngIf="col.editType == 'dropdown' && col.editable"
+              [options]="lovs[col.field]"
+              [(ngModel)]="editRow[col.field]"
+              [style]="{ width: '100%' }"
+              scrollHeight="400px"
+              filter="true"
+              [appendTo]="editDialog"
+              autofocus="true"
+              [placeholder]="'Seleccione...'"
+              (onChange)="onFieldChange(col.field, newRow)"
+            ></p-dropdown>
+            <p-calendar
+              *ngIf="col.editType == 'calendar'"
+              showAnim="slideDown"
+              dateFormat="dd/mm/yy"
+              icon="pi pi-calendar"
+              [locale]="calendar"
+              dataType="string"
+              [(ngModel)]="editRow[col.field]"
+              [style]="{ width: '100%' }"
+              [appendTo]="editDialog"
+              (change)="onFieldChange(col.field, newRow)"
+            ></p-calendar>
+            <textarea
+              *ngIf="col.editType == 'textArea'"
+              pInputTextarea
+              [(ngModel)]="editRow[col.field]"
+              [rows]="3"
+              [cols]="60"
+              [style]="getStyle(col.style)"
+              (change)="onFieldChange(col.field, newRow)"
+            ></textarea>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
   <p-footer>
-    <div class='ui-dialog-buttonpanel ui-widget-content ui-helper-clearfix'>
-      <div class='ui-button-group'>
-        <button type='button' pButton icon='fa fa-check' label='Si' (click)='cd.accept()'></button>
-        <button type='button' pButton icon='fa fa-close' label='No' (click)='cd.reject()'></button>
+    <div class="ui-dialog-buttonpanel ui-widget-content ui-helper-clearfix">
+      <div class="ui-button-group">
+        <button
+          type="button"
+          pButton
+          icon="fa fa-check"
+          (click)="saveEditRow()"
+          label="Añadir"
+        ></button>
+        <button
+          type="button"
+          pButton
+          icon="fa fa-close"
+          (click)="cancelEditRow()"
+          label="Cancelar"
+        ></button>
+      </div>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-confirmDialog #cd styleClass="pConfirmDialog">
+  <p-footer>
+    <div class="ui-dialog-buttonpanel ui-widget-content ui-helper-clearfix">
+      <div class="ui-button-group">
+        <button type="button" pButton icon="fa fa-check" label="Si" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="fa fa-close" label="No" (click)="cd.reject()"></button>
       </div>
     </div>
   </p-footer>
 </p-confirmDialog>
-
