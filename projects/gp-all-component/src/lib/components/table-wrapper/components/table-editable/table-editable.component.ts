@@ -36,6 +36,10 @@ export class TableEditableComponent implements OnInit {
   @Output() onSaveChildEvent = new EventEmitter<any>();
 
   @Output() onRefreshEvent = new EventEmitter<null>();
+  // Emite un evento cuando termina de inicializar la tabla
+  @Output() onAfterInitEvent = new EventEmitter<null>();
+  // Emite un evento cuando un campos ha sido modificado por el usuario { field, rowData }
+  @Output() onFieldChangeEvent = new EventEmitter<any>();
 
   @ViewChild('tc') tc: Table;
 
@@ -96,6 +100,7 @@ export class TableEditableComponent implements OnInit {
     this.working = false;
     this.scrollHeight = this.dataTable.scrollHeight;
     this.scrollHeightString = this.scrollHeight + 'px';
+    this.onAfterInitEvent.emit();
   }
 
   getStyleCols(col) {
@@ -348,7 +353,7 @@ export class TableEditableComponent implements OnInit {
     this.onSaveChildEvent.emit(event);
   }
 
-  markAsEdited(event: Event) {
+  markAsEdited(event: Event, field?: string) {
     const index1 = this.dataTableRowsOriginal.findIndex(
       (r) => r[this.dataTable.dataKey] === event[this.dataTable.dataKey]
     );
@@ -369,6 +374,9 @@ export class TableEditableComponent implements OnInit {
       this.rowsToUpdate[index2] = event;
     }
     this.calcFilterOptions();
+    if (field != null) {
+      this.onFieldChange(field, event);
+    }
   }
 
   /* Orden de las columnas personalizada para poder ordenar correctamente las fechas */
@@ -452,5 +460,9 @@ export class TableEditableComponent implements OnInit {
   getLink(value: any, col: any) {
     const link = this.getLabel(value, col);
     window.open(link);
+  }
+
+  onFieldChange(field: string, rowData: any) {
+    this.onFieldChangeEvent.emit({ field, rowData });
   }
 }
