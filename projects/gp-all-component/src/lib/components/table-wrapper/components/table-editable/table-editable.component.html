@@ -544,7 +544,7 @@
               [type]="col.type == 'string' ? 'text' : col.type"
               [(ngModel)]="editRow[col.field]"
               [style]="getStyle(col.style)"
-              (change)="onFieldChange(col.field, newRow)"
+              (change)="onFieldChange(col.field, editRow)"
             />
             <p-dropdown
               *ngIf="col.editType == 'dropdown' && col.editable"
@@ -556,7 +556,7 @@
               [appendTo]="editDialog"
               autofocus="true"
               [placeholder]="'Seleccione...'"
-              (onChange)="onFieldChange(col.field, newRow)"
+              (onChange)="onFieldChange(col.field, editRow)"
             ></p-dropdown>
             <p-calendar
               *ngIf="col.editType == 'calendar'"
@@ -568,7 +568,7 @@
               [(ngModel)]="editRow[col.field]"
               [style]="{ width: '100%' }"
               [appendTo]="editDialog"
-              (change)="onFieldChange(col.field, newRow)"
+              (change)="onFieldChange(col.field, editRow)"
             ></p-calendar>
             <textarea
               *ngIf="col.editType == 'textArea'"
@@ -577,7 +577,7 @@
               [rows]="3"
               [cols]="60"
               [style]="getStyle(col.style)"
-              (change)="onFieldChange(col.field, newRow)"
+              (change)="onFieldChange(col.field, editRow)"
             ></textarea>
           </div>
         </div>
