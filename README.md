@@ -3,6 +3,8 @@
 You can find more information in the README located in projects/gp-all-component folder
 
 #### Últimos cambios
+##### Version 1.3.3
+    . Estilo parametrizado para los customButtons de TableEditable
 ##### Version 1.3.2
     . Nuevos eventos en TableEditableComponent
         . onAfterInitEvent: emite cuando termina de inicializar la tabla

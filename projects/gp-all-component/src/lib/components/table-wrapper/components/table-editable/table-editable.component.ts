@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { ConfirmationService, LazyLoadEvent, MessageService, SelectItem } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { DataTableEditableCustomButton } from '../../../../resources/data/data-table/editable/data-table-editable-customButton';
 
 /*
  *  Data order: data -> filteredData -> sortedData -> currentPageData
@@ -26,7 +27,7 @@ import { Table } from 'primeng/table';
 })
 export class TableEditableComponent implements OnInit {
   @Input() dataTable: TableEditable;
-  @Input() customButtons: any[] = [];
+  @Input() customButtons: DataTableEditableCustomButton[] = [];
 
   @Output() onRowSelectEvent = new EventEmitter<any>();
   @Output() onRowSelectMultipleEvent = new EventEmitter<any>();
