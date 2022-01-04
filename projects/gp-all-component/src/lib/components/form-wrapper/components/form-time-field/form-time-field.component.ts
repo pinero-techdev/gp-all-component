@@ -105,7 +105,7 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
     }
 
     // c) Time validation (hh:mm / 24h)
-    if (!RegexValidations.isTime24Hours(fieldValue)) {
+    if (fieldValue && fieldValue.length > 0 && !RegexValidations.isTime24Hours(fieldValue)) {
       this.formField.validField = false;
       this.validateFieldAddMsgs(LocaleES.VALIDATION_TIME_FORMAT);
     }
