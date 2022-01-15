@@ -43,7 +43,8 @@
               dataTable.canEdit ||
               dataTable.canEditRow ||
               dataTable.canDelete) &&
-            changedDetected
+            changedDetected &&
+            showControlButtons
           "
         >
           <div class="box">
@@ -62,7 +63,7 @@
         <div
           class="p-col-fixed"
           style="width: 40px;height: 5px;"
-          *ngIf="dataTable && dataTable.canAdd"
+          *ngIf="dataTable && dataTable.canAdd && showControlButtons"
         >
           <div class="box">
             <button
@@ -78,7 +79,7 @@
         <div
           class="p-col-fixed"
           style="width: 40px;height: 5px;"
-          *ngIf="dataTable && dataTable.canEdit && tc && tc.selection"
+          *ngIf="dataTable && dataTable.canEdit && tc && tc.selection && showControlButtons"
         >
           <div class="box">
             <button
@@ -95,7 +96,7 @@
         <div
           class="p-col-fixed"
           style="width: 40px;height: 5px;"
-          *ngIf="dataTable.canDelete && tc && tc.selection"
+          *ngIf="dataTable.canDelete && tc && tc.selection && showControlButtons"
         >
           <div class="box">
             <button
