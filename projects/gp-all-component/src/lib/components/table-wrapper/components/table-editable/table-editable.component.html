@@ -480,7 +480,7 @@
               [(ngModel)]="newRow[col.field]"
               [style]="{ width: '100%' }"
               [appendTo]="addDialog"
-              (change)="onFieldChange(col.field, newRow)"
+              (onClose)="onFieldChange(col.field, newRow)"
             ></p-calendar>
             <textarea
               *ngIf="col.editType == 'textArea'"
