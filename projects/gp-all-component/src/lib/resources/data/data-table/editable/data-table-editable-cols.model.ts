@@ -10,6 +10,8 @@ export class TableEditableCols {
   editType: string; // Tipo de edición: input, calendar, dropdown, textArea
   filter: string; //
   defaultFilterValue: string; // Valor de filtro por defecto de la columna
+  filterType: string; // Sirve para sobrescribir el filtro: startsWith / contains
+  required: boolean; // Sirve para añadir asterisco en los campos requeridos (no activar el botón guardar hasta que los campos estén informados)
   total: boolean; // Sumatorio de la columna al pie de la tabla
   expandable: boolean; // Deprecated
   colsColor: boolean; // Color para columnas que tienen diferentes colores en cada fila

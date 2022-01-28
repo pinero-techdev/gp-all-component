@@ -447,7 +447,7 @@
           [hidden]="!col.insertable"
         >
           <div>
-            <label class="full-width">{{ col.header }}</label>
+            <label class="full-width">{{ col.header }}{{ col.required ? '*' : '' }}</label>
           </div>
           <div class="p-col-12 nopad">
             <input
@@ -502,6 +502,7 @@
         <button
           type="button"
           pButton
+          [disabled]="checkRequired('new')"
           icon="fa fa-check"
           (click)="saveNewRow()"
           label="Añadir"
@@ -537,7 +538,7 @@
           [hidden]="!col.editable"
         >
           <div>
-            <label class="full-width">{{ col.header }}</label>
+            <label class="full-width">{{ col.header }}{{ col.required ? '*' : '' }}</label>
           </div>
           <div class="p-col-12 nopad">
             <input
@@ -592,6 +593,7 @@
         <button
           type="button"
           pButton
+          [disabled]="checkRequired('edit')"
           icon="fa fa-check"
           (click)="saveEditRow()"
           label="Añadir"

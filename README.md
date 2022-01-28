@@ -4,6 +4,9 @@ You can find more information in the README located in projects/gp-all-component
 
 #### Últimos cambios
 
+##### Version 1.3.7
+    . Añadida propiedad filterType para los filtros de columna 
+    . Añadida propiedad required para campos requeridos (*)
 ##### Version 1.3.6
     . Corrección calendar en onFieldChangeEvent
 ##### Version 1.3.5
@@ -19,3 +22,4 @@ You can find more information in the README located in projects/gp-all-component
 ##### Version 1.3.1
     . Nuevo componente TableEditableComponent
     
+sh ``` npm run build && npm run deploy-component ```   

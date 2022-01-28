@@ -134,7 +134,35 @@ export class TableEditableComponent implements OnInit {
     if (this.tc) {
       let filteredRows = this.dataTable.rows;
       for (const f of Object.keys(this.tc.filters)) {
-        filteredRows = filteredRows.filter((r) => (r[f] + '').startsWith(this.tc.filters[f].value));
+        const colData = this.dataTable.cols.find((c) => c.field === f);
+        switch (colData.filterType) {
+          case 'includes':
+            filteredRows = filteredRows.filter((r) =>
+              (r[f] + '').includes(this.tc.filters[f].value)
+            );
+            break;
+          case 'startsWith':
+            filteredRows = filteredRows.filter((r) =>
+              (r[f] + '').startsWith(this.tc.filters[f].value)
+            );
+            break;
+          case 'endsWith':
+            filteredRows = filteredRows.filter((r) =>
+              (r[f] + '').endsWith(this.tc.filters[f].value)
+            );
+            break;
+          case 'equals':
+            filteredRows = filteredRows.filter((r) => r[f] + '' === this.tc.filters[f].value);
+            break;
+          case 'match':
+            filteredRows = filteredRows.filter((r) => (r[f] + '').match(this.tc.filters[f].value));
+            break;
+          default:
+            filteredRows = filteredRows.filter((r) =>
+              (r[f] + '').startsWith(this.tc.filters[f].value)
+            );
+            break;
+        }
       }
       rows = filteredRows;
 
@@ -466,5 +494,15 @@ export class TableEditableComponent implements OnInit {
 
   onFieldChange(field: string, rowData: any) {
     this.onFieldChangeEvent.emit({ field, rowData });
+  }
+
+  checkRequired(operation: string) {
+    const rowData = operation === 'new' ? this.newRow : this.editRow;
+    for (const col of this.dataTable.cols) {
+      if (col.required && rowData[col.field] != null) {
+        return true;
+      }
+    }
+    return false;
   }
 }
