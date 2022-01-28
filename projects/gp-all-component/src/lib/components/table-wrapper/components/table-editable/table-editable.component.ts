@@ -135,6 +135,7 @@ export class TableEditableComponent implements OnInit {
       let filteredRows = this.dataTable.rows;
       for (const f of Object.keys(this.tc.filters)) {
         const colData = this.dataTable.cols.find((c) => c.field === f);
+
         switch (colData.filterType) {
           case 'includes':
             filteredRows = filteredRows.filter((r) =>
@@ -153,9 +154,6 @@ export class TableEditableComponent implements OnInit {
             break;
           case 'equals':
             filteredRows = filteredRows.filter((r) => r[f] + '' === this.tc.filters[f].value);
-            break;
-          case 'match':
-            filteredRows = filteredRows.filter((r) => (r[f] + '').match(this.tc.filters[f].value));
             break;
           default:
             filteredRows = filteredRows.filter((r) =>
@@ -456,7 +454,29 @@ export class TableEditableComponent implements OnInit {
 
     let filteredRows = this.dataTable.rows;
     for (const f of Object.keys(event.filters)) {
-      filteredRows = filteredRows.filter((r) => (r[f] + '').startsWith(event.filters[f].value));
+      const colData = this.dataTable.cols.find((c) => c.field === f);
+
+      switch (colData.filterType) {
+        case 'includes':
+          filteredRows = filteredRows.filter((r) => (r[f] + '').includes(this.tc.filters[f].value));
+          break;
+        case 'startsWith':
+          filteredRows = filteredRows.filter((r) =>
+            (r[f] + '').startsWith(this.tc.filters[f].value)
+          );
+          break;
+        case 'endsWith':
+          filteredRows = filteredRows.filter((r) => (r[f] + '').endsWith(this.tc.filters[f].value));
+          break;
+        case 'equals':
+          filteredRows = filteredRows.filter((r) => r[f] + '' === this.tc.filters[f].value);
+          break;
+        default:
+          filteredRows = filteredRows.filter((r) =>
+            (r[f] + '').startsWith(this.tc.filters[f].value)
+          );
+          break;
+      }
     }
 
     if (event.first + event.rows <= filteredRows.length) {
@@ -504,5 +524,32 @@ export class TableEditableComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  getColFilterType(col: any) {
+    let result: string;
+    switch (col.filterType) {
+      case 'startsWith': {
+        result = 'startsWith';
+        break;
+      }
+      case 'includes': {
+        result = 'contains';
+        break;
+      }
+      case 'equals': {
+        result = 'equals';
+        break;
+      }
+      case 'endsWith': {
+        result = 'endsWith';
+        break;
+      }
+      default: {
+        result = 'startsWith';
+        break;
+      }
+    }
+    return result;
   }
 }
