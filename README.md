@@ -5,6 +5,8 @@ You can find more information in the README located in projects/gp-all-component
 #### Últimos cambios
 
 ##### Version 1.3.6
+    . Corrección de nombre de variable en TranslationInfo para allowEdition -> allowHtmlEdition, y los componentes que lo utilizan.
+##### Version 1.3.6
     . Corrección calendar en onFieldChangeEvent
 ##### Version 1.3.5
     . Table Editable: nuevo input showControlButtons para controlar visibilidad de botones de control
