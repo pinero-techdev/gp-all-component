@@ -28,6 +28,7 @@ import { DataTableEditableCustomButton } from '../../../../resources/data/data-t
 export class TableEditableComponent implements OnInit {
   @Input() dataTable: TableEditable;
   @Input() customButtons: DataTableEditableCustomButton[] = [];
+  @Input() showControlButtons = true;
 
   @Output() onRowSelectEvent = new EventEmitter<any>();
   @Output() onRowSelectMultipleEvent = new EventEmitter<any>();
