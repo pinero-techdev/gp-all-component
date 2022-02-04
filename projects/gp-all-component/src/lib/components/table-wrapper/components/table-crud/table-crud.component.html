@@ -88,107 +88,115 @@
       <div class="p-grid">
         <h3 class="p-col-12 big-topic">Edición - {{ tableLabel }}</h3>
       </div>
-      <div class="p-grid input-group" *ngFor="let col of columns">
-        <div *ngFor="let msg of col.fieldMsgs" class="ui-messages-error">
-          <i class="pi pi-close"></i>&nbsp;{{ msg.detail }}
-        </div>
+      <ng-container *ngFor="let col of columns">
         <div
-          class="p-col-12 p-md-4"
+          class="p-grid input-group"
           *ngIf="
             (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
             (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
           "
         >
-          <label
-            >{{ col.fieldMetadata.displayInfo.fieldLabel }}
-            <span *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span></label
+          <div *ngFor="let msg of col.fieldMsgs" class="ui-messages-error">
+            <i class="pi pi-close"></i>&nbsp;{{ msg.detail }}
+          </div>
+          <div
+            class="p-col-12 p-md-4"
+            *ngIf="
+              (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
+              (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
+            "
           >
+            <label
+              >{{ col.fieldMetadata.displayInfo.fieldLabel }}
+              <span *ngIf="col.fieldMetadata.id || col.fieldMetadata.notNull">*</span></label
+            >
+          </div>
+          <div
+            class="p-col-12 p-md-8"
+            *ngIf="
+              (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
+              (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
+            "
+          >
+            <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField]="col">
+            </gp-form-time-field>
+            <gp-form-text-field
+              *ngIf="col.formFieldType == 'gp-form-text-field'"
+              [formField]="col"
+              [canTranslate]="formControl.edicionEdit"
+            >
+            </gp-form-text-field>
+            <gp-form-password-field
+              *ngIf="col.formFieldType == 'gp-form-password-field'"
+              [formField]="col"
+              [canTranslate]="formControl.edicionEdit"
+            ></gp-form-password-field>
+            <gp-form-number-field
+              *ngIf="col.formFieldType == 'gp-form-number-field'"
+              [formField]="col"
+            ></gp-form-number-field>
+            <gp-form-textarea-field
+              *ngIf="col.formFieldType == 'gp-form-textarea-field'"
+              [formField]="col"
+              [canTranslate]="formControl.edicionEdit"
+            >
+            </gp-form-textarea-field>
+            <gp-form-dropdown-field
+              *ngIf="col.formFieldType == 'gp-form-dropdown-field'"
+              [formField]="col"
+              (valueChanged)="changeEvent($event)"
+            ></gp-form-dropdown-field>
+            <gp-form-dropdown-related-field
+              [formField]="col"
+              *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
+              (valueChanged)="changeEvent($event)"
+              [relatedField]="fieldsChanged"
+            >
+            </gp-form-dropdown-related-field>
+            <gp-form-switch-field
+              *ngIf="col.formFieldType == 'gp-form-switch-field'"
+              [formField]="col"
+            >
+            </gp-form-switch-field>
+            <gp-form-checkbox-field
+              *ngIf="col.formFieldType == 'gp-form-checkbox-field'"
+              [formField]="col"
+            >
+            </gp-form-checkbox-field>
+            <gp-form-days-of-week-field
+              *ngIf="col.formFieldType == 'gp-form-days-of-week-field'"
+              [formField]="col"
+            >
+            </gp-form-days-of-week-field>
+            <gp-form-calendar-field
+              *ngIf="col.formFieldType == 'gp-form-calendar-field'"
+              [formField]="col"
+            >
+            </gp-form-calendar-field>
+            <gp-form-wysiwyg-field
+              *ngIf="col.formFieldType == 'gp-form-wysiwyg-field'"
+              [formField]="col"
+            >
+            </gp-form-wysiwyg-field>
+            <gp-form-img-field *ngIf="col.formFieldType == 'gp-form-img-field'" [formField]="col">
+            </gp-form-img-field>
+            <gp-form-nullable-checkbox-field
+              *ngIf="col.formFieldType == 'gp-form-nullable-checkbox-field'"
+              [formField]="col"
+            ></gp-form-nullable-checkbox-field>
+            <gp-form-color-picker-field
+              *ngIf="col.formFieldType == 'gp-form-color-picker-field'"
+              [formField]="col"
+            >
+            </gp-form-color-picker-field>
+            <gp-form-b64-file-field
+              *ngIf="col.formFieldType == 'gp-form-b64-file-field'"
+              [formField]="col"
+            >
+            </gp-form-b64-file-field>
+          </div>
         </div>
-        <div
-          class="p-col-12 p-md-8"
-          *ngIf="
-            (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
-            (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
-          "
-        >
-          <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField]="col">
-          </gp-form-time-field>
-          <gp-form-text-field
-            *ngIf="col.formFieldType == 'gp-form-text-field'"
-            [formField]="col"
-            [canTranslate]="formControl.edicionEdit"
-          >
-          </gp-form-text-field>
-          <gp-form-password-field
-            *ngIf="col.formFieldType == 'gp-form-password-field'"
-            [formField]="col"
-            [canTranslate]="formControl.edicionEdit"
-          ></gp-form-password-field>
-          <gp-form-number-field
-            *ngIf="col.formFieldType == 'gp-form-number-field'"
-            [formField]="col"
-          ></gp-form-number-field>
-          <gp-form-textarea-field
-            *ngIf="col.formFieldType == 'gp-form-textarea-field'"
-            [formField]="col"
-            [canTranslate]="formControl.edicionEdit"
-          >
-          </gp-form-textarea-field>
-          <gp-form-dropdown-field
-            *ngIf="col.formFieldType == 'gp-form-dropdown-field'"
-            [formField]="col"
-            (valueChanged)="changeEvent($event)"
-          ></gp-form-dropdown-field>
-          <gp-form-dropdown-related-field
-            [formField]="col"
-            *ngIf="col.formFieldType == 'gp-form-dropdown-related-field'"
-            (valueChanged)="changeEvent($event)"
-            [relatedField]="fieldsChanged"
-          >
-          </gp-form-dropdown-related-field>
-          <gp-form-switch-field
-            *ngIf="col.formFieldType == 'gp-form-switch-field'"
-            [formField]="col"
-          >
-          </gp-form-switch-field>
-          <gp-form-checkbox-field
-            *ngIf="col.formFieldType == 'gp-form-checkbox-field'"
-            [formField]="col"
-          >
-          </gp-form-checkbox-field>
-          <gp-form-days-of-week-field
-            *ngIf="col.formFieldType == 'gp-form-days-of-week-field'"
-            [formField]="col"
-          >
-          </gp-form-days-of-week-field>
-          <gp-form-calendar-field
-            *ngIf="col.formFieldType == 'gp-form-calendar-field'"
-            [formField]="col"
-          >
-          </gp-form-calendar-field>
-          <gp-form-wysiwyg-field
-            *ngIf="col.formFieldType == 'gp-form-wysiwyg-field'"
-            [formField]="col"
-          >
-          </gp-form-wysiwyg-field>
-          <gp-form-img-field *ngIf="col.formFieldType == 'gp-form-img-field'" [formField]="col">
-          </gp-form-img-field>
-          <gp-form-nullable-checkbox-field
-            *ngIf="col.formFieldType == 'gp-form-nullable-checkbox-field'"
-            [formField]="col"
-          ></gp-form-nullable-checkbox-field>
-          <gp-form-color-picker-field
-            *ngIf="col.formFieldType == 'gp-form-color-picker-field'"
-            [formField]="col"
-          >
-          </gp-form-color-picker-field>
-          <gp-form-b64-file-field
-            *ngIf="col.formFieldType == 'gp-form-b64-file-field'"
-            [formField]="col"
-          >
-          </gp-form-b64-file-field>
-        </div>
-      </div>
+      </ng-container>
       <div class="p-grid">
         <span class="p-col-12 info-msg">
           {{ localeEs.FIELDS_MANDATORY_ASTERISK }}
