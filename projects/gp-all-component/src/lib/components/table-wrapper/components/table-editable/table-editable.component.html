@@ -140,6 +140,7 @@
       [resizableColumns]="true"
       [metaKeySelection]="!dataTable.checkBoxSelect"
       (onRowSelect)="onRowSelected($event)"
+      (onRowUnselect)="onRowUnSelected($event)"
       (onHeaderCheckboxToggle)="onRowSelectMultipleEvent.emit(rowSelected)"
       (onFilter)="calcFilterOptions()"
       (onRowCollapse)="onRowCollapse()"
