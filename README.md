@@ -4,6 +4,10 @@ You can find more information in the README located in projects/gp-all-component
 
 #### Últimos cambios
 
+##### Version 1.3.8
+    . Corrección TableEditableComponent multiselect emit on unselect
+    . Añadida propiedad filterType para los filtros de columna 
+    . Añadida propiedad required para campos requeridos (*)
 ##### Version 1.3.7
     . Corrección de nombre de variable en TranslationInfo para allowEdition -> allowHtmlEdition, y los componentes que lo utilizan.
 ##### Version 1.3.6

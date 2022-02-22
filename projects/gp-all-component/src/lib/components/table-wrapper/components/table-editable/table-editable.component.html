@@ -140,6 +140,7 @@
       [resizableColumns]="true"
       [metaKeySelection]="!dataTable.checkBoxSelect"
       (onRowSelect)="onRowSelected($event)"
+      (onRowUnselect)="onRowUnSelected($event)"
       (onHeaderCheckboxToggle)="onRowSelectMultipleEvent.emit(rowSelected)"
       (onFilter)="calcFilterOptions()"
       (onRowCollapse)="onRowCollapse()"
@@ -198,7 +199,7 @@
                 *ngIf="col.filter == 'input'"
                 pInputText
                 type="text"
-                (input)="tc.filter($event.target.value, col.field, 'startsWith')"
+                (input)="tc.filter($event.target.value, col.field, getColFilterType(col))"
               />
               <p-dropdown
                 *ngIf="col.filter == 'dropdown'"
@@ -206,7 +207,7 @@
                 [style]="{ width: '100%' }"
                 [panelStyle]="{ width: 'auto' }"
                 [(ngModel)]="filterDefaultValues[col.field]"
-                (onChange)="tc.filter($event.value, col.field, 'startsWith')"
+                (onChange)="tc.filter($event.value, col.field, getColFilterType(col))"
                 scrollHeight="400px"
                 [appendTo]="tc"
                 [filter]="true"
@@ -447,7 +448,7 @@
           [hidden]="!col.insertable"
         >
           <div>
-            <label class="full-width">{{ col.header }}</label>
+            <label class="full-width">{{ col.header }}{{ col.required ? '*' : '' }}</label>
           </div>
           <div class="p-col-12 nopad">
             <input
@@ -502,6 +503,7 @@
         <button
           type="button"
           pButton
+          [disabled]="checkRequired('new')"
           icon="fa fa-check"
           (click)="saveNewRow()"
           label="Añadir"
@@ -537,7 +539,7 @@
           [hidden]="!col.editable"
         >
           <div>
-            <label class="full-width">{{ col.header }}</label>
+            <label class="full-width">{{ col.header }}{{ col.required ? '*' : '' }}</label>
           </div>
           <div class="p-col-12 nopad">
             <input
@@ -592,6 +594,7 @@
         <button
           type="button"
           pButton
+          [disabled]="checkRequired('edit')"
           icon="fa fa-check"
           (click)="saveEditRow()"
           label="Añadir"
