@@ -114,6 +114,11 @@ export class TableEditableComponent implements OnInit {
     this.onRowSelectMultipleEvent.emit(this.rowSelected);
   }
 
+  onRowUnSelected(event: any) {
+    this.onRowSelectEvent.emit(event.data);
+    this.onRowSelectMultipleEvent.emit(this.rowSelected);
+  }
+
   getStyle(style: string, rowData?: any, rowStyle?: boolean, field?: string) {
     let result: any = null;
 
