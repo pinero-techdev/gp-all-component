@@ -109,6 +109,22 @@
             ></button>
           </div>
         </div>
+        <div
+          class="p-col-fixed"
+          style="width: 40px;height: 5px;"
+          *ngIf="dataTable.showExportButton"
+        >
+          <div class="box">
+            <button
+              class="ui-button full-width"
+              type="button"
+              pButton
+              icon="fa fa-download"
+              (click)="tc.exportCSV()"
+              pTooltip="Exportar a CSV"
+            ></button>
+          </div>
+        </div>
         <div class="p-col-fixed" style="width: 40px;height: 5px;">
           <div class="box">
             <button

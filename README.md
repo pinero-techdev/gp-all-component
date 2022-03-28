@@ -4,6 +4,8 @@ You can find more information in the README located in projects/gp-all-component
 
 #### Últimos cambios
 
+##### Version 1.3.9
+    . Table editable: mostrar botón de Exportar CSV mediante parámetro -> dataTable.showExportButton: boolean
 ##### Version 1.3.8
     . Corrección TableEditableComponent multiselect emit on unselect
     . Añadida propiedad filterType para los filtros de columna 
