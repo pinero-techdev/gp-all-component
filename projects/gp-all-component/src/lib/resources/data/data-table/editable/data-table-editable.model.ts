@@ -43,4 +43,6 @@ export class TableEditable {
   filters: boolean; // Indica si se añade un filtro de cabecera a nivel de columna
 
   displayRows = 20; // Cantidad de filas para el lazy load
+
+  showExportButton: boolean;
 }
