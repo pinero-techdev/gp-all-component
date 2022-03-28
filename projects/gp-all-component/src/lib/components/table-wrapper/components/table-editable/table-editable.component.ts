@@ -46,6 +46,7 @@ export class TableEditableComponent implements OnInit {
   @ViewChild('tc') tc: Table;
 
   hiddenTable = false;
+  showExportButton = false;
 
   checkBoxHeaderSelect = false;
 
