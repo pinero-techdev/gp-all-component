@@ -306,7 +306,7 @@
                     [(ngModel)]="rowData[col.field]"
                     [style]="{ width: '100%' }"
                     [appendTo]="tc"
-                    (change)="markAsEdited(rowData, col.field)"
+                    (onClose)="markAsEdited(rowData, col.field)"
                   ></p-calendar>
                   <p-button
                     *ngIf="col.type == 'button'"
@@ -588,7 +588,7 @@
               [(ngModel)]="editRow[col.field]"
               [style]="{ width: '100%' }"
               [appendTo]="editDialog"
-              (change)="onFieldChange(col.field, editRow)"
+              (onClose)="onFieldChange(col.field, editRow)"
             ></p-calendar>
             <textarea
               *ngIf="col.editType == 'textArea'"
@@ -613,7 +613,7 @@
           [disabled]="checkRequired('edit')"
           icon="fa fa-check"
           (click)="saveEditRow()"
-          label="Añadir"
+          label="Guardar"
         ></button>
         <button
           type="button"

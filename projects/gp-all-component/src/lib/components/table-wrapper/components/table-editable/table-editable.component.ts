@@ -268,6 +268,7 @@ export class TableEditableComponent implements OnInit {
   saveNewRow() {
     if (this.newRow !== {}) {
       this.onSaveEvent.emit({ action: 'insert', rows: [this.newRow] });
+      this.displayAddDialog = false;
     }
   }
 
