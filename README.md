@@ -4,6 +4,9 @@ You can find more information in the README located in projects/gp-all-component
 
 #### Últimos cambios
 
+##### Version 1.4.0
+    . Table editable: cerrar diálogo de inserción cuando se pulsa añadir
+    . Table editable: correción onNgModel en p-calendar
 ##### Version 1.3.9
     . Table editable: mostrar botón de Exportar CSV mediante parámetro -> dataTable.showExportButton: boolean
 ##### Version 1.3.8
