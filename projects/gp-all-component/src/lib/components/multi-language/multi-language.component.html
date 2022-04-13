@@ -10,8 +10,8 @@
   <div class="translations-wrapper" *ngIf="translations">
     <div class="p-grid input-group" *ngFor="let t of translations">
       <div
-        class="p-col-1 flag flag-{{ t.idiomaPais.toLowerCase() }}"
-        *ngIf="t.idiomaPais"
+        class="p-col-1 flag flag-{{ t.codigoIdioma.toLowerCase() }}"
+        *ngIf="t.codigoIdioma && t.idiomaPais"
         pTooltip="{{ t.idiomaPais }}"
         tooltipPosition="top"
       >
