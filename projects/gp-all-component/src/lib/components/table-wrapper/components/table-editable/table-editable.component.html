@@ -345,7 +345,7 @@
                   <p-button
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
-                    (onClick)="getLink(rowData[col.field], col)"
+                    (onClick)="getLink(rowData, col.field)"
                   ></p-button>
                 </ng-template>
               </p-cellEditor>
