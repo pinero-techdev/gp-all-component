@@ -34,6 +34,7 @@ export class TableEditableComponent implements OnInit {
   @Output() onRowSelectMultipleEvent = new EventEmitter<any>();
   @Output() onSaveEvent = new EventEmitter<any>();
   @Output() onCustomButtonClicEvent = new EventEmitter<any>();
+  @Output() onCustomButtonColumnClicEvent = new EventEmitter<any>();
 
   @Output() onSaveChildEvent = new EventEmitter<any>();
 
@@ -515,8 +516,10 @@ export class TableEditableComponent implements OnInit {
   }
 
   getLink(value: any, col: any) {
-    const link = this.getLabel(value, col);
-    window.open(link);
+    this.onCustomButtonColumnClicEvent.emit({
+      field: col,
+      rowData: value,
+    });
   }
 
   onFieldChange(field: string, rowData: any) {
