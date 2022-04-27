@@ -311,7 +311,7 @@
                   <p-button
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
-                    (onClick)="getLink(rowData[col.field], col)"
+                    (onClick)="getLink(rowData, col.field)"
                   ></p-button>
                 </ng-template>
                 <ng-template pTemplate="input" *ngIf="!col.editable">
@@ -328,7 +328,7 @@
                   <p-button
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
-                    (onClick)="getLink(rowData[col.field], col)"
+                    (onClick)="getLink(rowData, col.field)"
                   ></p-button>
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -382,7 +382,7 @@
               <p-button
                 *ngIf="col.type == 'button' && col.pipe == null"
                 label="{{ col.header }}"
-                (onClick)="getLink(rowData[col.field], col)"
+                (onClick)="getLink(rowData, col.field)"
               ></p-button>
               <span *ngIf="col.type == 'number' && col.pipe != null">{{
                 rowData[col.field] | number: col.pipe
