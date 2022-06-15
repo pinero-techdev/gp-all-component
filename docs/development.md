@@ -92,8 +92,6 @@ Currently there is not a better way to solve this, as seen in the following [thr
 
     "rxjs": ["node_modules/rxjs"], 
 
-    "rxjs-compat": ["node_modules/rxjs-compat"], 
-
     "primeng": ["node_modules/primeng"], 
 
     "primeicons": ["node_modules/primeicons"], 
