@@ -29,8 +29,8 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Get some DOM elements to check clicking on them.
    */
-  @ViewChild('menuUser') menuUser: ElementRef;
-  @ViewChild('userMobileButton') userMobileButton: ElementRef;
+  @ViewChild('menuUser',{static : false}) menuUser: ElementRef;
+  @ViewChild('userMobileButton',{static : false}) userMobileButton: ElementRef;
 
   breadCrumb: any = [];
   breadCrumbTemp: any = [];

@@ -14,7 +14,7 @@ import { TabDirective } from './tab.directive';
   `,
 })
 class TestTabComponent {
-  @ViewChild(TabDirective) tab: TabDirective;
+  @ViewChild(TabDirective,{static : false}) tab: TabDirective;
 }
 
 xdescribe('TabDirective', () => {

@@ -72,7 +72,7 @@ export class TableComponent implements AfterContentInit {
   @ContentChild('footer') footerContent: TemplateRef<any>;
   @ContentChild('summary') summaryContent: TemplateRef<any>;
 
-  @ViewChild('table') table: Table;
+  @ViewChild('table',{static : false}) table: Table;
 
   builder = new TableBuilder();
 

@@ -67,7 +67,7 @@ export class MultiSelectComponent implements ControlValueAccessor {
   @Output()
   onChange: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild(MultiSelect) multi: MultiSelect;
+  @ViewChild(MultiSelect,{static : false}) multi: MultiSelect;
 
   // Inner model data mandatory for ngModel
   public innerValue = '';

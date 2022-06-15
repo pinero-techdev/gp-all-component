@@ -10,7 +10,7 @@ import { isNullOrUndefined } from 'util';
   styleUrls: ['./table-frame.component.scss'],
 })
 export class TableFrameComponent implements OnInit, OnDestroy {
-  @ViewChild(TableCrudComponent)
+  @ViewChild(TableCrudComponent,{static : false})
   viewChild: TableCrudComponent;
 
   /**

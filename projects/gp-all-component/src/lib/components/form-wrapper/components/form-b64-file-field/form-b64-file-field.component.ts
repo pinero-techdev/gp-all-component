@@ -14,7 +14,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class FormB64FileFieldComponent extends GpFormFieldControl implements OnInit {
   @Input() formField: GpFormField;
 
-  @ViewChild(FileUpload) upload: FileUpload;
+  @ViewChild(FileUpload, {static : false}) upload: FileUpload;
 
   regExImage = /image\/.*/;
   isImageFile = false;
