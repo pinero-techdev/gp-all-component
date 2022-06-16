@@ -27,7 +27,7 @@ export class DynamicComponent implements OnInit {
   // tslint:enable
 
   /** HTML Element where the component is loading */
-  @ViewChild('gpdynamic', { read: ViewContainerRef }) dynamicComponent: ViewContainerRef;
+  @ViewChild('gpdynamic', { static: false }) dynamicComponent: ViewContainerRef;
   /** Component's instance once is loaded */
   public currentComponent = null;
 

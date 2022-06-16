@@ -67,12 +67,12 @@ export class TableComponent implements AfterContentInit {
   @ContentChildren(EditableColumnTemplateDirective)
   editableColumns: QueryList<EditableColumnTemplateDirective>;
 
-  @ContentChild('caption') captionContent: TemplateRef<any>;
-  @ContentChild('header') headerContent: TemplateRef<any>;
-  @ContentChild('footer') footerContent: TemplateRef<any>;
-  @ContentChild('summary') summaryContent: TemplateRef<any>;
+  @ContentChild('caption', { static: false }) captionContent: TemplateRef<any>;
+  @ContentChild('header', { static: false }) headerContent: TemplateRef<any>;
+  @ContentChild('footer', { static: false }) footerContent: TemplateRef<any>;
+  @ContentChild('summary', { static: false }) summaryContent: TemplateRef<any>;
 
-  @ViewChild('table',{static : false}) table: Table;
+  @ViewChild('table', { static: false }) table: Table;
 
   builder = new TableBuilder();
 
