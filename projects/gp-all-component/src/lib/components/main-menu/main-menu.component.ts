@@ -39,7 +39,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   /**
    * Holds the reference to menu content
    */
-  @ContentChild(TemplateRef) menuContentRef: TemplateRef<any>;
+  @ContentChild(TemplateRef, { static: false }) menuContentRef: TemplateRef<any>;
 
   /**
    * Holds the component life status
