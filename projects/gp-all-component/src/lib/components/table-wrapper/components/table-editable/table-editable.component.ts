@@ -44,7 +44,7 @@ export class TableEditableComponent implements OnInit {
   // Emite un evento cuando un campos ha sido modificado por el usuario { field, rowData }
   @Output() onFieldChangeEvent = new EventEmitter<any>();
 
-  @ViewChild('tc') tc: Table;
+  @ViewChild('tc',{ static: false }) tc: Table;
 
   hiddenTable = false;
   showExportButton = false;

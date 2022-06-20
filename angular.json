@@ -1,8 +1,5 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": "40368b93-7326-40f0-a1f5-516ab136803f"
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -75,5 +72,8 @@
       }
     }
   },
-  "defaultProject": "gp-all-component"
+  "defaultProject": "gp-all-component",
+  "cli": {
+    "analytics": "9c655fe9-895f-4e09-8d70-de2f34e8bad0"
+  }
 }
