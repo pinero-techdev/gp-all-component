@@ -1,7 +1,8 @@
-import { Message } from 'primeng/components/common/api';
+
 import { DataTableMetaDataField } from '../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormControl } from './form-control.model';
 import { GpFormFieldType } from './form-field-type.enum';
+import { Message } from 'primeng/api';
 
 // TODO optimizar 17/12/2018
 export class GpFormField {

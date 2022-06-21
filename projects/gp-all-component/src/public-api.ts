@@ -2,6 +2,14 @@
  * Public API Surface of gp-all-component
  */
 
+export { FormB64FileFieldComponent } from './lib/components/form-wrapper/components/form-b64-file-field/form-b64-file-field.component';
+export { FormDaysOfWeekFieldComponent } from './lib/components/form-wrapper/components/form-days-of-week-field/form-days-of-week-field.component';
+export { FormNullableCheckboxComponent } from './lib/components/form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
+export { FormPasswordFieldComponent } from './lib/components/form-wrapper/components/form-password-field/form-password-field.component';
+export { FormColorPickerFieldComponent } from './lib/components/form-wrapper/components/form-color-picker-field/form-color-picker-field.component';
+export { EditableColumnTemplateDirective } from './lib/components/table-wrapper/components/table/directives/editable-column-template.directive';
+
+
 // Services
 export * from './lib/services/api/forgot-password/forgot-password.service';
 export * from './lib/services/api/login/login.service';
@@ -146,6 +154,7 @@ export * from './lib/shared/shared.module';
 export * from './lib/components/table-wrapper/components/table/table.module';
 export * from './lib/components/breadcrumb/breadcrumb.module';
 export * from './lib/components/modal/modal.module';
+
 
 // Directive Modules
 export * from './lib/directives/uppercase-directive/uppercase-directive.module';
