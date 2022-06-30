@@ -3,8 +3,9 @@ import { GpFormField } from '../../resources/form-field.model';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { TableService } from '../../../../services/api/table/table.service';
-import { FileUpload } from 'primeng/primeng';
+
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'gp-form-b64-file-field',
@@ -12,7 +13,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrls: ['./form-b64-file-field.component.scss'],
 })
 export class FormB64FileFieldComponent extends GpFormFieldControl implements OnInit {
-  @Input() formField: GpFormField;
+  @Input() formField1: GpFormField;
 
   @ViewChild(FileUpload, {static : false}) upload: FileUpload;
 

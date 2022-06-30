@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
-import { MultiSelect } from 'primeng/primeng';
+import { MultiSelect } from 'primeng/multiselect';
 import { noop } from 'rxjs';
 import { LocaleES } from '../../resources/localization/es-ES.lang';
 

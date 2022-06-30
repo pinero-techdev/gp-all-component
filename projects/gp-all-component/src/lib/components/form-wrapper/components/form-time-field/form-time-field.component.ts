@@ -16,7 +16,7 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
   /**
    * The formField for this component
    */
-  @Input() formField: GpFormField;
+  @Input() formField1: GpFormField;
 
   /**
    * Returns current field metadata

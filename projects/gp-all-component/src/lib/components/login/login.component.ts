@@ -3,10 +3,10 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { GlobalService } from '../../services/core/global.service';
 import { LoginService, LoginRq, LoginRs } from '../../services/api/login/login.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Message } from 'primeng/primeng';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { SessionStorageService } from '../../services/session-storage/session-storage.service';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'gp-login',

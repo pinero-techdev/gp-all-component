@@ -1,4 +1,8 @@
-import { HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+
+@Component({
+  template: ''
+})
 
 export abstract class GpBaseComponent {
   width: number;

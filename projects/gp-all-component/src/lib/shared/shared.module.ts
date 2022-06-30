@@ -11,18 +11,18 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
-import { MessageService } from 'primeng/primeng';
 import { PaginatorModule } from 'primeng/paginator';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { PanelModule } from 'primeng/panel';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { MenuModule } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { SessionStorageService } from '../services/session-storage/session-storage.service';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 @NgModule({
   imports: [
@@ -42,7 +42,7 @@ import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
     MultiSelectModule,
     PaginatorModule,
     ProgressSpinnerModule,
-    ScrollPanelModule,
+    PanelMenuModule,
     ToastModule,
     TooltipModule,
     TriStateCheckboxModule,
@@ -64,7 +64,7 @@ import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
     MultiSelectModule,
     PaginatorModule,
     ProgressSpinnerModule,
-    ScrollPanelModule,
+    PanelModule,
     TriStateCheckboxModule,
     ToastModule,
     TooltipModule,

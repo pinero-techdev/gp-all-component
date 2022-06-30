@@ -12,7 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TableEditableCellComponent } from './components/table-editable-crud/components/table-editable-cell/table-editable-cell.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableMetadataService } from '../../services/api/table/table-metadata.service';
-import { PanelModule } from 'primeng/primeng';
+import { PanelMenuModule } from 'primeng/panelmenu';
+
 @NgModule({
   declarations: [
     TableCrudComponent,
@@ -25,7 +26,7 @@ import { PanelModule } from 'primeng/primeng';
     CommonModule,
     HttpClientModule,
     FormsModule,
-    PanelModule,
+    PanelMenuModule,
     ReactiveFormsModule,
     TableWrapperSharedModules,
   ],

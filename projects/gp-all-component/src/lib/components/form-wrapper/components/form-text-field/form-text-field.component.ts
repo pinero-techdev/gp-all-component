@@ -18,7 +18,7 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
   /**
    * The formField for this component
    */
-  @Input() formField: GpFormField;
+  @Input() formField1: GpFormField;
 
   @Input() canTranslate = true;
 
@@ -30,12 +30,12 @@ export class FormTextFieldComponent extends GpFormFieldControl implements OnInit
   /**
    * Min length validation value
    */
-  minLength: number;
+  minLength1: number;
 
   /**
    * Max length validation value
    */
-  maxLength: number;
+  maxLength1: number;
 
   /**
    * Translation keys for field

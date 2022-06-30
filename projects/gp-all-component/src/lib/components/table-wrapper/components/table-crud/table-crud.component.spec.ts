@@ -33,8 +33,9 @@ import { CommonRs } from '../../../../services/core/common.service';
 import { InfoCampoModificado } from '../../../../resources/data/info-campo-modificado.model';
 import { GpFormFieldType } from '../../../../components/form-wrapper/resources/form-field-type.enum';
 import { GpFormField } from '../../../../components/form-wrapper/resources/form-field.model';
-import { LocaleES } from '../../../../resources/localization';
+
 import { Observable } from 'rxjs';
+import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 
 describe('TableCrudComponent', () => {
   let component: TableCrudComponent;

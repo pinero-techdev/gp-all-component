@@ -3,12 +3,16 @@ import { RegexValidations } from './regex-validations.type';
 import { LocaleES } from '../../../resources/localization/es-ES.lang';
 import { Message } from 'primeng/api';
 import { isNullOrUndefined } from 'util';
-import { Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GpFormControl } from './form-control.model';
 import { GpFormField } from './form-field.model';
 import { GpFormFieldControlInterface } from './form-field-control.interface';
 import { TableService } from '../../../services/api/table/table.service';
 import { GpTableRestrictions } from '../../table-wrapper/resources/gp-table-restrictions.enum';
+
+@Component({
+  template: ''
+})
 
 export abstract class GpFormFieldControl extends GpFormControl
   implements GpFormFieldControlInterface {
@@ -20,7 +24,7 @@ export abstract class GpFormFieldControl extends GpFormControl
   /**
    * Current form field value
    */
-  currentValue: any;
+  public currentValue: any;
 
   /**
    * isDisabled is set up when OnInit is called, used in the template.
@@ -36,6 +40,14 @@ export abstract class GpFormFieldControl extends GpFormControl
    * Max length validation value
    */
   maxLength: number;
+
+  /* set _currentValue(value: string) {
+    this._currentValue = value;
+  }
+
+  get _currentValue(): string {
+    return this._currentValue;
+  } */
 
   /**
    * Returns the current form field object.

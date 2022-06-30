@@ -22,7 +22,7 @@
             (click)="menuChange(item)"
             role="listitem"
             [pTooltip]="item.text"
-            [tooltipDisabled]="disableTooltip"
+            
           >
             <div class="{{ item.icon ? 'menu-icon menu-icon-' + item.icon : 'menu-icon' }}">
               <div *ngIf="item.parentList && item.parentList.length > 0" class="menu-back"></div>

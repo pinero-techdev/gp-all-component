@@ -18,7 +18,8 @@ import {
   FormWrapperSharedProviders,
 } from '../../shared/imports/form-wrapper-shared';
 import { SliderModule } from 'primeng/slider';
-import { ColorPickerModule, FileUploadModule } from 'primeng/primeng';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ColorPickerModule } from 'primeng/colorpicker';
 import { FormColorPickerFieldComponent } from './components/form-color-picker-field/form-color-picker-field.component';
 import { LoadingIndicatorModule } from '../loading-indicator/loading-indicator.module';
 import { FormB64FileFieldComponent } from './components/form-b64-file-field/form-b64-file-field.component';

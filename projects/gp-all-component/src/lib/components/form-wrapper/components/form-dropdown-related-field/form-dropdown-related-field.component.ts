@@ -39,7 +39,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   }
 
   // The current field
-  @Input() formField: GpFormField;
+  @Input() formField1: GpFormField;
 
   // The current field can have dependencies with another related field.s
   @Input()
@@ -74,7 +74,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    * Getting onChange event
    * @param value Selected value
    */
-  set currentValue(value: string) {
+  set currentValue2(value: string) {
     this._currentValue = value;
     const modifiedField = new InfoCampoModificado(
       this.formField.fieldMetadata.fieldName,
@@ -83,7 +83,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
     this.valueChanged.emit(modifiedField);
   }
 
-  get currentValue(): string {
+  get currentValue2(): string {
     return this._currentValue;
   }
 

@@ -3,12 +3,14 @@ import { MainMenuService } from '../../services/api/main-menu/main-menu.service'
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainMenuComponent } from './main-menu.component';
-import { ScrollPanelModule, TooltipModule } from 'primeng/primeng';
+
 import { RouterModule } from '@angular/router';
+import { PanelModule } from 'primeng/panel';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [MainMenuComponent],
-  imports: [CommonModule, ScrollPanelModule, RouterModule, TooltipModule],
+  imports: [CommonModule, PanelModule, RouterModule, TooltipModule],
   exports: [MainMenuComponent],
   providers: [MainMenuService, MainMenuProviderService],
 })

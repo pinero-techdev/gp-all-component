@@ -1,5 +1,5 @@
-import { Message } from 'primeng/primeng';
-import { MessageService } from 'primeng/api';
+
+import { Message, MessageService } from 'primeng/api';
 
 /* Añadir a la template del componente que lo extiende
  <p-toast></p-toast>

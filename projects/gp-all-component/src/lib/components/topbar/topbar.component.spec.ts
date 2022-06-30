@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TopbarComponent } from './topbar.component';
 import { GlobalService } from '../../services/core/global.service';
-import { MenuModule } from 'primeng/primeng';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LoginService } from '../../services/api/login/login.service';
@@ -13,6 +12,7 @@ import { Router, Routes } from '@angular/router';
 import { UserInfo } from '../../resources/data/user-info.model';
 import { CommonRs } from '../../services/core/common.service';
 import { SimpleChange } from '@angular/core';
+import { MenuModule } from 'primeng/menu';
 
 class TestComponent {}
 

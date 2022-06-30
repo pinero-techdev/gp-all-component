@@ -1,4 +1,4 @@
-import { MenuItem, SelectItem } from 'primeng/primeng';
+
 
 import moment from 'moment';
 
@@ -6,6 +6,7 @@ import { GPSelectItem } from '../../resources/data/gp-select-item.model';
 import { CalendarConstants } from '../../resources/constants/calendar.constants';
 import { isNullOrUndefined } from 'util';
 import { SessionStorageService } from '../session-storage/session-storage.service';
+import { MenuItem, SelectItem } from 'primeng/api';
 /* tslint:disable:variable-name */
 export class GPUtil {
   public static readonly odd_reA = new RegExp('\u00C0|\u00C1|\u00C2|\u00C3|\u00C4|\u00C5', 'g');

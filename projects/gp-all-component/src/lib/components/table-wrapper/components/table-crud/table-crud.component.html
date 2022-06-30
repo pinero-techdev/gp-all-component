@@ -111,11 +111,11 @@
             (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
           "
         >
-          <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField]="col">
+          <gp-form-time-field *ngIf="col.formFieldType == 'gp-form-time-field'" [formField1]="col">
           </gp-form-time-field>
           <gp-form-text-field
             *ngIf="col.formFieldType == 'gp-form-text-field'"
-            [formField]="col"
+            [formField1]="col"
             [canTranslate]="formControl.edicionEdit"
           >
           </gp-form-text-field>
