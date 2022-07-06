@@ -3,16 +3,14 @@ import { RegexValidations } from './regex-validations.type';
 import { LocaleES } from '../../../resources/localization/es-ES.lang';
 import { Message } from 'primeng/api';
 import { isNullOrUndefined } from 'util';
-import { Component, Input } from '@angular/core';
+import { Component, Directive, Input } from '@angular/core';
 import { GpFormControl } from './form-control.model';
 import { GpFormField } from './form-field.model';
 import { GpFormFieldControlInterface } from './form-field-control.interface';
 import { TableService } from '../../../services/api/table/table.service';
 import { GpTableRestrictions } from '../../table-wrapper/resources/gp-table-restrictions.enum';
 
-@Component({
-  template: ''
-})
+@Directive()
 
 export abstract class GpFormFieldControl extends GpFormControl
   implements GpFormFieldControlInterface {
