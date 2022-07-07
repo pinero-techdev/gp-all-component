@@ -21,8 +21,6 @@
     (ngModelChange)="isFilter ? onModelChange($event) : null"
     [minlength]="columnMetadata.minLength"
     [maxlength]="columnMetadata.maxLength"
-    [max]="columnMetadata.maxValue"
-    [min]="columnMetadata.minValue"
     (focus)="onStartEditing()"
     (change)="!isFilter ? onModelChange(numberInput.value) : null"
     [disabled]="!isEditable()"
@@ -37,12 +35,10 @@
     (ngModelChange)="isFilter ? onModelChange($event) : null"
     [minlength]="columnMetadata.minLength"
     [maxlength]="columnMetadata.maxLength"
-    [max]="columnMetadata.maxValue"
-    [min]="columnMetadata.minValue"
     (focus)="onStartEditing()"
     (change)="!isFilter ? onModelChange(numberInput.value) : null"
     [disabled]="!isEditable()"
-  />
+  /> 
   <p-checkbox
     *ngSwitchCase="inputType.CHECKBOX"
     binary="true"
@@ -193,7 +189,7 @@
   [modal]="true"
 >
   <img [src]="temporalValue" style="width: 100%; max-height: 50%;" *ngIf="temporalValue" />
-  <input
+ <input
     pInputText
     type="text"
     gpUppercase
@@ -203,7 +199,7 @@
     [minlength]="columnMetadata.minLength"
     [disabled]="!isEditable()"
     class="full-width"
-  />
+  /> 
   <p-footer>
     <gp-button
       label="{{ translations.ACCEPT }}"
@@ -310,6 +306,6 @@
       [severity]="'danger'"
       label="{{ translations.CANCEL }}"
       (click)="fileModalVisible = false"
-    ></gp-button>
+    ></gp-button> 
   </p-footer>
-</p-dialog>
+</p-dialog> 

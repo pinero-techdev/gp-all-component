@@ -15,7 +15,6 @@
     "declaration": false,
     "module": "commonjs",
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "inlineSources": true,
     "importHelpers": true,
