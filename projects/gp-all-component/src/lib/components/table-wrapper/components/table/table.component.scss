@@ -63,7 +63,7 @@
       .ui-table-thead {
         > tr {
           > th {
-            padding: #{$tablePaddingRatio / 2} #{$tablePaddingRatio * 2};
+            padding: #{calc($tablePaddingRatio / 2)} #{$tablePaddingRatio * 2};
             color: $textMutedColor;
             font-weight: normal;
             text-align: left;

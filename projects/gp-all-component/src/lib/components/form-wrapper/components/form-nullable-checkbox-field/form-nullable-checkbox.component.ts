@@ -63,9 +63,9 @@ export class FormNullableCheckboxComponent extends GpFormFieldControl implements
    */
   copyValueFromEditedRowToControl(editedRow: any): void {
     if (isNullOrUndefined(editedRow[this.formField.fieldMetadata.fieldName])) {
-      this.currentValue = null;
+      this._currentValue = null;
     } else {
-      this.currentValue =
+      this._currentValue =
         this.formField.fieldMetadata.displayInfo.checkedValue ===
         editedRow[this.formField.fieldMetadata.fieldName];
     }

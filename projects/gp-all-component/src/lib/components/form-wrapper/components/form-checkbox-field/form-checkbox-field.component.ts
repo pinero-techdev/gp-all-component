@@ -51,7 +51,7 @@ export class FormCheckboxFieldComponent extends GpFormFieldControl implements On
    * @param editedRow The editing row
    */
   copyValueFromEditedRowToControl(editedRow: any): void {
-    this.currentValue =
+    this._currentValue =
       this.formField.fieldMetadata.displayInfo.checkedValue ===
       editedRow[this.formField.fieldMetadata.fieldName];
   }

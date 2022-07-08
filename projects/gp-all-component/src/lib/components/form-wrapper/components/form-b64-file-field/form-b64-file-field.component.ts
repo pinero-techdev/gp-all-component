@@ -42,7 +42,7 @@ export class FormB64FileFieldComponent extends GpFormFieldControl implements OnI
     const self = this;
     reader.readAsDataURL(event.files[0]);
     reader.onloadend = () => {
-      self.currentValue = reader.result;
+      self._currentValue = reader.result;
     };
   }
 

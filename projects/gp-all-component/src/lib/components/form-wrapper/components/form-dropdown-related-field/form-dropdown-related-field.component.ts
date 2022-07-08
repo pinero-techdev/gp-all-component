@@ -28,7 +28,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   relatedFields: DataTableMetaDataFieldDisplayInfoRelatedField[] = [];
 
   // the selected value
-  private _currentValue = null;
+  private NewcurrentValue = null;
   // Once the service has been called, the var is set to true
   private listCharged = false;
 
@@ -74,8 +74,8 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    * Getting onChange event
    * @param value Selected value
    */
-  set currentValue2(value: string) {
-    this._currentValue = value;
+  set currentValue(value: string) {
+    this.NewcurrentValue = value;
     const modifiedField = new InfoCampoModificado(
       this.formField.fieldMetadata.fieldName,
       this.currentValue
@@ -83,8 +83,8 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
     this.valueChanged.emit(modifiedField);
   }
 
-  get currentValue2(): string {
-    return this._currentValue;
+  get currentValue(): string {
+    return this.NewcurrentValue;
   }
 
   @Output()

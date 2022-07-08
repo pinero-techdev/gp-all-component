@@ -137,7 +137,7 @@
 
       .ui-multiselect-item {
         font-size: $fontSize;
-        padding: $separation / 2 $separationLarge;
+        padding: calc($separation / 2) $separationLarge;
         color: $textSecondaryColor;
         outline: none;
         width: calc(100% - 1px);

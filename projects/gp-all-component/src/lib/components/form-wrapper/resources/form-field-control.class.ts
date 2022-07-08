@@ -22,7 +22,7 @@ export abstract class GpFormFieldControl extends GpFormControl
   /**
    * Current form field value
    */
-  public currentValue: any;
+  public _currentValue: any;
 
   /**
    * isDisabled is set up when OnInit is called, used in the template.
@@ -39,13 +39,13 @@ export abstract class GpFormFieldControl extends GpFormControl
    */
   maxLength: number;
 
-  /* set _currentValue(value: string) {
+  set currentValue(value: string) {
     this._currentValue = value;
   }
 
-  get _currentValue(): string {
+  get currentValue(): string {
     return this._currentValue;
-  } */
+  }
 
   /**
    * Returns the current form field object.
@@ -195,21 +195,21 @@ export abstract class GpFormFieldControl extends GpFormControl
           this.formField.validField = false;
           this.validateFieldAddMsgs(LocaleES.VALIDATION_SPACES);
           fieldValue = fieldValue.replace(RegexValidations.BLANK_SPACE, '');
-          this.currentValue = fieldValue;
+          this._currentValue = fieldValue;
         }
 
         if (RegexValidations.hasControlSpace(fieldValue)) {
           this.formField.validField = false;
           this.validateFieldAddMsgs(LocaleES.VALIDATION_CONTROL_SPACES);
           fieldValue = fieldValue.replace(RegexValidations.CONTROL_SPACE, ' ');
-          this.currentValue = fieldValue;
+          this._currentValue = fieldValue;
         }
 
         if (RegexValidations.hasSpecialCharacters(fieldValue)) {
           this.formField.validField = false;
           this.validateFieldAddMsgs(LocaleES.VALIDATION_SPECIAL_CHARACTERS);
           fieldValue = GPUtil.normalize(fieldValue);
-          this.currentValue = fieldValue;
+          this._currentValue = fieldValue;
         }
       }
     }

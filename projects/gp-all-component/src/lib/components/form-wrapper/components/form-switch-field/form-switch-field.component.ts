@@ -54,7 +54,7 @@ export class FormSwitchFieldComponent extends GpFormFieldControl implements OnIn
       this.formField.fieldMetadata.displayInfo.checkedValue ===
       editedRow[this.formField.fieldMetadata.fieldName];
 
-    this.currentValue = value;
+    this._currentValue = value;
   }
 
   /**

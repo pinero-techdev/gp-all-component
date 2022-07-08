@@ -221,7 +221,7 @@
       min-width: $main-menu-action-width;
 
       @media (max-width: map-get($breakpoints, 'md')) {
-        margin-top: $main-menu-action-width / 2;
+        margin-top: calc($main-menu-action-width / 2);
       }
 
       @media (max-width: map-get($breakpoints, 'md')) {

@@ -58,16 +58,6 @@
               ]
             }
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/gp-all-component/tsconfig.lib.json",
-              "projects/gp-all-component/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
         }
       }
     }

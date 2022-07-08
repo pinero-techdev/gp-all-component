@@ -1,6 +1,6 @@
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
@@ -20,7 +20,7 @@ import { MenuModule } from 'primeng/menu';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SessionStorageService } from '../services/session-storage/session-storage.service';
-import { ModuleWithProviders } from '@angular/compiler/src/core';
+//import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { PanelMenuModule } from 'primeng/panelmenu';
 
@@ -72,7 +72,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
   providers: [ConfirmationService, MessageService, SessionStorageService],
 })
 export class SharedModule {
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(): ModuleWithProviders<any> {
     return {
       ngModule: SharedModule,
       providers: [ConfirmationService, MessageService, SessionStorageService],

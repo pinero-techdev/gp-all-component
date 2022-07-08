@@ -50,7 +50,7 @@ export class FormCalendarFieldComponent extends GpFormFieldControl {
    * @param editedRow The editing row
    */
   copyValueFromControlToEditedRow(editedRow: any) {
-    editedRow[this.formField.fieldMetadata.fieldName] = GPUtil.dateToYyyymmdd(this.currentValue);
+    editedRow[this.formField.fieldMetadata.fieldName] = GPUtil.dateToYyyymmdd(this._currentValue);
   }
 
   /**
@@ -59,7 +59,7 @@ export class FormCalendarFieldComponent extends GpFormFieldControl {
    */
   copyValueFromEditedRowToControl(editedRow: any) {
     const value = editedRow[this.formField.fieldMetadata.fieldName];
-    this.currentValue = GPUtil.str2Date(value, 'YYYY-MM-DD');
+    this._currentValue = GPUtil.str2Date(value, 'YYYY-MM-DD');
   }
 
   /**
