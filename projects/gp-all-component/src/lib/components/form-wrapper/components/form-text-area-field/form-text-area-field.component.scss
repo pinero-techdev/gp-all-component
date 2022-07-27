@@ -8,11 +8,11 @@
     align-items: center;
     width: 100%;
 
-    .ui-inputtext.ui-widget {
+    .p-inputtext.p-widget {
       @include make-input();
       overflow-y: hidden;
 
-      &:enabled:hover:not(.ui-state-error) {
+      &:enabled:hover:not(.p-state-error) {
         border-color: $inputBorderColor;
       }
     }

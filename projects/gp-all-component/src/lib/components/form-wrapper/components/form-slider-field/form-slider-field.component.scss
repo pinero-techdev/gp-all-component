@@ -34,19 +34,19 @@
     }
   }
 
-  .ui-slider {
-    &.ui-slider-horizontal,
-    &.ui-slider-vertical {
+  .p-slider {
+    &.p-slider-horizontal,
+    &.p-slider-vertical {
       background-color: $sliderBarColor;
 
-      .ui-slider-handle {
+      .p-slider-handle {
         background-color: $primaryColor;
         border-color: $primaryColor;
       }
     }
 
-    &.ui-slider-vertical {
-      .ui-slider-handle.ui-clickable {
+    &.p-slider-vertical {
+      .p-slider-handle.p-clickable {
         margin-left: -7px;
       }
     }
@@ -59,7 +59,7 @@
       justify-content: center;
     }
 
-    .ui-inputtext {
+    .p-inputtext {
       text-align: center;
     }
 

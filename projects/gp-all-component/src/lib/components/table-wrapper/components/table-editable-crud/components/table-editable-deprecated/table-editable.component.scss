@@ -18,7 +18,7 @@
       text-align: right;
     }
 
-    .ui-button {
+    .p-button {
       margin-left: 5px;
     }
   }
@@ -38,7 +38,7 @@
     }
   }
 
-  .ui-table {
+  .p-table {
     padding: 24px;
     table {
       width: 100%;
@@ -54,7 +54,7 @@
         @include make-scroll();
       }
     }
-    thead.ui-table-thead {
+    thead.p-table-thead {
       > tr {
         border: none;
 
@@ -70,8 +70,8 @@
           font-size: 12px;
           text-align: left;
           height: 40px;
-          .ui-inputgroup {
-            .ui-inputtext {
+          .p-inputgroup {
+            .p-inputtext {
               color: $textColor;
               min-height: 24px;
               height: auto;
@@ -96,7 +96,7 @@
             }
           }
 
-          .ui-dropdown {
+          .p-dropdown {
             border: none;
             padding-right: 30px;
             box-shadow: none;
@@ -112,18 +112,18 @@
             }
           }
 
-          .ui-button {
+          .p-button {
             margin-top: -15px;
           }
         }
       }
     }
-    tbody.ui-table-tbody {
+    tbody.p-table-tbody {
       > tr {
         border-bottom: 1px solid $tableInnerBorder;
         color: $textColor;
 
-        &:nth-child(even):not(.ui-state-highlight) {
+        &:nth-child(even):not(.p-state-highlight) {
           background: $primaryBg;
 
           .conditionally-sticked {
@@ -132,7 +132,7 @@
           }
         }
 
-        &:nth-child(odd):not(.ui-state-highlight) {
+        &:nth-child(odd):not(.p-state-highlight) {
           background: $tableOddBg;
 
           .conditionally-sticked {
@@ -143,7 +143,7 @@
 
         &:nth-child(even),
         &:nth-child(odd) {
-          &.ui-state-highlight {
+          &.p-state-highlight {
             background: $highlightedRow;
             color: $textColor;
 
@@ -166,13 +166,13 @@
           font-weight: 500px;
 
           &.gp-grid-table-cell {
-            .ui-button {
+            .p-button {
               margin: 0 auto;
               border: transparent;
               background: transparent;
               display: block;
               box-shadow: none;
-              .ui-clickable {
+              .p-clickable {
                 color: $primaryColor;
                 font-size: 22px;
               }
@@ -182,14 +182,14 @@
       }
     }
     tfoot {
-      .ui-paginator,
-      .ui-table-summary {
+      .p-paginator,
+      .p-table-summary {
         background-color: white;
         border: none;
       }
       tr {
         border: none;
-        &.ui-table-caption {
+        &.p-table-caption {
           border: none;
         }
       }
@@ -220,18 +220,18 @@
     p-paginator {
       padding-top: 30px;
       position: relative;
-      .ui-inputwrapper-filled {
+      .p-inputwrapper-filled {
         position: absolute;
         top: 0;
         left: 0;
 
-        .ui-dropdown {
+        .p-dropdown {
           width: 62px;
           height: 32px;
           padding: $separation 10px;
           border: 1px solid $borderColor;
 
-          label.ui-dropdown-label {
+          label.p-dropdown-label {
             font-size: 12px;
             font-weight: bold;
             letter-spacing: 0.17px;
@@ -240,14 +240,14 @@
         }
       }
 
-      .ui-paginator {
+      .p-paginator {
         border: 0;
         border-radius: 4px;
         &-element {
           border: 1px solid #d5e4f2;
         }
       }
-      .ui-paginator {
+      .p-paginator {
         position: inherit;
         margin-top: $separationXLarge;
         background: $whiteColor;
@@ -257,45 +257,45 @@
         float: right;
         width: 100%;
 
-        > a.ui-paginator-element {
+        > a.p-paginator-element {
           border: 1px solid $borderColor;
         }
 
-        .ui-paginator-first,
-        .ui-paginator-last {
+        .p-paginator-first,
+        .p-paginator-last {
           display: none;
-          &.ui-paginator-prev {
+          &.p-paginator-prev {
             border-right: none;
             border-top-left-radius: $borderRadius;
             border-bottom-left-radius: $borderRadius;
           }
 
-          &.ui-paginator-next {
+          &.p-paginator-next {
             border-left: none;
             border-top-right-radius: $borderRadius;
             border-bottom-right-radius: $borderRadius;
           }
         }
 
-        .ui-paginator-pages {
+        .p-paginator-pages {
           margin: 0;
-          .ui-paginator-page {
+          .p-paginator-page {
             border: 1px solid $paginatorBorderColor;
-            &.ui-state-active {
+            &.p-state-active {
               background: $primaryColor;
               border: none;
             }
           }
         }
-        .ui-paginator-element {
-          .ui-paginator-icon {
+        .p-paginator-element {
+          .p-paginator-icon {
             color: $paginatorBGColor;
             background: transparent;
           }
-          &:not(.ui-state-active):hover {
+          &:not(.p-state-active):hover {
             background: $paginatorBGColor;
             color: $whiteColor;
-            .ui-paginator-icon {
+            .p-paginator-icon {
               color: $whiteColor;
             }
           }
@@ -303,10 +303,10 @@
       }
     }
   }
-  .ui-dialog {
-    div.ui-dialog-footer {
+  .p-dialog {
+    div.p-dialog-footer {
       p-footer {
-        button.ui-button {
+        button.p-button {
           margin-top: 0;
         }
       }

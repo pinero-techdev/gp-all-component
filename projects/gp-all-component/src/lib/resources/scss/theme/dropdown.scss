@@ -1,32 +1,32 @@
 @import '../global/variables';
 
 /* Put your custom styles here for the PrimeNG Dropdown */
-body .ui-dropdown {
+body .p-dropdown {
   border: 1px solid $borderColor;
 
-  &:not(.ui-state-disabled):focus,
-  &:not(.ui-state-disabled):hover,
-  &:not(.ui-state-disabled):active,
-  .ui-dropdown-label {
+  &:not(.p-state-disabled):focus,
+  &:not(.p-state-disabled):hover,
+  &:not(.p-state-disabled):active,
+  .p-dropdown-label {
     border-color: $borderColor;
   }
 
-  .ui-dropdown-trigger .ui-dropdown-trigger-icon,
-  .ui-dropdown-panel .ui-dropdown-filter-container .ui-dropdown-filter-icon {
+  .p-dropdown-trigger .p-dropdown-trigger-icon,
+  .p-dropdown-panel .p-dropdown-filter-container .p-dropdown-filter-icon {
     color: $textColor;
   }
-  .ui-dropdown-label {
+  .p-dropdown-label {
     border-color: $borderColor;
   }
-  .ui-dropdown-panel {
-    .ui-dropdown-filter-container > input,
-    .ui-dropdown-filter-container > input:focus,
-    .ui-dropdown-filter-container > input:hover,
-    .ui-dropdown-filter-container > input:active {
+  .p-dropdown-panel {
+    .p-dropdown-filter-container > input,
+    .p-dropdown-filter-container > input:focus,
+    .p-dropdown-filter-container > input:hover,
+    .p-dropdown-filter-container > input:active {
       border-color: $borderColor;
     }
 
-    .ui-dropdown-items-wrapper .ui-dropdown-item.ui-state-highlight {
+    .p-dropdown-items-wrapper .p-dropdown-item.p-state-highlight {
       background-color: $accentColor;
     }
   }

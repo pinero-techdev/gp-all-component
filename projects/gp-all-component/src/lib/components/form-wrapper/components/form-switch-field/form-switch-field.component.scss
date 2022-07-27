@@ -2,23 +2,23 @@
 @import 'global/mixins';
 
 ::ng-deep {
-  .ui-inputswitch.ui-widget {
-    &.ui-inputswitch-checked {
-      &:not(.ui-state-disabled) {
+  .p-inputswitch.p-widget {
+    &.p-inputswitch-checked {
+      &:not(.p-state-disabled) {
         &:hover {
-          .ui-inputswitch-slider {
+          .p-inputswitch-slider {
             background: $primaryDarkColor;
           }
         }
       }
 
-      &.ui-inputswitch-focus {
-        .ui-inputswitch-slider {
+      &.p-inputswitch-focus {
+        .p-inputswitch-slider {
           background: $primaryColor;
         }
       }
 
-      .ui-inputswitch-slider {
+      .p-inputswitch-slider {
         background: $primaryColor;
       }
     }

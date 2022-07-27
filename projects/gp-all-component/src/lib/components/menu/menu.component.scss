@@ -43,38 +43,38 @@
       }
     }
 
-    .ui-panelmenu {
+    .p-panelmenu {
       width: auto;
       display: inline-block;
       min-width: 275px;
       padding-top: 7px;
 
-      .ui-panelmenu-panel {
+      .p-panelmenu-panel {
         position: relative;
 
-        .ui-panelmenu-header {
-          &:not(.ui-state-active) > a:hover,
-          &.ui-state-active > a {
+        .p-panelmenu-header {
+          &:not(.p-state-active) > a:hover,
+          &.p-state-active > a {
             background-color: $menuBgHoverActive;
             border: none;
             padding: 10px 12px;
 
-            .ui-menuitem-icon,
-            .ui-menuitem-text,
-            .ui-panelmenu-icon {
+            .p-menuitem-icon,
+            .p-menuitem-text,
+            .p-panelmenu-icon {
               color: $whiteColor;
               opacity: 1;
             }
           }
 
-          &.ui-state-active,
-          .ui-panelmenu-header-link:hover {
-            .ui-menuitem-icon:before {
+          &.p-state-active,
+          .p-panelmenu-header-link:hover {
+            .p-menuitem-icon:before {
               color: $primaryColor;
             }
           }
 
-          .ui-panelmenu-header-link {
+          .p-panelmenu-header-link {
             display: flex;
             align-items: center;
             border: none;
@@ -82,23 +82,23 @@
             width: 100%;
             font-weight: 500;
 
-            .ui-menuitem-text,
-            .ui-menuitem-icon {
+            .p-menuitem-text,
+            .p-menuitem-icon {
               color: $menuText;
               line-height: 24px;
             }
 
-            .ui-menuitem-icon {
+            .p-menuitem-icon {
               font-size: 22px;
               margin: 0 0.4em;
             }
 
-            .ui-menuitem-text {
+            .p-menuitem-text {
               margin: 0 12px;
               letter-spacing: 0.3px;
             }
 
-            .ui-panelmenu-icon {
+            .p-panelmenu-icon {
               order: 3;
               align-items: stretch;
               color: $menuText;
@@ -113,16 +113,16 @@
         }
       }
 
-      .ui-panelmenu-content-wrapper {
-        .ui-panelmenu-content {
+      .p-panelmenu-content-wrapper {
+        .p-panelmenu-content {
           margin: 0;
           border: none;
 
-          .ui-submenu-list {
-            .ui-menuitem {
+          .p-submenu-list {
+            .p-menuitem {
               border-radius: 0;
 
-              .ui-menuitem-link {
+              .p-menuitem-link {
                 background-color: $menuBg;
                 border: none;
                 border-radius: 0;
@@ -131,15 +131,15 @@
 
                 &:hover,
                 &:focus,
-                &.ui-state-active {
+                &.p-state-active {
                   background: $menuBgHoverActive;
 
-                  .ui-menuitem-text {
+                  .p-menuitem-text {
                     color: $whiteColor;
                   }
                 }
 
-                .ui-menuitem-text {
+                .p-menuitem-text {
                   color: $menuText;
                   margin-left: 46px;
                 }
@@ -151,24 +151,24 @@
     }
 
     .menu-collapsed {
-      .ui-panelmenu {
+      .p-panelmenu {
         width: 64px;
         min-width: auto;
 
-        .ui-panelmenu-panel {
-          .ui-menuitem-text,
-          .ui-panelmenu-icon {
+        .p-panelmenu-panel {
+          .p-menuitem-text,
+          .p-panelmenu-icon {
             display: none;
           }
 
-          .ui-panelmenu-header {
-            &.ui-state-active {
-              .ui-panelmenu-header-link {
+          .p-panelmenu-header {
+            &.p-state-active {
+              .p-panelmenu-header-link {
                 min-width: auto;
                 justify-content: center;
               }
 
-              .ui-panelmenu-icon {
+              .p-panelmenu-icon {
                 display: inline;
                 position: absolute;
                 right: 0;
@@ -180,15 +180,15 @@
             }
           }
 
-          .ui-panelmenu-content-wrapper {
+          .p-panelmenu-content-wrapper {
             position: absolute;
             width: $menu-submenu-width;
             right: -$menu-submenu-width;
             top: 0;
             display: block;
 
-            .ui-menuitem-link {
-              .ui-menuitem-text {
+            .p-menuitem-link {
+              .p-menuitem-text {
                 display: contents;
               }
             }

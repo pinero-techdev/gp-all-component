@@ -1,17 +1,17 @@
-::ng-deep .ui-dialog.ui-widget {
+::ng-deep .p-dialog.p-widget {
   border-radius: $borderRadius;
   background-color: $whiteColor;
 
-  &.ui-shadow {
+  &.p-shadow {
     @include overlay-content-shadow();
   }
 
-  .ui-dialog-titlebar {
+  .p-dialog-titlebar {
     padding: $separationXLarge;
     background: $whiteColor;
     border: none;
 
-    .ui-dialog-title {
+    .p-dialog-title {
       p-header {
         color: $textColor;
       }
@@ -25,25 +25,25 @@
     }
   }
 
-  .ui-dialog-content.ui-widget-content {
+  .p-dialog-content.p-widget-content {
     @include make-scroll();
     padding: $separationXLarge;
     border: none;
   }
 
-  .ui-inputtext {
+  .p-inputtext {
     @include make-input();
 
-    &:enabled:hover:not(.ui-state-error) {
+    &:enabled:hover:not(.p-state-error) {
       border-color: $inputBorderColor;
     }
   }
 
-  .ui-dialog-footer {
+  .p-dialog-footer {
     padding: $separationXLarge;
     border: none;
     border-top: 1px solid $borderColor;
-    [class^='ui-button'] {
+    [class^='p-button'] {
       //background: transparent;
     }
   }

@@ -60,7 +60,7 @@
   box-shadow: 0 0 4px 0 rgba($blackColor, $inputShadowOpacity);
 
   &:focus,
-  &.ui-state-focus {
+  &.p-state-focus {
     @include make-input-state('focus');
   }
 
@@ -68,7 +68,7 @@
     @include make-input-state('disabled');
   }
 
-  &.ui-state-error {
+  &.p-state-error {
     @include make-input-state('error');
   }
 }

@@ -69,7 +69,7 @@
     font-weight: 400;
   }
 
-  .ui-col-fluid {
+  .p-col-fluid {
     padding-top: 25px;
 
     @media (max-width: map-get($breakpoints, 'md')) {
@@ -77,16 +77,16 @@
     }
   }
 
-  .ui-col-fluid.login-panel-title {
+  .p-col-fluid.login-panel-title {
     padding-top: 50px;
   }
 
-  .ui-inputtext,
-  .ui-inputtext:hover {
+  .p-inputtext,
+  .p-inputtext:hover {
     border-color: $borderColor;
   }
 
-  .ui-inputtext {
+  .p-inputtext {
     font-size: $inputFontSize;
     line-height: $inputLineHeight;
 
@@ -103,12 +103,12 @@
   }
 
   &-input-error {
-    &.ui-inputtext:not(label) {
+    &.p-inputtext:not(label) {
       border-color: $errorColor;
     }
   }
 
-  ::ng-deep .ui-button {
+  ::ng-deep .p-button {
     width: auto;
   }
 }

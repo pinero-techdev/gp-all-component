@@ -245,8 +245,8 @@ export class TableCrudComponent implements AfterViewChecked {
   ) {}
 
   ngAfterViewChecked() {
-    if (this.el.nativeElement.querySelector('.ui-table-tbody')) {
-      this.applyStickyShadow('.ui-table-tbody', '.ui-table-wrapper');
+    if (this.el.nativeElement.querySelector('.p-table-tbody')) {
+      this.applyStickyShadow('.p-table-tbody', '.p-table-wrapper');
     }
   }
 

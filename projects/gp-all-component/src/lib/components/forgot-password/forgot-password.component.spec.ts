@@ -111,8 +111,8 @@ describe('ForgotPasswordComponent', () => {
     component.ngOnInit();
     getFields();
 
-    $submit = elementRef.querySelector('.ui-button:not(.ui-button-danger)');
-    $cancel = elementRef.querySelector('.ui-button-danger');
+    $submit = elementRef.querySelector('.p-button:not(.p-button-danger)');
+    $cancel = elementRef.querySelector('.p-button-danger');
 
     spyOn(messageService, 'showInfoAlert').and.callThrough();
     spyOn(service, 'updatePassword').and.callThrough();

@@ -1,4 +1,4 @@
-<div class="ui-inputgroup nopad" *ngIf="columnMetadata" [ngSwitch]="columnMetadata.type">
+<div class="p-inputgroup nopad" *ngIf="columnMetadata" [ngSwitch]="columnMetadata.type">
   <i
     class="pi pi-exclamation-triangle"
     *ngIf="!isFilter && columnMetadata.messages && columnMetadata.messages.length > 0"
@@ -125,7 +125,7 @@
     [filter]="true"
     (ngModelChange)="startStop($event)"
     [disabled]="!isEditable()"
-    class="full-width ui-inputfield ui-selectonemenu-label"
+    class="full-width p-inputfield p-selectonemenu-label"
   >
   </p-dropdown>
   <p-dropdown
@@ -138,13 +138,13 @@
     [filter]="true"
     (ngModelChange)="startStop($event)"
     [disabled]="!isEditable()"
-    class="full-width ui-inputfield ui-selectonemenu-label"
+    class="full-width p-inputfield p-selectonemenu-label"
   >
   </p-dropdown>
   <ng-template ngSwitchDefault>
     <div
-      [class.ui-g-12]="columnMetadata.translationInfo == null || translationKeys == ''"
-      [class.ui-g-10]="columnMetadata.translationInfo != null && translationKeys != ''"
+      [class.p-g-12]="columnMetadata.translationInfo == null || translationKeys == ''"
+      [class.p-g-10]="columnMetadata.translationInfo != null && translationKeys != ''"
       class="nopad"
     >
       <input
@@ -164,7 +164,7 @@
       />
     </div>
     <div
-      class="ui-g-2 nopad"
+      class="p-g-2 nopad"
       *ngIf="columnMetadata.translationInfo !== null && translationKeys !== ''"
     >
       <gp-multi-language
@@ -221,11 +221,11 @@
   [modal]="true"
 >
   <div
-    [class.ui-g-12]="
+    [class.p-g-12]="
       columnMetadata.translationInfo === null ||
       (columnMetadata.translationInfo !== null && translationKeys === '')
     "
-    [class.ui-g-10]="columnMetadata.translationInfo !== null && translationKeys !== ''"
+    [class.p-g-10]="columnMetadata.translationInfo !== null && translationKeys !== ''"
     class="nopad"
   >
     <textarea
@@ -240,7 +240,7 @@
     </textarea>
   </div>
   <div
-    class="ui-g-2 nopad"
+    class="p-g-2 nopad"
     *ngIf="columnMetadata.translationInfo !== null && translationKeys !== ''"
   >
     <gp-multi-language

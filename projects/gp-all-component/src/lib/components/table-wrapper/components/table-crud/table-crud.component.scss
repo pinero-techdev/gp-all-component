@@ -16,14 +16,14 @@
     }
 
     .panel-content {
-      .ui-table {
+      .p-table {
         &-caption {
           background-color: transparent;
           color: $textMutedColor;
           font-size: 12px;
           border: none;
           padding: 0.25em 0.5em;
-          width: 100%;
+          //width: 100%;
 
           .p-grid {
             align-items: center;
@@ -89,15 +89,15 @@
               text-align: left;
               height: 40px;
 
-              &.ui-sortable-column.ui-state-highlight {
-                p-sorticon.sort-icon > .ui-sortable-column-icon {
+              &.p-sortable-column.p-state-highlight {
+                p-sorticon.sort-icon > .p-sortable-column-icon {
                   color: $textMutedColor;
                 }
               }
             }
 
             .column-filter {
-              .ui-inputtext {
+              .p-inputtext {
                 color: $textColor;
                 min-height: 24px;
                 height: auto;
@@ -130,7 +130,7 @@
             border-bottom: 1px solid $tableInnerBorder;
             color: $textColor;
 
-            &:nth-child(even):not(.ui-state-highlight) {
+            &:nth-child(even):not(.p-state-highlight) {
               background: $primaryBg;
 
               .conditionally-sticked {
@@ -139,7 +139,7 @@
               }
             }
 
-            &:nth-child(odd):not(.ui-state-highlight) {
+            &:nth-child(odd):not(.p-state-highlight) {
               background: $tableOddBg;
 
               .conditionally-sticked {
@@ -150,7 +150,7 @@
 
             &:nth-child(even),
             &:nth-child(odd) {
-              &.ui-state-highlight {
+              &.p-state-highlight {
                 background: $highlightedRow;
                 color: $textColor;
 
@@ -183,14 +183,14 @@
         p-paginator {
           padding-top: 30px !important;
 
-          .ui-inputwrapper-filled {
+          .p-inputwrapper-filled {
             // FIXME: Se desactivan estos estilos porque provocan que el paginator aparezca sobre el nombre de columna
             //position: absolute !important;
             //top: 50px !important;
             //left: 0 !important;
           }
 
-          .ui-paginator-bottom {
+          .p-paginator-bottom {
             position: inherit;
             margin-top: $separationXLarge;
             background: $whiteColor;
@@ -203,42 +203,42 @@
               border: 1px solid $borderColor;
             }
 
-            .ui-paginator-first,
-            .ui-paginator-last {
+            .p-paginator-first,
+            .p-paginator-last {
               display: none;
             }
 
-            .ui-paginator-prev {
+            .p-paginator-prev {
               border-right: none;
               border-top-left-radius: $borderRadius;
               border-bottom-left-radius: $borderRadius;
             }
 
-            .ui-paginator-next {
+            .p-paginator-next {
               border-left: none;
               border-top-right-radius: $borderRadius;
               border-bottom-right-radius: $borderRadius;
             }
 
-            .ui-paginator-pages {
+            .p-paginator-pages {
               margin: 0;
-              .ui-paginator-page {
+              .p-paginator-page {
                 border: 1px solid $paginatorBorderColor;
-                &.ui-state-active {
+                &.p-state-active {
                   background: $primaryColor;
                   border: none;
                 }
               }
             }
-            .ui-paginator-element {
-              .ui-paginator-icon {
+            .p-paginator-element {
+              .p-paginator-icon {
                 color: $paginatorBGColor;
                 background: transparent;
               }
-              &:not(.ui-state-active):hover {
+              &:not(.p-state-active):hover {
                 background: $paginatorBGColor;
                 color: $whiteColor;
-                .ui-paginator-icon {
+                .p-paginator-icon {
                   color: $whiteColor;
                 }
               }

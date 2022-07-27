@@ -53,7 +53,7 @@ describe('BreadcrumbComponent', () => {
     beforeEach(() => {
       component.home = { id: '1', icon: 'pi pi-home' };
       fixture.detectChanges();
-      $breadcrumbHomeIcon = fixture.nativeElement.querySelector('p-breadcrumb .ui-breadcrumb-home');
+      $breadcrumbHomeIcon = fixture.nativeElement.querySelector('p-breadcrumb .p-breadcrumb-home');
     });
 
     it('should have home icon', () => {
@@ -65,7 +65,7 @@ describe('BreadcrumbComponent', () => {
     beforeEach(() => {
       component.home = null;
       fixture.detectChanges();
-      $breadcrumbHomeIcon = fixture.nativeElement.querySelector('p-breadcrumb .ui-breadcrumb-home');
+      $breadcrumbHomeIcon = fixture.nativeElement.querySelector('p-breadcrumb .p-breadcrumb-home');
     });
 
     it('should not have home icon', () => {

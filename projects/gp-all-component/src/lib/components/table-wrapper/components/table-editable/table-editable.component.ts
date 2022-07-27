@@ -142,29 +142,29 @@ export class TableEditableComponent implements OnInit {
       let filteredRows = this.dataTable.rows;
       for (const f of Object.keys(this.tc.filters)) {
         const colData = this.dataTable.cols.find((c) => c.field === f);
-
+        const val : any = this.tc.filters[f];//this.tc.filters[f]?.value;
         switch (colData.filterType) {
           case 'includes':
             filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').includes(this.tc.filters[f].value)
+              (r[f] + '').includes(val)
             );
             break;
           case 'startsWith':
             filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').startsWith(this.tc.filters[f].value)
+              (r[f] + '').startsWith(val)
             );
             break;
           case 'endsWith':
             filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').endsWith(this.tc.filters[f].value)
+              (r[f] + '').endsWith(val)
             );
             break;
           case 'equals':
-            filteredRows = filteredRows.filter((r) => r[f] + '' === this.tc.filters[f].value);
+            filteredRows = filteredRows.filter((r) => r[f] + '' === val);
             break;
           default:
             filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').startsWith(this.tc.filters[f].value)
+              (r[f] + '').startsWith(val)
             );
             break;
         }
@@ -463,25 +463,25 @@ export class TableEditableComponent implements OnInit {
     let filteredRows = this.dataTable.rows;
     for (const f of Object.keys(event.filters)) {
       const colData = this.dataTable.cols.find((c) => c.field === f);
-
+      const val : any = this.tc.filters[f];//.value;
       switch (colData.filterType) {
         case 'includes':
-          filteredRows = filteredRows.filter((r) => (r[f] + '').includes(this.tc.filters[f].value));
+          filteredRows = filteredRows.filter((r) => (r[f] + '').includes(val));
           break;
         case 'startsWith':
           filteredRows = filteredRows.filter((r) =>
-            (r[f] + '').startsWith(this.tc.filters[f].value)
+            (r[f] + '').startsWith(val)
           );
           break;
         case 'endsWith':
-          filteredRows = filteredRows.filter((r) => (r[f] + '').endsWith(this.tc.filters[f].value));
+          filteredRows = filteredRows.filter((r) => (r[f] + '').endsWith(val));
           break;
         case 'equals':
-          filteredRows = filteredRows.filter((r) => r[f] + '' === this.tc.filters[f].value);
+          filteredRows = filteredRows.filter((r) => r[f] + '' === val);
           break;
         default:
           filteredRows = filteredRows.filter((r) =>
-            (r[f] + '').startsWith(this.tc.filters[f].value)
+            (r[f] + '').startsWith(val)
           );
           break;
       }

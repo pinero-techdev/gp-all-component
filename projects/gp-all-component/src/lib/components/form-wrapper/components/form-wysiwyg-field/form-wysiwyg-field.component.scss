@@ -2,12 +2,12 @@
 @import 'global/mixins';
 
 ::ng-deep {
-  .ui-editor-container.ui-widget {
-    .ui-editor-toolbar {
+  .p-editor-container.p-widget {
+    .p-editor-toolbar {
       background-color: $editorToolbarBg;
     }
 
-    .ui-editor-content {
+    .p-editor-content {
       box-sizing: content-box;
       p {
         color: $textColor;

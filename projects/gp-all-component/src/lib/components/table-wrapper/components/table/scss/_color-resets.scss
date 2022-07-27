@@ -2,14 +2,14 @@
 ::ng-deep {
   html {
     body {
-      .ui-table {
+      .p-table {
         background: white;
 
-        .ui-table-caption,
-        .ui-table-summary,
-        .ui-paginator,
-        .ui-table-thead > tr > th,
-        .ui-table-tbody > tr > td {
+        .p-table-caption,
+        .p-table-summary,
+        .p-paginator,
+        .p-table-thead > tr > th,
+        .p-table-tbody > tr > td {
           background: transparent;
         }
       }

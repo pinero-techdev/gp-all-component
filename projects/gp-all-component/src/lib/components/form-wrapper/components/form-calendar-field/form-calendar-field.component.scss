@@ -5,19 +5,19 @@
 // ::ng-deep is deprecated but not removed.
 // More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
 ::ng-deep {
-  .ui-calendar {
+  .p-calendar {
     display: inline-flex;
 
-    input.ui-inputtext {
+    input.p-inputtext {
       @include make-input();
 
-      &:enabled:hover:not(.ui-state-error),
-      &:enabled:focus:not(.ui-state-error) {
+      &:enabled:hover:not(.p-state-error),
+      &:enabled:focus:not(.p-state-error) {
         border-color: $inputBorderColor;
       }
     }
 
-    button.ui-calendar-button {
+    button.p-calendar-button {
       background: transparent;
       border-top-right-radius: $borderRadius;
       border-bottom-right-radius: $borderRadius;
@@ -27,16 +27,16 @@
       min-height: 36px;
       @include box-shadow(0 0 4px 0 rgba($blackColor, $inputShadowOpacity));
 
-      [class^='ui-button'] {
+      [class^='p-button'] {
         background: transparent;
       }
 
-      .ui-button-icon-left {
+      .p-button-icon-left {
         color: $textColor;
         font-size: 18px;
       }
 
-      .ui-button-text {
+      .p-button-text {
         padding: inherit;
       }
 
@@ -44,15 +44,15 @@
         background-color: $whiteColor;
       }
 
-      &:enabled:hover:not(.ui-state-error) {
+      &:enabled:hover:not(.p-state-error) {
         border-color: $inputBorderColor;
       }
     }
 
-    .ui-datepicker {
+    .p-datepicker {
       padding: 0;
 
-      &:not(.ui-datepicker-inline) {
+      &:not(.p-datepicker-inline) {
         @include box-shadow(
           0 1px 3px rgba($blackColor, $inputShadowOpacity * 3),
           0 1px 2px rgba($blackColor, $inputShadowOpacity * 6)
@@ -60,13 +60,13 @@
         border: none;
       }
 
-      .ui-datepicker-header {
+      .p-datepicker-header {
         padding: 8.5px 13.5px;
         background: $primaryDarkColor;
         border-top-right-radius: $borderRadius;
         border-top-left-radius: $borderRadius;
 
-        .ui-datepicker-title {
+        .p-datepicker-title {
           margin: 0 2.3em;
           line-height: 1.8em;
           font-size: 1em;
@@ -76,29 +76,29 @@
           }
         }
 
-        .ui-datepicker-prev,
-        .ui-datepicker-next {
+        .p-datepicker-prev,
+        .p-datepicker-next {
           &:hover {
             background: transparent;
           }
         }
       }
 
-      .ui-datepicker-calendar-container {
+      .p-datepicker-calendar-container {
         border-bottom-right-radius: $borderRadius;
         border-bottom-left-radius: $borderRadius;
 
-        .ui-datepicker-calendar {
+        .p-datepicker-calendar {
           width: calc(100% + 1px);
         }
       }
 
-      a.ui-corner-all {
+      a.p-corner-all {
         color: $whiteColor;
         top: 20%;
 
-        .ui-datepicker-prev-icon,
-        .ui-datepicker-next-icon {
+        .p-datepicker-prev-icon,
+        .p-datepicker-next-icon {
           color: $whiteColor;
           background: $primaryDarkColor;
           &:hover {
@@ -111,8 +111,8 @@
         }
       }
 
-      .ui-datepicker-buttonbar {
-        .ui-button.ui-button-secondary {
+      .p-datepicker-buttonbar {
+        .p-button.p-button-secondary {
           background: $primaryColor;
           border: 1px solid $primaryColor;
 
@@ -121,7 +121,7 @@
             border: 1px solid $primaryDarkColor;
           }
 
-          .ui-button-text {
+          .p-button-text {
             color: $whiteColor;
             background: transparent;
           }
@@ -129,7 +129,7 @@
       }
     }
 
-    .ui-datepicker-calendar {
+    .p-datepicker-calendar {
       margin-top: 0;
       font-size: 11.5px;
 
@@ -147,7 +147,7 @@
         td {
           padding: 0.25em 0.125em;
 
-          .ui-state-default {
+          .p-state-default {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -163,13 +163,13 @@
           }
         }
 
-        .ui-state-active {
+        .p-state-active {
           background-color: $accentColor;
           color: $whiteColor;
           border-radius: 50%;
         }
 
-        .ui-datepicker-today {
+        .p-datepicker-today {
           a {
             background: $calendarDaySelectedBg;
             padding-top: 0.25em;

@@ -89,7 +89,7 @@
         <h3 class="p-col-12 big-topic">Edición - {{ tableLabel }}</h3>
       </div>
       <div class="p-grid input-group" *ngFor="let col of columns">
-        <div *ngFor="let msg of col.fieldMsgs" class="ui-messages-error">
+        <div *ngFor="let msg of col.fieldMsgs" class="p-messages-error">
           <i class="pi pi-close"></i>&nbsp;{{ msg.detail }}
         </div>
         <div
@@ -194,7 +194,7 @@
           {{ localeEs.FIELDS_MANDATORY_ASTERISK }}
         </span>
       </div>
-      <div class="ui-buttonpane">
+      <div class="p-buttonpane">
         <gp-button
           *ngIf="canDelete && selectedRow"
           [severity]="'danger'"

@@ -2,15 +2,15 @@
 ::ng-deep {
   html {
     body {
-      .ui-table {
-        .ui-paginator,
-        .ui-table-summary {
+      .p-table {
+        .p-paginator,
+        .p-table-summary {
           border-width: 0;
         }
 
-        .ui-table-caption,
-        .ui-table-thead > tr > th,
-        .ui-table-tbody > tr > td {
+        .p-table-caption,
+        .p-table-thead > tr > th,
+        .p-table-tbody > tr > td {
           border-left-width: 0;
           border-right-width: 0;
         }

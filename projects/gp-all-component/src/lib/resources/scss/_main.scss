@@ -12,7 +12,7 @@
 }
 
 body {
-  span:not(.ui-button-icon-left),
+  span:not(.p-button-icon-left),
   p,
   h3,
   label,
@@ -22,10 +22,10 @@ body {
   button::ng-deep,
   input,
   textarea,
-  p-multiselect ::ng-deep .ui-widget,
-  p-dropdown ::ng-deep .ui-widget,
-  p-calendar ::ng-deep .ui-widget,
-  p-table ::ng-deep .ui-widget {
+  p-multiselect ::ng-deep .p-widget,
+  p-dropdown ::ng-deep .p-widget,
+  p-calendar ::ng-deep .p-widget,
+  p-table ::ng-deep .p-widget {
     font-family: $mainFont;
   }
 }
@@ -56,7 +56,7 @@ a {
   cursor: pointer;
 }
 
-body .ui-message .ui-message-text {
+body .p-message .p-message-text {
   color: $textColor;
 }
 
@@ -86,7 +86,7 @@ body .ui-message .ui-message-text {
     &:not(p-calendar) {
       border-left: 5px solid $successColor !important;
     }
-    .ui-calendar {
+    .p-calendar {
       border-left: 5px solid $successColor !important;
     }
   }
@@ -94,7 +94,7 @@ body .ui-message .ui-message-text {
     &:not(p-calendar) {
       border-left: 5px solid $errorColor !important;
     }
-    .ui-calendar {
+    .p-calendar {
       border-left: 5px solid $errorColor !important;
     }
   }
@@ -120,6 +120,6 @@ body .ui-message .ui-message-text {
   font-weight: bold;
 }
 
-.ui-corner-all {
+.p-corner-all {
   border-radius: $borderRadius;
 }

@@ -1,10 +1,10 @@
 <section>
   <p-panel toggleable="true" class="pToggaglePanel">
-    <p-header [hidden]="working && !dataTable && !tc">
-      <div class="p-grid" style="height:34px;">
-        <div class="p-col-fixed">
-          <div style="text-align:left" *ngIf="dataTable.toggleColumns">
-            <p-multiSelect
+    <p-header [hidden]="working && !dataTable && !tc" style="width: 100%;">
+      <div class="p-grid" style="height:34px; width: 100%;">
+        <div class="p-col-3">
+          <div style="text-align:left" >
+            <p-multiSelect *ngIf="dataTable.toggleColumns"
               [options]="optionsSelectedColumns"
               [(ngModel)]="selectedColumns"
               optionLabel="header"
@@ -15,126 +15,123 @@
             </p-multiSelect>
           </div>
         </div>
-        <div class="p-col" style="padding-left:75px; text-align: center;padding-top: 10px;">
-          <div class="box">{{ dataTable.caption }}</div>
+        <div class="p-col-5" style=" text-align: center;padding-top: 10px;">
+          <div class="box" style="width: 100%; margin-left: 20%;">{{ dataTable.caption }}</div>
         </div>
-        <ng-container *ngIf="customButtons">
-          <ng-container *ngFor="let button of customButtons">
-            <div class="p-col-fixed" style="width: 40px;height: 5px;">
-              <div class="box">
-                <button
-                  type="button"
-                  class="ui-button full-width"
-                  pButton
-                  [pTooltip]="button.tooltip"
-                  [icon]="button.icon"
-                  (click)="onCustomButtonClic(button)"
-                  [ngStyle]="button.style"
-                ></button>
+        <div class="p-col-4 p-grid" style="justify-content: right; padding-top: 5px;">
+          <ng-container *ngIf="customButtons">
+            <ng-container *ngFor="let button of customButtons">
+              <div style="width: 40px;height: 5px;">
+                <div class="box" style="float: right;">
+                  <button
+                    type="button"
+                    class="p-button full-width"
+                    pButton
+                    [pTooltip]="button.tooltip"
+                    [icon]="button.icon"
+                    (click)="onCustomButtonClic(button)"
+                    [ngStyle]="button.style"
+                  ></button>
+                </div>
               </div>
-            </div>
+            </ng-container>
           </ng-container>
-        </ng-container>
-        <div
-          class="p-col-fixed"
-          style="width: 40px;height: 5px;"
-          *ngIf="
-            (dataTable.canAdd ||
-              dataTable.canEdit ||
-              dataTable.canEditRow ||
-              dataTable.canDelete) &&
-            changedDetected &&
-            showControlButtons
-          "
-        >
-          <div class="box">
-            <button
-              type="button"
-              class="ui-button full-width"
-              pButton
-              pTooltip="Guardar cambios"
-              icon="fa fa-hdd"
-              (click)="onSave()"
-              [style.background-color]="'#bf9b3f'"
-              [style.border-color]="'#bf9b3f'"
-            ></button>
+          <div
+            style="width: 40px;height: 5px;"
+            *ngIf="
+              (dataTable.canAdd ||
+                dataTable.canEdit ||
+                dataTable.canEditRow ||
+                dataTable.canDelete) &&
+              changedDetected &&
+              showControlButtons
+            "
+          >
+            <div class="box" style="float: right;">
+              <button
+                type="button"
+                class="p-button full-width"
+                pButton
+                pTooltip="Guardar cambios"
+                icon="pi pi-hdd"
+                (click)="onSave()"
+                [style.background-color]="'#bf9b3f'"
+                [style.border-color]="'#bf9b3f'"
+              ></button>
+            </div>
           </div>
-        </div>
-        <div
-          class="p-col-fixed"
-          style="width: 40px;height: 5px;"
-          *ngIf="dataTable && dataTable.canAdd && showControlButtons"
-        >
-          <div class="box">
-            <button
-              type="button"
-              class="ui-button full-width"
-              pButton
-              pTooltip="Añadir nuevo registro"
-              icon="fa fa-plus"
-              (click)="onAddRow()"
-            ></button>
+          <div
+            style="width: 40px;height: 5px;"
+            *ngIf="dataTable && dataTable.canAdd && showControlButtons"
+          >
+            <div class="box" style="float: right;">
+              <button
+                type="button"
+                class="p-button full-width"
+                pButton
+                pTooltip="Añadir nuevo registro"
+                icon="pi pi-plus"
+                (click)="onAddRow()"
+              ></button>
+            </div>
           </div>
-        </div>
-        <div
-          class="p-col-fixed"
-          style="width: 40px;height: 5px;"
-          *ngIf="dataTable && dataTable.canEdit && tc && tc.selection && showControlButtons"
-        >
-          <div class="box">
-            <button
-              type="button"
-              class="ui-button full-width"
-              pButton
-              pTooltip="Editar registro"
-              icon="fa fa-pen"
-              (click)="onEditRow()"
-            ></button>
+          <div
+            style="width: 40px;height: 5px;"
+            *ngIf="dataTable && dataTable.canEdit && tc && tc.selection && showControlButtons"
+          >
+            <div class="box" style="float: right;">
+              <button
+                type="button"
+                class="p-button full-width"
+                pButton
+                pTooltip="Editar registro"
+                icon="pi pi-pen"
+                (click)="onEditRow()"
+              ></button>
+            </div>
           </div>
-        </div>
 
-        <div
-          class="p-col-fixed"
-          style="width: 40px;height: 5px;"
-          *ngIf="dataTable.canDelete && tc && tc.selection && showControlButtons"
-        >
-          <div class="box">
-            <button
-              type="button"
-              class="ui-button full-width"
-              pButton
-              pTooltip="Borrar registro seleccionado"
-              icon="fa fa-trash"
-              (click)="onDeleteRow()"
-            ></button>
+          <div
+            style="width: 40px;height: 5px;"
+            *ngIf="dataTable.canDelete && tc && tc.selection && showControlButtons"
+          >
+            <div class="box" style="float: right;">
+              <button
+                type="button"
+                class="p-button full-width"
+                pButton
+                pTooltip="Borrar registro seleccionado"
+                icon="pi pi-trash"
+                (click)="onDeleteRow()"
+              ></button>
+            </div>
           </div>
-        </div>
-        <div
-          class="p-col-fixed"
-          style="width: 40px;height: 5px;"
-          *ngIf="dataTable.showExportButton"
-        >
-          <div class="box">
-            <button
-              class="ui-button full-width"
-              type="button"
-              pButton
-              icon="fa fa-download"
-              (click)="tc.exportCSV()"
-              pTooltip="Exportar a CSV"
-            ></button>
+          <div
+            style="width: 40px;height: 5px;"
+            *ngIf="dataTable.showExportButton"
+          >
+            <div class="box" style="float: right;">
+              <button
+                class="p-button full-width"
+                type="button"
+                pButton
+                icon="pi pi-download"
+                (click)="tc.exportCSV()"
+                pTooltip="Exportar a CSV"
+              ></button>
+            </div>
           </div>
-        </div>
-        <div class="p-col-fixed" style="width: 40px;height: 5px;">
-          <div class="box">
-            <button
-              type="button"
-              class="ui-button full-width"
-              pButton
-              pTooltip="Refresca la tabla"
-              icon="fa fa-sync"
-              (click)="onRefresh()"
-            ></button>
+          <div style="width: 40px;height: 5px;">
+            <div class="box" style="float: right;">
+              <button
+                type="button"
+                class="p-button full-width"
+                pButton
+                pTooltip="Refresca la tabla"
+                icon="pi pi-sync"
+                (click)="onRefresh()"
+              ></button>
+            </div>
           </div>
         </div>
       </div>
@@ -151,7 +148,6 @@
       [selectionMode]="dataTable.checkBoxSelect ? '' : 'multiple'"
       rowExpandMode="single"
       autoLayout="true"
-      [tableStyle]="dataTable.width == 0 ? { width: '100%' } : { width: dataTable.width + 'px' }"
       columnResizeMode="expand"
       [resizableColumns]="true"
       [metaKeySelection]="!dataTable.checkBoxSelect"
@@ -219,6 +215,7 @@
               />
               <p-dropdown
                 *ngIf="col.filter == 'dropdown'"
+                autoWidth="false"
                 [options]="filterOptions[col.field]"
                 [style]="{ width: '100%' }"
                 [panelStyle]="{ width: 'auto' }"
@@ -249,10 +246,10 @@
           <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.expandableRows">
             <button
               type="button"
-              class="ui-button full-width"
+              class="p-button full-width"
               pButton
               pTooltip="Detalles"
-              icon="fa fa-info-circle"
+              icon="pi pi-info-circle"
               (click)="onExpand(rowData)"
             ></button>
           </td>
@@ -266,7 +263,7 @@
               [ngStyle]="getStyle(col.style)"
               [pEditableColumn]="rowData"
               [pEditableColumnField]="col.field"
-              class="ui-resizable-column"
+              class="p-resizable-column"
             >
               <p-cellEditor>
                 <ng-template pTemplate="input" *ngIf="col.editable">
@@ -361,10 +358,10 @@
           <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.expandableRows">
             <button
               type="button"
-              class="ui-button full-width"
+              class="p-button full-width"
               pButton
               pTooltip="Detalles"
-              icon="fa fa-info-circle"
+              icon="pi pi-info-circle"
               (click)="onExpand(rowData)"
             ></button>
           </td>
@@ -405,7 +402,7 @@
           <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.checkBoxSelect"></td>
           <ng-container *ngFor="let col of columns">
             <td *ngIf="col.showInTable" [ngStyle]="getStyle(col.style)">
-              <span *ngIf="totales[col.field] != null" class="ui-cell-data">
+              <span *ngIf="totales[col.field] != null" class="p-cell-data">
                 <hr />
                 {{ totales[col.field] | number: col.pipe }}
               </span>
@@ -455,11 +452,11 @@
   [modal]="true"
   [contentStyle]="{ 'max-width': '600px', overflowY: 'scroll' }"
 >
-  <div class="ui-g">
+  <div class="p-g">
     <div class="p-grid">
       <ng-container *ngFor="let col of dataTable.cols">
         <div
-          class="ui-separation-lg full-width"
+          class="p-separation-lg full-width"
           style="padding-bottom: 15px"
           [hidden]="!col.insertable"
         >
@@ -472,7 +469,7 @@
               pInputText
               [type]="col.type == 'string' ? 'text' : col.type"
               [(ngModel)]="newRow[col.field]"
-              [style]="getStyle(col.style)"
+              [style]="{ width: '100%' }"
               (change)="onFieldChange(col.field, newRow)"
             />
             <p-dropdown
@@ -505,7 +502,7 @@
               [(ngModel)]="newRow[col.field]"
               [rows]="3"
               [cols]="60"
-              [style]="getStyle(col.style)"
+              [style]="{ width: '100%' }"
               (change)="onFieldChange(col.field, newRow)"
             ></textarea>
           </div>
@@ -514,20 +511,20 @@
     </div>
   </div>
   <p-footer>
-    <div class="ui-dialog-buttonpanel ui-widget-content ui-helper-clearfix">
-      <div class="ui-button-group">
+    <div class="p-dialog-buttonpanel p-widget-content p-helper-clearfix">
+      <div class="p-button-group">
         <button
           type="button"
           pButton
           [disabled]="checkRequired('new')"
-          icon="fa fa-check"
+          icon="pi pi-check"
           (click)="saveNewRow()"
           label="Añadir"
         ></button>
         <button
           type="button"
           pButton
-          icon="fa fa-close"
+          icon="pi pi-close"
           (click)="cancelNewRow()"
           label="Cancelar"
         ></button>
@@ -546,11 +543,11 @@
   [modal]="true"
   [contentStyle]="{ 'max-width': '600px', overflowY: 'scroll' }"
 >
-  <div class="ui-g">
+  <div class="p-g">
     <div class="p-grid">
       <ng-container *ngFor="let col of dataTable.cols">
         <div
-          class="ui-separation-lg full-width"
+          class="p-separation-lg full-width"
           style="padding-bottom: 15px"
           [hidden]="!col.editable"
         >
@@ -605,20 +602,20 @@
     </div>
   </div>
   <p-footer>
-    <div class="ui-dialog-buttonpanel ui-widget-content ui-helper-clearfix">
-      <div class="ui-button-group">
+    <div class="p-dialog-buttonpanel p-widget-content p-helper-clearfix">
+      <div class="p-button-group">
         <button
           type="button"
           pButton
           [disabled]="checkRequired('edit')"
-          icon="fa fa-check"
+          icon="pi pi-check"
           (click)="saveEditRow()"
           label="Guardar"
         ></button>
         <button
           type="button"
           pButton
-          icon="fa fa-close"
+          icon="pi pi-close"
           (click)="cancelEditRow()"
           label="Cancelar"
         ></button>
@@ -629,10 +626,10 @@
 
 <p-confirmDialog #cd styleClass="pConfirmDialog">
   <p-footer>
-    <div class="ui-dialog-buttonpanel ui-widget-content ui-helper-clearfix">
-      <div class="ui-button-group">
-        <button type="button" pButton icon="fa fa-check" label="Si" (click)="cd.accept()"></button>
-        <button type="button" pButton icon="fa fa-close" label="No" (click)="cd.reject()"></button>
+    <div class="p-dialog-buttonpanel p-widget-content p-helper-clearfix">
+      <div class="p-button-group">
+        <button type="button" pButton icon="pi pi-check" label="Si" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="pi pi-close" label="No" (click)="cd.reject()"></button>
       </div>
     </div>
   </p-footer>

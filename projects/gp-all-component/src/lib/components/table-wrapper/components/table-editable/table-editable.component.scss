@@ -1,9 +1,9 @@
 :host ::ng-deep {
   .pDialogChild {
-    .ui-dialog-content, .ui-dialog-titlebar {
+    .p-dialog-content, .p-dialog-titlebar {
       padding: 0;
 
-      .ui-dialog-titlebar-icon {
+      .p-dialog-titlebar-icon {
         margin-top: 1px;
         margin-right: 1px;
       }
@@ -22,12 +22,12 @@
 
 :host ::ng-deep {
   .pToggaglePanel {
-    .ui-panel{
-      .ui-panel-titlebar {
+    .p-panel{
+      .p-panel-titlebar {
         padding-bottom: 0;
         height: 40px;
 
-        .ui-panel-titlebar-icon {
+        .p-panel-titlebar-icon {
 
           position: relative;
           top: -42px;

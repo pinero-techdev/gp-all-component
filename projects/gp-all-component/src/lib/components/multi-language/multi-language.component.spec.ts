@@ -132,7 +132,7 @@ describe('MultiLanguageComponent', () => {
         component.showTranslations = true;
         fixture.detectChanges();
         elementRef = fixture.debugElement.nativeElement;
-        const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
+        const $spinner: HTMLElement = elementRef.querySelector('.p-progress-spinner');
 
         expect($spinner).toBeDefined();
         expect($spinner).not.toBeNull();
@@ -144,7 +144,7 @@ describe('MultiLanguageComponent', () => {
         component.showTranslations = true;
         fixture.detectChanges();
         elementRef = fixture.debugElement.nativeElement;
-        const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
+        const $spinner: HTMLElement = elementRef.querySelector('.p-progress-spinner');
         const $grid: HTMLElement = elementRef.querySelector('.translations-wrapper');
         const $rows: HTMLElement[] = Array.from(
           elementRef.querySelectorAll('.translations-wrapper > .p-grid')
@@ -160,7 +160,7 @@ describe('MultiLanguageComponent', () => {
         component.showTranslations = true;
         fixture.detectChanges();
         elementRef = fixture.debugElement.nativeElement;
-        const $spinner: HTMLElement = elementRef.querySelector('.ui-progress-spinner');
+        const $spinner: HTMLElement = elementRef.querySelector('.p-progress-spinner');
         const $grid: HTMLElement = elementRef.querySelector('.translations-wrapper');
         const $rows: HTMLElement[] = Array.from(
           elementRef.querySelectorAll('.translations-wrapper > .p-grid')
@@ -221,12 +221,12 @@ describe('MultiLanguageComponent', () => {
         fixture.detectChanges();
         elementRef = fixture.debugElement.nativeElement;
         const $rows: HTMLElement[] = Array.from(
-          elementRef.querySelectorAll('.ui-grid-col-12 > .ui-grid-row')
+          elementRef.querySelectorAll('.p-grid-col-12 > .p-grid-row')
         );
 
         let $button: HTMLDivElement;
         $rows.map(($r) => {
-          $button = $r.querySelector('.ui-grid-row gp-button');
+          $button = $r.querySelector('.p-grid-row gp-button');
           expect($button).not.toBeNull();
         });
       });
@@ -317,7 +317,7 @@ describe('MultiLanguageComponent', () => {
 
       it('should be active', () => {
         const $editorDialog = elementRef.querySelectorAll('p-dialog')[1];
-        const $header: HTMLSpanElement = $editorDialog.querySelector('span.ui-dialog-title');
+        const $header: HTMLSpanElement = $editorDialog.querySelector('span.p-dialog-title');
         const translation = data.idiomaPaisTraduccion ? data.idiomaPaisTraduccion : data.idiomaPais;
 
         expect(component.showTranslations).toBe(false);

@@ -103,9 +103,9 @@ export class ButtonComponent implements OnInit {
   getSplitButtonSeverity() {
     const severityClassName =
       this.severity === ButtonSeverity.Danger
-        ? 'ui-button-danger'
+        ? 'p-button-danger'
         : this.severity === ButtonSeverity.Secondary
-        ? 'ui-button-secondary'
+        ? 'p-button-secondary'
         : '';
     return severityClassName;
   }

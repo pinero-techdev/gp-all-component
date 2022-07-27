@@ -103,7 +103,7 @@ describe('TopbarComponent', () => {
     });
 
     it('user logs out through menu item button success', () => {
-      const $itemLink = elementRef.querySelector('.ui-menuitem-link');
+      const $itemLink = elementRef.querySelector('.p-menuitem-link');
 
       spyOn(component, 'redirect')
         .withArgs('logout')
@@ -119,7 +119,7 @@ describe('TopbarComponent', () => {
     it('user logs out through item button successfully', () => {
       const response = new CommonRs();
       const testRoute = 'login';
-      const $itemLink = elementRef.querySelector('.ui-menuitem-link');
+      const $itemLink = elementRef.querySelector('.p-menuitem-link');
       response.ok = true;
 
       spyOn(service, 'logout').and.returnValue(of(response));
@@ -134,7 +134,7 @@ describe('TopbarComponent', () => {
 
     it('user logs out through item button fails and should navigate to login', () => {
       const testRoute = 'login';
-      const $itemLink = elementRef.querySelector('.ui-menuitem-link');
+      const $itemLink = elementRef.querySelector('.p-menuitem-link');
 
       spyOn(service, 'logout').and.returnValue(throwError(new Error('error')));
       spyOn(router, 'navigate').and.callThrough();

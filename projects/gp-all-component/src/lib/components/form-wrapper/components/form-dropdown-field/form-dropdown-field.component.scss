@@ -6,21 +6,21 @@
 // More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
 ::ng-deep {
   gp-form-dropdown-field {
-    .ui-inputwrapper-filled {
-      .ui-dropdown {
+    .p-inputwrapper-filled {
+      .p-dropdown {
         @include make-input();
 
-        &:not(.ui-state-disabled):hover {
+        &:not(.p-state-disabled):hover {
           border-color: $inputBorderColor;
         }
 
-        .ui-dropdown-label {
+        .p-dropdown-label {
           @include make-input-text();
           padding: 0;
           padding-right: $separationLarge;
         }
 
-        .ui-dropdown-trigger {
+        .p-dropdown-trigger {
           width: auto;
           @include absolute-centered('vertical');
 
@@ -32,14 +32,14 @@
         }
       }
 
-      .ui-dropdown-panel.ui-widget {
+      .p-dropdown-panel.p-widget {
         width: auto;
         min-width: 100%;
         max-width: 370px;
         border: 1px solid $borderColor;
         border-radius: 4px;
 
-        &.ui-shadow {
+        &.p-shadow {
           @include box-shadow(
             0 1px 3px 0 rgba($blackColor, $inputShadowOpacity),
             0 1px 1px 0 rgba($blackColor, $inputShadowOpacity),
@@ -47,13 +47,13 @@
           );
         }
 
-        .ui-dropdown-filter-container {
+        .p-dropdown-filter-container {
           padding: 1em 1em;
           background-color: $multiselectHeaderBg;
           border-bottom: 1px solid $inputBorderColor;
 
-          .ui-dropdown-filter {
-            &.ui-inputtext {
+          .p-dropdown-filter {
+            &.p-inputtext {
               border-color: $inputBorderColor;
             }
 
@@ -68,15 +68,15 @@
           }
         }
 
-        .ui-dropdown-items-wrapper {
+        .p-dropdown-items-wrapper {
           @include make-scroll();
 
-          .ui-dropdown-list {
+          .p-dropdown-list {
             background: $whiteColor;
           }
         }
 
-        .ui-dropdown-item {
+        .p-dropdown-item {
           font-size: $fontSize;
           padding: $inputOptionPadding;
           color: $textSecondaryColor;
@@ -85,7 +85,7 @@
             color: $textColor;
           }
 
-          &.ui-state-highlight {
+          &.p-state-highlight {
             background-color: $accentColor;
 
             span {

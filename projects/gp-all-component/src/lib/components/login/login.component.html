@@ -1,5 +1,5 @@
 <div class="login-body" *ngIf="!hiddenLogin">
-  <div class="card login-panel ui-fluid" *ngIf="!working">
+  <div class="card login-panel p-fluid" *ngIf="!working">
     <div class="login-panel-logo"></div>
     <div *ngIf="title" class="login-panel-title"
       ><span>{{ title }}</span></div
@@ -14,7 +14,7 @@
         name="username"
         type="text"
         autocomplete="off"
-        class="ng-valid ui-inputtext ui-corner-all ui-state-default ui-widget ng-dirty ng-touched"
+        class="ng-valid p-inputtext p-corner-all p-state-default p-widget ng-dirty ng-touched"
         [(ngModel)]="username"
         (ngModelChange)="resetError()"
         [ngClass]="{ 'login-panel-input-error': msgs.length > 0 }"
@@ -35,7 +35,7 @@
         type="password"
         name="password"
         autocomplete="off"
-        class="ng-valid ui-inputtext ui-corner-all ui-state-default ui-widget ng-dirty ng-touched"
+        class="ng-valid p-inputtext p-corner-all p-state-default p-widget ng-dirty ng-touched"
         [(ngModel)]="password"
         [ngClass]="{ 'login-panel-input-error': msgs.length > 0 }"
         (keyup.enter)="login()"

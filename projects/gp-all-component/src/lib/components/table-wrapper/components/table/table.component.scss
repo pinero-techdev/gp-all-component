@@ -11,14 +11,14 @@
   }
 
   /* customisation */
-  .ui-table {
+  .p-table {
     &.table-flex {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       min-width: auto;
 
-      .ui-table-wrapper {
+      .p-table-wrapper {
         order: 2;
       }
 
@@ -29,12 +29,12 @@
         order: 4;
       }
 
-      .ui-table-caption + p-paginator {
+      .p-table-caption + p-paginator {
         order: 1;
         flex-grow: 2;
       }
 
-      .ui-table-summary {
+      .p-table-summary {
         flex-grow: 0;
         flex: 1 50%;
         order: 3;
@@ -43,24 +43,24 @@
     }
 
     // Loading overlay
-    .ui-table-loading.ui-widget-overlay {
+    .p-table-loading.p-widget-overlay {
       background: $whiteColor;
       opacity: 1;
     }
 
-    .ui-table-loading-content .pi-spinner {
+    .p-table-loading-content .pi-spinner {
       color: $spinnerColor;
     }
 
     /* Caption */
-    .ui-table-caption.ui-widget-header {
+    .p-table-caption.p-widget-header {
       width: 100%;
       border: none;
     }
 
-    .ui-table-wrapper {
+    .p-table-wrapper {
       /* Heads */
-      .ui-table-thead {
+      .p-table-thead {
         > tr {
           > th {
             padding: #{calc($tablePaddingRatio / 2)} #{$tablePaddingRatio * 2};
@@ -75,14 +75,14 @@
               outline: none;
             }
 
-            &.ui-sortable-column {
+            &.p-sortable-column {
               position: relative;
               padding-right: 30px;
               text-align: left;
               border-bottom: 0;
               font-size: $fontSizeSmall;
 
-              &.ui-state-highlight,
+              &.p-state-highlight,
               &:hover {
                 background: $whiteColor;
                 color: inherit;
@@ -100,7 +100,7 @@
               }
             }
 
-            &:not(.ui-sortable-column) {
+            &:not(.p-sortable-column) {
               &:last-child {
                 text-align: center;
               }
@@ -146,7 +146,7 @@
       }
 
       /* Rows - even that those are cell styles those are depending of the row parity */
-      .ui-table-tbody > tr {
+      .p-table-tbody > tr {
         background: transparent;
         outline: none;
 
@@ -156,7 +156,7 @@
 
         &:nth-child(even),
         &:nth-child(odd) {
-          &.ui-state-highlight {
+          &.p-state-highlight {
             background: $highlightedRow;
           }
         }
@@ -170,7 +170,7 @@
       }
 
       /* Cells */
-      .ui-table-tbody > tr > td {
+      .p-table-tbody > tr > td {
         text-transform: uppercase;
         border-color: $tableBorderColor;
         line-height: 40px;
@@ -182,56 +182,56 @@
     }
 
     /* Pagination */
-    .ui-paginator {
+    .p-paginator {
       margin: 25px auto;
       text-align: right;
 
-      .ui-paginator-first,
-      .ui-paginator-last {
+      .p-paginator-first,
+      .p-paginator-last {
         border: 1px solid $tableBorderColor;
       }
 
-      .ui-paginator-first {
+      .p-paginator-first {
         border-radius: $tableBorderRadius 0 0 $tableBorderRadius;
         border-right: none;
       }
 
-      .ui-paginator-last {
+      .p-paginator-last {
         border-radius: 0px $tableBorderRadius $tableBorderRadius 0;
       }
 
-      .ui-paginator-element {
+      .p-paginator-element {
         border-top: 1px solid $tableBorderColor;
         border-bottom: 1px solid $tableBorderColor;
         border-left: 1px solid $tableBorderColor;
         color: $tableTextColor;
 
-        &:not(.ui-state-active):hover {
+        &:not(.p-state-active):hover {
           background: lighten($tableActiveColor, 40%);
           border-color: lighten($tableActiveColor, 40%);
         }
       }
 
-      .ui-paginator-pages {
+      .p-paginator-pages {
         margin: 0;
 
-        .ui-paginator-page {
+        .p-paginator-page {
           border: 1px solid $borderColor;
 
-          &.ui-state-active {
+          &.p-state-active {
             background: $tableActiveColor;
             border-color: $tableActiveColor;
           }
         }
       }
 
-      .ui-paginator-icon {
+      .p-paginator-icon {
         color: currentColor;
         color: inherit;
       }
 
       /* dropwdown */
-      .ui-dropdown {
+      .p-dropdown {
         color: $tableTextColor;
         border: 1px solid $tableBorderColor;
         border-radius: $tableBorderRadius;
@@ -242,20 +242,20 @@
           background: lighten($tableActiveColor, 40%);
         }
 
-        .ui-dropdown-trigger,
-        .ui-inputtext {
+        .p-dropdown-trigger,
+        .p-inputtext {
           background: transparent;
         }
 
-        label.ui-dropdown-label {
+        label.p-dropdown-label {
           line-height: 1.5;
           height: 100%;
           padding-right: #{$tablePaddingRatio * 4};
         }
       }
 
-      .ui-dropdown-panel {
-        .ui-dropdown-item.ui-state-highlight {
+      .p-dropdown-panel {
+        .p-dropdown-item.p-state-highlight {
           span {
             color: $whiteColor;
           }
@@ -263,9 +263,9 @@
       }
     }
 
-    .ui-paginator-icon,
-    .ui-dropdown .ui-dropdown-trigger {
-      .ui-dropdown-trigger-icon {
+    .p-paginator-icon,
+    .p-dropdown .p-dropdown-trigger {
+      .p-dropdown-trigger-icon {
         color: $tableTextColor;
       }
     }
@@ -277,12 +277,12 @@
       }
     }
 
-    .ui-chkbox {
-      .ui-chkbox-box {
-        &.ui-state-active {
+    .p-chkbox {
+      .p-chkbox-box {
+        &.p-state-active {
           background: $tableActiveColor;
 
-          .ui-chkbox-icon {
+          .p-chkbox-icon {
             color: $whiteColor;
           }
 
@@ -292,7 +292,7 @@
           }
         }
 
-        .ui-chkbox-icon {
+        .p-chkbox-icon {
           width: 100%;
           height: 100%;
         }

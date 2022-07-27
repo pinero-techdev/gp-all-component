@@ -2,7 +2,7 @@
 @import 'global/mixins';
 
 ::ng-deep {
-  .ui-breadcrumb.ui-widget {
+  .p-breadcrumb.p-widget {
     border: none;
     padding: 0;
 
@@ -11,31 +11,31 @@
       align-items: center;
     }
 
-    li:not(.ui-breadcrumb-chevron) {
+    li:not(.p-breadcrumb-chevron) {
       @include truncate();
     }
 
     li:last-child {
       pointer-events: none;
 
-      .ui-menuitem-text {
+      .p-menuitem-text {
         color: $textColor;
       }
     }
 
-    .ui-breadcrumb-home {
+    .p-breadcrumb-home {
       .pi {
         color: $breadcrumbItemColor;
       }
     }
 
-    .ui-menuitem-link {
+    .p-menuitem-link {
       &:hover {
         background: transparent;
       }
     }
 
-    .ui-menuitem-text {
+    .p-menuitem-text {
       color: $breadcrumbItemColor;
       font-size: 12px;
       font-weight: 500;
@@ -47,7 +47,7 @@
       }
     }
 
-    .ui-breadcrumb-chevron {
+    .p-breadcrumb-chevron {
       font-size: 10px;
       margin: 0 0.4em 0 0.4em;
       color: $chevronBreadcrumbColor;

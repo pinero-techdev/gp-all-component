@@ -22,14 +22,14 @@
           <input
             type="text"
             pInputText
-            class="ui-inputtext ui-corner-all full-width large"
+            class="p-inputtext p-corner-all full-width large"
             *ngIf="!isEditing || !hasHTMLContent(t.idiomaPaisTraduccion)"
             [(ngModel)]="t.idiomaPaisTraduccion"
           />
           <input
             type="text"
             *ngIf="hasHTMLContent(t.idiomaPaisTraduccion) && isEditing"
-            class="ui-inputtext ui-corner-all full-width large ta-center"
+            class="p-inputtext p-corner-all full-width large ta-center"
             disabled="true"
             value="{{ localeES.MULTILANGUAGE_PLACEHOLDER }}"
           />

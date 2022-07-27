@@ -4,33 +4,33 @@
 // ::ng-deep is deprecated but not removed.
 // More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
 ::ng-deep {
-  .ui-chkbox.ui-widget {
-    &:enabled:hover:not(.ui-state-error) {
+  .p-chkbox.p-widget {
+    &:enabled:hover:not(.p-state-error) {
       border-color: $inputBorderColor;
     }
 
-    .ui-chkbox-box {
+    .p-chkbox-box {
       border-color: $inputBorderColor;
       @include box-shadow(0 0 4px 0 rgba($blackColor, $inputShadowOpacity));
 
-      &.ui-state-active,
-      &.ui-state-active:not(.ui-state-disabled):hover {
+      &.p-state-active,
+      &.p-state-active:not(.p-state-disabled):hover {
         border-color: $primaryColor;
         background: $primaryColor;
 
-        .ui-chkbox-icon {
+        .p-chkbox-icon {
           color: $whiteColor;
           border-color: $primaryColor;
           background: transparent;
         }
       }
 
-      &:not(.ui-state-disabled):hover {
+      &:not(.p-state-disabled):hover {
         border-color: $inputBorderColor;
       }
 
       &:focus,
-      &.ui-state-focus {
+      &.p-state-focus {
         outline: none;
         box-shadow: none;
         border-color: $inputBorderColor;

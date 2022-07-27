@@ -83,8 +83,8 @@ describe('FormSliderFieldComponent', () => {
     });
 
     it('should render a range', () => {
-      $sliderRange = fixture.nativeElement.querySelector('.ui-slider-range');
-      expect($sliderRange).not.toHaveClass('ui-slider-range-min');
+      $sliderRange = fixture.nativeElement.querySelector('.p-slider-range');
+      expect($sliderRange).not.toHaveClass('p-slider-range-min');
     });
   });
 
@@ -94,8 +94,8 @@ describe('FormSliderFieldComponent', () => {
     });
 
     it('should not render a range', () => {
-      $sliderRange = fixture.nativeElement.querySelector('.ui-slider-range');
-      expect($sliderRange).toHaveClass('ui-slider-range-min');
+      $sliderRange = fixture.nativeElement.querySelector('.p-slider-range');
+      expect($sliderRange).toHaveClass('p-slider-range-min');
     });
   });
 

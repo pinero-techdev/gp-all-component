@@ -5,16 +5,16 @@
 // ::ng-deep is deprecated but not removed.
 // More details about this issue here: https://stackoverflow.com/questions/47024236/what-to-use-in-place-of-ng-deep
 ::ng-deep {
-  .ui-inputwrapper-filled {
-    .ui-multiselect {
+  .p-inputwrapper-filled {
+    .p-multiselect {
       @include make-input();
 
-      &:not(.ui-state-disabled):hover {
+      &:not(.p-state-disabled):hover {
         border-color: $inputBorderColor;
       }
 
-      .ui-multiselect-label-container {
-        .ui-multiselect-label {
+      .p-multiselect-label-container {
+        .p-multiselect-label {
           @include make-input-text();
           white-space: nowrap;
           padding: 0;
@@ -22,7 +22,7 @@
         }
       }
 
-      .ui-multiselect-trigger {
+      .p-multiselect-trigger {
         width: auto;
         top: 0;
         @include absolute-centered('vertical');
@@ -34,20 +34,20 @@
         }
       }
 
-      &.ui-state-focus {
+      &.p-state-focus {
         @include make-input-state('focus');
         border-width: 1px;
       }
     }
 
-    .ui-multiselect-panel.ui-widget {
+    .p-multiselect-panel.p-widget {
       width: auto;
       min-width: 100%;
       max-width: 370px;
       border: 1px solid $borderColor;
       border-radius: 4px;
 
-      &.ui-shadow {
+      &.p-shadow {
         @include box-shadow(
           0 1px 3px 0 rgba($blackColor, $inputShadowOpacity),
           0 1px 1px 0 rgba($blackColor, $inputShadowOpacity),
@@ -55,7 +55,7 @@
         );
       }
 
-      .ui-multiselect-header {
+      .p-multiselect-header {
         display: flex;
         align-items: center;
         padding: 1em;
@@ -64,10 +64,10 @@
         background-color: $multiselectHeaderBg;
         border-radius: 0;
 
-        .ui-multiselect-filter {
+        .p-multiselect-filter {
           &-container {
             width: 100%;
-            .ui-chkbox {
+            .p-chkbox {
               display: block;
               margin-right: 1em;
               &:hover {
@@ -75,7 +75,7 @@
               }
             }
 
-            .ui-inputtext {
+            .p-inputtext {
               @include make-input();
               color: $textColor;
 
@@ -95,19 +95,19 @@
           }
         }
 
-        .ui-chkbox {
+        .p-chkbox {
           display: block;
 
-          .ui-chkbox-box {
+          .p-chkbox-box {
             border: 2px solid $checkboxBorder;
             overflow: hidden;
             border-radius: 3px;
             @include transition(background-color 0.3s);
             width: 1.3em;
             height: 1.3em;
-            &.ui-state-active {
+            &.p-state-active {
               border-color: $primaryColor;
-              .ui-chkbox-icon {
+              .p-chkbox-icon {
                 margin-top: -2px;
                 margin-left: -1px;
                 background: transparent;
@@ -120,22 +120,22 @@
           }
         }
 
-        .ui-multiselect-close {
+        .p-multiselect-close {
           display: none;
         }
       }
 
-      .ui-multiselect-items-wrapper {
+      .p-multiselect-items-wrapper {
         @include make-scroll();
         z-index: 1;
         padding: 0.6em 0;
 
-        .ui-multiselect-list {
+        .p-multiselect-list {
           background: inherit;
         }
       }
 
-      .ui-multiselect-item {
+      .p-multiselect-item {
         font-size: $fontSize;
         padding: calc($separation / 2) $separationLarge;
         color: $textSecondaryColor;
@@ -148,7 +148,7 @@
           line-height: $inputLineHeight;
         }
 
-        .ui-chkbox {
+        .p-chkbox {
           position: absolute;
           font-size: $fontSize;
           line-height: 1.25em;
@@ -156,7 +156,7 @@
           height: 1.25em;
           cursor: default;
 
-          .ui-chkbox-box {
+          .p-chkbox-box {
             border: 2px solid $checkboxBorder;
             width: 1.25em;
             height: 1.25em;
@@ -164,7 +164,7 @@
             border-radius: 3px;
             @include transition(background-color 0.3s);
 
-            .ui-chkbox-icon {
+            .p-chkbox-icon {
               color: $whiteColor;
               font-size: 1.25em;
               margin-left: -2px;
@@ -173,18 +173,18 @@
               background: transparent;
             }
 
-            &.ui-state-active {
+            &.p-state-active {
               border-color: $primaryColor;
               background: $primaryColor;
             }
           }
         }
 
-        &.ui-state-highlight {
+        &.p-state-highlight {
           color: $textColor;
           background: $primaryBg;
 
-          .ui-chkbox-icon {
+          .p-chkbox-icon {
             padding-left: inherit;
             padding-bottom: 3px;
           }

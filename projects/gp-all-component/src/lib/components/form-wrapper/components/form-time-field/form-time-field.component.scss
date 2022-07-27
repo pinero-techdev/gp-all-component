@@ -3,16 +3,16 @@
 @import 'global/mixins';
 
 ::ng-deep {
-  .ui-inputtext.ui-widget {
+  .p-inputtext.p-widget {
     @include make-input();
 
-    &:enabled:hover:not(.ui-state-error) {
+    &:enabled:hover:not(.p-state-error) {
       border-color: $inputBorderColor;
     }
   }
 
-  .ui-datepicker.ui-widget {
-    &.ui-datepicker-timeonly {
+  .p-datepicker.p-widget {
+    &.p-datepicker-timeonly {
       @include box-shadow(
         0 1px 3px rgba($blackColor, $inputShadowOpacity * 3),
         0 1px 2px rgba($blackColor, $inputShadowOpacity * 6)
@@ -21,18 +21,18 @@
       color: $textMutedColor;
       padding: $separation;
 
-      .ui-timepicker {
+      .p-timepicker {
         border-radius: $borderRadius;
         padding: 0;
         font-size: $fontSizeSmall;
       }
 
-      .ui-hour-picker {
+      .p-hour-picker {
         margin-left: inherit;
       }
 
-      .ui-hour-picker,
-      .ui-minute-picker {
+      .p-hour-picker,
+      .p-minute-picker {
         a {
           &:hover {
             background: transparent;
@@ -44,7 +44,7 @@
         }
       }
 
-      .ui-widget-header {
+      .p-widget-header {
         span,
         .pi {
           color: $textMutedColor;

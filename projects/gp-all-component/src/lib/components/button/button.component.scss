@@ -16,8 +16,8 @@
 }
 
 ::ng-deep {
-  .ui-button.ui-widget.ui-state-default,
-  .ui-splitbutton.ui-widget.ui-buttonset {
+  .p-button.p-widget.p-state-default,
+  .p-splitbutton.p-widget.p-buttonset {
     background-color: $buttonBg;
     border: 1px solid $buttonBg;
     height: $buttonHeight;
@@ -32,7 +32,7 @@
       cursor: inherit;
     }
 
-    &.ui-button-danger {
+    &.p-button-danger {
       background-color: $buttonDangerBg;
       border: 1px solid $buttonDangerBg;
 
@@ -42,7 +42,7 @@
       }
     }
 
-    &.ui-button-secondary {
+    &.p-button-secondary {
       background-color: $buttonSecondaryBg;
       border-color: $buttonSecondaryBorderColor;
 
@@ -51,22 +51,22 @@
         border-color: $buttonSecondaryBorderColor;
       }
 
-      .ui-button-text,
-      .ui-button-icon-left {
+      .p-button-text,
+      .p-button-icon-left {
         color: $textColor;
       }
     }
 
-    &:not(.ui-button-icon-only) .ui-button-icon-right,
-    &:not(.ui-button-icon-only) .ui-button-icon-left {
+    &:not(.p-button-icon-only) .p-button-icon-right,
+    &:not(.p-button-icon-only) .p-button-icon-left {
       @include absolute-centered('vertical');
 
       font-size: 1em;
       margin: 0;
     }
 
-    &.ui-button-ghost,
-    &.ui-button-danger-ghost {
+    &.p-button-ghost,
+    &.p-button-danger-ghost {
       background-color: transparent;
       border: none;
       box-shadow: none;
@@ -76,10 +76,10 @@
       }
     }
 
-    &.ui-button-ghost {
-      .ui-button-icon-left,
-      .ui-button-icon-right,
-      .ui-button-text {
+    &.p-button-ghost {
+      .p-button-icon-left,
+      .p-button-icon-right,
+      .p-button-text {
         color: $primaryColor;
       }
 
@@ -88,10 +88,10 @@
       }
     }
 
-    &.ui-button-danger-ghost {
-      .ui-button-icon-left,
-      .ui-button-icon-right,
-      .ui-button-text {
+    &.p-button-danger-ghost {
+      .p-button-icon-left,
+      .p-button-icon-right,
+      .p-button-text {
         color: $errorColor;
       }
 
@@ -100,7 +100,7 @@
       }
     }
 
-    .ui-button-text {
+    .p-button-text {
       border-radius: $buttonBorderRadius;
       padding: $buttonPadVertical $buttonPadHorizontal;
       color: $textInvertedColor;
@@ -108,8 +108,8 @@
       line-height: $buttonLineHeight;
     }
 
-    &.ui-button-text-icon-left {
-      .ui-button-text {
+    &.p-button-text-icon-left {
+      .p-button-text {
         padding-left: $separationLarge * 2;
       }
     }
@@ -123,13 +123,13 @@
     }
   }
 
-  .ui-button.ui-widget.ui-state-default.ui-corner-all {
+  .p-button.p-widget.p-state-default.p-corner-all {
     border-radius: $buttonBorderRadius;
   }
 
-  div.ui-splitbutton {
+  div.p-splitbutton {
     border-radius: $buttonBorderRadius;
-    &.ui-widget.ui-buttonset {
+    &.p-widget.p-buttonset {
       background-color: $buttonBg;
       border: 1px solid $buttonBg;
       &:hover {
@@ -137,7 +137,7 @@
         border: 1px solid $buttonBg-hover;
       }
     }
-    &.ui-widget.ui-buttonset.ui-button-danger {
+    &.p-widget.p-buttonset.p-button-danger {
       background-color: $buttonDangerBg;
       border: 1px solid $buttonDangerBg;
       &:hover {
@@ -145,7 +145,7 @@
         border: 1px solid $buttonDangerBgHover;
       }
     }
-    &.ui-widget.ui-buttonset.ui-button-secondary {
+    &.p-widget.p-buttonset.p-button-secondary {
       background-color: $buttonSecondaryBg;
       border: 1px solid $buttonSecondaryBg;
       &:hover {
@@ -153,12 +153,12 @@
         border: 1px solid $buttonSecondaryBgHover;
       }
     }
-    .ui-button.ui-button-text-icon-left {
+    .p-button.p-button-text-icon-left {
       padding-right: $separationLarge;
       box-shadow: none;
       border: none;
     }
-    .ui-button.ui-splitbutton-menubutton {
+    .p-button.p-splitbutton-menubutton {
       width: 100%;
       position: absolute;
       top: 0;
@@ -169,8 +169,8 @@
       box-shadow: none;
       border: none;
     }
-    &.ui-widget.ui-buttonset .ui-button.ui-state-default,
-    &.ui-widget.ui-buttonset .ui-button.ui-state-default:hover {
+    &.p-widget.p-buttonset .p-button.p-state-default,
+    &.p-widget.p-buttonset .p-button.p-state-default:hover {
       background-color: transparent;
       border-color: transparent;
     }
@@ -179,27 +179,27 @@
     }
   }
 
-  body .ui-button:enabled:focus {
+  body .p-button:enabled:focus {
     border-radius: $buttonBorderRadius;
   }
 
-  .ui-widget.ui-button.ui-button-text-icon-left .ui-button-text {
+  .p-widget.p-button.p-button-text-icon-left .p-button-text {
     padding: $buttonPadVertical $buttonPadLeft $buttonPadVertical $buttonPadRight;
   }
 
-  .ui-splitbutton .ui-widget.ui-button.ui-button-text-icon-left .ui-button-text {
+  .p-splitbutton .p-widget.p-button.p-button-text-icon-left .p-button-text {
     padding: $buttonPadVertical $buttonPadHorizontal;
   }
 
-  .ui-splitbutton > .ui-menu.ui-menu-dynamic {
+  .p-splitbutton > .p-menu.p-menu-dynamic {
     display: block;
-    .ui-menuitem > .ui-menuitem-link {
+    .p-menuitem > .p-menuitem-link {
       width: 100%;
     }
   }
 
-  .ui-button.ui-widget.ui-state-default .ui-menuitem-icon,
-  .ui-splitbutton.ui-widget.ui-buttonset .ui-menuitem-icon {
+  .p-button.p-widget.p-state-default .p-menuitem-icon,
+  .p-splitbutton.p-widget.p-buttonset .p-menuitem-icon {
     color: $textColor;
     &.fa {
       font-size: 1.1em;

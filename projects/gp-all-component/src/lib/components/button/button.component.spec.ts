@@ -71,7 +71,7 @@ describe('ButtonComponent', () => {
     });
 
     it('should be icon type', () => {
-      expect($button.classList.contains('ui-button-text-empty')).toBeTruthy();
+      expect($button.classList.contains('p-button-text-empty')).toBeTruthy();
     });
 
     it('should have an icon', () => {
@@ -94,7 +94,7 @@ describe('ButtonComponent', () => {
     });
 
     it('should be texticon type', () => {
-      expect($button.classList.contains('ui-button')).toBeTruthy();
+      expect($button.classList.contains('p-button')).toBeTruthy();
     });
 
     it('should have an icon', () => {
@@ -127,8 +127,8 @@ describe('ButtonComponent', () => {
         },
       ];
       fixture.detectChanges();
-      $splitButtonMenuButton = fixture.nativeElement.querySelector('.ui-splitbutton-menubutton');
-      $splitButton = fixture.nativeElement.querySelector('.ui-splitbutton');
+      $splitButtonMenuButton = fixture.nativeElement.querySelector('.p-splitbutton-menubutton');
+      $splitButton = fixture.nativeElement.querySelector('.p-splitbutton');
       component.ngOnInit();
     });
 
@@ -137,11 +137,11 @@ describe('ButtonComponent', () => {
     });
 
     it('should be splitbutton type', () => {
-      expect($splitButton.classList.contains('ui-splitbutton')).toBeTruthy();
+      expect($splitButton.classList.contains('p-splitbutton')).toBeTruthy();
     });
 
     it('should have a label', () => {
-      const $spanText = $splitButton.querySelector('.ui-button-text');
+      const $spanText = $splitButton.querySelector('.p-button-text');
       expect($spanText.innerHTML).toEqual(component.label);
     });
 
@@ -154,22 +154,22 @@ describe('ButtonComponent', () => {
       component.severity = ButtonSeverity.Primary;
       component.ngOnInit();
       fixture.detectChanges();
-      expect($splitButton.classList.contains('ui-button-danger')).not.toBeTruthy();
-      expect($splitButton.classList.contains('ui-button-secondary')).not.toBeTruthy();
+      expect($splitButton.classList.contains('p-button-danger')).not.toBeTruthy();
+      expect($splitButton.classList.contains('p-button-secondary')).not.toBeTruthy();
     });
 
     it('should have a danger severity class', () => {
       component.severity = ButtonSeverity.Danger;
       component.ngOnInit();
       fixture.detectChanges();
-      expect($splitButton.classList.contains('ui-button-danger')).toBeTruthy();
+      expect($splitButton.classList.contains('p-button-danger')).toBeTruthy();
     });
 
     it('should have a secondary severity class', () => {
       component.severity = ButtonSeverity.Secondary;
       component.ngOnInit();
       fixture.detectChanges();
-      expect($splitButton.classList.contains('ui-button-secondary')).toBeTruthy();
+      expect($splitButton.classList.contains('p-button-secondary')).toBeTruthy();
     });
 
     it('should have at least one item option', () => {

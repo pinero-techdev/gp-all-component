@@ -7,11 +7,11 @@
     display: flex;
     align-items: center;
 
-    .ui-inputtext.ui-widget {
+    .p-inputtext.p-widget {
       @include make-input();
       max-height: 36px;
 
-      &:enabled:hover:not(.ui-state-error) {
+      &:enabled:hover:not(.p-state-error) {
         border-color: $inputBorderColor;
       }
     }

@@ -19,7 +19,7 @@ describe('LoadingIndicatorComponent', () => {
         fixture = TestBed.createComponent(LoadingIndicatorComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        elementRef = fixture.nativeElement.querySelector('.ui-progress-spinner');
+        elementRef = fixture.nativeElement.querySelector('.p-progress-spinner');
     });
 
     it('should create', () => {

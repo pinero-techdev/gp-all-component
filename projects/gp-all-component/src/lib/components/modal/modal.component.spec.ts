@@ -30,7 +30,7 @@ describe('ModalComponent', () => {
       spyOn(component, 'onHide').and.callThrough();
       component.visible = true;
       fixture.detectChanges();
-      $closeIcon = fixture.nativeElement.querySelector('.ui-dialog-titlebar-close');
+      $closeIcon = fixture.nativeElement.querySelector('.p-dialog-titlebar-close');
       $closeIcon.click();
       fixture.detectChanges();
       tick();
