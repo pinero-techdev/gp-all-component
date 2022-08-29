@@ -131,6 +131,15 @@ export class TableEditableComponent implements OnInit {
       result.color = 'white';
       result.borderRadius = '6px';
     }
+
+    if(result.width){
+      result.minWidth = result.width;
+    }
+
+    if(result['text-align']){
+      result['justify-content'] = result['text-align'];
+    }
+
     return result;
   }
 
@@ -537,6 +546,7 @@ export class TableEditableComponent implements OnInit {
   }
 
   getColFilterType(col: any) {
+    console.log(col);
     let result: string;
     switch (col.filterType) {
       case 'startsWith': {
