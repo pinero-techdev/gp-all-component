@@ -6,7 +6,7 @@ import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/
 import { CustomInput } from '../../resources/custom-input.class';
 import { Filter } from '../../../../../../resources/data/filter/filter.model';
 import { FilterOperationType } from '../../../../../../resources/data/filter/filter-operation-type.enum';
-import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Observable, Subject } from 'rxjs';
 import { TableColumnMetadata } from '../../resources/table-column-metadata.model';
@@ -23,7 +23,7 @@ import { LocaleES } from '../../../../../../resources/localization/es-ES.lang';
 })
 export class TableEditableCellComponent extends CustomInput implements AfterViewInit {
   readonly inputType = GpFormFieldType;
-  form: FormGroup;
+  form: UntypedFormGroup;
   editable: boolean;
   optionsList = [];
   imgModalVisible = false;
@@ -82,7 +82,7 @@ export class TableEditableCellComponent extends CustomInput implements AfterView
     private tableService: TableService,
     private messageService: MessageService,
     private metadataService: TableMetadataService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     super();
     this.createForm();

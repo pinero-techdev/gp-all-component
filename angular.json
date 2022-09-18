@@ -62,7 +62,6 @@
       }
     }
   },
-  "defaultProject": "gp-all-component",
   "cli": {
     "analytics": "9c655fe9-895f-4e09-8d70-de2f34e8bad0"
   }

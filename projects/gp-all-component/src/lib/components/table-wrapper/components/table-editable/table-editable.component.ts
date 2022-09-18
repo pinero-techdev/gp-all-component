@@ -276,14 +276,14 @@ export class TableEditableComponent implements OnInit {
   }
 
   saveNewRow() {
-    if (this.newRow !== {}) {
+    if (this.newRow != undefined) {
       this.onSaveEvent.emit({ action: 'insert', rows: [this.newRow] });
       this.displayAddDialog = false;
     }
   }
 
   saveEditRow() {
-    if (this.editRow !== {}) {
+    if (this.editRow  != undefined) {
       this.tc.selection = this.editRow;
       this.markAsEdited(this.editRow);
       this.editRow = {};

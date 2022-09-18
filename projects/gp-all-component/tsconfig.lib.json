@@ -10,7 +10,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "typeRoots": ["node_modules/@types"],
-    "target": "es6",
+    "target": "es2020",
     "allowSyntheticDefaultImports": true
   },
   "lib": ["dom", "es2015"],
