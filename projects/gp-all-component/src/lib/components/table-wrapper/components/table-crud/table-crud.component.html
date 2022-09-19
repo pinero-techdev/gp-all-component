@@ -1,6 +1,6 @@
 <p-toast [key]="tableName"></p-toast>
-<div class="p-grid gp-table-wrapper" *ngIf="!working">
-  <div class="p-col-12 table-section" [class.p-xl-6]="displayEdicion">
+<div class="grid gp-table-wrapper" *ngIf="!working">
+  <div class="col-12 table-section" [class.p-xl-6]="displayEdicion">
     <div class="card panel-content">
       <p-table
         #tc
@@ -19,9 +19,9 @@
         sortMode="multiple"
       >
         <ng-template pTemplate="caption">
-          <div class="p-grid">
-            <div class="p-col-8">Mantenimiento de tabla {{ tableLabel }}</div>
-            <div class="p-col-4">
+          <div class="grid">
+            <div class="col-8">Mantenimiento de tabla {{ tableLabel }}</div>
+            <div class="col-4">
               <gp-button
                 *ngIf="canAdd"
                 [type]="'icon'"
@@ -83,17 +83,17 @@
       </p-table>
     </div>
   </div>
-  <div class="p-col-12 p-xl-6 form-section">
+  <div class="col-12 p-xl-6 form-section">
     <div class="card panel-content" [hidden]="!displayEdicion">
-      <div class="p-grid">
-        <h3 class="p-col-12 big-topic">Edición - {{ tableLabel }}</h3>
+      <div class="grid">
+        <h3 class="col-12 big-topic">Edición - {{ tableLabel }}</h3>
       </div>
-      <div class="p-grid input-group" *ngFor="let col of columns">
+      <div class="grid input-group" *ngFor="let col of columns">
         <div *ngFor="let msg of col.fieldMsgs" class="p-messages-error">
           <i class="pi pi-close"></i>&nbsp;{{ msg.detail }}
         </div>
         <div
-          class="p-col-12 p-md-4"
+          class="col-12 md:col-4"
           *ngIf="
             (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
             (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
@@ -105,7 +105,7 @@
           >
         </div>
         <div
-          class="p-col-12 p-md-8"
+          class="col-12 md:col-8"
           *ngIf="
             (!formControl.edicionAdd || !col.fieldMetadata.hideInAddOperation) &&
             (!formControl.edicionEdit || !col.fieldMetadata.hideInEditOperation)
@@ -189,8 +189,8 @@
           </gp-form-b64-file-field>
         </div>
       </div>
-      <div class="p-grid">
-        <span class="p-col-12 info-msg">
+      <div class="grid">
+        <span class="col-12 info-msg">
           {{ localeEs.FIELDS_MANDATORY_ASTERISK }}
         </span>
       </div>

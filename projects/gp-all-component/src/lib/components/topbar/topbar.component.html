@@ -1,8 +1,8 @@
-<div class="p-grid">
-  <div class="topbar p-col-12">
+<div class="grid">
+  <div class="topbar col-12">
     <div *ngIf="showMenu && !isHome" class="topbar-action" (click)="toggleIconUserMenu()">
-      <i *ngIf="!isOpen || !logged" class="pi pi-th-large"></i>
-      <i *ngIf="isOpen && logged" class="pi pi-times"></i>
+      <i *ngIf="!isOpen || !logged" class="fa fa-th-large"></i>
+      <i *ngIf="isOpen && logged" class="fa fa-times"></i>
     </div>
     <div class="topbar-info full-width">
       <div class="topbar-container">
@@ -27,7 +27,7 @@
           <span class="topbar-version">v{{ version }}</span>
           <span class="topbar-user-name fadeInDown animated" [innerText]="fullName"></span>
           <a class="user-icon-wrapper" (click)="toggleUserMenu()">
-            <i class="topbar-user-icon pi pi-user"></i>
+            <i class="topbar-user-icon fa fa-user"></i>
           </a>
         </div>
       </div>

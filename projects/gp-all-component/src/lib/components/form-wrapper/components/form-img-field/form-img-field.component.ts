@@ -3,7 +3,6 @@ import { DataTableMetaDataField } from '../../../../resources/data/data-table/me
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
 import { TableService } from '../../../../services/api/table/table.service';
-import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'gp-form-img-field',
@@ -32,8 +31,8 @@ export class FormImgFieldComponent extends GpFormFieldControl implements OnInit 
   /* Init method to setup  */
   init() {
     const hasTextProperties =
-      !isNullOrUndefined(this.formField.fieldMetadata.displayInfo) &&
-      !isNullOrUndefined(this.formField.fieldMetadata.displayInfo.textProperties);
+      (this.formField.fieldMetadata.displayInfo) &&
+      (this.formField.fieldMetadata.displayInfo.textProperties);
 
     if (hasTextProperties) {
       const setUppercase =

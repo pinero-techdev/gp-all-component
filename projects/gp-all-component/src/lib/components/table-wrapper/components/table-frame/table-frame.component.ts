@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TableCrudComponent } from '../table-crud/table-crud.component';
 import { takeWhile } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'gp-table-frame',
@@ -30,7 +29,7 @@ export class TableFrameComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.route.params.pipe(takeWhile(() => this.isAlive)).subscribe((params) => {
-      if (isNullOrUndefined(params.tabla)) {
+      if (!params.tabla) {
         return;
       }
 

@@ -1,13 +1,12 @@
-import { TableModel } from './models/table.model';
-import { QueryList, TemplateRef } from '@angular/core';
-import { ColumnTemplateDirective } from './directives/column-template.directive';
-import { isNullOrUndefined } from 'util';
-import { TableColumn } from './models/table-column.model';
-import { PaginationOptions } from './models/pagination-options.model';
-import { SelectionMode } from './models/selection-mode.type';
-import { EditableColumnTemplateDirective } from './directives/editable-column-template.directive';
-import { CoreTableModel } from './models/core-table.model';
-import { NativeOptions } from './models/native-options.model';
+import {TableModel} from './models/table.model';
+import {QueryList, TemplateRef} from '@angular/core';
+import {ColumnTemplateDirective} from './directives/column-template.directive';
+import {TableColumn} from './models/table-column.model';
+import {PaginationOptions} from './models/pagination-options.model';
+import {SelectionMode} from './models/selection-mode.type';
+import {EditableColumnTemplateDirective} from './directives/editable-column-template.directive';
+import {CoreTableModel} from './models/core-table.model';
+import {NativeOptions} from './models/native-options.model';
 
 export class TableBuilder {
   // Once we receive a model, we parse it
@@ -18,7 +17,7 @@ export class TableBuilder {
     pagination?: PaginationOptions
   ): CoreTableModel {
     // 1. Parsing model to standard model
-    const model = { ...new CoreTableModel(), ...incomingModel } as CoreTableModel;
+    const model = {...new CoreTableModel(), ...incomingModel} as CoreTableModel;
 
     // 2. Converting all the columns to standard format
     model.columns = this.toTableColumns(model.columns);
@@ -30,7 +29,7 @@ export class TableBuilder {
     model.editableColumns = this.parseColumns(editableColumns);
 
     // 5. Setting pagination flag
-    model.pagination = !isNullOrUndefined(pagination);
+    model.pagination = pagination != null;
 
     // 6. Set custom and editable columns
     model.customColumnsList = customColumns;
@@ -48,13 +47,13 @@ export class TableBuilder {
   }
 
   enableCaptionRow(model: CoreTableModel, captionContent?: TemplateRef<any>): boolean {
-    return !isNullOrUndefined(model.title) || !isNullOrUndefined(captionContent);
+    return model.title != null || captionContent != null;
   }
 
   enableFilterRow(model: CoreTableModel) {
     return (
       model.filterable ||
-      !isNullOrUndefined((model.columns as TableColumn[]).find((column) => column.filterable))
+      ((model.columns as TableColumn[]).find((column) => column.filterable)) != null
     );
   }
 
@@ -63,19 +62,11 @@ export class TableBuilder {
   }
 
   isFilterable(model: CoreTableModel, column?: TableColumn): boolean {
-    return isNullOrUndefined(column)
-      ? model.filterable
-      : isNullOrUndefined(column.filterable)
-      ? model.filterable
-      : column.filterable;
+    return column == null ? model.filterable : column.filterable == null ? model.filterable : column.filterable;
   }
 
   isSortable(model: CoreTableModel, column?: TableColumn): boolean {
-    return isNullOrUndefined(column)
-      ? model.sortable
-      : isNullOrUndefined(column.sortable)
-      ? model.sortable
-      : column.sortable;
+    return column == null ? model.sortable : column.sortable == null ? model.sortable : column.sortable;
   }
 
   isEditable(model: CoreTableModel): boolean {
@@ -148,7 +139,7 @@ export class TableBuilder {
   }
 
   isCustomColumn(model: CoreTableModel, key: string): boolean {
-    return !isNullOrUndefined(model.customColumns[key]);
+    return model.customColumns[key] != null;
   }
 
   getCustomColumn(model: CoreTableModel, key: string): TemplateRef<ColumnTemplateDirective> {
@@ -156,7 +147,7 @@ export class TableBuilder {
   }
 
   isEditableColumn(model: CoreTableModel, key: string): boolean {
-    return !isNullOrUndefined(model.editableColumns[key]);
+    return model.editableColumns[key] != null;
   }
 
   getEditableColumn(
@@ -184,16 +175,16 @@ export class TableBuilder {
    */
   private toTableColumn(column: string | TableColumn): TableColumn {
     if (typeof column === 'string') {
-      return { ...new TableColumn(), field: column, header: column };
+      return {...new TableColumn(), field: column, header: column};
     }
-    return { ...new TableColumn(), ...column };
+    return {...new TableColumn(), ...column};
   }
 
   // Create the columns model from the received elements
   private parseColumns(
     columns: QueryList<ColumnTemplateDirective> | QueryList<EditableColumnTemplateDirective>
   ): { [key: string]: number } {
-    if (isNullOrUndefined(columns)) {
+    if (columns == null) {
       return {};
     }
 

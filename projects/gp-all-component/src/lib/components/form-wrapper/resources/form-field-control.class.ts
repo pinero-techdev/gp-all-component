@@ -2,7 +2,7 @@ import { GPUtil } from '../../../services/core/gp-util.service';
 import { RegexValidations } from './regex-validations.type';
 import { LocaleES } from '../../../resources/localization/es-ES.lang';
 import { Message } from 'primeng/api';
-import { isNullOrUndefined } from 'util';
+
 import { Component, Directive, Input } from '@angular/core';
 import { GpFormControl } from './form-control.model';
 import { GpFormField } from './form-field.model';
@@ -78,7 +78,7 @@ export abstract class GpFormFieldControl extends GpFormControl
     const formField = this.getFormField();
     if (formField) {
       formField.validField = false;
-      if (isNullOrUndefined(formField.fieldMsgs)) {
+      if (!formField.fieldMsgs) {
         formField.fieldMsgs = [];
       }
       formField.fieldMsgs.push({ severity: 'error', detail: msg } as Message);
@@ -102,7 +102,7 @@ export abstract class GpFormFieldControl extends GpFormControl
   controlDisabled(): boolean {
     const formField = this.getFormField();
     return (
-      !isNullOrUndefined(formField) &&
+      formField &&
       (formField.formControl.lockFields ||
         formField.fieldMetadata.readOnly ||
         (formField.fieldMetadata.id && formField.formControl.edicionEdit))

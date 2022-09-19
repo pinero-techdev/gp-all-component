@@ -8,16 +8,16 @@
 >
   <p-header> {{ title }} </p-header>
   <div class="translations-wrapper" *ngIf="translations">
-    <div class="p-grid input-group" *ngFor="let t of translations">
+    <div class="grid input-group" *ngFor="let t of translations">
       <div
-        class="p-col-1 flag flag-{{ t.codigoIdioma.toLowerCase() }}"
+        class="col-1 flag flag-{{ t.codigoIdioma.toLowerCase() }}"
         *ngIf="t.codigoIdioma && t.idiomaPais"
         pTooltip="{{ t.idiomaPais }}"
         tooltipPosition="top"
       >
       </div>
-      <div class="p-col-1 flag no-flag" *ngIf="!t.idiomaPais"> </div>
-      <div [ngClass]="isEditing ? 'p-col-8 p-md-9' : 'p-col-11'">
+      <div class="col-1 flag no-flag" *ngIf="!t.idiomaPais"> </div>
+      <div [ngClass]="isEditing ? 'col-8 md:col-9' : 'col-11'">
         <span class="full-width">
           <input
             type="text"
@@ -35,7 +35,7 @@
           />
         </span>
       </div>
-      <div class="p-col-3 p-md-2" *ngIf="isEditing">
+      <div class="col-3 md:col-2" *ngIf="isEditing">
         <gp-button
           [type]="'icon'"
           label="HTML"
@@ -77,8 +77,8 @@
   dismissableMask="true"
 >
   <p-header> Traducción - {{ currentLanguageHTML }} </p-header>
-  <div class="p-grid">
-    <div class="p-col-12">
+  <div class="grid">
+    <div class="col-12">
       <p-editor [(ngModel)]="currentTextHTML" [style]="{ height: '300px' }">
         <p-header>
           <span class="ql-format-group">

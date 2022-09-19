@@ -31,7 +31,7 @@ import { GpFormField } from '../../../form-wrapper/resources/form-field.model';
 import { GpFormControl } from '../../../form-wrapper/resources/form-control.model';
 import { GpFormFieldType } from '../../../form-wrapper/resources/form-field-type.enum';
 import { GpFormFieldControl } from '../../../form-wrapper/resources/form-field-control.class';
-import { isNullOrUndefined } from 'util';
+
 import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 import { GpTableDisplayTypes } from '../../resources/gp-table-display-types.enum';
 import { FormNullableCheckboxComponent } from '../../../form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
@@ -412,7 +412,7 @@ export class TableCrudComponent implements AfterViewChecked {
   calcFieldType(formField: GpFormField): void {
     const fieldType = GpFormFieldType[formField.fieldMetadata.displayInfo.displayType];
 
-    if (!isNullOrUndefined(fieldType)) {
+    if (fieldType) {
       formField.formFieldType = fieldType;
       return;
     }

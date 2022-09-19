@@ -1,7 +1,7 @@
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>
-<div class="ui-table ui-widget">
-  <div class="p-grid p-justify-between table-header" style="text-align: left;">
+<div class="p-table p-widget">
+  <div class="grid p-justify-between table-header" style="text-align: left;">
     <div>{{ config.title }}</div>
     <div>
       <gp-button
@@ -25,7 +25,7 @@
 
   <table class="table-striped table-bordered card panel-content">
     <div class="table-content">
-      <thead class="ui-table-thead">
+      <thead class="p-table-thead">
         <tr>
           <th *ngIf="config.selectable == SelectionType.MULTIPLE">
             <input
@@ -45,7 +45,7 @@
               [class.colsmall]="column.lengthInTable <= 5"
               [class.colmedium]="column.lengthInTable < 20"
               [class.colbig]="column.lengthInTable >= 20"
-              [class.ui-state-highlight]="config.sortField == column.name"
+              [class.p-state-highlight]="config.sortField == column.name"
             >
               {{ column.label }}
               <i
@@ -102,8 +102,8 @@
             ></p-paginator>
           </td>
         </tr>
-        <tr *ngIf="config.exportable" class="ui-table-caption">
-          <td [attr.colspan]="footerColspan" class="ui-widget-header ui-table-summary">
+        <tr *ngIf="config.exportable" class="p-table-caption">
+          <td [attr.colspan]="footerColspan" class="p-widget-header p-table-summary">
             <gp-button
               [type]="'icon'"
               label="Exportar a CSV"
@@ -113,7 +113,7 @@
           </td>
         </tr>
       </tfoot>
-      <tbody class="ui-table-tbody">
+      <tbody class="p-table-tbody">
         <tr *ngIf="!sortedData || sortedData.length === 0">
           <td [attr.colspan]="footerColspan">
             No results
@@ -122,7 +122,7 @@
         <tr
           *ngFor="let item of currentPageData; let rowIndex = index"
           (click)="toggleItemSelection(item, $event)"
-          [class.ui-state-highlight]="itemIsSelected(item)"
+          [class.p-state-highlight]="itemIsSelected(item)"
         >
           <td *ngIf="config.selectable == SelectionType.MULTIPLE">
             <input
@@ -160,7 +160,7 @@
             ></ng-content>
             <ng-template #defaultRowTemplate let-item let-columns="columns">
               <ng-template ngFor [ngForOf]="columns" let-column>
-                <td *ngIf="column.visible" class="gp-grid-table-cell">
+                <td *ngIf="column.visible" class="ggrid-table-cell">
                   <ng-container [ngSwitch]="column.type">
                     <ng-template [ngSwitchCase]="inputType.FILE">
                       <p *ngIf="!hasFile(item, column)">{{ item[column.name] }}</p>
@@ -200,12 +200,12 @@
                         [ngIf]="column.referenceDescription"
                         [ngIfElse]="defaultColumnField"
                       >
-                        <div class="gp-grid-table-content">{{
+                        <div class="ggrid-table-content">{{
                           item[column.referenceDescription]
                         }}</div>
                       </ng-template>
                       <ng-template #defaultColumnField>
-                        <div class="gp-grid-table-content">
+                        <div class="ggrid-table-content">
                           <p>{{ item[column.name] }}</p>
                         </div>
                       </ng-template>

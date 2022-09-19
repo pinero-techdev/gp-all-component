@@ -7,7 +7,6 @@ import { SelectItem } from 'primeng/api';
 import { TableService } from '../../../../services/api/table/table.service';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
-import { isNullOrUndefined, isUndefined } from 'util';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -36,7 +35,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
   }
 
   get currentValueDropDown(): string {
-    return isNullOrUndefined(this.currentValue)
+    return !this.currentValue
       ? this.formField.fieldMetadata.displayInfo.defaultValue
       : this.currentValue;
   }
@@ -47,7 +46,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
   }
 
   getFormField(): GpFormField {
-    return isUndefined(this.formField) ? null : this.formField;
+    return !this.formField ? null : this.formField;
   }
 
   getFieldMetadata(): DataTableMetaDataField {

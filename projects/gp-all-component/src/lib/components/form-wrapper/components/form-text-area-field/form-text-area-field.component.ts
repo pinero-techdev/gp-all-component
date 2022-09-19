@@ -3,7 +3,6 @@ import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { GpFormField } from '../../resources/form-field.model';
 import { TableService } from '../../../../services/api/table/table.service';
-import { isUndefined } from 'util';
 
 @Component({
   selector: 'gp-form-textarea-field',
@@ -45,7 +44,7 @@ export class FormTextAreaFieldComponent extends GpFormFieldControl implements On
    * Returns current form field
    */
   getFormField(): GpFormField {
-    return isUndefined(this.formField) ? null : this.formField;
+    return this.formField == null ? null : this.formField;
   }
 
   /**

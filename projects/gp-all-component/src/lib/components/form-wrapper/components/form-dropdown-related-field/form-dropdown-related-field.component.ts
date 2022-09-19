@@ -8,7 +8,6 @@ import { SelectItem } from 'primeng/api';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
 import { finalize, first } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
 import { LocaleES } from '../../../../resources/localization/es-ES.lang';
 
 // tslint:disable:variable-name
@@ -211,7 +210,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
   getLabel(): string {
     const fields = this.relatedFields
       .filter(
-        (field) => !isNullOrUndefined(field.fieldDescription) && isNullOrUndefined(field.value)
+        (field) => !field.fieldDescription && !field.value
       )
       .map((item) => item.fieldDescription.toLowerCase());
 
@@ -234,7 +233,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
    * Check if every related field has been selected, in other terms, every related field has value.
    */
   relatedFieldsSelected(): boolean {
-    return this.relatedFields.every((field) => !isNullOrUndefined(field.value));
+    return this.relatedFields.every((field) => field.value);
   }
 
   /**
@@ -319,7 +318,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
             this.handleError();
           }
         },
-        (error) => this.handleError()
+        () => this.handleError()
       );
   }
 

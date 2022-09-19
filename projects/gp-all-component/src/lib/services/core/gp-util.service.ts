@@ -4,7 +4,6 @@ import moment from 'moment';
 
 import { GPSelectItem } from '../../resources/data/gp-select-item.model';
 import { CalendarConstants } from '../../resources/constants/calendar.constants';
-import { isNullOrUndefined } from 'util';
 import { SessionStorageService } from '../session-storage/session-storage.service';
 import { MenuItem, SelectItem } from 'primeng/api';
 /* tslint:disable:variable-name */
@@ -100,9 +99,9 @@ export class GPUtil {
 
   public static booleanToString(input: boolean, trueValue?: string, falseValue?: string): string {
     if (input) {
-      return !isNullOrUndefined(trueValue) ? trueValue : 'S';
+      return trueValue!= null ? trueValue : 'S';
     } else {
-      return !isNullOrUndefined(falseValue) ? falseValue : 'N';
+      return falseValue!= null ? falseValue : 'N';
     }
   }
 

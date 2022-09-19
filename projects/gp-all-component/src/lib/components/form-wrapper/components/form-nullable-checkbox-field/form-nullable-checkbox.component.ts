@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GpFormFieldControl } from '../../resources/form-field-control.class';
 import { GpFormField } from '../../resources/form-field.model';
 import { DataTableMetaDataField } from '../../../../resources/data/data-table/meta-data/data-table-meta-data-field.model';
-import { isNullOrUndefined } from 'util';
+
 
 @Component({
   selector: 'gp-form-nullable-checkbox-field',
@@ -42,7 +42,7 @@ export class FormNullableCheckboxComponent extends GpFormFieldControl implements
    * @param editedRow The editing row
    */
   copyValueFromControlToEditedRow(editedRow: any): void {
-    if (isNullOrUndefined(this.currentValue)) {
+    if (!this.currentValue) {
       editedRow[this.formField.fieldMetadata.fieldName] = null;
     } else {
       if (this.currentValue) {
@@ -62,7 +62,7 @@ export class FormNullableCheckboxComponent extends GpFormFieldControl implements
    * @param editedRow The editing row
    */
   copyValueFromEditedRowToControl(editedRow: any): void {
-    if (isNullOrUndefined(editedRow[this.formField.fieldMetadata.fieldName])) {
+    if (!editedRow[this.formField.fieldMetadata.fieldName]) {
       this._currentValue = null;
     } else {
       this._currentValue =

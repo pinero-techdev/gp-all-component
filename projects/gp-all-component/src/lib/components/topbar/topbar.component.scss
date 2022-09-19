@@ -10,7 +10,7 @@
 }
 
 ::ng-deep {
-  .p-grid {
+  .grid {
     margin: 0;
   }
   .topbar {
@@ -37,6 +37,14 @@
         color: $textInvertedColor;
         background-color: $topbarActionBg;
         font-size: 38px;
+        text-align: center;
+      }
+
+      .fa {
+        @include absolute-centered(all);
+        color: $textInvertedColor;
+        background-color: $topbarActionBg;
+        font-size: 32px;
         text-align: center;
       }
     }
@@ -90,11 +98,15 @@
     &-user-icon {
       border: 2px solid $whiteColor;
       border-radius: 50%;
-      padding: 2px;
+      padding: 9px;
 
       &.pi {
         color: $whiteColor;
         font-size: 38px;
+      }
+      &.fa {
+        color: $whiteColor;
+        font-size: 28px;
       }
     }
 
@@ -103,6 +115,16 @@
       right: 0;
 
       .pi.pi-fw {
+        font-size: 18px;
+        margin-right: 1rem;
+        color: $textMutedColor;
+
+        &:before {
+          content: '\e971';
+        }
+      }
+
+      .fa.fa-fw {
         font-size: 18px;
         margin-right: 1rem;
         color: $textMutedColor;
@@ -147,6 +169,13 @@
           }
 
           &-icon.pi {
+            flex-grow: -1;
+            font-size: 24px;
+            margin-right: 1rem;
+            color: $textMutedColor;
+          }
+
+          &-icon.fa {
             flex-grow: -1;
             font-size: 24px;
             margin-right: 1rem;
