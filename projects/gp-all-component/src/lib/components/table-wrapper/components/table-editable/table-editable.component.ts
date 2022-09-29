@@ -46,9 +46,6 @@ export class TableEditableComponent implements OnInit {
 
   @ViewChild('tc',{ static: false }) tc: Table;
 
-  hiddenTable = false;
-  showExportButton = false;
-
   checkBoxHeaderSelect = false;
 
   displayChildDataTable = false;
@@ -151,7 +148,7 @@ export class TableEditableComponent implements OnInit {
       let filteredRows = this.dataTable.rows;
       for (const f of Object.keys(this.tc.filters)) {
         const colData = this.dataTable.cols.find((c) => c.field === f);
-        const val : any = this.tc.filters[f];//this.tc.filters[f]?.value;
+        const val : any = this.tc.filters[f];// this.tc.filters[f]?.value;
         switch (colData.filterType) {
           case 'includes':
             filteredRows = filteredRows.filter((r) =>
@@ -472,7 +469,7 @@ export class TableEditableComponent implements OnInit {
     let filteredRows = this.dataTable.rows;
     for (const f of Object.keys(event.filters)) {
       const colData = this.dataTable.cols.find((c) => c.field === f);
-      const val : any = this.tc.filters[f];//.value;
+      const val : any = this.tc.filters[f];// .value;
       switch (colData.filterType) {
         case 'includes':
           filteredRows = filteredRows.filter((r) => (r[f] + '').includes(val));
@@ -501,8 +498,9 @@ export class TableEditableComponent implements OnInit {
     } else if (event.first <= filteredRows.length) {
       this.virtualRows = filteredRows.slice(event.first);
     }
-
+    console.log('ANTESSSS this.cdRef.detectChanges()')
     this.cdRef.detectChanges();
+    console.log('DESPUESS this.cdRef.detectChanges()')
   }
 
   onExpand(rowData: any) {

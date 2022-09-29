@@ -162,7 +162,7 @@
       (onLazyLoad)="loadDataOnScroll($event)"
       [lazy]="true"
       [totalRecords]="dataTable.rows.length"
-      [virtualRowHeight]="dataTable.displayRows + 10"
+      [virtualScrollItemSize]="dataTable.displayRows + 10"
     >
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
@@ -235,7 +235,6 @@
         let-rowData
         let-columns="columns"
         let-rowIndex="rowIndex"
-        let-expanded="expanded"
       >
         <tr
           [pSelectableRow]="rowData"

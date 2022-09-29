@@ -73,7 +73,7 @@ export class NativeOptions {
 
   virtualScrollDelay? = 150;
 
-  virtualRowHeight? = 28;
+  virtualScrollItemSiz? = 28;
 
   frozenWidth?: string;
 
