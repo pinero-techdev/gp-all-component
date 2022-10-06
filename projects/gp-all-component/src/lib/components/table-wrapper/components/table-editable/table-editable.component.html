@@ -162,7 +162,7 @@
       (onLazyLoad)="loadDataOnScroll($event)"
       [lazy]="true"
       [totalRecords]="dataTable.rows.length"
-      [virtualRowHeight]="dataTable.displayRows + 10"
+      [virtualScrollItemSize]="dataTable.displayRows + 10"
     >
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
@@ -207,13 +207,9 @@
               [ngStyle]="getStyle(col.style)"
               [style.overflow]="'visible'"
             >
-              <input
-                *ngIf="col.filter == 'input'"
-                pInputText
-                type="text"
-                (input)="tc.filter($event.target.value, col.field, getColFilterType(col))"
-              />
-              <p-dropdown
+              
+              <input *ngIf="col.filter == 'input'" type="text" pInputText  (input)="tc.filter($event.target.value, col.field, 'contains')">
+               <p-dropdown
                 *ngIf="col.filter == 'dropdown'"
                 autoWidth="false"
                 [options]="filterOptions[col.field]"

@@ -466,43 +466,58 @@ export class TableEditableComponent implements OnInit {
   }
 
   loadDataOnScroll(event: LazyLoadEvent) {
-    // console.log(JSON.stringify(event));
     this.customSort(event.sortField, event.sortOrder);
-
+  
     let filteredRows = this.dataTable.rows;
-    for (const f of Object.keys(event.filters)) {
-      const colData = this.dataTable.cols.find((c) => c.field === f);
-      const val : any = this.tc.filters[f];//.value;
-      switch (colData.filterType) {
-        case 'includes':
-          filteredRows = filteredRows.filter((r) => (r[f] + '').includes(val));
-          break;
-        case 'startsWith':
-          filteredRows = filteredRows.filter((r) =>
-            (r[f] + '').startsWith(val)
-          );
-          break;
-        case 'endsWith':
-          filteredRows = filteredRows.filter((r) => (r[f] + '').endsWith(val));
-          break;
-        case 'equals':
-          filteredRows = filteredRows.filter((r) => r[f] + '' === val);
-          break;
-        default:
-          filteredRows = filteredRows.filter((r) =>
-            (r[f] + '').startsWith(val)
-          );
-          break;
+    if(event && event.filters){
+      for (const f of Object.keys(event.filters)) {
+        const colData = this.dataTable.cols.find((c) => c.field === f);
+        const val : any = this.tc.filters[f];//.value;
+        
+        switch (colData.filterType) {
+          case 'includes':
+            filteredRows = filteredRows.filter((r) => (r[f] + '').includes(val.value));
+            break;
+          case 'startsWith':
+            filteredRows = filteredRows.filter((r) =>
+              (r[f] + '').startsWith(val.value)
+            );
+            break;
+          case 'endsWith':
+            filteredRows = filteredRows.filter((r) => (r[f] + '').endsWith(val.value));
+            break;
+          case 'equals':
+            filteredRows = filteredRows.filter((r) => r[f] + '' === val.value);
+            break;
+          default:
+            filteredRows = filteredRows.filter((r) =>
+              (r[f] + '').startsWith(val.value)
+            );
+            break;
+        }
       }
     }
+   
+    event.rows = filteredRows.length + 1;
 
-    if (event.first + event.rows <= filteredRows.length) {
-      this.virtualRows = filteredRows.slice(event.first, event.first + event.rows);
-    } else if (event.first <= filteredRows.length) {
-      this.virtualRows = filteredRows.slice(event.first);
-    }
-
+    
+    setTimeout(() => {
+      if (event.first + event.rows <= filteredRows.length) {
+        this.virtualRows = filteredRows.slice(event.first, event.first + event.rows);
+      } else if (event.first <= filteredRows.length) {
+        this.virtualRows = filteredRows.slice(event.first);
+      }
+      this.virtualRows.push({});
+    }, 0)
+    
+   
+   
+   
+    
+    //this.cdRef.detectChanges();
+    /* this.cdRef.reattach();
     this.cdRef.detectChanges();
+    this.cdRef.detach(); */
   }
 
   onExpand(rowData: any) {
