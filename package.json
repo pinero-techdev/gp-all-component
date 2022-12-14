@@ -1,6 +1,6 @@
 {
   "name": "gp-all-component",
-  "version": "1.4.4",
+  "version": "1.4.6",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve tester --watch --port=4400",
@@ -88,6 +88,7 @@
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-typescript": "^7.3.3",
     "@compodoc/compodoc": "^1.1.9",
+    "@types/bluebird": "3.5.33",
     "@types/file-saver": "^2.0.1",
     "@types/jasmine": "^3.3.12",
     "@types/jasminewd2": "~2.0.3",
