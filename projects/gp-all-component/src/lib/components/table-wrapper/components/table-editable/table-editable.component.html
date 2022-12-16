@@ -498,6 +498,7 @@
               [style]="{ width: '100%' }"
               [appendTo]="addDialog"
               (onClose)="onFieldChange(col.field, newRow)"
+              dateMask
             ></p-calendar>
             <textarea
               *ngIf="col.editType == 'textArea'"

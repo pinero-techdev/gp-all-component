@@ -13,6 +13,8 @@ import { TableEditableCellComponent } from './components/table-editable-crud/com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableMetadataService } from '../../services/api/table/table-metadata.service';
 import { PanelModule } from 'primeng/primeng';
+import { DateMaskDirective } from './components/table-editable/date-mask.directive';
+
 @NgModule({
   declarations: [
     TableCrudComponent,
@@ -20,6 +22,7 @@ import { PanelModule } from 'primeng/primeng';
     TableEditableCrudComponent,
     TableEditableCellComponent,
     TableFrameComponent,
+    DateMaskDirective,
   ],
   imports: [
     CommonModule,
