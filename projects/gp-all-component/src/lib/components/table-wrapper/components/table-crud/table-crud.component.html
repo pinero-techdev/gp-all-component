@@ -25,7 +25,7 @@
               <gp-button
                 *ngIf="canAdd"
                 [type]="'icon'"
-                icon="pi pi-plus"
+                icon="fa fa-plus"
                 label="Añadir"
                 (click)="onDialogAdd()"
                 [disabled]="formControl.lockFields"
@@ -74,7 +74,7 @@
           <div class="action-button-wrapper">
             <gp-button
               [type]="'icon'"
-              icon="pi pi-download"
+              icon="fa fa-download"
               (click)="tc.exportCSV()"
               label="Exportar a CSV"
             ></gp-button>
@@ -90,7 +90,7 @@
       </div>
       <div class="grid input-group" *ngFor="let col of columns">
         <div *ngFor="let msg of col.fieldMsgs" class="p-messages-error">
-          <i class="pi pi-close"></i>&nbsp;{{ msg.detail }}
+          <i class="fa fa-close"></i>&nbsp;{{ msg.detail }}
         </div>
         <div
           class="col-12 md:col-4"
@@ -200,7 +200,7 @@
           [severity]="'danger'"
           label="Borrar"
           [type]="'textIcon'"
-          icon="pi pi-trash"
+          icon="fa fa-trash"
           (click)="onDialogDelete()"
           [disabled]="formControl.lockFields"
         >
@@ -209,7 +209,7 @@
           *ngIf="canEdit || (canAdd && !selectedRow)"
           label="Guardar"
           [type]="'textIcon'"
-          icon="pi pi-save"
+          icon="fa fa-save"
           (click)="onDialogSave()"
           [disabled]="formControl.lockFields"
         >
@@ -217,7 +217,7 @@
         <gp-button
           label="Cerrar"
           [type]="'textIcon'"
-          icon="pi pi-times"
+          icon="fa fa-times"
           (click)="closeDialog()"
           [disabled]="formControl.lockFields"
         >

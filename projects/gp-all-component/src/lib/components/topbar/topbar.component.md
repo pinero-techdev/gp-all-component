@@ -46,7 +46,7 @@ Check elements dependent on the logic of the consuming application, for example 
             <a>Inicio</a>
         </span>
         <span>
-            <i class="topbar-toolbar-icon pi pi-angle-right"></i>
+            <i class="topbar-toolbar-icon fa fa-angle-right"></i>
             <a class="topbar-toolbar-action topbar-toolbar-active"> Reservas</a>
         </span>
     </div>

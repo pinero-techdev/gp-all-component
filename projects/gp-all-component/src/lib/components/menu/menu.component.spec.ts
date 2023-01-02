@@ -56,13 +56,13 @@ describe('MenuComponent', () => {
       component.items = [
         {
           label: 'Home',
-          icon: 'pi pi-home',
+          icon: 'fa fa-home',
           routerLink: '/components',
           title: 'Home',
         },
         {
           label: 'Gestión de propiedades',
-          icon: 'pi pi-key',
+          icon: 'fa fa-key',
           title: 'Gestión de propiedades',
           items: [
             {

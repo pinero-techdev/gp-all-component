@@ -32,7 +32,7 @@ describe('BreadcrumbComponent', () => {
           id: '1',
           label: 'Gestión de propiedades',
           routerLink: '',
-          icon: 'pi pi-briefcase',
+          icon: 'fa fa-briefcase',
         },
         {
           id: '2',
@@ -51,7 +51,7 @@ describe('BreadcrumbComponent', () => {
 
   describe('Breadcrumb with home icon', () => {
     beforeEach(() => {
-      component.home = { id: '1', icon: 'pi pi-home' };
+      component.home = { id: '1', icon: 'fa fa-home' };
       fixture.detectChanges();
       $breadcrumbHomeIcon = fixture.nativeElement.querySelector('p-breadcrumb .p-breadcrumb-home');
     });

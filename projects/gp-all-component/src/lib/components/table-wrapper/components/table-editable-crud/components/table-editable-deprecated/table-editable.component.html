@@ -10,14 +10,14 @@
         (click)="createItem()"
         [disabled]="onEdition || onCreation"
         [type]="'icon'"
-        icon="pi pi-plus"
+        icon="fa fa-plus"
       ></gp-button>
       <gp-button
         *ngIf="onEdition || onCreation"
         label="{{ translations.CANCEL }}"
         (click)="cancel()"
         [type]="'icon'"
-        icon="pi pi-times"
+        icon="fa fa-times"
         [severity]="'danger'"
       ></gp-button>
     </div>
@@ -84,7 +84,7 @@
               [type]="'icon'"
               label="Clear"
               (click)="clearFilters()"
-              icon="pi pi-times"
+              icon="fa fa-times"
             ></gp-button>
           </th>
         </tr>
@@ -107,7 +107,7 @@
             <gp-button
               [type]="'icon'"
               label="Exportar a CSV"
-              icon="pi pi-download"
+              icon="fa fa-download"
               (click)="exportToCsv()"
             ></gp-button>
           </td>
@@ -167,21 +167,21 @@
                       <gp-button
                         *ngIf="hasFile(item, column)"
                         [type]="'icon'"
-                        icon="pi pi-upload"
+                        icon="fa fa-upload"
                         (click)="download(item, column)"
                       ></gp-button>
                     </ng-template>
                     <gp-button
                       *ngSwitchCase="inputType.IMG"
                       [type]="'icon'"
-                      icon="pi pi-eye"
+                      icon="fa fa-eye"
                       (click)="
                         imgModalVisible.visible = true; imgModalVisible.img = item[column.name]
                       "
                     ></gp-button>
                     <gp-button
                       *ngSwitchCase="inputType.WYSIWYG"
-                      icon="pi pi-eye"
+                      icon="fa fa-eye"
                       [type]="'icon'"
                       (click)="
                         textModalVisible.visible = true; textModalVisible.text = item[column.name]
@@ -189,7 +189,7 @@
                     ></gp-button>
                     <gp-button
                       *ngSwitchCase="inputType.TEXT_AREA"
-                      icon="pi pi-eye"
+                      icon="fa fa-eye"
                       [type]="'icon'"
                       (click)="
                         textModalVisible.visible = true; textModalVisible.text = item[column.name]
@@ -231,14 +231,14 @@
               <ng-template #defaultActionsTemplate let-item let-columns="columns">
                 <gp-button
                   [type]="'icon'"
-                  icon="pi pi-pencil"
+                  icon="fa fa-pencil"
                   [disabled]="onEdition || onCreation || !isEditable(item)"
                   *ngIf="config.canEdit"
                   (click)="editItem(item)"
                 ></gp-button>
                 <gp-button
                   [type]="'icon'"
-                  icon="pi pi-trash"
+                  icon="fa fa-trash"
                   [disabled]="onEdition || onCreation || !isDeletable(item)"
                   *ngIf="config.canDelete"
                   (click)="beforeDeleteItem(item)"
@@ -249,7 +249,7 @@
 
             <gp-button
               [type]="'icon'"
-              icon="pi pi-save"
+              icon="fa fa-save"
               [disabled]="
                 ((onEdition || onCreation) && !item._editting) || (item._editting && !itemValid)
               "
@@ -258,7 +258,7 @@
             ></gp-button>
             <gp-button
               [type]="'icon'"
-              icon="pi pi-trash"
+              icon="fa fa-trash"
               [disabled]="(onEdition || onCreation) && !item._editting"
               *ngIf="item._editting"
               (click)="cancelEdit(item)"
@@ -282,13 +282,13 @@
             <td *ngIf="config.actionsColumn" class="actions-colum">
               <gp-button
                 [type]="'icon'"
-                icon="pi pi-save"
+                icon="fa fa-save"
                 [disabled]="!itemValid"
                 (click)="beforeCreateItem(creationObject)"
               ></gp-button>
               <gp-button
                 [type]="'icon'"
-                icon="pi pi-trash"
+                icon="fa fa-trash"
                 (click)="cancel()"
                 [severity]="'danger'"
               ></gp-button>

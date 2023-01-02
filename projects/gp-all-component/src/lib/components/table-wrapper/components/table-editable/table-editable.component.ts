@@ -307,7 +307,7 @@ export class TableEditableComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Se van a guardar los cambios. Está seguro?',
       header: 'Confirmación',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'fa fa-exclamation-triangle',
       accept: () => {
         this.onSaveEvent.emit({ action: 'update', rows: this.rowsToUpdate });
         this.changedDetected = false;
@@ -327,7 +327,7 @@ export class TableEditableComponent implements OnInit {
         this.confirmationService.confirm({
           message: 'Se van a aplicar los cambios. Está seguro?',
           header: 'Confirmación',
-          icon: 'pi pi-exclamation-triangle',
+          icon: 'fa fa-exclamation-triangle',
           accept: () => {
             this.onSaveEvent.emit({ action: 'delete', rows: this.tc.selection });
           },

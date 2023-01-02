@@ -1,5 +1,5 @@
 <p-toast [key]="alertKey"></p-toast>
-<gp-button [type]="'icon'" icon="pi pi-globe" (click)="initTranslations()"> </gp-button>
+<gp-button [type]="'icon'" icon="fa fa-globe" (click)="initTranslations()"> </gp-button>
 <p-dialog
   [(visible)]="showTranslations"
   modal="modal"
@@ -42,7 +42,7 @@
           class="full-width"
           [class.html]="hasHTMLContent(t.idiomaPaisTraduccion)"
           (click)="showEditorHTMLDialog(t)"
-          icon="pi pi-pencil"
+          icon="fa fa-pencil"
         >
         </gp-button>
       </div>
@@ -55,14 +55,14 @@
       label="{{ localeES.CANCEL }}"
       [severity]="'danger'"
       (click)="hideTranslations()"
-      icon="pi pi-times"
+      icon="fa fa-times"
     >
     </gp-button>
     <gp-button
       [type]="'icon'"
       label="{{ localeES.ACCEPT }}"
       (click)="save()"
-      icon="pi pi-check"
+      icon="fa fa-check"
       [disabled]="working"
     >
     </gp-button>
@@ -104,14 +104,14 @@
     <gp-button
       [type]="'icon'"
       label="{{ localeES.LEAVE }}"
-      icon="pi pi-times"
+      icon="fa fa-times"
       [severity]="'danger'"
       (click)="closeHTMLEditor()"
     ></gp-button>
     <gp-button
       [type]="'icon'"
       label="{{ localeES.SAVE }}"
-      icon="pi pi-check"
+      icon="fa fa-check"
       (click)="saveHTML()"
       [disabled]="working"
     ></gp-button>

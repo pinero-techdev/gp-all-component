@@ -1,6 +1,6 @@
 <div class="p-inputgroup nopad" *ngIf="columnMetadata" [ngSwitch]="columnMetadata.type">
   <i
-    class="pi pi-exclamation-triangle"
+    class="fa fa-exclamation-triangle"
     *ngIf="!isFilter && columnMetadata.messages && columnMetadata.messages.length > 0"
     [pTooltip]="columnMetadata.messages"
     tooltipPosition="top"
@@ -38,7 +38,7 @@
     (focus)="onStartEditing()"
     (change)="!isFilter ? onModelChange(numberInput.value) : null"
     [disabled]="!isEditable()"
-  /> 
+  />
   <p-checkbox
     *ngSwitchCase="inputType.CHECKBOX"
     binary="true"
@@ -58,7 +58,7 @@
     <gp-button
       *ngSwitchCase="inputType.IMG"
       [type]="'icon'"
-      icon="pi pi-image"
+      icon="fa fa-image"
       label="{{ translations.OPEN }}"
       (click)="openImgModal()"
       [disabled]="!isEditable()"
@@ -67,21 +67,21 @@
       *ngSwitchCase="inputType.WYSIWYG"
       [type]="'icon'"
       label="{{ translations.OPEN }}"
-      icon="pi pi-pencil"
+      icon="fa fa-pencil"
       (click)="openWYSIWYGModal()"
       [disabled]="!isEditable()"
     ></gp-button>
     <ng-template [ngSwitchCase]="inputType.FILE">
       <gp-button
         [type]="'icon'"
-        icon="pi pi-upload"
+        icon="fa fa-upload"
         (click)="openFileModal()"
         [disabled]="!isEditable()"
       ></gp-button>
       <gp-button
         [type]="'icon'"
         *ngIf="hasFile() || (value && value['content'])"
-        icon="pi pi-trash"
+        icon="fa fa-trash"
         (click)="deleteFile()"
         [disabled]="!isEditable()"
       ></gp-button>
@@ -199,7 +199,7 @@
     [minlength]="columnMetadata.minLength"
     [disabled]="!isEditable()"
     class="full-width"
-  /> 
+  />
   <p-footer>
     <gp-button
       label="{{ translations.ACCEPT }}"
@@ -306,6 +306,6 @@
       [severity]="'danger'"
       label="{{ translations.CANCEL }}"
       (click)="fileModalVisible = false"
-    ></gp-button> 
+    ></gp-button>
   </p-footer>
-</p-dialog> 
+</p-dialog>

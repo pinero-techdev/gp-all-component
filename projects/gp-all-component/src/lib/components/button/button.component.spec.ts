@@ -11,7 +11,7 @@ describe('ButtonComponent', () => {
   let $button: HTMLButtonElement;
   let $splitButton: HTMLDivElement;
   const textLabel = 'text label';
-  const iconClassName = 'pi pi-save';
+  const iconClassName = 'fa fa-save';
   const iconClassSelector = '.pi.pi-save';
 
   beforeEach(async(() => {

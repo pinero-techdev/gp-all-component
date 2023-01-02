@@ -105,7 +105,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     this.itemsUserMenu = [
       {
         label: 'Logout',
-        icon: 'pi pi-sign-out',
+        icon: 'fa fa-sign-out',
         command: (click) => {
           this.toggleUserMenu(),
             this.toggleMenu(false),

@@ -46,7 +46,7 @@
     </ng-container>
 
     <div *ngIf="(builder.hasGlobalFilter | memo: coreModel)">
-      <i class="pi pi-search"></i>
+      <i class="fa fa-search"></i>
       <input
         type="text"
         pInputText
@@ -141,7 +141,7 @@
   <ng-template *ngIf="(builder.getExportFile | memo: coreModel)" pTemplate="summary">
     <gp-button
       [type]="'textIcon'"
-      icon="pi pi-download"
+      icon="fa fa-download"
       label="Exportar a CSV"
       (click)="table.exportCSV()"
     ></gp-button>

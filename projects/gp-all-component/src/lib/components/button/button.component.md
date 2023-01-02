@@ -72,7 +72,7 @@ or
 
 Icon (write the button icon inside simple quotes).
 ```html
-[icon]="'pi pi-save'"
+[icon]="'fa fa-save'"
 ```
 
 Width (write the button width inside simple quotes). There are two possible values: default (this one doesn`t need to be specified), and buttonLarge.
@@ -99,14 +99,14 @@ SplitButton must be constructed as follows:
 splitbuttonItems: any = [
     {
         label: 'Update',
-        icon: 'pi pi-refresh',
+        icon: 'fa fa-refresh',
         command: () => {
             // function to call
         },
     },
     {
         label: 'Delete',
-        icon: 'pi pi-times',
+        icon: 'fa fa-times',
         command: () => {
             // function to call
         },
