@@ -1,6 +1,6 @@
 {
   "name": "gp-all-component",
-  "version": "14.0.0-SNAPSHOT",
+  "version": "14.0.1-SNAPSHOT",
   "peerDependencies": {
     "@angular/animations": "^14.2.2",
     "@angular/cdk": "^7.3.6",
