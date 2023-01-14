@@ -52,6 +52,8 @@ export class TableEditableComponent implements OnInit {
 
   virtualRows: any[] = [];
 
+  rowsPerPage = 100;
+
   rowSelected: any;
   rowsToUpdate: any[] = [];
   selectedColumns: any[];
@@ -71,6 +73,7 @@ export class TableEditableComponent implements OnInit {
   dataTableRowsOriginal: any;
 
   working = true;
+  loading = true;
 
   childDataTable: any;
   scrollHeight: number;
@@ -88,6 +91,7 @@ export class TableEditableComponent implements OnInit {
 
   ngOnInit() {
     this.working = true;
+    this.loading = true;
     this.dataTableRowsOriginal = JSON.parse(JSON.stringify(this.dataTable.rows));
 
     this.selectedColumns = JSON.parse(
@@ -98,10 +102,12 @@ export class TableEditableComponent implements OnInit {
     this.optionsSelectedColumns = JSON.parse(JSON.stringify(this.selectedColumns));
     this.initLov();
     this.calcFilterOptions();
+    this.virtualRows = Array.from({length: this.dataTable.rows.length})
     this.working = false;
     this.scrollHeight = this.dataTable.scrollHeight;
     this.scrollHeightString = this.scrollHeight + 'px';
     this.onAfterInitEvent.emit();
+    this.loading = false;
   }
 
   getStyleCols(col) {
@@ -152,25 +158,25 @@ export class TableEditableComponent implements OnInit {
         switch (colData.filterType) {
           case 'includes':
             filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').includes(val)
+              (r[f] + '').includes(val.value)
             );
             break;
           case 'startsWith':
             filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').startsWith(val)
+              (r[f] + '').startsWith(val.value)
             );
             break;
           case 'endsWith':
             filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').endsWith(val)
+              (r[f] + '').endsWith(val.value)
             );
             break;
           case 'equals':
-            filteredRows = filteredRows.filter((r) => r[f] + '' === val);
+            filteredRows = filteredRows.filter((r) => r[f] + '' === val.value);
             break;
           default:
             filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').startsWith(val)
+              (r[f] + '').startsWith(val.value)
             );
             break;
         }
@@ -463,44 +469,56 @@ export class TableEditableComponent implements OnInit {
   }
 
   loadDataOnScroll(event: LazyLoadEvent) {
-    // console.log(JSON.stringify(event));
+
     this.customSort(event.sortField, event.sortOrder);
 
     let filteredRows = this.dataTable.rows;
-    for (const f of Object.keys(event.filters)) {
-      const colData = this.dataTable.cols.find((c) => c.field === f);
-      const val : any = this.tc.filters[f];// .value;
-      switch (colData.filterType) {
-        case 'includes':
-          filteredRows = filteredRows.filter((r) => (r[f] + '').includes(val));
-          break;
-        case 'startsWith':
-          filteredRows = filteredRows.filter((r) =>
-            (r[f] + '').startsWith(val)
-          );
-          break;
-        case 'endsWith':
-          filteredRows = filteredRows.filter((r) => (r[f] + '').endsWith(val));
-          break;
-        case 'equals':
-          filteredRows = filteredRows.filter((r) => r[f] + '' === val);
-          break;
-        default:
-          filteredRows = filteredRows.filter((r) =>
-            (r[f] + '').startsWith(val)
-          );
-          break;
+    if(event && event.filters) {
+      for (const f of Object.keys(event.filters)) {
+        const colData = this.dataTable.cols.find((c) => c.field === f);
+        const val: any = this.tc.filters[f];// .value;
+        switch (colData.filterType) {
+          case 'includes':
+            filteredRows = filteredRows.filter((r) => (r[f] + '').includes(val.value));
+            break;
+          case 'startsWith':
+            filteredRows = filteredRows.filter((r) =>
+              (r[f] + '').startsWith(val.value)
+            );
+            break;
+          case 'endsWith':
+            filteredRows = filteredRows.filter((r) => (r[f] + '').endsWith(val.value));
+            break;
+          case 'equals':
+            filteredRows = filteredRows.filter((r) => r[f] + '' === val.value);
+            break;
+          default:
+            filteredRows = filteredRows.filter((r) =>
+              (r[f] + '').startsWith(val.value)
+            );
+            break;
+        }
       }
     }
 
+    console.log('1. rows: ' + event.rows + ', first: ' + event.first + ', last: ' + event.last);
+
     if (event.first + event.rows <= filteredRows.length) {
-      this.virtualRows = filteredRows.slice(event.first, event.first + event.rows);
-    } else if (event.first <= filteredRows.length) {
+      // this.virtualRows = filteredRows.slice(event.first, event.first + event.rows);
+      Array.prototype.splice.apply(
+        this.virtualRows,
+        [...[event.first, event.rows],
+          ...filteredRows.slice(event.first, event.first + event.rows)]);
+    } else {
       this.virtualRows = filteredRows.slice(event.first);
+      Array.prototype.splice.apply(
+        this.virtualRows,
+        [...[event.first, event.rows],
+          ...filteredRows.slice(event.first)]);
     }
-    console.log('ANTESSSS this.cdRef.detectChanges()')
-    this.cdRef.detectChanges();
-    console.log('DESPUESS this.cdRef.detectChanges()')
+    
+    event.forceUpdate();
+
   }
 
   onExpand(rowData: any) {

@@ -3,14 +3,14 @@
     <p-header [hidden]="working && !dataTable && !tc" style="width: 100%;">
       <div class="grid" style="height:34px; width: 100%;">
         <div class="col-3">
-          <div style="text-align:left" >
+          <div style="text-align:left">
             <p-multiSelect *ngIf="dataTable.toggleColumns"
-              [options]="optionsSelectedColumns"
-              [(ngModel)]="selectedColumns"
-              optionLabel="header"
-              selectedItemsLabel="{0} columnas"
-              [style]="{ maxWidth: '150px' }"
-              defaultLabel="Seleccione columnas"
+                           [options]="optionsSelectedColumns"
+                           [(ngModel)]="selectedColumns"
+                           optionLabel="header"
+                           selectedItemsLabel="{0} columnas"
+                           [style]="{ maxWidth: '150px' }"
+                           defaultLabel="Seleccione columnas"
             >
             </p-multiSelect>
           </div>
@@ -156,21 +156,21 @@
       (onHeaderCheckboxToggle)="onRowSelectMultipleEvent.emit(rowSelected)"
       (onFilter)="calcFilterOptions()"
       (onRowCollapse)="onRowCollapse()"
-      [loading]="working"
-      [rows]="dataTable.displayRows"
+      [loading]="loading"
+      [rows]="rowsPerPage"
       [virtualScroll]="true"
       (onLazyLoad)="loadDataOnScroll($event)"
       [lazy]="true"
       [totalRecords]="dataTable.rows.length"
-      [virtualScrollItemSize]="dataTable.displayRows + 10"
+      [virtualScrollItemSize]="30"
     >
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
-          <col *ngIf="dataTable.expandableRows" [ngStyle]="{ width: '30px', padding: '0px' }" />
-          <col *ngIf="dataTable.checkBoxSelect" [ngStyle]="{ width: '30px', padding: '0px' }" />
+          <col *ngIf="dataTable.expandableRows" [ngStyle]="{ width: '30px', padding: '0px' }"/>
+          <col *ngIf="dataTable.checkBoxSelect" [ngStyle]="{ width: '30px', padding: '0px' }"/>
 
           <ng-container *ngFor="let col of columns">
-            <col *ngIf="col.showInTable" [ngStyle]="getStyle(col.style)" />
+            <col *ngIf="col.showInTable" [ngStyle]="getStyle(col.style)"/>
           </ng-container>
         </colgroup>
       </ng-template>
@@ -240,6 +240,7 @@
           [pSelectableRow]="rowData"
           [pSelectableRowIndex]="rowIndex"
           *ngIf="dataTable.canEditRow"
+          [ngStyle]="{height: '30px'}"
         >
           <!-- Icono expansable table -->
           <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.expandableRows">
@@ -313,14 +314,14 @@
                 <ng-template pTemplate="input" *ngIf="!col.editable">
                   <span
                     *ngIf="col.type == 'string' || (col.pipe == null && col.type != 'button')"
-                    >{{ rowData[col.field] }}</span
+                  >{{ rowData[col.field] }}</span
                   >
                   <span *ngIf="col.type == 'number' && col.pipe != null">{{
                     rowData[col.field] | number: col.pipe
-                  }}</span>
+                    }}</span>
                   <span *ngIf="col.type == 'date' && col.pipe != null">{{
                     rowData[col.field] | date: col.pipe
-                  }}</span>
+                    }}</span>
                   <p-button
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
@@ -330,14 +331,14 @@
                 <ng-template pTemplate="output">
                   <span
                     *ngIf="col.type == 'string' || (col.pipe == null && col.type != 'button')"
-                    >{{ getLabel(rowData[col.field], col) }}</span
+                  >{{ getLabel(rowData[col.field], col) }}</span
                   >
                   <span *ngIf="col.type == 'number' && col.pipe != null">{{
                     rowData[col.field] | number: col.pipe
-                  }}</span>
+                    }}</span>
                   <span *ngIf="col.type == 'date' && col.pipe != null">{{
                     rowData[col.field] | date: col.pipe
-                  }}</span>
+                    }}</span>
                   <p-button
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
@@ -382,10 +383,10 @@
               ></p-button>
               <span *ngIf="col.type == 'number' && col.pipe != null">{{
                 rowData[col.field] | number: col.pipe
-              }}</span>
+                }}</span>
               <span *ngIf="col.type == 'date' && col.pipe != null">{{
                 rowData[col.field] | date: col.pipe
-              }}</span>
+                }}</span>
             </td>
           </ng-container>
         </tr>
@@ -393,21 +394,24 @@
 
       <!--- Footer table editable--->
       <ng-template pTemplate="footer" let-state let-columns>
-        <div style="position:absolute;bottom: 2px;left: 10px;">
-          {{ dataTable.rows.length }} filas
-        </div>
         <tr style="font-weight: bold; background-color: rgb(255,255,255);">
           <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.expandableRows"></td>
           <td [ngStyle]="{ width: '30px', padding: '0px' }" *ngIf="dataTable.checkBoxSelect"></td>
           <ng-container *ngFor="let col of columns">
             <td *ngIf="col.showInTable" [ngStyle]="getStyle(col.style)">
               <span *ngIf="totales[col.field] != null" class="p-cell-data">
-                <hr />
+                <hr/>
                 {{ totales[col.field] | number: col.pipe }}
               </span>
             </td>
           </ng-container>
         </tr>
+      </ng-template>
+
+      <ng-template pTemplate="summary" let-state let-columns>
+        <div>
+          {{ dataTable.rows.length }} filas
+        </div>
       </ng-template>
 
       <button
