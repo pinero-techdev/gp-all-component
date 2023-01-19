@@ -51,6 +51,7 @@ export class TableEditableComponent implements OnInit {
   displayChildDataTable = false;
 
   virtualRows: any[] = [];
+  savedRows: any[] = [];
 
   rowsPerPage = 100;
 
@@ -473,7 +474,7 @@ export class TableEditableComponent implements OnInit {
     this.customSort(event.sortField, event.sortOrder);
 
     let filteredRows = this.dataTable.rows;
-    if(event && event.filters) {
+    if(event && event.filters && Object.keys(event.filters).length) {
       for (const f of Object.keys(event.filters)) {
         const colData = this.dataTable.cols.find((c) => c.field === f);
         const val: any = this.tc.filters[f];// .value;
@@ -498,11 +499,9 @@ export class TableEditableComponent implements OnInit {
             );
             break;
         }
-      }
+      } 
     }
-
-    console.log('1. rows: ' + event.rows + ', first: ' + event.first + ', last: ' + event.last);
-
+    
     if (event.first + event.rows <= filteredRows.length) {
       // this.virtualRows = filteredRows.slice(event.first, event.first + event.rows);
       Array.prototype.splice.apply(
@@ -515,6 +514,15 @@ export class TableEditableComponent implements OnInit {
         this.virtualRows,
         [...[event.first, event.rows],
           ...filteredRows.slice(event.first)]);
+    }
+    
+    if(event && (!event.filters || !Object.keys(event.filters).length)){
+      if(this.savedRows.length <= 0){
+        this.savedRows = Object.assign([],this.virtualRows);
+      }
+      else{
+        this.virtualRows = this.savedRows;
+      }
     }
     
     event.forceUpdate();
@@ -562,7 +570,6 @@ export class TableEditableComponent implements OnInit {
   }
 
   getColFilterType(col: any) {
-    console.log(col);
     let result: string;
     switch (col.filterType) {
       case 'startsWith': {
