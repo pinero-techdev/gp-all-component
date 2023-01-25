@@ -11,7 +11,7 @@ import * as fs from 'fs';
  * @param files Dictionary of files contents by full path
  */
 async function bundleScss(entry = '', output = '', files = []) {
-  const { found, bundledContent, imports } = await new Bundler().Bundle(entry, files);
+  const { found, bundledContent, imports } = await new Bundler().bundle(entry, files);
 
   if (imports) {
     const cwd = process.cwd();
