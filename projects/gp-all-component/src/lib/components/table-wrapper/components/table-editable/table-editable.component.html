@@ -306,7 +306,7 @@
                     [(ngModel)]="rowData[col.field]"
                     [style]="{ width: '100%' }"
                     [appendTo]="tc"
-                    (onClose)="markAsEdited(rowData, col.field)"
+                    (ngModelChange)="markAsEdited(rowData, col.field)"
                   ></p-calendar>
                   <p-button
                     *ngIf="col.type == 'button'"
@@ -497,7 +497,7 @@
               [(ngModel)]="newRow[col.field]"
               [style]="{ width: '100%' }"
               [appendTo]="addDialog"
-              (onClose)="onFieldChange(col.field, newRow)"
+              (ngModelChange)="onFieldChange(col.field, newRow)"
               dateMask
             ></p-calendar>
             <textarea
@@ -589,7 +589,7 @@
               [(ngModel)]="editRow[col.field]"
               [style]="{ width: '100%' }"
               [appendTo]="editDialog"
-              (onClose)="onFieldChange(col.field, editRow)"
+              (ngModelChange)="onFieldChange(col.field, editRow)"
             ></p-calendar>
             <textarea
               *ngIf="col.editType == 'textArea'"
