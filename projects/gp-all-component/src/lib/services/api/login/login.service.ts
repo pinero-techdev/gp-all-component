@@ -107,7 +107,7 @@ export class LoginService {
   login(request: LoginRq) {
     this.cleanSessionInfo();
     const body = JSON.stringify(request);
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' });
     const options = new RequestOptions(headers);
     const url = `${GlobalService.getLOGIN_SERVICE_URL()}/login`;
     this.sessionStorageService.setItem('language', 'ES');
