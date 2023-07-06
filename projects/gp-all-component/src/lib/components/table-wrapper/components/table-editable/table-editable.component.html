@@ -312,6 +312,7 @@
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
                     (onClick)="getLink(rowData, col.field)"
+                    [styleClass]="rowData[col.field] == null ? 'tableEditableRowButtonDisabled' : 'tableEditableRowButtonEnabled'"
                   ></p-button>
                 </ng-template>
                 <ng-template pTemplate="input" *ngIf="!col.editable">
@@ -329,6 +330,7 @@
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
                     (onClick)="getLink(rowData, col.field)"
+                    [styleClass]="rowData[col.field] == null ? 'tableEditableRowButtonDisabled' : 'tableEditableRowButtonEnabled'"
                   ></p-button>
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -346,6 +348,7 @@
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
                     (onClick)="getLink(rowData, col.field)"
+                    [styleClass]="rowData[col.field] == null ? 'tableEditableRowButtonDisabled' : 'tableEditableRowButtonEnabled'"
                   ></p-button>
                 </ng-template>
               </p-cellEditor>
@@ -383,6 +386,7 @@
                 *ngIf="col.type == 'button' && col.pipe == null"
                 label="{{ col.header }}"
                 (onClick)="getLink(rowData, col.field)"
+                [styleClass]="rowData[col.field] == null ? 'tableEditableRowButtonDisabled' : 'tableEditableRowButtonEnabled'"
               ></p-button>
               <span *ngIf="col.type == 'number' && col.pipe != null">{{
                 rowData[col.field] | number: col.pipe
