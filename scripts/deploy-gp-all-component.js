@@ -1,12 +1,12 @@
 // Sube el componente de gp-all-components al servidor apache.
 // La dependencia posterior del componente es:
 //
-//        "gp-all-component": "http://software.wapt.cen.intranet/angular/gp-all-component/gp-all-component-1.1.0.tgz",
+//        "gp-all-component": "gp-all-component": "http://software.cen.intranet/angular/gp-all-component/gp-all-component-1.4.9.tgz",
 //
 // Modificar las variables package y component con la version correspondiente del componente.
 //
 const package = require('../package.json');
-const server = 'apache.cen.intranet';
+const server = 'apachest1.tic1.intranet';
 const user = 'www';
 const packageName = package.name;
 const packageVersion = package.version;

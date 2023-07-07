@@ -3,7 +3,8 @@
 You can find more information in the README located in projects/gp-all-component folder
 
 #### Últimos cambios
-
+##### Version 1.4.9
+    . Table editable: class type para columnas tipo button activado / desactivado
 ##### Version 1.4.0
     . Table editable: cerrar diálogo de inserción cuando se pulsa añadir
     . Table editable: correción onNgModel en p-calendar
