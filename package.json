@@ -1,6 +1,6 @@
 {
   "name": "gp-all-component",
-  "version": "14.0.2-SNAPSHOT",
+  "version": "14.0.3-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve tester --watch --port=4400",

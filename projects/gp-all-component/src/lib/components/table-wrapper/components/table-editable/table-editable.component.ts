@@ -1,19 +1,13 @@
 import moment from 'moment';
-import { TableEditableService } from '../../../../services/api/table/table-editable.service';
-import { GPUtil } from '../../../../services/core/gp-util.service';
-import { TableEditable } from '../../../../resources/data/data-table/editable/data-table-editable.model';
+import {TableEditableService} from '../../../../services/api/table/table-editable.service';
+import {GPUtil} from '../../../../services/core/gp-util.service';
+import {TableEditable} from '../../../../resources/data/data-table/editable/data-table-editable.model';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
+import {ConfirmationService, LazyLoadEvent, MessageService, SelectItem} from 'primeng/api';
+import {Table} from 'primeng/table';
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { ConfirmationService, LazyLoadEvent, MessageService, SelectItem } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { DataTableEditableCustomButton } from '../../../../resources/data/data-table/editable/data-table-editable-customButton';
+  DataTableEditableCustomButton
+} from '../../../../resources/data/data-table/editable/data-table-editable-customButton';
 
 /*
  *  Data order: data -> filteredData -> sortedData -> currentPageData
@@ -44,7 +38,7 @@ export class TableEditableComponent implements OnInit {
   // Emite un evento cuando un campos ha sido modificado por el usuario { field, rowData }
   @Output() onFieldChangeEvent = new EventEmitter<any>();
 
-  @ViewChild('tc',{ static: false }) tc: Table;
+  @ViewChild('tc', {static: false}) tc: Table;
 
   checkBoxHeaderSelect = false;
 
@@ -83,12 +77,16 @@ export class TableEditableComponent implements OnInit {
   calendar = GPUtil.obtainCalendarConfig();
   changedDetected = false;
 
+  lazyLoadStatus: LazyLoadEvent = null;
+  filteredRows: any[];
+
   constructor(
     private confirmationService: ConfirmationService,
     private listService: TableEditableService,
     private messageService: MessageService,
     private cdRef: ChangeDetectorRef
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.working = true;
@@ -136,11 +134,11 @@ export class TableEditableComponent implements OnInit {
       result.borderRadius = '6px';
     }
 
-    if(result.width){
+    if (result.width) {
       result.minWidth = result.width;
     }
 
-    if(result['text-align']){
+    if (result['text-align']) {
       result['justify-content'] = result['text-align'];
     }
 
@@ -155,7 +153,7 @@ export class TableEditableComponent implements OnInit {
       let filteredRows = this.dataTable.rows;
       for (const f of Object.keys(this.tc.filters)) {
         const colData = this.dataTable.cols.find((c) => c.field === f);
-        const val : any = this.tc.filters[f];// this.tc.filters[f]?.value;
+        const val: any = this.tc.filters[f];// this.tc.filters[f]?.value;
         switch (colData.filterType) {
           case 'includes':
             filteredRows = filteredRows.filter((r) =>
@@ -203,20 +201,20 @@ export class TableEditableComponent implements OnInit {
         colData = [];
         for (const row of rows) {
           if (row[c.field] !== null) {
-            colData.push({ value: row[c.field] });
+            colData.push({value: row[c.field]});
           }
         }
 
-        const unique = Array.from(new Set(colData.map(({ value }) => value)));
+        const unique = Array.from(new Set(colData.map(({value}) => value)));
 
         options = [];
 
         for (const val of unique.sort()) {
           const lab = this.getLabel(val, c);
-          options.push({ label: lab, value: val });
+          options.push({label: lab, value: val});
         }
 
-        options.unshift({ label: '', value: null });
+        options.unshift({label: '', value: null});
 
         this.filterOptions[c.field] = options;
       }
@@ -259,6 +257,7 @@ export class TableEditableComponent implements OnInit {
       this.displayAddDialog = true;
     }
   }
+
   onEditRow() {
     if (this.changedDetected) {
       this.messageService.add({
@@ -281,13 +280,13 @@ export class TableEditableComponent implements OnInit {
 
   saveNewRow() {
     if (this.newRow != undefined) {
-      this.onSaveEvent.emit({ action: 'insert', rows: [this.newRow] });
+      this.onSaveEvent.emit({action: 'insert', rows: [this.newRow]});
       this.displayAddDialog = false;
     }
   }
 
   saveEditRow() {
-    if (this.editRow  != undefined) {
+    if (this.editRow != undefined) {
       this.tc.selection = this.editRow;
       this.markAsEdited(this.editRow);
       this.editRow = {};
@@ -306,7 +305,7 @@ export class TableEditableComponent implements OnInit {
   }
 
   onCustomButtonClic(but: any) {
-    this.onCustomButtonClicEvent.emit({ button: but, data: this.tc.selection });
+    this.onCustomButtonClicEvent.emit({button: but, data: this.tc.selection});
   }
 
   onSave() {
@@ -316,7 +315,7 @@ export class TableEditableComponent implements OnInit {
       header: 'Confirmación',
       icon: 'fa fa-exclamation-triangle',
       accept: () => {
-        this.onSaveEvent.emit({ action: 'update', rows: this.rowsToUpdate });
+        this.onSaveEvent.emit({action: 'update', rows: this.rowsToUpdate});
         this.changedDetected = false;
       },
     });
@@ -336,7 +335,7 @@ export class TableEditableComponent implements OnInit {
           header: 'Confirmación',
           icon: 'fa fa-exclamation-triangle',
           accept: () => {
-            this.onSaveEvent.emit({ action: 'delete', rows: this.tc.selection });
+            this.onSaveEvent.emit({action: 'delete', rows: this.tc.selection});
           },
         });
       } else {
@@ -471,62 +470,11 @@ export class TableEditableComponent implements OnInit {
 
   loadDataOnScroll(event: LazyLoadEvent) {
 
-    this.customSort(event.sortField, event.sortOrder);
+    this.lazyLoadStatus = {...event};
 
-    let filteredRows = this.dataTable.rows;
-    if(event && event.filters && Object.keys(event.filters).length) {
-      for (const f of Object.keys(event.filters)) {
-        const colData = this.dataTable.cols.find((c) => c.field === f);
-        const val: any = this.tc.filters[f];// .value;
-        switch (colData.filterType) {
-          case 'includes':
-            filteredRows = filteredRows.filter((r) => (r[f] + '').includes(val.value));
-            break;
-          case 'startsWith':
-            filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').startsWith(val.value)
-            );
-            break;
-          case 'endsWith':
-            filteredRows = filteredRows.filter((r) => (r[f] + '').endsWith(val.value));
-            break;
-          case 'equals':
-            filteredRows = filteredRows.filter((r) => r[f] + '' === val.value);
-            break;
-          default:
-            filteredRows = filteredRows.filter((r) =>
-              (r[f] + '').startsWith(val.value)
-            );
-            break;
-        }
-      } 
-    }
-    
-    if (event.first + event.rows <= filteredRows.length) {
-      // this.virtualRows = filteredRows.slice(event.first, event.first + event.rows);
-      Array.prototype.splice.apply(
-        this.virtualRows,
-        [...[event.first, event.rows],
-          ...filteredRows.slice(event.first, event.first + event.rows)]);
-    } else {
-      this.virtualRows = filteredRows.slice(event.first);
-      Array.prototype.splice.apply(
-        this.virtualRows,
-        [...[event.first, event.rows],
-          ...filteredRows.slice(event.first)]);
-    }
-    
-    if(event && (!event.filters || !Object.keys(event.filters).length)){
-      if(this.savedRows.length <= 0){
-        this.savedRows = Object.assign([],this.virtualRows);
-      }
-      else{
-        this.virtualRows = this.savedRows;
-      }
-    }
-    
-    event.forceUpdate();
+    this.customSort(this.lazyLoadStatus.sortField, this.lazyLoadStatus.sortOrder);
 
+    this.refreshRows();
   }
 
   onExpand(rowData: any) {
@@ -556,7 +504,7 @@ export class TableEditableComponent implements OnInit {
   }
 
   onFieldChange(field: string, rowData: any) {
-    this.onFieldChangeEvent.emit({ field, rowData });
+    this.onFieldChangeEvent.emit({field, rowData});
   }
 
   checkRequired(operation: string) {
@@ -595,4 +543,59 @@ export class TableEditableComponent implements OnInit {
     }
     return result;
   }
+
+  refreshRows() {
+    this.filteredRows = [...this.dataTable.rows];
+    if (this.lazyLoadStatus
+      && this.lazyLoadStatus.filters
+      && Object.keys(this.lazyLoadStatus.filters).length) {
+      for (const f of Object.keys(this.lazyLoadStatus.filters)) {
+        const colData = this.dataTable.cols.find((c) => c.field === f);
+        const val: any = this.tc.filters[f];// .value;
+        switch (colData.filterType) {
+          case 'includes':
+            this.filteredRows = this.filteredRows.filter((r) => (r[f] + '').includes(val.value));
+            break;
+          case 'startsWith':
+            this.filteredRows = this.filteredRows.filter((r) =>
+              (r[f] + '').startsWith(val.value)
+            );
+            break;
+          case 'endsWith':
+            this.filteredRows = this.filteredRows.filter((r) => (r[f] + '').endsWith(val.value));
+            break;
+          case 'equals':
+            this.filteredRows = this.filteredRows.filter((r) => r[f] + '' === val.value);
+            break;
+          default:
+            this.filteredRows = this.filteredRows.filter((r) =>
+              (r[f] + '').startsWith(val.value)
+            );
+            break;
+        }
+      }
+    }
+
+    const loadedRows = this.filteredRows.slice(
+      this.lazyLoadStatus.first, (this.lazyLoadStatus.first + this.lazyLoadStatus.rows)
+    );
+
+    Array.prototype.splice.apply(this.virtualRows,
+      [...[this.lazyLoadStatus.first, this.lazyLoadStatus.rows], ...loadedRows]);
+
+    this.lazyLoadStatus.forceUpdate();
+
+  }
+
+  addNewVirtualRow(){
+    // this.dataTable.rows = [this.dataTable.rows,newRow];
+
+    this.lazyLoadStatus.rows++;
+    this.lazyLoadStatus.last++;
+    this.refreshRows();
+    this.tc.scroller.ngAfterViewInit();
+    this.tc.ngAfterViewInit();
+
+  }
+
 }
