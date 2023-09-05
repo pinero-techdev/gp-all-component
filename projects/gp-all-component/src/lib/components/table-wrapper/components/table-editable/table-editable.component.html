@@ -136,6 +136,7 @@
         </div>
       </div>
     </p-header>
+
     <p-table
       #tc
       *ngIf="!working"
@@ -423,26 +424,31 @@
         label="Exportar a CSV"
       ></button>
     </p-table>
+
   </p-panel>
 </section>
 
 <p-dialog
   [(visible)]="displayChildDataTable"
-  *ngIf="childDataTable && childDataTable.rows.length > 0"
+  *ngIf="displayChildDataTable"
   [closeOnEscape]="true"
   styleClass="pDialogChild"
   [modal]="true"
   [responsive]="true"
   (onHide)="displayChildDataTable = false"
 >
-  <app-table-editable
-    *ngIf="childDataTable && childDataTable.rows.length > 0"
-    class="childDataTable"
-    [dataTable]="childDataTable"
-    (onSaveEvent)="onSaveChild($event)"
-    (onRefreshEvent)="getTableChild()"
-  >
-  </app-table-editable>
+  <div class="grid">
+    <div class="col-12">
+      <app-table-editable
+        *ngIf="childDataTable && childDataTable.rows.length > 0"
+        class="childDataTable"
+        [dataTable]="childDataTable"
+        (onSaveEvent)="onSaveChild($event)"
+        (onRefreshEvent)="getTableChild()"
+      >
+      </app-table-editable>
+    </div>
+  </div>
 </p-dialog>
 
 <p-dialog
