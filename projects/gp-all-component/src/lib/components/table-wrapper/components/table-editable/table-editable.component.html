@@ -149,6 +149,7 @@
       [selectionMode]="dataTable.checkBoxSelect ? '' : 'multiple'"
       rowExpandMode="single"
       autoLayout="true"
+      [tableStyle]="dataTable.width == 0 ? { width: '100%' } : { width: dataTable.width + 'px' }"
       columnResizeMode="expand"
       [resizableColumns]="true"
       [metaKeySelection]="!dataTable.checkBoxSelect"
