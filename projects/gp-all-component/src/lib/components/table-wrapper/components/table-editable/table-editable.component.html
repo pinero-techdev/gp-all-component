@@ -206,7 +206,6 @@
             <th
               *ngIf="col.showInTable && col.filter != null"
               [ngStyle]="getStyle(col.style)"
-              [style.overflow]="'visible'"
             >
               <input
                 *ngIf="col.filter == 'input'"
@@ -552,64 +551,62 @@
   [modal]="true"
   [contentStyle]="{ 'max-width': '600px', overflowY: 'scroll' }"
 >
-  <div class="p-g">
-    <div class="grid">
-      <ng-container *ngFor="let col of dataTable.cols">
-        <div
-          class="p-separation-lg full-width"
-          style="padding-bottom: 15px"
-          [hidden]="!col.editable"
-        >
-          <div>
-            <label class="full-width">{{ col.header }}{{ col.required ? '*' : '' }}</label>
-          </div>
-          <div class="col-12 nopad">
-            <input
-              *ngIf="col.editType == 'input'"
-              pInputText
-              [type]="col.type == 'string' ? 'text' : col.type"
-              [(ngModel)]="editRow[col.field]"
-              [style]="getStyle(col.style)"
-              (change)="onFieldChange(col.field, editRow)"
-            />
-            <p-dropdown
-              *ngIf="col.editType == 'dropdown' && col.editable"
-              [options]="lovs[col.field]"
-              [(ngModel)]="editRow[col.field]"
-              [style]="{ width: '100%' }"
-              scrollHeight="400px"
-              filter="true"
-              [appendTo]="editDialog"
-              autofocus="true"
-              [placeholder]="'Seleccione...'"
-              (onChange)="onFieldChange(col.field, editRow)"
-            ></p-dropdown>
-            <p-calendar
-              *ngIf="col.editType == 'calendar'"
-              showAnim="slideDown"
-              dateFormat="dd/mm/yy"
-              icon="fa fa-calendar"
-              [locale]="calendar"
-              dataType="string"
-              [(ngModel)]="editRow[col.field]"
-              [style]="{ width: '100%' }"
-              [appendTo]="editDialog"
-              (onClose)="onFieldChange(col.field, editRow)"
-            ></p-calendar>
-            <textarea
-              *ngIf="col.editType == 'textArea'"
-              pInputTextarea
-              [(ngModel)]="editRow[col.field]"
-              [rows]="3"
-              [cols]="60"
-              [style]="getStyle(col.style)"
-              (change)="onFieldChange(col.field, editRow)"
-            ></textarea>
-          </div>
-        </div>
-      </ng-container>
+
+  <div class="grid w-100">
+    <div
+      class="p-separation-lg"
+      class="{{styleValues[i].colNumber}}"
+      style="padding-bottom: 15px;"
+      [hidden]="!col.editable"
+      *ngFor="let col of dataTable.cols; let i = index"
+    >
+        <label>{{ col.header }}{{ col.required ? '*' : '' }}</label>
+        <input
+          *ngIf="col.editType == 'input'"
+          [style]="getStyle(col.style)"
+          [style]="{'width': '100%', 'text-align': styleValues[i].textAlign, 'padding-top': '2px'}"
+          pInputText
+          [type]="col.type == 'string' ? 'text' : col.type"
+          [(ngModel)]="editRow[col.field]"
+          (change)="onFieldChange(col.field, editRow)"
+        />
+        <p-dropdown
+          *ngIf="col.editType == 'dropdown' && col.editable"
+          [options]="lovs[col.field]"
+          [(ngModel)]="editRow[col.field]"
+          [style]="{'width': '100%', 'text-align': styleValues[i].textAlign, 'padding-top': '2px'}"
+          scrollHeight="400px"
+          filter="true"
+          [appendTo]="editDialog"
+          autofocus="true"
+          [placeholder]="'Seleccione...'"
+          (onChange)="onFieldChange(col.field, editRow)"
+        ></p-dropdown>
+        <p-calendar
+          *ngIf="col.editType == 'calendar'"
+          showAnim="slideDown"
+          dateFormat="dd/mm/yy"
+          icon="fa fa-calendar"
+          [locale]="calendar"
+          dataType="string"
+          [(ngModel)]="editRow[col.field]"
+          [style]="{ width: '100%' }"
+          [appendTo]="editDialog"
+          (onClose)="onFieldChange(col.field, editRow)"
+        ></p-calendar>
+        <textarea
+          *ngIf="col.editType == 'textArea'"
+          pInputTextarea
+          [(ngModel)]="editRow[col.field]"
+          [rows]="3"
+          [cols]="60"
+          [style]="getStyle(col.style)"
+          [style]="{'width': '100%', 'text-align': styleValues[i].textAlign, 'padding-top': '2px'}"
+          (change)="onFieldChange(col.field, editRow)"
+        ></textarea>
     </div>
   </div>
+
   <p-footer>
     <div class="p-dialog-buttonpanel p-widget-content p-helper-clearfix">
       <div class="p-button-group">
