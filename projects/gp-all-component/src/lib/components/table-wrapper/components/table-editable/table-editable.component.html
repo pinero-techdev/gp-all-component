@@ -309,7 +309,14 @@
                   <p-button
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
+                    [icon]="col.icon"
                     (onClick)="getLink(rowData, col.field)"
+                    [styleClass]="
+                        rowData[col.field] == null
+                          ? 'tableEditableRowButtonDisabled'
+                          : 'tableEditableRowButtonEnabled'
+                      "
+                    [pTooltip]="col.tooltip"
                   ></p-button>
                 </ng-template>
                 <ng-template pTemplate="input" *ngIf="!col.editable">
@@ -326,7 +333,14 @@
                   <p-button
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
+                    [icon]="col.icon"
                     (onClick)="getLink(rowData, col.field)"
+                    [styleClass]="
+                        rowData[col.field] == null
+                          ? 'tableEditableRowButtonDisabled'
+                          : 'tableEditableRowButtonEnabled'
+                      "
+                    [pTooltip]="col.tooltip"
                   ></p-button>
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -343,7 +357,14 @@
                   <p-button
                     *ngIf="col.type == 'button'"
                     label="{{ col.header }}"
+                    [icon]="col.icon"
                     (onClick)="getLink(rowData, col.field)"
+                    [styleClass]="
+                        rowData[col.field] == null
+                          ? 'tableEditableRowButtonDisabled'
+                          : 'tableEditableRowButtonEnabled'
+                      "
+                    [pTooltip]="col.tooltip"
                   ></p-button>
                 </ng-template>
               </p-cellEditor>
@@ -380,7 +401,14 @@
               <p-button
                 *ngIf="col.type == 'button' && col.pipe == null"
                 label="{{ col.header }}"
+                [icon]="col.icon"
                 (onClick)="getLink(rowData, col.field)"
+                [styleClass]="
+                    rowData[col.field] == null
+                      ? 'tableEditableRowButtonDisabled'
+                      : 'tableEditableRowButtonEnabled'
+                  "
+                [pTooltip]="col.tooltip"
               ></p-button>
               <span *ngIf="col.type == 'number' && col.pipe != null">{{
                 rowData[col.field] | number: col.pipe
