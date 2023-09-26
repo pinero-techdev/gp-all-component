@@ -19,6 +19,7 @@ import { GlobalService } from '../../services/core/global.service';
 import { filter, first, takeWhile } from 'rxjs/operators';
 import { LocaleES } from '../../resources/localization/es-ES.lang';
 import { UserInfo } from '../../resources/data/user-info.model';
+import { TableEditableService } from '../../services/api/table/table-editable.service';
 
 @Component({
   selector: 'gp-topbar',
@@ -50,16 +51,20 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @Input() showMenu = true;
   @Input() logoUrl: string;
   @Input() title: string;
+  @Input() infoExtra: string;
 
   @Input() newStatusBreadcrumb: any;
   @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() openMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() sendLauncher = new EventEmitter();
 
+  backendEnvironment;
+
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private listService: TableEditableService,
   ) {}
 
   /**
@@ -116,6 +121,15 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     ];
 
     this.session = GlobalService.getSESSION();
+
+    this.listService.getApi('/gpgeneral/getEnvironment/').subscribe(
+      (response) => {
+        this.backendEnvironment = response.data;
+      },
+      (err) => {
+        console.error(err);
+      });
+
   }
 
   /**
