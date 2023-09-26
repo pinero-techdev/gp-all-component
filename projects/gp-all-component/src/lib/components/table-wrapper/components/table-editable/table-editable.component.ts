@@ -80,6 +80,8 @@ export class TableEditableComponent implements OnInit {
   lazyLoadStatus: LazyLoadEvent = null;
   filteredRows: any[];
 
+  styleValues = [];
+
   constructor(
     private confirmationService: ConfirmationService,
     private listService: TableEditableService,
@@ -258,7 +260,55 @@ export class TableEditableComponent implements OnInit {
     }
   }
 
+  extractStyles(elements) {
+    this.styleValues = [];
+
+    elements.forEach((element) => {
+
+      try {
+          const styleObjet = JSON.parse(element.style);
+
+          // Casos con text-align
+          const textAlign = styleObjet['text-align'] || 'left';
+
+          // Casos con width
+          let widthAux = styleObjet['width'] || '200px';
+          widthAux = widthAux.slice(0, -2);
+          let width = parseInt(widthAux, 10);
+
+          const colNumber = this.calculateColNumber(width);
+
+          this.styleValues.push({ textAlign, width, colNumber });
+
+      } catch (error) {
+          console.error('Error al analizar el estilo:', error);
+      }
+    });
+    return this.styleValues;
+  }
+
+  calculateColNumber(width: number): string {
+    let colNumber = 'col-6';
+
+    if ( width >= 0 && width <= 90 ) {
+      colNumber = 'col-2';
+    }
+    if ( width >= 91 && width <= 180 ) {
+      colNumber = 'col-4';
+    }
+    if ( width >= 181 && width <= 270 ) {
+      colNumber = 'col-6';
+    }
+    if ( width > 271 ) {
+      colNumber = 'col-12';
+    }
+
+    return colNumber;
+  }
+
   onEditRow() {
+    this.extractStyles(this.dataTable.cols);
+
     if (this.changedDetected) {
       this.messageService.add({
         severity: 'error',
