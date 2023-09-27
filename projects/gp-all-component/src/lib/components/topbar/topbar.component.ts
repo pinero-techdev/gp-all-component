@@ -122,7 +122,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
     this.session = GlobalService.getSESSION();
 
-    this.listService.getApi('/gpgeneral/getEnvironment/').subscribe(
+    this.listService.getApi('/gpgeneral/getEnvironment').subscribe(
       (response) => {
         this.backendEnvironment = response.data;
       },
