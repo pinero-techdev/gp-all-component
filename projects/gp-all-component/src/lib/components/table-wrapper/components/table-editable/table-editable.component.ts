@@ -309,19 +309,21 @@ export class TableEditableComponent implements OnInit {
   onEditRow() {
     this.extractStyles(this.dataTable.cols);
 
-    if (this.changedDetected) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Existen cambios sin guardar. Debe guardarlos o descartarlos refrescando la tabla',
-      });
-    } else if (this.tc.selection == null || this.tc.selection.length == 0) {
+    // if (this.changedDetected) {
+    //   this.messageService.add({
+    //     severity: 'error',
+    //     summary: 'Error',
+    //     detail: 'Existen cambios sin guardar. Debe guardarlos o descartarlos refrescando la tabla',
+    //   });
+    // } else if (this.tc.selection == null || this.tc.selection.length == 0) {
+    if (this.tc.selection == null || this.tc.selection.length == 0) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
         detail: 'Debe seleccionar un registro primero',
       });
-    } else {
+    }
+    else {
       this.editRow = this.tc.selection[0];
       console.log('editRow: ' + JSON.stringify(this.editRow));
       this.displayEditDialog = true;
