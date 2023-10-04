@@ -309,19 +309,21 @@ export class TableEditableComponent implements OnInit {
   onEditRow() {
     this.extractStyles(this.dataTable.cols);
 
-    if (this.changedDetected) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Existen cambios sin guardar. Debe guardarlos o descartarlos refrescando la tabla',
-      });
-    } else if (this.tc.selection == null || this.tc.selection.length == 0) {
+    // if (this.changedDetected) {
+    //   this.messageService.add({
+    //     severity: 'error',
+    //     summary: 'Error',
+    //     detail: 'Existen cambios sin guardar. Debe guardarlos o descartarlos refrescando la tabla',
+    //   });
+    // } else if (this.tc.selection == null || this.tc.selection.length == 0) {
+    if (this.tc.selection == null || this.tc.selection.length == 0) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
         detail: 'Debe seleccionar un registro primero',
       });
-    } else {
+    }
+    else {
       this.editRow = this.tc.selection[0];
       console.log('editRow: ' + JSON.stringify(this.editRow));
       this.displayEditDialog = true;
@@ -587,7 +589,7 @@ export class TableEditableComponent implements OnInit {
         break;
       }
       default: {
-        result = 'startsWith';
+        result = 'contains';
         break;
       }
     }
@@ -601,27 +603,30 @@ export class TableEditableComponent implements OnInit {
       && Object.keys(this.lazyLoadStatus.filters).length) {
       for (const f of Object.keys(this.lazyLoadStatus.filters)) {
         const colData = this.dataTable.cols.find((c) => c.field === f);
-        const val: any = this.tc.filters[f];// .value;
-        switch (colData.filterType) {
-          case 'includes':
-            this.filteredRows = this.filteredRows.filter((r) => (r[f] + '').includes(val.value));
-            break;
-          case 'startsWith':
-            this.filteredRows = this.filteredRows.filter((r) =>
-              (r[f] + '').startsWith(val.value)
-            );
-            break;
-          case 'endsWith':
-            this.filteredRows = this.filteredRows.filter((r) => (r[f] + '').endsWith(val.value));
-            break;
-          case 'equals':
-            this.filteredRows = this.filteredRows.filter((r) => r[f] + '' === val.value);
-            break;
-          default:
-            this.filteredRows = this.filteredRows.filter((r) =>
-              (r[f] + '').startsWith(val.value)
-            );
-            break;
+        const val: any = this.tc?.filters[f];// .value;
+        if (val) {
+          switch (colData.filterType) {
+            case 'includes':
+              this.filteredRows = this.filteredRows.filter((r) => (r[f] + '').toLowerCase().includes(val.value.toLowerCase()));
+              break;
+            case 'startsWith':
+              this.filteredRows = this.filteredRows.filter((r) =>
+                (r[f] + '').toLowerCase().startsWith(val.value.toLowerCase())
+              );
+              break;
+            case 'endsWith':
+              this.filteredRows = this.filteredRows.filter((r) => (r[f] + '').toLowerCase().endsWith(val.value.toLowerCase()));
+              break;
+            case 'equals':
+              this.filteredRows = this.filteredRows.filter((r) => r[f] + '' === val.value);
+              break;
+            default:
+              // this.filteredRows = this.filteredRows.filter((r) =>
+              //   (r[f] + '').startsWith(val.value)
+              // );
+              this.filteredRows = this.filteredRows.filter((r) => (r[f] + '').toLowerCase().includes(val.value.toLowerCase()));
+              break;
+          }
         }
       }
     }

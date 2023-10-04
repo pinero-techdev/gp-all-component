@@ -211,6 +211,7 @@
               <input
                 *ngIf="col.filter == 'input'"
                 pInputText
+                class="full-width"
                 type="text"
                 (input)="tc.filter($event.target.value, col.field, getColFilterType(col))"
               />
@@ -218,7 +219,7 @@
                 *ngIf="col.filter == 'dropdown'"
                 autoWidth="false"
                 [options]="filterOptions[col.field]"
-                [style]="{ width: '100%' }"
+                class="full-width"
                 [panelStyle]="{ width: 'auto' }"
                 [(ngModel)]="filterDefaultValues[col.field]"
                 (onChange)="tc.filter($event.value, col.field, getColFilterType(col))"
@@ -645,7 +646,7 @@
           [disabled]="checkRequired('edit')"
           icon="fa fa-check"
           (click)="saveEditRow()"
-          label="Guardar"
+          label="Editar"
         ></button>
         <button
           type="button"
