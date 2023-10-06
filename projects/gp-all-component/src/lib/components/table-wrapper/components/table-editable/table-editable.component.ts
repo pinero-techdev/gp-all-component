@@ -216,7 +216,7 @@ export class TableEditableComponent implements OnInit {
           options.push({label: lab, value: val});
         }
 
-        options.unshift({label: '', value: null});
+        options.unshift({label: ' ', value: null});
 
         this.filterOptions[c.field] = options;
       }
