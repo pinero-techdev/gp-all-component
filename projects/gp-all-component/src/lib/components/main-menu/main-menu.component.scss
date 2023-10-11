@@ -51,8 +51,8 @@
       width: 8vw;
 
       @media (max-width: map-get($breakpoints, 'md')) {
-        height: 12vw;
-        width: 12vw;
+        height: 8vw;
+        width: 8vw;
       }
 
       &-assessment {
