@@ -54,4 +54,13 @@
       }
     }
   }
+
+  .ui-datepicker-buttonbar > div.ui-g div:first-child {
+    display: none;
+  }
+
+  .ui-datepicker-buttonbar > div.ui-g div:last-child {
+    margin-right: 0;
+    margin-left: auto;
+  }
 }

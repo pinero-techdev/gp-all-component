@@ -19,6 +19,19 @@ export class FormTimeFieldComponent extends GpFormFieldControl {
   @Input() formField: GpFormField;
 
   /**
+   * Sets clear button text
+   */
+  es = {
+    firstDayOfWeek: 0,
+    dayNames: [],
+    dayNamesShort: [],
+    dayNamesMin: [],
+    monthNames: [],
+    today: '',
+    clear: 'Borrar',
+  };
+
+  /**
    * Returns current field metadata
    */
   getFieldMetadata(): DataTableMetaDataField {
