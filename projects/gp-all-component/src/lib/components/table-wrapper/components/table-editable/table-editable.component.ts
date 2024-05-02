@@ -531,7 +531,7 @@ export class TableEditableComponent implements OnInit {
     } else if (formatoYYYYMMDD.test(data)) {
         return data.includes('-') ? "YYYY-MM-DD" : "YYYY/MM/DD";
     } else {
-        return "Formato de fecha desconocido";
+        return "DD-MM-YYYY";
     }
   }
 
