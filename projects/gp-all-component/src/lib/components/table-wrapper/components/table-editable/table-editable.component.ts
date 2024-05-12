@@ -519,7 +519,7 @@ export class TableEditableComponent implements OnInit {
         colData.type !== null &&
         colData.type === 'date'
       ) {
-        const dateFormat = colData.pipe === null ? 'DD/MM/YYYY' : colData.pipe;
+        const dateFormat = this.calculateFormatDate(value1)
         const date1 = moment(value1, dateFormat);
         const date2 = moment(value2, dateFormat);
 
@@ -537,6 +537,21 @@ export class TableEditableComponent implements OnInit {
       }
       return sortOrder * result;
     });
+  }
+
+  calculateFormatDate(data) {
+    // Expresiones regulares para comprobar el formato de fecha
+    const formatoDDMMYYYY = /^\d{2}[-/]\d{2}[-/]\d{4}$/;
+    const formatoYYYYMMDD = /^\d{4}[-/]\d{2}[-/]\d{2}$/;
+
+    // Comprobamos si la fecha coincide con alguno de los formatos
+    if (formatoDDMMYYYY.test(data)) {
+        return data.includes('-') ? "DD-MM-YYYY" : "DD/MM/YYYY";
+    } else if (formatoYYYYMMDD.test(data)) {
+        return data.includes('-') ? "YYYY-MM-DD" : "YYYY/MM/DD";
+    } else {
+        return "DD-MM-YYYY";
+    }
   }
 
   loadDataOnScroll(event: LazyLoadEvent) {
