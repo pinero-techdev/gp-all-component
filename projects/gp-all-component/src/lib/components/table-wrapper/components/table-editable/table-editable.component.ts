@@ -23,6 +23,8 @@ export class TableEditableComponent implements OnInit {
   @Input() dataTable: TableEditable;
   @Input() customButtons: DataTableEditableCustomButton[] = [];
   @Input() showControlButtons = true;
+  @Input() maxWidthEditCustom;
+  @Input() maxWidthCreateCustom;
 
   @Output() onRowSelectEvent = new EventEmitter<any>();
   @Output() onRowSelectMultipleEvent = new EventEmitter<any>();
@@ -91,6 +93,7 @@ export class TableEditableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initConfigWidthModal();
     this.working = true;
     this.loading = true;
     this.dataTableRowsOriginal = JSON.parse(JSON.stringify(this.dataTable.rows));
@@ -109,6 +112,22 @@ export class TableEditableComponent implements OnInit {
     this.scrollHeightString = this.scrollHeight + 'px';
     this.onAfterInitEvent.emit();
     this.loading = false;
+  }
+
+  initConfigWidthModal() {
+    if(!this.maxWidthEditCustom) {
+      this.maxWidthEditCustom = '600px';
+    }
+    else {
+      this.maxWidthEditCustom = this.maxWidthEditCustom + 'px';
+    }
+
+    if(!this.maxWidthCreateCustom) {
+      this.maxWidthCreateCustom = '600px';
+    }
+    else {
+      this.maxWidthCreateCustom = this.maxWidthCreateCustom + 'px';
+    }
   }
 
   getStyleCols(col) {
