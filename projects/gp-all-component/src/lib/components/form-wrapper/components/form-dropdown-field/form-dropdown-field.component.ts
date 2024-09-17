@@ -31,11 +31,11 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
     super();
   }
 
-  set currentValueDropDown(value: string) {
+  set currentValueDropDown(value: any) {
     this.onChange(value);
   }
 
-  get currentValueDropDown(): string {
+  get currentValueDropDown(): any {
     return isNullOrUndefined(this.currentValue)
       ? this.formField.fieldMetadata.displayInfo.defaultValue
       : this.currentValue;
@@ -124,7 +124,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
   }
 
   /* Event triggered when the dropdown changes its value */
-  onChange(value: string) {
+  onChange(value: any) {
     if (this.formField && this.formField.fieldMetadata) {
       this.currentValue = value;
       const infoCampoModificado = new InfoCampoModificado(
