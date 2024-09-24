@@ -3,6 +3,9 @@
 You can find more information in the README located in projects/gp-all-component folder
 
 #### Últimos cambios
+##### Version 1.5.1
+    . Table filter: filtro tipo contains en vez de startsWith
+    . Field Dropdown: fuerza seteo a null cuando no hay valor seleccionado
 ##### Version 1.4.9
     . Table editable: class type para columnas tipo button activado / desactivado
 ##### Version 1.4.0

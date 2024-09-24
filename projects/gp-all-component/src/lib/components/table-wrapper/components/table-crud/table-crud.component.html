@@ -53,7 +53,7 @@
                 pInputText
                 type="text"
                 class="full-width"
-                (input)="tc.filter($event.target.value, col.field, 'startsWith')"
+                (input)="tc.filter($event.target.value, col.field, 'contains')"
               />
             </th>
           </tr>
