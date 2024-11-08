@@ -4,7 +4,12 @@
 .full-width {
   width: 100%;
 }
-
+.background-color {
+  background-color: $topbarBg;
+}
+.background-color-test {
+  background-color: $topbarBgTest;
+}
 :host {
   height: $topbarHeight;
 }
@@ -21,7 +26,6 @@
     z-index: 100;
     width: 100%;
     height: $topbarHeight;
-    background-color: $topbarBg;
     padding: 0;
     font-family: $mainFont;
 
@@ -65,7 +69,6 @@
       display: flex;
       align-items: center;
       padding-left: 15px;
-      background: $topbarBg;
       align-self: center;
 
       .user-icon-wrapper {

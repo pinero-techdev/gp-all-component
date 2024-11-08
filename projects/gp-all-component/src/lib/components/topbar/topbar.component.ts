@@ -50,6 +50,10 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @Input() showMenu = true;
   @Input() logoUrl: string;
   @Input() title: string;
+  /**
+   * Run environment
+   */
+  @Input() environment: string;
 
   @Input() newStatusBreadcrumb: any;
   @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
@@ -86,6 +90,18 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   get version() {
     return GlobalService.getVERSION();
+  }
+  get isEnvironmentTest() {
+    return this.environment === 'test' || this.environment === 'development';
+  }
+  get environmentLabel() {
+    if (this.environment === 'test') {
+      return 'TEST';
+    } else if (this.environment === 'development') {
+      return 'PREPROD';
+    } else {
+      return '';
+    }
   }
 
   ngOnDestroy() {

@@ -1,5 +1,11 @@
 <div class="p-grid">
-  <div class="topbar p-col-12">
+  <div
+    class="topbar p-col-12"
+    [ngClass]="{
+      'background-color-test': isEnvironmentTest,
+      'background-color': !isEnvironmentTest
+    }"
+  >
     <div *ngIf="showMenu && !isHome" class="topbar-action" (click)="toggleIconUserMenu()">
       <i *ngIf="!isOpen || !logged" class="pi pi-th-large"></i>
       <i *ngIf="isOpen && logged" class="pi pi-times"></i>
@@ -23,8 +29,19 @@
             </span>
           </div>
         </div>
-        <div *ngIf="logged" class="topbar-user-actions" #target>
+        <div
+          *ngIf="logged"
+          class="topbar-user-actions"
+          [ngClass]="{
+            'background-color-test': isEnvironmentTest,
+            'background-color': !isEnvironmentTest
+          }"
+          #target
+        >
           <span class="topbar-version">v{{ version }}</span>
+          <span class="topbar-user-name fadeInDown animated" *ngIf="isEnvironmentTest">{{
+            environmentLabel
+          }}</span>
           <span class="topbar-user-name fadeInDown animated" [innerText]="fullName"></span>
           <a class="user-icon-wrapper" (click)="toggleUserMenu()">
             <i class="topbar-user-icon pi pi-user"></i>
