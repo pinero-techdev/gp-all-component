@@ -6,7 +6,15 @@
       'background-color': !isEnvironmentTest
     }"
   >
-    <div *ngIf="showMenu && !isHome" class="topbar-action" (click)="toggleIconUserMenu()">
+    <div
+      *ngIf="showMenu && !isHome"
+      class="topbar-action"
+      [ngClass]="{
+        'background-color-test': isEnvironmentTest,
+        'background-color': !isEnvironmentTest
+      }"
+      (click)="toggleIconUserMenu()"
+    >
       <i *ngIf="!isOpen || !logged" class="pi pi-th-large"></i>
       <i *ngIf="isOpen && logged" class="pi pi-times"></i>
     </div>
