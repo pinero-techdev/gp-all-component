@@ -2,21 +2,27 @@
   <div
     class="topbar p-col-12"
     [ngClass]="{
-      'background-color-test': isEnvironmentTest,
-      'background-color': !isEnvironmentTest
+      'topbar-test': isEnvironmentTest,
+      topbar: !isEnvironmentTest
     }"
   >
-    <div
-      *ngIf="showMenu && !isHome"
-      class="topbar-action"
-      [ngClass]="{
-        'background-color-test': isEnvironmentTest,
-        'background-color': !isEnvironmentTest
-      }"
-      (click)="toggleIconUserMenu()"
-    >
-      <i *ngIf="!isOpen || !logged" class="pi pi-th-large"></i>
-      <i *ngIf="isOpen && logged" class="pi pi-times"></i>
+    <div *ngIf="showMenu && !isHome" class="topbar-action" (click)="toggleIconUserMenu()">
+      <i
+        *ngIf="!isOpen || !logged"
+        class="pi pi-th-large"
+        [ngClass]="{
+          'background-color-test': isEnvironmentTest,
+          'background-color': !isEnvironmentTest
+        }"
+      ></i>
+      <i
+        *ngIf="isOpen && logged"
+        class="pi pi-times"
+        [ngClass]="{
+          'background-color-test': isEnvironmentTest,
+          'background-color': !isEnvironmentTest
+        }"
+      ></i>
     </div>
     <div class="topbar-info full-width">
       <div class="topbar-container">

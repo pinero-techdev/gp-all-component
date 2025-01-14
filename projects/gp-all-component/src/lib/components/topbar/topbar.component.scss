@@ -4,14 +4,14 @@
 .full-width {
   width: 100%;
 }
+:host {
+  height: $topbarHeight;
+}
 .background-color {
   background-color: $topbarBg;
 }
 .background-color-test {
   background-color: $topbarBgTest;
-}
-:host {
-  height: $topbarHeight;
 }
 
 ::ng-deep {
@@ -26,6 +26,7 @@
     z-index: 100;
     width: 100%;
     height: $topbarHeight;
+    background-color: $topbarBg;
     padding: 0;
     font-family: $mainFont;
 
@@ -38,7 +39,6 @@
       .pi {
         @include absolute-centered(all);
         color: $textInvertedColor;
-        background-color: $topbarActionBg;
         font-size: 38px;
         text-align: center;
       }
@@ -68,6 +68,215 @@
       display: flex;
       align-items: center;
       padding-left: 15px;
+      background-color: $topbarBg;
+      align-self: center;
+
+      .user-icon-wrapper {
+        &:hover {
+          background: transparent;
+        }
+      }
+    }
+
+    &-user-name {
+      color: $whiteColor;
+      padding-right: 10px;
+
+      @media (min-width: map-get($breakpoints, 'md')) {
+        font-size: 18px;
+        font-weight: bold;
+        padding: 0 1rem;
+        display: block;
+      }
+    }
+
+    &-user-icon {
+      border: 2px solid $whiteColor;
+      border-radius: 50%;
+      padding: 2px;
+
+      &.pi {
+        color: $whiteColor;
+        font-size: 38px;
+      }
+    }
+
+    &-settings {
+      position: fixed;
+      right: 0;
+
+      .pi.pi-fw {
+        font-size: 18px;
+        margin-right: 1rem;
+        color: $textMutedColor;
+
+        &:before {
+          content: '\e971';
+        }
+      }
+    }
+
+    &-settings-modal {
+      &.ui-menu {
+        box-shadow: 0px 10px 20px rgba($topbarSettingModalShadow, 0.17);
+        border-radius: 4px;
+        border: 1px solid $borderColor;
+        background-color: $whiteColor;
+        position: absolute;
+        right: 1rem;
+        bottom: -2.5rem;
+        padding: 0;
+        width: 8.5rem;
+
+        .ui-menuitem {
+          padding: 0;
+
+          &-text {
+            flex-grow: 2;
+            font-size: 16px;
+            line-height: 1.4;
+            color: $textColor;
+            font-weight: bold;
+          }
+
+          &-link {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+
+            &:active {
+              color: $textColor;
+            }
+          }
+
+          &-icon.pi {
+            flex-grow: -1;
+            font-size: 24px;
+            margin-right: 1rem;
+            color: $textMutedColor;
+          }
+        }
+      }
+    }
+
+    &-toolbar {
+      background: none;
+      font-size: 16px;
+      color: rgba($textInvertedColor, 0.5);
+      width: auto;
+      margin-left: calc(135px + 4.5vw);
+      max-width: 60%;
+      overflow: hidden;
+
+      @media (max-width: map-get($breakpoints, 'md')) {
+        max-width: 70%;
+      }
+
+      @media (max-width: map-get($breakpoints, 'sm')) {
+        display: none;
+      }
+
+      .breadcrumb-wrapper,
+      .breadcrumb-wrapper span {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &-toolbar-active {
+      color: $textInvertedColor;
+    }
+
+    &-toolbar-icon {
+      color: $whiteColor;
+      font-weight: normal;
+      padding: 0 0.5rem;
+      font-size: 10px;
+    }
+
+    &-toolbar-action {
+      color: $whiteColor;
+      max-width: 10vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      vertical-align: middle;
+
+      &:hover {
+        color: $whiteColor;
+      }
+
+      @media (max-width: map-get($breakpoints, 'md')) {
+        max-width: 7vw;
+      }
+    }
+
+    &-toolbar-action,
+    &-toolbar-main {
+      cursor: pointer;
+    }
+
+    &-toolbar-main {
+      a {
+        color: $textInvertedMutedColor;
+
+        &:hover {
+          color: $textInvertedMutedColor;
+        }
+      }
+    }
+  }
+  .topbar-test {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    width: 100%;
+    z-index: 100;
+    width: 100%;
+    height: $topbarHeight;
+    background-color: $topbarBgTest;
+    padding: 0;
+    font-family: $mainFont;
+
+    &-action {
+      position: relative;
+      width: 77px;
+      height: 100%;
+      cursor: pointer;
+
+      .pi {
+        @include absolute-centered(all);
+        color: $textInvertedColor;
+        font-size: 38px;
+        text-align: center;
+      }
+    }
+
+    &-info {
+      padding: 0 1.2rem;
+      position: relative;
+    }
+
+    &-container {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: $textInvertedColor;
+      height: 100%;
+      background: url('./../../resources/images/GP_LogoSecundario.png') center left no-repeat;
+      background-size: 185px auto;
+
+      @media (max-width: map-get($breakpoints, 'sm')) {
+        justify-content: flex-end;
+      }
+    }
+
+    &-user-actions {
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+      background-color: $topbarBgTest;
       align-self: center;
 
       .user-icon-wrapper {
