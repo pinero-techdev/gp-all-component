@@ -36,7 +36,7 @@
         </div>
       </ng-container>
     </div>
-    <div class="menu-overview">
+    <div *ngIf="showOverView" class="menu-overview">
       <div class="center menu-action" (click)="toggleOverview()">
         <i *ngIf="isExpanded" class="pi pi-chevron-right"></i>
         <i *ngIf="!isExpanded" class="pi pi-chevron-left"></i>

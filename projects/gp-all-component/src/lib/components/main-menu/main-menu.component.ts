@@ -103,6 +103,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    */
   @Output() sendBreadcrumb = new EventEmitter();
 
+  /** VARS */
+  showOverView: boolean;
+
   constructor(
     private router: Router,
     private menuProviderService: MainMenuService,
@@ -113,6 +116,10 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Angular OnInit lifecycle hook
    */
   ngOnInit() {
+    this.showOverView = true;
+
+    console.log('*** soy lib local ***');
+
     const sessionId = GlobalService.getSESSION_ID();
 
     if (sessionId) {
