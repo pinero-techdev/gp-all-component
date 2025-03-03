@@ -60,6 +60,9 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @Output() openMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() sendLauncher = new EventEmitter();
 
+  // custom-styles
+  @Input() customStyles: any;
+
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -109,6 +112,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('*** lib : customStyles topbar ***', this.customStyles);
     this.breadCrumb = [];
     this.setIsHome(this.router.url);
     this.router.events

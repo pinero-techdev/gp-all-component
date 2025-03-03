@@ -106,6 +106,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   /** VARS */
   showOverView: boolean;
 
+  // custom-styles
+  @Input() customStyles: any;
+
   constructor(
     private router: Router,
     private menuProviderService: MainMenuService,
@@ -116,7 +119,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Angular OnInit lifecycle hook
    */
   ngOnInit() {
-    console.log('*** soy lib local ***');
+    console.log('*** lib : customStyles main-menu ***', this.customStyles);
 
     this.showOverView = false;
 
