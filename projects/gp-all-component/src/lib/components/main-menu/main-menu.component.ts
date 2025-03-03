@@ -116,9 +116,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Angular OnInit lifecycle hook
    */
   ngOnInit() {
-    this.showOverView = true;
-
     console.log('*** soy lib local ***');
+
+    this.showOverView = false;
 
     const sessionId = GlobalService.getSESSION_ID();
 
@@ -198,8 +198,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     } else if (menuChange.parentList) {
       this.getActionGoBack(menuChange.parentList, menuChange.text);
     }
-    this.getOverview();
-    this.changeDetector.detectChanges();
   }
 
   /**
@@ -216,7 +214,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
         menu: submenus,
         isActive: true,
       });
-      this.changeDetector.detectChanges();
+      this.getOverview();
     }
   }
 
@@ -226,8 +224,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   getOverview(): void {
     const item = this.menu.filter((menu) => menu.overview);
 
-    if (item.length > 0) {
+    if (item.length > 0 && item[0].overview) {
       this.overview = item[0].overview;
+      this.showOverView = true;
+    } else {
+      this.showOverView = false;
     }
     this.changeDetector.detectChanges();
   }
@@ -244,6 +245,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
       parentList,
       isActive: false,
     });
+    this.getOverview();
   }
 
   /**
