@@ -63,6 +63,8 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   // custom-styles
   @Input() customStyles: any;
 
+  customStylesBol = false;
+
   constructor(
     private router: Router,
     private loginService: LoginService,
@@ -141,16 +143,15 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   setCustomStyles() {
     console.log('*** lib : customStyles topbar ***', this.customStyles);
 
-    if (this.customStyles && this.customStyles.logo && this.customStyles.parent === 'rsuite') {
+    if (this.customStyles) {
       document.documentElement.style.setProperty(
         '--logo-custom',
         'url("' + this.customStyles.logo + '")'
       );
+      document.documentElement.style.setProperty('--header-color', this.customStyles.headerColor);
+      this.customStylesBol = true;
     } else {
-      document.documentElement.style.setProperty(
-        '--logo-custom',
-        'url("/resources/images/GP_LogoSecundario.png")'
-      );
+      this.customStylesBol = false;
     }
   }
 

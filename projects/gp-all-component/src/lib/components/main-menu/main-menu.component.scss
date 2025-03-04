@@ -1,6 +1,22 @@
 @import 'global/variables';
 @import 'global/mixins';
 
+//customStyles
+::ng-deep {
+  .logo-default {
+    background: url('./../../resources/images/GP_LogoSecundario.png') center left no-repeat;
+  }
+  .logo-custom {
+    background: var(--logo-custom) center left no-repeat;
+  }
+  .header-default {
+    background-color: $topbarBg;
+  }
+  .header-custom {
+    background-color: var(--header-color) !important;
+  }
+}
+
 ::ng-deep {
   .menu {
     background: radial-gradient(

@@ -13,6 +13,9 @@
 .background-color-test {
   background-color: $topbarBgTest;
 }
+.header-custom {
+  background-color: var(--header-color) !important;
+}
 
 ::ng-deep {
   .p-grid {
@@ -52,15 +55,23 @@
     &-container {
       position: relative;
       display: flex;
-      justify-content: space-between;
       align-items: center;
       color: $textInvertedColor;
       height: 100%;
-      background: var(--logo-custom) center left no-repeat;
-      background-size: 185px auto;
 
       @media (max-width: map-get($breakpoints, 'sm')) {
         justify-content: flex-end;
+      }
+
+      &.logo-default {
+        background: url('./../../resources/images/GP_LogoSecundario.png') center left no-repeat;
+        background-size: 185px auto;
+        justify-content: space-between;
+      }
+      &.logo-custom {
+        background: var(--logo-custom) center left no-repeat;
+        background-size: 185px auto;
+        justify-content: space-between;
       }
     }
 

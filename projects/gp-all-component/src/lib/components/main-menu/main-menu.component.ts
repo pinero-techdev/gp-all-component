@@ -109,6 +109,8 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   // custom-styles
   @Input() customStyles: any;
 
+  customStylesBol = false;
+
   constructor(
     private router: Router,
     private menuProviderService: MainMenuService,
@@ -138,6 +140,21 @@ export class MainMenuComponent implements OnInit, OnDestroy {
           this.reset();
         }
       });
+    }
+  }
+
+  setCustomStyles() {
+    console.log('*** lib : customStyles topbar ***', this.customStyles);
+
+    if (this.customStyles) {
+      document.documentElement.style.setProperty(
+        '--logo-custom',
+        'url("' + this.customStyles.logo + '")'
+      );
+      document.documentElement.style.setProperty('--header-color', this.customStyles.headerColor);
+      this.customStylesBol = true;
+    } else {
+      this.customStylesBol = false;
     }
   }
 

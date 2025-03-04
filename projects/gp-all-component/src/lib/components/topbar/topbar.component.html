@@ -3,7 +3,8 @@
     class="topbar p-col-12"
     [ngClass]="{
       'topbar-test': isEnvironmentTest,
-      topbar: !isEnvironmentTest
+      topbar: !isEnvironmentTest,
+      'header-custom': customStylesBol
     }"
   >
     <div *ngIf="showMenu && !isHome" class="topbar-action" (click)="toggleIconUserMenu()">
@@ -11,8 +12,9 @@
         *ngIf="!isOpen || !logged"
         class="pi pi-th-large"
         [ngClass]="{
-          'background-color-test': isEnvironmentTest,
-          'background-color': !isEnvironmentTest
+          'header-custom': customStylesBol,
+          'background-color-test': !customStylesBol && isEnvironmentTest,
+          'background-color': !customStylesBol && !isEnvironmentTest
         }"
       ></i>
       <i
@@ -20,12 +22,19 @@
         class="pi pi-times"
         [ngClass]="{
           'background-color-test': isEnvironmentTest,
-          'background-color': !isEnvironmentTest
+          'background-color': !isEnvironmentTest,
+          'header-custom': customStylesBol
         }"
       ></i>
     </div>
     <div class="topbar-info full-width">
-      <div class="topbar-container">
+      <div
+        class="topbar-container"
+        [ngClass]="{
+          'logo-default': !customStylesBol,
+          'logo-custom': customStylesBol
+        }"
+      >
         <div class="topbar-toolbar">
           <div class="breadcrumb-wrapper" *ngIf="breadCrumb.length > 0">
             <span class="topbar-toolbar-main">
@@ -48,7 +57,8 @@
           class="topbar-user-actions"
           [ngClass]="{
             'background-color-test': isEnvironmentTest,
-            'background-color': !isEnvironmentTest
+            'background-color': !isEnvironmentTest,
+            'header-custom': customStylesBol
           }"
           #target
         >
