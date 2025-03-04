@@ -1,31 +1,18 @@
 @import 'global/variables';
 @import 'global/mixins';
 
-//customStyles
-::ng-deep {
-  .logo-default {
-    background: url('./../../resources/images/GP_LogoSecundario.png') center left no-repeat;
-  }
-  .logo-custom {
-    background: var(--logo-custom) center left no-repeat;
-  }
-  .header-default {
-    background-color: $topbarBg;
-  }
-  .header-custom {
-    background-color: var(--header-color) !important;
-  }
+.default-background {
+  background-image: url('./../../resources/images/bg-launcher.jpg');
+}
+
+.custom-background {
+  background-image: var(--background-custom);
 }
 
 ::ng-deep {
   .menu {
-    background: radial-gradient(
-        ellipse at center,
-        rgba($blackColor, 0) 0%,
-        rgba($blackColor, 0.2) 100%
-      ),
+    background: radial-gradient(ellipse at center, rgba($blackColor, 0) 0%, rgba($blackColor, 0.2) 100%),
       linear-gradient(to bottom, $menuGradient1 0%, $menuGradient2 100%);
-    background-image: url('./../../resources/images/bg-launcher.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -157,6 +144,10 @@
         background-image: url('./../../resources/images/launcher/ico-golf.svg');
       }
 
+      &-golf-rsuite {
+        background-image: url('./../../resources/images/launcher/ico-golf-rsuite.svg');
+      }
+
       &-depositos {
         background-image: url('./../../resources/images/launcher/ico-depositos.svg');
       }
@@ -180,6 +171,9 @@
       }
       &-notificaciones {
         background-image: url('./../../resources/images/launcher/ico-notificaciones.png');
+      }
+      &-notificaciones-rsuite {
+        background-image: url('./../../resources/images/launcher/ico-notificaciones-rsuite.svg');
       }
       &-botones {
         background-image: url('./../../resources/images/launcher/ico-botones.png');

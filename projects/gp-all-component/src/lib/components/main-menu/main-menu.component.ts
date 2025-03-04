@@ -121,7 +121,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Angular OnInit lifecycle hook
    */
   ngOnInit() {
-    console.log('*** lib : customStyles main-menu ***', this.customStyles);
+    this.setCustomStyles();
 
     this.showOverView = false;
 
@@ -145,13 +145,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
   setCustomStyles() {
     console.log('*** lib : customStyles topbar ***', this.customStyles);
-
     if (this.customStyles) {
       document.documentElement.style.setProperty(
-        '--logo-custom',
-        'url("' + this.customStyles.logo + '")'
+        '--background-custom',
+        'url("' + this.customStyles.backgroundImg + '")'
       );
-      document.documentElement.style.setProperty('--header-color', this.customStyles.headerColor);
       this.customStylesBol = true;
     } else {
       this.customStylesBol = false;
@@ -169,6 +167,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Sets the menu
    */
   setMainMenu(value: any): void {
+    console.log('*** menu ***', value);
     this.menu = value.map((item) => this.createMenuItem(item));
     this.viewLoaded = true;
   }

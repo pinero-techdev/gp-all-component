@@ -1,4 +1,12 @@
-<div *ngIf="isOpen && viewLoaded" class="menu" [ngClass]="{ 'menu-expanded': isExpanded }">
+<div
+  *ngIf="isOpen && viewLoaded"
+  class="menu"
+  [ngClass]="{
+    'menu-expanded': isExpanded,
+    'default-background': !customStylesBol,
+    'custom-background': customStylesBol
+  }"
+>
   <div class="menu-card full-width">
     <div class="p-grid menu-panel">
       <ng-container *ngFor="let item of menu">
@@ -27,11 +35,9 @@
             <div class="{{ item.icon ? 'menu-icon menu-icon-' + item.icon : 'menu-icon' }}">
               <div *ngIf="item.parentList && item.parentList.length > 0" class="menu-back"></div>
             </div>
-            <span
-              class="menu-label"
-              [ngClass]="item.parentList && item.parentList.length > 0 ? 'back-label' : ''"
-              >{{ item.text }}</span
-            >
+            <span class="menu-label" [ngClass]="item.parentList && item.parentList.length > 0 ? 'back-label' : ''">{{
+              item.text
+            }}</span>
           </a>
         </div>
       </ng-container>
