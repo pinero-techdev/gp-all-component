@@ -112,7 +112,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('*** lib : customStyles topbar ***', this.customStyles);
+    this.setCustomStyles();
     this.breadCrumb = [];
     this.setIsHome(this.router.url);
     this.router.events
@@ -136,6 +136,22 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     ];
 
     this.session = GlobalService.getSESSION();
+  }
+
+  setCustomStyles() {
+    console.log('*** lib : customStyles topbar ***', this.customStyles);
+
+    if (this.customStyles && this.customStyles.logo && this.customStyles.parent === 'rsuite') {
+      document.documentElement.style.setProperty(
+        '--logo-custom',
+        'url("' + this.customStyles.logo + '")'
+      );
+    } else {
+      document.documentElement.style.setProperty(
+        '--logo-custom',
+        'url("/resources/images/GP_LogoSecundario.png")'
+      );
+    }
   }
 
   /**
