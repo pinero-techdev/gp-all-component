@@ -1,6 +1,13 @@
 @import 'global/variables';
 @import 'global/mixins';
 
+.background-custom {
+  background-image: var(--background-custom);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
 .login-body {
   background-image: url('./../../resources/images/bg-launcher.jpg');
   background-repeat: no-repeat;

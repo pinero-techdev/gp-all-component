@@ -144,7 +144,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   }
 
   setCustomStyles() {
-    console.log('*** lib : customStyles topbar ***', this.customStyles);
     if (this.customStyles) {
       document.documentElement.style.setProperty(
         '--background-custom',

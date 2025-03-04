@@ -25,6 +25,15 @@ export class GlobalSingletonService {
   private applicationTitleValue: string;
   private rolesValue: RolInfo[];
   private languageValue: string;
+  private backgroundImgValue: string;
+
+  get backgroundImg(): string {
+    return this.backgroundImgValue;
+  }
+
+  set backgroundImg(value: string) {
+    this.backgroundImgValue = value;
+  }
 
   get baseUrl(): string {
     return this.baseUrlValue;

@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   /** Unsubscribe the subscriptions before the component is destroyed */
   private isDestroyed: Subject<boolean> = new Subject<boolean>();
 
+  backgroundImg: string;
+  customStylesBol = false;
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private router: Router,
@@ -45,8 +48,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.setCustomStyles();
+
     this.title = GlobalService.getAPPLICATION_TITLE();
     this.initLogin();
+  }
+
+  setCustomStyles() {
+    this.backgroundImg = GlobalService.getBackGroundImg();
+    if (this.backgroundImg) {
+      document.documentElement.style.setProperty(
+        '--background-custom',
+        'url("' + this.backgroundImg + '")'
+      );
+      this.customStylesBol = true;
+    }
   }
 
   ngOnDestroy() {
