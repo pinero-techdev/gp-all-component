@@ -8,7 +8,7 @@
   }"
 >
   <div class="menu-card full-width">
-    <div class="p-grid menu-panel">
+    <div class="p-grid" [ngClass]="showOverView ? 'menu-panel' : 'menu-panel-custom'">
       <ng-container *ngFor="let item of menu">
         <div *ngIf="item.enabled" role="list" class="item-wrapper p-col-4 p-sm-2 p-md-3">
           <a
@@ -35,9 +35,11 @@
             <div class="{{ item.icon ? 'menu-icon menu-icon-' + item.icon : 'menu-icon' }}">
               <div *ngIf="item.parentList && item.parentList.length > 0" class="menu-back"></div>
             </div>
-            <span class="menu-label" [ngClass]="item.parentList && item.parentList.length > 0 ? 'back-label' : ''">{{
-              item.text
-            }}</span>
+            <span
+              class="menu-label"
+              [ngClass]="item.parentList && item.parentList.length > 0 ? 'back-label' : ''"
+              >{{ item.text }}</span
+            >
           </a>
         </div>
       </ng-container>

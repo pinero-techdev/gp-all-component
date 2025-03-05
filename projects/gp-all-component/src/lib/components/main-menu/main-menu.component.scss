@@ -11,7 +11,11 @@
 
 ::ng-deep {
   .menu {
-    background: radial-gradient(ellipse at center, rgba($blackColor, 0) 0%, rgba($blackColor, 0.2) 100%),
+    background: radial-gradient(
+        ellipse at center,
+        rgba($blackColor, 0) 0%,
+        rgba($blackColor, 0.2) 100%
+      ),
       linear-gradient(to bottom, $menuGradient1 0%, $menuGradient2 100%);
     background-repeat: no-repeat;
     background-size: cover;
@@ -234,6 +238,24 @@
     &-panel {
       flex: 0 0 50%;
       max-width: 50%;
+      align-items: center;
+      align-content: flex-start;
+      margin-top: $main-menu-action-width;
+      min-width: $main-menu-action-width;
+
+      @media (max-width: map-get($breakpoints, 'md')) {
+        margin-top: $main-menu-action-width / 2;
+      }
+
+      @media (max-width: map-get($breakpoints, 'md')) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    &-panel-custom {
+      flex: 0 0 100%;
+      max-width: 100%;
       align-items: center;
       align-content: flex-start;
       margin-top: $main-menu-action-width;
