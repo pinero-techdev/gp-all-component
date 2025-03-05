@@ -47,7 +47,8 @@
                 (click)="getBreadCrumbMenu(breadCrumb, indx)"
                 [ngClass]="{ 'topbar-toolbar-active': isLastMenu(indx) }"
               >
-                {{ m.label }} <ng-container *ngIf="m.id">({{ m.id }})</ng-container>
+                {{ m.label }}
+                <ng-container *ngIf="m.id && !customStyles">({{ m.id }})</ng-container>
               </a>
             </span>
           </div>

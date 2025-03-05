@@ -70,6 +70,10 @@
         background-image: url('./../../resources/images/launcher/ico-consulta.svg');
       }
 
+      &-search-rsuite {
+        background-image: url('./../../resources/images/launcher/ico-consulta-rsuite.png');
+      }
+
       &-concierge {
         background-image: url('./../../resources/images/launcher/ico-concierge.svg');
       }
@@ -121,6 +125,10 @@
 
       &-maintenance-folder {
         background-image: url('./../../resources/images/launcher/ico-folder-mantenimiento.png');
+      }
+
+      &-maintenance-folder-rsuite {
+        background-image: url('./../../resources/images/launcher/ico-folder-mantenimiento-rsuite.png');
       }
 
       &-list-folder {
