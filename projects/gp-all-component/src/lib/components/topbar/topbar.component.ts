@@ -284,13 +284,28 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   resetMenu() {
-    const temp = this.breadCrumb[0].menu[0].parentList;
+    // Validar que breadCrumb[0], menu y parentList existan antes de acceder
+    let temp;
+    if (
+      this.breadCrumb &&
+      this.breadCrumb[0] &&
+      this.breadCrumb[0].menu &&
+      this.breadCrumb[0].menu[0] &&
+      this.breadCrumb[0].menu[0].parentList
+    ) {
+      temp = this.breadCrumb[0].menu[0].parentList;
+    }
+
     if (!this.isOpen) {
       this.breadCrumbTemp = Object.assign([], this.breadCrumb);
     }
 
     this.breadCrumb = [];
-    this.sendLauncher.emit(temp);
+
+    if (temp) {
+      this.sendLauncher.emit(temp);
+    }
+
     this.toggleMenu(true);
   }
 

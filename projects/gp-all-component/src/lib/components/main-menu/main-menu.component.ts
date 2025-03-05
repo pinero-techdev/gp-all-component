@@ -166,7 +166,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Sets the menu
    */
   setMainMenu(value: any): void {
-    console.log('*** menu ***', value);
     this.menu = value.map((item) => this.createMenuItem(item));
     this.viewLoaded = true;
   }
