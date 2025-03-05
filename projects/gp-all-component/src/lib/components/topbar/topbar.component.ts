@@ -141,8 +141,6 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   setCustomStyles() {
-    console.log('*** lib : customStyles topbar ***', this.customStyles);
-
     if (this.customStyles) {
       document.documentElement.style.setProperty(
         '--logo-custom',
