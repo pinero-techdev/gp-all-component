@@ -149,6 +149,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
         '--background-custom',
         'url("' + this.customStyles.backgroundImg + '")'
       );
+      document.documentElement.style.setProperty('--menu-gradient2', this.customStyles.auxColor);
       this.customStylesBol = true;
     } else {
       this.customStylesBol = false;
