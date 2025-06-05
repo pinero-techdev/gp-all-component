@@ -6,7 +6,12 @@
   *ngIf="!hiddenLogin"
 >
   <div class="card login-panel ui-fluid" *ngIf="!working">
-    <div class="login-panel-logo"></div>
+    <div
+      [ngClass]="{
+        'login-panel-logo': title != 'BSUITE',
+        'login-panel-logo-bsuit': title === 'BSUITE'
+      }"
+    ></div>
     <div *ngIf="title" class="login-panel-title"
       ><span>{{ title }}</span></div
     >
