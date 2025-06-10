@@ -8,11 +8,11 @@
   <div class="card login-panel ui-fluid" *ngIf="!working">
     <div
       [ngClass]="{
-        'login-panel-logo': title != 'BSUITE',
-        'login-panel-logo-bsuit': title === 'BSUITE'
+        'login-panel-logo': titleToCompare != 'bsuite',
+        'login-panel-logo-bsuit': titleToCompare === 'bsuite'
       }"
     ></div>
-    <div *ngIf="title" class="login-panel-title"
+    <div *ngIf="title" [ngClass]="{ bsuite: titleToCompare === 'bsuite' }" class="login-panel-title"
       ><span>{{ title }}</span></div
     >
     <div class="input-group ta-left m-top-large">

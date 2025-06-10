@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   password: string;
   /* Application's name */
   title: string = null;
+  titleToCompare: string = null;
   /* PreLoginUrl */
   url: string;
   /* Username text input value */
@@ -51,6 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.setCustomStyles();
 
     this.title = GlobalService.getAPPLICATION_TITLE();
+    this.titleToCompare = this.title.toLowerCase();
     this.initLogin();
   }
 
