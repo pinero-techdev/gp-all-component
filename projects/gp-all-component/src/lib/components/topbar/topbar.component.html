@@ -48,7 +48,7 @@
                 [ngClass]="{ 'topbar-toolbar-active': isLastMenu(indx) }"
               >
                 {{ m.label }}
-                <ng-container *ngIf="m.id && !customStyles">({{ m.id }})</ng-container>
+                <ng-container *ngIf="m.id && customStyles.showId">({{ m.id }})</ng-container>
               </a>
             </span>
           </div>
