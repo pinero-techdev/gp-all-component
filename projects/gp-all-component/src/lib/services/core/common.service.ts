@@ -35,6 +35,21 @@ export class CommonRq {
   sessionId: string;
   idioma: string;
 }
+export class Order {
+  field: string;
+  orderDesc: boolean;
+}
+export class Page {
+  totalRows: number;
+  partialRows: number;
+}
+export class MasterCommonRq {
+  language: string;
+  order: string;
+  sessionId: string;
+  orderPage: Order;
+  page: Page;
+}
 
 @Injectable({ providedIn: 'root' })
 export class CommonService {

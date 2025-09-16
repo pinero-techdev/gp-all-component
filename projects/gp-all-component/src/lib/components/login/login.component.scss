@@ -1,6 +1,13 @@
 @import 'global/variables';
 @import 'global/mixins';
 
+.background-custom {
+  background-image: var(--background-custom);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
 .login-body {
   background-image: url('./../../resources/images/bg-launcher.jpg');
   background-repeat: no-repeat;
@@ -21,6 +28,13 @@
   &-logo {
     height: 100px;
     background-image: url('./../../resources/images/GP_LogoPrincipal_POS_RGB.png');
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: center;
+  }
+  &-logo-bsuit {
+    height: 200px;
+    background-image: url('https://fnpwawtm.filerobot.com/BACKUP+JIRA+AUDIOVISUALES/DD-8590+Video+Master+Happiness/OLD+VERSION/DD-4343+Actualización+Creatividades+HS+Sep/VIDEOS+ANTERIORES/DD-3470+ACTUALIZACIÓN+VIDEO+MASTER+HAPPINESS+SALE/HAPPINESS+SALE+DISCOVERY+ADDS/finales/discovery_adds/discovery_adds_bp_logo.png?vh=cf0f5b');
     background-repeat: no-repeat;
     background-size: auto 100%;
     background-position: center;
@@ -79,6 +93,9 @@
 
   .ui-col-fluid.login-panel-title {
     padding-top: 50px;
+  }
+  .login-panel-title.bsuite {
+    padding-top: 0;
   }
 
   .ui-inputtext,

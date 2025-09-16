@@ -34,6 +34,6 @@ async function bundleScss(entry = '', output = '', files = []) {
 }
 
 bundleScss(
-  './projects/gp-all-component/src/lib/resources/scss/_main.scss',
+  './projects/gp-all-component/src/lib/resources/scss/main.scss',
   './dist/gp-all-component/lib/resources/scss'
 );

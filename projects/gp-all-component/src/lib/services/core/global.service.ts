@@ -23,6 +23,15 @@ export class GlobalService {
     GlobalService.setLogged(false);
     GlobalService.setApplicationTitle(env.appTitle);
     GlobalService.setVersion(env.version);
+    GlobalService.setBackGroundImg(env.backgroundImg);
+  }
+
+  public static setBackGroundImg(background: string): string {
+    return (GlobalService.globalSingleton.backgroundImg = background);
+  }
+
+  public static getBackGroundImg(): string {
+    return GlobalService.globalSingleton.backgroundImg;
   }
 
   public static getBASE_URL(): string {
