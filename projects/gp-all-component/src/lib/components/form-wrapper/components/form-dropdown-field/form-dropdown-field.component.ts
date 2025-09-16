@@ -93,6 +93,10 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
   copyValueFromControlToEditedRow(editedRow: any = null) {
     if (this.formField && this.formField.fieldMetadata && editedRow) {
       editedRow[this.formField.fieldMetadata.fieldName] = this.currentValueDropDown;
+      editedRow[this.formField.fieldMetadata.fieldName] =
+        editedRow[this.formField.fieldMetadata.fieldName] === ''
+          ? null
+          : editedRow[this.formField.fieldMetadata.fieldName];
     }
   }
 

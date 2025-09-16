@@ -1,7 +1,18 @@
-<div class="login-body" *ngIf="!hiddenLogin">
+<div
+  [ngClass]="{
+    'background-custom': customStylesBol,
+    'login-body': !customStylesBol
+  }"
+  *ngIf="!hiddenLogin"
+>
   <div class="card login-panel ui-fluid" *ngIf="!working">
-    <div class="login-panel-logo"></div>
-    <div *ngIf="title" class="login-panel-title"
+    <div
+      [ngClass]="{
+        'login-panel-logo': titleToCompare != 'bsuite',
+        'login-panel-logo-bsuit': titleToCompare === 'bsuite'
+      }"
+    ></div>
+    <div *ngIf="title" [ngClass]="{ bsuite: titleToCompare === 'bsuite' }" class="login-panel-title"
       ><span>{{ title }}</span></div
     >
     <div class="input-group ta-left m-top-large">

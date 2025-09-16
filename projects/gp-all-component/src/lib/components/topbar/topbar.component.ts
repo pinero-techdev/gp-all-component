@@ -50,11 +50,20 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @Input() showMenu = true;
   @Input() logoUrl: string;
   @Input() title: string;
+  /**
+   * Run environment
+   */
+  @Input() environment: string;
 
   @Input() newStatusBreadcrumb: any;
   @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() openMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() sendLauncher = new EventEmitter();
+
+  // custom-styles
+  @Input() customStyles: any;
+
+  customStylesBol = false;
 
   constructor(
     private router: Router,
@@ -87,12 +96,25 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   get version() {
     return GlobalService.getVERSION();
   }
+  get isEnvironmentTest() {
+    return this.environment === 'test' || this.environment === 'development';
+  }
+  get environmentLabel() {
+    if (this.environment === 'test') {
+      return 'TEST';
+    } else if (this.environment === 'development') {
+      return 'PREPROD';
+    } else {
+      return '';
+    }
+  }
 
   ngOnDestroy() {
     this.isAlive = false;
   }
 
   ngOnInit() {
+    this.setCustomStyles();
     this.breadCrumb = [];
     this.setIsHome(this.router.url);
     this.router.events
@@ -116,6 +138,19 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     ];
 
     this.session = GlobalService.getSESSION();
+  }
+
+  setCustomStyles() {
+    if (this.customStyles) {
+      document.documentElement.style.setProperty(
+        '--logo-custom',
+        'url("' + this.customStyles.logo + '")'
+      );
+      document.documentElement.style.setProperty('--header-color', this.customStyles.headerColor);
+      this.customStylesBol = true;
+    } else {
+      this.customStylesBol = false;
+    }
   }
 
   /**
@@ -247,13 +282,28 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   resetMenu() {
-    const temp = this.breadCrumb[0].menu[0].parentList;
+    // Validar que breadCrumb[0], menu y parentList existan antes de acceder
+    let temp;
+    if (
+      this.breadCrumb &&
+      this.breadCrumb[0] &&
+      this.breadCrumb[0].menu &&
+      this.breadCrumb[0].menu[0] &&
+      this.breadCrumb[0].menu[0].parentList
+    ) {
+      temp = this.breadCrumb[0].menu[0].parentList;
+    }
+
     if (!this.isOpen) {
       this.breadCrumbTemp = Object.assign([], this.breadCrumb);
     }
 
     this.breadCrumb = [];
-    this.sendLauncher.emit(temp);
+
+    if (temp) {
+      this.sendLauncher.emit(temp);
+    }
+
     this.toggleMenu(true);
   }
 

@@ -103,6 +103,14 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    */
   @Output() sendBreadcrumb = new EventEmitter();
 
+  /** VARS */
+  showOverView: boolean;
+
+  // custom-styles
+  @Input() customStyles: any;
+
+  customStylesBol = false;
+
   constructor(
     private router: Router,
     private menuProviderService: MainMenuService,
@@ -113,6 +121,10 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Angular OnInit lifecycle hook
    */
   ngOnInit() {
+    this.setCustomStyles();
+
+    this.showOverView = false;
+
     const sessionId = GlobalService.getSESSION_ID();
 
     if (sessionId) {
@@ -131,6 +143,19 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     }
   }
 
+  setCustomStyles() {
+    if (this.customStyles) {
+      document.documentElement.style.setProperty(
+        '--background-custom',
+        'url("' + this.customStyles.backgroundImg + '")'
+      );
+      document.documentElement.style.setProperty('--menu-gradient2', this.customStyles.auxColor);
+      this.customStylesBol = true;
+    } else {
+      this.customStylesBol = false;
+    }
+  }
+
   /**
    * Angular OnDestroy lifecycle hook
    */
@@ -144,6 +169,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   setMainMenu(value: any): void {
     this.menu = value.map((item) => this.createMenuItem(item));
     this.viewLoaded = true;
+    this.getOverview();
   }
 
   createMenuItem(item: any): MenuItem {
@@ -191,8 +217,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     } else if (menuChange.parentList) {
       this.getActionGoBack(menuChange.parentList, menuChange.text);
     }
-    this.getOverview();
-    this.changeDetector.detectChanges();
   }
 
   /**
@@ -209,7 +233,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
         menu: submenus,
         isActive: true,
       });
-      this.changeDetector.detectChanges();
+      this.getOverview();
     }
   }
 
@@ -219,8 +243,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   getOverview(): void {
     const item = this.menu.filter((menu) => menu.overview);
 
-    if (item.length > 0) {
+    if (item.length > 0 && item[0].overview) {
       this.overview = item[0].overview;
+      this.showOverView = true;
+    } else {
+      this.showOverView = false;
     }
     this.changeDetector.detectChanges();
   }
@@ -237,6 +264,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
       parentList,
       isActive: false,
     });
+    this.getOverview();
   }
 
   /**

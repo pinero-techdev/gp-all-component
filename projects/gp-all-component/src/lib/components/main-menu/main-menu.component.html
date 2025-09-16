@@ -1,6 +1,14 @@
-<div *ngIf="isOpen && viewLoaded" class="menu" [ngClass]="{ 'menu-expanded': isExpanded }">
+<div
+  *ngIf="isOpen && viewLoaded"
+  class="menu"
+  [ngClass]="{
+    'menu-expanded': isExpanded,
+    'default-background': !customStylesBol,
+    'custom-background': customStylesBol
+  }"
+>
   <div class="menu-card full-width">
-    <div class="p-grid menu-panel">
+    <div class="p-grid" [ngClass]="showOverView ? 'menu-panel' : 'menu-panel-custom'">
       <ng-container *ngFor="let item of menu">
         <div *ngIf="item.enabled" role="list" class="item-wrapper p-col-4 p-sm-2 p-md-3">
           <a
@@ -36,7 +44,8 @@
         </div>
       </ng-container>
     </div>
-    <div class="menu-overview">
+
+    <div *ngIf="showOverView" class="menu-overview">
       <div class="center menu-action" (click)="toggleOverview()">
         <i *ngIf="isExpanded" class="pi pi-chevron-right"></i>
         <i *ngIf="!isExpanded" class="pi pi-chevron-left"></i>

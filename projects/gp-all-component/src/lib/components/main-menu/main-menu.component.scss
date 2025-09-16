@@ -1,6 +1,14 @@
 @import 'global/variables';
 @import 'global/mixins';
 
+.default-background {
+  background-image: url('./../../resources/images/bg-launcher.jpg');
+}
+
+.custom-background {
+  background-image: var(--background-custom);
+}
+
 ::ng-deep {
   .menu {
     background: radial-gradient(
@@ -9,7 +17,6 @@
         rgba($blackColor, 0.2) 100%
       ),
       linear-gradient(to bottom, $menuGradient1 0%, $menuGradient2 100%);
-    background-image: url('./../../resources/images/bg-launcher.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -61,6 +68,10 @@
 
       &-search {
         background-image: url('./../../resources/images/launcher/ico-consulta.svg');
+      }
+
+      &-search-rsuite {
+        background-image: url('./../../resources/images/launcher/ico-consulta-rsuite.png');
       }
 
       &-concierge {
@@ -116,6 +127,10 @@
         background-image: url('./../../resources/images/launcher/ico-folder-mantenimiento.png');
       }
 
+      &-maintenance-folder-rsuite {
+        background-image: url('./../../resources/images/launcher/ico-folder-mantenimiento-rsuite.png');
+      }
+
       &-list-folder {
         background-image: url('./../../resources/images/launcher/ico-folder-listado.png');
       }
@@ -141,6 +156,10 @@
         background-image: url('./../../resources/images/launcher/ico-golf.svg');
       }
 
+      &-golf-rsuite {
+        background-image: url('./../../resources/images/launcher/ico-golf-rsuite.svg');
+      }
+
       &-depositos {
         background-image: url('./../../resources/images/launcher/ico-depositos.svg');
       }
@@ -161,6 +180,15 @@
       }
       &-crs {
         background-image: url('./../../resources/images/launcher/ico-crs.png');
+      }
+      &-notificaciones {
+        background-image: url('./../../resources/images/launcher/ico-notificaciones.png');
+      }
+      &-notificaciones-rsuite {
+        background-image: url('./../../resources/images/launcher/ico-notificaciones-rsuite.svg');
+      }
+      &-botones {
+        background-image: url('./../../resources/images/launcher/ico-botones.png');
       }
     }
 
@@ -189,7 +217,11 @@
       @include absolute-centered(all);
       //top: 54%;
       border-radius: 30%;
-      background: linear-gradient(135deg, $menuGradient3 0%, $menuGradient2 100%);
+      background: linear-gradient(
+        135deg,
+        $menuGradient3 0%,
+        var(--menu-gradient2, #{$menuGradient2}) 100%
+      );
       box-shadow: 0 2px 50px 0 rgba($blackColor, 0.2);
       width: 9vw;
       height: 9vw;
@@ -218,6 +250,24 @@
     &-panel {
       flex: 0 0 50%;
       max-width: 50%;
+      align-items: center;
+      align-content: flex-start;
+      margin-top: $main-menu-action-width;
+      min-width: $main-menu-action-width;
+
+      @media (max-width: map-get($breakpoints, 'md')) {
+        margin-top: $main-menu-action-width / 2;
+      }
+
+      @media (max-width: map-get($breakpoints, 'md')) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    &-panel-custom {
+      flex: 0 0 100%;
+      max-width: 100%;
       align-items: center;
       align-content: flex-start;
       margin-top: $main-menu-action-width;
