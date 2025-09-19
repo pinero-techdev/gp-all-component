@@ -19,6 +19,7 @@ import { GlobalService } from '../../services/core/global.service';
 import { filter, first, takeWhile } from 'rxjs/operators';
 import { LocaleES } from '../../resources/localization/es-ES.lang';
 import { UserInfo } from '../../resources/data/user-info.model';
+import { CustomStyles } from '../../resources/data/customStyles';
 
 @Component({
   selector: 'gp-topbar',
@@ -61,7 +62,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @Output() sendLauncher = new EventEmitter();
 
   // custom-styles
-  @Input() customStyles: any;
+  @Input() customStyles: CustomStyles;
 
   customStylesBol = false;
 
