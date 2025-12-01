@@ -116,7 +116,16 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.setCustomStyles();
-    this.breadCrumb = [];
+    const breadCrumbStored = sessionStorage.getItem('breadCrumb');
+    if (breadCrumbStored) {
+      try {
+        this.breadCrumb = JSON.parse(breadCrumbStored);
+      } catch {
+        this.breadCrumb = [];
+      }
+    } else {
+      this.breadCrumb = [];
+    }
     this.setIsHome(this.router.url);
     this.router.events
       .pipe(
@@ -210,6 +219,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
       this.breadCrumbTemp = Object.assign([], this.breadCrumb);
     }
     this.breadCrumb.splice(index + 1, this.breadCrumb.length - 1);
+    this.saveBreadCrumbToSession();
 
     if (menu[index] && menu[index].menu && menu[index].menu.length) {
       this.sendLauncher.emit(menu[index].menu);
@@ -259,10 +269,12 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    */
   setBreadcrumb(item: any) {
     item.isActive ? this.breadCrumb.push(item) : this.removeItemBreadcrumb();
+    this.saveBreadCrumbToSession();
   }
 
   removeItemBreadcrumb() {
     this.breadCrumb.splice(-1, 1);
+    this.saveBreadCrumbToSession();
   }
 
   /**
@@ -283,7 +295,6 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   resetMenu() {
-    // Validar que breadCrumb[0], menu y parentList existan antes de acceder
     let temp;
     if (
       this.breadCrumb &&
@@ -300,6 +311,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.breadCrumb = [];
+    this.saveBreadCrumbToSession();
 
     if (temp) {
       this.sendLauncher.emit(temp);
@@ -316,5 +328,28 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     this.isHome = url === this.homeUrl;
     this.toggleMenu(this.isHome);
     this.changeDetector.detectChanges();
+  }
+
+  private saveBreadCrumbToSession() {
+    const safeBreadCrumb = this.getSafeBreadCrumb(this.breadCrumb);
+    sessionStorage.setItem('breadCrumb', JSON.stringify(safeBreadCrumb));
+  }
+
+  // Elimina propiedades circulares como parentList y submenus
+  private getSafeBreadCrumb(breadCrumb: any[]): any[] {
+    return breadCrumb.map((item) => {
+      const safeItem = { ...item };
+      if (safeItem.menu && Array.isArray(safeItem.menu)) {
+        safeItem.menu = safeItem.menu.map((menuItem) => {
+          const safeMenuItem = { ...menuItem };
+          delete safeMenuItem.parentList;
+          delete safeMenuItem.submenus;
+          return safeMenuItem;
+        });
+      }
+      delete safeItem.parentList;
+      delete safeItem.submenus;
+      return safeItem;
+    });
   }
 }
