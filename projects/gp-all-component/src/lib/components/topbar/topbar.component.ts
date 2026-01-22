@@ -244,11 +244,13 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     this.toggleMenu(!this.isOpen);
     if (this.isOpen) {
       this.breadCrumbTemp = Object.assign([], this.breadCrumb);
+      this.breadCrumb = [];
     }
     this.checkLastItemBreadcrumb();
 
     if (!this.isOpen) {
       this.breadCrumb = Object.assign([], this.breadCrumbTemp);
+      this.breadCrumbTemp = [];
     }
   }
 
