@@ -49,6 +49,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() homeUrl = '/home';
   @Input() showMenu = true;
+  @Input() isExternal = false;
   @Input() logoUrl: string;
   @Input() title: string;
   /**
@@ -59,6 +60,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @Input() newStatusBreadcrumb: any;
   @Output() showServiceMenu: EventEmitter<boolean> = new EventEmitter<boolean>(true);
   @Output() openMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() logOut = new EventEmitter();
   @Output() sendLauncher = new EventEmitter();
 
   // custom-styles
@@ -186,25 +188,29 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     let response = new CommonRs();
 
     if (action === 'logout') {
-      this.loginService
-        .logout()
-        .pipe(first())
-        .subscribe(
-          (data) => {
-            response = data;
-            if (response.ok) {
+      if (this.isExternal) {
+        this.logOut.emit();
+      } else {
+        this.loginService
+          .logout()
+          .pipe(first())
+          .subscribe(
+            (data) => {
+              response = data;
+              if (response.ok) {
+                this.goToLogin();
+              }
+            },
+            (error) => {
+              console.error(error);
               this.goToLogin();
+            },
+            () => {
+              // if logout response fails. User must keep logged
+              GlobalService.setLogged(!response.ok);
             }
-          },
-          (error) => {
-            console.error(error);
-            this.goToLogin();
-          },
-          () => {
-            // if logout response fails. User must keep logged
-            GlobalService.setLogged(!response.ok);
-          }
-        );
+          );
+      }
     }
   }
 
