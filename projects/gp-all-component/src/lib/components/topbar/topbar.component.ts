@@ -47,6 +47,10 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   private _isOpen = false;
   // tslint:enable
   private isBackNavigation = false;
+  private readonly BREADCRUMB_STORAGE_KEY = 'topbarBreadcrumb';
+  private restoredBreadcrumbFromStorage = false;
+  private skipNextBreadcrumbUpdate = false;
+
   @Input() homeUrl = '/home';
   @Input() showMenu = true;
   @Input() isExternal = false;
@@ -99,9 +103,11 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   get version() {
     return GlobalService.getVERSION();
   }
+
   get isEnvironmentTest() {
     return this.environment === 'test' || this.environment === 'development';
   }
+
   get environmentLabel() {
     if (this.environment === 'test') {
       return 'TEST';
@@ -118,8 +124,9 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.setCustomStyles();
-    this.breadCrumb = [];
     this.setIsHome(this.router.url);
+    this.loadBreadcrumb();
+
     this.router.events
       .pipe(
         takeWhile(() => this.isAlive),
@@ -145,15 +152,17 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
           this.isBackNavigation = true;
         }
       });
+
     this.itemsUserMenu = [
       {
         label: 'Logout',
         icon: 'pi pi-sign-out',
         command: (click) => {
-          this.toggleUserMenu(),
-            this.toggleMenu(false),
-            (this.breadCrumb = []),
-            this.redirect('logout');
+          this.toggleUserMenu();
+          this.toggleMenu(false);
+          this.breadCrumb = [];
+          this.clearBreadcrumb();
+          this.redirect('logout');
         },
       },
     ];
@@ -184,8 +193,16 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
       changes.newStatusBreadcrumb && changes.newStatusBreadcrumb.currentValue;
 
     if (newStatusBreadcrumb) {
+      // Al recargar la página restauramos el breadcrumb completo desde sessionStorage.
+      // La primera actualización que llega desde el componente hijo suele ser solo
+      // la última miga, y si la procesamos rompe la cadena restaurada.
+      if (this.skipNextBreadcrumbUpdate) {
+        this.skipNextBreadcrumbUpdate = false;
+        return;
+      }
+
       if (this.isBackNavigation) {
-        this.isBackNavigation = false; // reset flag
+        this.isBackNavigation = false;
       }
 
       this.setBreadcrumb(newStatusBreadcrumb);
@@ -238,6 +255,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
       this.breadCrumbTemp = Object.assign([], this.breadCrumb);
     }
     this.breadCrumb.splice(index + 1, this.breadCrumb.length - 1);
+    this.saveBreadcrumb();
 
     if (menu[index] && menu[index].menu && menu[index].menu.length) {
       this.sendLauncher.emit(menu[index].menu);
@@ -251,6 +269,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    */
   goToLogin() {
     GlobalService.setPreLoginUrl(null);
+    this.clearBreadcrumb();
     this.router.navigate(['login']);
     this.toggleMenu(false);
   }
@@ -267,6 +286,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
     if (!this.isOpen) {
       this.breadCrumb = Object.assign([], this.breadCrumbTemp);
+      this.saveBreadcrumb();
     }
   }
 
@@ -296,10 +316,12 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     } else {
       this.breadCrumb.push(item);
     }
+    this.saveBreadcrumb();
   }
 
   removeItemBreadcrumb() {
     this.breadCrumb.splice(-1, 1);
+    this.saveBreadcrumb();
   }
 
   /**
@@ -334,6 +356,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
       this.breadCrumbTemp = Object.assign([], this.breadCrumb);
     }
     this.breadCrumb = [];
+    this.saveBreadcrumb();
     if (temp) {
       this.sendLauncher.emit(temp);
     }
@@ -349,5 +372,27 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     this.isHome = url === this.homeUrl;
     this.toggleMenu(this.isHome);
     this.changeDetector.detectChanges();
+  }
+
+  private saveBreadcrumb() {
+    sessionStorage.setItem(this.BREADCRUMB_STORAGE_KEY, JSON.stringify(this.breadCrumb));
+  }
+
+  private loadBreadcrumb() {
+    const savedBreadcrumb = sessionStorage.getItem(this.BREADCRUMB_STORAGE_KEY);
+
+    if (savedBreadcrumb) {
+      this.breadCrumb = JSON.parse(savedBreadcrumb);
+      this.restoredBreadcrumbFromStorage = this.breadCrumb.length > 0;
+      this.skipNextBreadcrumbUpdate = this.restoredBreadcrumbFromStorage;
+    } else {
+      this.breadCrumb = [];
+      this.restoredBreadcrumbFromStorage = false;
+      this.skipNextBreadcrumbUpdate = false;
+    }
+  }
+
+  private clearBreadcrumb() {
+    sessionStorage.removeItem(this.BREADCRUMB_STORAGE_KEY);
   }
 }
