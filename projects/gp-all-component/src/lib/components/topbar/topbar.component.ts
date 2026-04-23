@@ -12,7 +12,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { LoginService } from '../../services/api/login/login.service';
 import { CommonRs } from '../../services/core/common.service';
 import { GlobalService } from '../../services/core/global.service';
@@ -46,7 +46,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   // tslint:disable
   private _isOpen = false;
   // tslint:enable
-
+  private isBackNavigation = false;
   @Input() homeUrl = '/home';
   @Input() showMenu = true;
   @Input() isExternal = false;
@@ -125,8 +125,26 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
         takeWhile(() => this.isAlive),
         filter((event) => event instanceof NavigationEnd)
       )
-      .subscribe((event: NavigationEnd) => this.setIsHome(event.url));
+      .subscribe((event: NavigationEnd) => {
+        this.setIsHome(event.url);
+        if (this.isBackNavigation) {
+          console.log('BACK ==> eliminar último breadcrumb');
+          this.isBackNavigation = false;
+          this.removeItemBreadcrumb();
+        }
+      });
 
+    this.router.events
+      .pipe(
+        takeWhile(() => this.isAlive),
+        filter((event) => event instanceof NavigationStart)
+      )
+      .subscribe((event: NavigationStart) => {
+        if (event.navigationTrigger === 'popstate') {
+          console.log('Navegación con botón atrás detectada');
+          this.isBackNavigation = true;
+        }
+      });
     this.itemsUserMenu = [
       {
         label: 'Logout',
@@ -166,6 +184,10 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
       changes.newStatusBreadcrumb && changes.newStatusBreadcrumb.currentValue;
 
     if (newStatusBreadcrumb) {
+      if (this.isBackNavigation) {
+        this.isBackNavigation = false; // reset flag
+      }
+
       this.setBreadcrumb(newStatusBreadcrumb);
     }
   }
@@ -264,7 +286,16 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    * @param item 'Breadcrumb object'
    */
   setBreadcrumb(item: any) {
-    item.isActive ? this.breadCrumb.push(item) : this.removeItemBreadcrumb();
+    if (!item.isActive) {
+      this.removeItemBreadcrumb();
+      return;
+    }
+    const existingIndex = this.breadCrumb.findIndex((b) => b.label === item.label);
+    if (existingIndex !== -1) {
+      this.breadCrumb = this.breadCrumb.slice(0, existingIndex + 1);
+    } else {
+      this.breadCrumb.push(item);
+    }
   }
 
   removeItemBreadcrumb() {
@@ -289,7 +320,6 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   resetMenu() {
-    // Validar que breadCrumb[0], menu y parentList existan antes de acceder
     let temp;
     if (
       this.breadCrumb &&
@@ -300,13 +330,10 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     ) {
       temp = this.breadCrumb[0].menu[0].parentList;
     }
-
     if (!this.isOpen) {
       this.breadCrumbTemp = Object.assign([], this.breadCrumb);
     }
-
     this.breadCrumb = [];
-
     if (temp) {
       this.sendLauncher.emit(temp);
     }
