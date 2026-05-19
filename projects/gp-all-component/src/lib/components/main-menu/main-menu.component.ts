@@ -27,6 +27,7 @@ class MenuItem {
   text: string;
   type: string;
 }
+
 @Component({
   selector: 'gp-main-menu',
   templateUrl: './main-menu.component.html',
@@ -45,26 +46,19 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Holds the component life status
    */
   private isAlive = true;
+  private isOpen2 = false;
 
-  // tslint:disable
-  private _isOpen = false;
-  // tslint:enable
+  private readonly MENU_PATH_KEY = 'mainMenuPath';
 
-  /**
-   * Holds the expanded check
-   */
+  private rootMenu: MenuItem[] = [];
+  private menuPath: string[] = [];
+
   isExpanded = false;
-
-  /**
-   * Holds the overview value
-   */
   overview: string;
-
   /**
    * Holds the tooltip disabled check
    */
   disableTooltip = true;
-
   /**
    * Holds the loaded view check
    */
@@ -80,12 +74,13 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    */
   @Input() set isOpen(value: boolean) {
     if (this.isOpen !== value) {
-      this._isOpen = value;
+      this.isOpen2 = value;
       this.changeDetector.detectChanges();
     }
   }
+
   get isOpen(): boolean {
-    return this._isOpen;
+    return this.isOpen2;
   }
 
   /**
@@ -116,7 +111,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     private menuProviderService: MainMenuService,
     private changeDetector: ChangeDetectorRef
   ) {}
-
   /**
    * Angular OnInit lifecycle hook
    */
@@ -124,7 +118,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     this.setCustomStyles();
 
     this.showOverView = false;
-
     const sessionId = GlobalService.getSESSION_ID();
 
     if (sessionId) {
@@ -137,6 +130,13 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
       this.router.events.pipe(takeWhile(() => this.isAlive)).subscribe((event) => {
         if (event instanceof NavigationEnd) {
+          if (
+            this.normalizeUrl(event.urlAfterRedirects || event.url) ===
+            this.normalizeUrl(this.homeUrl)
+          ) {
+            this.clearMenuState();
+          }
+
           this.reset();
         }
       });
@@ -167,7 +167,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Sets the menu
    */
   setMainMenu(value: any): void {
-    this.menu = value.map((item) => this.createMenuItem(item));
+    this.rootMenu = value.map((item) => this.createMenuItem(item));
+    this.menu = this.rootMenu;
+
+    this.restoreMenuState();
+
     this.viewLoaded = true;
     this.getOverview();
   }
@@ -191,6 +195,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   setSubMenu(submenu: MenuItem[]): MenuItem[] {
     return submenu.map((item) => this.createMenuItem(item));
   }
+
   /**
    * Logic to execute on menu close
    * @param item a menu's item
@@ -199,12 +204,14 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     this.isOpen = false;
     this.closeMenu.emit(this.isOpen);
 
+    this.saveMenuState();
+
     const idItem = item.action ? item.id : undefined;
     this.sendBreadcrumb.emit({ label: item.text, isActive: true, id: idItem });
+
     this.isExpanded = false;
     this.changeDetector.detectChanges();
   }
-
   /**
    * Logic to execute on menu change
    * @param menuChange The menu to change
@@ -228,15 +235,19 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     if (submenus && submenus.length > 0) {
       this.getGoBackOptionMenu(submenus);
       this.menu = submenus;
+
+      this.menuPath.push(label);
+      this.saveMenuState();
+
       this.sendBreadcrumb.emit({
         label,
         menu: submenus,
         isActive: true,
       });
+
       this.getOverview();
     }
   }
-
   /**
    * Gets the overview
    */
@@ -249,9 +260,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     } else {
       this.showOverView = false;
     }
+
     this.changeDetector.detectChanges();
   }
-
   /**
    * Gets the action for go back
    * @param parentList The input parent list
@@ -259,11 +270,19 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    */
   getActionGoBack(parentList: any, label: string): void {
     this.menu = parentList;
+
+    if (this.menuPath.length > 0) {
+      this.menuPath.splice(-1, 1);
+    }
+
+    this.saveMenuState();
+
     this.sendBreadcrumb.emit({
       label,
       parentList,
       isActive: false,
     });
+
     this.getOverview();
   }
 
@@ -281,7 +300,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
       });
     }
   }
-
   /**
    * Toggles the overview status
    */
@@ -296,5 +314,68 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    */
   reset(): void {
     this.isExpanded = false;
+  }
+
+  private saveMenuState(): void {
+    sessionStorage.setItem(this.MENU_PATH_KEY, JSON.stringify(this.menuPath));
+  }
+
+  private restoreMenuState(): void {
+    const savedMenuPath = sessionStorage.getItem(this.MENU_PATH_KEY);
+
+    if (!savedMenuPath) {
+      return;
+    }
+
+    try {
+      const parsedPath = JSON.parse(savedMenuPath);
+
+      if (!parsedPath || !Array.isArray(parsedPath) || !parsedPath.length) {
+        return;
+      }
+
+      let currentMenu = this.rootMenu;
+      const restoredPath: string[] = [];
+
+      parsedPath.forEach((label) => {
+        const item = currentMenu.find((menuItem) => {
+          return menuItem.text === label && menuItem.submenus && menuItem.submenus.length > 0;
+        });
+
+        if (item) {
+          this.menu = currentMenu;
+          this.getGoBackOptionMenu(item.submenus);
+          currentMenu = item.submenus;
+          restoredPath.push(label);
+        }
+      });
+
+      this.menu = currentMenu;
+      this.menuPath = restoredPath;
+    } catch (e) {
+      console.error('Error restaurando estado del menú', e);
+      this.clearMenuState();
+    }
+  }
+
+  private clearMenuState(): void {
+    this.menuPath = [];
+    sessionStorage.removeItem(this.MENU_PATH_KEY);
+  }
+
+  private normalizeUrl(url: string): string {
+    if (!url) {
+      return '';
+    }
+
+    const cleanUrl = url.split('?')[0];
+
+    if (!cleanUrl || cleanUrl === '/') {
+      return '/';
+    }
+
+    return cleanUrl.endsWith('/') && cleanUrl.length > 1
+      ? cleanUrl.substring(0, cleanUrl.length - 1)
+      : cleanUrl;
   }
 }
