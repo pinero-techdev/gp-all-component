@@ -51,9 +51,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
   private readonly BREADCRUMB_CURRENT_KEY = 'topbarBreadcrumbCurrent';
   private readonly BREADCRUMB_URL_PREFIX = 'topbarBreadcrumbUrl_';
-
-  private readonly MENU_FORCE_GO_BACK_KEY = 'mainMenuForceGoBack';
-  private breadcrumbRestoredFromStorage = false;
+  private readonly MENU_PATH_KEY = 'mainMenuPath';
 
   private currentUrl = '';
 
@@ -62,6 +60,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   @Input() isExternal = false;
   @Input() logoUrl: string;
   @Input() title: string;
+
   /**
    * Run environment
    */
@@ -138,6 +137,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
     if (this.isHome) {
       this.clearBreadcrumb();
+      this.clearMenuState();
     } else if (!this.breadCrumb.length) {
       this.loadBreadcrumbForUrl(this.currentUrl, true);
     }
@@ -167,6 +167,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
           this.breadCrumb = [];
           this.breadCrumbTemp = [];
           this.clearBreadcrumb();
+          this.clearMenuState();
           this.suppressBreadcrumbUpdates = false;
           this.isBackNavigation = false;
           this.firstNavigationEnd = false;
@@ -195,6 +196,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
           this.breadCrumb = [];
           this.breadCrumbTemp = [];
           this.clearBreadcrumb();
+          this.clearMenuState();
           this.redirect('logout');
         },
       },
@@ -280,13 +282,26 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
       this.breadCrumbTemp = Object.assign([], this.breadCrumb);
     }
 
+    const selectedBreadcrumb = this.breadCrumb[index];
+
+    if (!selectedBreadcrumb) {
+      return;
+    }
+
     this.breadCrumb.splice(index + 1);
     this.saveBreadcrumb();
 
-    if (menu[index] && menu[index].menu && menu[index].menu.length) {
-      this.sendLauncher.emit(menu[index].menu);
-      this.toggleMenu(true);
+    if (selectedBreadcrumb.action) {
+      this.router.navigateByUrl(selectedBreadcrumb.action);
+      this.toggleMenu(false);
+      return;
     }
+
+    if (selectedBreadcrumb.menuPath) {
+      sessionStorage.setItem(this.MENU_PATH_KEY, JSON.stringify(selectedBreadcrumb.menuPath));
+    }
+
+    this.reopenMenu();
   }
 
   /**
@@ -298,6 +313,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     this.breadCrumb = [];
     this.breadCrumbTemp = [];
     this.clearBreadcrumb();
+    this.clearMenuState();
     this.router.navigate(['login']);
     this.toggleMenu(false);
   }
@@ -309,7 +325,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     const openingMenu = !this.isOpen;
 
     if (openingMenu) {
-      this.goBackOneBreadcrumbLevelAfterRefresh();
+      this.prepareBreadcrumbForMenuOpen();
     }
 
     this.toggleMenu(openingMenu);
@@ -324,28 +340,8 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private goBackOneBreadcrumbLevelAfterRefresh() {
-    if (!this.breadCrumb || !this.breadCrumb.length) {
-      return;
-    }
-
-    const lastItemBreadcrumb = this.breadCrumb[this.breadCrumb.length - 1];
-
-    if (lastItemBreadcrumb && !lastItemBreadcrumb.menu) {
-      if (this.breadcrumbRestoredFromStorage) {
-        sessionStorage.setItem(this.MENU_FORCE_GO_BACK_KEY, 'true');
-      }
-
-      this.breadCrumb.splice(-1, 1);
-      this.saveBreadcrumb();
-    }
-  }
-
-  /**
-   * Check and remove last menu item
-   */
   checkLastItemBreadcrumb() {
-    this.goBackOneBreadcrumbLevelAfterRefresh();
+    this.prepareBreadcrumbForMenuOpen();
   }
 
   /**
@@ -359,7 +355,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if (item.isActive === false) {
-      this.removeSpecificBreadcrumb(item);
+      this.removeSpecificBreadcrumb();
       return;
     }
 
@@ -369,7 +365,11 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
     const lastItem = this.breadCrumb[this.breadCrumb.length - 1];
 
-    const isSameAsLast = lastItem && lastItem.label === item.label && lastItem.id === item.id;
+    const isSameAsLast =
+      lastItem &&
+      lastItem.label === item.label &&
+      lastItem.id === item.id &&
+      lastItem.action === item.action;
 
     if (!isSameAsLast) {
       this.breadCrumb.push(item);
@@ -387,12 +387,13 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     this.saveBreadcrumb();
   }
 
-  private removeSpecificBreadcrumb(item: any) {
+  private removeSpecificBreadcrumb() {
     if (!this.breadCrumb.length) {
       return;
     }
 
     this.breadCrumb.splice(-1, 1);
+    this.updateMenuPathFromBreadcrumb();
     this.saveBreadcrumb();
   }
 
@@ -419,36 +420,82 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     this.breadCrumb = [];
     this.breadCrumbTemp = [];
     this.clearBreadcrumb();
+    this.clearMenuState();
+
+    this.toggleMenu(false);
     this.changeDetector.detectChanges();
 
-    this.toggleMenu(true);
-
-    this.router.navigate([this.homeUrl]).then(() => {
+    this.router.navigateByUrl(this.homeUrl).then(() => {
       this.currentUrl = this.normalizeUrl(this.homeUrl);
       this.isHome = true;
 
       this.breadCrumb = [];
       this.breadCrumbTemp = [];
       this.clearBreadcrumb();
+      this.clearMenuState();
+
+      this.isBackNavigation = false;
+      this.firstNavigationEnd = false;
 
       this.changeDetector.detectChanges();
 
       setTimeout(() => {
-        this.breadCrumb = [];
-        this.breadCrumbTemp = [];
-        this.clearBreadcrumb();
-
         this.suppressBreadcrumbUpdates = false;
-        this.isBackNavigation = false;
-        this.firstNavigationEnd = false;
-
-        this.changeDetector.detectChanges();
-      }, 0);
+      }, 100);
     });
   }
 
   isLastMenu(index: number) {
     return index === this.breadCrumb.length - 1;
+  }
+
+  private prepareBreadcrumbForMenuOpen() {
+    if (!this.breadCrumb || !this.breadCrumb.length) {
+      this.clearMenuState();
+      return;
+    }
+
+    const lastItemBreadcrumb = this.breadCrumb[this.breadCrumb.length - 1];
+
+    if (lastItemBreadcrumb && lastItemBreadcrumb.action) {
+      this.breadCrumb.splice(-1, 1);
+      this.updateMenuPathFromBreadcrumb();
+      this.saveBreadcrumb();
+      return;
+    }
+
+    if (lastItemBreadcrumb && lastItemBreadcrumb.menuPath) {
+      sessionStorage.setItem(this.MENU_PATH_KEY, JSON.stringify(lastItemBreadcrumb.menuPath));
+    }
+  }
+
+  private updateMenuPathFromBreadcrumb() {
+    if (!this.breadCrumb || !this.breadCrumb.length) {
+      this.clearMenuState();
+      return;
+    }
+
+    for (let i = this.breadCrumb.length - 1; i >= 0; i--) {
+      const item = this.breadCrumb[i];
+
+      if (item && item.menuPath) {
+        sessionStorage.setItem(this.MENU_PATH_KEY, JSON.stringify(item.menuPath));
+        return;
+      }
+    }
+
+    this.clearMenuState();
+  }
+
+  private reopenMenu() {
+    if (this.isOpen) {
+      this.toggleMenu(false);
+      setTimeout(() => {
+        this.toggleMenu(true);
+      }, 0);
+    } else {
+      this.toggleMenu(true);
+    }
   }
 
   private setIsHome(url: string) {
@@ -482,6 +529,8 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
       label: item.label,
       id: item.id,
       isActive: item.isActive !== false,
+      action: item.action,
+      menuPath: item.menuPath ? Object.assign([], item.menuPath) : [],
     }));
 
     const json = JSON.stringify(breadcrumbToSave);
@@ -495,7 +544,6 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
 
     if (savedBreadcrumb && savedBreadcrumb.length) {
       this.breadCrumb = savedBreadcrumb;
-      this.breadcrumbRestoredFromStorage = true;
     }
   }
 
@@ -529,6 +577,10 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
           key === this.BREADCRUMB_CURRENT_KEY || key.indexOf(this.BREADCRUMB_URL_PREFIX) === 0
       )
       .forEach((key) => sessionStorage.removeItem(key));
+  }
+
+  private clearMenuState() {
+    sessionStorage.removeItem(this.MENU_PATH_KEY);
   }
 
   private getBreadcrumbUrlKey(url: string) {

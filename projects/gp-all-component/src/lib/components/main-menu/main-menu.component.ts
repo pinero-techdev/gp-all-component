@@ -51,7 +51,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   private readonly MENU_PATH_KEY = 'mainMenuPath';
 
   private rootMenu: MenuItem[] = [];
-  private menuPath: string[] = [];
+  private menuPath: any[] = [];
 
   isExpanded = false;
   overview: string;
@@ -73,8 +73,14 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * Check for menu open
    */
   @Input() set isOpen(value: boolean) {
-    if (this.isOpen !== value) {
+    if (this.isOpen2 !== value) {
       this.isOpen2 = value;
+
+      if (value && this.rootMenu && this.rootMenu.length) {
+        this.restoreMenuState();
+        this.getOverview();
+      }
+
       this.changeDetector.detectChanges();
     }
   }
@@ -111,6 +117,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     private menuProviderService: MainMenuService,
     private changeDetector: ChangeDetectorRef
   ) {}
+
   /**
    * Angular OnInit lifecycle hook
    */
@@ -207,11 +214,19 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     this.saveMenuState();
 
     const idItem = item.action ? item.id : undefined;
-    this.sendBreadcrumb.emit({ label: item.text, isActive: true, id: idItem });
+
+    this.sendBreadcrumb.emit({
+      label: item.text,
+      isActive: true,
+      id: idItem,
+      action: item.action,
+      menuPath: this.copyMenuPath(),
+    });
 
     this.isExpanded = false;
     this.changeDetector.detectChanges();
   }
+
   /**
    * Logic to execute on menu change
    * @param menuChange The menu to change
@@ -220,7 +235,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     const submenus = menuChange.submenus;
 
     if (submenus && submenus.length > 0) {
-      this.getActionSubmenu(menuChange.submenus, menuChange.text);
+      this.getActionSubmenu(menuChange);
     } else if (menuChange.parentList) {
       this.getActionGoBack(menuChange.parentList, menuChange.text);
     }
@@ -231,23 +246,34 @@ export class MainMenuComponent implements OnInit, OnDestroy {
    * @param submenus The input submenus
    * @param label The input label
    */
-  getActionSubmenu(submenus: any, label: string): void {
+  getActionSubmenu(menuChange: any): void {
+    const submenus = menuChange.submenus;
+    const label = menuChange.text;
+
     if (submenus && submenus.length > 0) {
+      const pathItem = {
+        text: label,
+        key: this.getMenuItemKey(menuChange),
+        index: this.getMenuItemIndex(menuChange),
+      };
+
       this.getGoBackOptionMenu(submenus);
       this.menu = submenus;
 
-      this.menuPath.push(label);
+      this.menuPath.push(pathItem);
       this.saveMenuState();
 
       this.sendBreadcrumb.emit({
         label,
         menu: submenus,
         isActive: true,
+        menuPath: this.copyMenuPath(),
       });
 
       this.getOverview();
     }
   }
+
   /**
    * Gets the overview
    */
@@ -263,6 +289,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
     this.changeDetector.detectChanges();
   }
+
   /**
    * Gets the action for go back
    * @param parentList The input parent list
@@ -300,6 +327,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
       });
     }
   }
+
   /**
    * Toggles the overview status
    */
@@ -324,6 +352,8 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     const savedMenuPath = sessionStorage.getItem(this.MENU_PATH_KEY);
 
     if (!savedMenuPath) {
+      this.menu = this.rootMenu;
+      this.menuPath = [];
       return;
     }
 
@@ -331,22 +361,22 @@ export class MainMenuComponent implements OnInit, OnDestroy {
       const parsedPath = JSON.parse(savedMenuPath);
 
       if (!parsedPath || !Array.isArray(parsedPath) || !parsedPath.length) {
+        this.menu = this.rootMenu;
+        this.menuPath = [];
         return;
       }
 
       let currentMenu = this.rootMenu;
-      const restoredPath: string[] = [];
+      const restoredPath: any[] = [];
 
-      parsedPath.forEach((label) => {
-        const item = currentMenu.find((menuItem) => {
-          return menuItem.text === label && menuItem.submenus && menuItem.submenus.length > 0;
-        });
+      parsedPath.forEach((pathItem) => {
+        const item = this.findMenuItemByPathItem(currentMenu, pathItem);
 
         if (item) {
           this.menu = currentMenu;
           this.getGoBackOptionMenu(item.submenus);
           currentMenu = item.submenus;
-          restoredPath.push(label);
+          restoredPath.push(pathItem);
         }
       });
 
@@ -355,12 +385,74 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     } catch (e) {
       console.error('Error restaurando estado del menú', e);
       this.clearMenuState();
+      this.menu = this.rootMenu;
     }
+  }
+
+  private findMenuItemByPathItem(currentMenu: MenuItem[], pathItem: any): MenuItem {
+    if (!currentMenu || !currentMenu.length || !pathItem) {
+      return null;
+    }
+
+    if (typeof pathItem.index === 'number' && pathItem.index >= 0) {
+      const itemByIndex = currentMenu[pathItem.index];
+
+      if (
+        itemByIndex &&
+        itemByIndex.text === pathItem.text &&
+        this.getMenuItemKey(itemByIndex) === pathItem.key &&
+        itemByIndex.submenus &&
+        itemByIndex.submenus.length > 0
+      ) {
+        return itemByIndex;
+      }
+    }
+
+    return currentMenu.find((menuItem) => {
+      return (
+        menuItem.text === pathItem.text &&
+        this.getMenuItemKey(menuItem) === pathItem.key &&
+        menuItem.submenus &&
+        menuItem.submenus.length > 0
+      );
+    });
   }
 
   private clearMenuState(): void {
     this.menuPath = [];
+    this.menu = this.rootMenu;
     sessionStorage.removeItem(this.MENU_PATH_KEY);
+  }
+
+  private getMenuItemIndex(item: MenuItem): number {
+    if (!this.menu || !this.menu.length || !item) {
+      return -1;
+    }
+
+    for (let i = 0; i < this.menu.length; i++) {
+      const menuItem = this.menu[i];
+
+      if (
+        menuItem.text === item.text &&
+        this.getMenuItemKey(menuItem) === this.getMenuItemKey(item)
+      ) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  private getMenuItemKey(item: MenuItem): string {
+    if (!item) {
+      return '';
+    }
+
+    return item.id || item.action || item.text;
+  }
+
+  private copyMenuPath(): any[] {
+    return this.menuPath.map((item) => Object.assign({}, item));
   }
 
   private normalizeUrl(url: string): string {
