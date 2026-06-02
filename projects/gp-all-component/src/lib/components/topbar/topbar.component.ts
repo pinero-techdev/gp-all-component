@@ -413,6 +413,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   resetMenu() {
+    window.dispatchEvent(new CustomEvent('breadcrumb-reset-start'));
     this.navigatingToHome = true;
     this.suppressBreadcrumbUpdates = true;
 
@@ -444,6 +445,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
         setTimeout(() => {
           this.suppressBreadcrumbUpdates = false;
           this.navigatingToHome = false;
+          window.dispatchEvent(new CustomEvent('breadcrumb-reset-end'));
         }, 100);
       });
     });
