@@ -54,6 +54,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   private readonly MENU_PATH_KEY = 'mainMenuPath';
 
   private currentUrl = '';
+  private navigatingToHome = false;
 
   @Input() homeUrl = '/home';
   @Input() showMenu = true;
@@ -220,6 +221,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
+    document.documentElement.classList.remove('breadcrumb-resetting');
     this.saveBreadcrumb();
     this.isAlive = false;
   }
@@ -289,16 +291,19 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.breadCrumb.splice(index + 1);
+
+    if (selectedBreadcrumb.menuPath) {
+      sessionStorage.setItem(this.MENU_PATH_KEY, JSON.stringify(selectedBreadcrumb.menuPath));
+    } else {
+      this.clearMenuState();
+    }
+
     this.saveBreadcrumb();
 
     if (selectedBreadcrumb.action) {
       this.router.navigateByUrl(selectedBreadcrumb.action);
       this.toggleMenu(false);
       return;
-    }
-
-    if (selectedBreadcrumb.menuPath) {
-      sessionStorage.setItem(this.MENU_PATH_KEY, JSON.stringify(selectedBreadcrumb.menuPath));
     }
 
     this.reopenMenu();
@@ -322,22 +327,16 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    * Change user menu icon.
    */
   toggleIconUserMenu() {
-    const openingMenu = !this.isOpen;
-
-    if (openingMenu) {
-      this.prepareBreadcrumbForMenuOpen();
-    }
-
-    this.toggleMenu(openingMenu);
-
     if (this.isOpen) {
-      this.breadCrumbTemp = Object.assign([], this.breadCrumb);
-    }
-
-    if (!this.isOpen) {
       this.breadCrumb = Object.assign([], this.breadCrumbTemp);
       this.saveBreadcrumb();
+      this.toggleMenu(false);
+      return;
     }
+
+    this.prepareBreadcrumbForMenuOpen();
+    this.toggleMenu(true);
+    this.breadCrumbTemp = Object.assign([], this.breadCrumb);
   }
 
   checkLastItemBreadcrumb() {
@@ -415,6 +414,9 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   resetMenu() {
+    document.documentElement.classList.add('breadcrumb-resetting');
+
+    this.navigatingToHome = true;
     this.suppressBreadcrumbUpdates = true;
 
     this.breadCrumb = [];
@@ -423,25 +425,30 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     this.clearMenuState();
 
     this.toggleMenu(false);
-    this.changeDetector.detectChanges();
+    this.detectChangesSafe();
 
-    this.router.navigateByUrl(this.homeUrl).then(() => {
-      this.currentUrl = this.normalizeUrl(this.homeUrl);
-      this.isHome = true;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigateByUrl(this.homeUrl).then(() => {
+        this.currentUrl = this.normalizeUrl(this.homeUrl);
+        this.isHome = true;
 
-      this.breadCrumb = [];
-      this.breadCrumbTemp = [];
-      this.clearBreadcrumb();
-      this.clearMenuState();
+        this.breadCrumb = [];
+        this.breadCrumbTemp = [];
+        this.clearBreadcrumb();
+        this.clearMenuState();
 
-      this.isBackNavigation = false;
-      this.firstNavigationEnd = false;
+        this.isBackNavigation = false;
+        this.firstNavigationEnd = false;
 
-      this.changeDetector.detectChanges();
+        this.toggleMenu(false);
+        this.detectChangesSafe();
 
-      setTimeout(() => {
-        this.suppressBreadcrumbUpdates = false;
-      }, 100);
+        setTimeout(() => {
+          this.suppressBreadcrumbUpdates = false;
+          this.navigatingToHome = false;
+          document.documentElement.classList.remove('breadcrumb-resetting');
+        }, 100);
+      });
     });
   }
 
@@ -506,7 +513,10 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
       this.breadCrumbTemp = [];
     }
 
-    this.toggleMenu(this.isHome);
+    if (!this.navigatingToHome) {
+      this.toggleMenu(this.isHome);
+    }
+
     this.changeDetector.detectChanges();
   }
 
@@ -617,5 +627,11 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
     return cleanUrl.endsWith('/') && cleanUrl.length > 1
       ? cleanUrl.substring(0, cleanUrl.length - 1)
       : cleanUrl;
+  }
+
+  private detectChangesSafe() {
+    if (this.isAlive) {
+      this.changeDetector.detectChanges();
+    }
   }
 }
