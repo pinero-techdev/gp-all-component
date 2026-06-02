@@ -221,7 +221,6 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    document.documentElement.classList.remove('breadcrumb-resetting');
     this.saveBreadcrumb();
     this.isAlive = false;
   }
@@ -414,8 +413,6 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   resetMenu() {
-    document.documentElement.classList.add('breadcrumb-resetting');
-
     this.navigatingToHome = true;
     this.suppressBreadcrumbUpdates = true;
 
@@ -441,12 +438,12 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
         this.firstNavigationEnd = false;
 
         this.toggleMenu(false);
+
         this.detectChangesSafe();
 
         setTimeout(() => {
           this.suppressBreadcrumbUpdates = false;
           this.navigatingToHome = false;
-          document.documentElement.classList.remove('breadcrumb-resetting');
         }, 100);
       });
     });
