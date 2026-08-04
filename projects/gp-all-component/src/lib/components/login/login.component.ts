@@ -81,12 +81,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     if ((this.password && this.username) || otherParams) {
       this.working = true;
+      const company = GlobalService.getAPLICACION_LOGIN() === 'BPG' ? 'KIP' : null;
       const request: LoginRq = new LoginRq(
         this.username,
         this.password,
         GlobalService.getAPLICACION_LOGIN(),
         GlobalService.getPARAMS_LOGIN(),
-        otherParams
+        otherParams,
+        company
       );
       this.loginService
         .login(request)
