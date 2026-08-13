@@ -1,5 +1,6 @@
 import { Filter } from './../../../resources/data/filter/filter.model';
-import { CommonRs, CommonService } from '../../core/common.service';
+import { CommonService } from '../../core/common.service';
+import { CommonRs } from './table-common-rs.model';
 import { DataTableMetaData } from './../../../resources/data/data-table/meta-data/data-table-meta-data.model';
 import { GlobalService } from '../../core/global.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';

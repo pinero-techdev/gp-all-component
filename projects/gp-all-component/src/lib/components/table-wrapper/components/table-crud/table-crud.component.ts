@@ -284,16 +284,16 @@ export class TableCrudComponent implements AfterViewChecked {
       )
       .subscribe(
         (data) => {
-          const requestError = !data.ok && data.error !== null && data.error.errorMessage !== null;
+          const requestError = !data.result.ok && data.result.errorMessage !== null;
 
           if (requestError) {
-            const expiredSession = data.error.errorMessage === LocaleES.ERROR.CONNECTION;
+            const expiredSession = data.result.errorMessage === LocaleES.ERROR.CONNECTION;
 
             if (expiredSession) {
               this.router.navigate(['login']);
             }
 
-            const msg = data.error.errorMessage.toString() || LocaleES.ERROR.OPERATION;
+            const msg = data.result.errorMessage.toString() || LocaleES.ERROR.OPERATION;
             this.messagesService.showErrorMessage(msg, this.tableName);
 
             return;
@@ -344,16 +344,16 @@ export class TableCrudComponent implements AfterViewChecked {
       )
       .subscribe(
         (data) => {
-          const requestError = !data.ok && data.error !== null && data.error.errorMessage !== null;
+          const requestError = !data.result.ok && data.result.errorMessage !== null;
 
           if (requestError) {
-            const expiredSession = data.error.errorMessage === LocaleES.ERROR.CONNECTION;
+            const expiredSession = data.result.errorMessage === LocaleES.ERROR.CONNECTION;
 
             if (expiredSession) {
               this.router.navigate(['login']);
             }
 
-            const msg = data.error.errorMessage.toString() || LocaleES.ERROR.OPERATION;
+            const msg = data.result.errorMessage.toString() || LocaleES.ERROR.OPERATION;
             this.messagesService.showErrorMessage(msg, this.tableName);
 
             return;
@@ -447,7 +447,7 @@ export class TableCrudComponent implements AfterViewChecked {
       .pipe(take(1))
       .subscribe(
         (data) => {
-          if (!data.ok) {
+          if (!data.result.ok) {
             this.messagesService.showErrorMessage(LocaleES.ERROR.RETRIEVE_RECORD, this.tableName);
             return;
           }
@@ -482,9 +482,9 @@ export class TableCrudComponent implements AfterViewChecked {
       .pipe(take(1))
       .subscribe(
         (data) => {
-          if (!data.ok) {
+          if (!data.result.ok) {
             this.messagesService.showErrorMessage(
-              LocaleES.ERROR.REMOVE_RECORD(data.error.errorMessage),
+              LocaleES.ERROR.REMOVE_RECORD(data.result.errorMessage),
               this.tableName
             );
             return;
@@ -699,9 +699,9 @@ export class TableCrudComponent implements AfterViewChecked {
       .pipe(take(1))
       .subscribe(
         (data) => {
-          if (!data.ok) {
+          if (!data.result.ok) {
             this.messagesService.showErrorMessage(
-              LocaleES.ERROR.UPDATING_RECORD(data.error.errorMessage),
+              LocaleES.ERROR.UPDATING_RECORD(data.result.errorMessage),
               this.tableName
             );
             return;
@@ -736,9 +736,9 @@ export class TableCrudComponent implements AfterViewChecked {
       .pipe(take(1))
       .subscribe(
         (data) => {
-          if (!data.ok) {
+          if (!data.result.ok) {
             this.messagesService.showErrorMessage(
-              LocaleES.ERROR.UPDATING_RECORD(data.error.errorMessage),
+              LocaleES.ERROR.UPDATING_RECORD(data.result.errorMessage),
               this.tableName
             );
             return;

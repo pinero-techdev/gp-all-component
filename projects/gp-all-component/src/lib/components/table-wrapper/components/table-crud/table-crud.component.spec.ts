@@ -385,7 +385,7 @@ describe('TableCrudComponent', () => {
 
     it('should success on call to service but return error', () => {
       const responseMock = new Observable<SelectOneRowRs>((subscriber) =>
-        subscriber.next({ ...SelectOneRowRsMock, data: [], ok: false })
+        subscriber.next({ ...SelectOneRowRsMock, data: [], result: { ok: false } })
       );
 
       const selectedRow = {};
@@ -450,7 +450,7 @@ describe('TableCrudComponent', () => {
       const tableName = 'TEST';
       const rows = ['TEST_ROW'];
       const selectedRow = rows[0];
-      const errorResponse = LocaleES.ERROR.REMOVE_RECORD(CommonRsErrorMock.error.errorMessage);
+      const errorResponse = LocaleES.ERROR.REMOVE_RECORD(CommonRsErrorMock.result.errorMessage);
 
       const responseMock = new Observable<CommonRs>((subscriber) =>
         subscriber.next(CommonRsErrorMock)
@@ -550,7 +550,7 @@ describe('TableCrudComponent', () => {
 
         expect($tableServiceSpy).toHaveBeenCalled();
         expect($messagesServiceSpy).toHaveBeenCalledWith(
-          LocaleES.ERROR.UPDATING_RECORD(CommonRsErrorMock.error.errorMessage)
+          LocaleES.ERROR.UPDATING_RECORD(CommonRsErrorMock.result.errorMessage)
         );
       });
 
@@ -622,7 +622,7 @@ describe('TableCrudComponent', () => {
 
         expect($tableServiceSpy).toHaveBeenCalled();
         expect($messagesServiceSpy).toHaveBeenCalledWith(
-          LocaleES.ERROR.UPDATING_RECORD(CommonRsErrorMock.error.errorMessage)
+          LocaleES.ERROR.UPDATING_RECORD(CommonRsErrorMock.result.errorMessage)
         );
       });
 

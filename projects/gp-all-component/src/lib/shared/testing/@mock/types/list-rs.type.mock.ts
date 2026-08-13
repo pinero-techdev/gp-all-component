@@ -1,6 +1,6 @@
 import { ListRs, InsertRowRs, FieldMetadata } from '../../../../services/api/table/table.service';
 import { DataTableMetaData } from './../../../../resources/data/data-table/meta-data/data-table-meta-data.model';
-import { CommonRs } from './../../../../services/core/common.service';
+import { CommonRs } from './../../../../services/api/table/table-common-rs.model';
 import { FormFieldMock } from './form-wrapper.type.mock';
 
 const fieldMetadataCodi: FieldMetadata = {
@@ -389,24 +389,15 @@ export let DataTableMetadataMock: DataTableMetaData = {
 };
 
 export let CommonRsMock: CommonRs = {
-  error: null,
-  cacheKey: null,
-  partialRows: null,
-  totalRows: null,
-  ok: true,
+  result: { ok: true },
 };
 
 export let CommonRsErrorMock: CommonRs = {
-  error: {
+  result: {
+    ok: false,
     errorMessage: 'TEST',
-    fields: [],
     internalErrorMessage: 'TEST',
-    notLogged: false,
   },
-  cacheKey: null,
-  partialRows: null,
-  totalRows: null,
-  ok: false,
 };
 
 export let ListRsSuccessMock: ListRs = {
@@ -418,27 +409,21 @@ export let ListRsSuccessMock: ListRs = {
 export let ListRsFailSessionMock: ListRs = {
   metadata: DataTableMetadataMock,
   data: [],
-  ...CommonRsMock,
-  error: {
+  result: {
+    ok: false,
     errorMessage: 'No se ha establecido sesion o se ha perdido.',
-    fields: [],
     internalErrorMessage: 'test',
-    notLogged: false,
   },
-  ok: false,
 };
 
 export let ListRsFailGenericMock: ListRs = {
   metadata: DataTableMetadataMock,
   data: [],
-  ...CommonRsMock,
-  error: {
+  result: {
+    ok: false,
     errorMessage: 'Error',
-    fields: [],
     internalErrorMessage: 'test',
-    notLogged: false,
   },
-  ok: false,
 };
 
 export let SelectOneRowRsMock = {
