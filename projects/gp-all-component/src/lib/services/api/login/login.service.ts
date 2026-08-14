@@ -15,13 +15,15 @@ export class LoginRq {
   aplicacion: string;
   params: Param[];
   otherparams: string;
+  company: string;
 
   constructor(
     usuario: string,
     password: string,
     aplicacion?: string,
     params?: Param[],
-    otherparams?: string
+    otherparams?: string,
+    company?: string
   ) {
     if (usuario) {
       this.usuario = usuario;
@@ -37,6 +39,9 @@ export class LoginRq {
     }
     if (otherparams) {
       this.otherparams = otherparams;
+    }
+    if (company) {
+      this.company = company;
     }
   }
 }
