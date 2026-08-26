@@ -21,6 +21,7 @@ export * from './lib/services/core/global.service';
 export * from './lib/services/core/messages.service';
 export * from './lib/services/core/version-check.service';
 export * from './lib/services/session-storage/session-storage.service';
+export * from './lib/services/api/table/table-common-rs.model.ts';
 
 // Classes & Types
 export * from './lib/resources/constants/language-order.constant';
