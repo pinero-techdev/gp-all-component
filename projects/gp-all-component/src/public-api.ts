@@ -21,7 +21,6 @@ export * from './lib/services/core/global.service';
 export * from './lib/services/core/messages.service';
 export * from './lib/services/core/version-check.service';
 export * from './lib/services/session-storage/session-storage.service';
-export * from './lib/services/api/table/table-common-rs.model.ts';
 
 // Classes & Types
 export * from './lib/resources/constants/language-order.constant';
@@ -81,6 +80,7 @@ export * from './lib/components/table-wrapper/components/table/models/table-colu
 export * from './lib/components/table-wrapper/components/table/models/native-options.model';
 export * from './lib/components/table-wrapper/components/table/models/pagination-options.model';
 export * from './lib/resources/data/gp-menu-item.model';
+export * from './lib/services/api/table/table-common-rs.model';
 
 // Directives
 export * from './lib/directives/focus-directive/focus.directive';

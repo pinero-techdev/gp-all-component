@@ -15,7 +15,7 @@ import {
 import { MenuItem } from 'primeng/api';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { LoginService } from '../../services/api/login/login.service';
-import { CommonRs } from '../../services/core/common.service';
+import { CommonRsLegacy } from '../../services/core/common.service';
 import { GlobalService } from '../../services/core/global.service';
 import { filter, first, takeWhile } from 'rxjs/operators';
 import { LocaleES } from '../../resources/localization/es-ES.lang';
@@ -244,7 +244,7 @@ export class TopbarComponent implements OnInit, OnChanges, OnDestroy {
    * @param action 'login action'
    */
   redirect(action: string) {
-    let response = new CommonRs();
+    let response = new CommonRsLegacy();
 
     if (action === 'logout') {
       if (this.isExternal) {

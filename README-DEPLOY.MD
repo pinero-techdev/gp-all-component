@@ -14,7 +14,7 @@
 Abre una terminal en la raíz del proyecto y ejecuta:
 
 ```bash
-ng build gp-all-component
+npm run build-ok
 ```
 
 > Si ocurre un error `EBUSY`, elimina manualmente la carpeta `dist`.
