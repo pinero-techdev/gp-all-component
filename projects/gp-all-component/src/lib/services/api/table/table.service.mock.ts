@@ -2,10 +2,9 @@ import { TestingErrorCodeMock } from './../../../shared/testing/@mock/utils/test
 import { Observable, of, throwError } from 'rxjs';
 import { ListRs, MetadataRs, SelectOneRowRq, SelectOneRowRs } from './table.service';
 import { Filter } from './../../../resources/data/filter/filter.model';
-import { ErrorInformation } from './../../../resources/data/error-information/error-information.model';
 
 export const TableServiceMockResponse: ListRs = {
-  ok: true,
+  result: { ok: true },
   data: [
     {
       langCodi: 'EN',
@@ -43,7 +42,6 @@ export const TableServiceMockResponse: ListRs = {
       naciDesc: 'GREAT BRITAIN',
     },
   ],
-  error: null,
   metadata: {
     tableLabel: 'Nacionalidades',
     fields: [
@@ -142,9 +140,6 @@ export const TableServiceMockResponse: ListRs = {
       },
     ],
   },
-  cacheKey: null,
-  totalRows: null,
-  partialRows: null,
 };
 
 export class TableServiceMock {
@@ -157,15 +152,14 @@ export class TableServiceMock {
     translate?: boolean,
     translationLanguage?: string
   ): Observable<ListRs> {
-    const error = new ErrorInformation();
     const response = JSON.parse(JSON.stringify(TableServiceMockResponse));
     if (tableName === TestingErrorCodeMock.ERROR_500) {
-      error.errorMessage = TestingErrorCodeMock.ERROR_500;
-      error.internalErrorMessage = 'Server is down';
-      return throwError(error);
+      return throwError({
+        errorMessage: TestingErrorCodeMock.ERROR_500,
+        internalErrorMessage: 'Server is down',
+      });
     } else if (tableName === TestingErrorCodeMock.ERROR_404) {
-      response.ok = false;
-      response.error = error;
+      response.result = { ok: false, errorMessage: TestingErrorCodeMock.ERROR_404 };
     }
     return of(response);
   }

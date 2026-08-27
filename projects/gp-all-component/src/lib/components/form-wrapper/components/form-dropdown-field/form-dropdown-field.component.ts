@@ -166,7 +166,7 @@ export class FormDropdownFieldComponent extends GpFormFieldControl implements On
 
   /* Set the field display information */
   private setTableValues(data: ListRs) {
-    if (data.ok) {
+    if (data.result.ok) {
       // Get list data
       this.listAllowedValuesOptions = [
         {

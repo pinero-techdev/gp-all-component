@@ -272,7 +272,7 @@ export class TableEditableCellComponent extends CustomInput implements AfterView
         )
         .subscribe(
           (data) => {
-            if (data.ok) {
+            if (data.result.ok) {
               if (this.columnMetadata.setOptionsFn) {
                 this.setCustomOptions(data.data);
               } else {

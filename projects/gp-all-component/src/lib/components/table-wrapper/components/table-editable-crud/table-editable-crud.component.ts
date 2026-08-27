@@ -145,13 +145,13 @@ export class TableEditableCrudComponent {
     const jsonRow = JSON.stringify(event.original);
     this.tableService.selectOneRow(this.tableName, jsonRow).subscribe(
       (data) => {
-        if (data.ok) {
+        if (data.result.ok) {
           event.success(data.data);
         } else {
           this.messageService.add({
             severity: 'error',
             summary: 'error',
-            detail: 'Error obteniendo el registro: ' + data.error.errorMessage,
+            detail: 'Error obteniendo el registro: ' + data.result.errorMessage,
           });
         }
       },
@@ -188,7 +188,7 @@ export class TableEditableCrudComponent {
       .updateRow(this.tableName, jsonOriginalRow, jsonModifiedRow, attachments)
       .subscribe(
         (data) => {
-          if (data.ok) {
+          if (data.result.ok) {
             event.success(event.modified);
             this.messageService.add({
               severity: 'success',
@@ -199,7 +199,7 @@ export class TableEditableCrudComponent {
             this.messageService.add({
               severity: 'error',
               summary: 'error',
-              detail: 'Error actualizando el registro: ' + data.error.errorMessage,
+              detail: 'Error actualizando el registro: ' + data.result.errorMessage,
             });
           }
         },
@@ -218,7 +218,7 @@ export class TableEditableCrudComponent {
     const jsonModifiedRow = JSON.stringify(event.modified);
     this.tableService.insertRow(this.tableName, jsonModifiedRow, attachments).subscribe(
       (data) => {
-        if (data.ok) {
+        if (data.result.ok) {
           event.success(event.modified);
           this.messageService.add({
             severity: 'success',
@@ -229,7 +229,7 @@ export class TableEditableCrudComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'error',
-            detail: 'Error insertando el registro: ' + data.error.errorMessage,
+            detail: 'Error insertando el registro: ' + data.result.errorMessage,
           });
         }
       },
@@ -247,7 +247,7 @@ export class TableEditableCrudComponent {
     const jsonDeleteRow = JSON.stringify(event.original);
     this.tableService.deleteRow(this.tableName, jsonDeleteRow).subscribe(
       (data) => {
-        if (data.ok) {
+        if (data.result.ok) {
           event.success(event.modified);
           this.messageService.add({
             severity: 'success',
@@ -258,7 +258,7 @@ export class TableEditableCrudComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'error',
-            detail: 'Error borrando el registro: ' + data.error.errorMessage,
+            detail: 'Error borrando el registro: ' + data.result.errorMessage,
           });
         }
       },

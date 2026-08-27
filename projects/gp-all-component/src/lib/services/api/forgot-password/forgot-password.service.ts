@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CommonRs, CommonService } from '../../core/common.service';
+import { CommonRsLegacy, CommonService } from '../../core/common.service';
 import { GlobalService } from '../../core/global.service';
 
 export class ForgotPasswordRq {
@@ -17,10 +17,10 @@ export class ForgotPasswordRq {
 
 @Injectable()
 export class ForgotPasswordService extends CommonService {
-  updatePassword(request: ForgotPasswordRq): Observable<CommonRs> {
+  updatePassword(request: ForgotPasswordRq): Observable<CommonRsLegacy> {
     const url = `${GlobalService.getBASE_URL()}/password-svc/modifica`;
     const rq = JSON.stringify(request);
 
-    return this.post<CommonRs>(url, rq);
+    return this.post<CommonRsLegacy>(url, rq);
   }
 }
