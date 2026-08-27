@@ -47,13 +47,13 @@ export class LoginRq {
 }
 
 export class LoginRs extends CommonRsLegacy {
-  userInfo: UserInfo;
-  sessionId: string;
+  userInfo?: UserInfo;
+  sessionId?: string;
 }
 
 export class SessionInfoRs extends CommonRsLegacy {
-  userInfo: UserInfo;
-  sessionId: string;
+  userInfo?: UserInfo;
+  sessionId?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -86,7 +86,7 @@ export class LoginService {
       const url = `${GlobalService.getLOGIN_SERVICE_URL()}/sessionInfo`;
       return this.http.post<SessionInfoRs>(url, sessionInfoRq, options).pipe(
         map((sessionInfoRs) => {
-          if (sessionInfoRs.ok) {
+          if (sessionInfoRs.ok && sessionInfoRs.userInfo && sessionInfoRs.sessionId) {
             GlobalService.setSession(sessionInfoRs.userInfo);
             GlobalService.setSessionId(sessionInfoRs.sessionId);
             GlobalService.setLogged(true);
