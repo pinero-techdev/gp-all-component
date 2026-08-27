@@ -11,74 +11,75 @@ import { TranslationInfo } from './../../../resources/data/translation-info.mode
 import { Attachment } from '../../../components/table-wrapper/components/table-editable-crud/resources/attachment.class';
 import { map } from 'rxjs/operators';
 export class ListRs extends CommonRs {
-  data: any[];
-  metadata: DataTableMetaData;
+  data?: any[];
+  metadata?: DataTableMetaData;
+  countGlobalResult?: number;
 }
 
 export class MetadataRs extends CommonRs {
-  metadata: DataTableMetaData;
+  metadata?: DataTableMetaData;
 }
 
 export class UpdateRowRq {
-  jsonModifiedRow: string;
-  jsonOriginalRow: string;
-  attachments: any[];
+  jsonModifiedRow?: string;
+  jsonOriginalRow?: string;
+  attachments?: any[];
 }
 
 export class UpdateRowRs extends CommonRs {}
 
 export class DeleteRowRq {
-  jsonOriginalRow: string;
+  jsonOriginalRow?: string;
 }
 
 export class DeleteRowRs extends CommonRs {}
 
 export class InsertRowRq {
-  jsonNewRow: string;
-  attachments: any[];
+  jsonNewRow?: string;
+  attachments?: any[];
 }
 
 export class InsertRowRs extends CommonRs {
-  insertedRow: any;
+  insertedRow?: any;
 }
 
 export class SelectOneRowRq {
-  jsonRowToSelect: string;
+  jsonRowToSelect?: string;
 }
 
 export class SelectOneRowRs extends CommonRs {
-  data: any;
-  metadata: DataTableMetaData;
+  data?: any;
+  metadata?: DataTableMetaData;
 }
 
 export class GetAttachmentRq extends SelectOneRowRq {
-  fieldName: string;
+  fieldName?: string;
   asAttachment = true;
 }
 
 export class TableMetadata {
-  fields: FieldMetadata[];
-  tableLabel: string;
+  fields?: FieldMetadata[];
+  tableLabel?: string;
 }
 
 export class FileRs {
-  blob: Blob;
-  fileName: string;
+  blob?: Blob;
+  fileName?: string;
 }
 
 export class FieldMetadata {
-  fieldMaxLength: number;
-  fieldName: string;
-  fieldType: string;
-  id: boolean;
-  notNull: boolean;
-  readOnly: boolean;
-  allowAscii: boolean;
-  hideInAddOperation: boolean;
-  lengthInTable: number;
-  restrictions: FieldRestriction[];
-  displayInfo: FieldDisplayInfo;
-  referenceDescription: string;
+  fieldMaxLength?: number;
+  fieldName?: string;
+  fieldType?: string;
+  id?: boolean;
+  notNull?: boolean;
+  readOnly?: boolean;
+  allowAscii?: boolean;
+  hideInAddOperation?: boolean;
+  lengthInTable?: number;
+  restrictions?: FieldRestriction[];
+  displayInfo?: FieldDisplayInfo;
+  referenceDescription?: string;
 
   constructor(
     fieldMaxLength: number,
@@ -108,29 +109,29 @@ export class FieldMetadata {
 }
 
 export class FieldRestriction {
-  restrictionType: string;
-  minLength: number;
-  maxLength: number;
+  restrictionType?: string;
+  minLength?: number;
+  maxLength?: number;
   maxValue?: number;
   minValue?: number;
 }
 
 export class FieldDisplayInfo {
-  fieldLabel: string;
-  order: number;
-  displayType: string;
-  checkedValue: string;
-  uncheckedValue: string;
-  options: FieldOption[];
-  referencedTable: string;
-  referencedField: string;
-  fieldToOrderBy: string;
-  filters: Filter[];
-  rowsTextArea: number;
-  fieldDescriptions: string[];
-  textProperties: string[];
-  relatedFields: RelatedField[];
-  translationInfo: TranslationInfo;
+  fieldLabel?: string;
+  order?: number;
+  displayType?: string;
+  checkedValue?: string;
+  uncheckedValue?: string;
+  options?: FieldOption[];
+  referencedTable?: string;
+  referencedField?: string;
+  fieldToOrderBy?: string;
+  filters?: Filter[];
+  rowsTextArea?: number;
+  fieldDescriptions?: string[];
+  textProperties?: string[];
+  relatedFields?: RelatedField[];
+  translationInfo?: TranslationInfo;
 
   constructor(
     fieldLabel: string,
@@ -234,10 +235,10 @@ export class TableService extends CommonService {
     let fieldsToOrder = null;
     let filtersRq = null;
 
-    if (ordered !== null) {
+    if (ordered !== undefined && ordered !== null) {
       order = ordered;
     }
-    if (fieldsToOrderBy !== null) {
+    if (fieldsToOrderBy !== undefined && fieldsToOrderBy !== null) {
       fieldsToOrder = fieldsToOrderBy;
     }
     if (filters) {
@@ -265,10 +266,10 @@ export class TableService extends CommonService {
     let fieldsToOrder = null;
     let filtersRq = null;
 
-    if (ordered !== null) {
+    if (ordered !== undefined && ordered !== null) {
       order = ordered;
     }
-    if (fieldsToOrderBy !== null) {
+    if (fieldsToOrderBy !== undefined && fieldsToOrderBy !== null) {
       fieldsToOrder = fieldsToOrderBy;
     }
     if (filters) {
@@ -354,7 +355,8 @@ export class TableService extends CommonService {
           fileRs.fileName =
             contentDisposition.split('"').length >= 2
               ? contentDisposition.split('"')[1]
-              : 'documento.' + fileRs.blob.type.split('/').pop();
+              : 'documento.' +
+                (fileRs.blob != null ? fileRs.blob.type.split('/').pop() : 'unknown');
         }
         return fileRs;
       })
