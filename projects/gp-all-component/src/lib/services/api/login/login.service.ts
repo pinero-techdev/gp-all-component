@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Param } from '../../../resources/data/param.model';
 import { RequestOptions } from '../../../resources/data/request-options.model';
 import { UserInfo } from '../../../resources/data/user-info.model';
-import { CommonRs } from '../../core/common.service';
+import { CommonRsLegacy } from '../../core/common.service';
 import { GlobalService } from '../../core/global.service';
 import { SessionStorageService } from '../../session-storage/session-storage.service';
 
@@ -15,13 +15,15 @@ export class LoginRq {
   aplicacion: string;
   params: Param[];
   otherparams: string;
+  company: string;
 
   constructor(
     usuario: string,
     password: string,
     aplicacion?: string,
     params?: Param[],
-    otherparams?: string
+    otherparams?: string,
+    company?: string
   ) {
     if (usuario) {
       this.usuario = usuario;
@@ -38,15 +40,18 @@ export class LoginRq {
     if (otherparams) {
       this.otherparams = otherparams;
     }
+    if (company) {
+      this.company = company;
+    }
   }
 }
 
-export class LoginRs extends CommonRs {
+export class LoginRs extends CommonRsLegacy {
   userInfo: UserInfo;
   sessionId: string;
 }
 
-export class SessionInfoRs extends CommonRs {
+export class SessionInfoRs extends CommonRsLegacy {
   userInfo: UserInfo;
   sessionId: string;
 }
@@ -134,7 +139,7 @@ export class LoginService {
    * Llamada al WS para hacer un logout del username
    * @returns Json con un CommonRS de respuesta
    */
-  logout(): Observable<CommonRs> {
+  logout(): Observable<CommonRsLegacy> {
     const logoutRq: any = {};
     logoutRq.sessionId = GlobalService.getSESSION_ID();
     this.cleanSessionInfo();
@@ -143,7 +148,7 @@ export class LoginService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(headers);
     const url = `${GlobalService.getLOGIN_SERVICE_URL()}/logout`;
-    return this.http.post<CommonRs>(url, logoutRq, options);
+    return this.http.post<CommonRsLegacy>(url, logoutRq, options);
   }
 
   cleanSessionInfo() {

@@ -30,4 +30,6 @@ You can find more information in the README located in projects/gp-all-component
         . onFieldChangeEvent: emite cuando un campo ha sido modificado por el usuario 
 ##### Version 1.3.1
     . Nuevo componente TableEditableComponent
-    
+
+##### Version 1.8.1
+    . Export CommonRs y Result

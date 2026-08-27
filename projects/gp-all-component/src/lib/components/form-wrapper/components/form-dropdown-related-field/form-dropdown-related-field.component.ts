@@ -312,7 +312,7 @@ export class FormDropdownRelatedFieldComponent extends GpFormFieldControl implem
       )
       .subscribe(
         (data: any) => {
-          if (data.ok) {
+          if (data.result.ok) {
             this.list = data.data;
             this.processData();
           } else {

@@ -17,7 +17,7 @@ import { hash } from '../../util/sha256';
 import { GlobalService } from './global.service';
 import { SessionStorageService } from '../session-storage/session-storage.service';
 
-export class CommonRs {
+export class CommonRsLegacy {
   ok: boolean;
   error: ErrorInformation;
   cacheKey: string;
