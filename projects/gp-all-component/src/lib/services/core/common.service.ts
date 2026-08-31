@@ -25,7 +25,7 @@ export class CommonRsLegacy {
   partialRows: number;
 }
 
-export class CommonRq {
+export class CommonRqLegacy {
   orden: string;
   rows: number;
   firstRow: number;
@@ -35,7 +35,7 @@ export class CommonRq {
   sessionId: string;
   idioma: string;
 }
-export class Order {
+export class OrderLegacy {
   field: string;
   orderDesc: boolean;
 }
@@ -47,7 +47,7 @@ export class MasterCommonRq {
   language: string;
   order: string;
   sessionId: string;
-  orderPage: Order;
+  orderPage: OrderLegacy;
   page: Page;
 }
 

@@ -1,6 +1,6 @@
 import { ListRs, InsertRowRs, FieldMetadata } from '../../../../services/api/table/table.service';
 import { DataTableMetaData } from './../../../../resources/data/data-table/meta-data/data-table-meta-data.model';
-import { CommonRs } from './../../../../services/api/table/table-common-rs.model';
+import { CommonRs } from './../../../../resources/data/common-api/models/common-rs.model';
 import { FormFieldMock } from './form-wrapper.type.mock';
 
 const fieldMetadataCodi: FieldMetadata = {

@@ -1,6 +1,6 @@
 import { Filter } from './../../../resources/data/filter/filter.model';
 import { CommonService } from '../../core/common.service';
-import { CommonRs } from './table-common-rs.model';
+
 import { DataTableMetaData } from './../../../resources/data/data-table/meta-data/data-table-meta-data.model';
 import { GlobalService } from '../../core/global.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -10,6 +10,7 @@ import { RelatedField } from '../../../resources/data/data-table/filter/related-
 import { TranslationInfo } from './../../../resources/data/translation-info.model';
 import { Attachment } from '../../../components/table-wrapper/components/table-editable-crud/resources/attachment.class';
 import { map } from 'rxjs/operators';
+import { CommonRs } from '../../../resources/data/common-api/models/common-rs.model';
 export class ListRs extends CommonRs {
   data?: any[];
   metadata?: DataTableMetaData;
