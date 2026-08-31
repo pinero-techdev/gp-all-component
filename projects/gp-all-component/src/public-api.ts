@@ -80,7 +80,24 @@ export * from './lib/components/table-wrapper/components/table/models/table-colu
 export * from './lib/components/table-wrapper/components/table/models/native-options.model';
 export * from './lib/components/table-wrapper/components/table/models/pagination-options.model';
 export * from './lib/resources/data/gp-menu-item.model';
-export * from './lib/services/api/table/table-common-rs.model';
+
+// Common API (contrato RAML common-types)
+export * from './lib/resources/data/common-api/enums/brand.enum';
+export * from './lib/resources/data/common-api/enums/language.enum';
+export * from './lib/resources/data/common-api/enums/order-direction.enum';
+export * from './lib/resources/data/common-api/enums/product-type.enum';
+export * from './lib/resources/data/common-api/enums/service-type.enum';
+export * from './lib/resources/data/common-api/models/key-value.model';
+export * from './lib/resources/data/common-api/models/additional-information.model';
+export * from './lib/resources/data/common-api/models/transferred.model';
+export * from './lib/resources/data/common-api/models/warning.model';
+export * from './lib/resources/data/common-api/models/result.model';
+export * from './lib/resources/data/common-api/models/common-rs.model';
+export * from './lib/resources/data/common-api/models/common-rq.model';
+export * from './lib/resources/data/common-api/models/common-rs-lazy-load.model';
+export * from './lib/resources/data/common-api/models/pagination.model';
+export * from './lib/resources/data/common-api/models/order-by.model';
+export * from './lib/resources/data/common-api/models/order.model';
 
 // Directives
 export * from './lib/directives/focus-directive/focus.directive';

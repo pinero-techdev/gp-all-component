@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Param } from '../../../resources/data/param.model';
 import { MainMenuProviderService } from './main-menu-provider.service';
-import { CommonRq } from '../../core/common.service';
+import { CommonRqLegacy } from '../../core/common.service';
 import { GlobalService } from '../../core/global.service';
 
-export class MenuRq extends CommonRq {
+export class MenuRq extends CommonRqLegacy {
   sessionId: string;
   params: Param[];
 
