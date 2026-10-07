@@ -14,7 +14,7 @@
 Abre una terminal en la raíz del proyecto y ejecuta:
 
 ```bash
-npm run build-ok
+nvm use 12.22.12 && npm run build-ok
 ```
 
 > Si ocurre un error `EBUSY`, elimina manualmente la carpeta `dist`.
