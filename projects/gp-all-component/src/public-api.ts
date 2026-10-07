@@ -121,6 +121,11 @@ export * from './lib/components/form-wrapper/components/form-text-area-field/for
 export * from './lib/components/form-wrapper/components/form-text-field/form-text-field.component';
 export * from './lib/components/form-wrapper/components/form-time-field/form-time-field.component';
 export * from './lib/components/form-wrapper/components/form-wysiwyg-field/form-wysiwyg-field.component';
+export * from './lib/components/form-wrapper/components/form-nullable-checkbox-field/form-nullable-checkbox.component';
+export * from './lib/components/form-wrapper/components/form-color-picker-field/form-color-picker-field.component';
+export * from './lib/components/form-wrapper/components/form-b64-file-field/form-b64-file-field.component';
+export * from './lib/components/form-wrapper/components/form-days-of-week-field/form-days-of-week-field.component';
+export * from './lib/components/form-wrapper/components/form-password-field/form-password-field.component';
 export * from './lib/components/loading-indicator/loading-indicator.component';
 export * from './lib/components/login/login.component';
 export * from './lib/components/main-menu/main-menu.component';
