@@ -1,6 +1,6 @@
 {
   "name": "gp-all-component",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve tester --watch --port=4400",
@@ -97,6 +97,7 @@
     "@types/karma": "^3.0.2",
     "@types/node": "~12.0.0",
     "@types/webpack": "4.4.26",
+    "baseline-browser-mapping": "^2.11.27",
     "chance": "1.0.18",
     "cli-glob": "^0.1.0",
     "codelyzer": "~4.5.0",
