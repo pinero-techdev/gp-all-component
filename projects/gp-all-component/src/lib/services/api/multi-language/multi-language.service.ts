@@ -2,8 +2,8 @@ import { CommonService } from './../../core/common.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Translation } from '../../../resources/data/translation.model';
-import { CommonRsLegacy } from '../../core/common.service';
 import { GlobalService } from '../../core/global.service';
+import { CommonRs } from '../../../resources/data/common-api/models/common-rs.model';
 
 export class GetTranslationsRq {
   pKey: string;
@@ -19,7 +19,7 @@ export class GetTranslationsRq {
   }
 }
 
-export class GetTranslationsRs extends CommonRsLegacy {
+export class GetTranslationsRs extends CommonRs {
   traducciones: Translation[];
 }
 
@@ -58,9 +58,9 @@ export class MultiLanguageService extends CommonService {
     return this.post<GetTranslationsRs>(urlServicio, rq);
   }
 
-  updateTranslations(request: UpdateTranslationsRq): Observable<CommonRsLegacy> {
+  updateTranslations(request: UpdateTranslationsRq): Observable<CommonRs> {
     const url = `${GlobalService.getBASE_URL()}/multiidioma-svc/updateTranslations`;
     const rq = JSON.stringify(request);
-    return this.post<CommonRsLegacy>(url, rq);
+    return this.post<CommonRs>(url, rq);
   }
 }

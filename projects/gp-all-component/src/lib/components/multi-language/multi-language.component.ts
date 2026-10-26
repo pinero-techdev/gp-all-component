@@ -83,25 +83,28 @@ export class MultiLanguageComponent implements OnInit {
    */
   getTranslations() {
     const request = new GetTranslationsRq(this.pKey, this.schema, this.table, this.field);
+
     this.multiLanguageService
       .getTranslations(request)
       .pipe(first())
       .subscribe(
         (data: any) => {
-          if (data.ok) {
-            let translations = data.traducciones;
-            if (!this.orderByLangCod) {
-              translations = this.sortTranslations(data.traducciones, LANGUAGE_ORDER);
-            }
-            this.translations = translations;
-          } else if (data.error) {
-            console.error(data.error.internalErrorMessage);
+          if (!data.result.ok) {
+            console.error(data.result.internalErrorMessage);
+            return;
           }
-        },
-        (err) => console.error(err),
-        () => {
+
+          let translations = data.traducciones;
+
+          if (!this.orderByLangCod) {
+            translations = this.sortTranslations(data.traducciones, LANGUAGE_ORDER);
+          }
+
+          this.translations = translations;
           this.showTranslations = true;
-        }
+        },
+
+        (err) => console.error(err)
       );
   }
 
@@ -145,13 +148,14 @@ export class MultiLanguageComponent implements OnInit {
         )
         .subscribe(
           (data: any) => {
-            if (!data.ok && data.error) {
-              console.error(data.error.internalErrorMessage);
+            if (!data.result.ok) {
+              console.error(data.result.internalErrorMessage);
             }
           },
           (err) => console.error(err)
         );
     }
+
     this.hideTranslations();
   }
 
